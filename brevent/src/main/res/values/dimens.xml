@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="marginItemTop">8dp</dimen>
+    <dimen name="marginItemBottom">8dp</dimen>
+    <dimen name="marginItemStart">8dp</dimen>
+    <dimen name="marginItemEnd">8dp</dimen>
+    <dimen name="marginItemText">2dp</dimen>
+    <dimen name="paddingFragment">16dp</dimen>
+
+</resources>

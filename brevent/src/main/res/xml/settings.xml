@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="brevent_list"
+        android:title="@string/brevent_list">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="brevent_auto_update"
+            android:summary="@string/brevent_auto_label"
+            android:title="@string/brevent_auto" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:enabled="@bool/preference_brevent_move_back"
+            android:key="brevent_move_back"
+            android:summary="@string/brevent_move_back_label"
+            android:title="@string/brevent_move_back" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="brevent_back_home"
+            android:summary="@string/brevent_back_home_label"
+            android:title="@string/brevent_back_home" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:enabled="@bool/preference_brevent_background"
+            android:key="brevent_appops_background"
+            android:summary="@string/brevent_appops_background_label"
+            android:title="@string/brevent_appops_background" />
+
+        <me.piebridge.brevent.ui.ListPreferenceSummary
+            android:defaultValue="1800"
+            android:entries="@array/brevent_timeout_entries"
+            android:entryValues="@array/brevent_timeout_values"
+            android:key="brevent_timeout"
+            android:summary="@string/brevent_timeout_label"
+            android:title="@string/brevent_timeout" />
+
+        <ListPreference
+            android:defaultValue="standby"
+            android:entries="@array/brevent_method_entries"
+            android:entryValues="@array/brevent_method_values"
+            android:key="brevent_method"
+            android:summary="%1$s"
+            android:title="@string/brevent_method" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="brevent_ui"
+        android:title="@string/brevent_ui">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_donation"
+            android:title="@string/show_donation" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_all_apps"
+            android:summary="@string/show_all_apps_label"
+            android:title="@string/show_all_apps" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_framework_apps"
+            android:summary="@string/show_framework_apps_label"
+            android:title="@string/show_framework_apps" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

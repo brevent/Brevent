@@ -1,0 +1,155 @@
+apply plugin: 'com.android.application'
+
+def getBreventVersion = { ->
+    def tag = 'git describe --tags --always'.execute().text.trim()
+    if (tag.startsWith('v')) {
+        tag = tag.substring(1)
+    }
+    if ('git diff --no-ext-diff --quiet HEAD'.execute().waitFor() == 0) {
+        return tag
+    } else {
+        return tag + '-dirty'
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    if (rootProject.file('ant.properties').exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(rootProject.file('ant.properties')))
+
+        defaultConfig {
+            applicationId "me.piebridge.brevent"
+            versionName getBreventVersion()
+            buildConfigField 'boolean', 'RELEASE', properties['build.release']
+            buildConfigField 'String', 'DONATE_ALIPAY', properties['build.alipay']
+            buildConfigField 'String', 'DONATE_PAYPAL', properties['build.paypal']
+            buildConfigField 'String', 'DONATE_WECHAT', properties['build.wechat']
+            buildConfigField 'String', 'FEEDBACK', properties['build.feedback']
+            buildConfigField 'String', 'EMAIL', properties['build.email']
+            resConfigs 'en', 'zh-rCN'
+        }
+
+        signingConfigs {
+            release {
+                storeFile file(properties['key.store'])
+                storePassword properties['key.store.password']
+                keyAlias properties['key.alias']
+                keyPassword properties['key.alias.password']
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+            }
+            debug {
+                signingConfig signingConfigs.release
+            }
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                if (variant.buildType.name == 'release') {
+                    output.outputFile = rootProject.file("br-v${variant.versionName}.apk")
+                }
+            }
+        }
+    } else {
+        defaultConfig {
+            buildConfigField 'boolean', 'RELEASE', 'false'
+            buildConfigField 'String', 'DONATE_ALIPAY', 'null'
+            buildConfigField 'String', 'DONATE_PAYPAL', 'null'
+            buildConfigField 'String', 'DONATE_WECHAT', 'null'
+            buildConfigField 'String', 'FEEDBACK', 'null'
+            buildConfigField 'String', 'EMAIL', 'null'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-core-ui:25.1.1'
+    compile 'com.android.support:support-v13:25.1.1'
+    compile 'com.android.support:cardview-v7:25.1.1'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support:design:25.1.1'
+    compile project(':donation')
+    compile project(':log-reader-jni')
+    compile project(':brevent-m')
+}
+
+def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'),
+                      project(':log-reader').file('build/intermediates/bundles/release/classes.jar'))
+
+if (project.gradle.startParameter.taskRequests?.empty) {
+    // for ide, aar cannot be provided
+    dependencies {
+        compile project(':hidden-api')
+        compile project(':log-reader')
+    }
+} else {
+    // for proguard
+    dependencies {
+        provided hiddenApi
+    }
+}
+
+tasks.withType(JavaCompile) {
+    doFirst {
+        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+        options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'prepareDebugDependencies' || task.name == 'prepareReleaseDependencies') {
+        task.finalizedBy ':hidden-api:bundleRelease'
+        task.finalizedBy ':loader:packageRelease'
+    }
+}
+
+task copyBootstrap << {
+    def bootstrap = copySpec {
+        from file('bootstrap.sh')
+        rename { 'libbootstrap.so' }
+    }
+    def loader = copySpec {
+        from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
+        rename { 'libloader.so' }
+    }
+    fileTree("build/intermediates/transforms/stripDebugSymbol").visit { details ->
+        if (details.name == "lib") {
+            rootProject.abiFilters.each { abi ->
+                copy {
+                    with bootstrap
+                    into new File(details.file, abi)
+                }
+                copy {
+                    with loader
+                    into new File(details.file, abi)
+                }
+            }
+            details.stopVisiting()
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'transformNative_libsWithStripDebugSymbolForRelease' || task.name == 'transformNative_libsWithStripDebugSymbolForDebug') {
+        task.finalizedBy copyBootstrap
+    }
+}

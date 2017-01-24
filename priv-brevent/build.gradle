@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    defaultConfig {
+        applicationId 'me.piebridge.brevent.priv'
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName '1.0'
+    }
+
+    if (rootProject.file('ant.properties').exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(rootProject.file('ant.properties')))
+
+        signingConfigs {
+            release {
+                storeFile file(properties['key.store'])
+                storePassword properties['key.store.password']
+                keyAlias properties['key.alias']
+                keyPassword properties['key.alias.password']
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                applicationVariants.all { variant ->
+                    variant.outputs.each { output ->
+                        output.outputFile = rootProject.file('PrivBrevent.apk')
+                    }
+                }
+            }
+            debug {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}

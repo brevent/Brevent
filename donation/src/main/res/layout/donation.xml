@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/donation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/colorPrimary"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:visibility="gone"
+    tools:ignore="Overdraw"
+    tools:keep="@layout/donation"
+    tools:visibility="visible">
+
+    <TextView
+        android:id="@+id/donation_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/donation"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:id="@+id/donation_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/alipay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:drawableTop="@null"
+            android:gravity="center_horizontal"
+            android:text="@null"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone"
+            tools:text="支付宝"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/wechat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:drawableTop="@null"
+            android:gravity="center_horizontal"
+            android:text="@null"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone"
+            tools:text="微信"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/paypal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:drawableTop="@null"
+            android:gravity="center_horizontal"
+            android:text="@null"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone"
+            tools:text="PayPal"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Brevent</string>
+
+    <string name="fragment_guide_welcome">Welcome to Brevent</string>
+    <string name="fragment_guide_welcome_message">Android offer two keys to leave apps, BACK for finish and return previous app, HOME for move background and open Launcher; and Android allow some apps to use service, which keeps running. Of course, you can swipe away from recent tasks list anytime.\n\nBrevent distinguish whether apps were started or finished, then brevent not-in-use apps from running long time. And force stop apps awaken by other apps.</string>
+    <string name="fragment_guide_welcome_message2">Brevent love Android\'s design. When BACK to finish apps, apps and service won\'t be running; when HOME to background apps, apps and service can keep running in some time (You can modify in Brevent\'s Settings); when swipe from recent tasks list, apps are not needed anymore. Brevent shows running time for the apps are not finished.</string>
+
+    <string name="fragment_guide_permission">Brevent permissions</string>
+    <string name="fragment_guide_permission_message">When you turn on the device, Brevent requires you to run a command in debugging mode to acquire required permissions.</string>
+    <string name="fragment_guide_permission_message2">"Some similar apps require ROOT or modify unlocked devices. The debugging mode doesn't require ROOT, nor unlock, it's safe to use. "</string>
+
+    <string name="fragment_guide_security">Brevent Security</string>
+    <string name="fragment_guide_security_message">Brevent requires Brevent server to be launched in debugging mode. However, debugging mode is not safe, it\'s recommended to turn off after Brevent server is running.</string>
+    <string name="fragment_guide_security_message2">Brevent use many Android\'s hide API. Some third-party ROM may modify these API, so there are possible risks to use Brevent.</string>
+
+    <string name="fragment_guide_enjoy">Start Brevent</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is Standby. If you find some apps still running, please use Brevent or other tools to check whether it\'s Standby.\n\nAnd to reduce self battery usage, Brevent sever delay the processes by 3 to 60 seconds according the event level.\n\nWhen you clear apps from recent tasks, Android will kill the processes, and Brevent will force-stop them.</string>
+
+    <string name="start_brevent">Start Brevent</string>
+
+    <string name="brevent_service_start">Please start Brevent service</string>
+    <string name="brevent_service_restart">Please restart Brevent Service</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB\n\n3. Execute in PC\'s command line: %2$s (Copied to clipboard)\n</string>
+    <string name="brevent_service_open_development">Open \"Developer options\"</string>
+    <string name="brevent_service_adb_running">(Enabled)</string>
+
+    <string name="fragment_apps_user">User Apps</string>
+    <string name="fragment_apps_system">System Apps</string>
+    <string name="fragment_apps_framework">Framework Apps</string>
+
+    <string name="process_retrieving">Retrieving processes status, please wait. . .</string>
+    <string name="process_retrieving_apps">Retrieving apps, please wait. . .</string>
+
+    <string name="process_status_running">Running</string>
+    <string name="process_status_standby">Standby</string>
+    <string name="process_status_stopped">Stopped</string>
+    <string name="process_not_running">(not running)</string>
+    <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
+    <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
+    <string name="process_all_total">%d</string>
+    <string name="process_top" tools:ignore="PluralsCandidate">%d top</string>
+    <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_cached" tools:ignore="PluralsCandidate">%d cached</string>
+    <string name="process_total">total %d</string>
+    <plurals name="process_process">
+        <item quantity="one">&#160;process</item>
+        <item quantity="other">&#160;processes</item>
+    </plurals>
+
+    <string name="action_brevent">Brevent</string>
+    <string name="action_restore">Restore</string>
+    <string name="action_select_important">Important</string>
+    <string name="action_select_inverse">Inverse</string>
+    <string name="action_brevent_results" tools:ignore="PluralsCandidate">Brevented %d apps</string>
+    <string name="action_restore_results" tools:ignore="PluralsCandidate">Restored %d apps</string>
+    <string name="action_snackbar_undo">Undo</string>
+    <string name="action_snackbar_undone">Undone</string>
+
+    <string name="context_menu_choose">Choose</string>
+    <string name="context_menu_package_name">Copy package name</string>
+    <string name="context_menu_app_info">Application Info</string>
+    <string name="context_menu_open">Open</string>
+    <string name="context_menu_brevent_server_info">Brevent server Info</string>
+    <string name="context_menu_snackbar_copied">Copied package name: %s</string>
+
+    <!-- menu -->
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_guide">Guide</string>
+
+    <!-- settings brevent list -->
+    <string name="brevent_list">Brevent List</string>
+    <string name="brevent_auto">Auto Brevent</string>
+    <string name="brevent_auto_label">Update Brevent list when apps installed or uninstalled</string>
+    <string name="brevent_move_back">Brevent BACK move background</string>
+    <string name="brevent_move_back_label">Some apps move to background when BACK is pressed. When on, Brevent process it like normal BACK (Available since Android 7.0)</string>
+    <string name="brevent_back_home">Brevent BACK open Launcher</string>
+    <string name="brevent_back_home_label">Some apps open Launcher when BACK is pressed. When on, Brevent process it like normal BACK. Brevent could distinguish in most case, however you can press HOME 7 times to help Brevent confirm</string>
+    <string name="brevent_timeout">Brevent timeout</string>
+    <string name="brevent_timeout_label">After %1$s of inactivity with background apps</string>
+    <string name="brevent_timeout_never">Never</string>
+    <string name="brevent_timeout_5min">5 minutes</string>
+    <string name="brevent_timeout_10min">10 minutes</string>
+    <string name="brevent_timeout_15min">15 minutes</string>
+    <string name="brevent_timeout_30min">30 minutes</string>
+    <string name="brevent_timeout_1hour">1 hour</string>
+    <string name="brevent_appops_background">Use AppOps\'s BACKGROUND</string>
+    <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, apply even when you uninstall Brevent (Since Android 7.0)</string>
+    <string name="brevent_method">Brevent method</string>
+    <string name="brevent_method_standby">Prefer Standby, then ForceStop</string>
+
+    <!-- settings user interface -->
+    <string name="brevent_ui">User interface</string>
+    <string name="show_donation">Show donation</string>
+    <string name="show_donation_play">Thanks for purchase from Play Store</string>
+    <string name="show_all_apps">Show all apps</string>
+    <string name="show_all_apps_label">Include system and framework apps cannot be open</string>
+    <string name="show_framework_apps">Show framework apps</string>
+    <string name="show_framework_apps_label">All apps have the same signature with framework</string>
+
+    <string name="feedback_message">Thanks for feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
+    <string name="feedback_message_email">\n\nFor private messages, please drop an Email to me.</string>
+    <string name="feedback_github">GitHub</string>
+    <string name="feedback_email">Email</string>
+
+</resources>

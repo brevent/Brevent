@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="brevent_timeout_values">
+        <item>0</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+    </string-array>
+
+    <string-array name="brevent_timeout_entries">
+        <item>@string/brevent_timeout_never</item>
+        <item>@string/brevent_timeout_5min</item>
+        <item>@string/brevent_timeout_10min</item>
+        <item>@string/brevent_timeout_15min</item>
+        <item>@string/brevent_timeout_30min</item>
+        <item>@string/brevent_timeout_1hour</item>
+    </string-array>
+
+    <string-array name="fragment_apps">
+        <item>@string/fragment_apps_user</item>
+        <item>@string/fragment_apps_system</item>
+        <item>@string/fragment_apps_framework</item>
+    </string-array>
+
+    <string-array name="fragment_guide">
+        <item>@string/fragment_guide_welcome</item>
+        <item>@string/fragment_guide_permission</item>
+        <item>@string/fragment_guide_security</item>
+        <item>@string/fragment_guide_enjoy</item>
+    </string-array>
+
+    <string-array name="fragment_guide_message">
+        <item>@string/fragment_guide_welcome_message</item>
+        <item>@string/fragment_guide_permission_message</item>
+        <item>@string/fragment_guide_security_message</item>
+        <item>@string/fragment_guide_enjoy_message</item>
+    </string-array>
+
+    <string-array name="fragment_guide_message2">
+        <item>@string/fragment_guide_welcome_message2</item>
+        <item>@string/fragment_guide_permission_message2</item>
+        <item>@string/fragment_guide_security_message2</item>
+        <item>@string/fragment_guide_enjoy_message2</item>
+    </string-array>
+
+    <string-array name="process_status">
+        <item>@string/process_status_running</item>
+        <item>@string/process_status_standby</item>
+        <item>@string/process_status_stopped</item>
+    </string-array>
+
+    <string-array name="brevent_method_values">
+        <item>standby</item>
+    </string-array>
+
+    <string-array name="brevent_method_entries">
+        <item>@string/brevent_method_standby</item>
+    </string-array>
+
+    <string name="size" translatable="false">%d</string>
+    <string name="percent" translatable="false">%d %%</string>
+
+</resources>

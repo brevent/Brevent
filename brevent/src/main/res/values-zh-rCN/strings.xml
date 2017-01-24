@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">黑域</string>
+
+    <string name="fragment_guide_welcome">欢迎安装黑域</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过两种按键，BACK 退出应用回到上层，HOME 把应用放到后台打开启动器；同时，允许应用使用一直运行的服务。当然，您也可以直接从最近列表划掉某个应用，表明不再使用。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message2">黑域很喜欢 Android 的设计，当您使用 BACK 退出应用时，应用及所包含的服务不再运行；当您使用 HOME 把应用放到后台时，后台应用及所包含的服务可以继续运行一段时间（您可在黑域设置中修改）；当您从最近列表划掉时，表明不再需要。在黑域管理界面，会显示还未退出应用的使用时长。</string>
+
+    <string name="fragment_guide_permission">黑域所需权限</string>
+    <string name="fragment_guide_permission_message">黑域需要您开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
+    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。</string>
+
+    <string name="fragment_guide_security">潜在安全隐患</string>
+    <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
+    <string name="fragment_guide_security_message2">黑域使用 Android 隐藏 API 以获取其它应用运行信息，黑域其他应用。但是有些第三方系统可能改变这些隐藏 API 行为，对设备造成未知影响。</string>
+
+    <string name="fragment_guide_enjoy">开始使用黑域</string>
+    <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题或有任何建议，敬请提交反馈。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认使用休眠黑域应用。如果您发现黑域后的应用还在运行，请使用黑域或者其它类似工具（如开发者选项中的未启用的应用）查看是否处于休眠状态。\n\n此外，为了降低自身耗电，黑域集中处理，效果并不是那么及时，根据级别延后 3 到 60 秒不等。\n\n当您从最近列表划掉应用时，系统会杀掉进程，黑域也将直接强行停止它。</string>
+    <string name="start_brevent">进入黑域</string>
+
+    <string name="brevent_service_start">请启动黑域服务</string>
+    <string name="brevent_service_restart">请重启黑域服务</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑\n\n3. 在电脑命令行中执行: %2$s (已复制到剪贴板)\n</string>
+    <string name="brevent_service_open_development">前往“开发者选项”</string>
+    <string name="brevent_service_adb_running">(已启用)</string>
+
+    <string name="fragment_apps_user">用户应用</string>
+    <string name="fragment_apps_system">系统应用</string>
+    <string name="fragment_apps_framework">框架应用</string>
+
+    <string name="process_retrieving">正在获取进程状态，请稍候. . .</string>
+    <string name="process_retrieving_apps">正在获取应用信息，请稍候. . .</string>
+
+    <string name="process_status_running">正在运行</string>
+    <string name="process_status_standby">已经休眠</string>
+    <string name="process_status_stopped">没有运行</string>
+    <string name="process_not_running">(没有运行)</string>
+    <string name="process_all_top">%d 个前台</string>
+    <string name="process_all_service">%d 个服务</string>
+    <string name="process_all_cached">%d 个缓存</string>
+    <string name="process_all_total">%d 个</string>
+    <string name="process_top">%d 前台</string>
+    <string name="process_service">%d 服务</string>
+    <string name="process_cached">%d 缓存</string>
+    <string name="process_total">共 %d 个</string>
+    <plurals name="process_process">
+        <item quantity="other">进程</item>
+    </plurals>
+
+    <string name="action_brevent">加入黑域</string>
+    <string name="action_restore">不再黑域</string>
+    <string name="action_select_important">重要</string>
+    <string name="action_select_inverse">反选</string>
+    <string name="action_brevent_results">成功黑域 %d 个应用</string>
+    <string name="action_restore_results">不再黑域 %d 个应用</string>
+    <string name="action_snackbar_undo">撤消</string>
+    <string name="action_snackbar_undone">已撤消</string>
+
+    <string name="context_menu_choose">选择</string>
+    <string name="context_menu_package_name">复制包名</string>
+    <string name="context_menu_app_info">应用信息</string>
+    <string name="context_menu_open">打开</string>
+    <string name="context_menu_brevent_server_info">黑域服务信息</string>
+    <string name="context_menu_snackbar_copied">包名已复制: %s</string>
+
+    <!-- menu -->
+    <string name="menu_feedback">反馈</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_guide">向导</string>
+
+    <!-- settings brevent list -->
+    <string name="brevent_list">黑域清单</string>
+    <string name="brevent_auto">自动黑域</string>
+    <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
+    <string name="brevent_move_back">黑域 BACK 移到后台</string>
+    <string name="brevent_move_back_label">有些应用在您按 BACK 时，不执行正常的 BACK 操作，移到后台。如果您并不是很清楚的知道 BACK 与 HOME 的区别，请关闭这个选项（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_back_home">黑域 BACK 打开启动器</string>
+    <string name="brevent_back_home_label">有些应用在您按 BACK 时，不执行正常的 BACK 操作，打开启动器。如果您并不是很清楚的知道 BACK 与 HOME 的区别，请关闭这个选项。绝大部分情况下黑域都能有效区分，您也可连按 7 次 HOME 键来帮助黑域确认</string>
+    <string name="brevent_timeout">黑域应用时机</string>
+    <string name="brevent_timeout_label">离开应用 %1$s 后</string>
+    <string name="brevent_timeout_never">永不</string>
+    <string name="brevent_timeout_5min">5分钟</string>
+    <string name="brevent_timeout_10min">10分钟</string>
+    <string name="brevent_timeout_15min">15分钟</string>
+    <string name="brevent_timeout_30min">30分钟</string>
+    <string name="brevent_timeout_1hour">1小时</string>
+    <string name="brevent_appops_background">使用原生后台限制</string>
+    <string name="brevent_appops_background_label">建议关闭。帐号同步与定时任务不再生效，即使您卸载黑域也将持续（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_method">黑域方式</string>
+    <string name="brevent_method_standby">优先休眠，然后强行停止</string>
+
+    <string name="brevent_ui">用户界面</string>
+    <string name="show_donation">显示捐赠</string>
+    <string name="show_donation_play">感谢从 Play 商店购买</string>
+    <string name="show_all_apps">显示所有应用</string>
+    <string name="show_all_apps_label">包括无法打开的系统应用和框架应用</string>
+    <string name="show_framework_apps">显示框架应用</string>
+    <string name="show_framework_apps_label">所有与系统框架签名相同的应用</string>
+
+    <string name="feedback_message" >欢迎提交任何反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
+    <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
+    <string name="feedback_github">GitHub</string>
+    <string name="feedback_email">邮件</string>
+
+</resources>
