@@ -104,7 +104,7 @@ public class Brevent implements Runnable {
     public static void main(String[] args) throws Exception {
         PackageInfo packageInfo = AppGlobals.getPackageManager().getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
         File nativeLibraryDir = new File(packageInfo.applicationInfo.nativeLibraryDir);
-        File libDir = new File(getDataDir(), "lib");
+        File libDir = new File(getDataDir(), "brevent");
         copyFile(nativeLibraryDir, libDir, LIB_READER);
         String libLoader = copyFile(nativeLibraryDir, libDir, LIB_LOADER);
         Log.d(TAG, "lib: " + libDir + ", loader: " + libLoader);
