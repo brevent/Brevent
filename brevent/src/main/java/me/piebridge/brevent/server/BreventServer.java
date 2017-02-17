@@ -326,9 +326,11 @@ public class BreventServer extends Handler {
                 recentTasks = HideApiM.getRecentTasks(am, Integer.MAX_VALUE, RECENT_FLAGS, mUser);
             }
             for (ActivityManager.RecentTaskInfo recentTask : recentTasks) {
-                ComponentName componentName = HideApi.getRealActivity(recentTask);
-                if (componentName != null) {
-                    recent.add(componentName.getPackageName());
+                if (recentTask.baseIntent != null) {
+                    ComponentName componentName = recentTask.baseIntent.getComponent();
+                    if (componentName != null) {
+                        recent.add(componentName.getPackageName());
+                    }
                 }
             }
             return recent;

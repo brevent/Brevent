@@ -40,4 +40,6 @@ public interface IPackageManager {
      */
     void setPackageStoppedState(String packageName, boolean stopped, int userId) throws RemoteException;
 
+    int checkSignatures(String pkg1, String pkg2);
+
 }

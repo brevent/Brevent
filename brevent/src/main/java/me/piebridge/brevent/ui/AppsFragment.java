@@ -1,7 +1,9 @@
 package me.piebridge.brevent.ui;
 
+import android.app.AppGlobals;
 import android.app.Fragment;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.IPackageManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
@@ -93,7 +95,7 @@ public abstract class AppsFragment extends Fragment {
         super.onDestroy();
     }
 
-    public abstract boolean accept(PackageManager packageManager, ApplicationInfo applicationInfo);
+    public abstract boolean accept(ApplicationInfo applicationInfo);
 
     public void refresh() {
         if (mAdapter != null) {
@@ -171,9 +173,10 @@ public abstract class AppsFragment extends Fragment {
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
-    protected final boolean isFrameworkPackage(PackageManager pm, String packageName) {
-        return pm.checkSignatures("android", BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH &&
-                pm.checkSignatures("android", packageName) == PackageManager.SIGNATURE_MATCH;
+    protected final boolean isFrameworkPackage(String packageName) {
+        IPackageManager packageManager = AppGlobals.getPackageManager();
+        return packageManager.checkSignatures("android", BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH &&
+                packageManager.checkSignatures("android", packageName) == PackageManager.SIGNATURE_MATCH;
     }
 
     public boolean supportAllApps() {

@@ -9,8 +9,8 @@ import android.content.pm.PackageManager;
 public class FrameworkAppsFragment extends AppsFragment {
 
     @Override
-    public boolean accept(PackageManager packageManager, ApplicationInfo applicationInfo) {
-        return isFrameworkPackage(packageManager, applicationInfo.packageName);
+    public boolean accept(ApplicationInfo applicationInfo) {
+        return isFrameworkPackage(applicationInfo.packageName);
     }
 
     @Override

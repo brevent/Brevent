@@ -357,6 +357,9 @@ class HideApi {
                 BufferedReader reader = new BufferedReader(new FileReader(file))
         ) {
             while ((line = reader.readLine()) != null) {
+                if (line.contains("mFocusedActivity:")) {
+                    break;
+                }
                 // Stack #X:
                 if (line.contains("Stack #")) {
                     stackId = parseStackId(line);
@@ -454,10 +457,6 @@ class HideApi {
 
     public static int getProcessState(ActivityManager.RunningAppProcessInfo process) {
         return process.processState;
-    }
-
-    public static ComponentName getRealActivity(ActivityManager.RecentTaskInfo recentTask) {
-        return recentTask.realActivity;
     }
 
     public static final class PendingResult {

@@ -1,6 +1,7 @@
 package android.app;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -289,17 +290,13 @@ public class ActivityManager {
 
     }
 
-    public List<ActivityManager.RecentTaskInfo> getRecentTasksForUser(int maxNum, int flags, int userId) throws SecurityException {
-        throw new UnsupportedOperationException();
-    }
-
     /**
      * Information you can retrieve about tasks that the user has most recently
      * started or visited.
      */
     public static class RecentTaskInfo {
 
-        public ComponentName realActivity;
+        public Intent baseIntent;
 
     }
 

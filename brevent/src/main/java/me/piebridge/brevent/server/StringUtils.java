@@ -39,7 +39,7 @@ public class StringUtils {
     }
 
     public static boolean isDigitsOnly(String s) {
-        return s != null && TextUtils.isDigitsOnly(s.trim());
+        return !TextUtils.isEmpty(s) && TextUtils.isDigitsOnly(s.trim());
     }
 
     public static boolean isBlank(String s) {

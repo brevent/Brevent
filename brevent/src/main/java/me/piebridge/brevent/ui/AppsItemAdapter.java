@@ -366,7 +366,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
 
     public boolean accept(PackageManager pm, ApplicationInfo appInfo, boolean showAllApps) {
         return (getActivity().isLauncher(appInfo.packageName)  || mFragment.supportAllApps() || showAllApps || pm.getLaunchIntentForPackage(appInfo.packageName) != null)
-                && mFragment.accept(pm, appInfo);
+                && mFragment.accept(appInfo);
     }
 
 }
