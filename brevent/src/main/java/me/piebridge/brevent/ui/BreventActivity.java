@@ -252,7 +252,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     @Override
     protected void onDestroy() {
-        mHandler.getLooper().quit();
+        if (mHandler != null && mHandler.getLooper() != null) {
+            mHandler.getLooper().quit();
+        }
         mHandler = null;
         uiHandler = null;
         super.onDestroy();
