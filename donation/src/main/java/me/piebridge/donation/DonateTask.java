@@ -22,9 +22,12 @@ class DonateTask extends AsyncTask<Void, DonateActivity.DonateItem, Void> {
     private final WeakReference<Context> mReference;
     private final DonateActivity.Donation mDonation;
 
-    DonateTask(Context context, DonateActivity.Donation donation) {
+    private final boolean mUnbindService;
+
+    DonateTask(Context context, boolean unbindService, DonateActivity.Donation donation) {
         mReference = new WeakReference<>(context);
         mDonation = donation;
+        mUnbindService = unbindService;
     }
 
     @Override
@@ -59,8 +62,12 @@ class DonateTask extends AsyncTask<Void, DonateActivity.DonateItem, Void> {
 
     @Override
     protected void onPostExecute(Void params) {
-        if (mReference.get() != null) {
+        Context context = mReference.get();
+        if (context != null) {
             mDonation.donation.setVisibility(View.VISIBLE);
+            if (mUnbindService) {
+                ((DonateActivity) context).unbindService();
+            }
         }
     }
 

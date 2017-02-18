@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import java.util.List;
-
 /**
  * Activity Manager
  * Created by thom on 2017/2/7.

@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toolbar;
+
+import java.math.BigInteger;
+import java.util.Collection;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -24,6 +28,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     private BreventConfiguration mConfiguration;
 
+    private SettingsFragment settingsFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +44,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
         mPlay = isPlay();
 
-        SettingsFragment settingsFragment = new SettingsFragment();
+        settingsFragment = new SettingsFragment();
         settingsFragment.getArguments().putBoolean(SettingsFragment.SHOW_DONATION, !mPlay);
 
         // Display the fragment as the main content.
@@ -63,6 +69,11 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected String getWechatLink() {
         return BuildConfig.DONATE_WECHAT;
+    }
+
+    @Override
+    protected BigInteger getPlayModulus() {
+        return new BigInteger(1, BuildConfig.DONATE_PLAY);
     }
 
     @Override
@@ -93,6 +104,29 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void showPlay(Collection<String> purchased) {
+        if (purchased != null && !purchased.isEmpty()) {
+            updatePlayDonation(purchased);
+        }
+        super.showPlay(purchased);
+    }
+
+    private void updatePlayDonation(Collection<String> purchased) {
+        int count = purchased.size();
+        int total = 0;
+        for (String p : purchased) {
+            int i = p.indexOf('_');
+            if (i > 0) {
+                String t = p.substring(i + 1);
+                if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
+                    total += Integer.parseInt(t);
+                }
+            }
+        }
+        settingsFragment.updatePlayDonation(count, total);
     }
 
 }

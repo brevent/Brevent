@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
-import android.content.pm.ParceledListSlice;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -190,7 +189,6 @@ public class BreventServer extends Handler {
                 handleEvent(message.arg1, message.arg2, data);
                 break;
             case MESSAGE_REQUEST_STATUS:
-                removeMessages(MESSAGE_REQUEST_STATUS);
             case MESSAGE_REQUEST_MANAGE:
                 if (mUser == HideApi.USER_OWNER) {
                     handleRequest((BreventProtocol) message.obj);
@@ -213,6 +211,15 @@ public class BreventServer extends Handler {
 
     private void check() {
         removeMessages(MESSAGE_CHECK);
+
+
+        Set<String> services = new ArraySet<>(mServices);
+        mServices.clear();
+
+        Set<String> back = new ArraySet<>(mBack);
+        if (!HideApi.isCharging()) {
+            mBack.clear();
+        }
 
         mUser = HideApi.getCurrentUser();
         mLauncher = HideApi.getLauncher();
@@ -263,12 +270,12 @@ public class BreventServer extends Handler {
 
         if (!BuildConfig.RELEASE) {
             ServerLog.d("blocking: " + blocking);
-            ServerLog.d("back: " + mBack);
+            ServerLog.d("back: " + back);
             ServerLog.d("noRecent: " + noRecent);
         }
 
-        blocking.addAll(mServices);
-        blocking.addAll(mBack);
+        blocking.addAll(services);
+        blocking.addAll(back);
         blocking.removeAll(top);
         blocking.removeAll(home);
 
@@ -306,14 +313,13 @@ public class BreventServer extends Handler {
             }
         }
 
-        mServices.clear();
-        mBack.clear();
-
+        removeMessages(MESSAGE_CHECK);
         if (!screen && checkLater) {
             checkAgain(processes);
         }
     }
 
+    @SuppressWarnings("unchecked")
     private Set<String> getRecentPackages() {
         Set<String> recent = new ArraySet<>();
         try {
@@ -385,6 +391,7 @@ public class BreventServer extends Handler {
                 removeMessages(MESSAGE_CHECK);
             }
         }
+        removeMessages(MESSAGE_CHECK_CHANGED);
     }
 
     @SuppressWarnings("unchecked")
@@ -544,6 +551,7 @@ public class BreventServer extends Handler {
         String packageName = getPackageName(component);
 
         if ("activity".equals(type)) {
+            mBack.remove(packageName);
             if (mBrevent.contains(packageName)) {
                 unblock(packageName);
             }
@@ -687,6 +695,7 @@ public class BreventServer extends Handler {
         SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
         BreventStatus response = new BreventStatus(token, mBrevent, processes, HideApi.getVpnPackages());
         sendBroadcast(response);
+        removeMessages(MESSAGE_REQUEST_STATUS);
     }
 
     private ActivitiesHolder getRunningActivities() {

@@ -183,14 +183,4 @@ public class BreventStatus extends BreventToken implements Parcelable {
         return true;
     }
 
-    public static boolean isForegroundService(SparseIntArray status) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return status.get(ActivityManager.PROCESS_STATE_BOUND_FOREGROUND_SERVICE) > 0
-                    || status.get(ActivityManager.PROCESS_STATE_FOREGROUND_SERVICE) > 0;
-        } else {
-            // TODO, check service for 5.X
-            return false;
-        }
-    }
-
 }

@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 
 /**
  * Created by thom on 2017/1/25.

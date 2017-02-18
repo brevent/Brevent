@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -16,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.HandlerThread;
 import android.os.Process;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
@@ -23,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,11 +35,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Donate activity, support alipay, wechat, paypal, google
+ * Donate activity, support alipay, wechat, paypal, play store
  * <p>
  * Created by thom on 2017/2/9.
  */
@@ -47,9 +55,11 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private static final String PACKAGE_PAYPAL = "com.paypal.android.p2pmobile";
 
-    private static final String PACKAGE_VENDING = "com.android.vending";
+    private static final String PACKAGE_PLAY = "com.android.vending";
 
     private static final int REQUEST_WECHAT_DONATE_SDA = 0x4121;
+
+    private static final int REQUEST_PLAY_DONATE = 0x4122;
 
     private static final String KEY_WECHAT_DONATE_SDA = "donation.wechat.sda";
     private static final String KEY_WECHAT_DONATE_URI = "donation.wechat.uri";
@@ -60,8 +70,18 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private static final String FRAGMENT_DONATION_PROGRESS = "fragment_donation_progress";
 
+    private static final int IAB_MAX_DONATE = 20;
+
+    private static final String TAG = "Donate";
+
     private View mDonation;
     private TextView mDonationTip;
+
+    private ServiceConnection activateConnection;
+
+    private ServiceConnection donateConnection;
+
+    private List<String> mSkus;
 
     @CallSuper
     public void onStart() {
@@ -73,9 +93,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     public final void updateDonations() {
         if (acceptDonation()) {
-            if (isPlay()) {
-                activatePlay();
-            } else {
+            activatePlay();
+            if (!isPlay()) {
                 activateDonations();
             }
         } else {
@@ -84,7 +103,14 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     private void activatePlay() {
-        // TODO
+        if (getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null) {
+            HandlerThread thread = new HandlerThread("DonateService");
+            thread.start();
+            activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE, thread.getLooper(), this);
+            Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
+            serviceIntent.setPackage(PACKAGE_PLAY);
+            bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     @CallSuper
@@ -109,7 +135,18 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             donateViaWechat();
         } else if (id == R.id.paypal) {
             donateViaPaypal();
+        } else if (id == R.id.play) {
+            donateViaPlay();
         }
+    }
+
+    private void donateViaPlay() {
+        HandlerThread thread = new HandlerThread("DonateService");
+        thread.start();
+        donateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE, thread.getLooper(), this);
+        Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
+        serviceIntent.setPackage(PACKAGE_PLAY);
+        bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE);
     }
 
     private void donateViaAlipay() {
@@ -171,6 +208,12 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 donateViaWechat();
             } else {
                 hideWechat();
+            }
+        } else if (requestCode == REQUEST_PLAY_DONATE) {
+            String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+            String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+            if (PlayServiceConnection.verify(getPlayModulus(), purchaseData, dataSignature)) {
+                activatePlay();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -255,7 +298,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             Donation donation = new Donation();
             donation.donation = mDonation;
             donation.items = items;
-            new DonateTask(this, donation).execute();
+            new DonateTask(this, false, donation).execute();
         }
     }
 
@@ -266,7 +309,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             item.intent = intent;
             item.textView = (TextView) findViewById(resId);
             item.textView.setOnClickListener(this);
-            items.add(item);
+            if (items != null) {
+                items.add(item);
+            }
         }
     }
 
@@ -276,14 +321,16 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     protected abstract String getWechatLink();
 
+    protected abstract BigInteger getPlayModulus();
+
     protected boolean acceptDonation() {
         return true;
     }
 
     protected boolean isPlay() {
         PackageManager packageManager = getPackageManager();
-        return packageManager.getLaunchIntentForPackage(PACKAGE_VENDING) != null
-                && PACKAGE_VENDING.equals(packageManager.getInstallerPackageName(getPackageName()));
+        return packageManager.getLaunchIntentForPackage(PACKAGE_PLAY) != null
+                && PACKAGE_PLAY.equals(packageManager.getInstallerPackageName(getPackageName()));
     }
 
     private Uri getQrCodeUri() {
@@ -369,6 +416,77 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             return new BitmapDrawable(resources, bitmap);
         }
         return icon;
+    }
+
+    @CallSuper
+    public void showPlay(Collection<String> purchased) {
+        if (purchased != null && canDonatePlay(purchased)) {
+            Collection<DonateItem> items = new ArrayList<>(0x1);
+            checkPackage(items, R.id.play, PACKAGE_PLAY);
+            if (!items.isEmpty()) {
+                mDonationTip.setText(R.string.donation);
+                Donation donation = new Donation();
+                donation.donation = mDonation;
+                donation.items = items;
+                new DonateTask(this, true, donation).execute();
+            }
+        }
+    }
+
+    /**
+     * default implementation: ["donation_%02d", ], max 20
+     */
+    protected List<String> getPlaySkus() {
+        List<String> skus = new ArrayList<>(IAB_MAX_DONATE);
+        for (int i = 1; i <= IAB_MAX_DONATE; ++i) {
+            if (i < 10) {
+                skus.add("donation_0" + i);
+            } else {
+                skus.add("donation_" + i);
+            }
+        }
+        return skus;
+    }
+
+    protected boolean canDonatePlay(Collection<String> purchased) {
+        if (mSkus == null) {
+            mSkus = getPlaySkus();
+        }
+        Iterator<String> iterator = mSkus.iterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            if (purchased.contains(next)) {
+                iterator.remove();
+            }
+        }
+        return !mSkus.isEmpty();
+    }
+
+    public void unbindService() {
+        if (activateConnection != null) {
+            unbindService(activateConnection);
+            activateConnection = null;
+        }
+        if (donateConnection != null) {
+            unbindService(donateConnection);
+            donateConnection = null;
+        }
+    }
+
+    public void donatePlay(IntentSender sender) {
+        try {
+            startIntentSenderForResult(sender, REQUEST_PLAY_DONATE, new Intent(), 0, 0, 0);
+        } catch (IntentSender.SendIntentException e) {
+            Log.d(TAG, "Can't donate");
+        }
+        unbindService();
+    }
+
+    public String getSku() {
+        int size = Math.min(0x5, mSkus.size());
+        List<String> skus = mSkus.subList(0, size);
+        Collections.shuffle(skus);
+        return skus.get(0);
     }
 
     static class DonateItem {

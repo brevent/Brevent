@@ -13,7 +13,8 @@ public class HideApiM {
 
     }
 
-    public static List getRecentTasks(IActivityManager am, int maxNum, int flags, int userId) {
+    @SuppressWarnings("unchecked")
+    static List getRecentTasks(IActivityManager am, int maxNum, int flags, int userId) {
         return am.getRecentTasks(maxNum, flags, userId);
     }
 

@@ -23,6 +23,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
+    private Preference preference;
+
     public SettingsFragment() {
         setArguments(new Bundle());
     }
@@ -34,19 +36,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         addPreferencesFromResource(R.xml.settings);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-        Preference preference = preferenceScreen.findPreference(SHOW_DONATION);
+        preference = preferenceScreen.findPreference(SHOW_DONATION);
         if (!BuildConfig.RELEASE) {
             preference.setEnabled(false);
             preference.setSummary(null);
         } else {
-            boolean enabled = getArguments().getBoolean(SHOW_DONATION);
-            if (enabled) {
-                preference.setEnabled(true);
-                preference.setSummary(null);
-            } else {
-                preference.setEnabled(false);
-                preference.setSummary(R.string.show_donation_play);
-            }
+            preference.setEnabled(true);
+            preference.setSummary(null);
         }
     }
 
@@ -67,6 +63,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (SHOW_DONATION.equals(key)) {
             ((DonateActivity) getActivity()).updateDonations();
         }
+    }
+
+    public void updatePlayDonation(int count, int total) {
+        String summary;
+        if (count == 1) {
+            summary = getString(R.string.show_donation_play_one, total);
+        } else {
+            summary = getString(R.string.show_donation_play_multi, count, total);
+        }
+        preference.setSummary(summary);
     }
 
 }

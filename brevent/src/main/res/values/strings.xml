@@ -96,7 +96,8 @@
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
     <string name="show_donation">Show donation</string>
-    <string name="show_donation_play">Thanks for purchase from Play Store</string>
+    <string name="show_donation_play_one">Thanks for donation %d USD in Play Store</string>
+    <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donation %1$d times total %2$d USD in Play Store</string>
     <string name="show_all_apps">Show all apps</string>
     <string name="show_all_apps_label">Include system and framework apps cannot be open</string>
     <string name="show_framework_apps">Show framework apps</string>

@@ -80,7 +80,7 @@ public class Brevent implements Runnable {
         throw new UnsupportedOperationException(message);
     }
 
-    private static String copyFile(File from, File to, String name) throws IOException {
+    private static File copyFile(File from, File to, String name) throws IOException {
         if (!to.isDirectory() && !to.mkdirs()) {
             String message = "Can't make sure directory: " + to;
             Log.d(TAG, message);
@@ -97,7 +97,7 @@ public class Brevent implements Runnable {
             while ((length = is.read(bytes, 0, BUFFER)) != -1) {
                 os.write(bytes, 0, length);
             }
-            return output.getAbsolutePath();
+            return output;
         }
     }
 
@@ -105,11 +105,11 @@ public class Brevent implements Runnable {
         PackageInfo packageInfo = AppGlobals.getPackageManager().getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
         File nativeLibraryDir = new File(packageInfo.applicationInfo.nativeLibraryDir);
         File libDir = new File(getDataDir(), "brevent");
-        copyFile(nativeLibraryDir, libDir, LIB_READER);
-        String libLoader = copyFile(nativeLibraryDir, libDir, LIB_LOADER);
+        File libReader = copyFile(nativeLibraryDir, libDir, LIB_READER);
+        File libLoader = copyFile(nativeLibraryDir, libDir, LIB_LOADER);
         Log.d(TAG, "lib: " + libDir + ", loader: " + libLoader);
         ClassLoader bootClassLoader = ClassLoader.getSystemClassLoader().getParent();
-        ClassLoader loadClassLoader = new PathClassLoader(libLoader, libDir.getAbsolutePath(), bootClassLoader);
+        ClassLoader loadClassLoader = new PathClassLoader(libLoader.getAbsolutePath(), libDir.getAbsolutePath(), bootClassLoader);
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         long previous = System.currentTimeMillis();
         while (packageInfo != null) {
@@ -126,8 +126,10 @@ public class Brevent implements Runnable {
             previous = now;
             packageInfo = AppGlobals.getPackageManager().getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
         }
-        if (!libDir.delete()) {
-            Log.d(TAG, "Can't remove " + libDir);
+        if (packageInfo == null) {
+            if (!libLoader.delete() || !libReader.delete() || !libDir.delete()) {
+                Log.d(TAG, "Can't remove brevent loader");
+            }
         }
     }
 

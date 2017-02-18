@@ -93,7 +93,8 @@
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
-    <string name="show_donation_play">感谢从 Play 商店购买</string>
+    <string name="show_donation_play_one">感谢您在 Play 商店捐赠 %d 美金</string>
+    <string name="show_donation_play_multi">感谢您在 Play 商店捐赠 %1$d 次共 %2$d 美金</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用</string>
     <string name="show_framework_apps">显示框架应用</string>

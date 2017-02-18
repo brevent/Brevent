@@ -5,7 +5,6 @@ import android.app.ActivityManagerNative;
 import android.app.AppGlobals;
 import android.app.AppOpsManager;
 import android.app.usage.IUsageStatsManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.IIntentReceiver;
 import android.content.Intent;
@@ -155,8 +154,8 @@ class HideApi {
     public static void setStopped(String packageName, boolean stopped) {
         try {
             AppGlobals.getPackageManager().setPackageStoppedState(packageName, stopped, HideApi.USER_OWNER);
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't setPackageStoppedState for " + packageName, e);
+        } catch (SecurityException | RemoteException e) {
+            ServerLog.e("Can't setPackageStoppedState for " + packageName);
         }
     }
 
@@ -304,7 +303,7 @@ class HideApi {
         return new SimpleArrayMap<>();
     }
 
-    private static SimpleArrayMap<String, Set<String>> parseDependencies(File file) throws  IOException {
+    private static SimpleArrayMap<String, Set<String>> parseDependencies(File file) throws IOException {
         SimpleArrayMap<String, Set<String>> dependencies = new SimpleArrayMap<>();
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))

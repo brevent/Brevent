@@ -21,8 +21,10 @@
 # -keepnames class android.support.** { *; }
 # -keepnames class me.piebridge.** { *; }
 
+-keep class com.android.vending.billing.**
+
 -keep class me.piebridge.brevent.server.BreventServer {
-    public static void main(java.lang.String[]); 
+    public static void main(java.lang.String[]);
 }
 
 -dontnote me.piebridge.brevent.ui.util.XposedUtils
@@ -35,6 +37,6 @@
     public static final android.os.Parcelable$Creator *;
 }
 
--repackageclasses '' 
+# -repackageclasses ''
 
--allowaccessmodification
+# -allowaccessmodification

@@ -51,7 +51,6 @@ import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
-import me.piebridge.brevent.protocol.BreventToken;
 
 public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
 
@@ -165,8 +164,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showDisabled() {
-        hideProgress();
-        showDisabled(R.string.brevent_service_start);
+        if (mHandler != null) {
+            hideProgress();
+            showDisabled(R.string.brevent_service_start);
+        }
     }
 
     public void showDisabled(int title) {
@@ -251,6 +252,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     @Override
     protected void onDestroy() {
+        mHandler.getLooper().quit();
         mHandler = null;
         uiHandler = null;
         super.onDestroy();
