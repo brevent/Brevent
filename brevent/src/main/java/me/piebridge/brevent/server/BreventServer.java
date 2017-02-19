@@ -259,7 +259,7 @@ public class BreventServer extends Handler {
                         blocking.add(packageName);
                     } else if (timeout > 0) {
                         if (inactive > timeout) {
-                            block(packageName);
+                            blocking.add(packageName);
                         } else {
                             checkLater = true;
                         }
