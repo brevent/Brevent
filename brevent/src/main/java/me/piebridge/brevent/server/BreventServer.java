@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventConfiguration;
@@ -61,10 +62,11 @@ public class BreventServer extends Handler {
     private static final int MESSAGE_CHECK = 6;
     private static final int MESSAGE_CHECK_CHANGED = 7;
 
+    private static final int MAX_TIMEOUT = 30;
+
     private volatile boolean screen = true;
 
     private final String mDataDir;
-
 
     private UUID mToken;
 
@@ -832,7 +834,7 @@ public class BreventServer extends Handler {
         return null;
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         ServerLog.d("Brevent Server " + BuildConfig.VERSION_NAME + " started");
         Looper.prepare();
 
@@ -840,20 +842,30 @@ public class BreventServer extends Handler {
 
         CountDownLatch eventLatch = new CountDownLatch(0x1);
         BreventEvent breventEvent = new BreventEvent(handler, eventLatch);
-        new Thread(breventEvent).start();
+        Thread eventThread = new Thread(breventEvent);
+        eventThread.start();
 
         CountDownLatch socketLatch = new CountDownLatch(0x1);
         ServerSocket serverSocket = new ServerSocket(BreventProtocol.PORT, 0, BreventProtocol.HOST);
         serverSocket.setReuseAddress(true);
-        new Thread(new BreventSocket(handler, serverSocket, socketLatch)).start();
+        Thread socketThread = new Thread(new BreventSocket(handler, serverSocket, socketLatch));
+        socketThread.start();
 
         Looper.loop();
 
         breventEvent.quit();
-        eventLatch.await();
+        try {
+            eventLatch.await(MAX_TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            ServerLog.d("Can't await event in " + MAX_TIMEOUT + "s", e);
+        }
 
         serverSocket.close();
-        socketLatch.await();
+        try {
+            socketLatch.await();
+        } catch (InterruptedException e) {
+            ServerLog.d("Can't await socket in " + MAX_TIMEOUT + "s", e);
+        }
         ServerLog.d("Brevent Server " + BuildConfig.VERSION_NAME + " completed");
     }
 
