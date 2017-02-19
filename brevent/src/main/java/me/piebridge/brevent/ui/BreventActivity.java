@@ -434,7 +434,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         AppsFragment fragment = getFragment();
         if (!fragment.isAllImportant()) {
             Collection<String> selected = new ArraySet<>(fragment.getSelected());
-            selected.removeAll(mImportant);
+            if (brevent) {
+                selected.removeAll(mImportant);
+            }
             if (!selected.isEmpty()) {
                 BreventPackages breventPackages = new BreventPackages(brevent, getToken(), selected);
                 breventPackages.undoable = true;

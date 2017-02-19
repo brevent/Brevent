@@ -29,6 +29,12 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_APPOPS_BACKGROUND = "brevent_appops_background";
     public static final boolean DEFAULT_BREVENT_APPOPS_BACKGROUND = false;
 
+    public static final String BREVENT_MODE = "brevent_mode";
+
+    public static final int BREVENT_MODE_LATER = 0;
+
+    public static final int BREVENT_MODE_IMMEDIATE = 1;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public boolean backMove = DEFAULT_BREVENT_MOVE_BACK;
@@ -39,6 +45,8 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean appopsBackground = DEFAULT_BREVENT_APPOPS_BACKGROUND;
 
+    public int mode = BREVENT_MODE_LATER;
+
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
@@ -46,6 +54,19 @@ public class BreventConfiguration extends BreventToken {
         backHome = sharedPreferences.getBoolean(BREVENT_BACK_HOME, DEFAULT_BREVENT_BACK_HOME);
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
         appopsBackground = sharedPreferences.getBoolean(BREVENT_APPOPS_BACKGROUND, DEFAULT_BREVENT_APPOPS_BACKGROUND);
+        mode = convertMode(sharedPreferences.getString(BREVENT_MODE, ""));
+    }
+
+    private int convertMode(String string) {
+        switch (string) {
+            case "immediate":
+            case "" + BREVENT_MODE_IMMEDIATE:
+                return BREVENT_MODE_IMMEDIATE;
+            case "later":
+            case "" + BREVENT_MODE_LATER:
+            default:
+                return BREVENT_MODE_LATER;
+        }
     }
 
     protected BreventConfiguration(Parcel in) {
@@ -55,6 +76,7 @@ public class BreventConfiguration extends BreventToken {
         backHome = in.readInt() != 0;
         timeout = in.readInt();
         appopsBackground = in.readInt() != 0;
+        mode = in.readInt();
     }
 
     @Override
@@ -65,6 +87,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(backHome ? 1 : 0);
         dest.writeInt(timeout);
         dest.writeInt(appopsBackground ? 1 : 0);
+        dest.writeInt(mode);
     }
 
     public void write(PrintWriter pw) {
@@ -73,6 +96,7 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_BACK_HOME, backHome);
         write(pw, BREVENT_TIMEOUT, timeout);
         write(pw, BREVENT_APPOPS_BACKGROUND, appopsBackground);
+        write(pw, BREVENT_MODE, mode);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -110,6 +134,9 @@ public class BreventConfiguration extends BreventToken {
                     timeout = Integer.parseInt(value);
                 }
                 break;
+            case BREVENT_MODE:
+                mode = convertMode(value);
+                break;
             default:
                 break;
         }
@@ -135,6 +162,10 @@ public class BreventConfiguration extends BreventToken {
         }
         if (this.appopsBackground != request.appopsBackground) {
             this.appopsBackground = request.appopsBackground;
+            updated = true;
+        }
+        if (this.mode != request.mode) {
+            this.mode = request.mode;
             updated = true;
         }
         return updated;

@@ -47,6 +47,14 @@
             android:summary="%1$s"
             android:title="@string/brevent_method" />
 
+        <me.piebridge.brevent.ui.ListPreferenceSummary
+            android:defaultValue="later"
+            android:entries="@array/brevent_mode_entries"
+            android:entryValues="@array/brevent_mode_values"
+            android:key="brevent_mode"
+            android:summary="%1$s"
+            android:title="@string/brevent_mode" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

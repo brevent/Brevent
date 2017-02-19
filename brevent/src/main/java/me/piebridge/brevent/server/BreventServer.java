@@ -431,7 +431,7 @@ public class BreventServer extends Handler {
             String packageName = getPackageName((String) event.get("componentName"));
             if (packageName != null && mBrevent.contains(packageName)) {
                 mBack.add(packageName);
-                checkLater(CHECK_LATER_BACK);
+                checkLaterIfLater(CHECK_LATER_BACK);
                 ServerLog.d("will check " + packageName + "(" + mFocusReason + ")");
             }
         }
@@ -480,9 +480,9 @@ public class BreventServer extends Handler {
             }
         }
         if (mLauncher.equals(packageName)) {
-            checkLater(CHECK_LATER_HOME);
+            checkLaterIfLater(CHECK_LATER_HOME);
         } else {
-            checkLater(CHECK_LATER_APPS);
+            checkLaterIfLater(CHECK_LATER_APPS);
         }
     }
 
@@ -510,6 +510,14 @@ public class BreventServer extends Handler {
         } else {
             screen = false;
             checkLater(0);
+        }
+    }
+
+    private void checkLaterIfLater(int later) {
+        if (mConfiguration.mode == BreventConfiguration.BREVENT_MODE_IMMEDIATE) {
+            checkLater(0);
+        } else {
+            checkLater(later);
         }
     }
 
@@ -558,7 +566,7 @@ public class BreventServer extends Handler {
         } else if ("service".equals(type)) {
             if (mBrevent.contains(packageName)) {
                 mServices.add(packageName);
-                checkLater(CHECK_LATER_SERVICE);
+                checkLaterIfLater(CHECK_LATER_SERVICE);
             }
         }
     }
@@ -630,7 +638,7 @@ public class BreventServer extends Handler {
         sendBroadcast(request);
 
         if (brevent && !updated.isEmpty()) {
-            checkLater(CHECK_LATER_USER);
+            checkLaterIfLater(CHECK_LATER_USER);
         }
     }
 

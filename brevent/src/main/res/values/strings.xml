@@ -80,8 +80,9 @@
     <string name="brevent_move_back_label">Some apps move to background when BACK is pressed. When on, Brevent process it like normal BACK (Available since Android 7.0)</string>
     <string name="brevent_back_home">Brevent BACK open Launcher</string>
     <string name="brevent_back_home_label">Some apps open Launcher when BACK is pressed. When on, Brevent process it like normal BACK. Brevent could distinguish in most case, however you can press HOME 7 times to help Brevent confirm</string>
-    <string name="brevent_timeout">Brevent timeout</string>
-    <string name="brevent_timeout_label">After %1$s of inactivity with background apps</string>
+    <string name="brevent_timeout">Background apps timeout</string>
+    <string name="brevent_timeout_label">Background apps will be brevented after %s. Brevent show inactive time for background apps dynamically</string>
+    <string name="brevent_timeout_label_never">Background apps won\'t be brevented. Brevent show inactive time for background apps dynamically</string>
     <string name="brevent_timeout_never">Never</string>
     <string name="brevent_timeout_5min">5 minutes</string>
     <string name="brevent_timeout_10min">10 minutes</string>
@@ -91,7 +92,12 @@
     <string name="brevent_appops_background">Use AppOps\'s BACKGROUND</string>
     <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, apply even when you uninstall Brevent (Since Android 7.0)</string>
     <string name="brevent_method">Brevent method</string>
-    <string name="brevent_method_standby">Prefer Standby, then ForceStop</string>
+    <string name="brevent_method_standby">Prefer Standby (unavailable when charging), then ForceStop</string>
+    <string name="brevent_mode">Brevent working mode</string>
+    <string name="brevent_mode_later">Later (Recommend)</string>
+    <string name="brevent_mode_immediate">Immediate</string>
+    <string name="brevent_mode_label_later">Later. Short when HOME focused, longer when awaken, longest when apps focused, immediately when screen off</string>
+    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / HOME focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well</string>
 
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>

@@ -60,6 +60,16 @@
         <item>@string/brevent_method_standby</item>
     </string-array>
 
+    <string-array name="brevent_mode_values">
+        <item>later</item>
+        <item>immediate</item>
+    </string-array>
+
+    <string-array name="brevent_mode_entries">
+        <item>@string/brevent_mode_later</item>
+        <item>@string/brevent_mode_immediate</item>
+    </string-array>
+
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
 
