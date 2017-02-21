@@ -15,6 +15,8 @@ public class AppOpsManager {
 
     public static int OP_NONE = -1;
 
+    public static int OP_POST_NOTIFICATION = 11;
+
     public static int OP_ACTIVATE_VPN = 47;
 
     @RequiresApi(Build.VERSION_CODES.N)

@@ -93,6 +93,8 @@ public class BreventServer extends Handler {
 
     private int mUser;
 
+    private String mPackageName;
+
     private static final int CHECK_LATER_USER = 3000;
     private static final int CHECK_LATER_BACK = 3000;
     private static final int CHECK_LATER_HOME = 3000;
@@ -277,7 +279,9 @@ public class BreventServer extends Handler {
 
         blocking.addAll(services);
         blocking.addAll(back);
-        blocking.removeAll(top);
+        if (!screen) {
+            blocking.removeAll(top);
+        }
         blocking.removeAll(home);
 
         Set<String> unsafe = new ArraySet<>();
@@ -309,7 +313,8 @@ public class BreventServer extends Handler {
 
         for (String packageName : blocking) {
             block(packageName);
-            if (noRecent.contains(packageName)) {
+            if (!top.contains(packageName) && noRecent.contains(packageName)) {
+                HideApi.setAllowNotification(packageName, false);
                 HideApi.forceStopPackage(packageName, "(no recent)");
             }
         }
@@ -463,13 +468,17 @@ public class BreventServer extends Handler {
 
     private void handleEventAmFocusedActivity(int tid, SimpleArrayMap<String, Object> event) {
         // am_focused_activity (User|1|5),(Component Name|3),(Reason|3)
+        String componentName = (String) event.get("componentName");
+        String packageName = getPackageName(componentName);
+        if (packageName == null || packageName.equals(mPackageName)) {
+            return;
+        }
+        mPackageName = packageName;
         String reason = (String) event.get("reason");
         // reason since api-24
         if (reason == null) {
             reason = "(no reason)";
         }
-        String componentName = (String) event.get("componentName");
-        String packageName = getPackageName(componentName);
         mFocusReason = null;
         if (reason.startsWith(MOVE_TASK_TO_BACK)) {
             if (mConfiguration.backMove) {
@@ -621,6 +630,7 @@ public class BreventServer extends Handler {
         if (mConfiguration.appopsBackground) {
             HideApi.setAllowBackground(packageName, true);
         }
+        HideApi.setAllowNotification(packageName, true);
     }
 
     private void handleUpdateBrevent(BreventPackages request) {

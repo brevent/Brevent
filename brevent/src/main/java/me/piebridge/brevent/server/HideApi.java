@@ -191,6 +191,10 @@ class HideApi {
                 setMode(packageName, AppOpsManager.OP_RUN_IN_BACKGROUND, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED);
     }
 
+    public static boolean setAllowNotification(String packageName, boolean allow) throws HideApiException {
+        return setMode(packageName, AppOpsManager.OP_POST_NOTIFICATION, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED);
+    }
+
     private static Collection<String> getPackagesForOp(int op, int mode) {
         try {
             IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(ServiceManager.getService(Context.APP_OPS_SERVICE));
