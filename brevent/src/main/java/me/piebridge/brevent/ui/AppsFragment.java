@@ -1,10 +1,10 @@
 package me.piebridge.brevent.ui;
 
-import android.app.AppGlobals;
 import android.app.Fragment;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.IPackageManager;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import me.piebridge.brevent.R;
  * Created by thom on 2017/1/25.
  */
 public abstract class AppsFragment extends Fragment {
+
+    private static final String PACKAGE_FRAMEWORK = "android";
 
     private View mView;
 
@@ -40,6 +43,8 @@ public abstract class AppsFragment extends Fragment {
     private boolean mLoaded;
 
     private volatile boolean mExpired;
+
+    private Signature[] frameworkSignatures;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +100,7 @@ public abstract class AppsFragment extends Fragment {
         super.onDestroy();
     }
 
-    public abstract boolean accept(ApplicationInfo applicationInfo);
+    public abstract boolean accept(PackageManager packageManager, ApplicationInfo applicationInfo);
 
     public void refresh() {
         if (mAdapter != null) {
@@ -173,10 +178,36 @@ public abstract class AppsFragment extends Fragment {
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
-    protected final boolean isFrameworkPackage(String packageName) {
-        IPackageManager packageManager = AppGlobals.getPackageManager();
-        return packageManager.checkSignatures("android", BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH &&
-                packageManager.checkSignatures("android", packageName) == PackageManager.SIGNATURE_MATCH;
+    protected final boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
+        if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH) {
+            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == PackageManager.SIGNATURE_MATCH;
+        } else {
+            return Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
+        }
+    }
+
+    private Signature[] getFrameworkSignatures(PackageManager packageManager) {
+        if (frameworkSignatures == null) {
+            synchronized (this) {
+                if (frameworkSignatures == null) {
+                    frameworkSignatures = getSignatures(packageManager, PACKAGE_FRAMEWORK);
+                }
+            }
+        }
+        return frameworkSignatures;
+    }
+
+    private Signature[] getSignatures(PackageManager packageManager, String packageName) {
+        try {
+            String dexPath = packageManager.getApplicationInfo(packageName, 0).sourceDir;
+            PackageParser.Package pkg = new PackageParser.Package(dexPath);
+            pkg.baseCodePath = dexPath;
+            PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            return pkg.mSignatures;
+        } catch (PackageManager.NameNotFoundException | PackageParser.PackageParserException e) {
+            UILog.d("Can't get signatures for " + packageName, e);
+            return null;
+        }
     }
 
     public boolean supportAllApps() {

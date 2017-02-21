@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 /**
  * Created by thom on 2017/1/25.
@@ -8,8 +9,8 @@ import android.content.pm.ApplicationInfo;
 public class FrameworkAppsFragment extends AppsFragment {
 
     @Override
-    public boolean accept(ApplicationInfo applicationInfo) {
-        return isFrameworkPackage(applicationInfo.packageName);
+    public boolean accept(PackageManager packageManager, ApplicationInfo applicationInfo) {
+        return isFrameworkPackage(packageManager, applicationInfo.packageName);
     }
 
     @Override
