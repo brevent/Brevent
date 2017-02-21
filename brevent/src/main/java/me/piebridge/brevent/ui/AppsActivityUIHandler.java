@@ -3,6 +3,8 @@ package me.piebridge.brevent.ui;
 import android.os.Handler;
 import android.os.Message;
 
+import java.lang.ref.WeakReference;
+
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventPackages;
 
@@ -11,43 +13,46 @@ import me.piebridge.brevent.protocol.BreventPackages;
  */
 public class AppsActivityUIHandler extends Handler {
 
-    private final BreventActivity mActivity;
+    private final WeakReference<BreventActivity> mReference;
 
-    public AppsActivityUIHandler(BreventActivity breventActivity) {
-        super(breventActivity.getMainLooper());
-        mActivity = breventActivity;
+    public AppsActivityUIHandler(BreventActivity activity) {
+        super(activity.getMainLooper());
+        mReference = new WeakReference<>(activity);
     }
 
     @Override
     public void handleMessage(Message message) {
-        switch (message.what) {
-            case BreventActivity.UI_MESSAGE_SHOW_PROGRESS:
-                mActivity.showProgress(R.string.process_retrieving);
-                break;
-            case BreventActivity.UI_MESSAGE_HIDE_PROGRESS:
-                mActivity.hideDisabled();
-                mActivity.hideProgress();
-                break;
-            case BreventActivity.UI_MESSAGE_SHOW_PAGER:
-                mActivity.showViewPager();
-                break;
-            case BreventActivity.UI_MESSAGE_SHOW_FRAGMENT:
-                ((AppsFragment) message.obj).show();
-                break;
-            case BreventActivity.UI_MESSAGE_NO_BREVENT:
-                mActivity.showDisabled();
-                break;
-            case BreventActivity.UI_MESSAGE_IO_BREVENT:
-                // FIXME
-                mActivity.showDisabled();
-                break;
-            case BreventActivity.UI_MESSAGE_NO_BREVENT_DATA:
-            case BreventActivity.UI_MESSAGE_VERSION_UNMATCHED:
-                mActivity.showDisabled(R.string.brevent_service_restart);
-                break;
-            case BreventActivity.UI_MESSAGE_UPDATE_BREVENT:
-                mActivity.updateBreventResponse((BreventPackages) message.obj);
-                break;
+        BreventActivity activity = mReference.get();
+        if (activity != null) {
+            switch (message.what) {
+                case BreventActivity.UI_MESSAGE_SHOW_PROGRESS:
+                    activity.showProgress(R.string.process_retrieving);
+                    break;
+                case BreventActivity.UI_MESSAGE_HIDE_PROGRESS:
+                    activity.hideDisabled();
+                    activity.hideProgress();
+                    break;
+                case BreventActivity.UI_MESSAGE_SHOW_PAGER:
+                    activity.showViewPager();
+                    break;
+                case BreventActivity.UI_MESSAGE_SHOW_FRAGMENT:
+                    ((AppsFragment) message.obj).show();
+                    break;
+                case BreventActivity.UI_MESSAGE_NO_BREVENT:
+                    activity.showDisabled();
+                    break;
+                case BreventActivity.UI_MESSAGE_IO_BREVENT:
+                    // FIXME
+                    activity.showDisabled();
+                    break;
+                case BreventActivity.UI_MESSAGE_NO_BREVENT_DATA:
+                case BreventActivity.UI_MESSAGE_VERSION_UNMATCHED:
+                    activity.showDisabled(R.string.brevent_service_restart);
+                    break;
+                case BreventActivity.UI_MESSAGE_UPDATE_BREVENT:
+                    activity.updateBreventResponse((BreventPackages) message.obj);
+                    break;
+            }
         }
     }
 

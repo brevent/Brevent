@@ -94,13 +94,17 @@ public class AppsItemHandler extends Handler {
             return Collections.emptySet();
         }
         List<AppsInfo> appsInfoList = adapter.getAppsInfo();
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
+        if (appsInfoList.isEmpty() || activity == null) {
+            return Collections.emptySet();
+        }
         Set<Integer> positions = new ArraySet<>();
         final int now = TimeUtils.now();
         last = Math.min(last, appsInfoList.size());
         for (int i = first; i <= last; ++i) {
             AppsInfo info = appsInfoList.get(i);
             if (info.isPackage()) {
-                int inactive = getInactive(info.packageName);
+                int inactive = activity.getInactive(info.packageName);
                 if (inactive > 0) {
                     positions.add(i);
                 }
@@ -112,10 +116,6 @@ public class AppsItemHandler extends Handler {
             }
         }
         return positions;
-    }
-
-    private int getInactive(String packageName) {
-        return ((BreventActivity) mFragment.getActivity()).getInactive(packageName);
     }
 
 }

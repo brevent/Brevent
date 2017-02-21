@@ -9,6 +9,7 @@ import android.support.annotation.WorkerThread;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.Socket;
 
@@ -23,11 +24,11 @@ public class AppsActivityHandler extends Handler {
 
     private final Handler uiHandler;
 
-    private final BreventActivity mActivity;
+    private final WeakReference<BreventActivity> mReference;
 
     public AppsActivityHandler(BreventActivity activity, Handler handler) {
         super(newLooper());
-        mActivity = activity;
+        mReference = new WeakReference<>(activity);
         uiHandler = handler;
     }
 
@@ -52,7 +53,10 @@ public class AppsActivityHandler extends Handler {
                 if (breventResponse.versionUnmatched()) {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_VERSION_UNMATCHED);
                 } else {
-                    mActivity.onBreventResponse(breventResponse);
+                    BreventActivity activity = mReference.get();
+                    if (activity != null) {
+                        activity.onBreventResponse(breventResponse);
+                    }
                 }
                 break;
             case BreventActivity.MESSAGE_BREVENT_NO_RESPONSE:
