@@ -190,9 +190,12 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         startDonateActivity(intent);
     }
 
+    private boolean mayHasPermission(String permission) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N || hasPermission(permission);
+    }
+
     private boolean hasPermission(String permission) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                || checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -286,7 +289,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (!TextUtils.isEmpty(getPaypalLink())) {
             checkPackage(items, R.id.paypal, PACKAGE_PAYPAL);
         }
-        boolean canSupportWechat = hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean canSupportWechat = mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (canSupportWechat && !TextUtils.isEmpty(getWechatLink())) {
             checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
         }
@@ -335,16 +338,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private Uri getQrCodeUri() {
         String name = getPackageName() + ".donate.wechat.png";
-        if (hasPermission(WECHAT_DONATE_PERMISSION)) {
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            if (dir == null) {
-                return null;
-            }
-            if (!dir.exists() && !dir.mkdirs()) {
-                return null;
-            }
-            return Uri.fromFile(new File(dir, name));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
             DocumentFile file = null;
@@ -363,6 +357,15 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 return Uri.EMPTY;
             }
             return file.getUri();
+        } else if (hasPermission(WECHAT_DONATE_PERMISSION)) {
+            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            if (dir == null) {
+                return null;
+            }
+            if (!dir.exists() && !dir.mkdirs()) {
+                return null;
+            }
+            return Uri.fromFile(new File(dir, name));
         } else {
             return null;
         }
