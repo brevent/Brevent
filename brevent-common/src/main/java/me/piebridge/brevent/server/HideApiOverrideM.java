@@ -1,15 +1,18 @@
 package me.piebridge.brevent.server;
 
 import android.app.IActivityManager;
+import android.os.UserHandle;
 
 import java.util.List;
 
 /**
- * Created by thom on 2017/2/17.
+ * Created by thom on 2017/2/22.
  */
-public class HideApiM {
+public class HideApiOverrideM {
 
-    private HideApiM() {
+    public static final int USER_OWNER = UserHandle.USER_OWNER;
+
+    private HideApiOverrideM() {
 
     }
 

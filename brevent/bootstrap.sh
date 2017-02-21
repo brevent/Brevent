@@ -2,11 +2,12 @@
 
 project=https://github.com/liudongmiao/Brevent/issues
 function check() {
+    exec >&2
     echo -n "checking..."
     for x in 1 2 3 4 5 6 7 8 9 10; do
         sleep 1
         if netstat -tlnp 2>/dev/null | grep -q 59526; then
-            echo "successfully" >&2
+            echo "successfully"
             echo "if you find any issues, please report bug to $project with log"
             echo "for crash log: logcat -b crash -d"
             echo "for brevent log: logcat -b main -d -s BreventLoader BreventServer"
@@ -15,24 +16,21 @@ function check() {
         echo -n "."
     done
     echo ""
-    echo "cannot listen port, please report bug to $project with log below" >&2
+    echo "cannot listen port, please report bug to $project with log below"
     echo "--- crash start ---"
     logcat -b crash -t "$now"
     echo "--- crash end ---"
     echo "--- brevent start ---"
     logcat -b main -t "$now" -s BreventLoader BreventServer
     echo "--- brevent end ---"
-    echo "cannot listen port, please report bug to $project with log above" >&2
+    echo "cannot listen port, please report bug to $project with log above"
     exit 3
 }
 
 name=`id -un`
 if [ x"$name" = x"root" ]; then
-    echo "please run with 'su shell $0'" >&2
-    exit 0
-fi
-
-if [ x"$name" != x"shell" ]; then
+    echo "WARNING: it's unsafe to run as root" >&2
+elif [ x"$name" != x"shell" ]; then
     echo "cannot be run as $name" >&2
     exit 1
 fi

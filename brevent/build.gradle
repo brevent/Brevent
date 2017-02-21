@@ -91,7 +91,7 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     compile project(':donation')
     compile project(':log-reader-jni')
-    compile project(':brevent-m')
+    compile project(':brevent-common')
 }
 
 def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'),

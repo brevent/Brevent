@@ -44,7 +44,7 @@ import me.piebridge.brevent.protocol.BreventIntent;
  */
 class HideApi {
 
-    static final int USER_OWNER = 0;
+    static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverrideM.USER_OWNER;
 
     private HideApi() {
 

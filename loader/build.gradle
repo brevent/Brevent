@@ -22,31 +22,5 @@ android {
 
 dependencies {
     compile project(':log-reader')
-}
-
-def hiddenApi = project(':hidden-api').file('build/intermediates/bundles/release/classes.jar')
-
-if (project.gradle.startParameter.taskRequests?.empty) {
-    // for ide, aar cannot be provided
-    dependencies {
-        compile project(':hidden-api')
-    }
-} else {
-    // for proguard
-    dependencies {
-        provided files(hiddenApi)
-    }
-}
-
-tasks.withType(JavaCompile) {
-    doFirst {
-        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
-        options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'prepareDebugDependencies' || task.name == 'prepareReleaseDependencies') {
-        task.finalizedBy ':hidden-api:bundleRelease'
-    }
+    compile project(':brevent-common')
 }

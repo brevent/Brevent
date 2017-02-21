@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compileOnly project(':hidden-api-m')
+    compileOnly project(':hidden-api-override')
 }
 
 sourceCompatibility = "1.7"

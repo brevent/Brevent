@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
@@ -114,7 +113,7 @@ public class BreventServer extends Handler {
         }
 
         mUser = HideApi.getCurrentUser();
-        ServerLog.d("brevent user: " + mUser + ", uid: " + Process.myUid());
+        ServerLog.d("brevent user: " + mUser);
 
         mDataDir = getDataDir(HideApi.USER_OWNER);
         if (mDataDir == null) {
@@ -331,7 +330,7 @@ public class BreventServer extends Handler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 recentTasks = am.getRecentTasks(Integer.MAX_VALUE, RECENT_FLAGS, mUser).getList();
             } else {
-                recentTasks = HideApiM.getRecentTasks(am, Integer.MAX_VALUE, RECENT_FLAGS, mUser);
+                recentTasks = HideApiOverride.getRecentTasks(am, Integer.MAX_VALUE, RECENT_FLAGS, mUser);
             }
             for (ActivityManager.RecentTaskInfo recentTask : recentTasks) {
                 if (recentTask.baseIntent != null) {
@@ -812,7 +811,7 @@ public class BreventServer extends Handler {
     }
 
     private static String getDataDir(int owner) {
-        int uid = Process.myUid();
+        int uid = HideApiOverride.uidForData();
         IPackageManager packageManager = AppGlobals.getPackageManager();
         String[] packageNames;
         try {

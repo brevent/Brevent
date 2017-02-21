@@ -29,7 +29,7 @@
 
 -dontnote me.piebridge.brevent.ui.util.XposedUtils
 
--dontwarn me.piebridge.brevent.server.HideApiM
+-dontwarn me.piebridge.brevent.server.HideApiOverride*
 
 -keepnames class * implements android.os.Parcelable
 

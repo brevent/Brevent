@@ -18,6 +18,8 @@
 
 -keepattributes SourceFile,LineNumberTable,EnclosingMethod
 
+-dontwarn me.piebridge.brevent.server.HideApiOverride*
+
 -keep class me.piebridge.brevent.loader.Brevent { public *; }
 
 -keep class me.piebridge.EventHandler { *; }
