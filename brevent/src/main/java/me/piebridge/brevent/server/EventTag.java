@@ -195,7 +195,11 @@ public class EventTag {
         int size = Math.min(names.length, events.length);
         SimpleArrayMap<String, Object> result = new SimpleArrayMap<>();
         for (int i = 0; i < size; ++i) {
-            result.put(names[i], events[i]);
+            try {
+                result.put(names[i], events[i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ServerLog.e("names: " + Arrays.toString(names) + ", events: " + Arrays.toString(events) + ", i: " + i + ", size: " + size, e);
+            }
         }
         return result;
     }
