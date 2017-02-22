@@ -1,2 +1,4 @@
 /build
-/wechat.png
+/.externalNativeBuild
+/src/main/obj
+/src/main/libs

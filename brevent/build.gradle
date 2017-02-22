@@ -77,9 +77,27 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            if (!project.gradle.startParameter.taskRequests?.empty) {
+                jniLibs.srcDirs = ['src/main/libs']
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    if (project.gradle.startParameter.taskRequests?.empty) {
+        // for ide
+        externalNativeBuild {
+            ndkBuild {
+                path 'src/main/jni/Android.mk'
+            }
+        }
     }
 }
 
@@ -110,13 +128,6 @@ if (project.gradle.startParameter.taskRequests?.empty) {
     }
 }
 
-tasks.withType(JavaCompile) {
-    doFirst {
-        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
-        options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
-    }
-}
-
 tasks.whenTaskAdded { task ->
     if (task.name == 'prepareDebugDependencies' || task.name == 'prepareReleaseDependencies') {
         task.finalizedBy ':hidden-api:bundleRelease'
@@ -124,25 +135,25 @@ tasks.whenTaskAdded { task ->
     }
 }
 
-task copyBootstrap << {
-    def bootstrap = copySpec {
-        from file('bootstrap.sh')
-        rename { 'libbootstrap.so' }
+task renameBootstrap << {
+    rootProject.abiFilters.each { abi ->
+        copy {
+            from file("src/main/libs/${abi}/bootstrap")
+            into "src/main/libs/${abi}"
+            rename { 'libbootstrap.so' }
+        }
+        delete file("src/main/libs/${abi}/bootstrap")
     }
-    def loader = copySpec {
-        from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
-        rename { 'libloader.so' }
-    }
+}
+
+task copyLoader << {
     fileTree("build/intermediates/transforms/stripDebugSymbol").visit { details ->
         if (details.name == "lib") {
             rootProject.abiFilters.each { abi ->
                 copy {
-                    with bootstrap
-                    into new File(details.file, abi)
-                }
-                copy {
-                    with loader
-                    into new File(details.file, abi)
+                    from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
+                    rename { 'libloader.so' }
+                    into file("${details.file}/${abi}")
                 }
             }
             details.stopVisiting()
@@ -150,8 +161,35 @@ task copyBootstrap << {
     }
 }
 
+task buildBootstrap(type: Exec) {
+    commandLine "${android.ndkDirectory}/ndk-build",
+            '-C', file('src/main/jni').path,
+            'APP_BUILD_SCRIPT=Android.mk',
+            'NDK_APPLICATION_MK=Application.mk'
+}
+
+buildBootstrap.finalizedBy renameBootstrap
+
+task cleanBootstrap(type: Exec) {
+    commandLine "${android.ndkDirectory}/ndk-build",
+            '-C', file('src/main/jni').path,
+            'APP_BUILD_SCRIPT=Android.mk',
+            'NDK_APPLICATION_MK=Application.mk',
+            'clean'
+}
+
 tasks.whenTaskAdded { task ->
     if (task.name == 'transformNative_libsWithStripDebugSymbolForRelease' || task.name == 'transformNative_libsWithStripDebugSymbolForDebug') {
-        task.finalizedBy copyBootstrap
+        task.finalizedBy copyLoader
     }
 }
+
+tasks.withType(JavaCompile) { compileTask ->
+    compileTask.dependsOn buildBootstrap
+    doFirst {
+        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+        options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
+    }
+}
+
+clean.dependsOn cleanBootstrap
