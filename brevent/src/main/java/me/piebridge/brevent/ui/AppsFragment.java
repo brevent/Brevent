@@ -1,6 +1,8 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
@@ -184,7 +186,19 @@ public abstract class AppsFragment extends Fragment {
         if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH) {
             return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == PackageManager.SIGNATURE_MATCH;
         } else {
-            return Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
+            SharedPreferences preferences = null;
+            Context context = getContext();
+            if (context != null) {
+                preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
+                if (preferences.contains(packageName)) {
+                    return preferences.getBoolean(packageName, false);
+                }
+            }
+            boolean signature =  Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
+            if (preferences != null) {
+                preferences.edit().putBoolean(packageName, signature).apply();
+            }
+            return signature;
         }
     }
 
