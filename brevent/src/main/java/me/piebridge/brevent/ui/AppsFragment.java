@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.content.pm.Signature;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.server.HideApiOverrideM;
 
 /**
  * Created by thom on 2017/1/25.
@@ -202,7 +204,11 @@ public abstract class AppsFragment extends Fragment {
             String dexPath = packageManager.getApplicationInfo(packageName, 0).sourceDir;
             PackageParser.Package pkg = new PackageParser.Package(dexPath);
             pkg.baseCodePath = dexPath;
-            PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            } else {
+                HideApiOverrideM.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            }
             return pkg.mSignatures;
         } catch (PackageManager.NameNotFoundException | PackageParser.PackageParserException e) {
             UILog.d("Can't get signatures for " + packageName, e);
