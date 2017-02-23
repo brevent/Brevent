@@ -83,12 +83,21 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private List<String> mSkus;
 
+    private boolean stopped;
+
     @CallSuper
     public void onStart() {
         super.onStart();
+        stopped = false;
         mDonation = findViewById(R.id.donation);
         mDonationTip = (TextView) findViewById(R.id.donation_tip);
         updateDonations();
+    }
+
+    @CallSuper
+    public void onStop() {
+        stopped = true;
+        super.onStop();
     }
 
     public final void updateDonations() {
@@ -170,7 +179,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     void copyQrCodeAndDonate() {
-        if (copyQrCode()) {
+        if (copyQrCode() && !stopped) {
             new WechatFragment().show(getFragmentManager(), FRAGMENT_DONATION_WECHAT);
         }
     }
@@ -278,7 +287,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     private void showDonateDialog() {
-        new ProgressFragment().show(getFragmentManager(), FRAGMENT_DONATION_PROGRESS);
+        if (!stopped) {
+            new ProgressFragment().show(getFragmentManager(), FRAGMENT_DONATION_PROGRESS);
+        }
     }
 
     private void activateDonations() {

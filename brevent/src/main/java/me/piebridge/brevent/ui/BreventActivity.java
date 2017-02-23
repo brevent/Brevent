@@ -114,6 +114,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private String mLauncher;
 
+    private boolean stopped;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,12 +159,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT), BreventIntent.PERMISSION_SHELL, mHandler);
-    }
-
     public void showDisabled() {
         if (mHandler != null) {
             hideProgress();
@@ -171,6 +167,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showDisabled(int title) {
+        if (stopped) {
+            return;
+        }
         if (mDisabledFragment == null) {
             mDisabledFragment = new AppsDisabledFragment();
             mDisabledFragment.update(title);
@@ -186,6 +185,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showProgress(int message) {
+        if (stopped) {
+            return;
+        }
         hideDisabled();
         ProgressFragment progressFragment = (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
         if (progressFragment == null) {
@@ -196,6 +198,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showAppProgress(int progress, int max, int size) {
+        if (stopped) {
+            return;
+        }
         AppsProgressFragment progressFragment = (AppsProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS_APPS);
         if (progressFragment == null) {
             progressFragment = new AppsProgressFragment();
@@ -223,7 +228,15 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        stopped = false;
+        registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT), BreventIntent.PERMISSION_SHELL, mHandler);
+    }
+
+    @Override
     protected void onStop() {
+        stopped = true;
         dismissDialogFragmentIfNeeded(true);
         unregisterReceiver(mReceiver);
         mHandler.removeCallbacksAndMessages(null);
@@ -371,6 +384,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void openFeedback() {
+        if (stopped) {
+            return;
+        }
         new AppsFeedbackFragment().show(getFragmentManager(), FRAGMENT_FEEDBACK);
     }
 
