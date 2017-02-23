@@ -267,6 +267,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
         mCompleted = false;
         mAppsInfo.clear();
         mPackages.clear();
+        mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
         new AppsInfoTask(this).execute(activity);
     }
 
@@ -304,6 +305,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
         if (!changed) {
             return false;
         }
+        mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
         int size = counter.size();
         for (int i = 0; i < size; ++i) {
             int status = counter.keyAt(i);

@@ -26,6 +26,7 @@ public class AppsItemHandler extends Handler {
     public static final int MSG_UPDATE_TIME = 0;
     public static final int MSG_UPDATE_ITEM = 1;
     public static final int MSG_RETRIEVE_PACKAGES = 2;
+    public static final int MSG_STOP_UPDATE = 3;
 
     private final AppsFragment mFragment;
 
@@ -39,17 +40,25 @@ public class AppsItemHandler extends Handler {
 
     @Override
     public void handleMessage(Message msg) {
-        if (msg.what == MSG_UPDATE_ITEM) {
-            updateInactive(getInactivePositions());
-        } else if (msg.what == MSG_UPDATE_TIME) {
-            @SuppressWarnings("unchecked")
-            Set<Integer> positions = (Set<Integer>) msg.obj;
-            if (positions == null) {
-                positions = getInactivePositions();
-            }
-            updateInactive(positions);
-        } else if (msg.what == MSG_RETRIEVE_PACKAGES) {
-            mFragment.retrievePackages();
+        switch (msg.what) {
+            case MSG_UPDATE_ITEM:
+            case MSG_UPDATE_TIME:
+                @SuppressWarnings("unchecked")
+                Set<Integer> positions = (Set<Integer>) msg.obj;
+                if (positions == null) {
+                    positions = getInactivePositions();
+                }
+                updateInactive(positions);
+                break;
+            case MSG_RETRIEVE_PACKAGES:
+                mFragment.retrievePackages();
+                break;
+            case MSG_STOP_UPDATE:
+                removeMessages(MSG_UPDATE_ITEM);
+                removeMessages(MSG_UPDATE_TIME);
+                break;
+            default:
+                break;
         }
     }
 
