@@ -15,6 +15,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
+import android.util.EventLog;
 import android.util.SparseIntArray;
 
 import java.io.BufferedReader;
@@ -136,9 +137,9 @@ public class BreventServer extends Handler {
 
         mLauncher = HideApi.getLauncher();
 
-        handleStatus(BreventToken.EMPTY_TOKEN);
-
         check();
+
+        handleStatus(BreventToken.EMPTY_TOKEN);
     }
 
     private void loadBreventConf() {
@@ -886,6 +887,8 @@ public class BreventServer extends Handler {
         Looper.loop();
 
         breventEvent.quit();
+        EventLog.writeEvent(42, 0xfee1dead);
+
         try {
             eventLatch.await(MAX_TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
