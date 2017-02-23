@@ -101,9 +101,13 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_SERVICE = 30000;
     private static final int CHECK_LATER_APPS = 60000;
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
+    private static final int CHECK_LATER_RECENT = 1800000;
 
-    private static final int RECENT_FLAGS = ActivityManager.RECENT_IGNORE_UNAVAILABLE | ActivityManager.RECENT_WITH_EXCLUDED;
+    private static final int RECENT_FLAGS = HideApi.getRecentFlags();
+
     private static final int HOME_INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED;
+
+    private static final int NAX_SURVIVE_TIME = 1000 * 60 * 60 * 3;
 
     private BreventServer() throws IOException {
         super();
@@ -285,7 +289,7 @@ public class BreventServer extends Handler {
         blocking.removeAll(home);
 
         Set<String> unsafe = new ArraySet<>();
-        SimpleArrayMap<String, Set<String>> dependencies = HideApi.getDependencies(getCacheDir());
+        SimpleArrayMap<String, Set<String>> dependencies = HideApi.getDependencies(getCacheDir(), mUser);
 
         if (!BuildConfig.RELEASE) {
             size = dependencies.size();
@@ -320,8 +324,12 @@ public class BreventServer extends Handler {
         }
 
         removeMessages(MESSAGE_CHECK);
-        if (!screen && checkLater) {
-            checkAgain(processes);
+        if (!screen) {
+            if (checkLater) {
+                checkAgain(processes);
+            } else {
+                checkRecentAgain(processes);
+            }
         }
     }
 
@@ -335,13 +343,13 @@ public class BreventServer extends Handler {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 recentTasks = am.getRecentTasks(Integer.MAX_VALUE, RECENT_FLAGS, mUser).getList();
             } else {
-                recentTasks = HideApiOverride.getRecentTasks(am, Integer.MAX_VALUE, RECENT_FLAGS, mUser);
+                recentTasks = HideApiOverrideM.getRecentTasks(am, Integer.MAX_VALUE, RECENT_FLAGS, mUser);
             }
+            long minActiveTime = System.currentTimeMillis() - NAX_SURVIVE_TIME;
             for (ActivityManager.RecentTaskInfo recentTask : recentTasks) {
-                if (recentTask.baseIntent != null) {
-                    ComponentName componentName = recentTask.baseIntent.getComponent();
-                    if (componentName != null) {
-                        recent.add(componentName.getPackageName());
+                if (recentTask.baseIntent != null && recentTask.baseIntent.getComponent() != null) {
+                    if (recentTask.lastActiveTime >= minActiveTime || isFreeform(recentTask)) {
+                        recent.add(recentTask.baseIntent.getComponent().getPackageName());
                     }
                 }
             }
@@ -352,6 +360,10 @@ public class BreventServer extends Handler {
         }
     }
 
+    private boolean isFreeform(ActivityManager.RecentTaskInfo taskInfo) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && taskInfo.stackId == ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID;
+    }
+
     private void checkAgain(SimpleArrayMap<String, SparseIntArray> processes) {
         int size = processes.size();
         for (int i = 0; i < size; ++i) {
@@ -359,6 +371,17 @@ public class BreventServer extends Handler {
             SparseIntArray status = processes.valueAt(i);
             if (mBrevent.contains(packageName) && !BreventStatus.isStandby(status) && BreventStatus.getInactive(status) > 0) {
                 checkLater(CHECK_LATER_SCREEN_OFF);
+                break;
+            }
+        }
+    }
+
+    private void checkRecentAgain(SimpleArrayMap<String, SparseIntArray> processes) {
+        int size = processes.size();
+        for (int i = 0; i < size; ++i) {
+            String packageName = processes.keyAt(i);
+            if (mBrevent.contains(packageName)) {
+                sendEmptyMessageDelayed(MESSAGE_CHECK, CHECK_LATER_RECENT);
                 break;
             }
         }
@@ -723,7 +746,7 @@ public class BreventServer extends Handler {
         }
 
         ActivitiesHolder holder = new ActivitiesHolder();
-        List<TaskRecord> taskRecords = HideApi.getRunningActivities(getCacheDir());
+        List<TaskRecord> taskRecords = HideApi.getRunningActivities(getCacheDir(), mUser);
         if (taskRecords.isEmpty()) {
             ServerLog.e("Can't check running activities");
             return holder;

@@ -267,7 +267,7 @@ class HideApi {
 
     // UsageStatsManager end
 
-    public static List<TaskRecord> getRunningActivities(File directory) throws HideApiException {
+    public static List<TaskRecord> getRunningActivities(File directory, int userId) throws HideApiException {
         try {
             IBinder am = ServiceManager.getService(Context.ACTIVITY_SERVICE);
             File file = File.createTempFile("dumpsys", "log", directory);
@@ -275,7 +275,7 @@ class HideApi {
             am.dump(parcel.getFileDescriptor(), new String[] {"activities"});
             parcel.close();
             try {
-                return parseActivities(file);
+                return parseActivities(file, userId);
             } finally {
                 file.delete();
             }
@@ -287,7 +287,7 @@ class HideApi {
         return Collections.emptyList();
     }
 
-    public static SimpleArrayMap<String, Set<String>> getDependencies(File directory) throws HideApiException {
+    public static SimpleArrayMap<String, Set<String>> getDependencies(File directory, int userId) throws HideApiException {
         try {
             IBinder am = ServiceManager.getService(Context.ACTIVITY_SERVICE);
             File file = File.createTempFile("dumpsys", "log", directory);
@@ -295,7 +295,7 @@ class HideApi {
             am.dump(parcel.getFileDescriptor(), new String[] {"processes"});
             parcel.close();
             try {
-                return parseDependencies(file);
+                return parseDependencies(file, userId);
             } finally {
                 file.delete();
             }
@@ -307,17 +307,20 @@ class HideApi {
         return new SimpleArrayMap<>();
     }
 
-    private static SimpleArrayMap<String, Set<String>> parseDependencies(File file) throws IOException {
+    private static SimpleArrayMap<String, Set<String>> parseDependencies(File file, int userId) throws IOException {
         SimpleArrayMap<String, Set<String>> dependencies = new SimpleArrayMap<>();
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
 
         ) {
+            Integer user = null;
             Collection<String> packageList = null;
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (line.contains("packageList=")) {
+                if (line.contains("user #")) {
+                    user = Integer.parseInt(StringUtils.substring(line, "user #", " "));
+                } else if ((user == null || user == userId) && line.contains("packageList=")) {
                     packageList = parseList(line);
                 } else if (packageList != null && line.contains("packageDependencies=")) {
                     Collection<String> packageDependencies = parseList(line);
@@ -332,6 +335,7 @@ class HideApi {
                         }
                     }
                     packageList = null;
+                    user = null;
                 }
             }
         }
@@ -348,7 +352,7 @@ class HideApi {
         return packageNames;
     }
 
-    private static List<TaskRecord> parseActivities(File file) throws IOException {
+    private static List<TaskRecord> parseActivities(File file, int userId) throws IOException {
         List<TaskRecord> taskRecords = new ArrayList<>();
         TaskRecord taskRecord = null;
         String line;
@@ -386,7 +390,9 @@ class HideApi {
                         if (isDestroyed(taskRecord.state)) {
                             taskRecord.inactive = 0;
                         }
-                        taskRecords.add(taskRecord);
+                        if (taskRecord.userId == null || taskRecord.userId == userId) {
+                            taskRecords.add(taskRecord);
+                        }
                         taskRecord = null;
                     }
                 }
@@ -460,6 +466,17 @@ class HideApi {
 
     public static int getProcessState(ActivityManager.RunningAppProcessInfo process) {
         return process.processState;
+    }
+
+    public static int getRecentFlags() {
+        int flags = ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS |
+                ActivityManager.RECENT_IGNORE_UNAVAILABLE |
+                ActivityManager.RECENT_INCLUDE_PROFILES;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            flags |= ActivityManager.RECENT_INGORE_DOCKED_STACK_TOP_TASK |
+                    ActivityManager.RECENT_INGORE_PINNED_STACK_TASKS;
+        }
+        return flags;
     }
 
     public static final class PendingResult {

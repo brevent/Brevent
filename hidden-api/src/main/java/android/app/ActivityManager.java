@@ -296,6 +296,18 @@ public class ActivityManager {
 
         public Intent baseIntent;
 
+        /**
+         * The id of the ActivityStack this Task was on most recently.
+         * @hide
+         */
+        public int stackId;
+
+        /**
+         * The last time this task was active.
+         * @hide
+         */
+        public long lastActiveTime;
+
     }
 
     /**
@@ -310,5 +322,62 @@ public class ActivityManager {
      * recent tasks that currently are not available to the user.
      */
     public static final int RECENT_IGNORE_UNAVAILABLE = 0x0002;
+
+    /**
+     * Provides a list that contains recent tasks for all
+     * profiles of a user.
+     * @hide
+     */
+    public static int RECENT_INCLUDE_PROFILES = 0x0004;
+
+    /**
+     * Ignores all tasks that are on the home stack.
+     * @hide
+     */
+    public static int RECENT_IGNORE_HOME_STACK_TASKS = 0x0008;
+
+    /**
+     * Ignores the top task in the docked stack.
+     * @hide
+     */
+    @RequiresApi(Build.VERSION_CODES.N)
+    public static int RECENT_INGORE_DOCKED_STACK_TOP_TASK = 0x0010;
+
+    /**
+     * Ignores all tasks that are on the pinned stack.
+     * @hide
+     */
+    @RequiresApi(Build.VERSION_CODES.N)
+    public static int RECENT_INGORE_PINNED_STACK_TASKS = 0x0020;
+
+    /** @hide */
+    public static class StackId {
+        /** Invalid stack ID. */
+        public static int INVALID_STACK_ID = -1;
+
+        /** First static stack ID. */
+        public static int FIRST_STATIC_STACK_ID = 0;
+
+        /** Home activity stack ID. */
+        public static int HOME_STACK_ID = FIRST_STATIC_STACK_ID;
+
+        /** ID of stack where fullscreen activities are normally launched into. */
+        public static int FULLSCREEN_WORKSPACE_STACK_ID = 1;
+
+        /** ID of stack where freeform/resized activities are normally launched into. */
+        public static int FREEFORM_WORKSPACE_STACK_ID = FULLSCREEN_WORKSPACE_STACK_ID + 1;
+
+        /** ID of stack that occupies a dedicated region of the screen. */
+        public static int DOCKED_STACK_ID = FREEFORM_WORKSPACE_STACK_ID + 1;
+
+        /** ID of stack that always on top (always visible) when it exist. */
+        public static int PINNED_STACK_ID = DOCKED_STACK_ID + 1;
+
+        /** Last static stack stack ID. */
+        public static int LAST_STATIC_STACK_ID = PINNED_STACK_ID;
+
+        /** Start of ID range used by stacks that are created dynamically. */
+        public static int FIRST_DYNAMIC_STACK_ID = LAST_STATIC_STACK_ID + 1;
+    }
 
 }
