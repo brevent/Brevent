@@ -62,7 +62,12 @@ class HideApi {
     }
 
     public static int getCurrentUser() {
-        return ActivityManager.getCurrentUser();
+        try {
+            return ActivityManager.getCurrentUser();
+        } catch (RuntimeException e) {
+            ServerLog.w("Can't getCurrentUser");
+            return HideApi.USER_OWNER;
+        }
     }
 
     public static List<ActivityManager.RunningAppProcessInfo> getRunningAppProcesses() {
@@ -154,8 +159,8 @@ class HideApi {
     public static void setStopped(String packageName, boolean stopped) {
         try {
             AppGlobals.getPackageManager().setPackageStoppedState(packageName, stopped, HideApi.USER_OWNER);
-        } catch (SecurityException | RemoteException e) {
-            ServerLog.e("Can't setPackageStoppedState for " + packageName);
+        } catch (SecurityException | RemoteException e) { // NOSONAR
+            // do nothing
         }
     }
 

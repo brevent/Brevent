@@ -137,8 +137,6 @@ public class BreventServer extends Handler {
 
         mLauncher = HideApi.getLauncher();
 
-        check();
-
         handleStatus(BreventToken.EMPTY_TOKEN);
     }
 
@@ -217,10 +215,7 @@ public class BreventServer extends Handler {
         }
     }
 
-    private void check() {
-        removeMessages(MESSAGE_CHECK);
-
-
+    private SimpleArrayMap<String, SparseIntArray> check() {
         Set<String> services = new ArraySet<>(mServices);
         mServices.clear();
 
@@ -332,6 +327,8 @@ public class BreventServer extends Handler {
                 checkRecentAgain(processes);
             }
         }
+
+        return processes;
     }
 
     @SuppressWarnings("unchecked")
@@ -497,6 +494,7 @@ public class BreventServer extends Handler {
         if (packageName == null || packageName.equals(mPackageName)) {
             return;
         }
+        unblock(packageName);
         mPackageName = packageName;
         String reason = (String) event.get("reason");
         // reason since api-24
@@ -651,6 +649,7 @@ public class BreventServer extends Handler {
     }
 
     private void unblock(String packageName) {
+        HideApi.setInactive(packageName, false);
         if (mConfiguration.appopsBackground) {
             HideApi.setAllowBackground(packageName, true);
         }
@@ -734,8 +733,7 @@ public class BreventServer extends Handler {
     }
 
     private void handleStatus(UUID token) {
-        SimpleArrayMap<String, Integer> running = getRunningActivities().running;
-        SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
+        SimpleArrayMap<String, SparseIntArray> processes = check();
         BreventStatus response = new BreventStatus(token, mBrevent, processes, HideApi.getVpnPackages());
         sendBroadcast(response);
         removeMessages(MESSAGE_REQUEST_STATUS);
