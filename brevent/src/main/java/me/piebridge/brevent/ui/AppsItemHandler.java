@@ -56,6 +56,7 @@ public class AppsItemHandler extends Handler {
             case MSG_STOP_UPDATE:
                 removeMessages(MSG_UPDATE_ITEM);
                 removeMessages(MSG_UPDATE_TIME);
+                sendEmptyMessageDelayed(MSG_UPDATE_ITEM, TIME_UPDATE_DELAY);
                 break;
             default:
                 break;

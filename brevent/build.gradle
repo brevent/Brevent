@@ -178,6 +178,10 @@ task cleanBootstrap(type: Exec) {
             'clean'
 }
 
+task deleteNativeBuild(type: Delete) {
+    delete file('.externalNativeBuild')
+}
+
 tasks.whenTaskAdded { task ->
     if (task.name == 'transformNative_libsWithStripDebugSymbolForRelease' || task.name == 'transformNative_libsWithStripDebugSymbolForDebug') {
         task.finalizedBy copyLoader
@@ -193,3 +197,4 @@ tasks.withType(JavaCompile) { compileTask ->
 }
 
 clean.dependsOn cleanBootstrap
+clean.dependsOn deleteNativeBuild
