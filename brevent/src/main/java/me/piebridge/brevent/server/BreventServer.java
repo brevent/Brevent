@@ -236,6 +236,11 @@ public class BreventServer extends Handler {
 
         Set<String> recent = getRecentPackages();
 
+        if (mPackageName != null && !top.contains(mPackageName)) {
+            ServerLog.e("top: " + top + " don't contains current: " + mPackageName);
+            top.add(mPackageName);
+        }
+
         if (!BuildConfig.RELEASE) {
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
@@ -279,9 +284,7 @@ public class BreventServer extends Handler {
 
         blocking.addAll(services);
         blocking.addAll(back);
-        if (!screen) {
-            blocking.removeAll(top);
-        }
+        blocking.removeAll(top);
         blocking.removeAll(home);
 
         Set<String> unsafe = new ArraySet<>();
