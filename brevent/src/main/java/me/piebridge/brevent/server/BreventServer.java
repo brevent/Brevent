@@ -406,8 +406,12 @@ public class BreventServer extends Handler {
         if (packageNames.contains(BuildConfig.APPLICATION_ID)) {
             PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID);
             if (packageInfo == null) {
+                ServerLog.d("uninstalled");
                 //noinspection ConstantConditions
                 Looper.myLooper().quit();
+                for (String packageName : mBrevent) {
+                    unblock(packageName);
+                }
                 if (!getBreventConf().delete()) {
                     ServerLog.d("Can't remove brevent conf");
                 }
