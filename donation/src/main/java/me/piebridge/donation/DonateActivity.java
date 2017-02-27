@@ -36,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -499,7 +500,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     public String getSku() {
         int size = Math.min(0x5, mSkus.size());
         List<String> skus = mSkus.subList(0, size);
-        Collections.shuffle(skus);
+        Collections.shuffle(skus, new SecureRandom());
         return skus.get(0);
     }
 
