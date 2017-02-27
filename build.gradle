@@ -18,3 +18,11 @@ task clean(type: Delete) {
 }
 
 project.ext.abiFilters = ['armeabi', 'x86']
+
+project.ext.supportLibraryVersion = '25.2.0'
+
+project.ext.buildToolsVersion = '25.0.2'
+
+project.ext.minSdkVersion = 21
+
+project.ext.targetSdkVersion = 25
