@@ -8,9 +8,15 @@
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
 
+#if defined(__LP64__)
+#define APP_PROCESS "/system/bin/app_process64"
+#else
+#define APP_PROCESS "/system/bin/app_process32"
+#endif
 static int bootstrap() {
-    char *arg[] = {"/system/bin/app_process32", "/system/bin", "--nice-name=brevent_server",
+    char *arg[] = {APP_PROCESS, "/system/bin", "--nice-name=brevent_server",
                    "me.piebridge.brevent.loader.Brevent", NULL};
+
     return execv(arg[0], arg);
 }
 

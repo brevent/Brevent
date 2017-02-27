@@ -37,6 +37,7 @@ public interface IActivityManager {
 
     List<ActivityManager.RunningAppProcessInfo> getRunningAppProcesses() throws RemoteException;
 
+    @RequiresApi(Build.VERSION_CODES.N)
     ParceledListSlice<ActivityManager.RecentTaskInfo> getRecentTasks(int maxNum, int flags, int userId) throws RemoteException;
 
     int getFocusedStackId() throws RemoteException;

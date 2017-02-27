@@ -17,7 +17,7 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-project.ext.abiFilters = ['armeabi', 'x86']
+project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
 project.ext.supportLibraryVersion = '25.2.0'
 
