@@ -236,8 +236,8 @@ public class BreventServer extends Handler {
 
         Set<String> recent = getRecentPackages();
 
-        if (mPackageName != null && !top.contains(mPackageName)) {
-            ServerLog.e("top: " + top + " don't contains current: " + mPackageName);
+        if (mPackageName != null && !top.contains(mPackageName) && !home.contains(mPackageName)) {
+            ServerLog.e("top: " + top + ", home: " + home + " don't contains current: " + mPackageName);
             top.add(mPackageName);
         }
 
@@ -245,6 +245,7 @@ public class BreventServer extends Handler {
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
+            ServerLog.d("recent: " + recent);
         }
 
         SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
@@ -259,6 +260,7 @@ public class BreventServer extends Handler {
             SparseIntArray status = processes.valueAt(i);
             if (mBrevent.contains(packageName)) {
                 if (!recent.contains(packageName)) {
+                    blocking.add(packageName);
                     noRecent.add(packageName);
                 }
                 if (!BreventStatus.isStandby(status)) {
@@ -483,6 +485,7 @@ public class BreventServer extends Handler {
                 }
                 if (repeatCount >= 0x7) {
                     mHomeTid = tid;
+                    repeatCount = 0;
                     ServerLog.i("reset home tid to " + mHomeTid);
                 }
             }
