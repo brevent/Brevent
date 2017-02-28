@@ -653,7 +653,6 @@ public class BreventServer extends Handler {
         if (mConfiguration.appopsBackground) {
             HideApi.setAllowBackground(packageName, false);
         }
-        HideApi.setStopped(packageName, true);
     }
 
     private void unblock(String packageName) {
