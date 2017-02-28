@@ -504,7 +504,9 @@ public class BreventServer extends Handler {
         if (packageName == null || packageName.equals(mPackageName)) {
             return;
         }
-        unblock(packageName);
+        if (mBrevent.contains(packageName)) {
+            unblock(packageName);
+        }
         mPackageName = packageName;
         String reason = (String) event.get("reason");
         // reason since api-24
