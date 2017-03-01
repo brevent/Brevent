@@ -211,7 +211,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     @Override
     @CallSuper
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_WECHAT_DONATE_SDA) {
+        if (requestCode == REQUEST_WECHAT_DONATE_SDA && data != null) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
                 getContentResolver().takePersistableUriPermission(uri,
@@ -222,7 +222,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             } else {
                 hideWechat();
             }
-        } else if (requestCode == REQUEST_PLAY_DONATE) {
+        } else if (requestCode == REQUEST_PLAY_DONATE && data != null) {
             String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
             String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
             if (PlayServiceConnection.verify(getPlayModulus(), purchaseData, dataSignature)) {
