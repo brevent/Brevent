@@ -256,15 +256,6 @@ class HideApi {
         }
     }
 
-    public static Collection<String> getVpnPackages(int uid) {
-        try {
-            // FIXME
-            return getPackagesForOp(HideApiOverride.OP_ACTIVATE_VPN, AppOpsManager.MODE_ALLOWED, uid);
-        } catch (SecurityException e) {
-            return Collections.emptyList();
-        }
-    }
-
     // AppOpsService end
 
 

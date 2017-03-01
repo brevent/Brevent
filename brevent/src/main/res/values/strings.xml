@@ -114,4 +114,11 @@
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
 
+    <string name="important_input">%s (Input method)</string>
+    <string name="important_alarm">%s (Alarm)</string>
+    <string name="important_sms">%s (SMS)</string>
+    <string name="important_launcher">%s (Launcher)</string>
+    <string name="important_persistent">%s (Persistent)</string>
+    <string name="important_android">%s (Android)</string>
+
 </resources>

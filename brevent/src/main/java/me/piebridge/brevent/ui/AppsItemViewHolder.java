@@ -28,6 +28,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
     private static final String PACKAGE_SHELL = "com.android.shell";
 
     String packageName;
+    String label;
     CardView cardView;
     ImageView iconView;
     TextView nameView;

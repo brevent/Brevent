@@ -99,6 +99,35 @@ public class ActivityManager {
      */
     public static class RunningAppProcessInfo {
         /**
+         * Constant for {@link #flags}: this is an app that is unable to
+         * correctly save its state when going to the background,
+         * so it can not be killed while in the background.
+         * @hide
+         */
+        public static int FLAG_CANT_SAVE_STATE = 1<<0;
+
+        /**
+         * Constant for {@link #flags}: this process is associated with a
+         * persistent system app.
+         * @hide
+         */
+        public static int FLAG_PERSISTENT = 1<<1;
+
+        /**
+         * Constant for {@link #flags}: this process is associated with a
+         * persistent system app.
+         * @hide
+         */
+        public static int FLAG_HAS_ACTIVITIES = 1<<2;
+
+        /**
+         * Flags of information.  May be any of
+         * {@link #FLAG_CANT_SAVE_STATE}.
+         * @hide
+         */
+        public int flags;
+
+        /**
          * Current process state, as per PROCESS_STATE_* constants.
          * @hide
          */

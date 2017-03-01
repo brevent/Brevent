@@ -70,6 +70,10 @@ public class HideApiOverride {
         return process.processState;
     }
 
+    public static boolean isPersistent(ActivityManager.RunningAppProcessInfo process) {
+        return (process.flags & ActivityManager.RunningAppProcessInfo.FLAG_PERSISTENT) == ActivityManager.RunningAppProcessInfo.FLAG_PERSISTENT;
+    }
+
     public static boolean isCached(int processState) {
         return processState >= ActivityManager.PROCESS_STATE_CACHED_ACTIVITY;
     }

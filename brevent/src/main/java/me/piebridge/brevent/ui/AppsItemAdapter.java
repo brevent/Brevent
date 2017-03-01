@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Process;
 import android.support.annotation.ColorInt;
 import android.support.v4.util.ArraySet;
 import android.support.v7.widget.CardView;
@@ -103,9 +104,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
             AppsItemViewHolder viewHolder = (AppsItemViewHolder) holder;
             if (!appsInfo.packageName.equals(viewHolder.packageName)) {
                 viewHolder.packageName = appsInfo.packageName;
+                viewHolder.label = appsInfo.label;
                 viewHolder.cardView.setTag(viewHolder);
-                viewHolder.nameView.setText(appsInfo.label);
-
             }
             updateViewHolder(viewHolder);
         } else if (holder instanceof AppsSectionViewHolder) {
@@ -128,13 +128,17 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     private void updateIcon(AppsItemViewHolder viewHolder) {
         if (mSelected.contains(viewHolder.packageName)) {
             if (mFragment.isImportant(viewHolder.packageName)) {
+                String label = mFragment.getImportantLabel(viewHolder.label, viewHolder.packageName);
+                viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_error_black_44dp);
             } else {
+                viewHolder.nameView.setText(viewHolder.label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_check_circle_black_44dp);
             }
             viewHolder.iconView.setImageTintList(textColorPrimary);
             viewHolder.cardView.setBackgroundColor(cardColorBackgroundHighlight);
         } else {
+            viewHolder.nameView.setText(viewHolder.label);
             viewHolder.iconView.setImageTintList(null);
             new AppsIconTask().execute(getActivity().getPackageManager(), viewHolder);
             viewHolder.cardView.setBackgroundColor(cardColorBackgroundDefault);
@@ -367,6 +371,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     }
 
     public boolean accept(PackageManager pm, ApplicationInfo appInfo, boolean showAllApps) {
+        if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
+            return false;
+        }
         return (getActivity().isLauncher(appInfo.packageName)  || mFragment.supportAllApps() || showAllApps || pm.getLaunchIntentForPackage(appInfo.packageName) != null)
                 && mFragment.accept(pm, appInfo);
     }

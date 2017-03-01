@@ -15,7 +15,7 @@ public class FrameworkAppsFragment extends AppsFragment {
 
     @Override
     public boolean isAllImportant() {
-        return true;
+        return false;
     }
 
 }

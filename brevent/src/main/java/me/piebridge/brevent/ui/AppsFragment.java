@@ -194,7 +194,7 @@ public abstract class AppsFragment extends Fragment {
                     return preferences.getBoolean(packageName, false);
                 }
             }
-            boolean signature =  Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
+            boolean signature = Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
             if (preferences != null) {
                 preferences.edit().putBoolean(packageName, signature).apply();
             }
@@ -243,6 +243,10 @@ public abstract class AppsFragment extends Fragment {
 
     public final boolean isImportant(String packageName) {
         return isAllImportant() || ((BreventActivity) getActivity()).isImportant(packageName);
+    }
+
+    public final String getImportantLabel(String label, String packageName) {
+        return ((BreventActivity) getActivity()).getImportantLabel(label, packageName);
     }
 
     public boolean isAllImportant() {

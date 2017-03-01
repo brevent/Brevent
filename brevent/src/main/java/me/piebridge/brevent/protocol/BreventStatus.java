@@ -24,24 +24,22 @@ public class BreventStatus extends BreventToken implements Parcelable {
 
     public static final int PROCESS_STATE_INACTIVE = -3;
 
+    public static final int PROCESS_STATE_PERSISTENT = -4;
+
     private final Collection<String> mBrevent;
 
     private final SimpleArrayMap<String, SparseIntArray> mProcesses;
 
-    private final Collection<String> mImportant;
-
-    public BreventStatus(UUID token, Collection<String> brevent, SimpleArrayMap<String, SparseIntArray> processes, Collection<String> important) {
+    public BreventStatus(UUID token, Collection<String> brevent, SimpleArrayMap<String, SparseIntArray> processes) {
         super(BreventProtocol.STATUS_RESPONSE, token);
         mBrevent = brevent;
         mProcesses = processes;
-        mImportant = important;
     }
 
     BreventStatus(Parcel in) {
         super(in);
         mBrevent = ParcelUtils.readCollection(in);
         mProcesses = ParcelUtils.readSimpleArrayMap(in);
-        mImportant = ParcelUtils.readCollection(in);
     }
 
     @Override
@@ -49,7 +47,6 @@ public class BreventStatus extends BreventToken implements Parcelable {
         super.writeToParcel(dest, flags);
         ParcelUtils.writeCollection(dest, mBrevent);
         ParcelUtils.writeSimpleArrayMap(dest, mProcesses);
-        ParcelUtils.writeCollection(dest, mImportant);
     }
 
     public static final Creator<BreventStatus> CREATOR = new Creator<BreventStatus>() {
@@ -73,10 +70,6 @@ public class BreventStatus extends BreventToken implements Parcelable {
         return mBrevent;
     }
 
-    public Collection<String> getImportant() {
-        return mImportant;
-    }
-
     public static boolean isStandby(SparseIntArray status) {
         return status != null && status.get(PROCESS_STATE_IDLE, 0) != 0;
     }
@@ -87,6 +80,10 @@ public class BreventStatus extends BreventToken implements Parcelable {
         } else {
             return status.get(PROCESS_STATE_INACTIVE, 0);
         }
+    }
+
+    public static boolean isPersistent(SparseIntArray status) {
+        return status != null && status.get(PROCESS_STATE_PERSISTENT, 0) != 0;
     }
 
     public static boolean isProcess(int processState) {

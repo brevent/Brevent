@@ -832,7 +832,7 @@ public class BreventServer extends Handler {
 
     private void handleStatus(UUID token) {
         SimpleArrayMap<String, SparseIntArray> processes = checkAndBrevent();
-        BreventStatus response = new BreventStatus(token, mBrevent, processes, HideApi.getVpnPackages(mUser));
+        BreventStatus response = new BreventStatus(token, mBrevent, processes);
         sendBroadcast(response);
         removeMessages(MESSAGE_REQUEST_STATUS);
     }
@@ -920,6 +920,9 @@ public class BreventServer extends Handler {
         }
         SimpleArrayMap<String, SparseIntArray> processes = new SimpleArrayMap<>();
         for (ActivityManager.RunningAppProcessInfo process : HideApi.getRunningAppProcesses()) {
+            if (process.uid < Process.FIRST_APPLICATION_UID) {
+                continue;
+            }
             int processState = HideApiOverride.getProcessState(process);
             for (String pkg : process.pkgList) {
                 SparseIntArray status;
@@ -934,6 +937,7 @@ public class BreventServer extends Handler {
                     status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getAppInactive(pkg, mUser) ? 1 : 0);
                     int runningIndex = running.indexOfKey(pkg);
                     status.put(BreventStatus.PROCESS_STATE_INACTIVE, runningIndex >= 0 ? running.valueAt(runningIndex) : 0);
+                    status.put(BreventStatus.PROCESS_STATE_PERSISTENT, HideApiOverride.isPersistent(process) ? 1 : 0);
                     processes.put(pkg, status);
                 }
             }

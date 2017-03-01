@@ -111,4 +111,11 @@
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">邮件</string>
 
+    <string name="important_input">%s（输入法）</string>
+    <string name="important_alarm">%s（闹钟）</string>
+    <string name="important_sms">%s（短信）</string>
+    <string name="important_launcher">%s（启动器）</string>
+    <string name="important_persistent">%s（永久进程）</string>
+    <string name="important_android">%s（Android）</string>
+
 </resources>
