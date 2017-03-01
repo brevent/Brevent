@@ -1,6 +1,5 @@
 package com.android.internal.app;
 
-import android.app.AppOpsManager;
 import android.os.IBinder;
 import android.os.RemoteException;
 
@@ -10,7 +9,7 @@ public interface IAppOpsService {
 
     void setMode(int code, int uid, String packageName, int mode) throws RemoteException;
 
-    List<AppOpsManager.PackageOps> getPackagesForOps(int[] ops) throws RemoteException;
+    List getPackagesForOps(int[] ops) throws RemoteException;
 
     class Stub {
 

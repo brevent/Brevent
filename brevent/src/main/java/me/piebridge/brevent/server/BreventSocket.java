@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.CountDownLatch;
 
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventProtocol;
 
 /**
@@ -67,10 +66,6 @@ class BreventSocket implements Runnable {
         }
         BreventProtocol request = BreventProtocol.unwrap(bytes);
         if (request != null) {
-            if (!BuildConfig.RELEASE) {
-                ServerLog.d("request: " + request.getClass().getSimpleName() + ", " +
-                        request.toString());
-            }
             int message = request.getAction() == BreventProtocol.STATUS_REQUEST ? BreventServer.MESSAGE_REQUEST_STATUS : BreventServer.MESSAGE_REQUEST_MANAGE;
             mHandler.obtainMessage(message, request).sendToTarget();
         }

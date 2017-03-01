@@ -7,7 +7,7 @@ import android.util.Log;
  */
 class ServerLog {
 
-    private static final String TAG = "BreventServer";
+    static final String TAG = "BreventServer";
 
     static void v(String msg) {
         Log.v(TAG, msg);

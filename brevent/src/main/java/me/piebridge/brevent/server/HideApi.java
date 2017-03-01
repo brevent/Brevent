@@ -10,6 +10,7 @@ import android.content.IIntentReceiver;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ParceledListSlice;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.os.ServiceManager;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.internal.app.IAppOpsService;
 import com.android.internal.app.IBatteryStats;
@@ -36,7 +38,6 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventIntent;
 
 /**
@@ -44,7 +45,7 @@ import me.piebridge.brevent.protocol.BreventIntent;
  */
 class HideApi {
 
-    static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverrideM.USER_OWNER;
+    static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverride.USER_OWNER;
 
     private HideApi() {
 
@@ -52,9 +53,9 @@ class HideApi {
 
     // ActivityManager start
 
-    public static void forceStopPackage(String packageName, String reason) throws HideApiException {
+    public static void forceStopPackage(String packageName, String reason, int uid) throws HideApiException {
         try {
-            ActivityManagerNative.getDefault().forceStopPackage(packageName, USER_OWNER);
+            ActivityManagerNative.getDefault().forceStopPackage(packageName, uid);
             ServerLog.d("Force stop " + packageName + reason);
         } catch (RemoteException e) {
             throw new HideApiException("Can't force stop " + packageName, e);
@@ -63,7 +64,7 @@ class HideApi {
 
     public static int getCurrentUser() {
         try {
-            return ActivityManager.getCurrentUser();
+            return HideApiOverride.getCurrentUser();
         } catch (RuntimeException e) {
             ServerLog.w("Can't getCurrentUser");
             return HideApi.USER_OWNER;
@@ -78,14 +79,14 @@ class HideApi {
         }
     }
 
-    public static PendingResult sendBroadcast(Intent intent) throws HideApiException {
+    public static PendingResult sendBroadcast(Intent intent, int uid) throws HideApiException {
         try {
             CountDownLatch latch = new CountDownLatch(0x1);
             IntentReceiver receiver = new IntentReceiver(latch);
             String[] requiredPermissions = new String[] {BreventIntent.PERMISSION_MANAGER};
             ActivityManagerNative.getDefault().broadcastIntent(null, intent, null, receiver,
                     0, null, null, requiredPermissions,
-                    AppOpsManager.OP_NONE, null, true, false, USER_OWNER);
+                    HideApiOverride.OP_NONE, null, true, false, uid);
             try {
                 latch.await(0xf, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
@@ -110,33 +111,66 @@ class HideApi {
         }
     }
 
-    public static boolean isPackageAvailable(String packageName) throws HideApiException {
+    public static List<PackageInfo> getGcmPackages(int uid) {
         try {
-            return AppGlobals.getPackageManager().isPackageAvailable(packageName, USER_OWNER);
+            ParceledListSlice<PackageInfo> result = AppGlobals.getPackageManager().getPackagesHoldingPermissions(new String[] {
+                    "com.google.android.c2dm.permission.RECEIVE",
+            }, 0, uid);
+            if (result != null) {
+                return result.getList();
+            } else {
+                return Collections.emptyList();
+            }
+        } catch (RemoteException e) {
+            ServerLog.d("Can't getGcmPackages", e);
+            return Collections.emptyList();
+        }
+    }
+
+    public static boolean isGcm(String packageName, int uid) {
+        PackageInfo packageInfo = getPackageInfo(packageName, PackageManager.GET_PERMISSIONS, uid);
+        if (packageInfo != null && packageInfo.permissions != null) {
+            if (packageInfo.requestedPermissions == null) {
+                return false;
+            }
+            int size = Math.min(packageInfo.requestedPermissionsFlags.length, packageInfo.requestedPermissions.length);
+            for (int i = 0; i < size; ++i) {
+                if ("com.google.android.c2dm.permission.RECEIVE".equals(packageInfo.requestedPermissions[i])) {
+                    return (PackageInfo.REQUESTED_PERMISSION_GRANTED & packageInfo.requestedPermissionsFlags[i])
+                            == PackageInfo.REQUESTED_PERMISSION_GRANTED;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isPackageAvailable(String packageName, int uid) throws HideApiException {
+        try {
+            return AppGlobals.getPackageManager().isPackageAvailable(packageName, uid);
         } catch (RemoteException e) {
             throw new HideApiException("Can't isPackageAvailable for " + packageName, e);
         }
     }
 
-    public static String getLauncher() {
+    public static String getLauncher(int uid) {
         try {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             ResolveInfo resolveInfo = AppGlobals.getPackageManager().resolveIntent(intent,
-                    null, PackageManager.MATCH_DEFAULT_ONLY, USER_OWNER);
+                    null, PackageManager.MATCH_DEFAULT_ONLY, uid);
             return resolveInfo.activityInfo.packageName;
         } catch (RemoteException e) {
-            throw new HideApiException("Can't get launcher", e);
+            throw new HideApiException("Can't getLauncher", e);
         }
     }
 
-    private static int getPackageUid(String packageName) {
+    private static int getPackageUid(String packageName, int uid) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 return AppGlobals.getPackageManager().getPackageUid(packageName,
-                        PackageManager.MATCH_UNINSTALLED_PACKAGES, USER_OWNER);
+                        PackageManager.MATCH_UNINSTALLED_PACKAGES, uid);
             } else {
-                return getPackageUidDeprecated(packageName);
+                return getPackageUidDeprecated(packageName, uid);
             }
         } catch (RemoteException e) {
             throw new HideApiException("Can't getPackageUid for " + packageName, e);
@@ -144,23 +178,26 @@ class HideApi {
     }
 
     @SuppressWarnings("deprecation")
-    private static int getPackageUidDeprecated(String packageName) throws RemoteException {
-        return AppGlobals.getPackageManager().getPackageUid(packageName, USER_OWNER);
+    private static int getPackageUidDeprecated(String packageName, int uid) throws RemoteException {
+        return AppGlobals.getPackageManager().getPackageUid(packageName, uid);
     }
 
-    public static PackageInfo getPackageInfo(String packageName) {
+    public static PackageInfo getPackageInfo(String packageName, int flags, int uid) {
         try {
-            return AppGlobals.getPackageManager().getPackageInfo(packageName, 0, HideApi.USER_OWNER);
+            return AppGlobals.getPackageManager().getPackageInfo(packageName, flags, uid);
         } catch (RemoteException e) {
             throw new HideApiException("Can't getPackageInfo", e);
         }
     }
 
-    public static void setStopped(String packageName, boolean stopped) {
+    public static void setStopped(String packageName, boolean stopped, int uid) {
         try {
-            AppGlobals.getPackageManager().setPackageStoppedState(packageName, stopped, HideApi.USER_OWNER);
-        } catch (SecurityException | RemoteException e) { // NOSONAR
-            // do nothing
+            AppGlobals.getPackageManager().setPackageStoppedState(packageName, stopped, uid);
+        } catch (SecurityException | RemoteException e) {
+            ServerLog.d("Can't setStopped for " + packageName + "(ignore)");
+            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+                ServerLog.v("Can't setStopped for " + packageName + "(ignore)", e);
+            }
         }
     }
 
@@ -169,63 +206,60 @@ class HideApi {
 
     // AppOpsService start
 
-    private static boolean setMode(String packageName, int op, int mode) throws HideApiException {
+    private static boolean setMode(String packageName, int op, int mode, int uid) throws HideApiException {
         try {
-            int packageUid = getPackageUid(packageName);
+            int packageUid = getPackageUid(packageName, uid);
             if (packageUid < 0) {
                 ServerLog.e("No UID for " + packageName);
                 return false;
             }
             IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(ServiceManager.getService(Context.APP_OPS_SERVICE));
             appOpsService.setMode(op, packageUid, packageName, mode);
-            if (!BuildConfig.RELEASE) {
-                ServerLog.d("Set " + packageName + "'s " + AppOpsManager.opToName(op) + " to " + (
+            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+                ServerLog.v("Set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
                         mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore"));
             }
             return true;
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't set run in background to " + mode + " for " + packageName, e);
+        } catch (RemoteException | SecurityException e) {
+            ServerLog.d("Can't set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
+                    mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore") + "(ignore)");
+            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+                ServerLog.v("Can't set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
+                        mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore") + "(ignore)", e);
+            }
+            return false;
         }
     }
 
     /**
      * since api-24
      */
-    public static boolean setAllowBackground(String packageName, boolean allow) throws HideApiException {
+    public static boolean setAllowBackground(String packageName,  boolean allow, int uid) throws HideApiException {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-                setMode(packageName, AppOpsManager.OP_RUN_IN_BACKGROUND, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED);
+                setMode(packageName, HideApiOverrideN.OP_RUN_IN_BACKGROUND, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED, uid);
     }
 
-    public static boolean setAllowNotification(String packageName, boolean allow) throws HideApiException {
-        return setMode(packageName, AppOpsManager.OP_POST_NOTIFICATION, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED);
+    public static boolean setAllowNotification(String packageName, boolean allow, int uid) throws HideApiException {
+        return setMode(packageName, HideApiOverride.OP_POST_NOTIFICATION, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED, uid);
     }
 
-    private static Collection<String> getPackagesForOp(int op, int mode) {
+    private static Collection<String> getPackagesForOp(int op, int mode, int uid) {
         try {
             IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(ServiceManager.getService(Context.APP_OPS_SERVICE));
-            List<AppOpsManager.PackageOps> ops = appOpsService.getPackagesForOps(new int[] {op});
+            List ops = appOpsService.getPackagesForOps(new int[] {op});
             if (ops == null || ops.isEmpty()) {
                 return Collections.emptyList();
             }
-            Collection<String> packageNames = new ArrayList<>();
-            for (AppOpsManager.PackageOps pkg : ops) {
-                for (AppOpsManager.OpEntry entry : pkg.getOps()) {
-                    if (entry.getMode() == mode) {
-                        packageNames.add(pkg.getPackageName());
-                        break;
-                    }
-                }
-            }
-            return packageNames;
+            return HideApiOverride.filterOps(ops, mode, uid);
         } catch (RemoteException e) {
             throw new HideApiException("Can't get packages for ops", e);
         }
     }
 
-    public static Collection<String> getVpnPackages() {
+    public static Collection<String> getVpnPackages(int uid) {
         try {
             // FIXME
-            return getPackagesForOp(AppOpsManager.OP_ACTIVATE_VPN, AppOpsManager.MODE_ALLOWED);
+            return getPackagesForOp(HideApiOverride.OP_ACTIVATE_VPN, AppOpsManager.MODE_ALLOWED, uid);
         } catch (SecurityException e) {
             return Collections.emptyList();
         }
@@ -239,16 +273,16 @@ class HideApi {
     /**
      * since api-23
      */
-    public static void setInactive(String packageName, boolean inactive) throws HideApiException {
+    public static void setAppInactive(String packageName, boolean inactive, int uid) throws HideApiException {
         // android.permission.CHANGE_APP_IDLE_STATE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 IUsageStatsManager usm = IUsageStatsManager.Stub.asInterface(ServiceManager.getService(Context.USAGE_STATS_SERVICE));
-                usm.setAppInactive(packageName, inactive, USER_OWNER);
-                if (!BuildConfig.RELEASE) {
-                    ServerLog.d("Set " + packageName + " to " + (inactive ? "inactive" : "active"));
+                usm.setAppInactive(packageName, inactive, uid);
+                if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+                    ServerLog.v("Set " + packageName + " to " + (inactive ? "inactive" : "active"));
                 }
-            } catch (RemoteException e) {
+            } catch (RemoteException | SecurityException e) {
                 throw new HideApiException("Can't set " + packageName + " to " + (inactive ? "inactive" : "active"), e);
             }
         }
@@ -257,12 +291,12 @@ class HideApi {
     /**
      * since api-23
      */
-    public static boolean getInactive(String packageName) throws HideApiException {
+    public static boolean getAppInactive(String packageName, int uid) throws HideApiException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 IUsageStatsManager usm = IUsageStatsManager.Stub.asInterface(ServiceManager.getService(Context.USAGE_STATS_SERVICE));
-                return usm.isAppInactive(packageName, USER_OWNER);
-            } catch (RemoteException e) {
+                return usm.isAppInactive(packageName, uid);
+            } catch (RemoteException | SecurityException e) {
                 throw new HideApiException("Can't get inactive for " + packageName, e);
             }
         } else {
@@ -279,11 +313,7 @@ class HideApi {
             ParcelFileDescriptor parcel = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_WRITE);
             am.dump(parcel.getFileDescriptor(), new String[] {"activities"});
             parcel.close();
-            try {
-                return parseActivities(file, userId);
-            } finally {
-                file.delete();
-            }
+            return parseActivities(file, userId);
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
         } catch (RemoteException e) {
@@ -299,11 +329,7 @@ class HideApi {
             ParcelFileDescriptor parcel = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_WRITE);
             am.dump(parcel.getFileDescriptor(), new String[] {"processes"});
             parcel.close();
-            try {
-                return parseDependencies(file, userId);
-            } finally {
-                file.delete();
-            }
+            return parseDependencies(file, userId);
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
         } catch (RemoteException e) {
@@ -343,6 +369,11 @@ class HideApi {
                     user = null;
                 }
             }
+        }
+        if (dependencies.isEmpty()) {
+            ServerLog.d("Can't parse dependencies from file: " + file);
+        } else if (!file.delete()) {
+            ServerLog.d("Can't delete file: " + file);
         }
         return dependencies;
     }
@@ -392,17 +423,26 @@ class HideApi {
                 } else if (taskRecord != null) {
                     parseTaskRecord(taskRecord, line);
                     if (!TextUtils.isEmpty(taskRecord.state)) {
-                        if (isDestroyed(taskRecord.state)) {
-                            taskRecord.inactive = 0;
-                        }
-                        if (taskRecord.userId == null || taskRecord.userId == userId) {
-                            taskRecords.add(taskRecord);
-                        }
+                        addTaskRecordsIfNeeded(taskRecords, taskRecord, userId);
                         taskRecord = null;
                     }
                 }
             }
+            if (taskRecords.isEmpty()) {
+                ServerLog.d("Can't parse task records from file: " + file);
+            } else if (!file.delete()) {
+                ServerLog.d("Can't delete file: " + file);
+            }
             return taskRecords;
+        }
+    }
+
+    private static void addTaskRecordsIfNeeded(List<TaskRecord> taskRecords, TaskRecord taskRecord, int userId) {
+        if (isDestroyed(taskRecord.state)) {
+            taskRecord.inactive = 0;
+        }
+        if (taskRecord.userId == null || taskRecord.userId == userId) {
+            taskRecords.add(taskRecord);
         }
     }
 
@@ -441,24 +481,13 @@ class HideApi {
         return "DESTROYED".equals(state);
     }
 
-    public static int getSystemPid() {
-        for (ActivityManager.RunningAppProcessInfo process : HideApi.getRunningAppProcesses()) {
-            for (String packageName : process.pkgList) {
-                if ("android".equals(packageName)) {
-                    return process.pid;
-                }
-            }
-        }
-        return 0;
-    }
-
     // batterystats start
     public static boolean isCharging() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 IBatteryStats batteryStats = IBatteryStats.Stub.asInterface(ServiceManager.getService("batterystats"));
                 return batteryStats.isCharging();
-            } catch (RemoteException e) {
+            } catch (RemoteException | SecurityException e) {
                 ServerLog.e("Can't get battery status", e);
                 return false;
             }
@@ -468,21 +497,6 @@ class HideApi {
     }
 
     // batterystats end
-
-    public static int getProcessState(ActivityManager.RunningAppProcessInfo process) {
-        return process.processState;
-    }
-
-    public static int getRecentFlags() {
-        int flags = ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS |
-                ActivityManager.RECENT_IGNORE_UNAVAILABLE |
-                ActivityManager.RECENT_INCLUDE_PROFILES;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            flags |= ActivityManager.RECENT_INGORE_DOCKED_STACK_TOP_TASK |
-                    ActivityManager.RECENT_INGORE_PINNED_STACK_TASKS;
-        }
-        return flags;
-    }
 
     public static final class PendingResult {
 

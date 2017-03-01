@@ -4,6 +4,8 @@ import android.os.Parcel;
 
 import java.util.UUID;
 
+import me.piebridge.brevent.BuildConfig;
+
 /**
  * token
  * <p>
@@ -42,7 +44,11 @@ public abstract class BreventToken extends BreventProtocol {
 
     @Override
     public String toString() {
-        return super.toString() + ", token: " + mToken;
+        if (BuildConfig.RELEASE) {
+            return super.toString();
+        } else {
+            return super.toString() + ", token: " + mToken;
+        }
     }
 
 }

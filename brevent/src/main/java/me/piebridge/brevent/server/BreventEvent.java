@@ -1,17 +1,19 @@
 package me.piebridge.brevent.server;
 
+import android.app.ActivityManager;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.EventLog;
+import android.util.Log;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import me.piebridge.EventHandler;
 import me.piebridge.LogReader;
-import me.piebridge.brevent.BuildConfig;
 
 /**
  * Event handler
@@ -42,9 +44,20 @@ class BreventEvent implements Runnable, EventHandler {
     @Override
     public void run() {
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-        LogReader.readEvents(HideApi.getSystemPid(), this);
+        LogReader.readEvents(getSystemPid(HideApi.getRunningAppProcesses()), this);
         ServerLog.d("Brevent Event countDown");
         mCountDownLatch.countDown();
+    }
+
+    public static int getSystemPid(List<ActivityManager.RunningAppProcessInfo> processes) {
+        for (ActivityManager.RunningAppProcessInfo process : processes) {
+            for (String packageName : process.pkgList) {
+                if ("android".equals(packageName)) {
+                    return process.pid;
+                }
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -60,8 +73,8 @@ class BreventEvent implements Runnable, EventHandler {
         int tag = event.getTag();
         int eventId = mEventTag.getEvent(tag);
         SimpleArrayMap<String, Object> events = convertData(tag, event);
-        if (!BuildConfig.RELEASE) {
-            ServerLog.d(EventTag.getEventName(eventId) + ": " + events);
+        if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+            ServerLog.v(EventTag.getEventName(eventId) + ": " + events);
         }
         if (tag == amSwitchUserTag) {
             // am_switch_user (id|1|5)

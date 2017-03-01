@@ -109,29 +109,22 @@ dependencies {
     compile "com.android.support:design:${rootProject.supportLibraryVersion}"
     compile project(':donation')
     compile project(':log-reader-jni')
-    compile project(':brevent-common')
+    compile project(':brevent-override')
+    compile project(':brevent-override-m')
+    provided project(':log-reader')
 }
 
-def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'),
-                      project(':log-reader').file('build/intermediates/bundles/release/classes.jar'))
+def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
 
 if (project.gradle.startParameter.taskRequests?.empty) {
     // for ide, aar cannot be provided
     dependencies {
         compile project(':hidden-api')
-        compile project(':log-reader')
     }
 } else {
     // for proguard
     dependencies {
         provided hiddenApi
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'prepareDebugDependencies' || task.name == 'prepareReleaseDependencies') {
-        task.finalizedBy ':hidden-api:bundleRelease'
-        task.finalizedBy ':loader:packageRelease'
     }
 }
 
@@ -190,8 +183,8 @@ tasks.whenTaskAdded { task ->
 
 tasks.withType(JavaCompile) { compileTask ->
     compileTask.dependsOn buildBootstrap
+    compileTask.dependsOn ':loader:packageRelease'
     doFirst {
-        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
         options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
     }
 }

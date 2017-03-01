@@ -40,6 +40,12 @@ public interface IPackageManager {
      */
     void setPackageStoppedState(String packageName, boolean stopped, int userId) throws RemoteException;
 
-    int checkSignatures(String pkg1, String pkg2);
+    /**
+     * This implements getPackagesHoldingPermissions via a "last returned row"
+     * mechanism that is not exposed in the API. This is to get around the IPC
+     * limit that kicks in when flags are included that bloat up the data
+     * returned.
+     */
+    ParceledListSlice<PackageInfo> getPackagesHoldingPermissions(String[] permissions, int flags, int userId) throws RemoteException;
 
 }

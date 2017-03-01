@@ -9,7 +9,7 @@ public class PackageParser {
         throw new UnsupportedOperationException();
     }
 
-    public final static class Package {
+    public static class Package {
 
         public Signature[] mSignatures;
 

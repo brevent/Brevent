@@ -1,5 +1,6 @@
 package me.piebridge.brevent.loader;
 
+import android.app.AppGlobals;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Process;
@@ -18,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 import dalvik.system.PathClassLoader;
 import me.piebridge.brevent.server.HideApiOverride;
-import me.piebridge.brevent.server.HideApiOverrideM;
 import me.piebridge.brevent.server.HideApiOverrideN;
 
 /**
@@ -40,7 +40,7 @@ public class Brevent implements Runnable {
 
     private static final String LIB_LOADER = "lib" + "loader" + ".so";
 
-    private static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverrideM.USER_OWNER;
+    private static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverride.USER_OWNER;
 
     private static final int MINUTE_SURVIVE_TIME = 30;
 
@@ -66,11 +66,11 @@ public class Brevent implements Runnable {
     }
 
     private static String getDataDir() throws RemoteException {
-        int uid = HideApiOverride.uidForData();
-        String[] packageNames = HideApiOverride.getPackagesForUid(uid);
+        int uid = HideApiOverride.uidForData(Process.myUid());
+        String[] packageNames = getPackagesForUid(uid);
         if (packageNames != null) {
             for (String packageName : packageNames) {
-                String dataDir = HideApiOverride.getPackageInfo(packageName, 0, USER_OWNER).applicationInfo.dataDir;
+                String dataDir = getPackageInfo(packageName, 0, USER_OWNER).applicationInfo.dataDir;
                 if (dataDir != null) {
                     return dataDir;
                 }
@@ -102,8 +102,16 @@ public class Brevent implements Runnable {
         }
     }
 
+    private static String[] getPackagesForUid(int uid) throws RemoteException {
+        return AppGlobals.getPackageManager().getPackagesForUid(uid);
+    }
+
+    private static PackageInfo getPackageInfo(String packageName, int flags, int userId) throws RemoteException {
+        return AppGlobals.getPackageManager().getPackageInfo(packageName, flags, userId);
+    }
+
     public static void main(String[] args) throws Exception {
-        PackageInfo packageInfo = HideApiOverride.getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
+        PackageInfo packageInfo = getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
         File nativeLibraryDir = new File(packageInfo.applicationInfo.nativeLibraryDir);
         File libDir = new File(getDataDir(), "brevent");
         File libReader = copyFile(nativeLibraryDir, libDir, LIB_READER);
@@ -125,7 +133,7 @@ public class Brevent implements Runnable {
                 break;
             }
             previous = now;
-            packageInfo = HideApiOverride.getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
+            packageInfo = getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
         }
         if (packageInfo == null) {
             if (!libLoader.delete() || !libReader.delete() || !libDir.delete()) {

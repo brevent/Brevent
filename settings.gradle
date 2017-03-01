@@ -1,1 +1,1 @@
-include ':hidden-api', ':loader', ':brevent', ':log-reader', ':donation', ':log-reader-jni', ':hidden-api-override', ':brevent-common'
+include ':hidden-api', ':loader', ':brevent', ':log-reader', ':donation', ':log-reader-jni', ':hidden-api-override-m', ':brevent-override-m', ':brevent-override', ':hidden-api-override'

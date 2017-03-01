@@ -30,10 +30,24 @@ public class BreventConfiguration extends BreventToken {
     public static final boolean DEFAULT_BREVENT_APPOPS_BACKGROUND = false;
 
     public static final String BREVENT_MODE = "brevent_mode";
-
     public static final int BREVENT_MODE_LATER = 0;
-
     public static final int BREVENT_MODE_IMMEDIATE = 1;
+    public static final int DEFAULT_BREVENT_MODE = BREVENT_MODE_LATER;
+
+    public static final String BREVENT_APPOPS_NOTIFICATION = "brevent_appops_notification";
+    public static final boolean DEFAULT_BREVENT_APPOPS_NOTIFICATION = false;
+
+    public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
+    public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
+
+    public static final String BREVENT_ALLOW_GCM = "brevent_allow_gcm";
+    public static final boolean DEFAULT_BREVENT_ALLOW_GCM = false;
+
+    public static final String BREVENT_METHOD = "brevent_method";
+    public static final int BREVENT_METHOD_STANDBY_FORCE_STOP = 1;
+    public static final int BREVENT_METHOD_STANDBY_ONLY = 2;
+    public static final int BREVENT_METHOD_FORCE_STOP_ONLY = 3;
+    public static final int DEFAULT_BREVENT_METHOD = BREVENT_METHOD_STANDBY_FORCE_STOP;
 
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
@@ -45,7 +59,15 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean appopsBackground = DEFAULT_BREVENT_APPOPS_BACKGROUND;
 
-    public int mode = BREVENT_MODE_LATER;
+    public int mode = DEFAULT_BREVENT_MODE;
+
+    public boolean appopsNotification = DEFAULT_BREVENT_APPOPS_NOTIFICATION;
+
+    public boolean allowRoot = DEFAULT_BREVENT_ALLOW_ROOT;
+
+    public int method = DEFAULT_BREVENT_METHOD;
+
+    public boolean allowGcm = DEFAULT_BREVENT_ALLOW_GCM;
 
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
@@ -55,6 +77,10 @@ public class BreventConfiguration extends BreventToken {
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
         appopsBackground = sharedPreferences.getBoolean(BREVENT_APPOPS_BACKGROUND, DEFAULT_BREVENT_APPOPS_BACKGROUND);
         mode = convertMode(sharedPreferences.getString(BREVENT_MODE, ""));
+        appopsNotification = sharedPreferences.getBoolean(BREVENT_APPOPS_NOTIFICATION, DEFAULT_BREVENT_APPOPS_NOTIFICATION);
+        allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
+        method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
+        allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
     }
 
     private int convertMode(String string) {
@@ -69,6 +95,21 @@ public class BreventConfiguration extends BreventToken {
         }
     }
 
+    private int convertMethod(String string) {
+        switch (string) {
+            case "standby_only":
+            case "" + BREVENT_METHOD_STANDBY_ONLY:
+                return BREVENT_METHOD_STANDBY_ONLY;
+            case "force_stop_only":
+            case "" + BREVENT_METHOD_FORCE_STOP_ONLY:
+                return BREVENT_METHOD_FORCE_STOP_ONLY;
+            case "standby":
+            case "" + BREVENT_METHOD_STANDBY_FORCE_STOP:
+            default:
+                return BREVENT_METHOD_STANDBY_FORCE_STOP;
+        }
+    }
+
     protected BreventConfiguration(Parcel in) {
         super(in);
         autoUpdate = in.readInt() != 0;
@@ -77,6 +118,10 @@ public class BreventConfiguration extends BreventToken {
         timeout = in.readInt();
         appopsBackground = in.readInt() != 0;
         mode = in.readInt();
+        appopsNotification = in.readInt() != 0;
+        allowRoot = in.readInt() != 0;
+        method = in.readInt();
+        allowGcm = in.readInt() != 0;
     }
 
     @Override
@@ -88,6 +133,10 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(timeout);
         dest.writeInt(appopsBackground ? 1 : 0);
         dest.writeInt(mode);
+        dest.writeInt(appopsNotification ? 1 : 0);
+        dest.writeInt(allowRoot ? 1 : 0);
+        dest.writeInt(method);
+        dest.writeInt(allowGcm ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -97,6 +146,10 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_TIMEOUT, timeout);
         write(pw, BREVENT_APPOPS_BACKGROUND, appopsBackground);
         write(pw, BREVENT_MODE, mode);
+        write(pw, BREVENT_APPOPS_NOTIFICATION, appopsNotification);
+        write(pw, BREVENT_ALLOW_ROOT, allowRoot);
+        write(pw, BREVENT_METHOD, method);
+        write(pw, BREVENT_ALLOW_GCM, allowGcm);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -137,6 +190,18 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_MODE:
                 mode = convertMode(value);
                 break;
+            case BREVENT_APPOPS_NOTIFICATION:
+                appopsNotification = Boolean.parseBoolean(value);
+                break;
+            case BREVENT_ALLOW_ROOT:
+                allowRoot = Boolean.parseBoolean(value);
+                break;
+            case BREVENT_METHOD:
+                method = convertMethod(value);
+                break;
+            case BREVENT_ALLOW_GCM:
+                allowGcm = Boolean.parseBoolean(value);
+                break;
             default:
                 break;
         }
@@ -166,6 +231,22 @@ public class BreventConfiguration extends BreventToken {
         }
         if (this.mode != request.mode) {
             this.mode = request.mode;
+            updated = true;
+        }
+        if (this.appopsNotification != request.appopsNotification) {
+            this.appopsNotification = request.appopsNotification;
+            updated = true;
+        }
+        if (this.allowRoot != request.allowRoot) {
+            this.allowRoot = request.allowRoot;
+            updated = true;
+        }
+        if (this.method != request.method) {
+            this.method = request.method;
+            updated = true;
+        }
+        if (this.allowGcm != request.allowGcm) {
+            this.allowGcm = request.allowGcm;
             updated = true;
         }
         return updated;

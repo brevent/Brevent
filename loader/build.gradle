@@ -7,8 +7,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
     }
 
     buildTypes {
@@ -21,5 +19,27 @@ android {
 
 dependencies {
     compile project(':log-reader')
-    compile project(':brevent-common')
+    compile project(':brevent-override')
+    compile project(':brevent-override-m')
+}
+
+def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
+
+if (project.gradle.startParameter.taskRequests?.empty) {
+    // for ide, aar cannot be provided
+    dependencies {
+        compile project(':hidden-api')
+    }
+} else {
+    // for proguard
+    dependencies {
+        provided hiddenApi
+    }
+}
+
+tasks.withType(JavaCompile) { compileTask ->
+    compileTask.dependsOn ':hidden-api:bundleRelease'
+    doFirst {
+        options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
+    }
 }

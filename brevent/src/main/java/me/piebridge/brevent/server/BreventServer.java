@@ -12,10 +12,12 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.EventLog;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import java.io.BufferedReader;
@@ -52,15 +54,17 @@ public class BreventServer extends Handler {
 
     private static final String OPEN_LAUNCHER = "openLauncher";
 
-    public static final int MESSAGE_EVENT = 1;
-    public static final int MESSAGE_REQUEST_STATUS = 2;
-    public static final int MESSAGE_REQUEST_MANAGE = 3;
+    static final int MESSAGE_EVENT = 1;
+    static final int MESSAGE_REQUEST_STATUS = 2;
+    static final int MESSAGE_REQUEST_MANAGE = 3;
 
     private static final int MESSAGE_SAVE_BREVENT_LIST = 4;
     private static final int MESSAGE_SAVE_BREVENT_CONF = 5;
 
     private static final int MESSAGE_CHECK = 6;
     private static final int MESSAGE_CHECK_CHANGED = 7;
+
+    private static final int MESSAGE_EXIT = 8;
 
     private static final int MAX_TIMEOUT = 30;
 
@@ -73,6 +77,7 @@ public class BreventServer extends Handler {
     private final String mVersionName;
 
     private final Set<String> mInstalled = new ArraySet<>();
+    private final Set<String> mGcm = new ArraySet<>();
     private final Set<String> mBrevent = new ArraySet<>();
     private final BreventConfiguration mConfiguration = new BreventConfiguration(null);
 
@@ -104,7 +109,8 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
     private static final int CHECK_LATER_RECENT = 1800000;
 
-    private static final int RECENT_FLAGS = HideApi.getRecentFlags();
+    private static final int RECENT_FLAGS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ?
+            HideApiOverride.getRecentFlags() : HideApiOverride.getRecentFlagsM();
 
     private static final int HOME_INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED;
 
@@ -112,8 +118,7 @@ public class BreventServer extends Handler {
 
     private BreventServer() throws IOException {
         super();
-
-        PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID);
+        PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, HideApi.USER_OWNER);
         mVersionName = packageInfo.versionName;
         if (!BuildConfig.VERSION_NAME.equals(mVersionName)) {
             ServerLog.w("version unmatched, running: " + BuildConfig.VERSION_NAME + ", installed: " + mVersionName);
@@ -135,13 +140,17 @@ public class BreventServer extends Handler {
         mChanged = new ArraySet<>();
         mBack = new ArraySet<>();
 
-        mLauncher = HideApi.getLauncher();
+        mLauncher = HideApi.getLauncher(mUser);
 
+        if (!mConfiguration.allowRoot && HideApiOverride.isRoot(Process.myUid())) {
+            sendEmptyMessageDelayed(MESSAGE_EXIT, CHECK_LATER_USER);
+        }
         handleStatus(BreventToken.EMPTY_TOKEN);
     }
 
-    private void loadBreventConf() {
+    private boolean loadBreventConf() {
         File file = getBreventConf();
+        ServerLog.d("loading brevent conf");
         if (file.isFile()) {
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -158,15 +167,21 @@ public class BreventServer extends Handler {
             } catch (IOException e) {
                 ServerLog.w("Can't load configuration from " + file, e);
             }
+            return true;
+        } else {
+            return false;
         }
-        ServerLog.d("loaded brevent conf");
     }
 
-    private void loadBreventList() {
+    private boolean loadBreventList() {
         for (PackageInfo packageInfo : HideApi.getInstalledPackages(HideApi.USER_OWNER)) {
             mInstalled.add(packageInfo.packageName);
         }
+        for (PackageInfo packageInfo : HideApi.getGcmPackages(HideApi.USER_OWNER)) {
+            mGcm.add(packageInfo.packageName);
+        }
         File file = getBreventList();
+        ServerLog.d("loading brevent list");
         if (file.isFile()) {
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -182,8 +197,10 @@ public class BreventServer extends Handler {
             } catch (IOException e) {
                 ServerLog.w("Can't load brevent from " + file, e);
             }
+            return true;
+        } else {
+            return false;
         }
-        ServerLog.d("loaded brevent list");
     }
 
     @Override
@@ -210,12 +227,18 @@ public class BreventServer extends Handler {
                 checkChanged();
                 break;
             case MESSAGE_CHECK:
-                check();
+                checkAndBrevent();
+                break;
+            case MESSAGE_EXIT:
+                ServerLog.e("Can't be run as root, please open Brevent");
+                System.exit(0);
+                break;
+            default:
                 break;
         }
     }
 
-    private SimpleArrayMap<String, SparseIntArray> check() {
+    private SimpleArrayMap<String, SparseIntArray> checkAndBrevent() {
         Set<String> services = new ArraySet<>(mServices);
         mServices.clear();
 
@@ -225,9 +248,9 @@ public class BreventServer extends Handler {
         }
 
         mUser = HideApi.getCurrentUser();
-        mLauncher = HideApi.getLauncher();
+        mLauncher = HideApi.getLauncher(mUser);
 
-        ServerLog.d("checking");
+        ServerLog.d("check and brevent");
 
         ActivitiesHolder runningActivities = getRunningActivities();
         SimpleArrayMap<String, Integer> running = runningActivities.running;
@@ -235,13 +258,15 @@ public class BreventServer extends Handler {
         Set<String> home = runningActivities.home;
 
         Set<String> recent = getRecentPackages();
+        recent.addAll(top);
+        recent.addAll(home);
 
         if (mPackageName != null && !top.contains(mPackageName) && !home.contains(mPackageName)) {
             ServerLog.e("top: " + top + ", home: " + home + " don't contains current: " + mPackageName);
             top.add(mPackageName);
         }
 
-        if (!BuildConfig.RELEASE) {
+        if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
@@ -253,32 +278,33 @@ public class BreventServer extends Handler {
 
         Collection<String> blocking = new ArraySet<>();
         Collection<String> noRecent = new ArraySet<>();
+        Collection<String> standby = new ArraySet<>();
         boolean checkLater = false;
         int timeout = mConfiguration.timeout;
         for (int i = 0; i < size; ++i) {
             String packageName = processes.keyAt(i);
             SparseIntArray status = processes.valueAt(i);
             if (mBrevent.contains(packageName)) {
-                if (!recent.contains(packageName)) {
+                int inactive = BreventStatus.getInactive(status);
+                if (inactive == 0) {
                     blocking.add(packageName);
+                } else if (timeout > 0) {
+                    if (inactive > timeout) {
+                        blocking.add(packageName);
+                    } else {
+                        checkLater = true;
+                    }
+                }
+                if (!recent.contains(packageName)) {
                     noRecent.add(packageName);
                 }
-                if (!BreventStatus.isStandby(status)) {
-                    int inactive = BreventStatus.getInactive(status);
-                    if (inactive == 0) {
-                        blocking.add(packageName);
-                    } else if (timeout > 0) {
-                        if (inactive > timeout) {
-                            blocking.add(packageName);
-                        } else {
-                            checkLater = true;
-                        }
-                    }
+                if (BreventStatus.isStandby(status)) {
+                    standby.add(packageName);
                 }
             }
         }
 
-        if (!BuildConfig.RELEASE) {
+        if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("blocking: " + blocking);
             ServerLog.d("back: " + back);
             ServerLog.d("noRecent: " + noRecent);
@@ -292,7 +318,7 @@ public class BreventServer extends Handler {
         Set<String> unsafe = new ArraySet<>();
         SimpleArrayMap<String, Set<String>> dependencies = HideApi.getDependencies(getCacheDir(), mUser);
 
-        if (!BuildConfig.RELEASE) {
+        if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             size = dependencies.size();
             for (int i = 0; i < size; ++i) {
                 ServerLog.d(dependencies.keyAt(i) + " depended by " + dependencies.valueAt(i));
@@ -311,16 +337,19 @@ public class BreventServer extends Handler {
 
         blocking.removeAll(unsafe);
 
-        if (!BuildConfig.RELEASE) {
+        if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("unsafe: " + unsafe);
             ServerLog.d("final blocking: " + blocking);
         }
 
         for (String packageName : blocking) {
-            block(packageName);
-            if (!top.contains(packageName) && noRecent.contains(packageName)) {
-                HideApi.setAllowNotification(packageName, false);
-                HideApi.forceStopPackage(packageName, "(no recent)");
+            if (mConfiguration.appopsBackground) {
+                HideApi.setAllowBackground(packageName, false, mUser);
+            }
+            if (services.contains(packageName)) {
+                forceStop(packageName, "(service)");
+            } else {
+                brevent(packageName, standby, noRecent.contains(packageName));
             }
         }
 
@@ -336,12 +365,58 @@ public class BreventServer extends Handler {
         return processes;
     }
 
+    private void brevent(String packageName, Collection<String> standby, boolean noRecent) {
+        switch (mConfiguration.method) {
+            case BreventConfiguration.BREVENT_METHOD_FORCE_STOP_ONLY:
+                forceStop(packageName, "(forceStop)");
+                break;
+            case BreventConfiguration.BREVENT_METHOD_STANDBY_ONLY:
+                standby(standby.contains(packageName), packageName);
+                break;
+            case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
+                if (noRecent) {
+                    forceStop(packageName, "(noRecent)");
+                } else {
+                    standby(standby.contains(packageName), packageName);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void forceStop(String packageName, String reason) {
+        if (mConfiguration.appopsNotification) {
+            HideApi.setAllowNotification(packageName, false, mUser);
+        }
+        HideApi.forceStopPackage(packageName, reason, mUser);
+        setStopped(packageName, true);
+    }
+
+    private void standby(boolean inactive, String packageName) {
+        if (!inactive) {
+            HideApi.setAppInactive(packageName, true, mUser);
+        }
+        setStopped(packageName, false);
+    }
+
+    private void setStopped(String packageName, boolean current) {
+        if (mConfiguration.allowGcm && mGcm.contains(packageName)) {
+            if (current) {
+                HideApi.setStopped(packageName, false, mUser);
+            }
+        } else {
+            if (!current) {
+                HideApi.setStopped(packageName, true, mUser);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private Set<String> getRecentPackages() {
         Set<String> recent = new ArraySet<>();
         try {
             IActivityManager am = ActivityManagerNative.getDefault();
-            // system ui only show about 10 recent
             List<ActivityManager.RecentTaskInfo> recentTasks;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 recentTasks = am.getRecentTasks(Integer.MAX_VALUE, RECENT_FLAGS, mUser).getList();
@@ -351,7 +426,7 @@ public class BreventServer extends Handler {
             long minActiveTime = System.currentTimeMillis() - NAX_SURVIVE_TIME;
             for (ActivityManager.RecentTaskInfo recentTask : recentTasks) {
                 if (recentTask.baseIntent != null && recentTask.baseIntent.getComponent() != null) {
-                    if (recentTask.lastActiveTime >= minActiveTime || isFreeform(recentTask)) {
+                    if (HideApiOverride.getLastActiveTime(recentTask) >= minActiveTime || isFreeForm(recentTask)) {
                         recent.add(recentTask.baseIntent.getComponent().getPackageName());
                     }
                 }
@@ -363,8 +438,8 @@ public class BreventServer extends Handler {
         }
     }
 
-    private boolean isFreeform(ActivityManager.RecentTaskInfo taskInfo) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && taskInfo.stackId == ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID;
+    private boolean isFreeForm(ActivityManager.RecentTaskInfo taskInfo) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && HideApiOverrideN.isFreeForm(taskInfo);
     }
 
     private void checkAgain(SimpleArrayMap<String, SparseIntArray> processes) {
@@ -395,18 +470,22 @@ public class BreventServer extends Handler {
         Set<String> packageNames = new ArraySet<>(mChanged);
         mChanged.clear();
         for (String packageName : packageNames) {
-            if (!HideApi.isPackageAvailable(packageName)) {
+            if (!HideApi.isPackageAvailable(packageName, mUser)) {
                 if (mInstalled.remove(packageName)) {
                     ServerLog.d("remove package " + packageName);
+                    mGcm.remove(packageName);
                     updateBreventIfNeeded(false, packageName);
                 }
             } else if (mInstalled.add(packageName)) {
                 ServerLog.d("add package " + packageName);
                 updateBreventIfNeeded(true, packageName);
+                if (HideApi.isGcm(packageName, mUser)) {
+                    mGcm.add(packageName);
+                }
             }
         }
         if (packageNames.contains(BuildConfig.APPLICATION_ID)) {
-            PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID);
+            PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, mUser);
             if (packageInfo == null) {
                 ServerLog.d("uninstalled");
                 //noinspection ConstantConditions
@@ -531,8 +610,8 @@ public class BreventServer extends Handler {
     }
 
     private boolean isBackHome(int tid) {
-        if (!BuildConfig.RELEASE) {
-            ServerLog.d("tid: " + tid + ", homeTid: " + homeTid + ", mHomeTid: " + mHomeTid + ", possibleHomeTid: " + possibleHomeTid);
+        if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+            ServerLog.v("tid: " + tid + ", homeTid: " + homeTid + ", mHomeTid: " + mHomeTid + ", possibleHomeTid: " + possibleHomeTid);
         }
         if (homeTid == 0) {
             return false;
@@ -617,24 +696,26 @@ public class BreventServer extends Handler {
 
     private void handleRequest(BreventProtocol request) {
         int action = request.getAction();
-        if (!BuildConfig.RELEASE) {
-            ServerLog.d("action: " + request.getAction() + ", request: " + request
-                    + ", token: " + ((request instanceof BreventToken) ? ((BreventToken) request).getToken() : null)
-                    + ", mToken: " + mToken);
+        if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+            ServerLog.v("action: " + request.getAction() + ", request: " + request);
         }
         if (action == BreventProtocol.STATUS_REQUEST) {
             handleStatus(mToken);
-        } else if (request instanceof BreventToken && ((BreventToken) request).getToken().equals(mToken)) {
-            switch (action) {
-                case BreventProtocol.UPDATE_BREVENT:
-                    handleUpdateBrevent((BreventPackages) request);
-                    break;
-                case BreventProtocol.CONFIGURATION:
-                    handleUpdateConfiguration((BreventConfiguration) request);
-                    break;
-                default:
-                    break;
+        } else if (request instanceof BreventToken) {
+            if (((BreventToken) request).getToken().equals(mToken)) {
+                switch (action) {
+                    case BreventProtocol.UPDATE_BREVENT:
+                        handleUpdateBrevent((BreventPackages) request);
+                        break;
+                    case BreventProtocol.CONFIGURATION:
+                        handleUpdateConfiguration((BreventConfiguration) request);
+                        break;
+                    default:
+                        break;
 
+                }
+            } else {
+                ServerLog.w("invalid token, action: " + request.getAction() + ", request: " + request);
             }
         }
     }
@@ -652,19 +733,15 @@ public class BreventServer extends Handler {
         }
     }
 
-    private void block(String packageName) {
-        HideApi.setInactive(packageName, true);
-        if (mConfiguration.appopsBackground) {
-            HideApi.setAllowBackground(packageName, false);
-        }
-    }
-
     private void unblock(String packageName) {
-        HideApi.setInactive(packageName, false);
+        HideApi.setAppInactive(packageName, false, mUser);
+        HideApi.setStopped(packageName, false, mUser);
         if (mConfiguration.appopsBackground) {
-            HideApi.setAllowBackground(packageName, true);
+            HideApi.setAllowBackground(packageName, true, mUser);
         }
-        HideApi.setAllowNotification(packageName, true);
+        if (mConfiguration.appopsNotification) {
+            HideApi.setAllowNotification(packageName, true, mUser);
+        }
     }
 
     private void handleUpdateBrevent(BreventPackages request) {
@@ -737,6 +814,16 @@ public class BreventServer extends Handler {
     }
 
     private void handleUpdateConfiguration(BreventConfiguration request) {
+        if (mConfiguration.appopsBackground != request.appopsBackground && !request.appopsBackground) {
+            for (String packageName : mBrevent) {
+                HideApi.setAllowBackground(packageName, true, mUser);
+            }
+        }
+        if (mConfiguration.appopsNotification != request.appopsNotification && !request.appopsNotification) {
+            for (String packageName : mBrevent) {
+                HideApi.setAllowNotification(packageName, true, mUser);
+            }
+        }
         if (mConfiguration.update(request)) {
             saveBreventConfLater();
         }
@@ -744,15 +831,15 @@ public class BreventServer extends Handler {
     }
 
     private void handleStatus(UUID token) {
-        SimpleArrayMap<String, SparseIntArray> processes = check();
-        BreventStatus response = new BreventStatus(token, mBrevent, processes, HideApi.getVpnPackages());
+        SimpleArrayMap<String, SparseIntArray> processes = checkAndBrevent();
+        BreventStatus response = new BreventStatus(token, mBrevent, processes, HideApi.getVpnPackages(mUser));
         sendBroadcast(response);
         removeMessages(MESSAGE_REQUEST_STATUS);
     }
 
     private ActivitiesHolder getRunningActivities() {
-        if (!BuildConfig.RELEASE) {
-            ServerLog.d("get running activities");
+        if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+            ServerLog.v("get running activities");
         }
 
         ActivitiesHolder holder = new ActivitiesHolder();
@@ -784,13 +871,14 @@ public class BreventServer extends Handler {
     private void sendBroadcast(BreventProtocol response) {
         final Intent intent = new Intent(BreventIntent.ACTION_BREVENT);
         BreventProtocol.wrap(intent, response);
-        HideApi.PendingResult pendingResult = HideApi.sendBroadcast(intent);
+        HideApi.PendingResult pendingResult = HideApi.sendBroadcast(intent, mUser);
         String resultData;
         if (pendingResult != null && (resultData = pendingResult.getResultData()) != null) {
             try {
                 UUID token = UUID.fromString(resultData);
-                if (!BreventToken.EMPTY_TOKEN.equals(token)) {
+                if (!BreventToken.EMPTY_TOKEN.equals(token) && !token.equals(mToken)) {
                     mToken = token;
+                    removeMessages(MESSAGE_EXIT);
                 }
             } catch (IllegalArgumentException e) {
                 ServerLog.d("cannot parse " + resultData + " as uuid", e);
@@ -827,12 +915,12 @@ public class BreventServer extends Handler {
     }
 
     private SimpleArrayMap<String, SparseIntArray> getRunningProcesses(SimpleArrayMap<String, Integer> running) {
-        if (!BuildConfig.RELEASE) {
-            ServerLog.d("get running processes");
+        if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
+            ServerLog.v("get running processes");
         }
         SimpleArrayMap<String, SparseIntArray> processes = new SimpleArrayMap<>();
         for (ActivityManager.RunningAppProcessInfo process : HideApi.getRunningAppProcesses()) {
-            int processState = HideApi.getProcessState(process);
+            int processState = HideApiOverride.getProcessState(process);
             for (String pkg : process.pkgList) {
                 SparseIntArray status;
                 int processIndex = processes.indexOfKey(pkg);
@@ -843,7 +931,7 @@ public class BreventServer extends Handler {
                 } else {
                     status = new SparseIntArray();
                     status.put(processState, 1);
-                    status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getInactive(pkg) ? 1 : 0);
+                    status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getAppInactive(pkg, mUser) ? 1 : 0);
                     int runningIndex = running.indexOfKey(pkg);
                     status.put(BreventStatus.PROCESS_STATE_INACTIVE, runningIndex >= 0 ? running.valueAt(runningIndex) : 0);
                     processes.put(pkg, status);
@@ -854,7 +942,7 @@ public class BreventServer extends Handler {
     }
 
     private static String getDataDir(int owner) {
-        int uid = HideApiOverride.uidForData();
+        int uid = HideApiOverride.uidForData(Process.myUid());
         IPackageManager packageManager = AppGlobals.getPackageManager();
         String[] packageNames;
         try {

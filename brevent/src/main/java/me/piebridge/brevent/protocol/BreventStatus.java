@@ -1,8 +1,6 @@
 package me.piebridge.brevent.protocol;
 
-import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,6 +11,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.server.HideApiOverride;
 
 /**
  * status
@@ -90,26 +89,6 @@ public class BreventStatus extends BreventToken implements Parcelable {
         }
     }
 
-    public static boolean isCached(int processState) {
-        return processState >= ActivityManager.PROCESS_STATE_CACHED_ACTIVITY;
-    }
-
-    public static boolean isService(int processState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return processState == ActivityManager.PROCESS_STATE_BOUND_FOREGROUND_SERVICE
-                    || processState == ActivityManager.PROCESS_STATE_FOREGROUND_SERVICE
-                    || processState == ActivityManager.PROCESS_STATE_SERVICE
-                    || processState == ActivityManager.PROCESS_STATE_RECEIVER;
-        } else {
-            return processState == ActivityManager.PROCESS_STATE_SERVICE
-                    || processState == ActivityManager.PROCESS_STATE_RECEIVER;
-        }
-    }
-
-    public static boolean isTop(int processState) {
-        return processState == ActivityManager.PROCESS_STATE_TOP;
-    }
-
     public static boolean isProcess(int processState) {
         return processState >= 0;
     }
@@ -128,11 +107,11 @@ public class BreventStatus extends BreventToken implements Parcelable {
             int processState = status.keyAt(i);
             if (isProcess(processState)) {
                 total++;
-                if (isTop(processState)) {
+                if (HideApiOverride.isTop(processState)) {
                     top++;
-                } else if (isService(processState)) {
+                } else if (HideApiOverride.isService(processState)) {
                     service++;
-                } else if (isCached(processState)) {
+                } else if (HideApiOverride.isCached(processState)) {
                     cached++;
                 }
             }
@@ -176,7 +155,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
         int size = status.size();
         for (int i = 0; i < size; ++i) {
             int processState = status.keyAt(i);
-            if (isProcess(processState) && !isService(processState)) {
+            if (isProcess(processState) && !HideApiOverride.isService(processState)) {
                 return false;
             }
         }

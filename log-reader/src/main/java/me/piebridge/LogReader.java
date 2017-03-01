@@ -20,6 +20,7 @@ public class LogReader {
      * @param pid     filter event for pid
      * @param handler event handler
      */
+    @SuppressWarnings("JniMissingFunction")
     public static native void readEvents(int pid, EventHandler handler);
 
 }
