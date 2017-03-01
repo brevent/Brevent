@@ -5,6 +5,7 @@
 #include <paths.h>
 #include <libgen.h>
 #include <dirent.h>
+#include <time.h>
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
 
@@ -13,6 +14,7 @@
 #else
 #define APP_PROCESS "/system/bin/app_process32"
 #endif
+
 static int bootstrap() {
     char *arg[] = {APP_PROCESS, "/system/bin", "--nice-name=brevent_server",
                    "me.piebridge.brevent.loader.Brevent", NULL};
@@ -24,21 +26,33 @@ static void feedback() {
     printf("if you find any issues, please report bug to " PROJECT " with log\n"
                    "for crash log: logcat -b crash -d\n"
                    "for brevent log: logcat -b main -d -s BreventLoader BreventServer\n");
+    fflush(stdout);
 }
 
-static void report() {
+static void report(struct timeval now) {
+    char command[BUFSIZ];
+    char time[BUFSIZ];
+    struct tm *tm = localtime((const time_t *) now.tv_sec);
+    strftime(time, sizeof(time), "%m-%d %H:%M:%S.000", tm);
     printf("please report bug to " PROJECT " with log below\n"
                    "--- crash start ---\n");
     fflush(stdout);
-    system("logcat -b crash -t 100 -d");
+    sprintf(command, "logcat -b crash -t '%s' -d", time);
+    printf(">>> %s\n", command);
+    fflush(stdout);
+    system(command);
     fflush(stdout);
     printf("--- crash end ---\n");
     printf("--- brevent start ---\n");
     fflush(stdout);
-    system("logcat -b main -d -s BreventLoader BreventServer");
+    sprintf(command, "logcat -b main -t '%s' -d -s BreventLoader BreventServer", time);
+    printf(">>> %s\n", command);
+    fflush(stdout);
+    system(command);
     fflush(stdout);
     printf("--- brevent end ---\n");
     printf("cannot listen port, please report bug to " PROJECT " with log above\n");
+    fflush(stdout);
 }
 
 static int get_pid() {
@@ -58,7 +72,7 @@ static int get_pid() {
         if (!(id = atoi(entry->d_name))) {
             continue;
         }
-        sprintf(buf,"/proc/%u/cmdline", id);
+        sprintf(buf, "/proc/%u/cmdline", id);
         fp = fopen(buf, "r");
         if (fp != NULL) {
             fgets(buf, PATH_MAX - 1, fp);
@@ -73,7 +87,7 @@ static int get_pid() {
     return pid;
 }
 
-static int check() {
+static int check(struct timeval now) {
     int pid = 0;
     printf("checking..");
     for (int i = 0; i < 10; ++i) {
@@ -86,8 +100,8 @@ static int check() {
         } else if (pid > 0 && id == 0) {
             printf("quited\n\n");
             fflush(stdout);
-            report();
-            return ENOENT;
+            report(now);
+            return EXIT_FAILURE;
         }
         printf(".");
         fflush(stdout);
@@ -97,13 +111,13 @@ static int check() {
         printf("ok\n\n");
         fflush(stdout);
         feedback();
+        return EXIT_SUCCESS;
     } else {
         printf("cannot listen port\n");
         fflush(stdout);
-        report();
+        report(now);
+        return EXIT_FAILURE;
     }
-    fflush(stdout);
-    return ENOENT;
 }
 
 static void check_original() {
@@ -127,12 +141,14 @@ static void check_original() {
 int main(int argc, char **argv) {
     int fd;
     char classpath[0x1000];
+    struct timeval now;
 
     check_original();
 
     sprintf(classpath, "CLASSPATH=%s/%s", dirname(argv[0]), "libloader.so");
     putenv(classpath);
 
+    gettimeofday(&now, NULL);
     switch (fork()) {
         case -1:
             perror("cannot fork");
@@ -140,8 +156,7 @@ int main(int argc, char **argv) {
         case 0:
             break;
         default:
-            check();
-            _exit(0);
+            _exit(check(now));
     }
 
     if (setsid() == -1) {
