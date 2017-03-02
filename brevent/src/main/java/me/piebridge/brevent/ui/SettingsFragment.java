@@ -52,10 +52,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
 
         allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
-        allowGcm.setEnabled(false);
+        allowGcm.setEnabled(true);
 
         allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
-        allowRoot.setEnabled(false);
+        allowRoot.setEnabled(true);
     }
 
     @Override

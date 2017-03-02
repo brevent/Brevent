@@ -61,6 +61,7 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         if (!adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
+        builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         return builder.create();
     }
 
@@ -118,8 +119,10 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
             } catch (ActivityNotFoundException e) {
                 UILog.d("Can't find settings", e);
             }
+            getActivity().finish();
+        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+            BreventIntentService.startBrevent(getContext());
         }
-        getActivity().finish();
     }
 
 }

@@ -16,6 +16,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
 
     <application
@@ -24,7 +25,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
-
         <activity
             android:name=".ui.BreventActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -35,25 +35,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.BreventSettings"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_settings"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".ui.BreventGuide"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_guide"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".ui.BreventLicenses"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@android:style/Theme.Material.Dialog"
             android:windowSoftInputMode="stateHidden" />
 
+        <receiver
+            android:name=".ui.BreventReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".ui.BreventIntentService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

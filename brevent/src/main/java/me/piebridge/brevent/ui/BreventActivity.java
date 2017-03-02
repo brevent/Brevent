@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -253,10 +254,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void hideProgress() {
+        hideFragment(FRAGMENT_DISABLED);
         hideFragment(FRAGMENT_PROGRESS);
     }
 
     public void hideAppProgress() {
+        hideFragment(FRAGMENT_PROGRESS);
         hideFragment(FRAGMENT_PROGRESS_APPS);
     }
 
@@ -466,6 +469,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         BreventConfiguration configuration = new BreventConfiguration(getToken(), preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
+        ComponentName componentName = new ComponentName(this, BreventReceiver.class);
+        PackageManager packageManager = getPackageManager();
+        int componentEnabled = packageManager.getComponentEnabledSetting(componentName);
+        if (configuration.allowRoot) {
+            if (componentEnabled != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            }
+        } else {
+            if (componentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+            }
+        }
     }
 
     private void openSettings() {

@@ -26,6 +26,7 @@
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB\n\n3. Execute in PC\'s command line: %2$s (Copied to clipboard)\n</string>
     <string name="brevent_service_open_development">Open \"Developer options\"</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
+    <string name="brevent_service_run_as_root">Run as ROOT</string>
 
     <string name="fragment_apps_user">User Apps</string>
     <string name="fragment_apps_system">System Apps</string>
