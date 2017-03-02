@@ -90,7 +90,7 @@
     <string name="brevent_timeout_15min">15 minutes</string>
     <string name="brevent_timeout_30min">30 minutes</string>
     <string name="brevent_timeout_1hour">1 hour</string>
-    <string name="brevent_appops_background">Use AppOps\'s BackGROUND</string>
+    <string name="brevent_appops_background">Use AppOps\'s BACKGROUND</string>
     <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, and apps may not work well, apply even when you uninstall Brevent (Since Android 7.0)</string>
     <string name="brevent_method">How brevent</string>
     <string name="brevent_method_standby_forcestop">App Standby, then ForceStop</string>
@@ -105,7 +105,7 @@
     <string name="brevent_mode_label_later">Later. Short when Home focused, longer when awaken, longest when apps focused, immediately when screen off</string>
     <string name="brevent_mode_label_immediate">Immediate. Whenever apps / Home focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well</string>
     <string name="brevent_appops_notification">Block awaken notification</string>
-    <string name="brevent_appops_notification_label">No notification when awaken by other apps; and recover after launch</string>
+    <string name="brevent_appops_notification_label">No notification when awaken by other apps, and recover after launch</string>
 
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
@@ -125,7 +125,7 @@
     <string name="important_input">%s (Input method)</string>
     <string name="important_alarm">%s (Alarm)</string>
     <string name="important_sms">%s (SMS)</string>
-    <string name="important_launcher">%s (Home)</string>
+    <string name="important_home">%s (Home)</string>
     <string name="important_persistent">%s (Persistent)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_android">%s (Android)</string>

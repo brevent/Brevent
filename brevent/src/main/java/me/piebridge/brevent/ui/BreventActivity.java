@@ -82,7 +82,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
     public static final int IMPORTANT_SMS = 2;
-    public static final int IMPORTANT_LAUNCHER = 3;
+    public static final int IMPORTANT_HOME = 3;
     public static final int IMPORTANT_PERSISTENT = 4;
     public static final int IMPORTANT_GMS = 5;
     public static final int IMPORTANT_ANDROID = 6;
@@ -686,7 +686,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
             mLauncher = resolveInfo.activityInfo.packageName;
-            packageNames.put(mLauncher, IMPORTANT_LAUNCHER);
+            packageNames.put(mLauncher, IMPORTANT_HOME);
         }
 
         // persistent
@@ -773,8 +773,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     return getString(R.string.important_alarm, label);
                 case IMPORTANT_SMS:
                     return getString(R.string.important_sms, label);
-                case IMPORTANT_LAUNCHER:
-                    return getString(R.string.important_launcher, label);
+                case IMPORTANT_HOME:
+                    return getString(R.string.important_home, label);
                 case IMPORTANT_PERSISTENT:
                     return getString(R.string.important_persistent, label);
                 case IMPORTANT_GMS:

@@ -75,10 +75,10 @@
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
     <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
-    <string name="brevent_move_back">黑(chu)域(li) BACK 移到后台</string>
-    <string name="brevent_move_back_label">有些应用，如微信，在您按 BACK 时，不执行正常的 BACK 操作，移到后台。启用之后，按正常 BACK 处理（仅支持 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑(chu)域(li) BACK 打开启动器</string>
-    <string name="brevent_back_home_label">有些应用，如微博，在您按 BACK 时，不执行正常的 BACK 操作，打开启动器。启用之后，按正常 BACK 处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次 HOME 键来帮助黑域确认</string>
+    <string name="brevent_move_back">黑(chu)域(li) Back 移到后台</string>
+    <string name="brevent_move_back_label">有些应用，如微信，在您按 Back 时，不执行正常的 Back 操作，移到后台。启用之后，按正常 Back 处理（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_back_home">黑(chu)域(li) Back 打开主屏幕</string>
+    <string name="brevent_back_home_label">有些应用，如微博，在您按 Back 时，不执行正常的 Back 操作，打开主屏幕。启用之后，按正常 Back 处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次 Home 键来帮助黑域确认</string>
     <string name="brevent_timeout">是否黑(chu)域(li)后台应用</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s后。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_label_never">永不黑(chu)域(li)后台应用。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
@@ -100,8 +100,8 @@
     <string name="brevent_mode">何时黑(chu)域(li)</string>
     <string name="brevent_mode_later">动态延后（推荐）</string>
     <string name="brevent_mode_immediate">立即处理</string>
-    <string name="brevent_mode_label_later">动态延后。黑域自动根据事件处理，打开启动器时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理</string>
-    <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开启动器与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用</string>
+    <string name="brevent_mode_label_later">动态延后。黑域自动根据事件处理，打开主屏幕时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理</string>
+    <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开主屏幕与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用</string>
     <string name="brevent_appops_notification">屏蔽恶意唤醒通知</string>
     <string name="brevent_appops_notification_label">恶意唤醒之后，屏蔽通知；再次打开界面时，恢复通知</string>
 
@@ -122,7 +122,7 @@
     <string name="important_input">%s（输入法）</string>
     <string name="important_alarm">%s（闹钟）</string>
     <string name="important_sms">%s（短信）</string>
-    <string name="important_launcher">%s（主屏幕）</string>
+    <string name="important_home">%s（主屏幕）</string>
     <string name="important_persistent">%s（永久进程）</string>
     <string name="important_gms">%s (谷歌服务组件)</string>
     <string name="important_android">%s（Android）</string>
