@@ -100,10 +100,11 @@ public class BreventConfiguration extends BreventToken {
             case "standby_only":
             case "" + BREVENT_METHOD_STANDBY_ONLY:
                 return BREVENT_METHOD_STANDBY_ONLY;
-            case "force_stop_only":
+            case "forcestop_only":
             case "" + BREVENT_METHOD_FORCE_STOP_ONLY:
                 return BREVENT_METHOD_FORCE_STOP_ONLY;
             case "standby":
+            case "standby_forcestop":
             case "" + BREVENT_METHOD_STANDBY_FORCE_STOP:
             default:
                 return BREVENT_METHOD_STANDBY_FORCE_STOP;

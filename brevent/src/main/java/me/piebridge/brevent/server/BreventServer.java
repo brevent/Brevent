@@ -178,7 +178,9 @@ public class BreventServer extends Handler {
             mInstalled.add(packageInfo.packageName);
         }
         for (PackageInfo packageInfo : HideApi.getGcmPackages(HideApi.USER_OWNER)) {
-            mGcm.add(packageInfo.packageName);
+            if (HideApi.hasGcmReceiver(packageInfo.packageName, HideApi.USER_OWNER)) {
+                mGcm.add(packageInfo.packageName);
+            }
         }
         File file = getBreventList();
         ServerLog.d("loading brevent list");
@@ -267,6 +269,7 @@ public class BreventServer extends Handler {
         }
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+            ServerLog.d("gcm: " + mGcm);
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
@@ -304,16 +307,16 @@ public class BreventServer extends Handler {
             }
         }
 
+        blocking.addAll(services);
+        blocking.addAll(back);
+        blocking.removeAll(top);
+        blocking.removeAll(home);
+
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("blocking: " + blocking);
             ServerLog.d("back: " + back);
             ServerLog.d("noRecent: " + noRecent);
         }
-
-        blocking.addAll(services);
-        blocking.addAll(back);
-        blocking.removeAll(top);
-        blocking.removeAll(home);
 
         Set<String> unsafe = new ArraySet<>();
         SimpleArrayMap<String, Set<String>> dependencies = HideApi.getDependencies(getCacheDir(), mUser);
@@ -324,6 +327,7 @@ public class BreventServer extends Handler {
                 ServerLog.d(dependencies.keyAt(i) + " depended by " + dependencies.valueAt(i));
             }
         }
+
         for (String packageName : blocking) {
             Set<String> packageNames = dependencies.get(packageName);
             if (packageNames != null) {
@@ -347,6 +351,9 @@ public class BreventServer extends Handler {
                 HideApi.setAllowBackground(packageName, false, mUser);
             }
             if (services.contains(packageName)) {
+                if (mConfiguration.appopsNotification) {
+                    HideApi.setAllowNotification(packageName, false, mUser);
+                }
                 forceStop(packageName, "(service)");
             } else {
                 brevent(packageName, standby, noRecent.contains(packageName));
@@ -386,9 +393,6 @@ public class BreventServer extends Handler {
     }
 
     private void forceStop(String packageName, String reason) {
-        if (mConfiguration.appopsNotification) {
-            HideApi.setAllowNotification(packageName, false, mUser);
-        }
         HideApi.forceStopPackage(packageName, reason, mUser);
         setStopped(packageName, true);
     }

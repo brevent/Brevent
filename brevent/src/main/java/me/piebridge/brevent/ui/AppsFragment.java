@@ -242,15 +242,15 @@ public abstract class AppsFragment extends Fragment {
     }
 
     public final boolean isImportant(String packageName) {
-        return isAllImportant() || ((BreventActivity) getActivity()).isImportant(packageName);
+        return ((BreventActivity) getActivity()).isImportant(packageName);
+    }
+
+    public final boolean isGcm(String packageName) {
+        return ((BreventActivity) getActivity()).isGcm(packageName);
     }
 
     public final String getImportantLabel(String label, String packageName) {
         return ((BreventActivity) getActivity()).getImportantLabel(label, packageName);
-    }
-
-    public boolean isAllImportant() {
-        return false;
     }
 
 }

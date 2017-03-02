@@ -53,11 +53,15 @@
     </string-array>
 
     <string-array name="brevent_method_values">
-        <item>standby</item>
+        <item>standby_forcestop</item>
+        <item>standby_only</item>
+        <item>forcestop_only</item>
     </string-array>
 
     <string-array name="brevent_method_entries">
-        <item>@string/brevent_method_standby</item>
+        <item>@string/brevent_method_standby_forcestop</item>
+        <item>@string/brevent_method_standby_only</item>
+        <item>@string/brevent_method_forcestop_only</item>
     </string-array>
 
     <string-array name="brevent_mode_values">

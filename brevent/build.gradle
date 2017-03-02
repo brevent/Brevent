@@ -37,6 +37,7 @@ android {
             buildConfigField 'byte[]', 'DONATE_PLAY', properties['build.play']
             buildConfigField 'String', 'FEEDBACK', properties['build.feedback']
             buildConfigField 'String', 'EMAIL', properties['build.email']
+            buildConfigField 'String', 'PROJECT', properties['build.project']
             resConfigs 'en', 'zh-rCN'
         }
 
@@ -74,6 +75,7 @@ android {
             buildConfigField 'byte[]', 'DONATE_PLAY', 'null'
             buildConfigField 'String', 'FEEDBACK', 'null'
             buildConfigField 'String', 'EMAIL', 'null'
+            buildConfigField 'String', 'PROJECT', 'null'
         }
     }
 
@@ -112,6 +114,7 @@ dependencies {
     compile project(':brevent-override')
     compile project(':brevent-override-m')
     provided project(':log-reader')
+    compile 'eu.chainfire:libsuperuser:1.0.0.201608240809'
 }
 
 def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))

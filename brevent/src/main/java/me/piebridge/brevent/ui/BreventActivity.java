@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -27,7 +28,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
@@ -83,7 +83,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_SMS = 2;
     public static final int IMPORTANT_LAUNCHER = 3;
     public static final int IMPORTANT_PERSISTENT = 4;
-    public static final int IMPORTANT_ANDROID = 5;
+    public static final int IMPORTANT_GMS = 5;
+    public static final int IMPORTANT_ANDROID = 6;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -95,6 +96,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
+    private static final String GMS = "com.google.android.gms";
+
     private ViewPager mPager;
 
     private AppsPagerAdapter mAdapter;
@@ -104,6 +107,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private SimpleArrayMap<String, SparseIntArray> mProcesses = new SimpleArrayMap<>();
     private Set<String> mBrevent = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
+    private Set<String> mGcm = new ArraySet<>();
 
     private boolean mSelectMode;
 
@@ -467,11 +471,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private void selectImportant() {
         AppsFragment fragment = getFragment();
-        if (fragment.isAllImportant()) {
-            fragment.selectAll();
-        } else {
-            fragment.select(getImportant());
-        }
+        fragment.select(getImportant());
     }
 
     private Collection<String> getImportant() {
@@ -487,27 +487,29 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return mImportant.containsKey(packageName);
     }
 
+    public boolean isGcm(String packageName) {
+        return mGcm.contains(packageName);
+    }
+
     public boolean isLauncher(String packageName) {
         return mLauncher != null && mLauncher.equals(packageName);
     }
 
     private boolean updateBrevent(boolean brevent) {
         AppsFragment fragment = getFragment();
-        if (!fragment.isAllImportant()) {
-            Collection<String> selected = new ArraySet<>(fragment.getSelected());
-            if (brevent) {
-                Iterator it = selected.iterator();
-                while (it.hasNext()) {
-                    if (mImportant.containsKey(it.next())) {
-                        it.remove();
-                    }
+        Collection<String> selected = new ArraySet<>(fragment.getSelected());
+        if (brevent) {
+            Iterator it = selected.iterator();
+            while (it.hasNext()) {
+                if (mImportant.containsKey(it.next())) {
+                    it.remove();
                 }
             }
-            if (!selected.isEmpty()) {
-                BreventPackages breventPackages = new BreventPackages(brevent, getToken(), selected);
-                breventPackages.undoable = true;
-                mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
-            }
+        }
+        if (!selected.isEmpty()) {
+            BreventPackages breventPackages = new BreventPackages(brevent, getToken(), selected);
+            breventPackages.undoable = true;
+            mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
         clearSelected();
         return false;
@@ -594,6 +596,17 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mImportant.clear();
         resolveImportantPackages(status.getProcesses(), mImportant);
 
+        mGcm.clear();
+        List<PackageInfo> packageInfos = getPackageManager().getPackagesHoldingPermissions(new String[] {
+                "com.google.android.c2dm.permission.RECEIVE",
+        }, 0);
+        if (packageInfos != null) {
+            for (PackageInfo packageInfo : packageInfos) {
+                mGcm.add(packageInfo.packageName);
+            }
+            mGcm.retainAll(checkReceiver(new Intent("com.google.android.c2dm.intent.RECEIVE")));
+        }
+
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS, SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
@@ -609,6 +622,17 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (!getToken().equals(status.getToken())) {
             updateConfiguration();
         }
+    }
+
+    private Collection<String> checkReceiver(Intent intent) {
+        Set<String> packageNames = new ArraySet<>();
+        List<ResolveInfo> resolveInfos = getPackageManager().queryBroadcastReceivers(intent, 0);
+        if (resolveInfos != null) {
+            for (ResolveInfo resolveInfo : resolveInfos) {
+                packageNames.add(resolveInfo.activityInfo.packageName);
+            }
+        }
+        return packageNames;
     }
 
     private void resolveImportantPackages(SimpleArrayMap<String, SparseIntArray> processes, SimpleArrayMap<String, Integer> packageNames) {
@@ -642,11 +666,25 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             packageNames.put(mLauncher, IMPORTANT_LAUNCHER);
         }
 
+        // persistent
         int size = processes.size();
         for (int i = 0; i < size; ++i) {
             if (BreventStatus.isPersistent(processes.valueAt(i))) {
                 packageNames.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
             }
+        }
+
+        // gms
+        try {
+            int uid = getPackageManager().getPackageInfo(GMS, 0).applicationInfo.uid;
+            String[] packagesForGms = getPackageManager().getPackagesForUid(uid);
+            if (packagesForGms != null) {
+                for (String packageName : packagesForGms) {
+                    packageNames.put(packageName, IMPORTANT_GMS);
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
         }
     }
 
@@ -716,6 +754,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     return getString(R.string.important_launcher, label);
                 case IMPORTANT_PERSISTENT:
                     return getString(R.string.important_persistent, label);
+                case IMPORTANT_GMS:
+                    return getString(R.string.important_gms, label);
                 case IMPORTANT_ANDROID:
                     return getString(R.string.important_android, label);
                 default:

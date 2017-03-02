@@ -128,6 +128,10 @@ class HideApi {
     }
 
     public static boolean isGcm(String packageName, int uid) {
+        return hasGcmPermission(packageName, uid) && hasGcmReceiver(packageName, uid);
+    }
+
+    public static boolean hasGcmPermission(String packageName, int uid) {
         PackageInfo packageInfo = getPackageInfo(packageName, PackageManager.GET_PERMISSIONS, uid);
         if (packageInfo != null && packageInfo.permissions != null) {
             if (packageInfo.requestedPermissions == null) {
@@ -142,6 +146,16 @@ class HideApi {
             }
         }
         return false;
+    }
+
+    public static boolean hasGcmReceiver(String packageName, int uid) {
+        try {
+            Intent intent = new Intent("com.google.android.c2dm.intent.RECEIVE");
+            intent.setPackage(packageName);
+            return AppGlobals.getPackageManager().resolveIntent(intent, null, 0, uid) != null;
+        } catch (RemoteException e) {
+            return false;
+        }
     }
 
     public static boolean isPackageAvailable(String packageName, int uid) throws HideApiException {

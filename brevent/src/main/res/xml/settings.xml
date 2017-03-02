@@ -11,6 +11,30 @@
             android:summary="@string/brevent_auto_label"
             android:title="@string/brevent_auto" />
 
+        <me.piebridge.brevent.ui.ListPreferenceSummary
+            android:defaultValue="later"
+            android:entries="@array/brevent_mode_entries"
+            android:entryValues="@array/brevent_mode_values"
+            android:key="brevent_mode"
+            android:summary="%1$s"
+            android:title="@string/brevent_mode" />
+
+        <me.piebridge.brevent.ui.ListPreferenceSummary
+            android:defaultValue="standby_forcestop"
+            android:entries="@array/brevent_method_entries"
+            android:entryValues="@array/brevent_method_values"
+            android:key="brevent_method"
+            android:summary="%1$s"
+            android:title="@string/brevent_method" />
+
+        <me.piebridge.brevent.ui.ListPreferenceSummary
+            android:defaultValue="1800"
+            android:entries="@array/brevent_timeout_entries"
+            android:entryValues="@array/brevent_timeout_values"
+            android:key="brevent_timeout"
+            android:summary="@string/brevent_timeout_label"
+            android:title="@string/brevent_timeout" />
+
         <SwitchPreference
             android:defaultValue="true"
             android:enabled="@bool/preference_brevent_move_back"
@@ -31,29 +55,29 @@
             android:summary="@string/brevent_appops_background_label"
             android:title="@string/brevent_appops_background" />
 
-        <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="1800"
-            android:entries="@array/brevent_timeout_entries"
-            android:entryValues="@array/brevent_timeout_values"
-            android:key="brevent_timeout"
-            android:summary="@string/brevent_timeout_label"
-            android:title="@string/brevent_timeout" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="brevent_appops_notification"
+            android:summary="@string/brevent_appops_notification_label"
+            android:title="@string/brevent_appops_notification" />
 
-        <ListPreference
-            android:defaultValue="standby"
-            android:entries="@array/brevent_method_entries"
-            android:entryValues="@array/brevent_method_values"
-            android:key="brevent_method"
-            android:summary="%1$s"
-            android:title="@string/brevent_method" />
+    </PreferenceCategory>
 
-        <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="later"
-            android:entries="@array/brevent_mode_entries"
-            android:entryValues="@array/brevent_mode_values"
-            android:key="brevent_mode"
-            android:summary="%1$s"
-            android:title="@string/brevent_mode" />
+    <PreferenceCategory
+        android:key="brevent_list_donation"
+        android:title="@string/brevent_list_donation">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_allow_gcm"
+            android:summary="@string/brevent_allow_gcm_label"
+            android:title="@string/brevent_allow_gcm" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_allow_root"
+            android:summary="@string/brevent_allow_root_label"
+            android:title="@string/brevent_allow_root" />
 
     </PreferenceCategory>
 
@@ -77,6 +101,33 @@
             android:key="show_framework_apps"
             android:summary="@string/show_framework_apps_label"
             android:title="@string/show_framework_apps" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="brevent_about"
+        android:title="@string/brevent_about">
+
+        <me.piebridge.brevent.ui.VersionPreference
+            android:key="brevent_about_version"
+            android:title="@string/brevent_about_version" />
+
+        <me.piebridge.brevent.ui.ProjectPreference
+            android:key="brevent_about_project"
+            android:title="@string/brevent_about_project" />
+
+        <Preference
+            android:key="brevent_about_translator"
+            android:summary="@string/brevent_about_translator"
+            android:title="@string/brevent_about_translation" />
+
+        <PreferenceScreen
+            android:title="@string/brevent_about_licenses">
+            <intent
+                android:targetClass="me.piebridge.brevent.ui.BreventLicenses"
+                android:targetPackage="me.piebridge.brevent" />
+
+        </PreferenceScreen>
 
     </PreferenceCategory>
 

@@ -25,6 +25,13 @@ public class ListPreferenceSummary extends ListPreference {
                 return getContext().getString(R.string.brevent_mode_label_later);
             case "immediate":
                 return getContext().getString(R.string.brevent_mode_label_immediate);
+            case "standby":
+            case "standby_forcestop":
+                return getContext().getString(R.string.brevent_method_standby_forcestop_label);
+            case "standby_only":
+                return getContext().getString(R.string.brevent_method_standby_only_label);
+            case "forcestop_only":
+                return getContext().getString(R.string.brevent_method_forcestop_only_label);
             default:
                 break;
         }

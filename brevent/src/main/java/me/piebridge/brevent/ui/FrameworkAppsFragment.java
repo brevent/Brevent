@@ -13,9 +13,4 @@ public class FrameworkAppsFragment extends AppsFragment {
         return isSystemPackage(applicationInfo.flags) && isFrameworkPackage(packageManager, applicationInfo.packageName);
     }
 
-    @Override
-    public boolean isAllImportant() {
-        return false;
-    }
-
 }

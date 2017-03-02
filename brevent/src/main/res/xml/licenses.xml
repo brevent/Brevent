@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/brevent_about_licenses">
+
+    <PreferenceCategory
+        android:key="brevent_about_licenses"
+        android:title="@string/brevent_about_licenses">
+
+        <PreferenceScreen
+            android:summary="Android Software Development Kit License"
+            android:title="Android SDK">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://developer.android.com/studio/terms.html" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:summary="Apache License, Version 2.0"
+            android:title="Android Open Source Project">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://source.android.com/" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:summary="Apache License, Version 2.0"
+            android:title="ZXing Core">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/zxing/zxing/" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:summary="Apache License, Version 2.0"
+            android:title="libsuperuser">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Chainfire/libsuperuser/" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

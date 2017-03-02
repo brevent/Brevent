@@ -131,6 +131,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
                 String label = mFragment.getImportantLabel(viewHolder.label, viewHolder.packageName);
                 viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_error_black_44dp);
+            } else if (mFragment.isGcm(viewHolder.packageName)) {
+                viewHolder.nameView.setText(viewHolder.label);
+                viewHolder.iconView.setImageResource(R.drawable.ic_cloud_circle_black_44dp);
             } else {
                 viewHolder.nameView.setText(viewHolder.label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_check_circle_black_44dp);
@@ -374,7 +377,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
             return false;
         }
-        return (getActivity().isLauncher(appInfo.packageName)  || mFragment.supportAllApps() || showAllApps || pm.getLaunchIntentForPackage(appInfo.packageName) != null)
+        return (getActivity().isLauncher(appInfo.packageName) || mFragment.supportAllApps() || showAllApps || pm.getLaunchIntentForPackage(appInfo.packageName) != null)
                 && mFragment.accept(pm, appInfo);
     }
 

@@ -21,8 +21,6 @@ public class HideApiOverride {
 
     public static final int OP_NONE = AppOpsManager.OP_NONE;
 
-    public static final int OP_ACTIVATE_VPN = AppOpsManager.OP_ACTIVATE_VPN;
-
     public static final int OP_POST_NOTIFICATION = AppOpsManager.OP_POST_NOTIFICATION;
 
     private HideApiOverride() {

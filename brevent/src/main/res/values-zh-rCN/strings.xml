@@ -3,21 +3,21 @@
 
     <string name="app_name">黑域</string>
 
-    <string name="fragment_guide_welcome">欢迎安装黑域</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过两种按键，BACK 退出应用回到上层，HOME 把应用放到后台打开启动器；同时，允许应用使用一直运行的服务。当然，您也可以直接从最近列表划掉某个应用，表明不再使用。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
-    <string name="fragment_guide_welcome_message2">黑域很喜欢 Android 的设计，当您使用 BACK 退出应用时，应用及所包含的服务不再运行；当您使用 HOME 把应用放到后台时，后台应用及所包含的服务可以继续运行一段时间（您可在黑域设置中修改）；当您从最近列表划掉时，表明不再需要。在黑域管理界面，会显示还未退出应用的使用时长。</string>
+    <string name="fragment_guide_welcome">欢迎</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过三种按键，Back 退出应用回到上层，Home 或者 Overview 把应用放到后台；同时，允许应用使用一直运行的服务。当然，您也可以直接从最近列表划掉某个应用。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message2">当您使用 Back 退出应用时，应用及所包含的服务不再运行；当您使用 Home 或者 Overview 或者其它方式把应用移到后台，后台应用及所包含的服务可以继续运行；当您从最近列表划掉时，黑域将强行停止它。\n\n对于后台应用，黑域动态显示空闲时间</string>
 
-    <string name="fragment_guide_permission">黑域所需权限</string>
-    <string name="fragment_guide_permission_message">黑域需要您开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。</string>
+    <string name="fragment_guide_permission">权限</string>
+    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
+    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n如果您的设备已经 ROOT，您也可以使用 ROOT 模式代替调试模式。ROOT 模式不安全也没有必要，并且需要捐赠。</string>
 
-    <string name="fragment_guide_security">潜在安全隐患</string>
+    <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
-    <string name="fragment_guide_security_message2">黑域使用 Android 隐藏 API 以获取其它应用运行信息，黑域其他应用。但是有些第三方系统可能改变这些隐藏 API 行为，对设备造成未知影响。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，可能无法支持您的设备。同时有些第三方系统可能改变这些隐藏 API 行为，对设备造成未知影响。</string>
 
-    <string name="fragment_guide_enjoy">开始使用黑域</string>
+    <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题或有任何建议，敬请提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认使用休眠黑域应用。如果您发现黑域后的应用还在运行，请使用黑域或者其它类似工具（如开发者选项中的未启用的应用）查看是否处于休眠状态。\n\n此外，为了降低自身耗电，黑域集中处理，效果并不是那么及时，根据级别延后 3 到 60 秒不等。\n\n当您从最近列表划掉应用时，系统会杀掉进程，黑域也将直接强行停止它。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认使用休眠黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具（如开发者选项中的未启用的应用）查看是否处于休眠状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据级别延后 3 到 60 秒不等；您也可在设置中修改成立即处理。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="brevent_service_start">请启动黑域服务</string>
@@ -72,15 +72,15 @@
 
     <!-- settings brevent list -->
     <string name="brevent_list">黑域清单</string>
-    <string name="brevent_auto">自动黑域</string>
+    <string name="brevent_auto">自动更新</string>
     <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
-    <string name="brevent_move_back">黑域 BACK 移到后台</string>
-    <string name="brevent_move_back_label">有些应用在您按 BACK 时，不执行正常的 BACK 操作，移到后台。如果您并不是很清楚的知道 BACK 与 HOME 的区别，请关闭这个选项（仅支持 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑域 BACK 打开启动器</string>
-    <string name="brevent_back_home_label">有些应用在您按 BACK 时，不执行正常的 BACK 操作，打开启动器。如果您并不是很清楚的知道 BACK 与 HOME 的区别，请关闭这个选项。绝大部分情况下黑域都能有效区分，您也可连按 7 次 HOME 键来帮助黑域确认</string>
-    <string name="brevent_timeout">黑域后台应用时间</string>
+    <string name="brevent_move_back">黑(chu)域(li) BACK 移到后台</string>
+    <string name="brevent_move_back_label">有些应用，如微信，在您按 BACK 时，不执行正常的 BACK 操作，移到后台。启用之后，按正常 BACK 处理（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_back_home">黑(chu)域(li) BACK 打开启动器</string>
+    <string name="brevent_back_home_label">有些应用，如微博，在您按 BACK 时，不执行正常的 BACK 操作，打开启动器。启用之后，按正常 BACK 处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次 HOME 键来帮助黑域确认</string>
+    <string name="brevent_timeout">是否黑(chu)域(li)后台应用</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s后。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
-    <string name="brevent_timeout_label_never">永不黑域后台应用。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
+    <string name="brevent_timeout_label_never">永不黑(chu)域(li)后台应用。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_never">永不</string>
     <string name="brevent_timeout_5min">5 分钟</string>
     <string name="brevent_timeout_10min">10 分钟</string>
@@ -88,14 +88,21 @@
     <string name="brevent_timeout_30min">30 分钟</string>
     <string name="brevent_timeout_1hour">1 小时</string>
     <string name="brevent_appops_background">使用原生后台限制</string>
-    <string name="brevent_appops_background_label">建议关闭。帐号同步与定时任务不再生效，即使您卸载黑域也将持续（仅支持 Android 7.0 及以上）</string>
-    <string name="brevent_method">黑域方式</string>
-    <string name="brevent_method_standby">优先休眠（非充电时），然后强行停止</string>
-    <string name="brevent_mode">黑域工作模式</string>
+    <string name="brevent_appops_background_label">建议关闭。帐号同步与定时任务不再生效，应用可能无法正常使用，即使您卸载黑域也将持续（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_method">怎样黑(chu)域(li)</string>
+    <string name="brevent_method_standby_forcestop">休眠，然后强行停止</string>
+    <string name="brevent_method_standby_only">只休眠，不强行停止</string>
+    <string name="brevent_method_forcestop_only">只强行停止，不休眠</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用时休眠，从最近列表划掉时强行停止</string>
+    <string name="brevent_method_standby_only_label">只休眠，不强行停止。不建议选择，专为强迫症患者准备</string>
+    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。不建议选择，专为强迫症患者准备</string>
+    <string name="brevent_mode">何时黑(chu)域(li)</string>
     <string name="brevent_mode_later">动态延后（推荐）</string>
     <string name="brevent_mode_immediate">立即处理</string>
-    <string name="brevent_mode_label_later">动态延后。打开启动器时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理\n</string>
+    <string name="brevent_mode_label_later">动态延后。黑域自动根据事件处理，打开启动器时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理</string>
     <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开启动器与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用</string>
+    <string name="brevent_appops_notification_label">恶意唤醒之后，屏蔽通知；再次打开界面时，恢复通知</string>
+    <string name="brevent_appops_notification">屏蔽恶意唤醒通知</string>
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
@@ -114,8 +121,24 @@
     <string name="important_input">%s（输入法）</string>
     <string name="important_alarm">%s（闹钟）</string>
     <string name="important_sms">%s（短信）</string>
-    <string name="important_launcher">%s（启动器）</string>
+    <string name="important_launcher">%s（主屏幕）</string>
     <string name="important_persistent">%s（永久进程）</string>
+    <string name="important_gms">%s (谷歌服务组件)</string>
     <string name="important_android">%s（Android）</string>
+
+    <string name="brevent_list_donation">捐赠特性</string>
+
+    <string name="brevent_allow_gcm">允许 GCM 推送</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑(chu)域(li)后的应用接收 GCM 消息。温馨提醒，微信不支持 GCM 消息\n\n需要累积捐赠 1 美金</string>
+
+    <string name="brevent_allow_root">允许 ROOT 运行</string>
+    <string name="brevent_allow_root_label">对于黑域而言，ROOT 模式不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式直接开启黑域服务\n\n需要累积捐赠 3 美金</string>
+
+    <string name="brevent_about">关于</string>
+    <string name="brevent_about_version">版本</string>
+    <string name="brevent_about_project">项目地址</string>
+    <string name="brevent_about_licenses">软件许可</string>
+    <string name="brevent_about_translation">翻译</string>
+    <string name="brevent_about_translator">子非</string>
 
 </resources>

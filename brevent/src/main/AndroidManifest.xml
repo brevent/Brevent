@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.piebridge.brevent"
     android:installLocation="internalOnly"
-    android:versionCode="12">
+    android:versionCode="15">
 
     <uses-sdk
         android:maxSdkVersion="25"
@@ -46,8 +46,13 @@
             android:name=".ui.BreventGuide"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_guide"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".ui.BreventLicenses"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.Material.Dialog"
+            android:windowSoftInputMode="stateHidden" />
 
     </application>
 
