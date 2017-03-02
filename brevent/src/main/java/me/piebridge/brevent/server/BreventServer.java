@@ -65,6 +65,7 @@ public class BreventServer extends Handler {
     private static final int MESSAGE_CHECK_CHANGED = 7;
 
     private static final int MESSAGE_EXIT = 8;
+    static final int MESSAGE_DEAD = 9;
 
     private static final int MAX_TIMEOUT = 30;
 
@@ -104,6 +105,7 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_USER = 3000;
     private static final int CHECK_LATER_BACK = 3000;
     private static final int CHECK_LATER_HOME = 3000;
+    private static final int CHECK_LATER_ANSWER = 3000;
     private static final int CHECK_LATER_SERVICE = 30000;
     private static final int CHECK_LATER_APPS = 60000;
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
@@ -145,7 +147,13 @@ public class BreventServer extends Handler {
         if (!mConfiguration.allowRoot && HideApiOverride.isRoot(Process.myUid())) {
             sendEmptyMessageDelayed(MESSAGE_EXIT, CHECK_LATER_USER);
         }
+
         handleStatus(BreventToken.EMPTY_TOKEN);
+    }
+
+    private void checkAlive() {
+        sendEmptyMessageDelayed(MESSAGE_DEAD, CHECK_LATER_ANSWER);
+        EventLog.writeEvent(EventTag.TAG_ANSWER, 0xfee1900d);
     }
 
     private boolean loadBreventConf() {
@@ -234,6 +242,10 @@ public class BreventServer extends Handler {
             case MESSAGE_EXIT:
                 ServerLog.e("Can't be run as root, please open Brevent");
                 System.exit(0);
+                break;
+            case MESSAGE_DEAD:
+                ServerLog.e("Don't receive answer from universe");
+                System.exit(1);
                 break;
             default:
                 break;
@@ -839,6 +851,7 @@ public class BreventServer extends Handler {
         BreventStatus response = new BreventStatus(token, mBrevent, processes);
         sendBroadcast(response);
         removeMessages(MESSAGE_REQUEST_STATUS);
+        checkAlive();
     }
 
     private ActivitiesHolder getRunningActivities() {

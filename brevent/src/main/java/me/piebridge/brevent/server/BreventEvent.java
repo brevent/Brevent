@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 import me.piebridge.EventHandler;
@@ -33,18 +34,21 @@ class BreventEvent implements Runnable, EventHandler {
 
     private final int amSwitchUserTag;
 
+    private int mPid;
+
     BreventEvent(Handler handler, CountDownLatch countDownLatch) throws IOException {
         mHandler = handler;
         mCountDownLatch = countDownLatch;
         mEventTag = new EventTag();
         mUser = HideApi.getCurrentUser();
+        mPid = getSystemPid(HideApi.getRunningAppProcesses());
         amSwitchUserTag = mEventTag.getTag(EventTag.AM_SWITCH_USER);
     }
 
     @Override
     public void run() {
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-        LogReader.readEvents(getSystemPid(HideApi.getRunningAppProcesses()), this);
+        LogReader.readEvents(0, this);
         ServerLog.d("Brevent Event countDown");
         mCountDownLatch.countDown();
     }
@@ -62,15 +66,25 @@ class BreventEvent implements Runnable, EventHandler {
 
     @Override
     public boolean accept(int tag) {
-        return quit || tag == amSwitchUserTag || (mUser == HideApi.USER_OWNER && mEventTag.contains(tag));
+        return quit || tag == EventTag.TAG_ANSWER || tag == amSwitchUserTag || (mUser == HideApi.USER_OWNER && mEventTag.contains(tag));
     }
 
     @Override
     public boolean onEvent(EventLog.Event event) {
         if (quit) {
-            return !quit;
+            return false;
         }
         int tag = event.getTag();
+        if (tag == EventTag.TAG_ANSWER) {
+            if (Objects.equals(event.getData(), 0xfee1900d)) {
+                ServerLog.d("received feelgood");
+                mHandler.removeMessages(BreventServer.MESSAGE_DEAD);
+            }
+            return true;
+        }
+        if (mPid != event.getProcessId()) {
+            return true;
+        }
         int eventId = mEventTag.getEvent(tag);
         SimpleArrayMap<String, Object> events = convertData(tag, event);
         if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {

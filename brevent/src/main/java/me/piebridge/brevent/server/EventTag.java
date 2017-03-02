@@ -32,6 +32,8 @@ public class EventTag {
 
     public static final int POWER_SCREEN_STATE = 7;
 
+    public static final int TAG_ANSWER = 42;
+
     private static final int EVENT_COUNT = 7;
 
     private static final String TAGS_FILE = "/system/etc/event-log-tags";
