@@ -74,12 +74,12 @@
 
     <!-- settings brevent list -->
     <string name="brevent_list">Brevent List</string>
-    <string name="brevent_auto">Auto Brevent</string>
+    <string name="brevent_auto">Auto brevent</string>
     <string name="brevent_auto_label">Update Brevent list when apps installed or uninstalled</string>
-    <string name="brevent_move_back">Brevent BACK move background</string>
-    <string name="brevent_move_back_label">Some apps move to background when BACK is pressed. When on, Brevent process it like normal BACK (Available since Android 7.0)</string>
-    <string name="brevent_back_home">Brevent BACK open Launcher</string>
-    <string name="brevent_back_home_label">Some apps open Launcher when BACK is pressed. When on, Brevent process it like normal BACK. Brevent could distinguish in most case, however you can press HOME 7 times to help Brevent confirm</string>
+    <string name="brevent_move_back">Brevent Back move background</string>
+    <string name="brevent_move_back_label">Some apps move to background when Back is pressed. When on, Brevent treat it as normal Back (Available since Android 7.0)</string>
+    <string name="brevent_back_home">Brevent Back open Home</string>
+    <string name="brevent_back_home_label">Some apps open Home when Back is pressed. When on, Brevent treat it as normal Back. Brevent could distinguish in most case, however you can press Home 7 times to help Brevent confirm</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s. Brevent show inactive time for background apps dynamically</string>
     <string name="brevent_timeout_label_never">Background apps won\'t be brevented. Brevent show inactive time for background apps dynamically</string>
@@ -89,20 +89,22 @@
     <string name="brevent_timeout_15min">15 minutes</string>
     <string name="brevent_timeout_30min">30 minutes</string>
     <string name="brevent_timeout_1hour">1 hour</string>
-    <string name="brevent_appops_background">Use AppOps\'s BACKGROUND</string>
-    <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, apply even when you uninstall Brevent (Since Android 7.0)</string>
-    <string name="brevent_method">Brevent method</string>
-    <string name="brevent_method_standby_forcestop">休眠，然后强行停止</string>
-    <string name="brevent_method_standby_only">只休眠，不强行停止</string>
-    <string name="brevent_method_forcestop_only">只强行停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">离开应用时休眠，从最近列表划掉或者超时后强行停止</string>
-    <string name="brevent_method_standby_only_label">只休眠，不强行停止。当然，如果被恶意唤醒，也会强行停止</string>
-    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。可能会更节省电，但是会导致打开应用变慢</string>
-    <string name="brevent_mode">Brevent working mode</string>
+    <string name="brevent_appops_background">Use AppOps\'s BackGROUND</string>
+    <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, and apps may not work well, apply even when you uninstall Brevent (Since Android 7.0)</string>
+    <string name="brevent_method">How brevent</string>
+    <string name="brevent_method_standby_forcestop">App Standby, then ForceStop</string>
+    <string name="brevent_method_standby_only">Only App Standby, no ForceStop</string>
+    <string name="brevent_method_forcestop_only">Only ForceStop, no App Standby</string>
+    <string name="brevent_method_standby_forcestop_label">App Standby when exit apps, and ForceStop when swiping away from recent tasks</string>
+    <string name="brevent_method_standby_only_label">Only App Standby, no ForceStop. Of course, will ForceStop apps awaken by other apps</string>
+    <string name="brevent_method_forcestop_only_label">Only ForceStop, no App Standby. It may save battery, but costs more time when apps re-launch</string>
+    <string name="brevent_mode">When brevent</string>
     <string name="brevent_mode_later">Later (Recommend)</string>
     <string name="brevent_mode_immediate">Immediate</string>
-    <string name="brevent_mode_label_later">Later. Short when HOME focused, longer when awaken, longest when apps focused, immediately when screen off</string>
-    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / HOME focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well</string>
+    <string name="brevent_mode_label_later">Later. Short when Home focused, longer when awaken, longest when apps focused, immediately when screen off</string>
+    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / Home focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well</string>
+    <string name="brevent_appops_notification">Block awaken notification</string>
+    <string name="brevent_appops_notification_label">No notification when awaken by other apps; and recover after launch</string>
 
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
@@ -126,13 +128,12 @@
     <string name="important_persistent">%s (Persistent)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_android">%s (Android)</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRequires donation at least 1 USD</string>
+
     <string name="brevent_allow_gcm">Allow GCM</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRequires donation at least 1 USD</string>
     <string name="brevent_allow_root">Allow ROOT</string>
-    <string name="brevent_allow_root_label">It\'s unsafe and unnecerray for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nThis feature requires donation at least 3 USD</string>
+    <string name="brevent_allow_root_label">It\'s unsafe and unnecerray for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donation at least 3 USD</string>
     <string name="brevent_list_donation">Requires donation</string>
-    <string name="brevent_appops_notification_label">Notification label</string>
-    <string name="brevent_appops_notification">Notification</string>
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>

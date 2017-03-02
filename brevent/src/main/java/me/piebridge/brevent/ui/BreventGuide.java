@@ -44,8 +44,8 @@ public class BreventGuide extends Activity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (preferences.getBoolean(GUIDE, true)) {
             preferences.edit().putBoolean(GUIDE, false).apply();
+            startActivity(new Intent(this, BreventActivity.class));
         }
-        startActivity(new Intent(this, BreventActivity.class));
         finish();
     }
 

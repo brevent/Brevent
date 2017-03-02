@@ -12,6 +12,7 @@ import android.widget.Toolbar;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Collections;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -110,6 +111,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     public void showPlay(Collection<String> purchased) {
         if (purchased != null && !purchased.isEmpty()) {
             updatePlayDonation(purchased);
+        } else {
+            updatePlayDonation(Collections.<String>emptyList());
         }
         super.showPlay(purchased);
     }

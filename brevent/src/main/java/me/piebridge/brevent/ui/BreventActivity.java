@@ -373,6 +373,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             if (BuildConfig.RELEASE) {
                 menu.add(Menu.NONE, R.string.menu_feedback, Menu.NONE, R.string.menu_feedback);
             }
+            menu.add(Menu.NONE, R.string.menu_guide, Menu.NONE, R.string.menu_guide);
             menu.add(Menu.NONE, R.string.menu_settings, Menu.NONE, R.string.menu_settings);
         } else {
             MenuItem remove = menu.add(Menu.NONE, R.string.action_restore, Menu.NONE, R.string.action_restore)
@@ -414,6 +415,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     openFeedback();
                 }
                 break;
+            case R.string.menu_guide:
+                openGuide();
+                break;
             case R.string.menu_settings:
                 openSettings();
                 break;
@@ -421,6 +425,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 return super.onOptionsItemSelected(menuItem);
         }
         return true;
+    }
+
+    private void openGuide() {
+        startActivity(new Intent(this, BreventGuide.class));
     }
 
     private void openFeedback() {

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.donation.DonateActivity;
 
 /**
@@ -23,7 +25,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
-    private Preference preference;
+    private Preference donation;
+
+    private SwitchPreference allowGcm;
+
+    private SwitchPreference allowRoot;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -36,14 +42,20 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         addPreferencesFromResource(R.xml.settings);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preference = preferenceScreen.findPreference(SHOW_DONATION);
+        donation = preferenceScreen.findPreference(SHOW_DONATION);
         if (!BuildConfig.RELEASE) {
-            preference.setEnabled(false);
-            preference.setSummary(null);
+            donation.setEnabled(false);
+            donation.setSummary(null);
         } else {
-            preference.setEnabled(true);
-            preference.setSummary(null);
+            donation.setEnabled(true);
+            donation.setSummary(null);
         }
+
+        allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
+        allowGcm.setEnabled(false);
+
+        allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
+        allowRoot.setEnabled(false);
     }
 
     @Override
@@ -69,10 +81,24 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         String summary;
         if (count == 1) {
             summary = getString(R.string.show_donation_play_one, total);
-        } else {
+            donation.setSummary(summary);
+        } else if (count > 1) {
             summary = getString(R.string.show_donation_play_multi, count, total);
+            donation.setSummary(summary);
         }
-        preference.setSummary(summary);
+        if (total < 1) {
+            allowGcm.setEnabled(false);
+            allowGcm.setChecked(false);
+            allowRoot.setEnabled(false);
+            allowRoot.setChecked(false);
+        } else if (total < 3) {
+            allowGcm.setEnabled(true);
+            allowRoot.setEnabled(false);
+            allowRoot.setChecked(false);
+        } else {
+            allowGcm.setEnabled(true);
+            allowRoot.setEnabled(true);
+        }
     }
 
 }
