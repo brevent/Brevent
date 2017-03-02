@@ -40,12 +40,18 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toolbar;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
@@ -128,6 +134,27 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            // disable hooks
+            Field disableHooks = XposedBridge.class.getDeclaredField("disableHooks");
+            disableHooks.setAccessible(true);
+            disableHooks.set(null, true);
+
+            // replace hooked method callbacks
+            Field sHookedMethodCallbacks = XposedBridge.class.getDeclaredField("sHookedMethodCallbacks");
+            sHookedMethodCallbacks.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            Map<Member, XposedBridge.CopyOnWriteSortedSet<XC_MethodHook>> map = (Map<Member, XposedBridge.CopyOnWriteSortedSet<XC_MethodHook>>) sHookedMethodCallbacks.get(null);
+            for (XposedBridge.CopyOnWriteSortedSet<XC_MethodHook> hooked : map.values()) {
+                Object[] snapshot = hooked.getSnapshot();
+                int length = snapshot.length;
+                for (int i = 0; i < length; ++i) {
+                    snapshot[i] = XC_MethodReplacement.DO_NOTHING;
+                }
+            }
+        } catch (Throwable t) { // NOSONAR
+            // do nothing
+        }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             startActivity(new Intent(this, BreventGuide.class));
