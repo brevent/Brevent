@@ -12,7 +12,6 @@ class TaskRecord {
     String packageName;
     int inactive;
     String state;
-    Boolean fullscreen;
 
     boolean isHome() {
         return stack == 0;

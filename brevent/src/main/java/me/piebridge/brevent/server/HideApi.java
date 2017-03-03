@@ -19,7 +19,6 @@ import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ServiceManager;
-import android.support.v4.BuildConfig;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
@@ -415,7 +414,6 @@ class HideApi {
 
         int stackId = -1;
         boolean top = false;
-        boolean fullscreen = false;
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
         ) {
@@ -425,25 +423,17 @@ class HideApi {
                 }
                 // Stack #X:
                 if (line.contains("Stack #")) {
-                    stackId = parseStackId(line);
                     top = true;
-                    fullscreen = false;
-                } else if (line.contains("mFullscreen=")) {
-                    fullscreen = Boolean.parseBoolean(StringUtils.substring(line, "mFullscreen=", ""));
-                } else if (line.contains("mTaskToReturnTo=")) {
-                    String returnTo = StringUtils.substring(line, "mTaskToReturnTo=", " ");
-                    if (!"0".equals(returnTo)) {
-                        top = false;
-                    }
+                    stackId = parseStackId(line);
                 } else if (line.contains("* TaskRecord{")) {
                     taskRecord = new TaskRecord();
-                    taskRecord.stack = stackId;
-                    taskRecord.fullscreen = fullscreen;
                     taskRecord.top = top;
+                    taskRecord.stack = stackId;
                 } else if (taskRecord != null) {
                     parseTaskRecord(taskRecord, line);
                     if (!TextUtils.isEmpty(taskRecord.state)) {
                         addTaskRecordsIfNeeded(taskRecords, taskRecord, userId);
+                        top = false;
                         taskRecord = null;
                     }
                 }

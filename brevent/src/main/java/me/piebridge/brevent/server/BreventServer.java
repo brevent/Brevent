@@ -281,19 +281,21 @@ public class BreventServer extends Handler {
         }
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
-            ServerLog.d("gcm: " + mGcm);
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
             ServerLog.d("recent: " + recent);
+            ServerLog.d("back: " + back);
+            ServerLog.d("service: " + services);
         }
-
-        SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
-        int size = processes.size();
 
         Collection<String> blocking = new ArraySet<>();
         Collection<String> noRecent = new ArraySet<>();
         Collection<String> standby = new ArraySet<>();
+
+        SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
+        int size = processes.size();
+        int now = TimeUtils.now();
         boolean checkLater = false;
         int timeout = mConfiguration.timeout;
         for (int i = 0; i < size; ++i) {
@@ -301,10 +303,11 @@ public class BreventServer extends Handler {
             SparseIntArray status = processes.valueAt(i);
             if (mBrevent.contains(packageName)) {
                 int inactive = BreventStatus.getInactive(status);
+                ServerLog.d("inactive for " + packageName + ": " + inactive + ", timeout: " + timeout);
                 if (inactive == 0) {
                     blocking.add(packageName);
                 } else if (timeout > 0) {
-                    if (inactive > timeout) {
+                    if (now - inactive > timeout) {
                         blocking.add(packageName);
                     } else {
                         checkLater = true;
@@ -326,7 +329,6 @@ public class BreventServer extends Handler {
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("blocking: " + blocking);
-            ServerLog.d("back: " + back);
             ServerLog.d("noRecent: " + noRecent);
         }
 
@@ -417,6 +419,9 @@ public class BreventServer extends Handler {
     }
 
     private void setStopped(String packageName, boolean current) {
+        if (mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+            ServerLog.d("gcm: " + mGcm);
+        }
         if (mConfiguration.allowGcm && mGcm.contains(packageName)) {
             if (current) {
                 HideApi.setStopped(packageName, false, mUser);
@@ -646,6 +651,7 @@ public class BreventServer extends Handler {
         int offOrOn = (int) event.get("offOrOn");
         if (offOrOn == 1) {
             screen = true;
+            checkLaterIfLater(CHECK_LATER_HOME);
         } else {
             screen = false;
             checkLater(0);
@@ -661,7 +667,9 @@ public class BreventServer extends Handler {
     }
 
     private void checkLater(int later) {
-        removeMessages(MESSAGE_CHECK);
+        if (later <= CHECK_LATER_HOME) {
+            removeMessages(MESSAGE_CHECK);
+        }
         sendEmptyMessageDelayed(MESSAGE_CHECK, later);
     }
 
@@ -865,21 +873,19 @@ public class BreventServer extends Handler {
             ServerLog.e("Can't check running activities");
             return holder;
         }
-        TaskRecord firstTaskRecord = taskRecords.get(0);
-        int firstStack = firstTaskRecord.stack;
-        boolean onHome = firstTaskRecord.isHome();
-        boolean fullscreen = firstTaskRecord.fullscreen;
+        boolean onHome = taskRecords.get(0).isHome();
         int now = TimeUtils.now();
         for (TaskRecord taskRecord : taskRecords) {
             String packageName = taskRecord.packageName;
-            // collect top package
-            if (taskRecord.top && !onHome && (!fullscreen || taskRecord.stack == firstStack)) {
-                holder.top.add(packageName);
-            }
             if (taskRecord.isHome()) {
                 holder.home.add(packageName);
-            } else if (!holder.running.containsKey(packageName)) {
-                holder.running.put(packageName, now - taskRecord.inactive);
+            } else {
+                if (!onHome && taskRecord.top) {
+                    holder.top.add(packageName);
+                }
+                if (!holder.running.containsKey(packageName)) {
+                    holder.running.put(packageName, now - taskRecord.inactive);
+                }
             }
         }
         return holder;
@@ -941,21 +947,20 @@ public class BreventServer extends Handler {
                 continue;
             }
             int processState = HideApiOverride.getProcessState(process);
-            for (String pkg : process.pkgList) {
-                SparseIntArray status;
-                int processIndex = processes.indexOfKey(pkg);
-                if (processIndex >= 0) {
-                    status = processes.valueAt(processIndex);
+            for (String packageName : process.pkgList) {
+                SparseIntArray status = processes.get(packageName);
+                if (status != null) {
                     int oldValue = status.get(processState, 1);
                     status.put(processState, oldValue + 1);
                 } else {
                     status = new SparseIntArray();
                     status.put(processState, 1);
-                    status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getAppInactive(pkg, mUser) ? 1 : 0);
-                    int runningIndex = running.indexOfKey(pkg);
-                    status.put(BreventStatus.PROCESS_STATE_INACTIVE, runningIndex >= 0 ? running.valueAt(runningIndex) : 0);
+                    status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getAppInactive(packageName, mUser) ? 1 : 0);
+                    Integer inactive = running.get(packageName);
+                    ServerLog.d("inactive for " + packageName + ": " + inactive);
+                    status.put(BreventStatus.PROCESS_STATE_INACTIVE, inactive == null ? 0 : inactive);
                     status.put(BreventStatus.PROCESS_STATE_PERSISTENT, HideApiOverride.isPersistent(process) ? 1 : 0);
-                    processes.put(pkg, status);
+                    processes.put(packageName, status);
                 }
             }
         }
