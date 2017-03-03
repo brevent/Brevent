@@ -48,4 +48,6 @@ public interface IPackageManager {
      */
     ParceledListSlice<PackageInfo> getPackagesHoldingPermissions(String[] permissions, int flags, int userId) throws RemoteException;
 
+    ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId) throws RemoteException;
+
 }

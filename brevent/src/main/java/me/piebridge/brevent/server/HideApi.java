@@ -8,6 +8,7 @@ import android.app.usage.IUsageStatsManager;
 import android.content.Context;
 import android.content.IIntentReceiver;
 import android.content.Intent;
+import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ParceledListSlice;
@@ -18,6 +19,7 @@ import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.support.v4.BuildConfig;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
@@ -152,8 +154,21 @@ class HideApi {
         try {
             Intent intent = new Intent("com.google.android.c2dm.intent.RECEIVE");
             intent.setPackage(packageName);
-            return AppGlobals.getPackageManager().resolveIntent(intent, null, 0, uid) != null;
+            List receivers;
+            IPackageManager packageManager = AppGlobals.getPackageManager();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                ParceledListSlice result = packageManager.queryIntentReceivers(intent, null, 0, uid);
+                if (result != null) {
+                    receivers = result.getList();
+                } else {
+                    receivers = null;
+                }
+            } else {
+                receivers = HideApiOverrideM.queryIntentReceivers(packageManager, intent, uid);
+            }
+            return receivers != null && !receivers.isEmpty();
         } catch (RemoteException e) {
+            ServerLog.w("Can't check GcmReceiver for " + packageName);
             return false;
         }
     }
@@ -248,7 +263,7 @@ class HideApi {
     /**
      * since api-24
      */
-    public static boolean setAllowBackground(String packageName,  boolean allow, int uid) throws HideApiException {
+    public static boolean setAllowBackground(String packageName, boolean allow, int uid) throws HideApiException {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
                 setMode(packageName, HideApiOverrideN.OP_RUN_IN_BACKGROUND, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED, uid);
     }

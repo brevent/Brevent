@@ -1,6 +1,8 @@
 package me.piebridge.brevent.server;
 
 import android.app.IActivityManager;
+import android.content.Intent;
+import android.content.pm.IPackageManager;
 import android.content.pm.PackageParser;
 
 import java.util.List;
@@ -23,6 +25,10 @@ public class HideApiOverrideM {
     public static void collectCertificates(PackageParser.Package pkg, int flags) throws PackageParser.PackageParserException {
         PackageParser packageParser = new PackageParser();
         packageParser.collectCertificates(pkg, flags);
+    }
+
+    public static List queryIntentReceivers(IPackageManager pm, Intent intent, int uid) {
+        return pm.queryIntentReceivers(intent, null, 0, uid);
     }
 
 }
