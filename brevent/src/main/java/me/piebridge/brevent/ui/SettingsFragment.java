@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
@@ -25,7 +24,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
-    private Preference donation;
+    public static final String HAS_PLAY = "has_play";
+
+    private SwitchPreference donation;
 
     private SwitchPreference allowGcm;
 
@@ -42,13 +43,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         addPreferencesFromResource(R.xml.settings);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-        donation = preferenceScreen.findPreference(SHOW_DONATION);
+        donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
         if (!BuildConfig.RELEASE) {
             donation.setEnabled(false);
             donation.setSummary(null);
         } else {
-            donation.setEnabled(true);
-            donation.setSummary(null);
+            if (getArguments().getBoolean(HAS_PLAY)) {
+                donation.setEnabled(true);
+                donation.setSummary(null);
+            } else {
+                donation.setEnabled(false);
+                donation.setChecked(true);
+                donation.setSummary(null);
+            }
         }
 
         allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);

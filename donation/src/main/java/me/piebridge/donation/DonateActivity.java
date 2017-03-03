@@ -113,7 +113,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     private void activatePlay() {
-        if (getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null) {
+        if (hasPlay()) {
             HandlerThread thread = new HandlerThread("DonateService");
             thread.start();
             activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE, thread.getLooper(), this);
@@ -342,10 +342,12 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return true;
     }
 
+    protected boolean hasPlay() {
+        return getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
+    }
+
     protected boolean isPlay() {
-        PackageManager packageManager = getPackageManager();
-        return packageManager.getLaunchIntentForPackage(PACKAGE_PLAY) != null
-                && PACKAGE_PLAY.equals(packageManager.getInstallerPackageName(getPackageName()));
+        return hasPlay() && PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getPackageName()));
     }
 
     private Uri getQrCodeUri() {
