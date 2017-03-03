@@ -23,7 +23,7 @@ dependencies {
     compile project(':brevent-override-m')
 }
 
-def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
+def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))
 
 if (project.gradle.startParameter.taskRequests?.empty) {
     // for ide, aar cannot be provided

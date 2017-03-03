@@ -117,7 +117,7 @@ dependencies {
     compile 'eu.chainfire:libsuperuser:1.0.0.201608240809'
 }
 
-def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
+def hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))
 
 if (project.gradle.startParameter.taskRequests?.empty) {
     // for ide, aar cannot be provided
@@ -131,28 +131,32 @@ if (project.gradle.startParameter.taskRequests?.empty) {
     }
 }
 
-task renameBootstrap << {
-    rootProject.abiFilters.each { abi ->
-        copy {
-            from file("src/main/libs/${abi}/bootstrap")
-            into "src/main/libs/${abi}"
-            rename { 'libbootstrap.so' }
+task renameBootstrap {
+    doLast {
+        rootProject.abiFilters.each { abi ->
+            copy {
+                from file("src/main/libs/${abi}/bootstrap")
+                into "src/main/libs/${abi}"
+                rename { 'libbootstrap.so' }
+            }
+            delete file("src/main/libs/${abi}/bootstrap")
         }
-        delete file("src/main/libs/${abi}/bootstrap")
     }
 }
 
-task copyLoader << {
-    fileTree("build/intermediates/transforms/stripDebugSymbol").visit { details ->
-        if (details.name == "lib") {
-            rootProject.abiFilters.each { abi ->
-                copy {
-                    from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
-                    rename { 'libloader.so' }
-                    into file("${details.file}/${abi}")
+task copyLoader {
+    doLast {
+        fileTree("build/intermediates/transforms/stripDebugSymbol").visit { details ->
+            if (details.name == "lib") {
+                rootProject.abiFilters.each { abi ->
+                    copy {
+                        from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
+                        rename { 'libloader.so' }
+                        into file("${details.file}/${abi}")
+                    }
                 }
+                details.stopVisiting()
             }
-            details.stopVisiting()
         }
     }
 }
@@ -179,7 +183,7 @@ task deleteNativeBuild(type: Delete) {
 }
 
 tasks.whenTaskAdded { task ->
-    if (task.name == 'transformNative_libsWithStripDebugSymbolForRelease' || task.name == 'transformNative_libsWithStripDebugSymbolForDebug') {
+    if (task.name == 'transformNativeLibsWithStripDebugSymbolForRelease' || task.name == 'transformNativeLibsWithStripDebugSymbolForDebug') {
         task.finalizedBy copyLoader
     }
 }
