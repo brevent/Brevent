@@ -1,10 +1,11 @@
 package me.piebridge.brevent.loader;
 
-import android.app.AppGlobals;
+import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Process;
 import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.util.Log;
 
 import java.io.File;
@@ -65,12 +66,12 @@ public class Brevent implements Runnable {
         }
     }
 
-    private static String getDataDir() throws RemoteException {
+    private static String getDataDir(IPackageManager packageManager) throws RemoteException {
         int uid = HideApiOverride.uidForData(Process.myUid());
-        String[] packageNames = getPackagesForUid(uid);
+        String[] packageNames = getPackagesForUid(packageManager, uid);
         if (packageNames != null) {
             for (String packageName : packageNames) {
-                String dataDir = getPackageInfo(packageName, 0, USER_OWNER).applicationInfo.dataDir;
+                String dataDir = getPackageInfo(packageManager, packageName, 0, USER_OWNER).applicationInfo.dataDir;
                 if (dataDir != null) {
                     return dataDir;
                 }
@@ -102,18 +103,23 @@ public class Brevent implements Runnable {
         }
     }
 
-    private static String[] getPackagesForUid(int uid) throws RemoteException {
-        return AppGlobals.getPackageManager().getPackagesForUid(uid);
+    private static String[] getPackagesForUid(IPackageManager packageManager, int uid) throws RemoteException {
+        return packageManager.getPackagesForUid(uid);
     }
 
-    private static PackageInfo getPackageInfo(String packageName, int flags, int userId) throws RemoteException {
-        return AppGlobals.getPackageManager().getPackageInfo(packageName, flags, userId);
+    private static PackageInfo getPackageInfo(IPackageManager packageManager, String packageName, int flags, int userId) throws RemoteException {
+        return packageManager.getPackageInfo(packageName, flags, userId);
     }
 
     public static void main(String[] args) throws Exception {
-        PackageInfo packageInfo = getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
+        IPackageManager packageManager = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
+        if (packageManager == null) {
+            Log.e(TAG, "Could not access the Package Manager. Is the system running?");
+            return;
+        }
+        PackageInfo packageInfo = getPackageInfo(packageManager, BREVENT_PACKAGE, 0, USER_OWNER);
         File nativeLibraryDir = new File(packageInfo.applicationInfo.nativeLibraryDir);
-        File libDir = new File(getDataDir(), "brevent");
+        File libDir = new File(getDataDir(packageManager), "brevent");
         File libReader = copyFile(nativeLibraryDir, libDir, LIB_READER);
         File libLoader = copyFile(nativeLibraryDir, libDir, LIB_LOADER);
         Log.i(TAG, "lib: " + libDir + ", loader: " + libLoader);
@@ -133,7 +139,7 @@ public class Brevent implements Runnable {
                 break;
             }
             previous = now;
-            packageInfo = getPackageInfo(BREVENT_PACKAGE, 0, USER_OWNER);
+            packageInfo = getPackageInfo(packageManager, BREVENT_PACKAGE, 0, USER_OWNER);
         }
         if (packageInfo == null) {
             if (!libLoader.delete() || !libReader.delete() || !libDir.delete()) {

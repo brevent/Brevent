@@ -2,7 +2,6 @@ package me.piebridge.brevent.server;
 
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
-import android.app.AppGlobals;
 import android.app.IActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -978,7 +977,7 @@ public class BreventServer extends Handler {
 
     private static String getDataDir(int owner) {
         int uid = HideApiOverride.uidForData(Process.myUid());
-        IPackageManager packageManager = AppGlobals.getPackageManager();
+        IPackageManager packageManager = HideApi.getPackageManager();
         String[] packageNames;
         try {
             packageNames = packageManager.getPackagesForUid(uid);

@@ -2,8 +2,11 @@ package android.content.pm;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
+
+import com.android.internal.app.IAppOpsService;
 
 public interface IPackageManager {
 
@@ -49,5 +52,13 @@ public interface IPackageManager {
     ParceledListSlice<PackageInfo> getPackagesHoldingPermissions(String[] permissions, int flags, int userId) throws RemoteException;
 
     ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId) throws RemoteException;
+
+    class Stub {
+
+        public static IPackageManager asInterface(IBinder binder) {
+            throw new UnsupportedOperationException();
+        }
+
+    }
 
 }

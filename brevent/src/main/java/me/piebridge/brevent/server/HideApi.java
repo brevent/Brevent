@@ -2,7 +2,6 @@ package me.piebridge.brevent.server;
 
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
-import android.app.AppGlobals;
 import android.app.AppOpsManager;
 import android.app.usage.IUsageStatsManager;
 import android.content.Context;
@@ -106,7 +105,7 @@ class HideApi {
 
     public static List<PackageInfo> getInstalledPackages(int uid) {
         try {
-            return AppGlobals.getPackageManager().getInstalledPackages(0, uid).getList();
+            return getPackageManager().getInstalledPackages(0, uid).getList();
         } catch (RemoteException e) {
             throw new HideApiException("Can't getInstalledPackages", e);
         }
@@ -114,7 +113,7 @@ class HideApi {
 
     public static List<PackageInfo> getGcmPackages(int uid) {
         try {
-            ParceledListSlice<PackageInfo> result = AppGlobals.getPackageManager().getPackagesHoldingPermissions(new String[] {
+            ParceledListSlice<PackageInfo> result = getPackageManager().getPackagesHoldingPermissions(new String[] {
                     "com.google.android.c2dm.permission.RECEIVE",
             }, 0, uid);
             if (result != null) {
@@ -154,7 +153,7 @@ class HideApi {
             Intent intent = new Intent("com.google.android.c2dm.intent.RECEIVE");
             intent.setPackage(packageName);
             List receivers;
-            IPackageManager packageManager = AppGlobals.getPackageManager();
+            IPackageManager packageManager = getPackageManager();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 ParceledListSlice result = packageManager.queryIntentReceivers(intent, null, 0, uid);
                 if (result != null) {
@@ -174,7 +173,7 @@ class HideApi {
 
     public static boolean isPackageAvailable(String packageName, int uid) throws HideApiException {
         try {
-            return AppGlobals.getPackageManager().isPackageAvailable(packageName, uid);
+            return getPackageManager().isPackageAvailable(packageName, uid);
         } catch (RemoteException e) {
             throw new HideApiException("Can't isPackageAvailable for " + packageName, e);
         }
@@ -184,7 +183,7 @@ class HideApi {
         try {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
-            ResolveInfo resolveInfo = AppGlobals.getPackageManager().resolveIntent(intent,
+            ResolveInfo resolveInfo = getPackageManager().resolveIntent(intent,
                     null, PackageManager.MATCH_DEFAULT_ONLY, uid);
             return resolveInfo.activityInfo.packageName;
         } catch (RemoteException e) {
@@ -195,7 +194,7 @@ class HideApi {
     private static int getPackageUid(String packageName, int uid) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                return AppGlobals.getPackageManager().getPackageUid(packageName,
+                return getPackageManager().getPackageUid(packageName,
                         PackageManager.MATCH_UNINSTALLED_PACKAGES, uid);
             } else {
                 return getPackageUidDeprecated(packageName, uid);
@@ -207,12 +206,12 @@ class HideApi {
 
     @SuppressWarnings("deprecation")
     private static int getPackageUidDeprecated(String packageName, int uid) throws RemoteException {
-        return AppGlobals.getPackageManager().getPackageUid(packageName, uid);
+        return getPackageManager().getPackageUid(packageName, uid);
     }
 
     public static PackageInfo getPackageInfo(String packageName, int flags, int uid) {
         try {
-            return AppGlobals.getPackageManager().getPackageInfo(packageName, flags, uid);
+            return getPackageManager().getPackageInfo(packageName, flags, uid);
         } catch (RemoteException e) {
             throw new HideApiException("Can't getPackageInfo", e);
         }
@@ -220,7 +219,7 @@ class HideApi {
 
     public static void setStopped(String packageName, boolean stopped, int uid) {
         try {
-            AppGlobals.getPackageManager().setPackageStoppedState(packageName, stopped, uid);
+            getPackageManager().setPackageStoppedState(packageName, stopped, uid);
         } catch (SecurityException | RemoteException e) {
             ServerLog.d("Can't setStopped for " + packageName + "(ignore)");
             if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
@@ -502,6 +501,14 @@ class HideApi {
         } else {
             return false;
         }
+    }
+
+    public static IPackageManager getPackageManager() {
+        IPackageManager packageManager = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
+        if (packageManager == null) {
+            throw new UnsupportedOperationException("Can't get PackageManager from package");
+        }
+        return packageManager;
     }
 
     // batterystats end
