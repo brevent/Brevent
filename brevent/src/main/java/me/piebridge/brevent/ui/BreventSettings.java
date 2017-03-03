@@ -81,7 +81,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     protected boolean acceptDonation() {
         if (BuildConfig.RELEASE) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            return !mPlay || preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
+            return !hasPlay() || preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
         } else {
             return false;
         }
