@@ -41,7 +41,7 @@ task deleteNativeBuild(type: Delete) {
 }
 
 tasks.whenTaskAdded { task ->
-    if (task.name == 'externalNativeBuildRelease') {
+    if (task.name == 'externalNativeBuildRelease' || task.name == 'externalNativeBuildDebug') {
         task.finalizedBy deleteLogStub
     }
     if (task.name == 'clean') {
