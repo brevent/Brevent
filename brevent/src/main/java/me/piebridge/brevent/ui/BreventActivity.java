@@ -256,7 +256,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void hideProgress() {
-        hideFragment(FRAGMENT_DISABLED);
         hideFragment(FRAGMENT_PROGRESS);
     }
 
@@ -285,7 +284,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     protected void onStop() {
         stopped = true;
         if (mReceiver != null) {
-            dismissDialogFragmentIfNeeded(true);
             unregisterReceiver(mReceiver);
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
@@ -321,6 +319,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mHandler = null;
             uiHandler = null;
         }
+        dismissDialogFragmentIfNeeded(true);
         super.onDestroy();
     }
 
