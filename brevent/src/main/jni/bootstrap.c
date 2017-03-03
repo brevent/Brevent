@@ -29,10 +29,10 @@ static void feedback() {
     fflush(stdout);
 }
 
-static void report(struct timeval now) {
+static void report(time_t now) {
     char command[BUFSIZ];
     char time[BUFSIZ];
-    struct tm *tm = localtime((const time_t *) now.tv_sec);
+    struct tm *tm = localtime(&now);
     strftime(time, sizeof(time), "%m-%d %H:%M:%S.000", tm);
     printf("please report bug to " PROJECT " with log below\n"
                    "--- crash start ---\n");
@@ -87,7 +87,7 @@ static int get_pid() {
     return pid;
 }
 
-static int check(struct timeval now) {
+static int check(time_t now) {
     int pid = 0;
     printf("checking..");
     for (int i = 0; i < 10; ++i) {
@@ -141,14 +141,15 @@ static void check_original() {
 int main(int argc, char **argv) {
     int fd;
     char classpath[0x1000];
-    struct timeval now;
+    struct timeval tv;
+    time_t now;
 
     check_original();
 
     sprintf(classpath, "CLASSPATH=%s/%s", dirname(argv[0]), "libloader.so");
     putenv(classpath);
 
-    gettimeofday(&now, NULL);
+    gettimeofday(&tv, NULL);
     switch (fork()) {
         case -1:
             perror("cannot fork");
@@ -156,6 +157,7 @@ int main(int argc, char **argv) {
         case 0:
             break;
         default:
+            now = tv.tv_sec;
             _exit(check(now));
     }
 
