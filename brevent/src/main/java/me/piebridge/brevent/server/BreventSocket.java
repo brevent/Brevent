@@ -41,7 +41,7 @@ class BreventSocket implements Runnable {
                 socket.close();
             } catch (IOException e) {
                 if (SocketException.class.equals(e.getClass()) && "Socket closed".equals(e.getMessage())) {
-                    ServerLog.i("server socket is closed");
+                    ServerLog.d("server socket is closed");
                     break;
                 }
                 ServerLog.w("cannot accept", e);

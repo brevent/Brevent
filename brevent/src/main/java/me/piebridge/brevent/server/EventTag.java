@@ -1,6 +1,7 @@
 package me.piebridge.brevent.server;
 
 import android.support.v4.util.SimpleArrayMap;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
@@ -85,7 +86,9 @@ public class EventTag {
                 String name = m.group(2);
                 int event;
                 if (!StringUtils.isBlank(name) && (event = parseEvent(name)) != -1) {
-                    ServerLog.i(name + ", tag: " + code + ", event: " + event);
+                    if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+                        ServerLog.d(name + ", tag: " + code + ", event: " + event);
+                    }
                     mEvents.put(code, event);
                     mTags.put(event, code);
                     String description = m.group(3);

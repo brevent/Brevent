@@ -58,7 +58,7 @@ public class Brevent implements Runnable {
         try {
             mMain.invoke(null, (Object) null);
         } catch (ReflectiveOperationException e) {
-            Log.d(TAG, "Can't run brevent server", e);
+            Log.w(TAG, "Can't run brevent server", e);
             throw new RuntimeException(e);
         } finally {
             mLatch.countDown();
@@ -84,7 +84,7 @@ public class Brevent implements Runnable {
     private static File copyFile(File from, File to, String name) throws IOException {
         if (!to.isDirectory() && !to.mkdirs()) {
             String message = "Can't make sure directory: " + to;
-            Log.d(TAG, message);
+            Log.w(TAG, message);
             throw new UnsupportedOperationException(message);
         }
         File input = new File(from, name);
@@ -116,7 +116,7 @@ public class Brevent implements Runnable {
         File libDir = new File(getDataDir(), "brevent");
         File libReader = copyFile(nativeLibraryDir, libDir, LIB_READER);
         File libLoader = copyFile(nativeLibraryDir, libDir, LIB_LOADER);
-        Log.d(TAG, "lib: " + libDir + ", loader: " + libLoader);
+        Log.i(TAG, "lib: " + libDir + ", loader: " + libLoader);
         ClassLoader bootClassLoader = ClassLoader.getSystemClassLoader().getParent();
         ClassLoader loadClassLoader = new PathClassLoader(libLoader.getAbsolutePath(), libDir.getAbsolutePath(), bootClassLoader);
         Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -129,7 +129,7 @@ public class Brevent implements Runnable {
             latch.await();
             long now = System.currentTimeMillis();
             if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MINUTE_SURVIVE_TIME) {
-                Log.d(TAG, "Brevent Server quit in " + MINUTE_SURVIVE_TIME + " seconds, quit");
+                Log.e(TAG, "Brevent Server quit in " + MINUTE_SURVIVE_TIME + " seconds, quit");
                 break;
             }
             previous = now;
@@ -137,7 +137,7 @@ public class Brevent implements Runnable {
         }
         if (packageInfo == null) {
             if (!libLoader.delete() || !libReader.delete() || !libDir.delete()) {
-                Log.d(TAG, "Can't remove brevent loader");
+                Log.w(TAG, "Can't remove brevent loader");
             }
         }
     }

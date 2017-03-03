@@ -127,14 +127,14 @@ public class BreventServer extends Handler {
         }
 
         mUser = HideApi.getCurrentUser();
-        ServerLog.d("brevent user: " + mUser);
+        ServerLog.i("brevent user: " + mUser);
 
         mDataDir = getDataDir(HideApi.USER_OWNER);
         if (mDataDir == null) {
             throw new FileNotFoundException("cannot find brevent data directory");
         }
 
-        ServerLog.d("brevent data directory: " + mDataDir);
+        ServerLog.i("brevent data directory: " + mDataDir);
         loadBreventList();
         loadBreventConf();
 
@@ -158,7 +158,7 @@ public class BreventServer extends Handler {
 
     private boolean loadBreventConf() {
         File file = getBreventConf();
-        ServerLog.d("loading brevent conf");
+        ServerLog.i("loading brevent conf");
         if (file.isFile()) {
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -191,7 +191,7 @@ public class BreventServer extends Handler {
             }
         }
         File file = getBreventList();
-        ServerLog.d("loading brevent list");
+        ServerLog.i("loading brevent list");
         if (file.isFile()) {
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -303,7 +303,9 @@ public class BreventServer extends Handler {
             SparseIntArray status = processes.valueAt(i);
             if (mBrevent.contains(packageName)) {
                 int inactive = BreventStatus.getInactive(status);
-                ServerLog.d("inactive for " + packageName + ": " + inactive + ", timeout: " + timeout);
+                if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+                    ServerLog.d("inactive for " + packageName + ": " + (inactive == 0 ? 0 : now - inactive) + ", timeout: " + timeout);
+                }
                 if (inactive == 0) {
                     blocking.add(packageName);
                 } else if (timeout > 0) {
@@ -348,7 +350,7 @@ public class BreventServer extends Handler {
                 packageNames.removeAll(blocking);
                 if (!packageNames.isEmpty()) {
                     unsafe.add(packageName);
-                    ServerLog.d("won't block " + packageName + " due do dependency by " + packageNames);
+                    ServerLog.i("won't block " + packageName + " due do dependency by " + packageNames);
                 }
             }
         }
@@ -454,7 +456,7 @@ public class BreventServer extends Handler {
             }
             return recent;
         } catch (RemoteException e) {
-            ServerLog.d("Can't get recent tasks");
+            ServerLog.d("Can't get recent tasks", e);
             throw new UnsupportedOperationException(e);
         }
     }
@@ -493,12 +495,12 @@ public class BreventServer extends Handler {
         for (String packageName : packageNames) {
             if (!HideApi.isPackageAvailable(packageName, mUser)) {
                 if (mInstalled.remove(packageName)) {
-                    ServerLog.d("remove package " + packageName);
+                    ServerLog.i("remove package " + packageName);
                     mGcm.remove(packageName);
                     updateBreventIfNeeded(false, packageName);
                 }
             } else if (mInstalled.add(packageName)) {
-                ServerLog.d("add package " + packageName);
+                ServerLog.i("add package " + packageName);
                 updateBreventIfNeeded(true, packageName);
                 if (HideApi.isGcm(packageName, mUser)) {
                     mGcm.add(packageName);
@@ -508,20 +510,20 @@ public class BreventServer extends Handler {
         if (packageNames.contains(BuildConfig.APPLICATION_ID)) {
             PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, mUser);
             if (packageInfo == null) {
-                ServerLog.d("uninstalled");
+                ServerLog.i("uninstalled");
                 //noinspection ConstantConditions
                 Looper.myLooper().quit();
                 for (String packageName : mBrevent) {
                     unblock(packageName);
                 }
                 if (!getBreventConf().delete()) {
-                    ServerLog.d("Can't remove brevent conf");
+                    ServerLog.w("Can't remove brevent conf");
                 }
                 if (!getBreventList().delete()) {
-                    ServerLog.d("Can't remove brevent list");
+                    ServerLog.w("Can't remove brevent list");
                 }
             } else if (!mVersionName.equals(packageInfo.versionName)) {
-                ServerLog.d("version changed from " + mVersionName + " to " + packageInfo.versionName);
+                ServerLog.i("version changed from " + mVersionName + " to " + packageInfo.versionName);
                 //noinspection ConstantConditions
                 Looper.myLooper().quitSafely();
                 removeMessages(MESSAGE_CHECK);
@@ -568,7 +570,7 @@ public class BreventServer extends Handler {
             if (packageName != null && mBrevent.contains(packageName)) {
                 mBack.add(packageName);
                 checkLaterIfLater(CHECK_LATER_BACK);
-                ServerLog.d("will check " + packageName + "(" + mFocusReason + ")");
+                ServerLog.i("will check " + packageName + "(" + mFocusReason + ")");
             }
         }
         homeTid = 0;
@@ -904,7 +906,7 @@ public class BreventServer extends Handler {
                     removeMessages(MESSAGE_EXIT);
                 }
             } catch (IllegalArgumentException e) {
-                ServerLog.d("cannot parse " + resultData + " as uuid", e);
+                ServerLog.w("cannot parse " + resultData + " as uuid", e);
             }
         }
     }
@@ -957,7 +959,6 @@ public class BreventServer extends Handler {
                     status.put(processState, 1);
                     status.put(BreventStatus.PROCESS_STATE_IDLE, HideApi.getAppInactive(packageName, mUser) ? 1 : 0);
                     Integer inactive = running.get(packageName);
-                    ServerLog.d("inactive for " + packageName + ": " + inactive);
                     status.put(BreventStatus.PROCESS_STATE_INACTIVE, inactive == null ? 0 : inactive);
                     status.put(BreventStatus.PROCESS_STATE_PERSISTENT, HideApiOverride.isPersistent(process) ? 1 : 0);
                     processes.put(packageName, status);
@@ -991,7 +992,7 @@ public class BreventServer extends Handler {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerLog.d("Brevent Server " + BuildConfig.VERSION_NAME + " started");
+        ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " started");
         Looper.prepare();
 
         Handler handler = new BreventServer();
@@ -1015,16 +1016,16 @@ public class BreventServer extends Handler {
         try {
             eventLatch.await(MAX_TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            ServerLog.d("Can't await event in " + MAX_TIMEOUT + "s", e);
+            ServerLog.w("Can't await event in " + MAX_TIMEOUT + "s", e);
         }
 
         serverSocket.close();
         try {
             socketLatch.await();
         } catch (InterruptedException e) {
-            ServerLog.d("Can't await socket in " + MAX_TIMEOUT + "s", e);
+            ServerLog.w("Can't await socket in " + MAX_TIMEOUT + "s", e);
         }
-        ServerLog.d("Brevent Server " + BuildConfig.VERSION_NAME + " completed");
+        ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " completed");
     }
 
     private static class ActivitiesHolder {
