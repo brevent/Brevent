@@ -152,7 +152,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
     private String checkProductId(String s) {
         try {
             JSONObject json = new JSONObject(s);
-            if (mPackageName.equals(json.optString("packageName"))) {
+            if (mPackageName.equals(json.optString("packageName")) && json.optInt("purchaseState", -1) == 0) {
                 return json.optString("productId");
             }
         } catch (JSONException e) {
