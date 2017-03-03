@@ -389,9 +389,7 @@ class HideApi {
                 }
             }
         }
-        if (dependencies.isEmpty()) {
-            ServerLog.d("Can't parse dependencies from file: " + file);
-        } else if (!file.delete()) {
+        if (!file.delete()) {
             ServerLog.d("Can't delete file: " + file);
         }
         return dependencies;
