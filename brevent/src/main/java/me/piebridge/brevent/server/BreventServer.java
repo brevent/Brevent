@@ -100,7 +100,7 @@ public class BreventServer extends Handler {
 
     private int mUser;
 
-    private String mPackageName;
+    private volatile String mPackageName;
 
     private static final int CHECK_LATER_USER = 3000;
     private static final int CHECK_LATER_BACK = 3000;
@@ -275,15 +275,11 @@ public class BreventServer extends Handler {
         recent.addAll(top);
         recent.addAll(home);
 
-        if (mPackageName != null && !top.contains(mPackageName) && !home.contains(mPackageName)) {
-            ServerLog.e("top: " + top + ", home: " + home + " don't contains current: " + mPackageName);
-            top.add(mPackageName);
-        }
-
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
+            ServerLog.d("current: " + mPackageName);
             ServerLog.d("recent: " + recent);
             ServerLog.d("back: " + back);
             ServerLog.d("service: " + services);
@@ -328,6 +324,9 @@ public class BreventServer extends Handler {
         blocking.addAll(back);
         blocking.removeAll(top);
         blocking.removeAll(home);
+        if (mPackageName != null) {
+            blocking.remove(mPackageName);
+        }
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("blocking: " + blocking);
@@ -363,6 +362,10 @@ public class BreventServer extends Handler {
         }
 
         for (String packageName : blocking) {
+            if (packageName.equals(mPackageName)) {
+                // shouldn't happen
+                continue;
+            }
             if (mConfiguration.appopsBackground) {
                 HideApi.setAllowBackground(packageName, false, mUser);
             }
@@ -603,11 +606,14 @@ public class BreventServer extends Handler {
         // am_focused_activity (User|1|5),(Component Name|3),(Reason|3)
         String componentName = (String) event.get("componentName");
         String packageName = getPackageName(componentName);
-        if (packageName == null || packageName.equals(mPackageName)) {
+        if (packageName == null) {
             return;
         }
         if (mBrevent.contains(packageName)) {
             unblock(packageName);
+        }
+        if (packageName.equals(mPackageName)) {
+            return;
         }
         mPackageName = packageName;
         String reason = (String) event.get("reason");
@@ -709,6 +715,7 @@ public class BreventServer extends Handler {
 
         if ("activity".equals(type)) {
             mBack.remove(packageName);
+            mServices.remove(packageName);
             if (mBrevent.contains(packageName)) {
                 unblock(packageName);
             }
@@ -760,13 +767,13 @@ public class BreventServer extends Handler {
     }
 
     private void unblock(String packageName) {
+        if (mConfiguration.appopsNotification) {
+            HideApi.setAllowNotification(packageName, true, mUser);
+        }
         HideApi.setAppInactive(packageName, false, mUser);
         HideApi.setStopped(packageName, false, mUser);
         if (mConfiguration.appopsBackground) {
             HideApi.setAllowBackground(packageName, true, mUser);
-        }
-        if (mConfiguration.appopsNotification) {
-            HideApi.setAllowNotification(packageName, true, mUser);
         }
     }
 
