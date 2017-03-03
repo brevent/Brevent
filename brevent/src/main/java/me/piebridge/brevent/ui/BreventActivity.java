@@ -197,7 +197,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     @Override
     protected void onRestart() {
         super.onRestart();
-        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+        if (mReceiver != null) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+        }
     }
 
     public void showDisabled() {
@@ -274,16 +276,20 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     protected void onStart() {
         super.onStart();
         stopped = false;
-        registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT), BreventIntent.PERMISSION_SHELL, mHandler);
+        if (mReceiver != null) {
+            registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT), BreventIntent.PERMISSION_SHELL, mHandler);
+        }
     }
 
     @Override
     protected void onStop() {
         stopped = true;
-        dismissDialogFragmentIfNeeded(true);
-        unregisterReceiver(mReceiver);
-        mHandler.removeCallbacksAndMessages(null);
-        uiHandler.removeCallbacksAndMessages(null);
+        if (mReceiver != null) {
+            dismissDialogFragmentIfNeeded(true);
+            unregisterReceiver(mReceiver);
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        }
         super.onStop();
     }
 
@@ -308,11 +314,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     @Override
     protected void onDestroy() {
-        if (mHandler != null && mHandler.getLooper() != null) {
-            mHandler.getLooper().quit();
+        if (mReceiver != null) {
+            if (mHandler != null && mHandler.getLooper() != null) {
+                mHandler.getLooper().quit();
+            }
+            mHandler = null;
+            uiHandler = null;
         }
-        mHandler = null;
-        uiHandler = null;
         super.onDestroy();
     }
 
