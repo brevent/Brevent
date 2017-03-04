@@ -27,8 +27,6 @@ import me.piebridge.donation.DonateActivity;
  */
 public class BreventSettings extends DonateActivity implements View.OnClickListener {
 
-    private boolean mPlay;
-
     private BreventConfiguration mConfiguration;
 
     private SettingsFragment settingsFragment;
@@ -44,8 +42,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        mPlay = isPlay();
 
         settingsFragment = new SettingsFragment();
         settingsFragment.getArguments().putBoolean(SettingsFragment.HAS_PLAY, hasPlayPackage());

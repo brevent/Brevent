@@ -42,27 +42,27 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
+
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
-        if (!BuildConfig.RELEASE) {
-            donation.setEnabled(false);
-            donation.setSummary(null);
-        } else {
-            if (getArguments().getBoolean(HAS_PLAY)) {
-                donation.setEnabled(true);
-                donation.setSummary(null);
-            } else {
-                donation.setEnabled(false);
-                donation.setChecked(true);
-                donation.setSummary(null);
-            }
-        }
+        donation.setSummary(null);
 
         allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
-        allowGcm.setEnabled(true);
-
         allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
         allowRoot.setEnabled(true);
+        allowGcm.setEnabled(true);
+
+        if (!BuildConfig.RELEASE) {
+            donation.setEnabled(false);
+            donation.setChecked(false);
+        } else {
+            donation.setEnabled(false);
+            donation.setChecked(true);
+            if (getArguments().getBoolean(HAS_PLAY)) {
+                allowGcm.setEnabled(false);
+                allowRoot.setEnabled(false);
+            }
+        }
     }
 
     @Override
@@ -93,18 +93,20 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             summary = getString(R.string.show_donation_play_multi, count, total);
             donation.setSummary(summary);
         }
-        if (total < 1) {
-            allowGcm.setEnabled(false);
+        if (total == 0) {
+            donation.setEnabled(false);
             allowGcm.setChecked(false);
-            allowRoot.setEnabled(false);
-            allowRoot.setChecked(false);
-        } else if (total < 3) {
-            allowGcm.setEnabled(true);
-            allowRoot.setEnabled(false);
             allowRoot.setChecked(false);
         } else {
-            allowGcm.setEnabled(true);
-            allowRoot.setEnabled(true);
+            donation.setEnabled(true);
+            if (total < 3) {
+                allowGcm.setEnabled(true);
+                allowRoot.setEnabled(false);
+                allowRoot.setChecked(false);
+            } else {
+                allowGcm.setEnabled(true);
+                allowRoot.setEnabled(true);
+            }
         }
     }
 
