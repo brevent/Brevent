@@ -512,6 +512,7 @@ public class BreventServer extends Handler {
                 if (mInstalled.remove(packageName)) {
                     ServerLog.i("remove package " + packageName);
                     mGcm.remove(packageName);
+                    mBrevent.remove(packageName);
                     updateBreventIfNeeded(false, packageName);
                 }
             } else if (mInstalled.add(packageName)) {
