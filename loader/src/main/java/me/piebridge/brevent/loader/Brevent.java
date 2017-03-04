@@ -43,7 +43,7 @@ public class Brevent implements Runnable {
 
     private static final int USER_OWNER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? HideApiOverrideN.USER_SYSTEM : HideApiOverride.USER_OWNER;
 
-    private static final int MINUTE_SURVIVE_TIME = 30;
+    private static final int MIN_SURVIVE_TIME = 30;
 
     private final Method mMain;
 
@@ -134,8 +134,8 @@ public class Brevent implements Runnable {
             new Thread(new Brevent(main, latch)).start();
             latch.await();
             long now = System.currentTimeMillis();
-            if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MINUTE_SURVIVE_TIME) {
-                Log.e(TAG, "Brevent Server quit in " + MINUTE_SURVIVE_TIME + " seconds, quit");
+            if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MIN_SURVIVE_TIME) {
+                Log.e(TAG, "Brevent Server quit in " + MIN_SURVIVE_TIME + " seconds, quit");
                 break;
             }
             previous = now;

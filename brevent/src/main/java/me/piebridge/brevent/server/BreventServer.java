@@ -15,6 +15,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
+import android.text.format.DateUtils;
 import android.util.EventLog;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -65,6 +66,7 @@ public class BreventServer extends Handler {
 
     private static final int MESSAGE_EXIT = 8;
     static final int MESSAGE_DEAD = 9;
+    private static final int MESSAGE_UPDATE = 10;
 
     private static final int MAX_TIMEOUT = 30;
 
@@ -109,6 +111,7 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_APPS = 60000;
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
     private static final int CHECK_LATER_RECENT = 1800000;
+    private static final int CHECK_LATER_UPDATE = 60000;
 
     private static final int RECENT_FLAGS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ?
             HideApiOverride.getRecentFlags() : HideApiOverride.getRecentFlagsM();
@@ -117,8 +120,11 @@ public class BreventServer extends Handler {
 
     private static final int NAX_SURVIVE_TIME = 1000 * 60 * 60 * 3;
 
+    private final long mTime;
+
     private BreventServer() throws IOException {
         super();
+        mTime = System.currentTimeMillis();
         PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, HideApi.USER_OWNER);
         mVersionName = packageInfo.versionName;
         if (!BuildConfig.VERSION_NAME.equals(mVersionName)) {
@@ -246,19 +252,21 @@ public class BreventServer extends Handler {
                 ServerLog.e("Don't receive answer from universe");
                 System.exit(1);
                 break;
+            case MESSAGE_UPDATE:
+                quitSafely();
+                break;
             default:
                 break;
         }
     }
 
-    private SimpleArrayMap<String, SparseIntArray> checkAndBrevent() {
-        Set<String> services = new ArraySet<>(mServices);
-        mServices.clear();
+    private void quitSafely() {
+        //noinspection ConstantConditions
+        Looper.myLooper().quitSafely();
+        removeMessages(MESSAGE_CHECK);
+    }
 
-        Set<String> back = new ArraySet<>(mBack);
-        if (!HideApi.isCharging()) {
-            mBack.clear();
-        }
+    private SimpleArrayMap<String, SparseIntArray> checkAndBrevent() {
 
         mUser = HideApi.getCurrentUser();
         mLauncher = HideApi.getLauncher(mUser);
@@ -280,8 +288,6 @@ public class BreventServer extends Handler {
             ServerLog.d("home: " + home);
             ServerLog.d("current: " + mPackageName);
             ServerLog.d("recent: " + recent);
-            ServerLog.d("back: " + back);
-            ServerLog.d("service: " + services);
         }
 
         Collection<String> blocking = new ArraySet<>();
@@ -319,18 +325,6 @@ public class BreventServer extends Handler {
             }
         }
 
-        blocking.addAll(services);
-        blocking.addAll(back);
-        blocking.removeAll(top);
-        blocking.removeAll(home);
-        if (mPackageName != null) {
-            blocking.remove(mPackageName);
-        }
-
-        if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
-            ServerLog.d("blocking: " + blocking);
-            ServerLog.d("noRecent: " + noRecent);
-        }
 
         Set<String> unsafe = new ArraySet<>();
         SimpleArrayMap<String, Set<String>> dependencies = HideApi.getDependencies(getCacheDir(), mUser);
@@ -353,9 +347,27 @@ public class BreventServer extends Handler {
             }
         }
 
+        Set<String> services = new ArraySet<>(mServices);
+        mServices.clear();
+
+        Set<String> back = new ArraySet<>(mBack);
+        if (!HideApi.isCharging()) {
+            mBack.clear();
+        }
+        blocking.addAll(services);
+        blocking.addAll(back);
+        blocking.removeAll(top);
+        blocking.removeAll(home);
         blocking.removeAll(unsafe);
+        if (mPackageName != null) {
+            blocking.remove(mPackageName);
+        }
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+            ServerLog.d("back: " + back);
+            ServerLog.d("service: " + services);
+            ServerLog.d("blocking: " + blocking);
+            ServerLog.d("noRecent: " + noRecent);
             ServerLog.d("unsafe: " + unsafe);
             ServerLog.d("final blocking: " + blocking);
         }
@@ -526,10 +538,15 @@ public class BreventServer extends Handler {
                     ServerLog.w("Can't remove brevent list");
                 }
             } else if (!mVersionName.equals(packageInfo.versionName)) {
-                ServerLog.i("version changed from " + mVersionName + " to " + packageInfo.versionName);
-                //noinspection ConstantConditions
-                Looper.myLooper().quitSafely();
-                removeMessages(MESSAGE_CHECK);
+                long live = System.currentTimeMillis() - mTime;
+                long seconds = TimeUnit.MILLISECONDS.toSeconds(live);
+                ServerLog.i("version changed from " + mVersionName + " to " + packageInfo.versionName + ", live " + DateUtils.formatElapsedTime(seconds));
+                if (live < CHECK_LATER_UPDATE) {
+                    ServerLog.i("live too short, update later");
+                    sendEmptyMessageDelayed(MESSAGE_UPDATE, CHECK_LATER_APPS - live);
+                } else {
+                    quitSafely();
+                }
             }
         }
         removeMessages(MESSAGE_CHECK_CHANGED);
@@ -609,6 +626,8 @@ public class BreventServer extends Handler {
         if (packageName == null) {
             return;
         }
+        mBack.remove(packageName);
+        mServices.remove(packageName);
         if (mBrevent.contains(packageName)) {
             unblock(packageName);
         }
@@ -1003,17 +1022,17 @@ public class BreventServer extends Handler {
         ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " started");
         Looper.prepare();
 
-        Handler handler = new BreventServer();
+        BreventServer breventServer = new BreventServer();
 
         CountDownLatch eventLatch = new CountDownLatch(0x1);
-        BreventEvent breventEvent = new BreventEvent(handler, eventLatch);
+        BreventEvent breventEvent = new BreventEvent(breventServer, eventLatch);
         Thread eventThread = new Thread(breventEvent);
         eventThread.start();
 
         CountDownLatch socketLatch = new CountDownLatch(0x1);
         ServerSocket serverSocket = new ServerSocket(BreventProtocol.PORT, 0, BreventProtocol.HOST);
         serverSocket.setReuseAddress(true);
-        Thread socketThread = new Thread(new BreventSocket(handler, serverSocket, socketLatch));
+        Thread socketThread = new Thread(new BreventSocket(breventServer, serverSocket, socketLatch));
         socketThread.start();
 
         Looper.loop();
@@ -1033,7 +1052,8 @@ public class BreventServer extends Handler {
         } catch (InterruptedException e) {
             ServerLog.w("Can't await socket in " + MAX_TIMEOUT + "s", e);
         }
-        ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " completed");
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - breventServer.mTime);
+        ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " completed, live " + DateUtils.formatElapsedTime(seconds));
     }
 
     private static class ActivitiesHolder {
