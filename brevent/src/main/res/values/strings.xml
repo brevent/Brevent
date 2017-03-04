@@ -127,7 +127,7 @@
     <string name="important_sms">%s (SMS)</string>
     <string name="important_home">%s (Home)</string>
     <string name="important_persistent">%s (Persistent)</string>
-    <string name="important_gms">%s (GMS)</string>
+    <string name="important_battery">%s (Battery not optimized)</string>
     <string name="important_android">%s (Android)</string>
 
     <string name="brevent_allow_gcm">Allow GCM</string>

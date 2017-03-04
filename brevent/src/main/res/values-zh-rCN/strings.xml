@@ -124,7 +124,7 @@
     <string name="important_sms">%s（短信）</string>
     <string name="important_home">%s（主屏幕）</string>
     <string name="important_persistent">%s（永久进程）</string>
-    <string name="important_gms">%s (谷歌服务组件)</string>
+    <string name="important_battery">%s（电池未优化）</string>
     <string name="important_android">%s（Android）</string>
 
     <string name="brevent_list_donation">捐赠特性</string>

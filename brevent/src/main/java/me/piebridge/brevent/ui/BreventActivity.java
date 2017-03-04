@@ -18,7 +18,10 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IDeviceIdleController;
 import android.os.Message;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -84,7 +87,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_SMS = 2;
     public static final int IMPORTANT_HOME = 3;
     public static final int IMPORTANT_PERSISTENT = 4;
-    public static final int IMPORTANT_GMS = 5;
+    public static final int IMPORTANT_BATTERY = 5;
     public static final int IMPORTANT_ANDROID = 6;
 
     private static final String FRAGMENT_DISABLED = "disabled";
@@ -704,16 +707,15 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
         }
 
-        // gms
         try {
-            int uid = getPackageManager().getPackageInfo(GMS, 0).applicationInfo.uid;
-            String[] packagesForGms = getPackageManager().getPackagesForUid(uid);
-            if (packagesForGms != null) {
-                for (String packageName : packagesForGms) {
-                    packageNames.put(packageName, IMPORTANT_GMS);
+            IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
+            String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();;
+            if (fullPowerWhitelist != null) {
+                for (String battery : fullPowerWhitelist) {
+                    packageNames.put(battery, IMPORTANT_BATTERY);
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (RemoteException e) {
             // do nothing
         }
     }
@@ -784,8 +786,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     return getString(R.string.important_home, label);
                 case IMPORTANT_PERSISTENT:
                     return getString(R.string.important_persistent, label);
-                case IMPORTANT_GMS:
-                    return getString(R.string.important_gms, label);
+                case IMPORTANT_BATTERY:
+                    return getString(R.string.important_battery, label);
                 case IMPORTANT_ANDROID:
                     return getString(R.string.important_android, label);
                 default:
