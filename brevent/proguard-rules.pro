@@ -27,7 +27,7 @@
     public static void main(java.lang.String[]);
 }
 
--dontnote me.piebridge.brevent.ui.util.XposedUtils
+-dontnote eu.chainfire.libsuperuser.Shell*
 
 -dontwarn me.piebridge.brevent.server.HideApiOverride*
 
