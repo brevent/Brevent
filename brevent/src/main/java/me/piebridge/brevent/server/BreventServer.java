@@ -294,6 +294,9 @@ public class BreventServer extends Handler {
         Collection<String> noRecent = new ArraySet<>();
         Collection<String> standby = new ArraySet<>();
 
+        Set<String> services = new ArraySet<>(mServices);
+        mServices.clear();
+
         SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
         int size = processes.size();
         int now = TimeUtils.now();
@@ -309,11 +312,14 @@ public class BreventServer extends Handler {
                 }
                 if (inactive == 0) {
                     blocking.add(packageName);
-                } else if (timeout > 0) {
-                    if (now - inactive > timeout) {
-                        blocking.add(packageName);
-                    } else {
-                        checkLater = true;
+                } else {
+                    services.remove(packageName);
+                    if (timeout > 0) {
+                        if (now - inactive > timeout) {
+                            blocking.add(packageName);
+                        } else {
+                            checkLater = true;
+                        }
                     }
                 }
                 if (!recent.contains(packageName)) {
@@ -346,9 +352,6 @@ public class BreventServer extends Handler {
                 }
             }
         }
-
-        Set<String> services = new ArraySet<>(mServices);
-        mServices.clear();
 
         Set<String> back = new ArraySet<>(mBack);
         if (!HideApi.isCharging()) {
