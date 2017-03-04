@@ -674,7 +674,7 @@ public class BreventServer extends Handler {
     }
 
     private void checkLater(int later) {
-        if (later <= CHECK_LATER_HOME) {
+        if (later <= CHECK_LATER_SERVICE) {
             removeMessages(MESSAGE_CHECK);
         }
         sendEmptyMessageDelayed(MESSAGE_CHECK, later);
