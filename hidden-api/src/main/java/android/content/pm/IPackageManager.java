@@ -6,8 +6,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 
-import com.android.internal.app.IAppOpsService;
-
 public interface IPackageManager {
 
     boolean isPackageAvailable(String packageName, int userId) throws RemoteException;

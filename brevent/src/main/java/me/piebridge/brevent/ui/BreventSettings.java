@@ -3,6 +3,8 @@ package me.piebridge.brevent.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -46,7 +48,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         mPlay = isPlay();
 
         settingsFragment = new SettingsFragment();
-        settingsFragment.getArguments().putBoolean(SettingsFragment.HAS_PLAY, hasPlay());
+        settingsFragment.getArguments().putBoolean(SettingsFragment.HAS_PLAY, hasPlayPackage());
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -55,6 +57,19 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mConfiguration = new BreventConfiguration(null, preferences);
+    }
+
+    private boolean hasPlayPackage() {
+        try {
+            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(DonateActivity.PACKAGE_PLAY, 0);
+            return isSystemPackage(applicationInfo.flags);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    protected final boolean isSystemPackage(int flags) {
+        return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
     @Override
@@ -81,7 +96,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     protected boolean acceptDonation() {
         if (BuildConfig.RELEASE) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            return !hasPlay() || preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
+            return !hasPlayPackage() || preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
         } else {
             return false;
         }

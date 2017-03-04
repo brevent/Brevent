@@ -50,13 +50,13 @@ import java.util.List;
  */
 public abstract class DonateActivity extends Activity implements View.OnClickListener {
 
-    private static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
+    public static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
 
-    static final String PACKAGE_WECHAT = "com.tencent.mm";
+    public static final String PACKAGE_WECHAT = "com.tencent.mm";
 
-    private static final String PACKAGE_PAYPAL = "com.paypal.android.p2pmobile";
+    public static final String PACKAGE_PAYPAL = "com.paypal.android.p2pmobile";
 
-    private static final String PACKAGE_PLAY = "com.android.vending";
+    public static final String PACKAGE_PLAY = "com.android.vending";
 
     private static final int REQUEST_WECHAT_DONATE_SDA = 0x4121;
 
