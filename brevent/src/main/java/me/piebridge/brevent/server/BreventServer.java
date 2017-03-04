@@ -360,6 +360,10 @@ public class BreventServer extends Handler {
             ServerLog.d("final blocking: " + blocking);
         }
 
+        if (!blocking.isEmpty() && mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+            ServerLog.d("gcm: " + mGcm);
+        }
+
         for (String packageName : blocking) {
             if (packageName.equals(mPackageName)) {
                 // shouldn't happen
@@ -423,9 +427,6 @@ public class BreventServer extends Handler {
     }
 
     private void setStopped(String packageName, boolean current) {
-        if (mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
-            ServerLog.d("gcm: " + mGcm);
-        }
         if (mConfiguration.allowGcm && mGcm.contains(packageName)) {
             if (current) {
                 HideApi.setStopped(packageName, false, mUser);
