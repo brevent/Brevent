@@ -129,8 +129,8 @@
     <string name="important_home">%s (Home)</string>
     <string name="important_persistent">%s (Persistent)</string>
     <string name="important_android">%s (Android)</string>
-    <string name="important_gcm">%s (May support GCM)</string>
-    <string name="important_battery">%s (no Standby for Battery whitelist)</string>
+    <string name="important_gcm">%s (GCM)</string>
+    <string name="important_battery">%s (no Standby, Battery not optimized)</string>
 
     <string name="brevent_allow_gcm">Allow GCM</string>
     <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRecommend donate 1 USD in Play Store</string>

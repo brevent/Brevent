@@ -126,8 +126,8 @@
     <string name="important_home">%s（主屏幕）</string>
     <string name="important_persistent">%s（永久进程）</string>
     <string name="important_android">%s（Android）</string>
-    <string name="important_gcm">%s（可能支持 GCM）</string>
-    <string name="important_battery">%s（无休眠，电池未优化）</string>
+    <string name="important_gcm">%s（GCM）</string>
+    <string name="important_battery">%s（无法休眠，电池未优化）</string>
 
     <string name="brevent_list_donation">捐赠特性</string>
 
