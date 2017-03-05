@@ -107,7 +107,7 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_USER = 3000;
     private static final int CHECK_LATER_BACK = 3000;
     private static final int CHECK_LATER_HOME = 3000;
-    private static final int CHECK_LATER_ANSWER = 3000;
+    private static final int CHECK_LATER_ANSWER = 42000;
     private static final int CHECK_LATER_SERVICE = 30000;
     private static final int CHECK_LATER_APPS = 60000;
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
@@ -158,6 +158,7 @@ public class BreventServer extends Handler {
     }
 
     private void checkAlive() {
+        removeMessages(MESSAGE_DEAD);
         sendEmptyMessageDelayed(MESSAGE_DEAD, CHECK_LATER_ANSWER);
         EventLog.writeEvent(EventTag.TAG_ANSWER, 0xfee1900d);
     }
