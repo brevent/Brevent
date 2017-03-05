@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.util.Collection;
 import java.util.List;
@@ -154,8 +155,6 @@ public class BreventServer extends Handler {
         if (!mConfiguration.allowRoot && HideApiOverride.isRoot(Process.myUid())) {
             sendEmptyMessageDelayed(MESSAGE_EXIT, CHECK_LATER_USER);
         }
-
-        handleStatus(BreventToken.EMPTY_TOKEN);
     }
 
     private void checkAlive() {
@@ -1073,6 +1072,10 @@ public class BreventServer extends Handler {
         ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " started");
         Looper.prepare();
 
+        ServerSocket serverSocket = new ServerSocket();
+        serverSocket.setReuseAddress(true);
+        serverSocket.bind(new InetSocketAddress(BreventProtocol.HOST, BreventProtocol.PORT), 50);
+
         BreventServer breventServer = new BreventServer();
 
         CountDownLatch eventLatch = new CountDownLatch(0x1);
@@ -1081,11 +1084,10 @@ public class BreventServer extends Handler {
         eventThread.start();
 
         CountDownLatch socketLatch = new CountDownLatch(0x1);
-        ServerSocket serverSocket = new ServerSocket(BreventProtocol.PORT, 0, BreventProtocol.HOST);
-        serverSocket.setReuseAddress(true);
         Thread socketThread = new Thread(new BreventSocket(breventServer, serverSocket, socketLatch));
         socketThread.start();
 
+        breventServer.handleStatus(BreventToken.EMPTY_TOKEN);
         Looper.loop();
 
         breventEvent.quit();
