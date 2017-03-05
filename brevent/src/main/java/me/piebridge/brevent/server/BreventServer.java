@@ -122,6 +122,8 @@ public class BreventServer extends Handler {
 
     private final long mTime;
 
+    private volatile boolean hasNotificationCancelAll = false;
+
     private BreventServer() throws IOException {
         super();
         mTime = System.currentTimeMillis();
@@ -406,7 +408,35 @@ public class BreventServer extends Handler {
             }
         }
 
+        if (!hasNotificationCancelAll) {
+            checkChangedManually();
+        }
         return processes;
+    }
+
+    private void checkChangedManually() {
+        Set<String> packageNames = new ArraySet<>();
+        for (PackageInfo packageInfo : HideApi.getInstalledPackages(mUser)) {
+            packageNames.add(packageInfo.packageName);
+        }
+        if (!packageNames.equals(mInstalled)) {
+            for (String packageName : packageNames) {
+                if (!mInstalled.contains(packageName)) {
+                    onAddPackage(packageName);
+                }
+            }
+            for (String packageName : mInstalled) {
+                if (!packageNames.contains(packageName)) {
+                    onRemovePackage(packageName);
+                }
+            }
+            PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, mUser);
+            if (packageInfo == null) {
+                onUninstall();
+            } else if (!mVersionName.equals(packageInfo.versionName)) {
+                onUpdated(packageInfo.versionName);
+            }
+        }
     }
 
     private void brevent(String packageName, Collection<String> standby, boolean noRecent) {
@@ -513,47 +543,63 @@ public class BreventServer extends Handler {
         for (String packageName : packageNames) {
             if (!HideApi.isPackageAvailable(packageName, mUser)) {
                 if (mInstalled.remove(packageName)) {
-                    ServerLog.i("remove package " + packageName);
-                    mGcm.remove(packageName);
-                    mBrevent.remove(packageName);
-                    updateBreventIfNeeded(false, packageName);
+                    onRemovePackage(packageName);
                 }
             } else if (mInstalled.add(packageName)) {
-                ServerLog.i("add package " + packageName);
-                updateBreventIfNeeded(true, packageName);
-                if (HideApi.isGcm(packageName, mUser)) {
-                    mGcm.add(packageName);
-                }
+                onAddPackage(packageName);
             }
         }
         if (packageNames.contains(BuildConfig.APPLICATION_ID)) {
             PackageInfo packageInfo = HideApi.getPackageInfo(BuildConfig.APPLICATION_ID, 0, mUser);
             if (packageInfo == null) {
-                ServerLog.i("uninstalled");
-                //noinspection ConstantConditions
-                Looper.myLooper().quit();
-                for (String packageName : mBrevent) {
-                    unblock(packageName);
-                }
-                if (!getBreventConf().delete()) {
-                    ServerLog.w("Can't remove brevent conf");
-                }
-                if (!getBreventList().delete()) {
-                    ServerLog.w("Can't remove brevent list");
-                }
+                onUninstall();
             } else if (!mVersionName.equals(packageInfo.versionName)) {
-                long live = System.currentTimeMillis() - mTime;
-                long seconds = TimeUnit.MILLISECONDS.toSeconds(live);
-                ServerLog.i("version changed from " + mVersionName + " to " + packageInfo.versionName + ", live " + DateUtils.formatElapsedTime(seconds));
-                if (live < CHECK_LATER_UPDATE) {
-                    ServerLog.i("live too short, update later");
-                    sendEmptyMessageDelayed(MESSAGE_UPDATE, CHECK_LATER_APPS - live);
-                } else {
-                    quitSafely();
-                }
+                onUpdated(packageInfo.versionName);
             }
         }
         removeMessages(MESSAGE_CHECK_CHANGED);
+    }
+
+    private void onUpdated(String versionName) {
+        long live = System.currentTimeMillis() - mTime;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(live);
+        ServerLog.i("version changed from " + mVersionName + " to " + versionName + ", live " + DateUtils.formatElapsedTime(seconds));
+        if (live < CHECK_LATER_UPDATE) {
+            ServerLog.i("live too short, update later");
+            sendEmptyMessageDelayed(MESSAGE_UPDATE, CHECK_LATER_APPS - live);
+        } else {
+            quitSafely();
+        }
+    }
+
+    private void onUninstall() {
+        ServerLog.i("uninstalled");
+        //noinspection ConstantConditions
+        Looper.myLooper().quit();
+        for (String packageName : mBrevent) {
+            unblock(packageName);
+        }
+        if (!getBreventConf().delete()) {
+            ServerLog.w("Can't remove brevent conf");
+        }
+        if (!getBreventList().delete()) {
+            ServerLog.w("Can't remove brevent list");
+        }
+    }
+
+    private void onRemovePackage(String packageName) {
+        ServerLog.i("remove package " + packageName);
+        mGcm.remove(packageName);
+        mBrevent.remove(packageName);
+        updateBreventIfNeeded(false, packageName);
+    }
+
+    private void onAddPackage(String packageName) {
+        ServerLog.i("add package " + packageName);
+        updateBreventIfNeeded(true, packageName);
+        if (HideApi.isGcm(packageName, mUser)) {
+            mGcm.add(packageName);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -576,6 +622,7 @@ public class BreventServer extends Handler {
                 break;
             case EventTag.NOTIFICATION_CANCEL_ALL:
                 // for package changed, restart brevent server,
+                hasNotificationCancelAll = true;
                 handleEventNotificationCancelAll(event);
                 break;
             case EventTag.POWER_SCREEN_STATE:
