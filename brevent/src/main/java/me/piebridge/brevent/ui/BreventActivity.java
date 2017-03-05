@@ -47,6 +47,7 @@ import android.widget.Toolbar;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -87,8 +88,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_SMS = 2;
     public static final int IMPORTANT_HOME = 3;
     public static final int IMPORTANT_PERSISTENT = 4;
-    public static final int IMPORTANT_BATTERY = 5;
-    public static final int IMPORTANT_ANDROID = 6;
+    public static final int IMPORTANT_ANDROID = 5;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -100,8 +100,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
-    private static final String GMS = "com.google.android.gms";
-
     private ViewPager mPager;
 
     private AppsPagerAdapter mAdapter;
@@ -112,6 +110,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private Set<String> mBrevent = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
+    private Set<String> mBattery = new ArraySet<>();
 
     private boolean mSelectMode;
 
@@ -524,6 +523,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return mGcm.contains(packageName);
     }
 
+    public boolean isBattery(String packageName) {
+        return mBattery.contains(packageName);
+    }
+
     public boolean isLauncher(String packageName) {
         return mLauncher != null && mLauncher.equals(packageName);
     }
@@ -627,9 +630,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mBrevent.addAll(status.getBrevent());
 
         mImportant.clear();
+        mBattery.clear();
+        mGcm.clear();
         resolveImportantPackages(status.getProcesses(), mImportant);
 
-        mGcm.clear();
         List<PackageInfo> packageInfos = getPackageManager().getPackagesHoldingPermissions(new String[] {
                 "com.google.android.c2dm.permission.RECEIVE",
         }, 0);
@@ -711,9 +715,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
             String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();;
             if (fullPowerWhitelist != null) {
-                for (String battery : fullPowerWhitelist) {
-                    packageNames.put(battery, IMPORTANT_BATTERY);
-                }
+                Collections.addAll(mBattery, fullPowerWhitelist);
             }
         } catch (RemoteException e) {
             // do nothing
@@ -786,8 +788,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     return getString(R.string.important_home, label);
                 case IMPORTANT_PERSISTENT:
                     return getString(R.string.important_persistent, label);
-                case IMPORTANT_BATTERY:
-                    return getString(R.string.important_battery, label);
                 case IMPORTANT_ANDROID:
                     return getString(R.string.important_android, label);
                 default:
