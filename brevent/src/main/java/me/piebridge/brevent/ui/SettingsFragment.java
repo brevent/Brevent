@@ -28,8 +28,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private SwitchPreference donation;
 
-    private SwitchPreference allowGcm;
-
     private SwitchPreference allowRoot;
 
     public SettingsFragment() {
@@ -46,26 +44,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
-        allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
         allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
         if (!BuildConfig.RELEASE) {
             donation.setEnabled(false);
             donation.setChecked(false);
             allowRoot.setEnabled(true);
-            allowGcm.setEnabled(true);
         } else {
             Bundle arguments = getArguments();
             if (arguments.getBoolean(HAS_PLAY)) {
                 // update later
                 donation.setEnabled(false);
-                allowGcm.setEnabled(false);
                 allowRoot.setEnabled(false);
             } else {
                 donation.setEnabled(false);
                 donation.setChecked(true);
                 allowRoot.setEnabled(true);
-                allowGcm.setEnabled(true);
             }
         }
     }
@@ -106,17 +100,14 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (total == 0) {
             donation.setEnabled(false);
             donation.setChecked(true);
-            allowGcm.setChecked(false);
             allowRoot.setChecked(false);
         } else {
             onShowDonationChanged();
             donation.setEnabled(true);
             if (total < 3) {
-                allowGcm.setEnabled(true);
                 allowRoot.setEnabled(false);
                 allowRoot.setChecked(false);
             } else {
-                allowGcm.setEnabled(true);
                 allowRoot.setEnabled(true);
             }
         }

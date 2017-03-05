@@ -131,7 +131,7 @@
     <string name="brevent_list_donation">捐赠特性</string>
 
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提醒，微信不支持 GCM 消息\n\n需要通过 Play 商店捐赠 1 美金。Play 商店不可用时，暂无限制</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示：界面标识集成 GCM 消息的应用，如微信等，不一定真的支持 GCM 消息\n\n建议通过 Play 商店捐赠 1 美金</string>
 
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式直接开启黑域服务\n\n需要通过 Play 商店累积捐赠 3 美金。Play 商店不可用时，暂无限制</string>

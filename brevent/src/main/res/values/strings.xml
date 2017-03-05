@@ -132,7 +132,7 @@
     <string name="important_android">%s (Android)</string>
 
     <string name="brevent_allow_gcm">Allow GCM</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRequires donation in Play Store at least 1 USD. No restriction if Play Store is unavailable</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRecommend donate 1 USD in Play Store</string>
     <string name="brevent_allow_root">Allow ROOT</string>
     <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donation in Play Store at least 3 USD. No restriction if Play Store is unavailable</string>
     <string name="brevent_list_donation">Requires donation</string>
