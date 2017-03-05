@@ -57,6 +57,7 @@ public class AppsActivityHandler extends Handler {
                     if (activity != null) {
                         activity.onBreventResponse(breventResponse);
                     }
+                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);
                 }
                 break;
             case BreventActivity.MESSAGE_BREVENT_NO_RESPONSE:

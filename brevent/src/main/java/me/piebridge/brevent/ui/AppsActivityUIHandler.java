@@ -29,8 +29,9 @@ public class AppsActivityUIHandler extends Handler {
                     activity.showProgress(R.string.process_retrieving);
                     break;
                 case BreventActivity.UI_MESSAGE_HIDE_PROGRESS:
-                    activity.hideDisabled();
                     activity.hideProgress();
+                case BreventActivity.UI_MESSAGE_HIDE_DISABLED:
+                    activity.hideDisabled();
                     break;
                 case BreventActivity.UI_MESSAGE_SHOW_PAGER:
                     activity.showViewPager();

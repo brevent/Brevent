@@ -82,6 +82,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_NO_BREVENT_DATA = 6;
     public static final int UI_MESSAGE_VERSION_UNMATCHED = 7;
     public static final int UI_MESSAGE_UPDATE_BREVENT = 8;
+    public static final int UI_MESSAGE_HIDE_DISABLED = 9;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
