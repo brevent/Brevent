@@ -45,22 +45,27 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
-        donation.setSummary(null);
 
         allowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
         allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
-        allowRoot.setEnabled(true);
-        allowGcm.setEnabled(true);
 
         if (!BuildConfig.RELEASE) {
             donation.setEnabled(false);
             donation.setChecked(false);
+            allowRoot.setEnabled(true);
+            allowGcm.setEnabled(true);
         } else {
-            donation.setEnabled(false);
-            donation.setChecked(true);
-            if (getArguments().getBoolean(HAS_PLAY)) {
+            Bundle arguments = getArguments();
+            if (arguments.getBoolean(HAS_PLAY)) {
+                // update later
+                donation.setEnabled(false);
                 allowGcm.setEnabled(false);
                 allowRoot.setEnabled(false);
+            } else {
+                donation.setEnabled(false);
+                donation.setChecked(true);
+                allowRoot.setEnabled(true);
+                allowGcm.setEnabled(true);
             }
         }
     }
@@ -80,8 +85,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (SHOW_DONATION.equals(key)) {
-            ((DonateActivity) getActivity()).updateDonations();
+            onShowDonationChanged();
         }
+    }
+
+    private void onShowDonationChanged() {
+        boolean showDonation = getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_DONATION, true);
+        ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
     public void updatePlayDonation(int count, int total) {
@@ -95,9 +105,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
         if (total == 0) {
             donation.setEnabled(false);
+            donation.setChecked(true);
             allowGcm.setChecked(false);
             allowRoot.setChecked(false);
         } else {
+            onShowDonationChanged();
             donation.setEnabled(true);
             if (total < 3) {
                 allowGcm.setEnabled(true);

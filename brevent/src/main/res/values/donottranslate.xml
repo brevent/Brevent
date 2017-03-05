@@ -76,5 +76,7 @@
 
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
+    <string name="later" translatable="false">later</string>
+    <string name="standby_forcestop" translatable="false">standby_forcestop</string>
 
 </resources>

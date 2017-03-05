@@ -96,9 +96,9 @@
     <string name="brevent_method_standby_forcestop">App Standby, then ForceStop</string>
     <string name="brevent_method_standby_only">Only App Standby, no ForceStop</string>
     <string name="brevent_method_forcestop_only">Only ForceStop, no App Standby</string>
-    <string name="brevent_method_standby_forcestop_label">App Standby when exit apps, and ForceStop when swiping away from recent tasks</string>
-    <string name="brevent_method_standby_only_label">Only App Standby, no ForceStop. Of course, will ForceStop apps awaken by other apps</string>
-    <string name="brevent_method_forcestop_only_label">Only ForceStop, no App Standby. It may save battery, but costs more time when apps re-launch</string>
+    <string name="brevent_method_standby_forcestop_label">App Standby when exit apps, and ForceStop when swiping away from recent tasks\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_method_standby_only_label">Only App Standby, no ForceStop. Of course, will ForceStop apps awaken by other apps\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_method_forcestop_only_label">Only ForceStop, no App Standby. It may save battery, but costs more time when apps re-launch\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
     <string name="brevent_mode">When brevent</string>
     <string name="brevent_mode_later">Later (Recommend)</string>
     <string name="brevent_mode_immediate">Immediate</string>
@@ -110,6 +110,7 @@
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
     <string name="show_donation">Show donation</string>
+    <string name="show_donation_label">Please donate in Play Store to hide donation</string>
     <string name="show_donation_play_one">Thanks for donation %d USD in Play Store</string>
     <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donation %1$d times total %2$d USD in Play Store</string>
     <string name="show_all_apps">Show all apps</string>
@@ -131,9 +132,9 @@
     <string name="important_android">%s (Android)</string>
 
     <string name="brevent_allow_gcm">Allow GCM</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRequires donation at least 1 USD</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRequires donation in Play Store at least 1 USD. No restriction if Play Store is unavailable</string>
     <string name="brevent_allow_root">Allow ROOT</string>
-    <string name="brevent_allow_root_label">It\'s unsafe and unnecerray for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donation at least 3 USD</string>
+    <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donation in Play Store at least 3 USD. No restriction if Play Store is unavailable</string>
     <string name="brevent_list_donation">Requires donation</string>
 
     <string name="brevent_about">About</string>

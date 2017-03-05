@@ -86,6 +86,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private boolean stopped;
 
+    private volatile boolean mShowDonation = true;
+
     @CallSuper
     public void onStart() {
         super.onStart();
@@ -108,8 +110,17 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 activateDonations();
             }
         } else {
-            mDonation.setVisibility(View.GONE);
+            showDonation(false);
         }
+    }
+
+    public final void showDonation(boolean showDonation) {
+        mShowDonation = showDonation;
+        showDonation();
+    }
+
+    void showDonation() {
+        mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
     }
 
     private void activatePlay() {
@@ -307,13 +318,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
         if (items.isEmpty()) {
             mDonationTip.setText(canSupportWechat ? R.string.donation_unsupported_wechat : R.string.donation_unsupported);
-            mDonation.setVisibility(View.VISIBLE);
+            mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
         } else {
             mDonationTip.setText(R.string.donation);
-            Donation donation = new Donation();
-            donation.donation = mDonation;
-            donation.items = items;
-            new DonateTask(this, false, donation).execute();
+            new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
     }
 
@@ -442,10 +450,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             checkPackage(items, R.id.play, PACKAGE_PLAY);
             if (!items.isEmpty()) {
                 mDonationTip.setText(R.string.donation);
-                Donation donation = new Donation();
-                donation.donation = mDonation;
-                donation.items = items;
-                new DonateTask(this, true, donation).execute();
+                new DonateTask(this, true).execute(items.toArray(new DonateItem[items.size()]));
             }
         }
     }
@@ -511,11 +516,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Drawable icon;
         CharSequence label;
         TextView textView;
-    }
-
-    static class Donation {
-        View donation;
-        Collection<DonateItem> items;
     }
 
 }

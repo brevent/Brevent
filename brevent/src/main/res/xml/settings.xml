@@ -12,7 +12,7 @@
             android:title="@string/brevent_auto" />
 
         <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="later"
+            android:defaultValue="@string/later"
             android:entries="@array/brevent_mode_entries"
             android:entryValues="@array/brevent_mode_values"
             android:key="brevent_mode"
@@ -20,7 +20,7 @@
             android:title="@string/brevent_mode" />
 
         <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="standby_forcestop"
+            android:defaultValue="@string/standby_forcestop"
             android:entries="@array/brevent_method_entries"
             android:entryValues="@array/brevent_method_values"
             android:key="brevent_method"
@@ -88,6 +88,7 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
+            android:summary="@string/show_donation_label"
             android:title="@string/show_donation" />
 
         <SwitchPreference
