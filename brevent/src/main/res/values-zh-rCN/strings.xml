@@ -132,7 +132,7 @@
     <string name="brevent_optimize_mm_gcm">优化微信 GCM</string>
     <string name="brevent_optimize_mm_gcm_label">当微信没有运行，被 GCM 唤醒时没有通知。这个功能只休眠不强行停止微信，从而让它收到 GCM 消息时可以通知（当您从最近列表划掉时，可能也没通知）\n\n建议通过 Play 商店累计捐赠 1 美金</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式直接开启黑域服务\n\n需要通过 Play 商店累积捐赠 3 美金。Play 商店不可用时，暂无限制</string>
+    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式直接开启黑域服务\n\n这个功能当前不稳定，限定必须通过 Play 商店累积捐赠 3 美金才可使用；如果您之前通过其它方式捐赠过，请带上截图以邮件方式反馈。Play 商店不可用时，暂无限制</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>

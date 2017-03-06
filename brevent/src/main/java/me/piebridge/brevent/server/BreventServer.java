@@ -442,12 +442,10 @@ public class BreventServer extends Handler {
                 standby(standby.contains(packageName), packageName);
                 break;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
-                if (noRecent) {
-                    if (!"com.tencent.mm".equals(packageName) || !mConfiguration.optimizeMmGcm) {
-                        forceStop(packageName, "(noRecent)");
-                    }
-                } else {
+                if (!noRecent || ("com.tencent.mm".equals(packageName) && mConfiguration.optimizeMmGcm)) {
                     standby(standby.contains(packageName), packageName);
+                } else {
+                    forceStop(packageName, "(noRecent)");
                 }
                 break;
             default:
