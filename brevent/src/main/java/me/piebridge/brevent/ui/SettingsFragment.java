@@ -2,6 +2,8 @@ package me.piebridge.brevent.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
@@ -26,6 +28,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     public static final String HAS_PLAY = "has_play";
 
+    private PreferenceCategory breventUi;
+
     private SwitchPreference donation;
 
     private SwitchPreference allowRoot;
@@ -42,6 +46,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
+        breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
         donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
         allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
@@ -62,6 +67,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 allowRoot.setEnabled(true);
             }
         }
+        breventUi.removePreference(donation);
     }
 
     @Override
@@ -98,11 +104,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             donation.setSummary(summary);
         }
         if (total == 0) {
-            donation.setEnabled(false);
-            donation.setChecked(true);
             allowRoot.setChecked(false);
         } else {
             onShowDonationChanged();
+            breventUi.addPreference(donation);
             donation.setEnabled(true);
             if (total < 3) {
                 allowRoot.setEnabled(false);

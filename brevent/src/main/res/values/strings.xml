@@ -90,8 +90,6 @@
     <string name="brevent_timeout_15min">15 minutes</string>
     <string name="brevent_timeout_30min">30 minutes</string>
     <string name="brevent_timeout_1hour">1 hour</string>
-    <string name="brevent_appops_background">Use AppOps\'s BACKGROUND</string>
-    <string name="brevent_appops_background_label">Recommend OFF. Sync and Alarms won\'t be available, and apps may not work well, apply even when you uninstall Brevent (Since Android 7.0)</string>
     <string name="brevent_method">How brevent</string>
     <string name="brevent_method_standby_forcestop">App Standby, then ForceStop</string>
     <string name="brevent_method_standby_only">Only App Standby, no ForceStop</string>
@@ -102,10 +100,8 @@
     <string name="brevent_mode">When brevent</string>
     <string name="brevent_mode_later">Later (Recommend)</string>
     <string name="brevent_mode_immediate">Immediate</string>
-    <string name="brevent_mode_label_later">Later. Short when Home focused, longer when awaken, longest when apps focused, immediately when screen off</string>
-    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / Home focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well</string>
-    <string name="brevent_appops_notification">Block awaken notification</string>
-    <string name="brevent_appops_notification_label">No notification when awaken by other apps, and recover after launch</string>
+    <string name="brevent_mode_label_later">Later. Short when Home focused, longer when awaken, longest when apps focused, immediately when screen off\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / Home focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
 
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
@@ -133,9 +129,11 @@
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
 
     <string name="brevent_allow_gcm">Allow GCM</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRecommend donate 1 USD in Play Store</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message\n\nRecommend donate total 1 USD in Play Store</string>
+    <string name="brevent_optimize_mm_gcm">Optimize GCM for WeChat</string>
+    <string name="brevent_optimize_mm_gcm_label">If WeChat receives GCM in stop state, it has no notification. This feature never force-stop WeChat (won\'t apply when swiping from recent list), so it may push notification when receiving GCM message\n\nRecommend donate total 1 USD in Play Store</string>
     <string name="brevent_allow_root">Allow ROOT</string>
-    <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donation in Play Store at least 3 USD. No restriction if Play Store is unavailable</string>
+    <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\nRequires donate total 3 USD in Play Store. No restriction if Play Store is unavailable</string>
     <string name="brevent_list_donation">Requires donation</string>
 
     <string name="brevent_about">About</string>

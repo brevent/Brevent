@@ -4,7 +4,7 @@
     <string name="donation">Feel free to donate if you like</string>
     <string name="donation_wechat_guide">1. Open Wechat, navigate to \"Scan QR Code\"\n\n2. Click menu\n\n3. Click \"Choose QR Code from Album\"\n\n4. Pick Brevent donation QR Code</string>
     <string name="donation_wechat_scan">Open \"Wechat Scan QR Code\"</string>
-    <string name="donation_unsupported">Please install Alipay, or PayPal to donation</string>
-    <string name="donation_unsupported_wechat">Please install Alipay, or WeChat, or PayPal to donation</string>
+    <string name="donation_unsupported">Please install Alipay, or PayPal to donate</string>
+    <string name="donation_unsupported_wechat">Please install Alipay, WeChat, or PayPal to donate</string>
 
 </resources>

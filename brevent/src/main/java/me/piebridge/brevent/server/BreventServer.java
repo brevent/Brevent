@@ -386,13 +386,7 @@ public class BreventServer extends Handler {
                 // shouldn't happen
                 continue;
             }
-            if (mConfiguration.appopsBackground) {
-                HideApi.setAllowBackground(packageName, false, mUser);
-            }
             if (services.contains(packageName)) {
-                if (mConfiguration.appopsNotification) {
-                    HideApi.setAllowNotification(packageName, false, mUser);
-                }
                 forceStop(packageName, "(service)");
             } else {
                 brevent(packageName, standby, noRecent.contains(packageName));
@@ -449,7 +443,9 @@ public class BreventServer extends Handler {
                 break;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
                 if (noRecent) {
-                    forceStop(packageName, "(noRecent)");
+                    if (!"com.tencent.mm".equals(packageName) || !mConfiguration.optimizeMmGcm) {
+                        forceStop(packageName, "(noRecent)");
+                    }
                 } else {
                     standby(standby.contains(packageName), packageName);
                 }
@@ -622,7 +618,9 @@ public class BreventServer extends Handler {
                 break;
             case EventTag.NOTIFICATION_CANCEL_ALL:
                 // for package changed, restart brevent server,
-                hasNotificationCancelAll = true;
+                if (!hasNotificationCancelAll) {
+                    hasNotificationCancelAll = true;
+                }
                 handleEventNotificationCancelAll(event);
                 break;
             case EventTag.POWER_SCREEN_STATE:
@@ -837,14 +835,8 @@ public class BreventServer extends Handler {
     }
 
     private void unblock(String packageName) {
-        if (mConfiguration.appopsNotification) {
-            HideApi.setAllowNotification(packageName, true, mUser);
-        }
         HideApi.setAppInactive(packageName, false, mUser);
         HideApi.setStopped(packageName, false, mUser);
-        if (mConfiguration.appopsBackground) {
-            HideApi.setAllowBackground(packageName, true, mUser);
-        }
     }
 
     private void handleUpdateBrevent(BreventPackages request) {
@@ -917,16 +909,6 @@ public class BreventServer extends Handler {
     }
 
     private void handleUpdateConfiguration(BreventConfiguration request) {
-        if (mConfiguration.appopsBackground != request.appopsBackground && !request.appopsBackground) {
-            for (String packageName : mBrevent) {
-                HideApi.setAllowBackground(packageName, true, mUser);
-            }
-        }
-        if (mConfiguration.appopsNotification != request.appopsNotification && !request.appopsNotification) {
-            for (String packageName : mBrevent) {
-                HideApi.setAllowNotification(packageName, true, mUser);
-            }
-        }
         if (mConfiguration.update(request)) {
             saveBreventConfLater();
         }

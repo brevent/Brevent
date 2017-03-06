@@ -48,19 +48,6 @@
             android:summary="@string/brevent_back_home_label"
             android:title="@string/brevent_back_home" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:enabled="@bool/preference_brevent_background"
-            android:key="brevent_appops_background"
-            android:summary="@string/brevent_appops_background_label"
-            android:title="@string/brevent_appops_background" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="brevent_appops_notification"
-            android:summary="@string/brevent_appops_notification_label"
-            android:title="@string/brevent_appops_notification" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -75,6 +62,13 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:dependency="brevent_allow_gcm"
+            android:key="brevent_optimize_mm_gcm"
+            android:summary="@string/brevent_optimize_mm_gcm_label"
+            android:title="@string/brevent_optimize_mm_gcm" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="brevent_allow_root"
             android:summary="@string/brevent_allow_root_label"
             android:title="@string/brevent_allow_root" />
@@ -84,12 +78,6 @@
     <PreferenceCategory
         android:key="brevent_ui"
         android:title="@string/brevent_ui">
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="show_donation"
-            android:summary="@string/show_donation_label"
-            android:title="@string/show_donation" />
 
         <SwitchPreference
             android:defaultValue="false"
@@ -102,6 +90,12 @@
             android:key="show_framework_apps"
             android:summary="@string/show_framework_apps_label"
             android:title="@string/show_framework_apps" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_donation"
+            android:summary="@string/show_donation_label"
+            android:title="@string/show_donation" />
 
     </PreferenceCategory>
 

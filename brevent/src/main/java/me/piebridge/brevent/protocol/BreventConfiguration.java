@@ -26,16 +26,10 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_TIMEOUT = "brevent_timeout";
     public static final int DEFAULT_BREVENT_TIMEOUT = 1800;
 
-    public static final String BREVENT_APPOPS_BACKGROUND = "brevent_appops_background";
-    public static final boolean DEFAULT_BREVENT_APPOPS_BACKGROUND = false;
-
     public static final String BREVENT_MODE = "brevent_mode";
     public static final int BREVENT_MODE_LATER = 0;
     public static final int BREVENT_MODE_IMMEDIATE = 1;
     public static final int DEFAULT_BREVENT_MODE = BREVENT_MODE_LATER;
-
-    public static final String BREVENT_APPOPS_NOTIFICATION = "brevent_appops_notification";
-    public static final boolean DEFAULT_BREVENT_APPOPS_NOTIFICATION = false;
 
     public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
     public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
@@ -49,6 +43,9 @@ public class BreventConfiguration extends BreventToken {
     public static final int BREVENT_METHOD_FORCE_STOP_ONLY = 3;
     public static final int DEFAULT_BREVENT_METHOD = BREVENT_METHOD_STANDBY_FORCE_STOP;
 
+    public static final String BREVENT_OPTIMIZE_MM_GCM = "brevent_optimize_mm_gcm";
+    public static final boolean DEFAULT_BREVENT_OPTIMIZE_MM_GCM = false;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public boolean backMove = DEFAULT_BREVENT_MOVE_BACK;
@@ -57,11 +54,7 @@ public class BreventConfiguration extends BreventToken {
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
 
-    public boolean appopsBackground = DEFAULT_BREVENT_APPOPS_BACKGROUND;
-
     public int mode = DEFAULT_BREVENT_MODE;
-
-    public boolean appopsNotification = DEFAULT_BREVENT_APPOPS_NOTIFICATION;
 
     public boolean allowRoot = DEFAULT_BREVENT_ALLOW_ROOT;
 
@@ -69,18 +62,19 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean allowGcm = DEFAULT_BREVENT_ALLOW_GCM;
 
+    public boolean optimizeMmGcm = DEFAULT_BREVENT_OPTIMIZE_MM_GCM;
+
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
         backMove = sharedPreferences.getBoolean(BREVENT_MOVE_BACK, DEFAULT_BREVENT_MOVE_BACK);
         backHome = sharedPreferences.getBoolean(BREVENT_BACK_HOME, DEFAULT_BREVENT_BACK_HOME);
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
-        appopsBackground = sharedPreferences.getBoolean(BREVENT_APPOPS_BACKGROUND, DEFAULT_BREVENT_APPOPS_BACKGROUND);
         mode = convertMode(sharedPreferences.getString(BREVENT_MODE, ""));
-        appopsNotification = sharedPreferences.getBoolean(BREVENT_APPOPS_NOTIFICATION, DEFAULT_BREVENT_APPOPS_NOTIFICATION);
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
+        optimizeMmGcm = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_MM_GCM, DEFAULT_BREVENT_OPTIMIZE_MM_GCM);
     }
 
     private int convertMode(String string) {
@@ -117,12 +111,11 @@ public class BreventConfiguration extends BreventToken {
         backMove = in.readInt() != 0;
         backHome = in.readInt() != 0;
         timeout = in.readInt();
-        appopsBackground = in.readInt() != 0;
         mode = in.readInt();
-        appopsNotification = in.readInt() != 0;
         allowRoot = in.readInt() != 0;
         method = in.readInt();
         allowGcm = in.readInt() != 0;
+        optimizeMmGcm = in.readInt() != 0;
     }
 
     @Override
@@ -132,12 +125,11 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(backMove ? 1 : 0);
         dest.writeInt(backHome ? 1 : 0);
         dest.writeInt(timeout);
-        dest.writeInt(appopsBackground ? 1 : 0);
         dest.writeInt(mode);
-        dest.writeInt(appopsNotification ? 1 : 0);
         dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
         dest.writeInt(allowGcm ? 1 : 0);
+        dest.writeInt(optimizeMmGcm ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -145,12 +137,11 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_MOVE_BACK, backMove);
         write(pw, BREVENT_BACK_HOME, backHome);
         write(pw, BREVENT_TIMEOUT, timeout);
-        write(pw, BREVENT_APPOPS_BACKGROUND, appopsBackground);
         write(pw, BREVENT_MODE, mode);
-        write(pw, BREVENT_APPOPS_NOTIFICATION, appopsNotification);
         write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
+        write(pw, BREVENT_OPTIMIZE_MM_GCM, optimizeMmGcm);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -180,9 +171,6 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_BACK_HOME:
                 backHome = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_APPOPS_BACKGROUND:
-                appopsBackground = Boolean.parseBoolean(value);
-                break;
             case BREVENT_TIMEOUT:
                 if (TextUtils.isDigitsOnly(value) && value.length() < 0x6) {
                     timeout = Integer.parseInt(value);
@@ -190,9 +178,6 @@ public class BreventConfiguration extends BreventToken {
                 break;
             case BREVENT_MODE:
                 mode = convertMode(value);
-                break;
-            case BREVENT_APPOPS_NOTIFICATION:
-                appopsNotification = Boolean.parseBoolean(value);
                 break;
             case BREVENT_ALLOW_ROOT:
                 allowRoot = Boolean.parseBoolean(value);
@@ -202,6 +187,9 @@ public class BreventConfiguration extends BreventToken {
                 break;
             case BREVENT_ALLOW_GCM:
                 allowGcm = Boolean.parseBoolean(value);
+                break;
+            case BREVENT_OPTIMIZE_MM_GCM:
+                optimizeMmGcm = Boolean.parseBoolean(value);
                 break;
             default:
                 break;
@@ -226,16 +214,8 @@ public class BreventConfiguration extends BreventToken {
             this.timeout = request.timeout;
             updated = true;
         }
-        if (this.appopsBackground != request.appopsBackground) {
-            this.appopsBackground = request.appopsBackground;
-            updated = true;
-        }
         if (this.mode != request.mode) {
             this.mode = request.mode;
-            updated = true;
-        }
-        if (this.appopsNotification != request.appopsNotification) {
-            this.appopsNotification = request.appopsNotification;
             updated = true;
         }
         if (this.allowRoot != request.allowRoot) {
@@ -249,6 +229,10 @@ public class BreventConfiguration extends BreventToken {
         if (this.allowGcm != request.allowGcm) {
             this.allowGcm = request.allowGcm;
             updated = true;
+        }
+        if (this.optimizeMmGcm != request.optimizeMmGcm) {
+            this.optimizeMmGcm = request.optimizeMmGcm;
+            updated = false;
         }
         return updated;
     }
