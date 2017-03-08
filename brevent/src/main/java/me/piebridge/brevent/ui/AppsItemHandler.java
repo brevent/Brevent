@@ -110,7 +110,7 @@ public class AppsItemHandler extends Handler {
         }
         Set<Integer> positions = new ArraySet<>();
         final int now = TimeUtils.now();
-        last = Math.min(last, appsInfoList.size());
+        last = Math.min(last, appsInfoList.size() - 1);
         for (int i = first; i <= last; ++i) {
             AppsInfo info = appsInfoList.get(i);
             if (info.isPackage()) {
