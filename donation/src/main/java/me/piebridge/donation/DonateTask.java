@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
-import java.util.Collection;
 
 /**
  * Donate Task - show available donations
