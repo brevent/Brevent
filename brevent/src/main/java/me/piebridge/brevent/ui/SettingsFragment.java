@@ -1,13 +1,14 @@
 package me.piebridge.brevent.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.donation.DonateActivity;
@@ -15,7 +16,7 @@ import me.piebridge.donation.DonateActivity;
 /**
  * Created by thom on 2017/2/8.
  */
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     public static final String SHOW_DONATION = "show_donation";
 
@@ -25,13 +26,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
-    public static final String HAS_PLAY = "has_play";
+    private PreferenceCategory breventAdvanced;
 
-    private PreferenceCategory breventUi;
+    private SwitchPreference preferenceDonation;
 
-    private SwitchPreference donation;
+    private SwitchPreference preferenceAllowRoot;
 
-    private SwitchPreference allowRoot;
+    private int repeat = 0;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -43,36 +44,28 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
-
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-        breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
-        donation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
+        breventAdvanced = (PreferenceCategory) preferenceScreen.findPreference("brevent_advanced");
+        preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
+        preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
-        allowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
-
-        if (!BuildConfig.RELEASE) {
-            donation.setEnabled(false);
-            donation.setChecked(false);
-            allowRoot.setEnabled(true);
-        } else {
-            Bundle arguments = getArguments();
-            if (arguments.getBoolean(HAS_PLAY)) {
-                // update later
-                donation.setEnabled(false);
-                allowRoot.setEnabled(false);
-            } else {
-                donation.setEnabled(false);
-                donation.setChecked(true);
-                allowRoot.setEnabled(true);
-            }
+        if (!getPreferenceScreen().getSharedPreferences().getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+            breventAdvanced.removePreference(preferenceAllowRoot);
+            preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(this);
         }
-        breventUi.removePreference(donation);
+        if (getArguments().getInt(Intent.EXTRA_ALARM_COUNT, 0) == 0) {
+            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
+            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_MM_GCM));
+        } else if (getContext().getPackageManager().getLaunchIntentForPackage("com.tencent.mm") == null) {
+            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_MM_GCM));
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        onShowDonationChanged();
     }
 
     @Override
@@ -97,24 +90,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         String summary;
         if (count == 1) {
             summary = getString(R.string.show_donation_play_one, total);
-            donation.setSummary(summary);
+            preferenceDonation.setSummary(summary);
         } else if (count > 1) {
             summary = getString(R.string.show_donation_play_multi, count, total);
-            donation.setSummary(summary);
+            preferenceDonation.setSummary(summary);
         }
-        if (total == 0) {
-            allowRoot.setChecked(false);
-        } else {
-            onShowDonationChanged();
-            breventUi.addPreference(donation);
-            donation.setEnabled(true);
-            if (total < 3) {
-                allowRoot.setEnabled(false);
-                allowRoot.setChecked(false);
-            } else {
-                allowRoot.setEnabled(true);
-            }
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (++repeat == 0x7) {
+            breventAdvanced.addPreference(preferenceAllowRoot);
         }
+        return false;
     }
 
 }

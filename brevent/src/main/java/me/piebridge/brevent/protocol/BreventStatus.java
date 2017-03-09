@@ -74,6 +74,20 @@ public class BreventStatus extends BreventToken implements Parcelable {
         return status != null && status.get(PROCESS_STATE_IDLE, 0) != 0;
     }
 
+    public static boolean isRunning(SparseIntArray status) {
+        if (status == null) {
+            return false;
+        }
+        int size = status.size();
+        for (int i = 0; i < size; ++i) {
+            int processState = status.keyAt(i);
+            if (isProcess(processState)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int getInactive(SparseIntArray status) {
         if (status == null) {
             return 0;

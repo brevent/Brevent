@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個命令來開啟黑域服務，讓黑域間接地持有管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n如果您的裝置已經 ROOT，您也可以使用 ROOT 模式(可能需要禁用 SELinux)代替偵錯模式。然而 ROOT 模式不安全也沒有必要，並且需要捐贈。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，若無特殊需要，請您關閉偵錯模式。</string>
@@ -102,15 +102,15 @@
     <string name="brevent_mode_label_later">動態延後。自動根據事件處理，打開首頁時短點，被喚醒時長點，打開應用程式時最長，螢幕關閉時立即處理\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
     <string name="brevent_mode_label_immediate">立即處理，包括但不限於打開首頁與應用程式，被喚醒及螢幕關閉。請謹慎選擇，這種模式黑域服務將消耗更多電量，某些應用程式可能無法正常使用\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
 
-<string name="brevent_ui">使用者界面</string>
+    <string name="brevent_ui">使用者界面</string>
     <string name="show_donation">顯示捐贈</string>
-    <string name="show_donation_label">建議透過 Play 商店 捐贈</string>
+    <string name="show_donation_label"></string>
     <string name="show_donation_play_one">感謝您透過 Play 商店 捐贈 %d 美元</string>
     <string name="show_donation_play_multi">感謝您透過 Play 商店 捐贈 %1$d 次共 %2$d 美元</string>
     <string name="show_all_apps">顯示所有應用程式</string>
-    <string name="show_all_apps_label">包括無法打開的系統應用程式和框架應用程式</string>
+    <string name="show_all_apps_label">包括無法打開的系統應用程式和框架應用程式\n\n請謹慎黑域系統應用程式和框架應用程式</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
-    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式</string>
+    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式和框架應用程式</string>
 
     <string name="feedback_message" >歡迎發送任何回饋。\n\n如果您有 GitHub 帳號，請直接新增一個問題；您也可以檢視其他朋友已經新增的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送電子郵件到信箱。</string>
@@ -126,14 +126,13 @@
     <string name="important_gcm">%s（GCM）</string>
     <string name="important_battery">%s（無法休眠，電池未優化）</string>
 
-    <string name="brevent_list_donation">捐贈特性</string>
-
+    <string name="brevent_advanced">高級功能</string>
     <string name="brevent_allow_gcm">允許 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息。溫馨提示：界面圖示顯示 GCM 消息的應用程式，如微信等，不一定真的支援 GCM 推送消息\n\n建議透過 Play 商店 累計捐贈 1 美元</string>
+    <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息</string>
     <string name="brevent_optimize_mm_gcm">優化微信 GCM</string>
-    <string name="brevent_optimize_mm_gcm_label">當微信沒有執行，被 GCM 推送喚醒時沒有通知。這個功能僅休眠不強制停止微信，從而使它收到 GCM 推送消息時可以通知（當您從 最近使用的應用程式 拉掉時，可能也會沒通知）\n\n建議透過 Play 商店 累計捐贈 1 美元</string>
+    <string name="brevent_optimize_mm_gcm_label">當微信沒有執行，被 GCM 推送喚醒時沒有通知。這個功能僅休眠不強制停止微信，從而使它收到 GCM 推送消息時可以通知（當您從 最近使用的應用程式 拉掉時，可能也會沒通知）</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式直接開啟黑域服務\n\n這個功能目前不穩定，限定必須透過 Play 商店 累積捐贈 3 美元才可使用；如果您之前透過其它方式捐贈過，請帶上截圖以郵件方式回饋。Play 商店 不可用時，暫無限制</string>
+    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式直接開啟黑域服務\n\n當前不穩定，暫不提供任何支持</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>

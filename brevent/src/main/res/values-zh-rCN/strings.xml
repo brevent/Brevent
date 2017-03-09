@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n如果您的设备已经 ROOT，您也可以使用 ROOT 模式（可能需要禁用 SELinux）代替调试模式。ROOT 模式不安全也没有必要，并且需要捐赠。</string>
+    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
@@ -103,13 +103,13 @@
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
-    <string name="show_donation_label">建议通过 Play 商店捐赠</string>
+    <string name="show_donation_label"></string>
     <string name="show_donation_play_one">感谢您通过 Play 商店捐赠 %d 美金</string>
     <string name="show_donation_play_multi">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美金</string>
     <string name="show_all_apps">显示所有应用</string>
-    <string name="show_all_apps_label">包括无法打开的系统应用和框架应用</string>
+    <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域系统应用或框架应用</string>
     <string name="show_framework_apps">显示框架应用</string>
-    <string name="show_framework_apps_label">所有与系统框架签名相同的应用</string>
+    <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域系统应用或框架应用</string>
 
     <string name="feedback_message" >欢迎提交任何反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
@@ -125,14 +125,13 @@
     <string name="important_gcm">%s（GCM）</string>
     <string name="important_battery">%s（无法休眠，电池未优化）</string>
 
-    <string name="brevent_list_donation">捐赠特性</string>
-
+    <string name="brevent_advanced">高级功能</string>
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示：界面标识集成 GCM 消息的应用，如微信等，不一定真的支持 GCM 消息\n\n建议通过 Play 商店累计捐赠 1 美金</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示：界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息</string>
     <string name="brevent_optimize_mm_gcm">优化微信 GCM</string>
-    <string name="brevent_optimize_mm_gcm_label">当微信没有运行，被 GCM 唤醒时没有通知。这个功能只休眠不强行停止微信，从而让它收到 GCM 消息时可以通知（当您从最近列表划掉时，可能也没通知）\n\n建议通过 Play 商店累计捐赠 1 美金</string>
+    <string name="brevent_optimize_mm_gcm_label">当微信没有运行，被 GCM 唤醒时没有通知。这个功能只休眠不强行停止微信，从而让它收到 GCM 消息时可以通知（当您从最近列表划掉时，可能也没通知）</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式直接开启黑域服务\n\n这个功能当前不稳定，限定必须通过 Play 商店累积捐赠 3 美金才可使用；如果您之前通过其它方式捐赠过，请带上截图以邮件方式反馈。Play 商店不可用时，暂无限制</string>
+    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>

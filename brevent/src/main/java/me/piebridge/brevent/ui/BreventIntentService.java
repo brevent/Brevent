@@ -31,8 +31,10 @@ public class BreventIntentService extends IntentService {
             File file = new File(applicationInfo.nativeLibraryDir, name);
             if (file.exists()) {
                 List<String> results = Shell.SU.run(file.getAbsolutePath());
-                for (String result : results) {
-                    UILog.d(result);
+                if (results != null) {
+                    for (String result : results) {
+                        UILog.d(result);
+                    }
                 }
             } else {
                 UILog.e("Can't find libbootstrap.so");

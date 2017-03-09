@@ -133,11 +133,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     @ColorInt
     int mColorControlHighlight;
 
-    private AppsDisabledFragment mDisabledFragment;
-
     private String mLauncher;
 
-    private boolean stopped;
+    private volatile boolean stopped;
+
+    private volatile boolean hasResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,15 +192,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mColorControlNormal = resolveColor(android.R.attr.colorControlNormal);
             mTextColorPrimary = resolveColor(android.R.attr.textColorPrimary);
             mColorControlHighlight = resolveColor(android.R.attr.colorControlHighlight);
-
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
         }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mReceiver != null) {
+        if (mReceiver != null && hasResponse) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
         }
     }
@@ -216,14 +214,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (stopped) {
             return;
         }
-        if (mDisabledFragment == null) {
-            mDisabledFragment = new AppsDisabledFragment();
-            mDisabledFragment.update(title);
-            mDisabledFragment.show(getFragmentManager(), FRAGMENT_DISABLED);
-        } else {
-            mDisabledFragment.update(title);
+        AppsDisabledFragment disabledFragment = (AppsDisabledFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DISABLED);
+        if (disabledFragment != null) {
+            disabledFragment.dismiss();
         }
-
+        disabledFragment = new AppsDisabledFragment();
+        disabledFragment.update(title);
+        disabledFragment.show(getFragmentManager(), FRAGMENT_DISABLED);
     }
 
     public void hideDisabled() {
@@ -236,11 +233,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
         hideDisabled();
         ProgressFragment progressFragment = (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
-        if (progressFragment == null) {
-            progressFragment = new ProgressFragment();
-            progressFragment.updateMessage(message);
-            progressFragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
+        if (progressFragment != null) {
+            progressFragment.dismiss();
         }
+        progressFragment = new ProgressFragment();
+        progressFragment.updateMessage(message);
+        progressFragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
     }
 
     public void showAppProgress(int progress, int max, int size) {
@@ -280,6 +278,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         stopped = false;
         if (mReceiver != null) {
             registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT), BreventIntent.PERMISSION_SHELL, mHandler);
+            if (!hasResponse) {
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
+            }
         }
     }
 
@@ -368,7 +369,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         SparseIntArray status = mProcesses.get(packageName);
         if (BreventStatus.isStandby(status)) {
             return R.drawable.ic_snooze_black_24dp;
-        } else if (BreventStatus.getInactive(status) > 0) {
+        } else if (BreventStatus.isRunning(status)) {
             return R.drawable.ic_alarm_black_24dp;
         } else {
             return R.drawable.ic_block_black_24dp;
@@ -495,6 +496,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
+        intent.putExtra(Intent.EXTRA_ALARM_COUNT, mGcm.size());
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
 
@@ -597,6 +599,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
+                if (!hasResponse) {
+                    hasResponse = true;
+                }
                 onBreventStatusResponse((BreventStatus) response);
                 break;
             case BreventProtocol.UPDATE_BREVENT:
@@ -714,7 +719,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         try {
             IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
-            String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();;
+            String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();
             if (fullPowerWhitelist != null) {
                 Collections.addAll(mBattery, fullPowerWhitelist);
             }
@@ -796,6 +801,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
         }
         return label;
+    }
+
+    public void runAsRoot() {
+        showProgress(R.string.process_retrieving);
+        BreventIntentService.startBrevent(this);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, 0x1500);
     }
 
 }

@@ -7,28 +7,37 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 
 
 /**
  * Created by thom on 2017/2/5.
  */
-public class AppsDisabledFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class AppsDisabledFragment extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
 
     private static final String MESSAGE = "message";
 
     private static final int DEFAULT_MESSAGE = R.string.brevent_service_start;
 
     private Dialog mDialog;
+
+    private int repeat;
+
+    private long firstTime;
 
     public AppsDisabledFragment() {
         setArguments(new Bundle());
@@ -61,7 +70,11 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         if (!adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
-        builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+            builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
+        }
+        builder.setOnKeyListener(this);
         return builder.create();
     }
 
@@ -104,11 +117,6 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
-        getActivity().finish();
-    }
-
-    @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == DialogInterface.BUTTON_POSITIVE) {
             Intent intent = new Intent();
@@ -121,8 +129,28 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
             }
             getActivity().finish();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-            BreventIntentService.startBrevent(getContext());
+            ((BreventActivity) getActivity()).runAsRoot();
+            dismiss();
         }
+    }
+
+    @Override
+    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+        if (keyCode != KeyEvent.KEYCODE_BACK) {
+            repeat = 0;
+            firstTime = 0;
+        } else if (event.getAction() == KeyEvent.ACTION_DOWN && repeat < 0x7) {
+            if (firstTime == 0) {
+                firstTime = event.getDownTime();
+            }
+            long cost = TimeUnit.MILLISECONDS.toSeconds(event.getDownTime() - firstTime);
+            if (++repeat == 0x7 && cost <= 0x3) {
+                PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
+                        .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
+                getActivity().finish();
+            }
+        }
+        return false;
     }
 
 }

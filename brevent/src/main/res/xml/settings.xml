@@ -51,8 +51,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="brevent_list_donation"
-        android:title="@string/brevent_list_donation">
+        android:key="brevent_advanced"
+        android:title="@string/brevent_advanced">
 
         <SwitchPreference
             android:defaultValue="false"
@@ -80,6 +80,12 @@
         android:title="@string/brevent_ui">
 
         <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_donation"
+            android:summary="@string/show_donation_label"
+            android:title="@string/show_donation" />
+
+        <SwitchPreference
             android:defaultValue="false"
             android:key="show_all_apps"
             android:summary="@string/show_all_apps_label"
@@ -90,12 +96,6 @@
             android:key="show_framework_apps"
             android:summary="@string/show_framework_apps_label"
             android:title="@string/show_framework_apps" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="show_donation"
-            android:summary="@string/show_donation_label"
-            android:title="@string/show_donation" />
 
     </PreferenceCategory>
 
