@@ -4,48 +4,48 @@
     <string name="app_name">黑域</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">Android 系統離開應用可以通過三種按鍵，Back 退出應用回到上層，Home 或者 Overview 把應用放到後台；同時，允許應用使用一直運行的服
-務。當然，您也可以直接從最近列表劃掉某個應用。 \n\n黑域通過這種方式識別您是否打開或已經退出，阻斷黑域清單裡的應用在沒有使用的時候長期運行。對於被惡意喚醒的應用，一律強行停止。 </string>
-    <string name="fragment_guide_welcome_message2">當您使用Back 退出應用時，應用及所包含的服務不再運行；當您使用Home 或者Overview 或者其它方式把應用移到後台，後台應用及所包>含的服務可以繼續運行；當您從最近列表劃掉時，黑域將強行停止它。 \n\n對於後台應用，黑域動態顯示空閒時間。 </string>
+    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三種方式：\n\n1. 按 返回鍵 離開應用程式回到上一個顯示畫面。\n\n2. 按 首頁鍵 回到首頁\n\n3. 在其他應用程式上繪製內容 把應用程式放到背景；同時，允許應用程式持續執行著服
+務。\n\n當然，您也可以直接從 "最近使用的應用程式" 拉掉某個應用程式。\n\n黑域透過這種方式識別您是否開啟或已經離開，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您使用 返回鍵 離開應用程式時，應用程式及所包含的服務將不再執行；當您使用按 首頁鍵 回到首頁 或者在 其他應用程式上繪製內容 把應用程式放到背景，背景應用程式及所包含的服務可以繼續執行；當您從"最近使用的應用程式" 拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域則會動態顯示空閒時間。</string>
 
     <string name="fragment_guide_permission">權限</string>
-    <string name="fragment_guide_permission_message">黑域需要您每次開機以後，以調試模式執行一個命令開啟黑域服務，讓黑域間接持有管理其它應用的權限。 </string>
-    <string name="fragment_guide_permission_message2">其它類似軟件需要 ROOT 權限，或解鎖變更系統文件以擁有這些權限。黑域所需的調試模式不需要 ROOT，也不需要解鎖，您可放心使用。 \n\n如果您的設備已經 ROOT，您也可以使用 ROOT 模式（可能需要禁用 SELinux）代替調試模式。 ROOT 模式不安全也沒有必要，並且需要捐贈。 </string>
+    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個命令來開啟黑域服務，讓黑域間接地持有管理其它應用程式的權限。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n如果您的裝置已經 ROOT，您也可以使用 ROOT 模式(可能需要禁用 SELinux)代替偵錯模式。然而 ROOT 模式不安全也沒有必要，並且需要捐贈。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑域需要調試模式開啟黑域服務。但是調試模式比較危險，在啟動黑域服務後，如無特殊需要，請您關閉調試模式。 </string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 隱藏 API，可能無法支持您的設備。同時有些第三方系統可能改變這些隱藏 API 行為，對設備造成未知影響。 </string>
+    <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，若無特殊需要，請您關閉偵錯模式。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 的隱藏 API，有可能無法支援您的裝置。同時有些第三方系統可能會有改變這些隱藏 API 的行為，對裝置造成未知影響。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
-    <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請提交反饋。 </string>
-    <string name="fragment_guide_enjoy_message2">黑域默認使用休眠黑域應用，您可在設置中更改。如果您發現黑域處理後的應用還在運行，請使用黑域或者其它類似工具（如開發者選項中的未>啟用的應用）查看是否處於休眠狀態。 \n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設置中修改成立即處理。 </string>
+    <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設使用"休眠黑域應用程式"，您可在設定中更改。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具(如開發者選項中的"未啟用的應用程式")檢視是否處於休眠狀態。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設定中修改成立即處理。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="brevent_service_start">請啟動黑域服務</string>
-    <string name="brevent_service_restart">請重啟黑域服務</string>
-    <string name="brevent_service_guide">1. 開啟「開發者選項」，啟用「USB調試」 %1$s\n\n2. 使用USB 連接到電腦\n\n3. 在電腦命令行中執行: %2$s (已復製到剪貼板)\n</string>
-    <string name="brevent_service_open_development">前往「開發者選項」</string>
+    <string name="brevent_service_restart">請重新啟動黑域服務</string>
+    <string name="brevent_service_guide">1. 開啟「開發者選項」，啟用「USB 偵錯」 %1$s\n\n2. 使用 USB 連接到電腦\n\n3. 在電腦命令行中執行: %2$s (已復製到剪貼板)\n</string>
+    <string name="brevent_service_open_development">前往「開發人員選項」</string>
     <string name="brevent_service_adb_running">(已啟用)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
 
-    <string name="fragment_apps_user">用戶應用</string>
-    <string name="fragment_apps_system">系統應用</string>
-    <string name="fragment_apps_framework">框架應用</string>
+    <string name="fragment_apps_user">使用者</string>
+    <string name="fragment_apps_system">系統</string>
+    <string name="fragment_apps_framework">核心框架(Framework)</string>
 
-    <string name="process_retrieving">正在獲取進程狀態，請稍候. . .</string>
-    <string name="process_retrieving_apps">正在獲取應用信息，請稍候. . .</string>
+    <string name="process_retrieving">正在取得處理程序狀態，請稍候. . .</string>
+    <string name="process_retrieving_apps">正在取得應用程式訊息，請稍候. . .</string>
 
-    <string name="process_status_running">正在運行</string>
-    <string name="process_status_standby">已經休眠</string>
-    <string name="process_status_stopped">沒有運行</string>
-    <string name="process_not_running">(沒有運行)</string>
-    <string name="process_all_top">%d 個前台</string>
+    <string name="process_status_running">執行中</string>
+    <string name="process_status_standby">已休眠</string>
+    <string name="process_status_stopped">無執行</string>
+    <string name="process_not_running">(無執行)</string>
+    <string name="process_all_top">%d 個前景</string>
     <string name="process_all_service">%d 個服務</string>
-    <string name="process_all_cached">%d 個緩存</string>
+    <string name="process_all_cached">%d 個快取</string>
     <string name="process_all_total">%d 個</string>
-    <string name="process_top">%d 前台</string>
+    <string name="process_top">%d 前景</string>
     <string name="process_service">%d 服務</string>
-    <string name="process_cached">%d 緩存</string>
+    <string name="process_cached">%d 快取</string>
     <string name="process_total">共 %d 個</string>
     <plurals name="process_process">
         <item quantity="other">進程</item>
@@ -54,74 +54,74 @@
     <string name="action_brevent">加入黑域</string>
     <string name="action_restore">不再黑域</string>
     <string name="action_select_important">重要</string>
-    <string name="action_select_inverse">反選</string>
-    <string name="action_brevent_results">成功黑域 %d 個應用</string>
-    <string name="action_restore_results">不再黑域 %d 個應用</string>
-    <string name="action_snackbar_undo">撤消</string>
-    <string name="action_snackbar_undone">已撤消</string>
+    <string name="action_select_inverse">反向選擇</string>
+    <string name="action_brevent_results">成功黑域 %d 個應用程式</string>
+    <string name="action_restore_results">不再黑域 %d 個應用程式</string>
+    <string name="action_snackbar_undo">復原</string>
+    <string name="action_snackbar_undone">已取消</string>
 
     <string name="context_menu_choose">選擇</string>
-    <string name="context_menu_package_name">複製包名</string>
-    <string name="context_menu_app_info">應用信息</string>
+    <string name="context_menu_package_name">複製 安裝包(Package) 名稱</string>
+    <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">打開</string>
-    <string name="context_menu_brevent_server_info">黑域服務信息</string>
-    <string name="context_menu_snackbar_copied">包名已復制: %s</string>
+    <string name="context_menu_brevent_server_info">黑域服務訊息</string>
+    <string name="context_menu_snackbar_copied">安裝包(Package) 名稱已複製：%s</string>
 
     <!-- menu -->
-    <string name="menu_feedback">反饋</string>
-    <string name="menu_settings">設置</string>
-    <string name="menu_guide">嚮導</string>
+    <string name="menu_feedback">回饋</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_guide">導覽</string>
 
     <!-- settings brevent list -->
     <string name="brevent_list">黑域清單</string>
     <string name="brevent_auto">自動更新</string>
-    <string name="brevent_auto_label">應用安裝或卸載之後，更新黑域清單</string>
-    <string name="brevent_move_back">黑域 Back 移到後台</string>
-    <string name="brevent_move_back_label">有些應用，如微信，在您按 Back 時，不執行正常的 Back 操作，移到後台。啟用之後，按正常 Back 處理（僅支持 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑域 Back 打開主屏幕</string>
-    <string name="brevent_back_home_label">有些應用，如微博，在您按 Back 時，不執行正常的 Back 操作，打開主屏幕。啟用之後，按正常 Back 處理。絕大部分情況下黑域都能有效區分，您也可連按 7 次 Home 鍵來幫助黑域確認</string>
-    <string name="brevent_timeout">是否黑域後台應用</string>
-    <string name="brevent_timeout_label">離開後台應用 %1$s後。後台應用是指您還未退出的應用，主界面動態顯示離開時間</string>
-    <string name="brevent_timeout_label_never">永不黑域後台應用。後台應用是指您還未退出的應用，主界面動態顯示離開時間</string>
+    <string name="brevent_auto_label">應用程式安裝或卸載之後，更新黑域清單</string>
+    <string name="brevent_move_back">黑域 返回鍵 移到背景</string>
+    <string name="brevent_move_back_label">有些應用程式，如微信，在您按 返回鍵 時，不執行正常的 返回鍵 操作，而是移到背景繼續執行。啟用之後，將會依正常 返回鍵 處理（僅支援 Android 7.0 及以上）</string>
+    <string name="brevent_back_home">黑域 返回鍵 打開首頁</string>
+    <string name="brevent_back_home_label">有些應用程式，如微博，在您按 返回鍵 時，不執行正常的 返回鍵 操作，而是回到首頁。啟用之後，將會依正常 返回鍵 處理。絕大部分情況下黑域都能有效區分，您也可連按 7 次 首頁鍵 來幫助黑域確認</string>
+    <string name="brevent_timeout">是否黑域背景應用程式</string>
+    <string name="brevent_timeout_label">離開背景應用程式 %1$s 後。背景應用程式是指您還未離開的應用程式，於清單動態顯示離開時間</string>
+    <string name="brevent_timeout_label_never">永不黑域背景應用程式。背景應用程式是指您還未離開的應用程式，於清單動態顯示離開時間</string>
     <string name="brevent_timeout_never">永不</string>
     <string name="brevent_timeout_5min">5 分鐘</string>
     <string name="brevent_timeout_10min">10 分鐘</string>
     <string name="brevent_timeout_15min">15 分鐘</string>
     <string name="brevent_timeout_30min">30 分鐘</string>
     <string name="brevent_timeout_1hour">1 小時</string>
-    <string name="brevent_method">怎樣黑域</string>
-    <string name="brevent_method_standby_forcestop">休眠，然後強行停止</string>
-    <string name="brevent_method_standby_only">只休眠，不強行停止</string>
-    <string name="brevent_method_forcestop_only">只強行停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用時休眠，從最近列表劃掉時強行停止。 \n\n僅針對 Back 退出的應用，非 Back 退出的應用請參考「是否處理後台應用」</string>
-    <string name="brevent_method_standby_only_label">只休眠，不強行停止。不建議選擇，專為強迫症患者準備。 \n\n僅針對 Back 退出的應用，非 Back 退出的應用請參考「是否處理後台應用」</string>
-    <string name="brevent_method_forcestop_only_label">只強行停止，不休眠。不建議選擇，專為強迫症患者準備。 \n\n僅針對 Back 退出的應用，非 Back 退出的應用請參考「是否處理後台應用」</string>
-    <string name="brevent_mode">何時黑域</string>
+    <string name="brevent_method">怎麼黑域？</string>
+    <string name="brevent_method_standby_forcestop">休眠，然後強制停止</string>
+    <string name="brevent_method_standby_only">僅休眠，不強制停止</string>
+    <string name="brevent_method_forcestop_only">僅強制停止，不休眠</string>
+    <string name="brevent_method_standby_forcestop_label">離開應用程式時休眠，從 最近使用的應用程式 拉掉時強制停止。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_mode">何時黑域？</string>
     <string name="brevent_mode_later">動態延後（推薦）</string>
     <string name="brevent_mode_immediate">立即處理</string>
-    <string name="brevent_mode_label_later">動態延後。自動根據事件處理，打開主屏幕時短點，被喚醒時長點，打開應用時最長，屏幕關閉時立即處理\n\n僅針對Back 退出的應用，非Back 退出的應用請參考「是否處理後台應用」</string>
-    <string name="brevent_mode_label_immediate">立即處理，包括但不限於打開主屏幕與應用，被喚醒及屏幕關閉。請謹慎選擇，這種模式黑域服務將消耗更多電量，某些應用可能無法正常使用\n\n僅針對Back 退出的應用，非Back 退出的應用請參考「是否處理後台應用」</string>
+    <string name="brevent_mode_label_later">動態延後。自動根據事件處理，打開首頁時短點，被喚醒時長點，打開應用程式時最長，螢幕關閉時立即處理\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_mode_label_immediate">立即處理，包括但不限於打開首頁與應用程式，被喚醒及螢幕關閉。請謹慎選擇，這種模式黑域服務將消耗更多電量，某些應用程式可能無法正常使用\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
 
-<string name="brevent_ui">用戶界面</string>
+<string name="brevent_ui">使用者界面</string>
     <string name="show_donation">顯示捐贈</string>
-    <string name="show_donation_label">建議通過 Play 商店捐贈</string>
-    <string name="show_donation_play_one">感謝您通過 Play 商店捐贈 %d 美金</string>
-    <string name="show_donation_play_multi">感謝您通過 Play 商店捐贈 %1$d 次共 %2$d 美金</string>
-    <string name="show_all_apps">顯示所有應用</string>
-    <string name="show_all_apps_label">包括無法打開的系統應用和框架應用</string>
-    <string name="show_framework_apps">顯示框架應用</string>
-    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用</string>
+    <string name="show_donation_label">建議透過 Play 商店 捐贈</string>
+    <string name="show_donation_play_one">感謝您透過 Play 商店 捐贈 %d 美元</string>
+    <string name="show_donation_play_multi">感謝您透過 Play 商店 捐贈 %1$d 次共 %2$d 美元</string>
+    <string name="show_all_apps">顯示所有應用程式</string>
+    <string name="show_all_apps_label">包括無法打開的系統應用程式和框架應用程式</string>
+    <string name="show_framework_apps">顯示框架應用程式</string>
+    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式</string>
 
-    <string name="feedback_message" >歡迎提交任何反饋。 \n\n如果您有 GitHub 帳號，請直接創建一個問題；您也可以查看其他朋友已經創建的問題。 %s</string>
-    <string name="feedback_message_email">\n\n如果您的反饋包含私人信息，請發送郵件。 </string>
+    <string name="feedback_message" >歡迎發送任何回饋。\n\n如果您有 GitHub 帳號，請直接新增一個問題；您也可以檢視其他朋友已經新增的問題。%s</string>
+    <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送電子郵件到信箱。</string>
     <string name="feedback_github">GitHub</string>
-    <string name="feedback_email">郵件</string>
+    <string name="feedback_email">信箱</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘）</string>
-    <string name="important_sms">%s（短信）</string>
-    <string name="important_home">%s（主屏幕）</string>
-    <string name="important_persistent">%s（永久進程）</string>
+    <string name="important_sms">%s（簡訊）</string>
+    <string name="important_home">%s（首頁）</string>
+    <string name="important_persistent">%s（永久程序）</string>
     <string name="important_android">%s（Android）</string>
     <string name="important_gcm">%s（GCM）</string>
     <string name="important_battery">%s（無法休眠，電池未優化）</string>
@@ -129,17 +129,17 @@
     <string name="brevent_list_donation">捐贈特性</string>
 
     <string name="brevent_allow_gcm">允許 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">這項功能允許黑域後的應用接收 GCM 消息。溫馨提示：界面標識集成 GCM 消息的應用，如微信等，不一定真的支持 GCM 消息\n\n建議通過 Play 商店累計捐贈 1 美金</string>
+    <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息。溫馨提示：界面圖示顯示 GCM 消息的應用程式，如微信等，不一定真的支援 GCM 推送消息\n\n建議透過 Play 商店 累計捐贈 1 美元</string>
     <string name="brevent_optimize_mm_gcm">優化微信 GCM</string>
-    <string name="brevent_optimize_mm_gcm_label">當微信沒有運行，被 GCM 喚醒時沒有通知。這個功能只休眠不強行停止微信，從而讓它收到 GCM 消息時可以通知（當您從最近列表劃掉時，可能也沒通知）\n\n建議通過 Play 商店累計捐贈 1 美金</string>
-    <string name="brevent_allow_root">允許 ROOT 運行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也沒有必要。如果您的設備已經 ROOT，此項功能可以跳過調試模式直接開啟黑域服務\n\n這個功能當前不穩定，限定必須通過 Play 商店累積捐贈 3 美金才可使用；如果您之前通過其它方式捐贈過，請帶上截圖以郵件方式反饋。Play 商店不可用時，暫無限制</string>
+    <string name="brevent_optimize_mm_gcm_label">當微信沒有執行，被 GCM 推送喚醒時沒有通知。這個功能僅休眠不強制停止微信，從而使它收到 GCM 推送消息時可以通知（當您從 最近使用的應用程式 拉掉時，可能也會沒通知）\n\n建議透過 Play 商店 累計捐贈 1 美元</string>
+    <string name="brevent_allow_root">允許 ROOT 執行</string>
+    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式直接開啟黑域服務\n\n這個功能目前不穩定，限定必須透過 Play 商店 累積捐贈 3 美元才可使用；如果您之前透過其它方式捐贈過，請帶上截圖以郵件方式回饋。Play 商店 不可用時，暫無限制</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_project">項目地址</string>
-    <string name="brevent_about_licenses">軟件許可</string>
-    <string name="brevent_about_translation">翻譯</string>
-    <string name="brevent_about_translator">子非, 谷歌翻譯</string>
+    <string name="brevent_about_licenses">軟體許可</string>
+    <string name="brevent_about_translation">本地化語言翻譯</string>
+    <string name="brevent_about_translator">孟武．尼德霍格．龍</string>
 
 </resources>
