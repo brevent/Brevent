@@ -449,16 +449,13 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    /**
-     * default implementation: ["donation_%02d", ], max 20
-     */
     protected List<String> getPlaySkus() {
         List<String> skus = new ArrayList<>(IAB_MAX_DONATE);
-        for (int i = 1; i <= IAB_MAX_DONATE; ++i) {
-            if (i < 10) {
-                skus.add("donation_0" + i);
-            } else {
-                skus.add("donation_" + i);
+        for (int i = 1; i <= 0x3; ++i) {
+            int max = i == 1 ? 10 : 5;
+            for (int j = 0; j < max; ++j) {
+                char a = (char) ('a' + j);
+                skus.add("donation" + i + a + "_" + i);
             }
         }
         return skus;
@@ -499,8 +496,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     public String getSku() {
-        int size = Math.min(0x5, mSkus.size());
-        List<String> skus = mSkus.subList(0, size);
+        List<String> skus = new ArrayList<>(mSkus);
         Collections.shuffle(skus, new SecureRandom());
         return skus.get(0);
     }
