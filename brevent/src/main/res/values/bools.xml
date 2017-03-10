@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="preference_brevent_move_back">false</bool>
-    <bool name="preference_brevent_background">false</bool>
 </resources>

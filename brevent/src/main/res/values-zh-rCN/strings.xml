@@ -64,6 +64,7 @@
     <string name="context_menu_app_info">应用信息</string>
     <string name="context_menu_open">打开</string>
     <string name="context_menu_brevent_server_info">黑域服务信息</string>
+    <string name="context_menu_notifications">设置优先通知</string>
     <string name="context_menu_snackbar_copied">包名已复制: %s</string>
 
     <!-- menu -->
@@ -103,7 +104,6 @@
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
-    <string name="show_donation_label"></string>
     <string name="show_donation_play_one">感谢您通过 Play 商店捐赠 %d 美金</string>
     <string name="show_donation_play_multi">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美金</string>
     <string name="show_all_apps">显示所有应用</string>
@@ -126,10 +126,10 @@
     <string name="important_battery">%s（无法休眠，电池未优化）</string>
 
     <string name="brevent_advanced">高级功能</string>
+    <string name="brevent_optimize_priority">保持通知</string>
+    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒。\n\n推荐为桌面小部件、帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们。</string>
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
     <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示：界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息</string>
-    <string name="brevent_optimize_mm_gcm">优化微信 GCM</string>
-    <string name="brevent_optimize_mm_gcm_label">当微信没有运行，被 GCM 唤醒时没有通知。这个功能只休眠不强行停止微信，从而让它收到 GCM 消息时可以通知（当您从最近列表划掉时，可能也没通知）</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持</string>
 

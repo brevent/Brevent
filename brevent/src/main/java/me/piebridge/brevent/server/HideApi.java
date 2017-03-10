@@ -100,7 +100,6 @@ class HideApi {
 
     // ActivityManager end
 
-
     // PackageManager start
 
     public static List<PackageInfo> getInstalledPackages(int uid) {
@@ -338,6 +337,57 @@ class HideApi {
             throw new HideApiException("Can't dump activities", e);
         }
         return Collections.emptyList();
+    }
+
+
+    public static SimpleArrayMap<String, Boolean> dumpNotifications(File directory, int userId) {
+        try {
+            IBinder am = ServiceManager.getService(Context.NOTIFICATION_SERVICE);
+            File file = File.createTempFile("dumpsys", "log", directory);
+            ParcelFileDescriptor parcel = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_WRITE);
+            am.dump(parcel.getFileDescriptor(), new String[0]);
+            parcel.close();
+            return parseNotifications(file, userId);
+        } catch (IOException e) {
+            ServerLog.e("Can't open file", e);
+        } catch (RemoteException e) {
+            throw new HideApiException("Can't dump activities", e);
+        }
+        return new SimpleArrayMap<>();
+    }
+
+    private static SimpleArrayMap<String, Boolean> parseNotifications(File file, int userId) throws IOException {
+        SimpleArrayMap<String, Boolean> notifications = new SimpleArrayMap<>();
+        Set<String> packageNames = new ArraySet<>();
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(file))
+
+        ) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("NotificationRecord")) {
+                    String packageName = StringUtils.substring(line, "pkg=", " ");
+                    String userHandle = StringUtils.substring(line, "UserHandle{", "}");
+                    if (StringUtils.isDigitsOnly(userHandle) && Integer.parseInt(userHandle) == userId && !TextUtils.isEmpty(packageName)) {
+                        packageNames.add(packageName);
+                    }
+                } else if (line.contains("priority=MAX")) {
+                    String packageName = StringUtils.substring(line.trim(), "", " ");
+                    notifications.put(packageName, false);
+
+                }
+            }
+        }
+        for (String packageName : packageNames) {
+            int indexOfKey = notifications.indexOfKey(packageName);
+            if (indexOfKey >= 0) {
+                notifications.setValueAt(indexOfKey, true);
+            }
+        }
+        if (!file.delete()) {
+            ServerLog.d("Can't delete file: " + file);
+        }
+        return notifications;
     }
 
     public static SimpleArrayMap<String, Set<String>> getDependencies(File directory, int userId) throws HideApiException {

@@ -30,7 +30,9 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -68,6 +70,7 @@ public class BreventServer extends Handler {
     private static final int MESSAGE_EXIT = 8;
     static final int MESSAGE_DEAD = 9;
     private static final int MESSAGE_UPDATE = 10;
+    private static final int MESSAGE_CHECK_SERVICE = 11;
 
     private static final int MAX_TIMEOUT = 30;
 
@@ -82,12 +85,14 @@ public class BreventServer extends Handler {
     private final Set<String> mInstalled = new ArraySet<>();
     private final Set<String> mGcm = new ArraySet<>();
     private final Set<String> mBrevent = new ArraySet<>();
+    private final Set<String> mPriority = new ArraySet<>();
     private final BreventConfiguration mConfiguration = new BreventConfiguration(null);
 
     /**
      * may not need
      */
     private final Set<String> mServices;
+    private final Set<String> mRealServices;
 
     private final Set<String> mBack;
 
@@ -111,7 +116,7 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_SERVICE = 30000;
     private static final int CHECK_LATER_APPS = 60000;
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
-    private static final int CHECK_LATER_RECENT = 1800000;
+    private static final int CHECK_LATER_RECENT = 600000;
     private static final int CHECK_LATER_UPDATE = 60000;
 
     private static final int RECENT_FLAGS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ?
@@ -147,11 +152,13 @@ public class BreventServer extends Handler {
         loadBreventConf();
 
         mServices = new ArraySet<>();
+        mRealServices = new ArraySet<>();
         mChanged = new ArraySet<>();
         mBack = new ArraySet<>();
 
         mLauncher = HideApi.getLauncher(mUser);
 
+        dumpNotifications();
         if (!mConfiguration.allowRoot && HideApiOverride.isRoot(Process.myUid())) {
             sendEmptyMessageDelayed(MESSAGE_EXIT, CHECK_LATER_USER);
         }
@@ -257,6 +264,13 @@ public class BreventServer extends Handler {
             case MESSAGE_UPDATE:
                 quitSafely();
                 break;
+            case MESSAGE_CHECK_SERVICE:
+                String packageName = (String) message.obj;
+                if (mServices.contains(packageName)) {
+                    mRealServices.add(packageName);
+                    checkLater(CHECK_LATER_HOME);
+                }
+                break;
             default:
                 break;
         }
@@ -274,6 +288,20 @@ public class BreventServer extends Handler {
         mLauncher = HideApi.getLauncher(mUser);
 
         ServerLog.d("check and brevent");
+
+        Set<String> services = new ArraySet<>();
+        if (!mRealServices.isEmpty()) {
+            mRealServices.retainAll(mServices);
+            services.addAll(mRealServices);
+            mRealServices.clear();
+
+            Iterator<String> it = mServices.iterator();
+            while (it.hasNext()) {
+                if (services.contains(it.next())) {
+                    it.remove();
+                }
+            }
+        }
 
         ActivitiesHolder runningActivities = getRunningActivities();
         SimpleArrayMap<String, Integer> running = runningActivities.running;
@@ -296,13 +324,9 @@ public class BreventServer extends Handler {
         Collection<String> noRecent = new ArraySet<>();
         Collection<String> standby = new ArraySet<>();
 
-        Set<String> services = new ArraySet<>(mServices);
-        mServices.clear();
-
         SimpleArrayMap<String, SparseIntArray> processes = getRunningProcesses(running);
         int size = processes.size();
         int now = TimeUtils.now();
-        boolean checkLater = false;
         int timeout = mConfiguration.timeout;
         for (int i = 0; i < size; ++i) {
             String packageName = processes.keyAt(i);
@@ -316,12 +340,8 @@ public class BreventServer extends Handler {
                     blocking.add(packageName);
                 } else {
                     services.remove(packageName);
-                    if (timeout > 0) {
-                        if (now - inactive > timeout) {
-                            blocking.add(packageName);
-                        } else {
-                            checkLater = true;
-                        }
+                    if (timeout > 0 && now - inactive > timeout) {
+                        blocking.add(packageName);
                     }
                 }
                 if (!recent.contains(packageName)) {
@@ -368,6 +388,7 @@ public class BreventServer extends Handler {
             blocking.remove(mPackageName);
         }
 
+        SimpleArrayMap<String, Boolean> notifications = dumpNotifications();
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("back: " + back);
             ServerLog.d("service: " + services);
@@ -375,30 +396,37 @@ public class BreventServer extends Handler {
             ServerLog.d("noRecent: " + noRecent);
             ServerLog.d("unsafe: " + unsafe);
             ServerLog.d("final blocking: " + blocking);
+            ServerLog.d("notifications: " + notifications);
         }
 
         if (!blocking.isEmpty() && mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("gcm: " + mGcm);
         }
 
+        boolean checkLater = false;
         for (String packageName : blocking) {
             if (packageName.equals(mPackageName)) {
                 // shouldn't happen
                 continue;
             }
             if (services.contains(packageName)) {
-                forceStop(packageName, "(service)");
+                Boolean notification = notifications.get(packageName);
+                if (!Boolean.TRUE.equals(notification)) {
+                    forceStop(packageName, "(service)");
+                }
+            } else if (mServices.contains(packageName)) {
+                ServerLog.d("ignore " + packageName + ", wait for the service check");
             } else {
-                brevent(packageName, standby, noRecent.contains(packageName));
+                checkLater |= brevent(packageName, standby, !noRecent.contains(packageName), Boolean.TRUE.equals(notifications.get(packageName)));
             }
         }
 
         removeMessages(MESSAGE_CHECK);
         if (!screen) {
             if (checkLater) {
-                checkAgain(processes);
+                checkLater(CHECK_LATER_SCREEN_OFF);
             } else {
-                checkRecentAgain(processes);
+                checkLater(CHECK_LATER_RECENT);
             }
         }
 
@@ -406,6 +434,21 @@ public class BreventServer extends Handler {
             checkChangedManually();
         }
         return processes;
+    }
+
+    private SimpleArrayMap<String, Boolean> dumpNotifications() {
+        if (!mConfiguration.optimizePriority) {
+            new SimpleArrayMap<>();
+        }
+        SimpleArrayMap<String, Boolean> notifications = HideApi.dumpNotifications(getCacheDir(), mUser);
+        Set<String> priority = new ArraySet<>();
+        int size = notifications.size();
+        for (int i = 0; i < size; ++i) {
+            priority.add(notifications.keyAt(i));
+        }
+        mPriority.clear();
+        mPriority.addAll(priority);
+        return notifications;
     }
 
     private void checkChangedManually() {
@@ -433,23 +476,26 @@ public class BreventServer extends Handler {
         }
     }
 
-    private void brevent(String packageName, Collection<String> standby, boolean noRecent) {
+    private boolean brevent(String packageName, Collection<String> standby, boolean recent, boolean hasMaxNotification) {
         switch (mConfiguration.method) {
             case BreventConfiguration.BREVENT_METHOD_FORCE_STOP_ONLY:
-                forceStop(packageName, "(forceStop)");
-                break;
+                if (!hasMaxNotification) {
+                    forceStop(packageName, "(forceStop)");
+                }
+                return false;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_ONLY:
                 standby(standby.contains(packageName), packageName);
-                break;
+                return false;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
-                if (!noRecent || ("com.tencent.mm".equals(packageName) && mConfiguration.optimizeMmGcm)) {
+                if (recent || hasMaxNotification) {
                     standby(standby.contains(packageName), packageName);
+                    return true;
                 } else {
                     forceStop(packageName, "(noRecent)");
+                    return false;
                 }
-                break;
             default:
-                break;
+                return false;
         }
     }
 
@@ -505,29 +551,6 @@ public class BreventServer extends Handler {
 
     private boolean isFreeForm(ActivityManager.RecentTaskInfo taskInfo) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && HideApiOverrideN.isFreeForm(taskInfo);
-    }
-
-    private void checkAgain(SimpleArrayMap<String, SparseIntArray> processes) {
-        int size = processes.size();
-        for (int i = 0; i < size; ++i) {
-            String packageName = processes.keyAt(i);
-            SparseIntArray status = processes.valueAt(i);
-            if (mBrevent.contains(packageName) && !BreventStatus.isStandby(status) && BreventStatus.getInactive(status) > 0) {
-                checkLater(CHECK_LATER_SCREEN_OFF);
-                break;
-            }
-        }
-    }
-
-    private void checkRecentAgain(SimpleArrayMap<String, SparseIntArray> processes) {
-        int size = processes.size();
-        for (int i = 0; i < size; ++i) {
-            String packageName = processes.keyAt(i);
-            if (mBrevent.contains(packageName)) {
-                sendEmptyMessageDelayed(MESSAGE_CHECK, CHECK_LATER_RECENT);
-                break;
-            }
-        }
     }
 
     private void checkChanged() {
@@ -786,9 +809,19 @@ public class BreventServer extends Handler {
                 unblock(packageName);
             }
         } else if ("service".equals(type)) {
-            if (mBrevent.contains(packageName)) {
+            if (Objects.equals(packageName, mPackageName)) {
+                mServices.remove(packageName);
+            } else if (mBrevent.contains(packageName)) {
                 mServices.add(packageName);
-                checkLaterIfLater(CHECK_LATER_SERVICE);
+                if (mPriority.contains(packageName)) {
+                    ServerLog.d(packageName + ": priority");
+                    mRealServices.remove(packageName);
+                    Message message = obtainMessage(MESSAGE_CHECK_SERVICE, packageName);
+                    sendMessageDelayed(message, CHECK_LATER_SERVICE);
+                } else {
+                    mRealServices.add(packageName);
+                    checkLater(CHECK_LATER_USER);
+                }
             }
         }
     }
@@ -990,11 +1023,7 @@ public class BreventServer extends Handler {
     }
 
     private File getCacheDir() {
-        File file = new File(mDataDir, "cache");
-        if (!file.isDirectory() && !file.mkdirs()) {
-            return new File(mDataDir);
-        }
-        return file;
+        return new File(mDataDir);
     }
 
     private SimpleArrayMap<String, SparseIntArray> getRunningProcesses(SimpleArrayMap<String, Integer> running) {

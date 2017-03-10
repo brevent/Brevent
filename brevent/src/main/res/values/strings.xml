@@ -66,6 +66,7 @@
     <string name="context_menu_app_info">Application Info</string>
     <string name="context_menu_open">Open</string>
     <string name="context_menu_brevent_server_info">Brevent server Info</string>
+    <string name="context_menu_notifications">Notifications</string>
     <string name="context_menu_snackbar_copied">Copied package name: %s</string>
 
     <!-- menu -->
@@ -106,7 +107,6 @@
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
     <string name="show_donation">Show donation</string>
-    <string name="show_donation_label"></string>
     <string name="show_donation_play_one">Thanks for donation %d USD in Play Store</string>
     <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donation %1$d times total %2$d USD in Play Store</string>
     <string name="show_all_apps">Show all apps</string>
@@ -129,10 +129,10 @@
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
 
     <string name="brevent_advanced">Advanced Features</string>
+    <string name="brevent_optimize_priority">Optimize Priority Apps</string>
+    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force stop priority app if it has notification or running in background, and will make sure it survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" for desktop widget, sync account, or remove them from Brevent list</string>
     <string name="brevent_allow_gcm">Allow GCM</string>
     <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message</string>
-    <string name="brevent_optimize_mm_gcm">Optimize GCM for WeChat</string>
-    <string name="brevent_optimize_mm_gcm_label">If WeChat receives GCM in stop state, it has no notification. This feature never force-stop WeChat (won\'t apply when swiping from recent list), so it may push notification when receiving GCM message</string>
     <string name="brevent_allow_root">Run as ROOT</string>
     <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without USB Debugging\n\Be careful, there is no support</string>
 

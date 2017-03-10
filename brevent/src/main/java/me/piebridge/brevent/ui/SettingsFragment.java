@@ -55,9 +55,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
         if (getArguments().getInt(Intent.EXTRA_ALARM_COUNT, 0) == 0) {
             breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
-            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_MM_GCM));
-        } else if (getContext().getPackageManager().getLaunchIntentForPackage("com.tencent.mm") == null) {
-            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_MM_GCM));
         }
     }
 

@@ -43,8 +43,8 @@ public class BreventConfiguration extends BreventToken {
     public static final int BREVENT_METHOD_FORCE_STOP_ONLY = 3;
     public static final int DEFAULT_BREVENT_METHOD = BREVENT_METHOD_STANDBY_FORCE_STOP;
 
-    public static final String BREVENT_OPTIMIZE_MM_GCM = "brevent_optimize_mm_gcm";
-    public static final boolean DEFAULT_BREVENT_OPTIMIZE_MM_GCM = false;
+    public static final String BREVENT_OPTIMIZE_PRIORITY = "brevent_optimize_priority";
+    public static final boolean DEFAULT_BREVENT_OPTIMIZE_PRIORITY = false;
 
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
@@ -62,7 +62,7 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean allowGcm = DEFAULT_BREVENT_ALLOW_GCM;
 
-    public boolean optimizeMmGcm = DEFAULT_BREVENT_OPTIMIZE_MM_GCM;
+    public boolean optimizePriority = DEFAULT_BREVENT_OPTIMIZE_PRIORITY;
 
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
@@ -74,7 +74,7 @@ public class BreventConfiguration extends BreventToken {
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
-        optimizeMmGcm = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_MM_GCM, DEFAULT_BREVENT_OPTIMIZE_MM_GCM);
+        optimizePriority = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_PRIORITY, DEFAULT_BREVENT_OPTIMIZE_PRIORITY);
     }
 
     private int convertMode(String string) {
@@ -115,7 +115,7 @@ public class BreventConfiguration extends BreventToken {
         allowRoot = in.readInt() != 0;
         method = in.readInt();
         allowGcm = in.readInt() != 0;
-        optimizeMmGcm = in.readInt() != 0;
+        optimizePriority = in.readInt() != 0;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
         dest.writeInt(allowGcm ? 1 : 0);
-        dest.writeInt(optimizeMmGcm ? 1 : 0);
+        dest.writeInt(optimizePriority ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -141,7 +141,7 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
-        write(pw, BREVENT_OPTIMIZE_MM_GCM, optimizeMmGcm);
+        write(pw, BREVENT_OPTIMIZE_PRIORITY, optimizePriority);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -188,8 +188,8 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_ALLOW_GCM:
                 allowGcm = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_OPTIMIZE_MM_GCM:
-                optimizeMmGcm = Boolean.parseBoolean(value);
+            case BREVENT_OPTIMIZE_PRIORITY:
+                optimizePriority = Boolean.parseBoolean(value);
                 break;
             default:
                 break;
@@ -230,9 +230,9 @@ public class BreventConfiguration extends BreventToken {
             this.allowGcm = request.allowGcm;
             updated = true;
         }
-        if (this.optimizeMmGcm != request.optimizeMmGcm) {
-            this.optimizeMmGcm = request.optimizeMmGcm;
-            updated = false;
+        if (this.optimizePriority != request.optimizePriority) {
+            this.optimizePriority = request.optimizePriority;
+            updated = true;
         }
         return updated;
     }

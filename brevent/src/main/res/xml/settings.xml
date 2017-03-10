@@ -56,16 +56,15 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="brevent_allow_gcm"
-            android:summary="@string/brevent_allow_gcm_label"
-            android:title="@string/brevent_allow_gcm" />
+            android:key="brevent_optimize_priority"
+            android:summary="@string/brevent_optimize_priority_label"
+            android:title="@string/brevent_optimize_priority" />
 
         <SwitchPreference
             android:defaultValue="false"
-            android:dependency="brevent_allow_gcm"
-            android:key="brevent_optimize_mm_gcm"
-            android:summary="@string/brevent_optimize_mm_gcm_label"
-            android:title="@string/brevent_optimize_mm_gcm" />
+            android:key="brevent_allow_gcm"
+            android:summary="@string/brevent_allow_gcm_label"
+            android:title="@string/brevent_allow_gcm" />
 
         <SwitchPreference
             android:defaultValue="false"
@@ -82,7 +81,6 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
-            android:summary="@string/show_donation_label"
             android:title="@string/show_donation" />
 
         <SwitchPreference
