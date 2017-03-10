@@ -22,9 +22,10 @@
 
     <string name="brevent_service_start">请启动黑域服务</string>
     <string name="brevent_service_restart">请重启黑域服务</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑\n\n3. 在电脑命令行中执行: %2$s (已复制到剪贴板)\n</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行: %3$s (已复制到剪贴板)\n</string>
     <string name="brevent_service_open_development">前往“开发者选项”</string>
     <string name="brevent_service_adb_running">(已启用)</string>
+    <string name="brevent_service_usb_connected">(USB 已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>
 
     <string name="fragment_apps_user">用户应用</string>

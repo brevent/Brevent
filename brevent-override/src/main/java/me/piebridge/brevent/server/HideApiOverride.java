@@ -2,6 +2,7 @@ package me.piebridge.brevent.server;
 
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
+import android.hardware.usb.UsbManager;
 import android.os.Process;
 import android.os.UserHandle;
 
@@ -22,6 +23,10 @@ public class HideApiOverride {
     public static final int OP_NONE = AppOpsManager.OP_NONE;
 
     public static final int OP_POST_NOTIFICATION = AppOpsManager.OP_POST_NOTIFICATION;
+
+    public static final String ACTION_USB_STATE = UsbManager.ACTION_USB_STATE;
+
+    public static final String USB_CONNECTED = UsbManager.USB_CONNECTED;
 
     private HideApiOverride() {
 

@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
+import me.piebridge.brevent.server.HideApiOverride;
 
 
 /**
@@ -65,7 +67,11 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         String commandLine = getBootstrapCommandLine();
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         String status = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
-        builder.setMessage(getString(R.string.brevent_service_guide, status, commandLine));
+        IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
+        Intent intent = getContext().registerReceiver(null, filter);
+        boolean connected = intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+        String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
+        builder.setMessage(getString(R.string.brevent_service_guide, status, usbStatus, commandLine));
         ((BreventActivity) getActivity()).copy(commandLine);
         if (!adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
