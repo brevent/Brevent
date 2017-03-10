@@ -863,8 +863,8 @@ public class BreventServer extends Handler {
                     mKilled2.add(packageName);
                     Message message = obtainMessage(MESSAGE_REMOVE_KILLED2, packageName);
                     sendMessageDelayed(message, CHECK_LATER_KILLED2);
-                } else if (mPriority.contains(packageName) || (mConfiguration.allowGcm && mGcm.contains(packageName))) {
-                    ServerLog.d(packageName + ": priority or gcm");
+                } else if (mPriority.contains(packageName)) {
+                    ServerLog.d(packageName + ": priority");
                     mRealServices.remove(packageName);
                     Message message = obtainMessage(MESSAGE_CHECK_SERVICE, packageName);
                     sendMessageDelayed(message, CHECK_LATER_SERVICE);

@@ -131,7 +131,7 @@
     <string name="brevent_optimize_priority">保持通知</string>
     <string name="brevent_optimize_priority_label">啟用之後，如果這些“優先通知應用”有通知或者在後台運行，黑域都不會強行停止；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n推薦為桌面小部件、帳號同步及通信類應用設置優先通知；當然，更建議不要黑域它們。</string>
     <string name="brevent_allow_gcm">允許 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n如果您需要保持消息，請開啓「保持通知」</string>
+    <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息。溫馨提示，界面標識集成 GCM 的應用，不一定真的支持 GCM\n\n如果您需要保持消息，請開啓「保持通知」</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式直接開啟黑域服務\n\n當前不穩定，暫不提供任何支持</string>
 
