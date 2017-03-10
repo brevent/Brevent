@@ -93,9 +93,9 @@
     <string name="brevent_method_standby_forcestop">休眠，然后强行停止</string>
     <string name="brevent_method_standby_only">只休眠，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用时休眠，从最近列表划掉时强行停止。\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_method_standby_only_label">只休眠，不强行停止。不建议选择，专为强迫症患者准备。\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。不建议选择，专为强迫症患者准备。\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用时休眠，超时后或者从最近列表划掉时强行停止\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_method_standby_only_label">只休眠，不强行停止。不建议选择，专为强迫症患者准备\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。不建议选择，专为强迫症患者准备\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
     <string name="brevent_mode">何时黑域</string>
     <string name="brevent_mode_later">动态延后（推荐）</string>
     <string name="brevent_mode_immediate">立即处理</string>
@@ -127,9 +127,9 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒。\n\n推荐为桌面小部件、帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们。</string>
+    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为桌面小部件、帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们。</string>
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示：界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息；同时，保证它们被服务唤醒之后，至少运行 30 秒。温馨提示，界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息\n\n如果您需要保持消息，请参考“保持通知”</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持</string>
 
