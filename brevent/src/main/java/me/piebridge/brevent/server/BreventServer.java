@@ -72,6 +72,10 @@ public class BreventServer extends Handler {
     private static final int MESSAGE_UPDATE = 10;
     private static final int MESSAGE_CHECK_SERVICE = 11;
 
+    private static final int MESSAGE_REMOVE_KILLED = 12;
+    private static final int MESSAGE_REMOVE_KILLED2 = 13;
+    private static final int MESSAGE_REMOVE_KILLED3 = 14;
+
     private static final int MAX_TIMEOUT = 30;
 
     private volatile boolean screen = true;
@@ -86,6 +90,9 @@ public class BreventServer extends Handler {
     private final Set<String> mGcm = new ArraySet<>();
     private final Set<String> mBrevent = new ArraySet<>();
     private final Set<String> mPriority = new ArraySet<>();
+    private final Set<String> mKilled = new ArraySet<>();
+    private final Set<String> mKilled2 = new ArraySet<>();
+    private final Set<String> mKilled3 = new ArraySet<>();
     private final BreventConfiguration mConfiguration = new BreventConfiguration(null);
 
     /**
@@ -118,6 +125,9 @@ public class BreventServer extends Handler {
     private static final int CHECK_LATER_SCREEN_OFF = 60000;
     private static final int CHECK_LATER_RECENT = 600000;
     private static final int CHECK_LATER_UPDATE = 60000;
+    private static final int CHECK_LATER_KILLED = 5000;
+    private static final int CHECK_LATER_KILLED2 = 5000;
+    private static final int CHECK_LATER_KILLED3 = 600000;
 
     private static final int RECENT_FLAGS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ?
             HideApiOverride.getRecentFlags() : HideApiOverride.getRecentFlagsM();
@@ -229,6 +239,7 @@ public class BreventServer extends Handler {
 
     @Override
     public void handleMessage(Message message) {
+        String packageName;
         switch (message.what) {
             case MESSAGE_EVENT:
                 @SuppressWarnings("unchecked")
@@ -265,11 +276,23 @@ public class BreventServer extends Handler {
                 quitSafely();
                 break;
             case MESSAGE_CHECK_SERVICE:
-                String packageName = (String) message.obj;
+                packageName = (String) message.obj;
                 if (mServices.contains(packageName)) {
                     mRealServices.add(packageName);
                     checkLater(CHECK_LATER_HOME);
                 }
+                break;
+            case MESSAGE_REMOVE_KILLED:
+                packageName = (String) message.obj;
+                mKilled.remove(packageName);
+                break;
+            case MESSAGE_REMOVE_KILLED2:
+                packageName = (String) message.obj;
+                mKilled2.remove(packageName);
+                break;
+            case MESSAGE_REMOVE_KILLED3:
+                packageName = (String) message.obj;
+                mKilled3.remove(packageName);
                 break;
             default:
                 break;
@@ -410,14 +433,11 @@ public class BreventServer extends Handler {
                 continue;
             }
             if (services.contains(packageName)) {
-                Boolean notification = notifications.get(packageName);
-                if (!Boolean.TRUE.equals(notification)) {
-                    forceStop(packageName, "(service)");
-                }
+                forceStop(packageName, "(service)", notifications.get(packageName));
             } else if (mServices.contains(packageName)) {
                 ServerLog.d("ignore " + packageName + ", wait for the service check");
             } else {
-                checkLater |= brevent(packageName, standby, !noRecent.contains(packageName), Boolean.TRUE.equals(notifications.get(packageName)));
+                checkLater |= brevent(packageName, standby, !noRecent.contains(packageName), notifications.get(packageName));
             }
         }
 
@@ -476,24 +496,29 @@ public class BreventServer extends Handler {
         }
     }
 
-    private boolean brevent(String packageName, Collection<String> standby, boolean recent, boolean hasMaxNotification) {
+    private boolean brevent(String packageName, Collection<String> standby, boolean recent, Boolean notification) {
         switch (mConfiguration.method) {
             case BreventConfiguration.BREVENT_METHOD_FORCE_STOP_ONLY:
-                if (!hasMaxNotification) {
-                    forceStop(packageName, "(forceStop)");
+                if (mKilled3.contains(packageName)) {
+                    ServerLog.i("ignore killing " + packageName + ", recommend remove from brevent");
+                } else {
+                    forceStop(packageName, "(forceStop)", notification);
                 }
                 return false;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_ONLY:
                 standby(standby.contains(packageName), packageName);
                 return false;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
-                if (recent || hasMaxNotification) {
+                if (recent || Boolean.TRUE.equals(notification)) {
                     standby(standby.contains(packageName), packageName);
                     return true;
+                } else if (mKilled3.contains(packageName)) {
+                    ServerLog.i("ignore killing " + packageName + ", standby it, recommend remove from brevent");
+                    standby(standby.contains(packageName), packageName);
                 } else {
-                    forceStop(packageName, "(noRecent)");
-                    return false;
+                    forceStop(packageName, "(noRecent)", notification);
                 }
+                return false;
             default:
                 return false;
         }
@@ -502,6 +527,17 @@ public class BreventServer extends Handler {
     private void forceStop(String packageName, String reason) {
         HideApi.forceStopPackage(packageName, reason, mUser);
         setStopped(packageName, true);
+    }
+
+    private void forceStop(String packageName, String reason, Boolean notification) {
+        if (notification == null) {
+            forceStop(packageName, reason);
+        } else if (!notification) {
+            forceStop(packageName, "(priority service)");
+            mKilled.add(packageName);
+            Message message = obtainMessage(MESSAGE_REMOVE_KILLED, packageName);
+            sendMessageDelayed(message, CHECK_LATER_KILLED);
+        }
     }
 
     private void standby(boolean inactive, String packageName) {
@@ -813,7 +849,21 @@ public class BreventServer extends Handler {
                 mServices.remove(packageName);
             } else if (mBrevent.contains(packageName)) {
                 mServices.add(packageName);
-                if (mPriority.contains(packageName) || (mConfiguration.allowGcm && mGcm.contains(packageName))) {
+                if (mKilled3.contains(packageName)) {
+                    ServerLog.w("avoid killing " + packageName);
+                } else if (mKilled2.contains(packageName)) {
+                    forceStop(packageName, "(priority service2)");
+                    mKilled2.remove(packageName);
+                    mKilled3.add(packageName);
+                    Message message = obtainMessage(MESSAGE_REMOVE_KILLED3, packageName);
+                    sendMessageDelayed(message, CHECK_LATER_KILLED3);
+                } else if (mKilled.contains(packageName)) {
+                    forceStop(packageName, "(priority service)");
+                    mKilled.remove(packageName);
+                    mKilled2.add(packageName);
+                    Message message = obtainMessage(MESSAGE_REMOVE_KILLED2, packageName);
+                    sendMessageDelayed(message, CHECK_LATER_KILLED2);
+                } else if (mPriority.contains(packageName) || (mConfiguration.allowGcm && mGcm.contains(packageName))) {
                     ServerLog.d(packageName + ": priority or gcm");
                     mRealServices.remove(packageName);
                     Message message = obtainMessage(MESSAGE_CHECK_SERVICE, packageName);
