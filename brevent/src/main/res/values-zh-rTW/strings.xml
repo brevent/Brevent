@@ -4,13 +4,13 @@
     <string name="app_name">黑域</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三種方式：\n\n1. 按 返回鍵 離開應用程式回到上一個顯示畫面。\n\n2. 按 首頁鍵 回到首頁\n\n3. 在其他應用程式上繪製內容 把應用程式放到背景；同時，允許應用程式持續執行著服
-務。\n\n當然，您也可以直接從 "最近使用的應用程式" 拉掉某個應用程式。\n\n黑域透過這種方式識別您是否開啟或已經離開，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
-    <string name="fragment_guide_welcome_message2">當您使用 返回鍵 離開應用程式時，應用程式及所包含的服務將不再執行；當您使用按 首頁鍵 回到首頁 或者在 其他應用程式上繪製內容 把應用程式放到背景，背景應用程式及所包含的服務可以繼續執行；當您從"最近使用的應用程式" 拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域則會動態顯示空閒時間。</string>
+    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三種方式：\n\n1. 按 返回鍵 退出應用程式回到上一個顯示畫面。\n\n2. 按 首頁鍵 回到首頁\n\n3. 在其他應用程式上繪製內容 把應用程式放到背景；同時，允許應用程式持續執行著服
+務。\n\n當然，您也可以直接從 "最近使用的應用程式" 拉掉某個應用程式。\n\n黑域透過這種方式識別您是否開啟或已經退出，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您使用 返回鍵 退出應用程式時，應用程式及所包含的服務將不再執行；當您使用按 首頁鍵 回到首頁 或者在 其他應用程式上繪製內容 把應用程式放到背景，背景應用程式及所包含的服務可以繼續執行；當您從"最近使用的應用程式" 拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域則會動態顯示空閒時間。</string>
 
     <string name="fragment_guide_permission">權限</string>
-    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個命令來開啟黑域服務，讓黑域間接地持有管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n當前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式以及開機自啓，但兼容性並不好。如需啓用，請在「啓動黑域服務」時點擊 7 次“返回”按鈕，或者進入「設置」點擊 7 次「版本」。ROOT 模式不安全也沒必要，當前不提供任何支援。</string>
+    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令來開啟黑域服務，讓黑域間接地持有管理其它應用程式的權限。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n當前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式以及開機自啓，但兼容性並不好。如需啓用，請在「啓動黑域服務」時點擊 7 次「返回」按鈕，或者進入「設置」點擊 7 次「版本」。ROOT 模式不安全也沒必要，當前不提供任何支援。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，若無特殊需要，請您關閉偵錯模式。</string>
@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設使用"休眠黑域應用程式"，您可在設定中更改。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具(如開發者選項中的"未啟用的應用程式")檢視是否處於休眠狀態。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設定中修改成立即處理。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設使用「休眠黑域應用程式」，您可在設定中更改。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具(如「開發人員選項」中的「未啟用的應用程式」)檢視是否處於休眠狀態。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設定中修改成立即處理。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="brevent_service_start">請啟動黑域服務</string>
@@ -83,8 +83,8 @@
     <string name="brevent_back_home">黑域 返回鍵 打開首頁</string>
     <string name="brevent_back_home_label">有些應用程式，如微博，在您按 返回鍵 時，不執行正常的 返回鍵 操作，而是回到首頁。啟用之後，將會依正常 返回鍵 處理。絕大部分情況下黑域都能有效區分，您也可連按 7 次 首頁鍵 來幫助黑域確認</string>
     <string name="brevent_timeout">是否黑域背景應用程式</string>
-    <string name="brevent_timeout_label">離開背景應用程式 %1$s 後。背景應用程式是指您還未離開的應用程式，於清單動態顯示離開時間</string>
-    <string name="brevent_timeout_label_never">永不黑域背景應用程式。背景應用程式是指您還未離開的應用程式，於清單動態顯示離開時間</string>
+    <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未退出的應用程式，於清單動態顯示退出時間</string>
+    <string name="brevent_timeout_label_never">永不黑域背景應用程式\n\n背景應用程式是指您還未退出的應用程式，於清單動態顯示退出時間</string>
     <string name="brevent_timeout_never">永不</string>
     <string name="brevent_timeout_5min">5 分鐘</string>
     <string name="brevent_timeout_10min">10 分鐘</string>
@@ -95,14 +95,14 @@
     <string name="brevent_method_standby_forcestop">休眠，然後強制停止</string>
     <string name="brevent_method_standby_only">僅休眠，不強制停止</string>
     <string name="brevent_method_forcestop_only">僅強制停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">離開應用程式時休眠，從 最近使用的應用程式 拉掉時強制停止。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式時休眠，從 最近使用的應用程式 拉掉時強制停止\n\n僅針對 返回鍵 退出的應用程式，不是 返回鍵 退出的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選擇，專為強迫症患者準備\n\n僅針對 返回鍵 退出的應用程式，不是 返回鍵 退出的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選擇，專為強迫症患者準備\n\n僅針對 返回鍵 退出的應用程式，不是 返回鍵 退出的應用程式請參考「是否處理背景應用程式」</string>
     <string name="brevent_mode">何時黑域？</string>
     <string name="brevent_mode_later">動態延後（推薦）</string>
     <string name="brevent_mode_immediate">立即處理</string>
-    <string name="brevent_mode_label_later">動態延後。自動根據事件處理，打開首頁時短點，被喚醒時長點，打開應用程式時最長，螢幕關閉時立即處理\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
-    <string name="brevent_mode_label_immediate">立即處理，包括但不限於打開首頁與應用程式，被喚醒及螢幕關閉。請謹慎選擇，這種模式黑域服務將消耗更多電量，某些應用程式可能無法正常使用\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_mode_label_later">動態延後。自動根據事件處理，打開首頁時短點，被喚醒時長點，打開應用程式時最長，螢幕關閉時立即處理\n\n僅針對 返回鍵 退出的應用程式，不是 返回鍵 退出的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_mode_label_immediate">立即處理，包括但不限於打開首頁與應用程式，被喚醒及螢幕關閉。請謹慎選擇，這種模式黑域服務將消耗更多電量，某些應用程式可能無法正常使用\n\n僅針對 返回鍵 退出的應用程式，不是 返回鍵 退出的應用程式請參考「是否處理背景應用程式」</string>
 
     <string name="brevent_ui">使用者界面</string>
     <string name="show_donation">顯示捐贈</string>

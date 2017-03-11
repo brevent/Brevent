@@ -82,8 +82,8 @@
     <string name="brevent_back_home">黑域“返回”打开主屏幕</string>
     <string name="brevent_back_home_label">有些应用，如微博，在您按“返回”按钮时，不执行正常的“返回”操作，像按“主页”按钮一样打开主屏幕。启用之后，按正常“返回”处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次“主页”按钮来帮助黑域确认</string>
     <string name="brevent_timeout">是否黑域后台应用</string>
-    <string name="brevent_timeout_label">离开后台应用 %1$s后。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
-    <string name="brevent_timeout_label_never">永不黑域后台应用。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
+    <string name="brevent_timeout_label">离开后台应用 %1$s后\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
+    <string name="brevent_timeout_label_never">永不黑域后台应用\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_never">永不</string>
     <string name="brevent_timeout_5min">5 分钟</string>
     <string name="brevent_timeout_10min">10 分钟</string>
