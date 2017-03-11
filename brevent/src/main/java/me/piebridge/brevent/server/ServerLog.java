@@ -23,6 +23,9 @@ class ServerLog {
 
     static void d(String msg, Throwable t) {
         Log.d(TAG, msg);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        }
     }
 
     static void i(String msg) {

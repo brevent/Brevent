@@ -2,7 +2,6 @@ package me.piebridge.brevent.server;
 
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
-import android.app.AppOpsManager;
 import android.app.usage.IUsageStatsManager;
 import android.content.Context;
 import android.content.IIntentReceiver;
@@ -23,7 +22,6 @@ import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.internal.app.IAppOpsService;
 import com.android.internal.app.IBatteryStats;
 
 import java.io.BufferedReader;
@@ -120,7 +118,7 @@ class HideApi {
             } else {
                 return Collections.emptyList();
             }
-        } catch (RemoteException e) {
+        } catch (RemoteException | SecurityException e) {
             ServerLog.d("Can't getGcmPackages", e);
             return Collections.emptyList();
         }
@@ -164,8 +162,8 @@ class HideApi {
                 receivers = HideApiOverrideM.queryIntentReceivers(packageManager, intent, uid);
             }
             return receivers != null && !receivers.isEmpty();
-        } catch (RemoteException e) {
-            ServerLog.w("Can't check GcmReceiver for " + packageName);
+        } catch (RemoteException | SecurityException e) {
+            ServerLog.d("Can't check GcmReceiver for " + packageName, e);
             return false;
         }
     }
@@ -220,69 +218,11 @@ class HideApi {
         try {
             getPackageManager().setPackageStoppedState(packageName, stopped, uid);
         } catch (SecurityException | RemoteException e) {
-            ServerLog.d("Can't setStopped for " + packageName + "(ignore)");
-            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
-                ServerLog.v("Can't setStopped for " + packageName + "(ignore)", e);
-            }
+            ServerLog.d("Can't setStopped for " + packageName + "(ignore)", e);
         }
     }
 
     // PackageManager end
-
-
-    // AppOpsService start
-
-    private static boolean setMode(String packageName, int op, int mode, int uid) throws HideApiException {
-        try {
-            int packageUid = getPackageUid(packageName, uid);
-            if (packageUid < 0) {
-                ServerLog.e("No UID for " + packageName);
-                return false;
-            }
-            IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(ServiceManager.getService(Context.APP_OPS_SERVICE));
-            appOpsService.setMode(op, packageUid, packageName, mode);
-            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
-                ServerLog.v("Set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
-                        mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore"));
-            }
-            return true;
-        } catch (RemoteException | SecurityException e) {
-            ServerLog.d("Can't set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
-                    mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore") + "(ignore)");
-            if (Log.isLoggable(ServerLog.TAG, Log.VERBOSE)) {
-                ServerLog.v("Can't set " + packageName + "'s " + HideApiOverride.opToName(op) + " to " + (
-                        mode == AppOpsManager.MODE_ALLOWED ? "allow" : "ignore") + "(ignore)", e);
-            }
-            return false;
-        }
-    }
-
-    /**
-     * since api-24
-     */
-    public static boolean setAllowBackground(String packageName, boolean allow, int uid) throws HideApiException {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-                setMode(packageName, HideApiOverrideN.OP_RUN_IN_BACKGROUND, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED, uid);
-    }
-
-    public static boolean setAllowNotification(String packageName, boolean allow, int uid) throws HideApiException {
-        return setMode(packageName, HideApiOverride.OP_POST_NOTIFICATION, allow ? AppOpsManager.MODE_ALLOWED : AppOpsManager.MODE_IGNORED, uid);
-    }
-
-    private static Collection<String> getPackagesForOp(int op, int mode, int uid) {
-        try {
-            IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(ServiceManager.getService(Context.APP_OPS_SERVICE));
-            List ops = appOpsService.getPackagesForOps(new int[] {op});
-            if (ops == null || ops.isEmpty()) {
-                return Collections.emptyList();
-            }
-            return HideApiOverride.filterOps(ops, mode, uid);
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't get packages for ops", e);
-        }
-    }
-
-    // AppOpsService end
 
 
     // UsageStatsManager start
@@ -341,7 +281,7 @@ class HideApi {
 
     public static Set<String> dumpWidgets(File directory, int userId, String launcher) {
         if (launcher == null) {
-            ServerLog.e("Can't dump widgets for launcher: " + launcher);
+            ServerLog.e("Can't dump widgets, no launcher");
             return Collections.emptySet();
         }
         try {
@@ -353,8 +293,8 @@ class HideApi {
             return parseWidgets(file, userId, launcher);
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't dump widgets", e);
+        } catch (RemoteException | SecurityException e) {
+            ServerLog.d("Can't dump widgets (ignore)", e);
         }
         return Collections.emptySet();
     }
@@ -408,8 +348,8 @@ class HideApi {
             return parseNotifications(file, userId);
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't dump notifications", e);
+        } catch (RemoteException | SecurityException e) {
+            ServerLog.d("Can't dump notifications", e);
         }
         return new SimpleArrayMap<>();
     }
@@ -458,8 +398,8 @@ class HideApi {
             return parseDependencies(file, userId);
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
-        } catch (RemoteException e) {
-            throw new HideApiException("Can't dump dependencies", e);
+        } catch (RemoteException | SecurityException e) {
+            ServerLog.d("Can't dump dependencies", e);
         }
         return new SimpleArrayMap<>();
     }
@@ -603,12 +543,10 @@ class HideApi {
                 IBatteryStats batteryStats = IBatteryStats.Stub.asInterface(ServiceManager.getService("batterystats"));
                 return batteryStats.isCharging();
             } catch (RemoteException | SecurityException e) {
-                ServerLog.e("Can't get battery status", e);
-                return false;
+                ServerLog.d("Can't get battery status", e);
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     public static IPackageManager getPackageManager() {

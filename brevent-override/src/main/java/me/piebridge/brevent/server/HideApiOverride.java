@@ -6,10 +6,6 @@ import android.hardware.usb.UsbManager;
 import android.os.Process;
 import android.os.UserHandle;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Created by thom on 2017/2/22.
  */
@@ -21,8 +17,6 @@ public class HideApiOverride {
     public static final int USER_OWNER = UserHandle.USER_OWNER;
 
     public static final int OP_NONE = AppOpsManager.OP_NONE;
-
-    public static final int OP_POST_NOTIFICATION = AppOpsManager.OP_POST_NOTIFICATION;
 
     public static final String ACTION_USB_STATE = UsbManager.ACTION_USB_STATE;
 
@@ -42,26 +36,6 @@ public class HideApiOverride {
 
     public static boolean isRoot(int uid) {
         return uid == Process.ROOT_UID;
-    }
-
-    public static Collection<String> filterOps(List ops, int mode, int uid) {
-        Collection<String> packageNames = new ArrayList<>();
-        for (Object op : ops) {
-            AppOpsManager.PackageOps pkg = (AppOpsManager.PackageOps) op;
-            if (pkg.getUid() == uid) {
-                for (AppOpsManager.OpEntry entry : pkg.getOps()) {
-                    if (entry.getMode() == mode) {
-                        packageNames.add(pkg.getPackageName());
-                        break;
-                    }
-                }
-            }
-        }
-        return packageNames;
-    }
-
-    public static String opToName(int op) {
-        return AppOpsManager.opToName(op);
     }
 
     public static int getCurrentUser() {
