@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個命令來開啟黑域服務，讓黑域間接地持有管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n當前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式以及開機自啓，但兼容性並不好。如需啓用，請在「啓動黑域服務」時點擊 7 次“返回”按鈕，或者進入「設置」點擊 7 次「版本」。ROOT 模式不安全也沒必要，當前不提供任何支援。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，若無特殊需要，請您關閉偵錯模式。</string>
@@ -129,7 +129,7 @@
 
     <string name="brevent_advanced">高級功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">啟用之後，如果這些“優先通知應用”有通知或者在後台運行，黑域都不會強行停止；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n推薦為桌面小部件、帳號同步及通信類應用設置優先通知；當然，更建議不要黑域它們。</string>
+    <string name="brevent_optimize_priority_label">啟用之後，如果這些“優先通知應用”有通知或者在後台運行，黑域都不會強行停止；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n推薦為帳號同步及通信類應用設置優先通知；當然，更建議不要黑域它們</string>
     <string name="brevent_allow_gcm">允許 GCM 推送</string>
     <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息。溫馨提示，界面標識集成 GCM 的應用，不一定真的支持 GCM\n\n如果您需要保持消息，請開啓「保持通知」</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>

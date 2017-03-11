@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。</string>
+    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 权限，或解锁变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个试验性的 ROOT 功能，可以跳过调试模式以及开机自启，但兼容性并不好。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”点击 7 次“版本”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
@@ -128,7 +128,7 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为桌面小部件、帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们。</string>
+    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们</string>
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
     <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示，界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息\n\n如果您需要保持消息，请参考“保持通知”</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
