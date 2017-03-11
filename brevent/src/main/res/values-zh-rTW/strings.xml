@@ -23,10 +23,10 @@
 
     <string name="brevent_service_start">請啟動黑域服務</string>
     <string name="brevent_service_restart">請重新啟動黑域服務</string>
-    <string name="brevent_service_guide">1. 開啟「開發者選項」，啟用「USB 偵錯」 %1$s\n\n2. 使用 USB 連接到電腦 %2$s\n\n3. 在電腦命令行中執行: %3$s (已復製到剪貼板)\n</string>
+    <string name="brevent_service_guide">1. 開啟「開發者選項」，啟用「USB 偵錯」 %1$s\n\n2. 使用 USB 連接到電腦 %2$s\n\n3. 在電腦命令行中執行「adb devices」，確認可以找到設備\n\n4. 在電腦命令行中執行「%3$s」 (已復製到剪貼板)</string>
     <string name="brevent_service_open_development">前往「開發人員選項」</string>
     <string name="brevent_service_adb_running">(已啟用)</string>
-    <string name="brevent_service_usb_connected">(USB 已連接)</string>
+    <string name="brevent_service_usb_connected">(已連接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
 
     <string name="fragment_apps_user">使用者</string>
@@ -95,9 +95,9 @@
     <string name="brevent_method_standby_forcestop">休眠，然後強制停止</string>
     <string name="brevent_method_standby_only">僅休眠，不強制停止</string>
     <string name="brevent_method_forcestop_only">僅強制停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">離開應用程式時休眠，從 最近使用的應用程式 拉掉時強制停止。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
-    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
-    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_method_standby_forcestop_label">離開應用程式時休眠，從 最近使用的應用程式 拉掉時強制停止。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選擇，專為強迫症患者準備。\n\n僅針對 返回鍵 離開的應用程式，不是 返回鍵 離開的應用程式請參考「是否黑域背景應用程式」</string>
     <string name="brevent_mode">何時黑域？</string>
     <string name="brevent_mode_later">動態延後（推薦）</string>
     <string name="brevent_mode_immediate">立即處理</string>
@@ -137,6 +137,8 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
+    <string name="brevent_about_developer">開發人員選項</string>
+    <string name="brevent_about_developer_adb">已啓用「USB 偵錯」</string>
     <string name="brevent_about_project">項目地址</string>
     <string name="brevent_about_licenses">軟體許可</string>
     <string name="brevent_about_translation">本地化語言翻譯</string>

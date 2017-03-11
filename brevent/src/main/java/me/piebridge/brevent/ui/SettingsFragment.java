@@ -1,8 +1,12 @@
 package me.piebridge.brevent.ui;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -63,6 +67,14 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
+        boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");;
+        Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
+        if (adbRunning) {
+            preference.setSummary(R.string.brevent_about_developer_adb);
+        } else {
+            preference.setSummary(null);
+        }
+        preference.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -96,8 +108,20 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if (++repeat == 0x7) {
-            breventAdvanced.addPreference(preferenceAllowRoot);
+        String key = preference.getKey();
+        if ("brevent_about_version".equals(key)) {
+            if (++repeat == 0x7) {
+                breventAdvanced.addPreference(preferenceAllowRoot);
+            }
+        } else if ("brevent_about_developer".equals(key)) {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.DevelopmentSettings"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                UILog.d("Can't find settings", e);
+            }
         }
         return false;
     }

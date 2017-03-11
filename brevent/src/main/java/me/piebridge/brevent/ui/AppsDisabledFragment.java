@@ -66,19 +66,20 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         builder.setTitle(arguments.getInt(MESSAGE, DEFAULT_MESSAGE));
         String commandLine = getBootstrapCommandLine();
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
-        String status = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
+        String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = getContext().registerReceiver(null, filter);
-        boolean connected = intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+        boolean connected = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
-        builder.setMessage(getString(R.string.brevent_service_guide, status, usbStatus, commandLine));
+        builder.setMessage(getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
         ((BreventActivity) getActivity()).copy(commandLine);
-        if (!adbRunning) {
-            builder.setPositiveButton(R.string.brevent_service_open_development, this);
-        }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+        boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        if (allowRoot) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
+        }
+        if (!adbRunning || allowRoot) {
+            builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
         builder.setOnKeyListener(this);
         return builder.create();

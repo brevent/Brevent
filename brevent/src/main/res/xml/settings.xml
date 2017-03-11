@@ -105,6 +105,11 @@
             android:key="brevent_about_version"
             android:title="@string/brevent_about_version" />
 
+        <Preference
+            android:key="brevent_about_developer"
+            android:summary="@string/brevent_about_developer_adb"
+            android:title="@string/brevent_about_developer" />
+
         <me.piebridge.brevent.ui.ProjectPreference
             android:key="brevent_about_project"
             android:title="@string/brevent_about_project" />

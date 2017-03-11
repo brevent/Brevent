@@ -4,8 +4,8 @@
     <string name="app_name">黑域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过三种按键，Back 退出应用回到上层，Home 或者 Overview 把应用放到后台；同时，允许应用使用一直运行的服务。当然，您也可以直接从最近列表划掉某个应用。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
-    <string name="fragment_guide_welcome_message2">当您使用 Back 退出应用时，应用及所包含的服务不再运行；当您使用 Home 或者 Overview 或者其它方式把应用移到后台，后台应用及所包含的服务可以继续运行；当您从最近列表划掉时，黑域将强行停止它。\n\n对于后台应用，黑域动态显示空闲时间。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过三个按钮，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”(Overview)按钮把应用放到后台；同时，允许应用使用一直运行的服务。当然，您也可以直接从最近列表划掉某个应用。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message2">当您按“返回”按钮退出应用时，应用及所包含的服务不再运行；当您按“主页”按钮或者“总览”按钮或者其它方式把应用移到后台，后台应用及所包含的服务可以继续运行；当您从最近列表划掉时，黑域将强行停止它。\n\n对于后台应用，黑域动态显示空闲时间。</string>
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
@@ -22,10 +22,10 @@
 
     <string name="brevent_service_start">请启动黑域服务</string>
     <string name="brevent_service_restart">请重启黑域服务</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行: %3$s (已复制到剪贴板)\n</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机\n\n4. 在电脑命令行中执行“%3$s” (已复制到剪贴板)</string>
     <string name="brevent_service_open_development">前往“开发者选项”</string>
     <string name="brevent_service_adb_running">(已启用)</string>
-    <string name="brevent_service_usb_connected">(USB 已连接)</string>
+    <string name="brevent_service_usb_connected">(已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>
 
     <string name="fragment_apps_user">用户应用</string>
@@ -77,10 +77,10 @@
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
     <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
-    <string name="brevent_move_back">黑域 Back 移到后台</string>
-    <string name="brevent_move_back_label">有些应用，如微信，在您按 Back 时，不执行正常的 Back 操作，移到后台。启用之后，按正常 Back 处理（仅支持 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑域 Back 打开主屏幕</string>
-    <string name="brevent_back_home_label">有些应用，如微博，在您按 Back 时，不执行正常的 Back 操作，打开主屏幕。启用之后，按正常 Back 处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次 Home 键来帮助黑域确认</string>
+    <string name="brevent_move_back">黑域“返回”移到后台</string>
+    <string name="brevent_move_back_label">有些应用，如微信，在您按“返回”按钮时，不执行正常的“返回”操作，移到后台。启用之后，按正常“返回”按钮处理（仅支持 Android 7.0 及以上）</string>
+    <string name="brevent_back_home">黑域“返回”打开主屏幕</string>
+    <string name="brevent_back_home_label">有些应用，如微博，在您按“返回”按钮时，不执行正常的“返回”操作，像按“主页”按钮一样打开主屏幕。启用之后，按正常“返回”处理。绝大部分情况下黑域都能有效区分，您也可连按 7 次“主页”按钮来帮助黑域确认</string>
     <string name="brevent_timeout">是否黑域后台应用</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s后。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_label_never">永不黑域后台应用。后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
@@ -94,14 +94,14 @@
     <string name="brevent_method_standby_forcestop">休眠，然后强行停止</string>
     <string name="brevent_method_standby_only">只休眠，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用时休眠，超时后或者从最近列表划掉时强行停止\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_method_standby_only_label">只休眠，不强行停止。不建议选择，专为强迫症患者准备\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。不建议选择，专为强迫症患者准备\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用时休眠，超时后或者从最近列表划掉时强行停止\n\n仅针对按“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
+    <string name="brevent_method_standby_only_label">只休眠，不强行停止。不建议选择，专为强迫症患者准备\n\n仅针对按“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
+    <string name="brevent_method_forcestop_only_label">只强行停止，不休眠。不建议选择，专为强迫症患者准备\n\n仅针对按“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
     <string name="brevent_mode">何时黑域</string>
     <string name="brevent_mode_later">动态延后（推荐）</string>
     <string name="brevent_mode_immediate">立即处理</string>
-    <string name="brevent_mode_label_later">动态延后。自动根据事件处理，打开主屏幕时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开主屏幕与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用\n\n仅针对 Back 退出的应用，非 Back 退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_mode_label_later">动态延后。自动根据事件处理，打开主屏幕时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理\n\n仅针对按“返回”按钮退出的应用，后台退出的应用请参考“是否处理后台应用”</string>
+    <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开主屏幕与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用\n\n仅针对按“返回”按钮退出的应用，后台应用请参考“是否处理后台应用”</string>
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
@@ -135,6 +135,8 @@
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持</string>
 
     <string name="brevent_about">关于</string>
+    <string name="brevent_about_developer">开发者选项</string>
+    <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_project">项目地址</string>
     <string name="brevent_about_licenses">软件许可</string>
