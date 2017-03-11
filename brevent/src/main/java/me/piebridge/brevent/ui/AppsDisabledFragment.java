@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -38,8 +37,6 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
     private Dialog mDialog;
 
     private int repeat;
-
-    private long firstTime;
 
     public AppsDisabledFragment() {
         setArguments(new Bundle());
@@ -77,11 +74,12 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         if (allowRoot) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
+        } else {
+            builder.setOnKeyListener(this);
         }
         if (!adbRunning || allowRoot) {
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
-        builder.setOnKeyListener(this);
         return builder.create();
     }
 
@@ -143,19 +141,10 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
 
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        if (keyCode != KeyEvent.KEYCODE_BACK) {
-            repeat = 0;
-            firstTime = 0;
-        } else if (event.getAction() == KeyEvent.ACTION_DOWN && repeat < 0x7) {
-            if (firstTime == 0) {
-                firstTime = event.getDownTime();
-            }
-            long cost = TimeUnit.MILLISECONDS.toSeconds(event.getDownTime() - firstTime);
-            if (++repeat == 0x7 && cost <= 0x3) {
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
-                        .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
-                getActivity().finish();
-            }
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN && ++repeat == 0x7) {
+            PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
+                    .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
+            ((BreventActivity) getActivity()).showDisabled(getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
         }
         return false;
     }
