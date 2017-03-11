@@ -111,6 +111,7 @@ public class BreventServer extends Handler {
     private int possibleHomeTid;
     private String mFocusReason;
     private String mLauncher;
+    private Set<String> mWidgets;
 
     private int mUser;
 
@@ -167,6 +168,8 @@ public class BreventServer extends Handler {
         mBack = new ArraySet<>();
 
         mLauncher = HideApi.getLauncher(mUser);
+        mWidgets = new ArraySet<>();
+        mWidgets.addAll(HideApi.dumpWidgets(getCacheDir(), mUser, mLauncher));
 
         dumpNotifications();
         if (!mConfiguration.allowRoot && HideApiOverride.isRoot(Process.myUid())) {
@@ -309,6 +312,9 @@ public class BreventServer extends Handler {
 
         mUser = HideApi.getCurrentUser();
         mLauncher = HideApi.getLauncher(mUser);
+        Set<String> widgets = HideApi.dumpWidgets(getCacheDir(), mUser, mLauncher);
+        mWidgets.clear();
+        mWidgets.addAll(widgets);
 
         ServerLog.d("check and brevent");
 
@@ -336,6 +342,7 @@ public class BreventServer extends Handler {
         recent.addAll(home);
 
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
+            ServerLog.d("widgets: " + mWidgets);
             ServerLog.d("running: " + running);
             ServerLog.d("top: " + top);
             ServerLog.d("home: " + home);
@@ -865,6 +872,11 @@ public class BreventServer extends Handler {
                     sendMessageDelayed(message, CHECK_LATER_KILLED2);
                 } else if (mPriority.contains(packageName)) {
                     ServerLog.d(packageName + ": priority");
+                    mRealServices.remove(packageName);
+                    Message message = obtainMessage(MESSAGE_CHECK_SERVICE, packageName);
+                    sendMessageDelayed(message, CHECK_LATER_SERVICE);
+                } else if (mWidgets.contains(packageName)) {
+                    ServerLog.d(packageName + ": widgets");
                     mRealServices.remove(packageName);
                     Message message = obtainMessage(MESSAGE_CHECK_SERVICE, packageName);
                     sendMessageDelayed(message, CHECK_LATER_SERVICE);

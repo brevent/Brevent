@@ -339,6 +339,64 @@ class HideApi {
         return Collections.emptyList();
     }
 
+    public static Set<String> dumpWidgets(File directory, int userId, String launcher) {
+        if (launcher == null) {
+            ServerLog.e("Can't dump widgets for launcher: " + launcher);
+            return Collections.emptySet();
+        }
+        try {
+            IBinder am = ServiceManager.getService(Context.NOTIFICATION_SERVICE);
+            File file = File.createTempFile("dumpsys", "appwidget", directory);
+            ParcelFileDescriptor parcel = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_WRITE);
+            am.dump(parcel.getFileDescriptor(), new String[0]);
+            parcel.close();
+            return parseWidgets(file, userId, launcher);
+        } catch (IOException e) {
+            ServerLog.e("Can't open file", e);
+        } catch (RemoteException e) {
+            throw new HideApiException("Can't dump widgets", e);
+        }
+        return Collections.emptySet();
+    }
+
+    private static Set<String> parseWidgets(File file, int userId, String launcher) throws IOException {
+        Set<String> packageNames = new ArraySet<>();
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(file))
+
+        ) {
+            String line;
+            boolean start = false;
+            String pkg = null;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("Widgets:")) {
+                    start = true;
+                } else if (start) {
+                    if (line.startsWith("Hosts:")) {
+                        break;
+                    }
+                    if (line.contains("HostId")) {
+                        String user = StringUtils.substring(line, "user:", ",");
+                        if (StringUtils.isDigitsOnly(user) && Integer.parseInt(user) == userId) {
+                            pkg = StringUtils.substring(line, "pkg:", "}");
+                        } else {
+                            pkg = null;
+                        }
+                    } else if (launcher.equals(pkg) && line.contains("ProviderId")) {
+                        String user = StringUtils.substring(line, "user:", ",");
+                        if (StringUtils.isDigitsOnly(user) && Integer.parseInt(user) == userId) {
+                            packageNames.add(StringUtils.substring(line, "ComponentInfo{", "/"));
+                        }
+                    }
+                }
+            }
+        }
+        if (!file.delete()) {
+            ServerLog.d("Can't delete file: " + file);
+        }
+        return packageNames;
+    }
 
     public static SimpleArrayMap<String, Boolean> dumpNotifications(File directory, int userId) {
         try {
@@ -351,7 +409,7 @@ class HideApi {
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
         } catch (RemoteException e) {
-            throw new HideApiException("Can't dump activities", e);
+            throw new HideApiException("Can't dump notifications", e);
         }
         return new SimpleArrayMap<>();
     }
@@ -401,7 +459,7 @@ class HideApi {
         } catch (IOException e) {
             ServerLog.e("Can't open file", e);
         } catch (RemoteException e) {
-            throw new HideApiException("Can't dump activities", e);
+            throw new HideApiException("Can't dump dependencies", e);
         }
         return new SimpleArrayMap<>();
     }
