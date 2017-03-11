@@ -1009,7 +1009,6 @@ public class BreventServer extends Handler {
     }
 
     private void handleStatus(UUID token) {
-        checkAndBrevent();
         SimpleArrayMap<String, Integer> running = getRunningActivities().running;
         BreventStatus response = new BreventStatus(token, mBrevent, getRunningProcesses(running));
         sendBroadcast(response);
