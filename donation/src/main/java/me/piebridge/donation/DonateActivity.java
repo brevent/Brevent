@@ -106,7 +106,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     public final void updateDonations() {
         if (acceptDonation()) {
             activatePlay();
-            activateDonations();
+            if (!isPlay()) {
+                activateDonations();
+            }
         } else {
             showDonation(false);
         }
@@ -350,6 +352,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     protected boolean hasPlay() {
         return getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
+    }
+
+    protected boolean isPlay() {
+        return hasPlay() && PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getPackageName()));
     }
 
     private Uri getQrCodeUri() {

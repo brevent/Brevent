@@ -30,10 +30,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
+    public static final String HAS_PLAY = "has_play";
+    public static final String IS_PLAY = "is_play";
+
     private PreferenceCategory breventAdvanced;
+    private PreferenceCategory breventUi;
 
     private SwitchPreference preferenceDonation;
 
+    private SwitchPreference preferenceOptimizePriority;
+    private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
 
     private int repeat = 0;
@@ -50,9 +56,23 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         breventAdvanced = (PreferenceCategory) preferenceScreen.findPreference("brevent_advanced");
+        breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
+
+        preferenceOptimizePriority = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_PRIORITY);
+        preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
+        if (getArguments().getBoolean(IS_PLAY, false)) {
+            preferenceOptimizePriority.setEnabled(false);
+            preferenceAllowGcm.setEnabled(false);
+            preferenceAllowRoot.setEnabled(false);
+        } else {
+            if (!getArguments().getBoolean(HAS_PLAY, false)) {
+                preferenceDonation.setChecked(true);
+            }
+            breventUi.removePreference(preferenceDonation);
+        }
         if (!getPreferenceScreen().getSharedPreferences().getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(this);
@@ -67,7 +87,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
-        boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");;
+        boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
         if (adbRunning) {
             preference.setSummary(R.string.brevent_about_developer_adb);
@@ -103,6 +123,36 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         } else if (count > 1) {
             summary = getString(R.string.show_donation_play_multi, count, total);
             preferenceDonation.setSummary(summary);
+        }
+        if (total <= 0) {
+            preferenceDonation.setChecked(true);
+            onShowDonationChanged();
+            if (getArguments().getBoolean(IS_PLAY, false)) {
+                preferenceOptimizePriority.setEnabled(false);
+                preferenceOptimizePriority.setChecked(false);
+                preferenceAllowGcm.setEnabled(false);
+                preferenceAllowGcm.setChecked(false);
+                preferenceAllowRoot.setEnabled(false);
+                preferenceAllowRoot.setChecked(false);
+            }
+        } else {
+            breventUi.addPreference(preferenceDonation);
+            if (total == 1) {
+                preferenceOptimizePriority.setEnabled(true);
+                preferenceAllowGcm.setEnabled(false);
+                preferenceAllowGcm.setChecked(false);
+                preferenceAllowRoot.setEnabled(false);
+                preferenceAllowRoot.setChecked(false);
+            } else if (total == 2) {
+                preferenceOptimizePriority.setEnabled(true);
+                preferenceAllowGcm.setEnabled(true);
+                preferenceAllowRoot.setEnabled(false);
+                preferenceAllowRoot.setChecked(false);
+            } else {
+                preferenceOptimizePriority.setEnabled(true);
+                preferenceAllowGcm.setEnabled(true);
+                preferenceAllowRoot.setEnabled(true);
+            }
         }
     }
 

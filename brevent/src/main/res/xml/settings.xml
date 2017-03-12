@@ -62,6 +62,7 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:dependency="brevent_optimize_priority"
             android:key="brevent_allow_gcm"
             android:summary="@string/brevent_allow_gcm_label"
             android:title="@string/brevent_allow_gcm" />
@@ -79,11 +80,6 @@
         android:title="@string/brevent_ui">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:key="show_donation"
-            android:title="@string/show_donation" />
-
-        <SwitchPreference
             android:defaultValue="false"
             android:key="show_all_apps"
             android:summary="@string/show_all_apps_label"
@@ -94,6 +90,11 @@
             android:key="show_framework_apps"
             android:summary="@string/show_framework_apps_label"
             android:title="@string/show_framework_apps" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_donation"
+            android:title="@string/show_donation" />
 
     </PreferenceCategory>
 

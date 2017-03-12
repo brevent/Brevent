@@ -128,11 +128,11 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们</string>
+    <string name="brevent_optimize_priority_label">启用之后，如果“优先打扰应用”有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用设置优先打扰；当然，更建议不要黑域它们。建议捐赠 1 美元</string>
     <string name="brevent_allow_gcm">允许 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。温馨提示，界面标识集成 GCM 消息的应用，不一定真的支持 GCM 消息\n\n如果您需要保持消息，请参考“保持通知”</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑域后的应用接收 GCM 消息。开启之后，GCM 和其它广播都能唤醒；但是如果没有消息，黑域都会清理它们\n\n依赖“保持通知”。建议捐赠 1 美元</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持</string>
+    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全，也没有必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持。建议捐赠 3 美元</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_developer">开发者选项</string>
