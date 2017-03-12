@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="preference_brevent_move_back">true</bool>
+    <bool name="direct_boot_aware">true</bool>
 </resources>

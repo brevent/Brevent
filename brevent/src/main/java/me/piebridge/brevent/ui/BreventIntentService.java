@@ -20,7 +20,12 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        startBrevent();
+        BreventApplication application = (BreventApplication) getApplication();
+        UILog.d("onHandleIntent, startBrevent, started: " + application.started);
+        if (!application.started) {
+            application.started = true;
+            startBrevent();
+        }
     }
 
     private void startBrevent() {
@@ -30,6 +35,7 @@ public class BreventIntentService extends IntentService {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
             File file = new File(applicationInfo.nativeLibraryDir, name);
             if (file.exists()) {
+                UILog.d("startBrevent: " + file.getAbsolutePath());
                 List<String> results = Shell.SU.run(file.getAbsolutePath());
                 if (results != null) {
                     for (String result : results) {

@@ -11,6 +11,8 @@ public class BreventApplication extends Application {
 
     private UUID mToken;
 
+    boolean started;
+
     @Override
     public void onCreate() {
         super.onCreate();
