@@ -75,6 +75,9 @@ public class BreventConfiguration extends BreventToken {
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
         optimizePriority = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_PRIORITY, DEFAULT_BREVENT_OPTIMIZE_PRIORITY);
+        if (!optimizePriority) {
+            allowGcm = false;
+        }
     }
 
     private int convertMode(String string) {
@@ -116,6 +119,9 @@ public class BreventConfiguration extends BreventToken {
         method = in.readInt();
         allowGcm = in.readInt() != 0;
         optimizePriority = in.readInt() != 0;
+        if (!optimizePriority) {
+            allowGcm = false;
+        }
     }
 
     @Override

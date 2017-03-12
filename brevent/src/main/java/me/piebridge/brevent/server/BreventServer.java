@@ -88,6 +88,7 @@ public class BreventServer extends Handler {
 
     private final Set<String> mInstalled = new ArraySet<>();
     private final Set<String> mGcm = new ArraySet<>();
+    private final Set<String> allowGcm = new ArraySet<>();
     private final Set<String> mBrevent = new ArraySet<>();
     private final Set<String> mPriority = new ArraySet<>();
     private final Set<String> mKilled = new ArraySet<>();
@@ -198,6 +199,9 @@ public class BreventServer extends Handler {
                         String value = line.substring(index + 1);
                         mConfiguration.setValue(key, value);
                     }
+                }
+                if (!mConfiguration.optimizePriority) {
+                    mConfiguration.allowGcm = false;
                 }
             } catch (IOException e) {
                 ServerLog.w("Can't load configuration from " + file, e);
@@ -429,8 +433,14 @@ public class BreventServer extends Handler {
             ServerLog.d("notifications: " + notifications);
         }
 
+        allowGcm.clear();
+        size = notifications.size();
+        for (int i = 0; i < size; ++i) {
+            allowGcm.add(notifications.keyAt(i));
+        }
+        allowGcm.retainAll(mGcm);
         if (!blocking.isEmpty() && mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
-            ServerLog.d("gcm: " + mGcm);
+            ServerLog.d("gcm: " + allowGcm);
         }
 
         boolean checkLater = false;
@@ -555,7 +565,7 @@ public class BreventServer extends Handler {
     }
 
     private void setStopped(String packageName, boolean current) {
-        if (mConfiguration.allowGcm && mGcm.contains(packageName)) {
+        if (mConfiguration.allowGcm && allowGcm.contains(packageName)) {
             if (current) {
                 HideApi.setStopped(packageName, false, mUser);
             }
