@@ -236,11 +236,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     @Override
     public void onClick(View v) {
         if (v instanceof CardView) {
-            if (mSelected.isEmpty()) {
-                v.showContextMenu();
-            } else {
-                onSelected((CardView) v);
-            }
+            v.showContextMenu();
         } else if (v instanceof ImageView) {
             if (v.getId() == R.id.icon) {
                 onSelected((CardView) v.getParent().getParent());
