@@ -72,6 +72,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
     public static final int MESSAGE_BREVENT_REQUEST = 4;
+    public static final int MESSAGE_RETRIEVE3 = 5;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -805,7 +806,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public void runAsRoot() {
         showProgress(R.string.process_retrieving);
-        BreventIntentService.startBrevent(this);
+        BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, 0x1500);
     }
 

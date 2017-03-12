@@ -1169,6 +1169,8 @@ public class BreventServer extends Handler {
         socketThread.start();
 
         breventServer.handleStatus(BreventToken.EMPTY_TOKEN);
+        ServerLog.d("sent first status");
+
         Looper.loop();
 
         breventEvent.quit();

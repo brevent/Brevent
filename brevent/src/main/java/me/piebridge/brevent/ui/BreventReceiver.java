@@ -17,7 +17,7 @@ public class BreventReceiver extends BroadcastReceiver {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
                 UILog.d("received: " + action);
-                BreventIntentService.startBrevent(context);
+                BreventIntentService.startBrevent(context, action);
             }
         }
     }

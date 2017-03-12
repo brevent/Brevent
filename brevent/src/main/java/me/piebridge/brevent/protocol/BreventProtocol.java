@@ -38,6 +38,8 @@ public class BreventProtocol implements Parcelable {
 
     private int mAction;
 
+    public boolean retry;
+
     public BreventProtocol(int action) {
         this.mVersion = VERSION;
         this.mAction = action;

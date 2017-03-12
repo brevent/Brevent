@@ -22,9 +22,13 @@ public class AppsActivityHandler extends Handler {
 
     public static final long DELAY = 15000;
 
+    public static final int LATER = 3000;
+
     private final Handler uiHandler;
 
     private final WeakReference<BreventActivity> mReference;
+
+    private boolean hasResponse;
 
     public AppsActivityHandler(BreventActivity activity, Handler handler) {
         super(newLooper());
@@ -42,12 +46,24 @@ public class AppsActivityHandler extends Handler {
     public void handleMessage(Message message) {
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
+                UILog.d("request status");
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
             case BreventActivity.MESSAGE_RETRIEVE2:
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 send(new BreventProtocol(BreventProtocol.STATUS_REQUEST));
                 break;
+            case BreventActivity.MESSAGE_RETRIEVE3:
+                UILog.d("retry request status");
+                BreventProtocol breventProtocol = new BreventProtocol(BreventProtocol.STATUS_REQUEST);
+                breventProtocol.retry = true;
+                send(breventProtocol);
+                break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
+                if (!hasResponse) {
+                    UILog.d("received response");
+                    hasResponse = true;
+                }
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol breventResponse = (BreventProtocol) message.obj;
                 if (breventResponse.versionUnmatched()) {
@@ -71,22 +87,32 @@ public class AppsActivityHandler extends Handler {
 
     @WorkerThread
     private void send(BreventProtocol message) {
+        int action = message.getAction();
         try {
             Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT);
+            if (action == BreventProtocol.STATUS_REQUEST) {
+                socket.setSoTimeout(LATER);
+            }
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
             message.writeTo(os);
             os.flush();
             socket.close();
-            if (message.getAction() != BreventProtocol.STATUS_REQUEST) {
+            if (action != BreventProtocol.STATUS_REQUEST) {
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE, DELAY);
             } else {
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE, DELAY * 2);
             }
         } catch (ConnectException e) {
             UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+            if (!message.retry) {
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+            }
         } catch (IOException | RemoteException e) {
+            UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
+        }
+        if (!hasResponse && action == BreventProtocol.STATUS_REQUEST) {
+            sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, LATER);
         }
     }
 

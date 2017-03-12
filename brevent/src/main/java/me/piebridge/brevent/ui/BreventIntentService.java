@@ -11,6 +11,7 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.BuildConfig;
+import me.piebridge.brevent.protocol.BreventIntent;
 
 public class BreventIntentService extends IntentService {
 
@@ -21,8 +22,9 @@ public class BreventIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         BreventApplication application = (BreventApplication) getApplication();
-        UILog.d("onHandleIntent, startBrevent, started: " + application.started);
-        if (!application.started) {
+        String action = intent.getAction();
+        UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
+        if (!application.started || BreventIntent.ACTION_BREVENT.equals(action)) {
             application.started = true;
             startBrevent();
         }
@@ -50,8 +52,10 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    public static void startBrevent(Context context) {
-        context.startService(new Intent(context, BreventIntentService.class));
+    public static void startBrevent(Context context, String action) {
+        Intent intent = new Intent(context, BreventIntentService.class);
+        intent.setAction(action);
+        context.startService(intent);
     }
 
 }
