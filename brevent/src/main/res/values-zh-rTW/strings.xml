@@ -129,7 +129,7 @@
 
     <string name="brevent_advanced">高級功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">啟用之後，如果這些“優先通知應用”有通知或者在後台運行，黑域都不會強行停止；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n推薦為帳號同步及通信類應用設置優先通知；當然，更建議不要黑域它們。建議捐贈 1 美元</string>
+    <string name="brevent_optimize_priority_label">啟用之後，如果這些「優先通知應用」有通知或者在後台運行，黑域都不會強行停止；同時，保證它們被服務喚醒之後，至少運行 30 秒\n\n推薦為帳號同步及通信類應用設置優先通知；當然，更建議不要黑域它們。建議捐贈 1 美元</string>
     <string name="brevent_allow_gcm">允許 GCM 推送</string>
     <string name="brevent_allow_gcm_label">這項功能允許被黑域後的應用程式接收 GCM 消息。開啓之後，能被 GCM 和其它广播喚醒；但是，喚醒之後如果沒有消息，黑域會清理它們\n\n依賴「保持通知」。建議捐贈 1 美元</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
