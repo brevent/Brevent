@@ -103,10 +103,10 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     @Override
     public void showPlay(Collection<String> purchased) {
-        if (purchased != null && !purchased.isEmpty()) {
-            updatePlayDonation(purchased);
+        if (purchased == null) {
+            settingsFragment.updatePlayDonation(-1, -1);
         } else {
-            updatePlayDonation(Collections.<String>emptyList());
+            updatePlayDonation(purchased);
         }
         super.showPlay(purchased);
     }

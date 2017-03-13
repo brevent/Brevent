@@ -445,7 +445,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     @CallSuper
     public void showPlay(Collection<String> purchased) {
-        if (purchased != null && canDonatePlay(purchased)) {
+        if (purchased == null) {
+            activateDonations();
+        } else if (canDonatePlay(purchased)) {
             Collection<DonateItem> items = new ArrayList<>(0x1);
             checkPackage(items, R.id.play, PACKAGE_PLAY);
             if (!items.isEmpty()) {

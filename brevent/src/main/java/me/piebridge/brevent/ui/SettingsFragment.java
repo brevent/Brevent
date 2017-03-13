@@ -127,13 +127,18 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (total <= 0) {
             preferenceDonation.setChecked(true);
             onShowDonationChanged();
-            if (getArguments().getBoolean(IS_PLAY, false)) {
+            breventUi.removePreference(preferenceDonation);
+            if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
                 preferenceOptimizePriority.setEnabled(false);
                 preferenceOptimizePriority.setChecked(false);
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
+            } else {
+                preferenceOptimizePriority.setEnabled(true);
+                preferenceAllowGcm.setEnabled(true);
+                preferenceAllowRoot.setEnabled(true);
             }
         } else {
             breventUi.addPreference(preferenceDonation);
