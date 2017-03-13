@@ -354,6 +354,7 @@ public class BreventServer extends Handler {
             ServerLog.d("recent: " + recent);
         }
 
+        SimpleArrayMap<String, Boolean> notifications = dumpNotifications();
         Collection<String> blocking = new ArraySet<>();
         Collection<String> noRecent = new ArraySet<>();
         Collection<String> standby = new ArraySet<>();
@@ -371,6 +372,9 @@ public class BreventServer extends Handler {
                 if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
                     ServerLog.d("inactive for " + packageName + ": " + (inactive == 0 ? 0 : now - inactive) + ", timeout: " + timeout);
                 }
+                if (!recent.contains(packageName)) {
+                    noRecent.add(packageName);
+                }
                 if (inactive == 0) {
                     blocking.add(packageName);
                 } else {
@@ -378,9 +382,9 @@ public class BreventServer extends Handler {
                     if (timeout > 0 && now - inactive > timeout) {
                         blocking.add(packageName);
                     }
-                }
-                if (!recent.contains(packageName)) {
-                    noRecent.add(packageName);
+                    if (notifications.get(packageName) != null) {
+                        noRecent.remove(packageName);
+                    }
                 }
                 if (BreventStatus.isStandby(status)) {
                     standby.add(packageName);
@@ -426,7 +430,6 @@ public class BreventServer extends Handler {
             blocking.remove(mPackageName);
         }
 
-        SimpleArrayMap<String, Boolean> notifications = dumpNotifications();
         if (Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
             ServerLog.d("back: " + back);
             ServerLog.d("service: " + services);
@@ -463,7 +466,10 @@ public class BreventServer extends Handler {
             } else if (mServices.contains(packageName)) {
                 ServerLog.d("ignore " + packageName + ", wait for the service check");
             } else {
-                checkLater |= brevent(packageName, standby, !noRecent.contains(packageName), notifications.get(packageName));
+                brevent(packageName, standby, !noRecent.contains(packageName), notifications.get(packageName));
+                if (!checkLater && recent.contains(packageName)) {
+                    checkLater = true;
+                }
             }
         }
 
@@ -524,7 +530,7 @@ public class BreventServer extends Handler {
         }
     }
 
-    private boolean brevent(String packageName, Collection<String> standby, boolean recent, Boolean notification) {
+    private void brevent(String packageName, Collection<String> standby, boolean recent, Boolean notification) {
         switch (mConfiguration.method) {
             case BreventConfiguration.BREVENT_METHOD_FORCE_STOP_ONLY:
                 if (mKilled3.contains(packageName)) {
@@ -532,23 +538,22 @@ public class BreventServer extends Handler {
                 } else {
                     forceStop(packageName, "(forceStop)", notification);
                 }
-                return false;
+                break;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_ONLY:
                 standby(standby.contains(packageName), packageName);
-                return false;
+                break;
             case BreventConfiguration.BREVENT_METHOD_STANDBY_FORCE_STOP:
                 if (recent || Boolean.TRUE.equals(notification)) {
                     standby(standby.contains(packageName), packageName);
-                    return true;
                 } else if (mKilled3.contains(packageName)) {
                     ServerLog.i("ignore killing " + packageName + ", standby it, recommend remove from brevent");
                     standby(standby.contains(packageName), packageName);
                 } else {
                     forceStop(packageName, "(noRecent)", notification);
                 }
-                return false;
+                break;
             default:
-                return false;
+                break;
         }
     }
 
