@@ -362,6 +362,7 @@ public class BreventServer extends Handler {
         int size = processes.size();
         int now = TimeUtils.now();
         int timeout = mConfiguration.timeout;
+        Set<String> foregroundService = new ArraySet<>();
         for (int i = 0; i < size; ++i) {
             String packageName = processes.keyAt(i);
             SparseIntArray status = processes.valueAt(i);
@@ -383,6 +384,9 @@ public class BreventServer extends Handler {
                 }
                 if (BreventStatus.isStandby(status)) {
                     standby.add(packageName);
+                }
+                if (BreventStatus.isForegroundService(status)) {
+                    foregroundService.add(packageName);
                 }
             }
         }
@@ -431,12 +435,15 @@ public class BreventServer extends Handler {
             ServerLog.d("unsafe: " + unsafe);
             ServerLog.d("final blocking: " + blocking);
             ServerLog.d("notifications: " + notifications);
+            ServerLog.d("foreground service: " + foregroundService);
         }
 
         allowGcm.clear();
         size = notifications.size();
         for (int i = 0; i < size; ++i) {
-            allowGcm.add(notifications.keyAt(i));
+            if (notifications.valueAt(i) != null) {
+                allowGcm.add(notifications.keyAt(i));
+            }
         }
         allowGcm.retainAll(mGcm);
         if (!blocking.isEmpty() && mConfiguration.allowGcm && Log.isLoggable(ServerLog.TAG, Log.DEBUG)) {
@@ -449,7 +456,9 @@ public class BreventServer extends Handler {
                 // shouldn't happen
                 continue;
             }
-            if (services.contains(packageName)) {
+            if (!notifications.containsKey(packageName) && foregroundService.contains(packageName)) {
+                forceStop(packageName, "(foreground service no notification)", null);
+            } else if (services.contains(packageName)) {
                 forceStop(packageName, "(service)", notifications.get(packageName));
             } else if (mServices.contains(packageName)) {
                 ServerLog.d("ignore " + packageName + ", wait for the service check");
@@ -481,7 +490,9 @@ public class BreventServer extends Handler {
         Set<String> priority = new ArraySet<>();
         int size = notifications.size();
         for (int i = 0; i < size; ++i) {
-            priority.add(notifications.keyAt(i));
+            if (notifications.valueAt(i) != null) {
+                priority.add(notifications.keyAt(i));
+            }
         }
         mPriority.clear();
         mPriority.addAll(priority);

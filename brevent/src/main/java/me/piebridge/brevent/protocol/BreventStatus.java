@@ -166,11 +166,22 @@ public class BreventStatus extends BreventToken implements Parcelable {
         int size = status.size();
         for (int i = 0; i < size; ++i) {
             int processState = status.keyAt(i);
-            if (isProcess(processState) && !HideApiOverride.isService(processState)) {
-                return false;
+            if (HideApiOverride.isService(processState)) {
+                return true;
             }
         }
-        return true;
+        return false;
+    }
+
+    public static boolean isForegroundService(@NonNull SparseIntArray status) {
+        int size = status.size();
+        for (int i = 0; i < size; ++i) {
+            int processState = status.keyAt(i);
+            if (HideApiOverride.isForegroundService(processState)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

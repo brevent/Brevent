@@ -372,7 +372,6 @@ class HideApi {
                 } else if (line.contains("priority=MAX")) {
                     String packageName = StringUtils.substring(line.trim(), "", " ");
                     notifications.put(packageName, false);
-
                 }
             }
         }
@@ -380,6 +379,8 @@ class HideApi {
             int indexOfKey = notifications.indexOfKey(packageName);
             if (indexOfKey >= 0) {
                 notifications.setValueAt(indexOfKey, true);
+            } else {
+                notifications.put(packageName, null);
             }
         }
         if (!file.delete()) {

@@ -90,4 +90,8 @@ public class HideApiOverride {
                 ActivityManager.RECENT_INCLUDE_PROFILES;
     }
 
+    public static boolean isForegroundService(int processState) {
+        return processState == ActivityManager.PROCESS_STATE_FOREGROUND_SERVICE;
+    }
+
 }
