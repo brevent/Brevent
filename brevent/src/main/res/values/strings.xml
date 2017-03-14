@@ -131,11 +131,11 @@
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_optimize_priority">Keep notifications</string>
-    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force stop priority app if it has notification or running in background, and will make sure it survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" for syncable account apps, IM apps or remove them from Brevent list. Recommend donate 1 USD</string>
+    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force stop priority app if it has notification or running in background, and will make sure it survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
     <string name="brevent_allow_gcm">Allow GCM</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented apps to receive GCM message. If it\'s on, it can awake by GCM and other broadcast\n\nDepends on "Optimize Priority Apps". Recommend donate 1 USD</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented user apps to receive GCM message. If it\'s on, it can awake by GCM and other broadcast\n\nDepends on "Keep notifications". Requires donate total 2 USD for Play version, feel free to donate for other version</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without "USB Debugging"\n\Be careful, there is no support. Recommend donate 3 USD</string>
+    <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without "USB Debugging"\n\Be careful, there is no support. Requires donate total 3 USD for Play version, feel free to donate for other version</string>
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>

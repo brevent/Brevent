@@ -38,7 +38,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private SwitchPreference preferenceDonation;
 
-    private SwitchPreference preferenceOptimizePriority;
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
 
@@ -59,12 +58,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
-        preferenceOptimizePriority = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_OPTIMIZE_PRIORITY);
         preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
         if (getArguments().getBoolean(IS_PLAY, false)) {
-            preferenceOptimizePriority.setEnabled(false);
             preferenceAllowGcm.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
         } else {
@@ -129,32 +126,26 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             onShowDonationChanged();
             breventUi.removePreference(preferenceDonation);
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
-                preferenceOptimizePriority.setEnabled(false);
-                preferenceOptimizePriority.setChecked(false);
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             } else {
-                preferenceOptimizePriority.setEnabled(true);
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             }
         } else {
             breventUi.addPreference(preferenceDonation);
             if (total == 1) {
-                preferenceOptimizePriority.setEnabled(true);
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             } else if (total == 2) {
-                preferenceOptimizePriority.setEnabled(true);
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             } else {
-                preferenceOptimizePriority.setEnabled(true);
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             }
