@@ -3,9 +3,20 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <paths.h>
-#include <libgen.h>
 #include <dirent.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <android/log.h>
+
+#ifdef __ANDROID__
+#define TAG "BreventLoader"
+#define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
+#define LOGE(...) (__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
+#else
+#define LOGE printf
+#define LOGD printf
+#endif
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
 
@@ -15,11 +26,93 @@
 #define APP_PROCESS "/system/bin/app_process32"
 #endif
 
-static int bootstrap() {
-    char *arg[] = {APP_PROCESS, "/system/bin", "--nice-name=brevent_server",
-                   "me.piebridge.brevent.loader.Brevent", NULL};
+sig_atomic_t update;
 
+#if defined(__aarch64__)
+#define ABI "arm64"
+#elif defined(__arm__)
+#define ABI "arm"
+#elif defined(__x86_64__)
+#define ABI "x86_64"
+#elif defined(__i386__)
+#define ABI "x86"
+#endif
+
+static char *getloader(char *loader) {
+    for (int i = 1; i <= 3; ++i) {
+        sprintf(loader, "%s/app/me.piebridge.brevent-%d/lib/" ABI "/libloader.so",
+                getenv("ANDROID_DATA"), i);
+        if (access(loader, F_OK) != -1) {
+            return loader;
+        }
+    }
+    loader[0] = '\0';
+    return NULL;
+}
+
+static int worker() {
+    char loader[PATH_MAX];
+    char classpath[PATH_MAX];
+    char *arg[] = {APP_PROCESS, "/system/bin", "--nice-name=brevent_worker",
+                   "me.piebridge.brevent.loader.Brevent", NULL};
+    memset(loader, 0, PATH_MAX);
+    if (getloader(loader) == NULL) {
+        LOGE("no loader");
+        return -1;
+    }
+    LOGD("loader: %s", loader);
+    pid_t pid = fork();
+    switch (pid) {
+        case -1:
+            LOGE("cannot fork");
+            return -1;
+        case 0:
+            break;
+        default:
+            return pid;
+    }
+    memset(classpath, 0, PATH_MAX);
+    sprintf(classpath, "CLASSPATH=%s", loader);
+    putenv(classpath);
     return execv(arg[0], arg);
+}
+
+static void update_proc_title(char **argv) {
+    if (argv[1] != NULL) {
+        argv[1] = NULL;
+    }
+    if (strlen(argv[0]) >= strlen("brevent_server")) {
+        strcpy(argv[0], "brevent_server");
+    } else {
+        LOGE("can't set argv[0] to brevent_server");
+    }
+}
+
+static int server(char **argv) {
+    sigset_t set;
+
+    sigemptyset(&set);
+    sigaddset(&set, SIGCHLD);
+
+    if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
+        LOGE("cannot sigprocmask");
+    }
+    sigemptyset(&set);
+
+    update_proc_title(argv);
+
+    if (worker() <= 0) {
+        return -EPERM;
+    }
+
+    for (;;) {
+        sigsuspend(&set);
+        LOGD("signal arrived, update: %d", update);
+        if (!update || worker() <= 0) {
+            break;
+        }
+    }
+    return 0;
 }
 
 static void feedback() {
@@ -138,16 +231,40 @@ static void check_original() {
     }
 }
 
+static void signal_handler(int signo) {
+    if (signo == SIGCHLD) {
+        pid_t pid;
+        int status;
+        for (;;) {
+            pid = waitpid(-1, &status, WNOHANG);
+            if (pid == 0) {
+                return;
+            }
+            if (pid == -1) {
+                return;
+            }
+            update = 0;
+            if (WIFEXITED(status)) {
+                if (WEXITSTATUS(status) == 0) {
+                    LOGD("worker %d exited with status %d", pid, WEXITSTATUS(status));
+                    update = 1;
+                } else {
+                    LOGE("worker %d exited with status %d", pid, WEXITSTATUS(status));
+                }
+            } else if (WIFSIGNALED(status)) {
+                LOGE("worker %d exited on signal %d", pid, WTERMSIG(status));
+            }
+        }
+    }
+}
+
 int main(int argc, char **argv) {
     int fd;
-    char classpath[0x1000];
     struct timeval tv;
-    time_t now;
 
     check_original();
 
-    sprintf(classpath, "CLASSPATH=%s/%s", dirname(argv[0]), "libloader.so");
-    putenv(classpath);
+    signal(SIGCHLD, signal_handler);
 
     gettimeofday(&tv, NULL);
     switch (fork()) {
@@ -157,8 +274,7 @@ int main(int argc, char **argv) {
         case 0:
             break;
         default:
-            now = tv.tv_sec;
-            _exit(check(now));
+            _exit(check(tv.tv_sec));
     }
 
     if (setsid() == -1) {
@@ -168,14 +284,32 @@ int main(int argc, char **argv) {
 
     chdir("/");
 
-    if ((fd = open(_PATH_DEVNULL, O_RDWR, 0)) != -1) {
-        dup2(fd, STDIN_FILENO);
-        dup2(fd, STDOUT_FILENO);
-        dup2(fd, STDERR_FILENO);
-        if (fd > 2) {
-            close(fd);
-        }
+    umask(0);
+
+    if ((fd = open(_PATH_DEVNULL, O_RDWR)) == -1) {
+        perror("cannot open " _PATH_DEVNULL);
+        return -EPERM;
     }
 
-    return bootstrap();
+    if (dup2(fd, STDIN_FILENO) == -1) {
+        perror("cannot dup2(STDIN)");
+        return -EPERM;
+    }
+
+    if (dup2(fd, STDOUT_FILENO) == -1) {
+        perror("cannot dup2(STDOUT)");
+        return -EPERM;
+    }
+
+    if (dup2(fd, STDERR_FILENO) == -1) {
+        perror("cannot dup2(STDERR)");
+        return -EPERM;
+    }
+
+    if (fd > STDERR_FILENO && close(fd) == -1) {
+        perror("cannot close");
+        return -EPERM;
+    }
+
+    return server(argv);
 }

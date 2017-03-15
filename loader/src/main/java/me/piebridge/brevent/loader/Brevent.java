@@ -115,7 +115,7 @@ public class Brevent implements Runnable {
         IPackageManager packageManager = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
         if (packageManager == null) {
             Log.e(TAG, "Could not access the Package Manager. Is the system running?");
-            return;
+            System.exit(1);
         }
         PackageInfo packageInfo = getPackageInfo(packageManager, BREVENT_PACKAGE, 0, USER_OWNER);
         File nativeLibraryDir = new File(packageInfo.applicationInfo.nativeLibraryDir);
@@ -125,21 +125,16 @@ public class Brevent implements Runnable {
         Log.i(TAG, "lib: " + libDir + ", loader: " + libLoader);
         ClassLoader bootClassLoader = ClassLoader.getSystemClassLoader().getParent();
         ClassLoader loadClassLoader = new PathClassLoader(libLoader.getAbsolutePath(), libDir.getAbsolutePath(), bootClassLoader);
-        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         long previous = System.currentTimeMillis();
-        while (packageInfo != null) {
-            ClassLoader classLoader = new PathClassLoader(packageInfo.applicationInfo.sourceDir, loadClassLoader);
-            Method main = classLoader.loadClass(BREVENT_CLASS).getMethod("main", String[].class);
-            CountDownLatch latch = new CountDownLatch(0x1);
-            new Thread(new Brevent(main, latch)).start();
-            latch.await();
-            long now = System.currentTimeMillis();
-            if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MIN_SURVIVE_TIME) {
-                Log.e(TAG, "Brevent Server quit in " + MIN_SURVIVE_TIME + " seconds, quit");
-                break;
-            }
-            previous = now;
-            packageInfo = getPackageInfo(packageManager, BREVENT_PACKAGE, 0, USER_OWNER);
+        ClassLoader classLoader = new PathClassLoader(packageInfo.applicationInfo.sourceDir, loadClassLoader);
+        Method main = classLoader.loadClass(BREVENT_CLASS).getMethod("main", String[].class);
+        CountDownLatch latch = new CountDownLatch(0x1);
+        new Thread(new Brevent(main, latch)).start();
+        latch.await();
+        long now = System.currentTimeMillis();
+        if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MIN_SURVIVE_TIME) {
+            Log.e(TAG, "Brevent Server quit in " + MIN_SURVIVE_TIME + " seconds, quit");
+            System.exit(1);
         }
         if (packageInfo == null) {
             if (!libLoader.delete() || !libReader.delete() || !libDir.delete()) {

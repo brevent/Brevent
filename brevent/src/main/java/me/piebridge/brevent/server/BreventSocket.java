@@ -1,7 +1,6 @@
 package me.piebridge.brevent.server;
 
 import android.os.Handler;
-import android.os.Process;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -33,7 +32,6 @@ class BreventSocket implements Runnable {
 
     @Override
     public void run() {
-        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         for (; ; ) {
             try {
                 Socket socket = mServerSocket.accept();

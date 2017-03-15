@@ -3,7 +3,6 @@ package me.piebridge.brevent.server;
 import android.app.ActivityManager;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.EventLog;
 import android.util.Log;
@@ -47,7 +46,6 @@ class BreventEvent implements Runnable, EventHandler {
 
     @Override
     public void run() {
-        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
         LogReader.readEvents(0, this);
         ServerLog.d("Brevent Event countDown");
         mCountDownLatch.countDown();
