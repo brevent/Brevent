@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.text.format.DateUtils;
@@ -40,6 +41,7 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import me.piebridge.EventHandler;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
@@ -58,6 +60,8 @@ public class BreventServer extends Handler {
     private static final String MOVE_TASK_TO_BACK = "moveTaskToBack";
 
     private static final String OPEN_LAUNCHER = "openLauncher";
+
+    private static final int MIN_SURVIVE_TIME = 30;
 
     static final int MESSAGE_EVENT = 1;
     static final int MESSAGE_REQUEST_STATUS = 2;
@@ -1167,7 +1171,7 @@ public class BreventServer extends Handler {
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
+    private static void startBreventServer() throws IOException {
         ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " started");
         Looper.prepare();
 
@@ -1227,6 +1231,17 @@ public class BreventServer extends Handler {
         }
         long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - breventServer.mTime);
         ServerLog.i("Brevent Server " + BuildConfig.VERSION_NAME + " completed, live " + DateUtils.formatElapsedTime(seconds));
+    }
+
+    public static void main(String[] args) throws IOException {
+        ServerLog.i("classloader: " + EventHandler.class.getClassLoader());
+        long previous = System.currentTimeMillis();
+        startBreventServer();
+        long now = System.currentTimeMillis();
+        if (TimeUnit.MILLISECONDS.toSeconds(now - previous) < MIN_SURVIVE_TIME) {
+            ServerLog.i("Brevent Server quit in " + MIN_SURVIVE_TIME + " seconds, quit");
+            System.exit(1);
+        }
     }
 
     private static class ActivitiesHolder {

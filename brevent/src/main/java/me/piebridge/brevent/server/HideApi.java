@@ -553,7 +553,8 @@ class HideApi {
     public static IPackageManager getPackageManager() {
         IPackageManager packageManager = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
         if (packageManager == null) {
-            throw new UnsupportedOperationException("Can't get PackageManager from package");
+            ServerLog.e("Could not access the Package Manager. Is the system running?");
+            System.exit(1);
         }
         return packageManager;
     }

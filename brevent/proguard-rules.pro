@@ -27,10 +27,6 @@
     public static void main(java.lang.String[]);
 }
 
--keep class me.piebridge.brevent.loader.Brevent {
-    public static void main(java.lang.String[]);
-}
-
 -keep class me.piebridge.EventHandler { *; }
 
 -keep class me.piebridge.LogReader { *; }
@@ -48,4 +44,3 @@
 # -repackageclasses ''
 
 # -allowaccessmodification
-

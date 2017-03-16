@@ -27,7 +27,7 @@
 #endif
 
 sig_atomic_t update;
-sig_atomic_t ignore;
+sig_atomic_t quited;
 
 #if defined(__aarch64__)
 #define ABI "arm64"
@@ -39,13 +39,25 @@ sig_atomic_t ignore;
 #define ABI "x86"
 #endif
 
+static void rstrip(char *loader) {
+    char *path = strchr(loader, '\r');
+    if (path != NULL) {
+        *path = '\0';
+    }
+    path = strchr(loader, '\n');
+    if (path != NULL) {
+        *path = '\0';
+    }
+}
+
 static int worker() {
     FILE *file;
     char *path;
     char loader[PATH_MAX];
     char classpath[PATH_MAX];
-    char *arg[] = {APP_PROCESS, "-Djava.library.path=/data/app/me.piebridge.brevent-1/lib/" ABI ":/data/app/me.piebridge.brevent-2/lib/" ABI, "/system/bin", "--nice-name=brevent_worker",
-                   "me.piebridge.brevent.loader.Brevent", NULL};
+    char *arg[] = {APP_PROCESS, NULL,
+                   "/system/bin", "--nice-name=brevent_server",
+                   "me.piebridge.brevent.server.BreventServer", NULL};
     memset(loader, 0, PATH_MAX);
     file = popen("pm path me.piebridge.brevent", "r");
     if (file != NULL) {
@@ -54,14 +66,7 @@ static int worker() {
     } else {
         return -1;
     }
-    path = strchr(loader, '\r');
-    if (path != NULL) {
-        *path = '\0';
-    }
-    path = strchr(loader, '\n');
-    if (path != NULL) {
-        *path = '\0';
-    }
+    rstrip(loader);
     path = strchr(loader, ':');
     if (path == NULL) {
         return -1;
@@ -71,6 +76,24 @@ static int worker() {
     if (access(path, F_OK) == -1) {
         LOGE("can't find loader: %s", path);
         return -1;
+    }
+    memset(classpath, 0, PATH_MAX);
+    sprintf(classpath, "CLASSPATH=%s", path);
+
+    file = popen("dumpsys package me.piebridge.brevent", "r");
+    if (file != NULL) {
+        while (fgets(loader, sizeof(loader), file) != NULL) {
+            path = strstr(loader, "legacyNativeLibraryDir=");
+            if (path != NULL) {
+                path = strchr(loader, '=');
+                path++;
+                rstrip(loader);
+                sprintf(loader, "-Djava.library.path=%s/" ABI, path);
+                arg[1] = loader;
+                break;
+            }
+        }
+        pclose(file);
     }
     pid_t pid = fork();
     switch (pid) {
@@ -82,9 +105,10 @@ static int worker() {
         default:
             return pid;
     }
-    memset(classpath, 0, PATH_MAX);
-    sprintf(classpath, "CLASSPATH=%s", path);
+    LOGD("classpath: %s", classpath);
+    LOGD("java.library.path: %s", arg[1]);
     putenv(classpath);
+    quited = 0;
     return execv(arg[0], arg);
 }
 
@@ -92,10 +116,10 @@ static void update_proc_title(char **argv) {
     if (argv[1] != NULL) {
         argv[1] = NULL;
     }
-    if (strlen(argv[0]) >= strlen("brevent_server")) {
-        strcpy(argv[0], "brevent_server");
+    if (strlen(argv[0]) >= strlen("brevent_daemon")) {
+        strcpy(argv[0], "brevent_daemon");
     } else {
-        LOGE("can't set argv[0] to brevent_server");
+        LOGE("can't set argv[0] to brevent_daemon");
     }
 }
 
@@ -118,13 +142,12 @@ static int server(char **argv) {
 
     for (;;) {
         sigsuspend(&set);
-        LOGD("signal arrived, update: %d, ignore: %d", update, ignore);
-        if (!ignore) {
-            if (!update || worker() <= 0) {
-                break;
-            }
+        LOGD("signal arrived, update: %d, quited: %d", update, quited);
+        if (quited && (!update || worker() <= 0)) {
+            break;
         }
     }
+
     return 0;
 }
 
@@ -250,14 +273,10 @@ static void signal_handler(int signo) {
         int status;
         for (;;) {
             pid = waitpid(-1, &status, WNOHANG);
-            ignore = 1;
-            if (pid == 0) {
+            if (pid == 0 || pid == -1) {
                 return;
             }
-            if (pid == -1) {
-                return;
-            }
-            ignore = 0;
+            quited = 1;
             update = 0;
             if (WIFEXITED(status)) {
                 if (WEXITSTATUS(status) == 0) {
