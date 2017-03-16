@@ -134,11 +134,11 @@ task renameBootstrap {
     doLast {
         rootProject.abiFilters.each { abi ->
             copy {
-                from file("src/main/libs/${abi}/bootstrap")
+                from file("src/main/libs/${abi}/brevent")
                 into "src/main/libs/${abi}"
-                rename { 'libbootstrap.so' }
+                rename { 'libbrevent.so' }
             }
-            delete file("src/main/libs/${abi}/bootstrap")
+            delete file("src/main/libs/${abi}/brevent")
         }
     }
 }
@@ -162,6 +162,7 @@ task cleanBootstrap(type: Exec) {
 
 task deleteNativeBuild(type: Delete) {
     delete file('.externalNativeBuild')
+    delete file('src/main/obj')
 }
 
 tasks.withType(JavaCompile) { compileTask ->

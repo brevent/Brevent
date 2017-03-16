@@ -31,7 +31,7 @@ public class BreventIntentService extends IntentService {
     }
 
     private void startBrevent() {
-        String name = "libbootstrap.so";
+        String name = "libbrevent.so";
         try {
             PackageManager packageManager = getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
@@ -45,7 +45,7 @@ public class BreventIntentService extends IntentService {
                     }
                 }
             } else {
-                UILog.e("Can't find libbootstrap.so");
+                UILog.e("Can't find libbrevent.so");
             }
         } catch (PackageManager.NameNotFoundException e) {
             // ignore

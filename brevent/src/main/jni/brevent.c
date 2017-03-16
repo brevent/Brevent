@@ -38,7 +38,8 @@ sig_atomic_t quited;
 #endif
 
 static void rstrip(char *loader) {
-    char *path = strchr(loader, '\r');
+    char *path;
+    path = strchr(loader, '\r');
     if (path != NULL) {
         *path = '\0';
     }
@@ -51,26 +52,26 @@ static void rstrip(char *loader) {
 static int worker() {
     FILE *file;
     char *path;
-    char loader[PATH_MAX];
+    char line[PATH_MAX];
+    char libreader[PATH_MAX];
     char classpath[PATH_MAX];
     char *arg[] = {APP_PROCESS, NULL,
                    "/system/bin", "--nice-name=brevent_server",
                    "me.piebridge.brevent.server.BreventServer", NULL};
-    memset(loader, 0, PATH_MAX);
     file = popen("pm path me.piebridge.brevent", "r");
     if (file != NULL) {
-        fgets(loader, sizeof(loader), file);
+        fgets(line, sizeof(line), file);
+        rstrip(line);
         pclose(file);
     } else {
         return -1;
     }
-    rstrip(loader);
-    path = strchr(loader, ':');
+    path = strchr(line, ':');
     if (path == NULL) {
         return -1;
     }
     path++;
-    LOGD("loader: %s", path);
+    LOGD("loader path: %s", path);
     if (access(path, F_OK) == -1) {
         LOGE("can't find loader: %s", path);
         return -1;
@@ -80,18 +81,22 @@ static int worker() {
 
     file = popen("dumpsys package me.piebridge.brevent", "r");
     if (file != NULL) {
-        while (fgets(loader, sizeof(loader), file) != NULL) {
-            path = strstr(loader, "legacyNativeLibraryDir=");
+        while (fgets(line, sizeof(line), file) != NULL) {
+            rstrip(line);
+            path = strstr(line, "legacyNativeLibraryDir=");
             if (path != NULL) {
-                path = strchr(loader, '=');
+                path = strchr(line, '=');
                 path++;
-                rstrip(loader);
-                sprintf(loader, "%s/" ABI "/libreader.so", path);
-                LOGD("libreader: %s", loader);
-                if (access(loader, F_OK)) {
-                    sprintf(loader, "-Djava.libreader.path=%s", loader);
-                    arg[1] = loader;
+                memset(libreader, 0, PATH_MAX);
+                sprintf(libreader, "%s/" ABI "/libreader.so", path);
+                LOGD("libreader: %s", libreader);
+                if (access(libreader, F_OK) == -1) {
+                    LOGE("can't find libreader: %s", libreader);
+                    return -1;
                 }
+                memset(libreader, 0, PATH_MAX);
+                sprintf(libreader, "-Djava.libreader.path=%s/" ABI "/libreader.so", path);
+                arg[1] = libreader;
                 break;
             }
         }
@@ -107,25 +112,17 @@ static int worker() {
         default:
             return pid;
     }
-    LOGD("classpath: %s", classpath);
-    LOGD("java.library.path: %s", arg[1]);
     putenv(classpath);
     quited = 0;
     return execv(arg[0], arg);
 }
 
-static void update_proc_title(char **argv) {
-    if (argv[1] != NULL) {
-        argv[1] = NULL;
-    }
-    if (strlen(argv[0]) >= strlen("brevent_daemon")) {
-        strcpy(argv[0], "brevent_daemon");
-    } else {
-        LOGE("can't set argv[0] to brevent_daemon");
-    }
+static void update_proc_title(size_t length, char *arg) {
+    memset(arg, 0, length);
+    strlcpy(arg, "brevent_daemon", length);
 }
 
-static int server(char **argv) {
+static int server(size_t length, char *arg) {
     sigset_t set;
 
     sigemptyset(&set);
@@ -136,7 +133,7 @@ static int server(char **argv) {
     }
     sigemptyset(&set);
 
-    update_proc_title(argv);
+    update_proc_title(length, arg);
 
     if (worker() <= 0) {
         return -EPERM;
@@ -294,6 +291,12 @@ static void signal_handler(int signo) {
     }
 }
 
+static size_t compute(int argc, char **argv) {
+    char *s = argv[0];
+    char *e = argv[argc - 1];
+    return (e - s) + strlen(argv[argc - 1]) + 1;
+}
+
 int main(int argc, char **argv) {
     int fd;
     struct timeval tv;
@@ -347,5 +350,5 @@ int main(int argc, char **argv) {
         return -EPERM;
     }
 
-    return server(argv);
+    return server(compute(argc, argv), argv[0]);
 }

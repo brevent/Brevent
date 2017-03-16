@@ -1,7 +1,6 @@
 package me.piebridge;
 
-import android.text.TextUtils;
-import android.util.Log;
+import java.io.File;
 
 /**
  * LogReader, similar like logcat
@@ -11,11 +10,10 @@ public class LogReader {
 
     static {
         String libReader = System.getProperty("java.libreader.path");
-        Log.d("BreventLoader", "libReader: " + libReader);
-        if (TextUtils.isEmpty(libReader)) {
-            System.loadLibrary("reader");
+        if (libReader != null && new File(libReader).isFile()) {
+            System.load(libReader);
         } else {
-            System.loadLibrary(libReader);
+            System.loadLibrary("reader");
         }
     }
 

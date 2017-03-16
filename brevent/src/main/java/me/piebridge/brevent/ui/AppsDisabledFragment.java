@@ -98,7 +98,7 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
     }
 
     private String getBootstrapCommandLine() {
-        String name = "libbootstrap.so";
+        String name = "libbrevent.so";
         try {
             PackageManager packageManager = getActivity().getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
