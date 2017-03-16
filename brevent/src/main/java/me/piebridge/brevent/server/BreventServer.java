@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -1181,12 +1182,15 @@ public class BreventServer extends Handler {
         ServerSocket serverSocket = new ServerSocket();
         serverSocket.setReuseAddress(true);
         InetSocketAddress socketAddress = new InetSocketAddress(BreventProtocol.HOST, BreventProtocol.PORT);
+        BindException bindException;
         long start = System.currentTimeMillis();
         do {
             try {
                 serverSocket.bind(socketAddress, 50);
+                bindException = null;
                 break;
             } catch (BindException e) {
+                bindException = e;
                 ServerLog.i("Can't bind, try later: " + e.getMessage());
             }
             try {
@@ -1195,6 +1199,9 @@ public class BreventServer extends Handler {
                 ServerLog.i("Can't sleep");
             }
         } while (System.currentTimeMillis() - start < CHECK_LATER_SERVICE);
+        if (bindException != null) {
+            throw bindException;
+        }
         Thread socketThread = new Thread(new BreventSocket(breventServer, serverSocket, socketLatch));
         socketThread.start();
 

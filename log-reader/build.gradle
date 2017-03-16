@@ -1,8 +1,50 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
 
-dependencies {
-    compileOnly project(':hidden-api-override')
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            ndk {
+                setAbiFilters rootProject.abiFilters
+            }
+        }
+        debug {
+            ndk {
+                setAbiFilters rootProject.abiFilters
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
+
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+task deleteLogStub(type: Delete) {
+    delete fileTree('build') {
+        include '**/liblog.so'
+    }
+}
+
+task deleteNativeBuild(type: Delete) {
+    delete file('.externalNativeBuild')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'externalNativeBuildRelease' || task.name == 'externalNativeBuildDebug') {
+        task.finalizedBy deleteLogStub
+    }
+    if (task.name == 'clean') {
+        task.finalizedBy deleteNativeBuild
+    }
+}

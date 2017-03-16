@@ -110,10 +110,9 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}"
     compile "com.android.support:design:${rootProject.supportLibraryVersion}"
     compile project(':donation')
-    compile project(':log-reader-jni')
+    compile project(':log-reader')
     compile project(':brevent-override')
     compile project(':brevent-override-m')
-    provided project(':log-reader')
     compile 'eu.chainfire:libsuperuser:1.0.0.201608240809'
 }
 
@@ -144,23 +143,6 @@ task renameBootstrap {
     }
 }
 
-task copyLoader {
-    doLast {
-        fileTree("build/intermediates/transforms/stripDebugSymbol").visit { details ->
-            if (details.name == "lib") {
-                rootProject.abiFilters.each { abi ->
-                    copy {
-                        from fileTree(dir: project(':loader').file('build/intermediates/transforms/dex/release'), include: ['**/*.dex']).asPath
-                        rename { 'libloader.so' }
-                        into file("${details.file}/${abi}")
-                    }
-                }
-                details.stopVisiting()
-            }
-        }
-    }
-}
-
 task buildBootstrap(type: Exec) {
     commandLine "${android.ndkDirectory}/ndk-build",
             '-C', file('src/main/jni').path,
@@ -175,22 +157,16 @@ task cleanBootstrap(type: Exec) {
             '-C', file('src/main/jni').path,
             'APP_BUILD_SCRIPT=Android.mk',
             'NDK_APPLICATION_MK=Application.mk',
-            'clean'
+            'clean', '-k'
 }
 
 task deleteNativeBuild(type: Delete) {
     delete file('.externalNativeBuild')
 }
 
-tasks.whenTaskAdded { task ->
-    if (task.name == 'transformNativeLibsWithStripDebugSymbolForRelease' || task.name == 'transformNativeLibsWithStripDebugSymbolForDebug') {
-        task.finalizedBy copyLoader
-    }
-}
-
 tasks.withType(JavaCompile) { compileTask ->
     compileTask.dependsOn buildBootstrap
-    compileTask.dependsOn ':loader:packageRelease'
+    compileTask.dependsOn ':hidden-api:bundleRelease'
     doFirst {
         options.compilerArgs << '-Xbootclasspath/p:' + hiddenApi.asPath
     }

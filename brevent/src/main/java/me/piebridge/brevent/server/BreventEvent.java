@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
+import dalvik.system.PathClassLoader;
 import me.piebridge.EventHandler;
 import me.piebridge.LogReader;
 

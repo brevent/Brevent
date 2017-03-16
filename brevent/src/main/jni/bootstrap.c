@@ -27,6 +27,7 @@
 #endif
 
 sig_atomic_t update;
+sig_atomic_t ignore;
 
 #if defined(__aarch64__)
 #define ABI "arm64"
@@ -38,29 +39,39 @@ sig_atomic_t update;
 #define ABI "x86"
 #endif
 
-static char *getloader(char *loader) {
-    for (int i = 1; i <= 3; ++i) {
-        sprintf(loader, "%s/app/me.piebridge.brevent-%d/lib/" ABI "/libloader.so",
-                getenv("ANDROID_DATA"), i);
-        if (access(loader, F_OK) != -1) {
-            return loader;
-        }
-    }
-    loader[0] = '\0';
-    return NULL;
-}
-
 static int worker() {
+    FILE *file;
+    char *path;
     char loader[PATH_MAX];
     char classpath[PATH_MAX];
-    char *arg[] = {APP_PROCESS, "/system/bin", "--nice-name=brevent_worker",
+    char *arg[] = {APP_PROCESS, "-Djava.library.path=/data/app/me.piebridge.brevent-1/lib/" ABI ":/data/app/me.piebridge.brevent-2/lib/" ABI, "/system/bin", "--nice-name=brevent_worker",
                    "me.piebridge.brevent.loader.Brevent", NULL};
     memset(loader, 0, PATH_MAX);
-    if (getloader(loader) == NULL) {
-        LOGE("no loader");
+    file = popen("pm path me.piebridge.brevent", "r");
+    if (file != NULL) {
+        fgets(loader, sizeof(loader), file);
+        pclose(file);
+    } else {
         return -1;
     }
-    LOGD("loader: %s", loader);
+    path = strchr(loader, '\r');
+    if (path != NULL) {
+        *path = '\0';
+    }
+    path = strchr(loader, '\n');
+    if (path != NULL) {
+        *path = '\0';
+    }
+    path = strchr(loader, ':');
+    if (path == NULL) {
+        return -1;
+    }
+    path++;
+    LOGD("loader: %s", path);
+    if (access(path, F_OK) == -1) {
+        LOGE("can't find loader: %s", path);
+        return -1;
+    }
     pid_t pid = fork();
     switch (pid) {
         case -1:
@@ -72,7 +83,7 @@ static int worker() {
             return pid;
     }
     memset(classpath, 0, PATH_MAX);
-    sprintf(classpath, "CLASSPATH=%s", loader);
+    sprintf(classpath, "CLASSPATH=%s", path);
     putenv(classpath);
     return execv(arg[0], arg);
 }
@@ -107,9 +118,11 @@ static int server(char **argv) {
 
     for (;;) {
         sigsuspend(&set);
-        LOGD("signal arrived, update: %d", update);
-        if (!update || worker() <= 0) {
-            break;
+        LOGD("signal arrived, update: %d, ignore: %d", update, ignore);
+        if (!ignore) {
+            if (!update || worker() <= 0) {
+                break;
+            }
         }
     }
     return 0;
@@ -237,12 +250,14 @@ static void signal_handler(int signo) {
         int status;
         for (;;) {
             pid = waitpid(-1, &status, WNOHANG);
+            ignore = 1;
             if (pid == 0) {
                 return;
             }
             if (pid == -1) {
                 return;
             }
+            ignore = 0;
             update = 0;
             if (WIFEXITED(status)) {
                 if (WEXITSTATUS(status) == 0) {
