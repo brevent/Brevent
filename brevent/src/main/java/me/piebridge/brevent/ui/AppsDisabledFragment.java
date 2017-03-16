@@ -65,12 +65,12 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
-        Intent intent = getContext().registerReceiver(null, filter);
+        Intent intent = getActivity().registerReceiver(null, filter);
         boolean connected = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
         ((BreventActivity) getActivity()).copy(commandLine);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         if (allowRoot) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
@@ -142,7 +142,7 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN && ++repeat == 0x7) {
-            PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
+            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
                     .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
             ((BreventActivity) getActivity()).showDisabled(getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
         }

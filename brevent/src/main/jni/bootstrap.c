@@ -86,8 +86,12 @@ static int worker() {
                 path = strchr(loader, '=');
                 path++;
                 rstrip(loader);
-                sprintf(loader, "-Djava.library.path=%s/" ABI, path);
-                arg[1] = loader;
+                sprintf(loader, "%s/" ABI "/libreader.so", path);
+                LOGD("libreader: %s", loader);
+                if (access(loader, F_OK)) {
+                    sprintf(loader, "-Djava.libreader.path=%s", loader);
+                    arg[1] = loader;
+                }
                 break;
             }
         }

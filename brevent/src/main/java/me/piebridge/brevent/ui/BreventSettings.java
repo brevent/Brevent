@@ -12,7 +12,6 @@ import android.widget.Toolbar;
 
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.Collections;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;

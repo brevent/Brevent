@@ -53,14 +53,10 @@
     </string-array>
 
     <string-array name="brevent_method_values">
-        <item>standby_forcestop</item>
-        <item>standby_only</item>
         <item>forcestop_only</item>
     </string-array>
 
     <string-array name="brevent_method_entries">
-        <item>@string/brevent_method_standby_forcestop</item>
-        <item>@string/brevent_method_standby_only</item>
         <item>@string/brevent_method_forcestop_only</item>
     </string-array>
 
@@ -77,6 +73,6 @@
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
     <string name="later" translatable="false">later</string>
-    <string name="standby_forcestop" translatable="false">standby_forcestop</string>
+    <string name="default_brevent_method" translatable="false">forcestop_only</string>
 
 </resources>

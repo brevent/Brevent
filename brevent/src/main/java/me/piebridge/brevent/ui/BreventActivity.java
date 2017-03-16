@@ -16,6 +16,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IDeviceIdleController;
@@ -718,14 +719,16 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
         }
 
-        try {
-            IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
-            String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();
-            if (fullPowerWhitelist != null) {
-                Collections.addAll(mBattery, fullPowerWhitelist);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+                IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
+                String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();
+                if (fullPowerWhitelist != null) {
+                    Collections.addAll(mBattery, fullPowerWhitelist);
+                }
+            } catch (RemoteException e) {
+                // do nothing
             }
-        } catch (RemoteException e) {
-            // do nothing
         }
     }
 

@@ -187,7 +187,7 @@ public abstract class AppsFragment extends Fragment {
             return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == PackageManager.SIGNATURE_MATCH;
         } else {
             SharedPreferences preferences = null;
-            Context context = getContext();
+            Context context = getActivity();
             if (context != null) {
                 preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
                 if (preferences.contains(packageName)) {

@@ -81,10 +81,14 @@ class HideApi {
         try {
             CountDownLatch latch = new CountDownLatch(0x1);
             IntentReceiver receiver = new IntentReceiver(latch);
-            String[] requiredPermissions = new String[] {BreventIntent.PERMISSION_MANAGER};
-            ActivityManagerNative.getDefault().broadcastIntent(null, intent, null, receiver,
-                    0, null, null, requiredPermissions,
-                    HideApiOverride.OP_NONE, null, true, false, uid);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                String[] requiredPermissions = new String[] {BreventIntent.PERMISSION_MANAGER};
+                ActivityManagerNative.getDefault().broadcastIntent(null, intent, null, receiver,
+                        0, null, null, requiredPermissions,
+                        HideApiOverride.OP_NONE, null, true, false, uid);
+            } else {
+                broadcastIntentDeprecated(intent, receiver, uid);
+            }
             try {
                 latch.await(0xf, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
@@ -94,6 +98,13 @@ class HideApi {
         } catch (RemoteException e) {
             throw new HideApiException("Can't send broadcast", e);
         }
+    }
+
+    @SuppressWarnings("deprecated")
+    private static void broadcastIntentDeprecated(Intent intent, IntentReceiver receiver, int uid) throws RemoteException {
+        ActivityManagerNative.getDefault().broadcastIntent(null, intent, null, receiver,
+                0, null, null, BreventIntent.PERMISSION_MANAGER,
+                HideApiOverride.OP_NONE, true, false, uid);
     }
 
     // ActivityManager end

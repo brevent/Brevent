@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="brevent_method_values">
+        <item>standby_forcestop</item>
+        <item>standby_only</item>
+        <item>forcestop_only</item>
+    </string-array>
+
+    <string-array name="brevent_method_entries">
+        <item>@string/brevent_method_standby_forcestop</item>
+        <item>@string/brevent_method_standby_only</item>
+        <item>@string/brevent_method_forcestop_only</item>
+    </string-array>
+
+    <string name="default_brevent_method" translatable="false">standby_forcestop</string>
+
+</resources>

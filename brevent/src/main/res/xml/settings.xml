@@ -20,7 +20,7 @@
             android:title="@string/brevent_mode" />
 
         <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="@string/standby_forcestop"
+            android:defaultValue="@string/default_brevent_method"
             android:entries="@array/brevent_method_entries"
             android:entryValues="@array/brevent_method_values"
             android:key="brevent_method"

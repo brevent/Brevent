@@ -7,7 +7,7 @@
 
     <uses-sdk
         android:maxSdkVersion="25"
-        android:minSdkVersion="23"
+        android:minSdkVersion="21"
         android:targetSdkVersion="25" />
 
     <permission

@@ -1,5 +1,8 @@
 package me.piebridge;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 /**
  * LogReader, similar like logcat
  * Created by thom on 2017/1/22.
@@ -7,7 +10,13 @@ package me.piebridge;
 public class LogReader {
 
     static {
-        System.loadLibrary("reader");
+        String libReader = System.getProperty("java.libreader.path");
+        Log.d("BreventLoader", "libReader: " + libReader);
+        if (TextUtils.isEmpty(libReader)) {
+            System.loadLibrary("reader");
+        } else {
+            System.loadLibrary(libReader);
+        }
     }
 
     private LogReader() {

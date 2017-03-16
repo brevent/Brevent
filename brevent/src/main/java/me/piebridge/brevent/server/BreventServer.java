@@ -13,7 +13,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.text.format.DateUtils;
@@ -28,7 +27,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -41,7 +39,6 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import me.piebridge.EventHandler;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
@@ -1234,7 +1231,7 @@ public class BreventServer extends Handler {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerLog.i("classloader: " + EventHandler.class.getClassLoader());
+        ServerLog.i("classloader: " + BreventServer.class.getClassLoader());
         long previous = System.currentTimeMillis();
         startBreventServer();
         long now = System.currentTimeMillis();
