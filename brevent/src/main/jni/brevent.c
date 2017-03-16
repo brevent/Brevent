@@ -9,14 +9,10 @@
 #include <sys/wait.h>
 #include <android/log.h>
 
-#ifdef __ANDROID__
 #define TAG "BreventLoader"
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
+#define LOGW(...) (__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
 #define LOGE(...) (__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
-#else
-#define LOGE printf
-#define LOGD printf
-#endif
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
 
@@ -91,8 +87,7 @@ static int worker() {
                 sprintf(libreader, "%s/" ABI "/libreader.so", path);
                 LOGD("libreader: %s", libreader);
                 if (access(libreader, F_OK) == -1) {
-                    LOGE("can't find libreader: %s", libreader);
-                    return -1;
+                    LOGW("can't find libreader: %s", libreader);
                 }
                 memset(libreader, 0, PATH_MAX);
                 sprintf(libreader, "-Djava.libreader.path=%s/" ABI "/libreader.so", path);
@@ -113,7 +108,6 @@ static int worker() {
             return pid;
     }
     putenv(classpath);
-    quited = 0;
     return execv(arg[0], arg);
 }
 
@@ -141,9 +135,16 @@ static int server(size_t length, char *arg) {
 
     for (;;) {
         sigsuspend(&set);
-        LOGD("signal arrived, update: %d, quited: %d", update, quited);
-        if (quited && (!update || worker() <= 0)) {
-            break;
+        if (quited) {
+            LOGD("signal arrived, update: %d", update);
+            if (!update) {
+                break;
+            }
+            update = 0;
+            quited = 0;
+            if (worker() <= 0) {
+                break;
+            }
         }
     }
 

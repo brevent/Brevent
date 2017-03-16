@@ -2,7 +2,6 @@
 #include <string.h>
 #include <jni.h>
 #include <fcntl.h>
-#include <time.h>
 #include "log.h"
 
 #define ANDROID_UTIL_EVENT_LOG_EVENT "android/util/EventLog$Event"
@@ -22,7 +21,7 @@ static inline int32_t get_tag(struct log_msg msg) {
  * Method:    readEvents
  * Signature: (ILme/piebridge/EventHandler;)V
  */
-JNIEXPORT void JNICALL Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass clazz, jint pid,
+JNIEXPORT void JNICALL Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid,
                                                               jobject value) {
     struct logger_list *logger_list;
     struct log_time log_time;

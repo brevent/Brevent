@@ -15,6 +15,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
+import android.system.ErrnoException;
 import android.text.format.DateUtils;
 import android.util.EventLog;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.io.PrintWriter;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -1180,28 +1182,29 @@ public class BreventServer extends Handler {
         eventThread.start();
 
         CountDownLatch socketLatch = new CountDownLatch(0x1);
-        ServerSocket serverSocket = new ServerSocket();
-        serverSocket.setReuseAddress(true);
-        InetSocketAddress socketAddress = new InetSocketAddress(BreventProtocol.HOST, BreventProtocol.PORT);
-        BindException bindException;
+        ServerSocket serverSocket = null;
+        SocketException socketException;
         long start = System.currentTimeMillis();
+        InetSocketAddress socketAddress = new InetSocketAddress(BreventProtocol.HOST, BreventProtocol.PORT);
         do {
             try {
+                serverSocket = new ServerSocket();
+                serverSocket.setReuseAddress(true);
                 serverSocket.bind(socketAddress, 50);
-                bindException = null;
+                socketException = null;
                 break;
             } catch (BindException e) {
-                bindException = e;
-                ServerLog.i("Can't bind, try later: " + e.getMessage());
+                socketException = e;
+                ServerLog.i("Can't bind, try later: " + e.getMessage(), e);
             }
             try {
-                TimeUnit.SECONDS.sleep(1);
+                Thread.sleep(CHECK_LATER_SERVICE / 0x2);
             } catch (InterruptedException e) {
                 ServerLog.i("Can't sleep");
             }
-        } while (System.currentTimeMillis() - start < CHECK_LATER_SERVICE);
-        if (bindException != null) {
-            throw bindException;
+        } while (System.currentTimeMillis() - start < CHECK_LATER_SERVICE * 0x2);
+        if (socketException != null) {
+            throw socketException;
         }
         Thread socketThread = new Thread(new BreventSocket(breventServer, serverSocket, socketLatch));
         socketThread.start();

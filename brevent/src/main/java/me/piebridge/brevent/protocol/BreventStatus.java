@@ -1,6 +1,7 @@
 package me.piebridge.brevent.protocol;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -120,7 +121,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
                 total++;
                 if (HideApiOverride.isTop(processState)) {
                     top++;
-                } else if (HideApiOverride.isService(processState)) {
+                } else if (isService(processState)) {
                     service++;
                 } else if (HideApiOverride.isCached(processState)) {
                     cached++;
@@ -162,11 +163,19 @@ public class BreventStatus extends BreventToken implements Parcelable {
         }
     }
 
+    private static boolean isService(int processState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return HideApiOverride.isService(processState);
+        } else {
+            return HideApiOverride.isServiceL(processState);
+        }
+    }
+
     public static boolean isService(@NonNull SparseIntArray status) {
         int size = status.size();
         for (int i = 0; i < size; ++i) {
             int processState = status.keyAt(i);
-            if (HideApiOverride.isService(processState)) {
+            if (isService(processState)) {
                 return true;
             }
         }
@@ -174,11 +183,13 @@ public class BreventStatus extends BreventToken implements Parcelable {
     }
 
     public static boolean isForegroundService(@NonNull SparseIntArray status) {
-        int size = status.size();
-        for (int i = 0; i < size; ++i) {
-            int processState = status.keyAt(i);
-            if (HideApiOverride.isForegroundService(processState)) {
-                return true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int size = status.size();
+            for (int i = 0; i < size; ++i) {
+                int processState = status.keyAt(i);
+                if (HideApiOverride.isForegroundService(processState)) {
+                    return true;
+                }
             }
         }
         return false;

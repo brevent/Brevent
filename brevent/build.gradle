@@ -138,6 +138,12 @@ task renameBootstrap {
                 into "src/main/libs/${abi}"
                 rename { 'libbrevent.so' }
             }
+            if (rootProject.file('ant.properties').exists()) {
+                exec {
+                    commandLine 'android-elf-cleaner'
+                    args file("src/main/libs/${abi}/libbrevent.so").absolutePath
+                }
+	    }
             delete file("src/main/libs/${abi}/brevent")
         }
     }
@@ -157,7 +163,8 @@ task cleanBootstrap(type: Exec) {
             '-C', file('src/main/jni').path,
             'APP_BUILD_SCRIPT=Android.mk',
             'NDK_APPLICATION_MK=Application.mk',
-            'clean', '-k'
+            'clean'
+    ignoreExitValue true
 }
 
 task deleteNativeBuild(type: Delete) {

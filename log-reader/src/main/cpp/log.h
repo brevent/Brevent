@@ -6,6 +6,12 @@
 
 #include <stdio.h>
 
+#ifndef UNUSED
+#if defined(__GNUC__)
+#define UNUSED(x) UNUSED_ ## x __attribute__((unused))
+#endif
+#endif
+
 typedef enum log_id {
     LOG_ID_MIN = 0
 } log_id_t;
