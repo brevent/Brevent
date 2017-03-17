@@ -5,9 +5,11 @@ import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageManager;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+import android.os.FileUtils;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -15,7 +17,6 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
-import android.system.ErrnoException;
 import android.text.format.DateUtils;
 import android.util.EventLog;
 import android.util.Log;
@@ -55,6 +56,8 @@ import me.piebridge.brevent.protocol.TimeUtils;
  * Created by thom on 2017/2/13.
  */
 public class BreventServer extends Handler {
+
+    private static final String PACKAGE_SHELL = "com.android.shell";
 
     private static final String MOVE_TASK_TO_BACK = "moveTaskToBack";
 
@@ -157,7 +160,7 @@ public class BreventServer extends Handler {
         }
 
         mUser = HideApi.getCurrentUser();
-        ServerLog.i("brevent user: " + mUser);
+        ServerLog.i("brevent user: " + mUser + ", uid: " + Process.myUid());
 
         mDataDir = getDataDir(HideApi.USER_OWNER);
         if (mDataDir == null) {
@@ -189,10 +192,26 @@ public class BreventServer extends Handler {
         EventLog.writeEvent(EventTag.TAG_ANSWER, 0xfee1900d);
     }
 
+    private void checkUid(File file) {
+        int myUid = Process.myUid();
+        int uid = FileUtils.getUid(file.getAbsolutePath());
+        int uidForData = HideApiOverride.uidForData(uid);
+        if (uid != myUid && uid != uidForData) {
+            ServerLog.e("Did you run as root, then run as shell?");
+            System.exit(1);
+        }
+    }
+
+    private void updateUid(File file) {
+        int uidForData = HideApiOverride.uidForData(Process.myUid());
+        FileUtils.setPermissions(file.getAbsolutePath(), FileUtils.S_IRUSR | FileUtils.S_IWUSR, uidForData, uidForData);
+    }
+
     private boolean loadBreventConf() {
         File file = getBreventConf();
         ServerLog.i("loading brevent conf");
         if (file.isFile()) {
+            checkUid(file);
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
             ) {
@@ -211,6 +230,7 @@ public class BreventServer extends Handler {
             } catch (IOException e) {
                 ServerLog.w("Can't load configuration from " + file, e);
             }
+            updateUid(file);
             return true;
         } else {
             return false;
@@ -229,6 +249,7 @@ public class BreventServer extends Handler {
         File file = getBreventList();
         ServerLog.i("loading brevent list");
         if (file.isFile()) {
+            checkUid(file);
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file))
             ) {
@@ -243,6 +264,7 @@ public class BreventServer extends Handler {
             } catch (IOException e) {
                 ServerLog.w("Can't load brevent from " + file, e);
             }
+            updateUid(file);
             return true;
         } else {
             return false;
@@ -1002,6 +1024,7 @@ public class BreventServer extends Handler {
         if (!file.renameTo(getBreventConf())) {
             ServerLog.w("Can't save configuration");
         }
+        updateUid(getBreventConf());
     }
 
     private void saveBreventListLater() {
@@ -1024,6 +1047,7 @@ public class BreventServer extends Handler {
         if (!file.renameTo(getBreventList())) {
             ServerLog.w("Can't save brevent list");
         }
+        updateUid(getBreventList());
     }
 
     private void updateBreventIfNeeded(boolean brevent, String packageName) {
@@ -1150,21 +1174,14 @@ public class BreventServer extends Handler {
     private static String getDataDir(int owner) {
         int uid = HideApiOverride.uidForData(Process.myUid());
         IPackageManager packageManager = HideApi.getPackageManager();
-        String[] packageNames;
         try {
-            packageNames = packageManager.getPackagesForUid(uid);
-        } catch (RemoteException e) {
-            ServerLog.e("Can't find package for " + uid, e);
-            return null;
-        }
-        if (packageNames != null) {
-            for (String packageName : packageNames) {
-                try {
-                    return packageManager.getPackageInfo(packageName, 0, owner).applicationInfo.dataDir;
-                } catch (RemoteException e) {
-                    ServerLog.w("Can't find package " + packageName + " for " + owner, e);
-                }
+            ApplicationInfo applicationInfo = packageManager.getPackageInfo(PACKAGE_SHELL, 0, owner).applicationInfo;
+            if (applicationInfo.uid != uid) {
+                ServerLog.e(PACKAGE_SHELL + "'s uid is " + applicationInfo.uid + ", should be " + uid);
             }
+            return applicationInfo.dataDir;
+        } catch (RemoteException e) {
+            ServerLog.w("Can't find package " + PACKAGE_SHELL + " for " + owner, e);
         }
         ServerLog.e("Can't find package for " + uid);
         return null;
@@ -1234,7 +1251,6 @@ public class BreventServer extends Handler {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerLog.i("classloader: " + BreventServer.class.getClassLoader());
         long previous = System.currentTimeMillis();
         startBreventServer();
         long now = System.currentTimeMillis();
