@@ -138,12 +138,6 @@ task renameBootstrap {
                 into "src/main/libs/${abi}"
                 rename { 'libbrevent.so' }
             }
-            if (rootProject.file('ant.properties').exists()) {
-                exec {
-                    commandLine 'android-elf-cleaner'
-                    args file("src/main/libs/${abi}/libbrevent.so").absolutePath
-                }
-	    }
             delete file("src/main/libs/${abi}/brevent")
         }
     }
