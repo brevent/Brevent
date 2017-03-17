@@ -16,12 +16,6 @@
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
 
-#if defined(__LP64__)
-#define APP_PROCESS "/system/bin/app_process64"
-#else
-#define APP_PROCESS "/system/bin/app_process32"
-#endif
-
 sig_atomic_t update;
 sig_atomic_t quited;
 
@@ -51,7 +45,7 @@ static int worker() {
     char line[PATH_MAX];
     char libreader[PATH_MAX];
     char classpath[PATH_MAX];
-    char *arg[] = {APP_PROCESS, NULL,
+    char *arg[] = {"app_process", NULL,
                    "/system/bin", "--nice-name=brevent_server",
                    "me.piebridge.brevent.server.BreventServer", NULL};
     file = popen("pm path me.piebridge.brevent", "r");
@@ -108,7 +102,7 @@ static int worker() {
             return pid;
     }
     putenv(classpath);
-    return execv(arg[0], arg);
+    return execvp(arg[0], arg);
 }
 
 static void update_proc_title(size_t length, char *arg) {
