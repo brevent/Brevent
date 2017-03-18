@@ -17,6 +17,18 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+def getBreventVersion = { ->
+    def tag = 'git describe --tags --always'.execute().text.trim()
+    if (tag.startsWith('v')) {
+        tag = tag.substring(1)
+    }
+    if ('git diff --no-ext-diff --quiet HEAD'.execute().waitFor() == 0) {
+        return tag
+    } else {
+        return tag + '-dirty'
+    }
+}
+
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86']
 
 project.ext.supportLibraryVersion = '25.2.0'
@@ -26,3 +38,9 @@ project.ext.buildToolsVersion = '25.0.2'
 project.ext.minSdkVersion = 22
 
 project.ext.targetSdkVersion = 25
+
+project.ext.versionCode = 24
+
+project.ext.versionName = getBreventVersion()
+
+project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))

@@ -1,6 +1,5 @@
 package me.piebridge.brevent.protocol;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,8 +10,7 @@ import android.util.SparseIntArray;
 import java.util.Collection;
 import java.util.UUID;
 
-import me.piebridge.brevent.R;
-import me.piebridge.brevent.server.HideApiOverride;
+import me.piebridge.brevent.override.HideApiOverride;
 
 /**
  * status
@@ -105,70 +103,20 @@ public class BreventStatus extends BreventToken implements Parcelable {
         return processState >= 0;
     }
 
-    public static String formatDescription(Context context, SparseIntArray status) {
-        if (status == null) {
-            return null;
-        }
-        int cached = 0;
-        int service = 0;
-        int top = 0;
-        int total = 0;
-
-        int size = status.size();
-        for (int i = 0; i < size; ++i) {
-            int processState = status.keyAt(i);
-            if (isProcess(processState)) {
-                total++;
-                if (HideApiOverride.isTop(processState)) {
-                    top++;
-                } else if (isService(processState)) {
-                    service++;
-                } else if (HideApiOverride.isCached(processState)) {
-                    cached++;
-                }
-            }
-        }
-
-        if (top == total) {
-            return context.getString(R.string.process_all_top, top)
-                    + context.getResources().getQuantityString(R.plurals.process_process, top);
-        } else if (service == total) {
-            return context.getString(R.string.process_all_service, service)
-                    + context.getResources().getQuantityString(R.plurals.process_process, service);
-        } else if (cached == total) {
-            return context.getString(R.string.process_all_cached, cached)
-                    + context.getResources().getQuantityString(R.plurals.process_process, cached);
-        } else if (top == 0 && service == 0 && cached == 0) {
-            return context.getString(R.string.process_all_total, total)
-                    + context.getResources().getQuantityString(R.plurals.process_process, total);
-        } else {
-            StringBuilder sb = new StringBuilder();
-            if (top > 0) {
-                sb.append(context.getString(R.string.process_top, top));
-                sb.append(", ");
-            }
-            if (service > 0) {
-                sb.append(context.getString(R.string.process_service, service));
-                sb.append(", ");
-            }
-            if (cached > 0) {
-                sb.append(context.getString(R.string.process_cached, cached));
-                sb.append(", ");
-            }
-            if (total > 0) {
-                sb.append(context.getString(R.string.process_total, total));
-            }
-            sb.append(context.getResources().getQuantityString(R.plurals.process_process, total));
-            return sb.toString();
-        }
-    }
-
-    private static boolean isService(int processState) {
+    public static boolean isService(int processState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return HideApiOverride.isService(processState);
         } else {
             return HideApiOverride.isServiceL(processState);
         }
+    }
+
+    public static boolean isTop(int processState) {
+        return HideApiOverride.isTop(processState);
+    }
+
+    public static boolean isCached(int processState) {
+        return HideApiOverride.isCached(processState);
     }
 
     public static boolean isService(@NonNull SparseIntArray status) {

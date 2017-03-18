@@ -11,8 +11,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import me.piebridge.brevent.BuildConfig;
-
 /**
  * brevent protocol, request via socket, response via broadcast
  * <p>

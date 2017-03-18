@@ -33,7 +33,7 @@
 
 -dontnote eu.chainfire.libsuperuser.Shell*
 
--dontwarn me.piebridge.brevent.server.HideApiOverride*
+-dontwarn me.piebridge.brevent.override.HideApiOverride*
 
 -keepnames class * implements android.os.Parcelable
 

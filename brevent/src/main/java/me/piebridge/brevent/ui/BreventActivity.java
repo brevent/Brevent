@@ -360,7 +360,62 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public String getDescription(String packageName) {
-        return BreventStatus.formatDescription(this, mProcesses.get(packageName));
+        SparseIntArray status = mProcesses.get(packageName);
+        if (status == null) {
+            return null;
+        }
+        int cached = 0;
+        int service = 0;
+        int top = 0;
+        int total = 0;
+
+        int size = status.size();
+        for (int i = 0; i < size; ++i) {
+            int processState = status.keyAt(i);
+            if (BreventStatus.isProcess(processState)) {
+                total++;
+                if (BreventStatus.isTop(processState)) {
+                    top++;
+                } else if (BreventStatus.isService(processState)) {
+                    service++;
+                } else if (BreventStatus.isCached(processState)) {
+                    cached++;
+                }
+            }
+        }
+
+        if (top == total) {
+            return getString(R.string.process_all_top, top)
+                    + getResources().getQuantityString(R.plurals.process_process, top);
+        } else if (service == total) {
+            return getString(R.string.process_all_service, service)
+                    + getResources().getQuantityString(R.plurals.process_process, service);
+        } else if (cached == total) {
+            return getString(R.string.process_all_cached, cached)
+                    + getResources().getQuantityString(R.plurals.process_process, cached);
+        } else if (top == 0 && service == 0 && cached == 0) {
+            return getString(R.string.process_all_total, total)
+                    + getResources().getQuantityString(R.plurals.process_process, total);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            if (top > 0) {
+                sb.append(getString(R.string.process_top, top));
+                sb.append(", ");
+            }
+            if (service > 0) {
+                sb.append(getString(R.string.process_service, service));
+                sb.append(", ");
+            }
+            if (cached > 0) {
+                sb.append(getString(R.string.process_cached, cached));
+                sb.append(", ");
+            }
+            if (total > 0) {
+                sb.append(getString(R.string.process_total, total));
+            }
+            sb.append(getResources().getQuantityString(R.plurals.process_process, total));
+            return sb.toString();
+        }
     }
 
     @DrawableRes

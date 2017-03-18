@@ -2,13 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.piebridge.brevent"
-    android:installLocation="internalOnly"
-    android:versionCode="24">
-
-    <uses-sdk
-        android:maxSdkVersion="25"
-        android:minSdkVersion="22"
-        android:targetSdkVersion="25" />
+    android:installLocation="internalOnly">
 
     <permission
         android:name="me.piebridge.brevent.permission.MANAGER"

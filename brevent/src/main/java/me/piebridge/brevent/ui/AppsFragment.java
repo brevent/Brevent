@@ -23,7 +23,7 @@ import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.server.HideApiOverrideM;
+import me.piebridge.brevent.override.HideApiOverrideM;
 
 /**
  * Created by thom on 2017/1/25.
