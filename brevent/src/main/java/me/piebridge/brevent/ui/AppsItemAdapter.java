@@ -128,11 +128,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     private void updateIcon(AppsItemViewHolder viewHolder) {
         if (mSelected.contains(viewHolder.packageName)) {
             if (mFragment.isImportant(viewHolder.packageName)) {
-                String label = mFragment.getImportantLabel(viewHolder.label, viewHolder.packageName);
+                String label = mFragment.getLabel(viewHolder.label, viewHolder.packageName);
                 viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_error_black_44dp);
-            } else if (mFragment.isBattery(viewHolder.packageName)) {
-                String label = mFragment.getActivity().getString(R.string.important_battery, viewHolder.label);
+            } else if (mFragment.isFavorite(viewHolder.packageName)) {
+                String label = mFragment.getLabel(viewHolder.label, viewHolder.packageName);
                 viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_favorite_black_44dp);
             } else if (mFragment.isGcm(viewHolder.packageName)) {

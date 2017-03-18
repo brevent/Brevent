@@ -249,12 +249,12 @@ public abstract class AppsFragment extends Fragment {
         return ((BreventActivity) getActivity()).isGcm(packageName);
     }
 
-    public final boolean isBattery(String packageName) {
-        return ((BreventActivity) getActivity()).isBattery(packageName);
+    public final boolean isFavorite(String packageName) {
+        return ((BreventActivity) getActivity()).isFavorite(packageName);
     }
 
-    public final String getImportantLabel(String label, String packageName) {
-        return ((BreventActivity) getActivity()).getImportantLabel(label, packageName);
+    public final String getLabel(String label, String packageName) {
+        return ((BreventActivity) getActivity()).getLabel(label, packageName);
     }
 
 }

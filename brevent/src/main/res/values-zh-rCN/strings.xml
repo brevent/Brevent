@@ -118,11 +118,17 @@
     <string name="feedback_email">邮件</string>
 
     <string name="important_input">%s（输入法）</string>
-    <string name="important_alarm">%s（闹钟）</string>
-    <string name="important_sms">%s（短信）</string>
-    <string name="important_home">%s（主屏幕）</string>
+    <string name="important_alarm">%s（闹钟应用）</string>
+    <string name="important_sms">%s（短信应用）</string>
+    <string name="important_home">%s（主屏幕应用）</string>
     <string name="important_persistent">%s（永久进程）</string>
     <string name="important_android">%s（Android）</string>
+    <string name="important_dialer">%s (电话应用)</string>
+    <string name="important_assistant">%s (辅助应用)</string>
+    <string name="important_webview">%s (Webview 实现)</string>
+    <string name="important_tile">%s (快捷设置)</string>
+    <string name="important_accessibility">%s (无障碍应用)</string>
+    <string name="important_device_admin">%s (设备管理器)</string>
     <string name="important_gcm">%s（GCM）</string>
     <string name="important_battery">%s（无法休眠，电池未优化）</string>
 

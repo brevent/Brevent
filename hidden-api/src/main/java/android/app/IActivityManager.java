@@ -1,10 +1,12 @@
 package android.app;
 
+import android.content.IContentProvider;
 import android.content.IIntentReceiver;
 import android.content.Intent;
 import android.content.pm.ParceledListSlice;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 
@@ -39,5 +41,13 @@ public interface IActivityManager {
 
     @RequiresApi(Build.VERSION_CODES.N)
     ParceledListSlice getRecentTasks(int maxNum, int flags, int userId) throws RemoteException;
+
+    ContentProviderHolder getContentProviderExternal(String name, int userId, IBinder token) throws RemoteException;
+
+    class ContentProviderHolder {
+
+        public IContentProvider provider;
+
+    }
 
 }

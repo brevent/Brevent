@@ -121,11 +121,17 @@
     <string name="feedback_email">Email</string>
 
     <string name="important_input">%s (Input method)</string>
-    <string name="important_alarm">%s (Alarm)</string>
-    <string name="important_sms">%s (SMS)</string>
-    <string name="important_home">%s (Home)</string>
+    <string name="important_alarm">%s (Alarm app)</string>
+    <string name="important_sms">%s (SMS app)</string>
+    <string name="important_home">%s (Home app)</string>
     <string name="important_persistent">%s (Persistent)</string>
     <string name="important_android">%s (Android)</string>
+    <string name="important_dialer">%s (Phone app)</string>
+    <string name="important_assistant">%s (Assist app)</string>
+    <string name="important_webview">%s (WebView)</string>
+    <string name="important_tile">%s (Quick Settings)</string>
+    <string name="important_accessibility">%s (Accessibility)</string>
+    <string name="important_device_admin">%s (Device admin)</string>
     <string name="important_gcm">%s (GCM)</string>
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
 

@@ -1,10 +1,12 @@
 package me.piebridge.brevent.ui;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.admin.DevicePolicyManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -41,14 +43,12 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodInfo;
-import android.view.inputmethod.InputMethodManager;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -60,11 +60,14 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
 
@@ -92,6 +95,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_HOME = 3;
     public static final int IMPORTANT_PERSISTENT = 4;
     public static final int IMPORTANT_ANDROID = 5;
+    public static final int IMPORTANT_DIALER = 6;
+    public static final int IMPORTANT_ASSISTANT = 7;
+    public static final int IMPORTANT_WEBVIEW = 8;
+    public static final int IMPORTANT_TILE = 9;
+    public static final int IMPORTANT_ACCESSIBILITY = 10;
+    public static final int IMPORTANT_DEVICE_ADMIN = 11;
+    public static final int IMPORTANT_BATTERY = 13;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -112,8 +122,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private SimpleArrayMap<String, SparseIntArray> mProcesses = new SimpleArrayMap<>();
     private Set<String> mBrevent = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
+    private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
-    private Set<String> mBattery = new ArraySet<>();
 
     private boolean mSelectMode;
 
@@ -583,8 +593,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return mGcm.contains(packageName);
     }
 
-    public boolean isBattery(String packageName) {
-        return mBattery.contains(packageName);
+    public boolean isFavorite(String packageName) {
+        return mFavorite.containsKey(packageName);
     }
 
     public boolean isLauncher(String packageName) {
@@ -693,19 +703,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mBrevent.addAll(status.getBrevent());
 
         mImportant.clear();
-        mBattery.clear();
+        mFavorite.clear();
         mGcm.clear();
         resolveImportantPackages(status.getProcesses(), mImportant);
-
-        List<PackageInfo> packageInfos = getPackageManager().getPackagesHoldingPermissions(new String[] {
-                "com.google.android.c2dm.permission.RECEIVE",
-        }, 0);
-        if (packageInfos != null) {
-            for (PackageInfo packageInfo : packageInfos) {
-                mGcm.add(packageInfo.packageName);
-            }
-            mGcm.retainAll(checkReceiver(new Intent("com.google.android.c2dm.intent.RECEIVE")));
-        }
+        resolveFavoritePackages(mFavorite);
+        resolveGcmPackages(mGcm);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS, SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
@@ -735,17 +737,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return packageNames;
     }
 
+    private String getSecureSetting(String name) {
+        return Settings.Secure.getString(getContentResolver(), name);
+    }
+
     private void resolveImportantPackages(SimpleArrayMap<String, SparseIntArray> processes, SimpleArrayMap<String, Integer> packageNames) {
-        // enabled input method
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        List<InputMethodInfo> inputMethods = inputMethodManager.getEnabledInputMethodList();
-        if (inputMethods != null) {
-            for (InputMethodInfo inputMethod : inputMethods) {
-                packageNames.put(inputMethod.getPackageName(), IMPORTANT_INPUT);
-            }
+        // input method
+        String input = getPackageName(getSecureSetting(Settings.Secure.DEFAULT_INPUT_METHOD));
+        if (input != null) {
+            packageNames.put(input, IMPORTANT_INPUT);
         }
 
-        // alarm
+        // next alarm
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         AlarmManager.AlarmClockInfo alarmClock = alarmManager.getNextAlarmClock();
         if (alarmClock != null && alarmClock.getShowIntent() != null) {
@@ -754,8 +757,25 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
 
         // sms
-        String sms = Settings.Secure.getString(getContentResolver(), "sms_default_application");
-        packageNames.put(sms, IMPORTANT_SMS);
+        packageNames.put(getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION), IMPORTANT_SMS);
+
+        // dialer
+        String dialer = getSecureSetting(HideApiOverride.DIALER_DEFAULT_APPLICATION);
+        if (dialer != null) {
+            packageNames.put(dialer, IMPORTANT_DIALER);
+        }
+
+        // assistant
+        String assistant = getPackageName(getSecureSetting(HideApiOverride.ASSISTANT));
+        if (assistant != null) {
+            packageNames.put(assistant, IMPORTANT_ASSISTANT);
+        }
+
+        // webview
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String webView = Settings.Global.getString(getContentResolver(), HideApiOverrideN.WEBVIEW_PROVIDER);
+            packageNames.put(webView, IMPORTANT_WEBVIEW);
+        }
 
         // launcher
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -766,6 +786,20 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             packageNames.put(mLauncher, IMPORTANT_HOME);
         }
 
+        AccessibilityManager accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+        List<AccessibilityServiceInfo> enabledAccessibilityServiceList = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+        for (AccessibilityServiceInfo accessibilityServiceInfo : enabledAccessibilityServiceList) {
+            packageNames.put(accessibilityServiceInfo.getResolveInfo().serviceInfo.packageName, IMPORTANT_ACCESSIBILITY);
+        }
+
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        List<ComponentName> componentNames = devicePolicyManager.getActiveAdmins();
+        if (componentNames != null) {
+            for (ComponentName componentName : componentNames) {
+                packageNames.put(componentName.getPackageName(), IMPORTANT_DEVICE_ADMIN);
+            }
+        }
+
         // persistent
         int size = processes.size();
         for (int i = 0; i < size; ++i) {
@@ -773,18 +807,60 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 packageNames.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
             }
         }
+        UILog.d("important: " + packageNames);
+    }
 
+    private String getPackageName(String component) {
+        if (component != null) {
+            ComponentName componentName = ComponentName.unflattenFromString(component);
+            if (componentName != null) {
+                return componentName.getPackageName();
+            }
+        }
+        return "";
+    }
+
+    private void resolveGcmPackages(Set<String> packageNames) {
+        // gcm
+        List<PackageInfo> packageInfos = getPackageManager().getPackagesHoldingPermissions(new String[] {
+                "com.google.android.c2dm.permission.RECEIVE",
+        }, 0);
+        if (packageInfos != null) {
+            Set<String> gcm = new ArraySet<>();
+            for (PackageInfo packageInfo : packageInfos) {
+                gcm.add(packageInfo.packageName);
+            }
+            gcm.retainAll(checkReceiver(new Intent("com.google.android.c2dm.intent.RECEIVE")));
+            packageNames.addAll(gcm);
+        }
+        UILog.d("gcm: " + packageNames);
+    }
+
+    private void resolveFavoritePackages(SimpleArrayMap<String, Integer> packageNames) {
+        // battery
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(ServiceManager.getService("deviceidle"));
                 String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();
                 if (fullPowerWhitelist != null) {
-                    Collections.addAll(mBattery, fullPowerWhitelist);
+                    for (String s : fullPowerWhitelist) {
+                        packageNames.put(s, IMPORTANT_BATTERY);
+                    }
                 }
             } catch (RemoteException e) {
                 // do nothing
             }
         }
+
+        // tile
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String tiles = getSecureSetting(HideApiOverrideN.QS_TILES);
+            for (String packageName : TileUtils.parseTiles(tiles)) {
+                packageNames.put(packageName, IMPORTANT_TILE);
+            }
+        }
+
+        UILog.d("favorite: " + packageNames);
     }
 
     public void showViewPager() {
@@ -839,25 +915,46 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
     }
 
-    public String getImportantLabel(String label, String packageName) {
+    public String getLabel(String label, String packageName) {
         int index = mImportant.indexOfKey(packageName);
+        int important = -1;
         if (index >= 0) {
-            switch (mImportant.valueAt(index)) {
-                case IMPORTANT_INPUT:
-                    return getString(R.string.important_input, label);
-                case IMPORTANT_ALARM:
-                    return getString(R.string.important_alarm, label);
-                case IMPORTANT_SMS:
-                    return getString(R.string.important_sms, label);
-                case IMPORTANT_HOME:
-                    return getString(R.string.important_home, label);
-                case IMPORTANT_PERSISTENT:
-                    return getString(R.string.important_persistent, label);
-                case IMPORTANT_ANDROID:
-                    return getString(R.string.important_android, label);
-                default:
-                    break;
+            important = mImportant.valueAt(index);
+        } else {
+            index = mFavorite.indexOfKey(packageName);
+            if (index >= 0) {
+                important = mFavorite.valueAt(index);
             }
+        }
+        switch (important) {
+            case IMPORTANT_INPUT:
+                return getString(R.string.important_input, label);
+            case IMPORTANT_ALARM:
+                return getString(R.string.important_alarm, label);
+            case IMPORTANT_SMS:
+                return getString(R.string.important_sms, label);
+            case IMPORTANT_HOME:
+                return getString(R.string.important_home, label);
+            case IMPORTANT_PERSISTENT:
+                return getString(R.string.important_persistent, label);
+            case IMPORTANT_ANDROID:
+                return getString(R.string.important_android, label);
+            case IMPORTANT_DIALER:
+                return getString(R.string.important_dialer, label);
+            case IMPORTANT_ASSISTANT:
+                return getString(R.string.important_assistant, label);
+            case IMPORTANT_WEBVIEW:
+                return getString(R.string.important_webview, label);
+            case IMPORTANT_TILE:
+                return getString(R.string.important_tile, label);
+            case IMPORTANT_ACCESSIBILITY:
+                return getString(R.string.important_accessibility, label);
+            case IMPORTANT_DEVICE_ADMIN:
+                return getString(R.string.important_device_admin, label);
+            case IMPORTANT_BATTERY:
+                return getString(R.string.important_battery, label);
+            default:
+                break;
         }
         return label;
     }
