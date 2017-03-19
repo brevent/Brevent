@@ -14,14 +14,16 @@ public class HideApiOverrideN {
 
     public static final String WEBVIEW_PROVIDER = Settings.Global.WEBVIEW_PROVIDER;
 
-    public static final String QS_TILES = Settings.Secure.QS_TILES;
-
     private HideApiOverrideN() {
 
     }
 
     public static boolean isFreeForm(ActivityManager.RecentTaskInfo taskInfo) {
         return taskInfo.stackId == ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID;
+    }
+
+    public static String getQsTiles() {
+        return Settings.Secure.QS_TILES;
     }
 
 }

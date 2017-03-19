@@ -862,9 +862,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         // tile
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            String tiles = getSecureSetting(HideApiOverrideN.QS_TILES);
-            for (String packageName : TileUtils.parseTiles(tiles)) {
-                packageNames.put(packageName, IMPORTANT_TILE);
+            try {
+                String tiles = getSecureSetting(HideApiOverrideN.getQsTiles());
+                for (String packageName : TileUtils.parseTiles(tiles)) {
+                    packageNames.put(packageName, IMPORTANT_TILE);
+                }
+            } catch (NoSuchFieldError e) {
+                UILog.d(e.getMessage(), e);
             }
         }
 
