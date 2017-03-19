@@ -8,6 +8,8 @@ import android.os.Process;
 import android.os.UserHandle;
 import android.provider.Settings;
 
+import java.util.List;
+
 /**
  * Created by thom on 2017/2/22.
  */
@@ -19,6 +21,7 @@ public class HideApiOverride {
     public static final int USER_OWNER = UserHandle.USER_OWNER;
 
     public static final int OP_NONE = AppOpsManager.OP_NONE;
+    public static final int OP_ACTIVATE_VPN = AppOpsManager.OP_ACTIVATE_VPN;
 
     public static final String ACTION_USB_STATE = UsbManager.ACTION_USB_STATE;
 
@@ -118,4 +121,23 @@ public class HideApiOverride {
         return result.getPairValue();
     }
 
+    public static int getPackageOpsUid(Object packageOps) {
+        return ((AppOpsManager.PackageOps) packageOps).getUid();
+    }
+
+    public static List getPackageOpsOps(Object packageOps) {
+        return ((AppOpsManager.PackageOps) packageOps).getOps();
+    }
+
+    public static String getPackageOpsPackageName(Object packageOps) {
+        return ((AppOpsManager.PackageOps) packageOps).getPackageName();
+    }
+
+    public static int getOpEntryMode(Object opEntry) {
+        return ((AppOpsManager.OpEntry) opEntry).getMode();
+    }
+
+    public static long getOpEntryTime(Object opEntry) {
+        return ((AppOpsManager.OpEntry) opEntry).getTime();
+    }
 }
