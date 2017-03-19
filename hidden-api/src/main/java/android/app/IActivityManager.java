@@ -44,6 +44,8 @@ public interface IActivityManager {
 
     ContentProviderHolder getContentProviderExternal(String name, int userId, IBinder token) throws RemoteException;
 
+    List<ActivityManager.RunningServiceInfo> getServices(int maxNum, int flags) throws RemoteException;
+
     class ContentProviderHolder {
 
         public IContentProvider provider;
