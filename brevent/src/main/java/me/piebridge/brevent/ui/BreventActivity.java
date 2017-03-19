@@ -104,6 +104,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_BATTERY = 13;
     public static final int IMPORTANT_TRUST_AGENT = 14;
 
+    private static final int ROOT_TIMEOUT = 10000;
+
     private static final String FRAGMENT_DISABLED = "disabled";
 
     private static final String FRAGMENT_PROGRESS = "progress";
@@ -178,7 +180,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
-            startActivity(new Intent(this, BreventGuide.class));
+            openGuide();
             finish();
         } else {
             setContentView(R.layout.activity_brevent);
@@ -509,7 +511,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return true;
     }
 
-    private void openGuide() {
+    public void openGuide() {
         startActivity(new Intent(this, BreventGuide.class));
     }
 
@@ -968,7 +970,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public void runAsRoot() {
         showProgress(R.string.process_retrieving);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
-        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, 0x1500);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
     }
 
 }

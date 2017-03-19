@@ -24,7 +24,7 @@
     <string name="brevent_service_start">Please start Brevent service</string>
     <string name="brevent_service_restart">Please restart Brevent Service</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can find device\n\n4. Execute in PC\'s command line \"%3$s\" (Copied to clipboard)</string>
-    <string name="brevent_service_open_development">Open \"Developer options\"</string>
+    <string name="brevent_service_open_development">Developer options</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
     <string name="brevent_service_run_as_root">Run as ROOT</string>

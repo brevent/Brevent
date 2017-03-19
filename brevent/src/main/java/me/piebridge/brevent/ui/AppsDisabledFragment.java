@@ -72,13 +72,14 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         ((BreventActivity) getActivity()).copy(commandLine);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        builder.setNeutralButton(R.string.menu_guide, this);
         if (allowRoot) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         } else {
+            if (!adbRunning) {
+                builder.setPositiveButton(R.string.brevent_service_open_development, this);
+            }
             builder.setOnKeyListener(this);
-        }
-        if (!adbRunning || allowRoot) {
-            builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
         return builder.create();
     }
@@ -133,6 +134,9 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
                 UILog.d("Can't find settings", e);
             }
             getActivity().finish();
+        } else if (which == DialogInterface.BUTTON_NEUTRAL) {
+            ((BreventActivity) getActivity()).openGuide();
+            dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
             ((BreventActivity) getActivity()).runAsRoot();
             dismiss();
