@@ -131,6 +131,7 @@
     <string name="important_device_admin">%s (设备管理器)</string>
     <string name="important_gcm">%s（GCM）</string>
     <string name="important_battery">%s（无法休眠，电池未优化）</string>
+    <string name="important_trust_agent">%s (可信代理)</string>
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">保持通知</string>

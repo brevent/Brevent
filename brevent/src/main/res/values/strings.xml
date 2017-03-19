@@ -134,6 +134,7 @@
     <string name="important_device_admin">%s (Device admin)</string>
     <string name="important_gcm">%s (GCM)</string>
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
+    <string name="important_trust_agent">%s (Trust agent)</string>
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_optimize_priority">Keep notifications</string>

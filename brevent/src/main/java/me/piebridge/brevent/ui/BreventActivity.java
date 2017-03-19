@@ -102,6 +102,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_ACCESSIBILITY = 10;
     public static final int IMPORTANT_DEVICE_ADMIN = 11;
     public static final int IMPORTANT_BATTERY = 13;
+    public static final int IMPORTANT_TRUST_AGENT = 14;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -706,6 +707,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mFavorite.clear();
         mGcm.clear();
         resolveImportantPackages(status.getProcesses(), mImportant);
+        for (String packageName : status.getTrustAgents()) {
+            mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
+        }
         resolveFavoritePackages(mFavorite);
         resolveGcmPackages(mGcm);
 
@@ -953,6 +957,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 return getString(R.string.important_device_admin, label);
             case IMPORTANT_BATTERY:
                 return getString(R.string.important_battery, label);
+            case IMPORTANT_TRUST_AGENT:
+                return getString(R.string.important_trust_agent, label);
             default:
                 break;
         }
