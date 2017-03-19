@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is Standby. If you find some apps still running, please use Brevent or other tools to check whether it\'s Standby.\n\nAnd to reduce self battery usage, Brevent sever delay the processes by 3 to 60 seconds according the event level. However, you can modify it to immediate in settings.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is Standby(App Standby, since Android 6.0). If you find some apps still running, please use Brevent or other tools to check whether it\'s standby or \"Inactive\" in \"Inactive apps\" of \"Developer options\".\n\nAnd to reduce self battery usage, Brevent sever delay the processes by 3 to 60 seconds according the event level. However, you can modify it to immediate in settings.</string>
 
     <string name="start_brevent">Start Brevent</string>
 
@@ -93,12 +93,12 @@
     <string name="brevent_timeout_30min">30 minutes</string>
     <string name="brevent_timeout_1hour">1 hour</string>
     <string name="brevent_method">How brevent</string>
-    <string name="brevent_method_standby_forcestop">App Standby, then ForceStop</string>
-    <string name="brevent_method_standby_only">Only App Standby, no ForceStop</string>
-    <string name="brevent_method_forcestop_only">Only ForceStop, no App Standby</string>
-    <string name="brevent_method_standby_forcestop_label">App Standby when exit apps, and ForceStop when swiping away from recent tasks\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_method_standby_only_label">Only App Standby, no ForceStop. Of course, will ForceStop apps awaken by other apps\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_method_forcestop_only_label">Only ForceStop, no App Standby. It may save battery, but costs more time when apps re-launch\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
+    <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
+    <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when exit apps, and force-stop when swiping away from recent tasks\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_method_standby_only_label">Only Standby, no force-stop. Of course, will force-stop apps awaken by other apps\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_method_forcestop_only_label">Only force-stop, no Standby. It may save battery, but costs more time when apps re-launch\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
     <string name="brevent_mode">When brevent</string>
     <string name="brevent_mode_later">Later (Recommend)</string>
     <string name="brevent_mode_immediate">Immediate</string>
@@ -132,15 +132,15 @@
     <string name="important_tile">%s (Quick Settings)</string>
     <string name="important_accessibility">%s (Accessibility)</string>
     <string name="important_device_admin">%s (Device admin)</string>
-    <string name="important_gcm">%s (GCM)</string>
+    <string name="important_gcm">%s (FCM)</string>
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
     <string name="important_trust_agent">%s (Trust agent)</string>
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_optimize_priority">Keep notifications</string>
-    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force stop priority app if it has notification or running in background, and will make sure it survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
-    <string name="brevent_allow_gcm">Allow GCM</string>
-    <string name="brevent_allow_gcm_label">This feature allow brevented user apps to receive GCM message. If it\'s on, it can awake by GCM and other broadcast\n\nDepends on "Keep notifications". Requires donate total 2 USD for Play version, feel free to donate for other version</string>
+    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force-stop \"Do Not Disturb overridden\" apps if they pushed notification or running in background, and will make sure them survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" in notifications for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
+    <string name="brevent_allow_gcm">Allow FCM</string>
+    <string name="brevent_allow_gcm_label">This feature allow brevented user apps to receive FCM (Firebase Cloud Message, previous GCM) message. If it\'s on, it can awake by FCM and other broadcast\n\nDepends on "Keep notifications". Requires donate total 2 USD for Play version, feel free to donate for other version</string>
     <string name="brevent_allow_root">Run as ROOT</string>
     <string name="brevent_allow_root_label">It\'s unsafe and unnecessary for Brevent to use ROOT. If your device has been ROOTed, this feature can start Brevent service without "USB Debugging"\n\Be careful, there is no support. Requires donate total 3 USD for Play version, feel free to donate for other version</string>
 

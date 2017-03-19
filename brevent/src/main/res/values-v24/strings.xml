@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force stop \"Do Not Disturb overridden\" apps if they pushed notification or running in background, and will make sure them survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" in notifications for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
+
+</resources>

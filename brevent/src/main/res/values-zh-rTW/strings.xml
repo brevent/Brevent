@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設使用休眠黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具（如開發人員選項中的未啟用的應用程式）檢視是否處於休眠狀態。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設定中修改成立即處理。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否为「未啓用」。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等；您也可在設定中修改成立即處理。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="brevent_service_start">請啟動黑域服務</string>
@@ -36,7 +36,7 @@
     <string name="process_retrieving_apps">正在取得應用程式訊息，請稍候. . .</string>
 
     <string name="process_status_running">正在執行</string>
-    <string name="process_status_standby">已經休眠</string>
+    <string name="process_status_standby">已經待機</string>
     <string name="process_status_stopped">沒有執行</string>
     <string name="process_not_running">(沒有執行)</string>
     <string name="process_all_top">%d 個前景</string>
@@ -65,7 +65,7 @@
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>
     <string name="context_menu_brevent_server_info">黑域服務訊息</string>
-    <string name="context_menu_notifications">設定優先通知</string>
+    <string name="context_menu_notifications">通知</string>
     <string name="context_menu_snackbar_copied">安裝包(Package)名稱已複製: %s</string>
 
     <!-- menu -->
@@ -91,12 +91,12 @@
     <string name="brevent_timeout_30min">30 分鐘</string>
     <string name="brevent_timeout_1hour">1 小時</string>
     <string name="brevent_method">怎樣黑域？</string>
-    <string name="brevent_method_standby_forcestop">休眠，然後強制停止</string>
-    <string name="brevent_method_standby_only">只休眠，不強制停止</string>
-    <string name="brevent_method_forcestop_only">只強制停止，不休眠</string>
-    <string name="brevent_method_standby_forcestop_label">結束應用程式時休眠，逾時後或者從最近使用的應用程式拉掉時強制停止\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_standby_only_label">只休眠，不強制停止。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_forcestop_only_label">只強制停止，不休眠。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
+    <string name="brevent_method_standby_only">只待機，不強制停止</string>
+    <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
+    <string name="brevent_method_standby_forcestop_label">結束應用程式時待機，逾時後或者從最近使用的應用程式拉掉時強制停止\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_standby_only_label">只待機，不強制停止。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
+    <string name="brevent_method_forcestop_only_label">只強制停止，不待機。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
     <string name="brevent_mode">何時黑域？</string>
     <string name="brevent_mode_later">動態延後（推薦）</string>
     <string name="brevent_mode_immediate">立即處理</string>
@@ -129,15 +129,15 @@
     <string name="important_tile">%s (快捷設定)</string>
     <string name="important_accessibility">%s (無障礙設定)</string>
     <string name="important_device_admin">%s (裝置管理員)</string>
-    <string name="important_gcm">%s（GCM）</string>
-    <string name="important_battery">%s（無法休眠，電池未最佳化）</string>
+    <string name="important_gcm">%s（FCM）</string>
+    <string name="important_battery">%s（無法待機，電池未最佳化）</string>
     <string name="important_trust_agent">%s (信任的代理程式)</string>
 
     <string name="brevent_advanced">進階功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">啟用之後，如果「優先打擾應用程式」有通知或者在背景執行，黑域都不會強制停止；同時，保證它們被服務喚醒之後，至少執行 30 秒\n\n推薦為帳號同步及通訊類應用程式設定優先打擾；當然，更建議不要黑域它們。建議累計捐贈 1 美元</string>
-    <string name="brevent_allow_gcm">允許 GCM 推送</string>
-    <string name="brevent_allow_gcm_label">這項功能允許黑域後的用戶應用程式接收 GCM 訊息。開啟之後，GCM 和其它廣播都能喚醒；但是如果沒有訊息，黑域都會清理它們\n\n依賴「保持通知」。Play 版要求累計捐贈 2 美元，其它版本請隨意捐贈</string>
+    <string name="brevent_optimize_priority_label">啟用之後，如果已覆寫「零打擾」設定的應用程式有通知或者在背景執行，黑域都不會強制停止；同時，保證它們被服務喚醒之後，至少執行 30 秒\n\n推薦為帳號同步及通訊類應用程式在通知中覆寫「零打擾」設定，或者不要黑域它們。建議累計捐贈 1 美元</string>
+    <string name="brevent_allow_gcm">允許 FCM 推送</string>
+    <string name="brevent_allow_gcm_label">這項功能允許黑域後的用戶應用程式接收 FCM「Firebase Cloud Message，前身 GCM」訊息。開啟之後，FCM 和其它廣播都能喚醒；但是如果沒有訊息，黑域都會清理它們\n\n依賴「保持通知」。Play 版要求累計捐贈 2 美元，其它版本請隨意捐贈</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要停用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式開機自啟或者透過第三方指令碼開啟黑域服務\n\n這個功能並不穩定，暫不提供任何支援。Play 版要求累計捐贈 3 美元，其它版本請隨意捐贈</string>
 
