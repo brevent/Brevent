@@ -32,8 +32,6 @@ public class HideApiOverride {
     public static final String CALL_METHOD_GET_GLOBAL = Settings.CALL_METHOD_GET_GLOBAL;
 
     public static final String SMS_DEFAULT_APPLICATION = Settings.Secure.SMS_DEFAULT_APPLICATION;
-    public static final String DIALER_DEFAULT_APPLICATION = Settings.Secure.DIALER_DEFAULT_APPLICATION;
-    public static final String ASSISTANT = Settings.Secure.ASSISTANT;
 
     private HideApiOverride() {
 
@@ -140,4 +138,13 @@ public class HideApiOverride {
     public static long getOpEntryTime(Object opEntry) {
         return ((AppOpsManager.OpEntry) opEntry).getTime();
     }
+
+    public static String getDialerDefaultApplication() {
+        return Settings.Secure.DIALER_DEFAULT_APPLICATION;
+    }
+
+    public static String getAssistant() {
+        return Settings.Secure.ASSISTANT;
+    }
+
 }

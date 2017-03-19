@@ -765,16 +765,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         // sms
         packageNames.put(getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION), IMPORTANT_SMS);
 
-        // dialer
-        String dialer = getSecureSetting(HideApiOverride.DIALER_DEFAULT_APPLICATION);
-        if (dialer != null) {
-            packageNames.put(dialer, IMPORTANT_DIALER);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // dialer
+            String dialer = getSecureSetting(HideApiOverride.getDialerDefaultApplication());
+            if (dialer != null) {
+                packageNames.put(dialer, IMPORTANT_DIALER);
+            }
 
-        // assistant
-        String assistant = getPackageName(getSecureSetting(HideApiOverride.ASSISTANT));
-        if (assistant != null) {
-            packageNames.put(assistant, IMPORTANT_ASSISTANT);
+            // assistant
+            String assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
+            if (assistant != null) {
+                packageNames.put(assistant, IMPORTANT_ASSISTANT);
+            }
         }
 
         // webview
