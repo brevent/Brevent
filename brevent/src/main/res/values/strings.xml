@@ -109,7 +109,10 @@
     <string name="brevent_ui">User interface</string>
     <string name="show_donation">Show donation</string>
     <string name="show_donation_play_one">Thanks for donation %d USD in Play Store</string>
+    <string name="show_donation_play_one_and_contributor">Thanks for donation %d USD in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donation %1$d times total %2$d USD in Play Store</string>
+    <string name="show_donation_play_multi_and_contributor" tools:ignore="PluralsCandidate">Thanks for donation %1$d times total %2$d USD in Play Store, and priceless contribution on Brevent</string>
+    <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
     <string name="show_all_apps">Show all apps</string>
     <string name="show_all_apps_label">Include system and framework apps cannot be open\n\nBe careful to brevent system and framework apps</string>
     <string name="show_framework_apps">Show framework apps</string>

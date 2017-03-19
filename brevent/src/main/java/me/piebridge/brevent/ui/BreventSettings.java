@@ -103,7 +103,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     public void showPlay(Collection<String> purchased) {
         if (purchased == null) {
-            settingsFragment.updatePlayDonation(-1, -1);
+            settingsFragment.updatePlayDonation(-1, -1, false);
         } else {
             updatePlayDonation(purchased);
         }
@@ -111,18 +111,24 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     private void updatePlayDonation(Collection<String> purchased) {
-        int count = purchased.size();
+        int count = 0;
         int total = 0;
+        boolean contributor = false;
         for (String p : purchased) {
-            int i = p.indexOf('_');
-            if (i > 0) {
-                String t = p.substring(i + 1);
-                if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
-                    total += Integer.parseInt(t);
+            if (p.startsWith("contributor_")) {
+                contributor = true;
+            } else {
+                count++;
+                int i = p.indexOf('_');
+                if (i > 0) {
+                    String t = p.substring(i + 1);
+                    if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
+                        total += Integer.parseInt(t);
+                    }
                 }
             }
         }
-        settingsFragment.updatePlayDonation(count, total);
+        settingsFragment.updatePlayDonation(count, total, contributor);
     }
 
 }

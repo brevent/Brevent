@@ -112,14 +112,27 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
-    public void updatePlayDonation(int count, int total) {
+    public void updatePlayDonation(int count, int total, boolean contributor) {
         String summary;
         if (count == 1) {
-            summary = getString(R.string.show_donation_play_one, total);
+            if (contributor) {
+                summary = getString(R.string.show_donation_play_one_and_contributor, total);
+            } else {
+                summary = getString(R.string.show_donation_play_one, total);
+            }
             preferenceDonation.setSummary(summary);
         } else if (count > 1) {
-            summary = getString(R.string.show_donation_play_multi, count, total);
+            if (contributor) {
+                summary = getString(R.string.show_donation_play_multi_and_contributor, count, total);
+            } else {
+                summary = getString(R.string.show_donation_play_multi, count, total);
+            }
             preferenceDonation.setSummary(summary);
+        } else if (contributor) {
+            preferenceDonation.setSummary(R.string.show_donation_contributor);
+        }
+        if (contributor) {
+            total += 0x5;
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);

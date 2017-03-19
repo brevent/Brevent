@@ -106,7 +106,10 @@
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>
     <string name="show_donation_play_one">感谢您通过 Play 商店捐赠 %d 美金</string>
+    <string name="show_donation_play_one_and_contributor">感谢您通过 Play 商店捐赠 %d 美金，以及为黑域做过的特别贡献</string>
     <string name="show_donation_play_multi">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美金</string>
+    <string name="show_donation_play_multi_and_contributor">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美金，以及为黑域做过的特别贡献</string>
+    <string name="show_donation_contributor">感谢您为黑域做过的特别贡献</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域系统应用或框架应用</string>
     <string name="show_framework_apps">显示框架应用</string>
