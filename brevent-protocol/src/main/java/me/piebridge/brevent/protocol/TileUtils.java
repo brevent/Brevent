@@ -1,7 +1,10 @@
 package me.piebridge.brevent.protocol;
 
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by thom on 2017/3/18.
@@ -19,6 +22,9 @@ public class TileUtils {
     }
 
     public static Collection<String> parseTiles(String tiles) {
+        if (TextUtils.isEmpty(tiles)) {
+            return Collections.emptyList();
+        }
         Collection<String> packageNames = new ArrayList<>();
         for (String tile : tiles.split(",")) {
             // custom(com.github.shadowsocks/.ShadowsocksTileService)
