@@ -30,7 +30,7 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private void startBrevent() {
+    private boolean startBrevent() {
         String name = "libbrevent.so";
         try {
             PackageManager packageManager = getPackageManager();
@@ -43,6 +43,7 @@ public class BreventIntentService extends IntentService {
                     for (String result : results) {
                         UILog.d(result);
                     }
+                    return true;
                 }
             } else {
                 UILog.e("Can't find libbrevent.so");
@@ -50,6 +51,8 @@ public class BreventIntentService extends IntentService {
         } catch (PackageManager.NameNotFoundException e) {
             // ignore
         }
+        ((BreventApplication) getApplication()).started = false;
+        return false;
     }
 
     public static void startBrevent(Context context, String action) {
