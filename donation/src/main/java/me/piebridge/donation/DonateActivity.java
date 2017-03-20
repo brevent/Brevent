@@ -24,11 +24,14 @@ import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +64,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private static final int REQUEST_WECHAT_DONATE_SDA = 0x4121;
 
     private static final int REQUEST_PLAY_DONATE = 0x4122;
+
+    private static final int PERMISSION_WECHAT_DONATE = 0x4123;
 
     private static final String KEY_WECHAT_DONATE_SDA = "donation.wechat.sda";
     private static final String KEY_WECHAT_DONATE_URI = "donation.wechat.uri";
@@ -212,7 +217,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     private boolean mayHasPermission(String permission) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N || hasPermission(permission);
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M || hasPermission(permission);
     }
 
     private boolean hasPermission(String permission) {
@@ -241,6 +246,19 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    @CallSuper
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (PERMISSION_WECHAT_DONATE == requestCode) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                donateViaWechat();
+            } else {
+                Toast.makeText(this, R.string.donation_wechat_permission, Toast.LENGTH_LONG).show();
+                hideWechat();
+            }
         }
     }
 
@@ -388,6 +406,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 return null;
             }
             return Uri.fromFile(new File(dir, name));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(this, new String[] {WECHAT_DONATE_PERMISSION}, PERMISSION_WECHAT_DONATE);
+            return Uri.EMPTY;
         } else {
             return null;
         }

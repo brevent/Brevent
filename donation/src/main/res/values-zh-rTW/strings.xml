@@ -4,6 +4,7 @@
     <string name="donation">如果您喜歡，請隨意捐贈xD~</string>
     <string name="donation_wechat_guide">1. 打開「微信」，進入「掃一掃」\n\n2. 點擊選單\n\n3. 選擇「從相冊中選取二維碼」\n\n4. 選取黑域捐贈二維碼</string>
     <string name="donation_wechat_scan">前往「微信掃一掃」</string>
+    <string name="donation_wechat_permission">微信捐贈需要把二維碼放入相冊中，請授予「儲存」權限</string>
     <string name="donation_unsupported">請安裝支付寶，或 PayPal 以便捐贈</string>
     <string name="donation_unsupported_wechat">請安裝支付寶，或微信，或 PayPal 以便捐贈</string>
 
