@@ -56,6 +56,10 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         return mDialog;
     }
 
+    private boolean isEmulator() {
+        return SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN).equals("1");
+    }
+
     private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
@@ -69,7 +73,9 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         boolean connected = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
-        ((BreventActivity) getActivity()).copy(commandLine);
+        if (isEmulator()) {
+            ((BreventActivity) getActivity()).copy(commandLine);
+        }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         builder.setNeutralButton(R.string.menu_guide, this);
@@ -107,7 +113,7 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
             if (file.exists()) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("adb ");
-                if (SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN).equals("1")) {
+                if (isEmulator()) {
                     sb.append("-e ");
                 } else {
                     sb.append("-d ");
