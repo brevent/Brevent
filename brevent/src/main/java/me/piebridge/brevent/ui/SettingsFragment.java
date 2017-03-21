@@ -118,10 +118,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void onUpdateBreventMethod() {
-        if ("forcestop_only".equals(getPreferenceScreen().getSharedPreferences().getString(BreventConfiguration.BREVENT_METHOD, null))) {
-            preferenceStandbyTimeout.setEnabled(false);
-        } else {
+        if ("standby_forcestop".equals(getPreferenceScreen().getSharedPreferences().getString(BreventConfiguration.BREVENT_METHOD, null))) {
             preferenceStandbyTimeout.setEnabled(true);
+        } else {
+            preferenceStandbyTimeout.setEnabled(false);
         }
     }
 
