@@ -27,6 +27,13 @@
             android:summary="%1$s"
             android:title="@string/brevent_method" />
 
+        <ListPreference
+            android:defaultValue="10800"
+            android:entries="@array/brevent_standby_timeout_entries"
+            android:entryValues="@array/brevent_standby_timeout_values"
+            android:key="brevent_standby_timeout"
+            android:title="@string/brevent_standby_timeout" />
+
         <me.piebridge.brevent.ui.ListPreferenceSummary
             android:defaultValue="1800"
             android:entries="@array/brevent_timeout_entries"

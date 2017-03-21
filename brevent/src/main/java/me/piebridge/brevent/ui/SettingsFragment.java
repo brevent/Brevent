@@ -41,6 +41,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
 
+    private Preference preferenceStandbyTimeout;
+
     private int repeat = 0;
 
     public SettingsFragment() {
@@ -61,6 +63,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
+        preferenceStandbyTimeout = preferenceScreen.findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(preferenceStandbyTimeout);
+        }
+
         if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
@@ -77,6 +84,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (getArguments().getInt(Intent.EXTRA_ALARM_COUNT, 0) == 0) {
             breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
         }
+        onUpdateBreventMethod();
     }
 
     @Override
@@ -104,6 +112,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (SHOW_DONATION.equals(key)) {
             onShowDonationChanged();
+        } else if (BreventConfiguration.BREVENT_METHOD.equals(key)) {
+            onUpdateBreventMethod();
+        }
+    }
+
+    private void onUpdateBreventMethod() {
+        if ("forcestop_only".equals(getPreferenceScreen().getSharedPreferences().getString(BreventConfiguration.BREVENT_METHOD, null))) {
+            preferenceStandbyTimeout.setEnabled(false);
+        } else {
+            preferenceStandbyTimeout.setEnabled(true);
         }
     }
 

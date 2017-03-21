@@ -46,6 +46,9 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_OPTIMIZE_PRIORITY = "brevent_optimize_priority";
     public static final boolean DEFAULT_BREVENT_OPTIMIZE_PRIORITY = false;
 
+    public static final String BREVENT_STANDBY_TIMEOUT = "brevent_standby_timeout";
+    public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 10800;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public boolean backMove = DEFAULT_BREVENT_MOVE_BACK;
@@ -64,6 +67,8 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean optimizePriority = DEFAULT_BREVENT_OPTIMIZE_PRIORITY;
 
+    public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
+
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
@@ -78,6 +83,7 @@ public class BreventConfiguration extends BreventToken {
         if (!optimizePriority) {
             allowGcm = false;
         }
+        setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT, "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
     }
 
     private int convertMode(String string) {
@@ -122,6 +128,7 @@ public class BreventConfiguration extends BreventToken {
         if (!optimizePriority) {
             allowGcm = false;
         }
+        standbyTimeout = in.readInt();
     }
 
     @Override
@@ -136,6 +143,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(method);
         dest.writeInt(allowGcm ? 1 : 0);
         dest.writeInt(optimizePriority ? 1 : 0);
+        dest.writeInt(standbyTimeout);
     }
 
     public void write(PrintWriter pw) {
@@ -148,6 +156,7 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
         write(pw, BREVENT_OPTIMIZE_PRIORITY, optimizePriority);
+        write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -197,6 +206,11 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_OPTIMIZE_PRIORITY:
                 optimizePriority = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_STANDBY_TIMEOUT:
+                if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
+                    standbyTimeout = Integer.parseInt(value);
+                }
+                break;
             default:
                 break;
         }
@@ -238,6 +252,10 @@ public class BreventConfiguration extends BreventToken {
         }
         if (this.optimizePriority != request.optimizePriority) {
             this.optimizePriority = request.optimizePriority;
+            updated = true;
+        }
+        if (this.standbyTimeout != request.standbyTimeout) {
+            this.standbyTimeout = request.standbyTimeout;
             updated = true;
         }
         return updated;

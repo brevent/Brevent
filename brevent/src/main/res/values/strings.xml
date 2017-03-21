@@ -93,6 +93,9 @@
     <string name="brevent_timeout_15min">15 minutes</string>
     <string name="brevent_timeout_30min">30 minutes</string>
     <string name="brevent_timeout_1hour">1 hour</string>
+    <string name="brevent_timeout_2hour">2 hours</string>
+    <string name="brevent_timeout_3hour">3 hours</string>
+    <string name="brevent_timeout_6hour">6 hours</string>
     <string name="brevent_method">How brevent</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
@@ -119,7 +122,7 @@
     <string name="show_framework_apps">Show framework apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful to brevent system and framework apps</string>
 
-    <string name="feedback_message">Thanks for feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
+    <string name="feedback_message">Feel free to feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
     <string name="feedback_message_email">\n\nFor private messages, please drop an Email to me.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
@@ -156,5 +159,6 @@
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">Thom</string>
     <string name="brevent_about_licenses">Licenses</string>
+    <string name="brevent_standby_timeout">Standby timeout</string>
 
 </resources>
