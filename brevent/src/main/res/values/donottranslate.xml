@@ -3,6 +3,7 @@
 
     <string-array name="brevent_timeout_values">
         <item>0</item>
+        <item>60</item>
         <item>300</item>
         <item>600</item>
         <item>900</item>
@@ -12,6 +13,7 @@
 
     <string-array name="brevent_timeout_entries">
         <item>@string/brevent_timeout_never</item>
+        <item>@string/brevent_timeout_1min</item>
         <item>@string/brevent_timeout_5min</item>
         <item>@string/brevent_timeout_10min</item>
         <item>@string/brevent_timeout_15min</item>

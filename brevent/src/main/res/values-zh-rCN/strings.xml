@@ -85,6 +85,7 @@
     <string name="brevent_timeout_label">离开后台应用 %1$s后\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_label_never">永不黑域后台应用\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_never">永不</string>
+    <string name="brevent_timeout_1min">1 分钟</string>
     <string name="brevent_timeout_5min">5 分钟</string>
     <string name="brevent_timeout_10min">10 分钟</string>
     <string name="brevent_timeout_15min">15 分钟</string>

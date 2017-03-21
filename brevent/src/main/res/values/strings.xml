@@ -87,6 +87,7 @@
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent show inactive time for background apps dynamically</string>
     <string name="brevent_timeout_label_never">Background apps won\'t be brevented\n\nBrevent show inactive time for background apps dynamically</string>
     <string name="brevent_timeout_never">Never</string>
+    <string name="brevent_timeout_1min">1 minute</string>
     <string name="brevent_timeout_5min">5 minutes</string>
     <string name="brevent_timeout_10min">10 minutes</string>
     <string name="brevent_timeout_15min">15 minutes</string>

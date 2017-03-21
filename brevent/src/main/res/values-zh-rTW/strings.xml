@@ -85,6 +85,7 @@
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_label_never">永不黑域背景應用程式\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_never">永不</string>
+    <string name="brevent_timeout_1min">1 分鐘</string>
     <string name="brevent_timeout_5min">5 分鐘</string>
     <string name="brevent_timeout_10min">10 分鐘</string>
     <string name="brevent_timeout_15min">15 分鐘</string>
