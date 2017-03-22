@@ -767,13 +767,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
-            String dialer = getSecureSetting(HideApiOverride.getDialerDefaultApplication());
+            String dialer = getSecureSetting(HideApiOverride.DIALER_DEFAULT_APPLICATION);
             if (dialer != null) {
                 packageNames.put(dialer, IMPORTANT_DIALER);
             }
 
             // assistant
-            String assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
+            String assistant = getPackageName(getSecureSetting(HideApiOverride.ASSISTANT));
             if (assistant != null) {
                 packageNames.put(assistant, IMPORTANT_ASSISTANT);
             }
@@ -862,13 +862,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         // tile
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            try {
-                String tiles = getSecureSetting(HideApiOverrideN.getQsTiles());
-                for (String packageName : TileUtils.parseTiles(tiles)) {
-                    packageNames.put(packageName, IMPORTANT_TILE);
-                }
-            } catch (NoSuchFieldError e) {
-                UILog.d(e.getMessage(), e);
+            String tiles = getSecureSetting(HideApiOverrideN.QS_TILES);
+            for (String packageName : TileUtils.parseTiles(tiles)) {
+                packageNames.put(packageName, IMPORTANT_TILE);
             }
         }
 
