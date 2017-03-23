@@ -4,15 +4,11 @@ import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.Process;
-import android.os.RemoteException;
-import android.os.ResultReceiver;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 
-import java.io.FileDescriptor;
 import java.util.List;
 
 /**
@@ -160,11 +156,6 @@ public class HideApiOverride {
 
     public static long getOpEntryTime(Object opEntry) {
         return ((AppOpsManager.OpEntry) opEntry).getTime();
-    }
-
-    public static void shellCommand(IBinder binder, FileDescriptor in, FileDescriptor out, FileDescriptor err,
-                                    String[] args, ResultReceiver resultReceiver) throws RemoteException {
-        binder.shellCommand(in, out, err, args, null, resultReceiver);
     }
 
     private static int getUserOwner() {

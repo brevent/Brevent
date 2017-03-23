@@ -23,8 +23,6 @@ public interface IPackageManager {
     @RequiresApi(Build.VERSION_CODES.N)
     int getPackageUid(String packageName, int flags, int userId) throws RemoteException;
 
-    String[] getPackagesForUid(int uid) throws RemoteException;
-
     /**
      * This implements getInstalledPackages via a "last returned row"
      * mechanism that is not exposed in the API. This is to get around the IPC
