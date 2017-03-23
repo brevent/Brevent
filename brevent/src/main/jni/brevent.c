@@ -11,7 +11,6 @@
 
 #define TAG "BreventLoader"
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
-#define LOGW(...) (__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
 #define LOGE(...) (__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
 
 #define PROJECT "https://github.com/liudongmiao/Brevent/issues"
@@ -43,10 +42,8 @@ static int worker() {
     FILE *file;
     char *path;
     char line[PATH_MAX];
-    char libreader[PATH_MAX];
     char classpath[PATH_MAX];
-    char *arg[] = {"app_process", NULL,
-                   "/system/bin", "--nice-name=brevent_server",
+    char *arg[] = {"app_process", "/system/bin", "--nice-name=brevent_server",
                    "me.piebridge.brevent.server.BreventServer", NULL};
     file = popen("pm path me.piebridge.brevent", "r");
     if (file != NULL) {
@@ -66,31 +63,6 @@ static int worker() {
         LOGE("can't find loader: %s", path);
         return -1;
     }
-    memset(classpath, 0, PATH_MAX);
-    sprintf(classpath, "CLASSPATH=%s", path);
-
-    file = popen("dumpsys package me.piebridge.brevent", "r");
-    if (file != NULL) {
-        while (fgets(line, sizeof(line), file) != NULL) {
-            rstrip(line);
-            path = strstr(line, "legacyNativeLibraryDir=");
-            if (path != NULL) {
-                path = strchr(line, '=');
-                path++;
-                memset(libreader, 0, PATH_MAX);
-                sprintf(libreader, "%s/" ABI "/libreader.so", path);
-                LOGD("libreader: %s", libreader);
-                if (access(libreader, F_OK) == -1) {
-                    LOGW("can't find libreader: %s", libreader);
-                }
-                memset(libreader, 0, PATH_MAX);
-                sprintf(libreader, "-Djava.libreader.path=%s/" ABI "/libreader.so", path);
-                arg[1] = libreader;
-                break;
-            }
-        }
-        pclose(file);
-    }
     pid_t pid = fork();
     switch (pid) {
         case -1:
@@ -101,6 +73,8 @@ static int worker() {
         default:
             return pid;
     }
+    memset(classpath, 0, PATH_MAX);
+    sprintf(classpath, "CLASSPATH=%s", path);
     putenv(classpath);
     return execvp(arg[0], arg);
 }

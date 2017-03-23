@@ -4,16 +4,23 @@ import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Process;
+import android.os.RemoteException;
+import android.os.ResultReceiver;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.util.Log;
 
+import java.io.FileDescriptor;
 import java.util.List;
 
 /**
  * Created by thom on 2017/2/22.
  */
 public class HideApiOverride {
+
+    private static final String TAG = "BreventServer";
 
     /**
      * deprecated in n
@@ -155,10 +162,16 @@ public class HideApiOverride {
         return ((AppOpsManager.OpEntry) opEntry).getTime();
     }
 
+    public static void shellCommand(IBinder binder, FileDescriptor in, FileDescriptor out, FileDescriptor err,
+                                    String[] args, ResultReceiver resultReceiver) throws RemoteException {
+        binder.shellCommand(in, out, err, args, null, resultReceiver);
+    }
+
     private static int getUserOwner() {
         try {
             return UserHandle.USER_OWNER;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find UserHandle.USER_OWNER");
             return 0;
         }
     }
@@ -167,6 +180,7 @@ public class HideApiOverride {
         try {
             return AppOpsManager.OP_NONE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager.OP_NONE");
             return -1;
         }
     }
@@ -175,6 +189,7 @@ public class HideApiOverride {
         try {
             return AppOpsManager.OP_ACTIVATE_VPN;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager.OP_ACTIVATE_VPN");
             return 47;
         }
     }
@@ -183,6 +198,7 @@ public class HideApiOverride {
         try {
             return UsbManager.ACTION_USB_STATE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find UsbManager.ACTION_USB_STATE");
             return "android.hardware.usb.action.USB_STATE";
         }
     }
@@ -191,6 +207,7 @@ public class HideApiOverride {
         try {
             return UsbManager.USB_CONNECTED;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find UsbManager.USB_CONNECTED");
             return "connected";
         }
     }
@@ -199,6 +216,7 @@ public class HideApiOverride {
         try {
             return Settings.CALL_METHOD_USER_KEY;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.CALL_METHOD_USER_KEY");
             return "_user";
         }
     }
@@ -207,6 +225,7 @@ public class HideApiOverride {
         try {
             return Settings.CALL_METHOD_GET_SECURE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.CALL_METHOD_GET_SECURE");
             return "GET_secure";
         }
     }
@@ -215,6 +234,7 @@ public class HideApiOverride {
         try {
             return Settings.CALL_METHOD_GET_GLOBAL;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.CALL_METHOD_GET_GLOBAL");
             return "GET_global";
         }
     }
@@ -223,6 +243,7 @@ public class HideApiOverride {
         try {
             return Settings.Secure.SMS_DEFAULT_APPLICATION;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Secure.SMS_DEFAULT_APPLICATION");
             return "sms_default_application";
         }
     }
@@ -231,6 +252,7 @@ public class HideApiOverride {
         try {
             return Settings.Secure.DIALER_DEFAULT_APPLICATION;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Secure.DIALER_DEFAULT_APPLICATION");
             return "dialer_default_application";
         }
     }
@@ -239,6 +261,7 @@ public class HideApiOverride {
         try {
             return Settings.Secure.ASSISTANT;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Secure.ASSISTANT");
             return "assistant";
         }
     }
@@ -247,6 +270,7 @@ public class HideApiOverride {
         try {
             return Process.ROOT_UID;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Process.ROOT_UID");
             return 0;
         }
     }
@@ -255,6 +279,7 @@ public class HideApiOverride {
         try {
             return Process.SHELL_UID;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Process.SHELL_UID");
             return 2000;
         }
     }
@@ -263,6 +288,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.RunningAppProcessInfo.FLAG_PERSISTENT;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.FLAG_PERSISTENT");
             return 1 << 1;
         }
     }
@@ -271,6 +297,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_CACHED_ACTIVITY;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_CACHED_ACTIVITY");
             return 14;
         }
     }
@@ -279,6 +306,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_BOUND_FOREGROUND_SERVICE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_BOUND_FOREGROUND_SERVICE");
             return 3;
         }
     }
@@ -287,6 +315,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_FOREGROUND_SERVICE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_FOREGROUND_SERVICE");
             return 4;
         }
     }
@@ -295,6 +324,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_SERVICE;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_SERVICE");
             return 10;
         }
     }
@@ -303,6 +333,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_RECEIVER;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_RECEIVER");
             return 11;
         }
     }
@@ -311,6 +342,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.PROCESS_STATE_TOP;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_TOP");
             return 2;
         }
     }
@@ -319,14 +351,21 @@ public class HideApiOverride {
         try {
             return ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS;
         } catch (LinkageError e) {
-            return 0x0008;
+            // do nothing
         }
+        try {
+            return ActivityManager.RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS nor ActivityManager.RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS");
+        }
+        return 0x0008;
     }
 
     private static int getRecentIncludeProfiles() {
         try {
             return ActivityManager.RECENT_INCLUDE_PROFILES;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.RECENT_INCLUDE_PROFILES");
             return 0x0004;
         }
     }
@@ -335,6 +374,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.RECENT_INGORE_PINNED_STACK_TASKS;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.RECENT_INGORE_PINNED_STACK_TASKS");
             return 0x0020;
         }
     }
@@ -343,6 +383,7 @@ public class HideApiOverride {
         try {
             return ActivityManager.RECENT_INGORE_DOCKED_STACK_TOP_TASK;
         } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.RECENT_INGORE_DOCKED_STACK_TOP_TASK");
             return 0x0010;
         }
     }

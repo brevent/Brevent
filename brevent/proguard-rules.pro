@@ -25,6 +25,7 @@
 
 -keep class me.piebridge.brevent.server.BreventServer {
     public static void main(java.lang.String[]);
+    public static void startBreventServer();
 }
 
 -keep class me.piebridge.EventHandler { *; }

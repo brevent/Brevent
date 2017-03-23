@@ -1,7 +1,5 @@
 package me.piebridge;
 
-import java.io.File;
-
 /**
  * LogReader, similar like logcat
  * Created by thom on 2017/1/22.
@@ -9,12 +7,7 @@ import java.io.File;
 public class LogReader {
 
     static {
-        String libReader = System.getProperty("java.libreader.path");
-        if (libReader != null && new File(libReader).isFile()) {
-            System.load(libReader);
-        } else {
-            System.loadLibrary("reader");
-        }
+        System.loadLibrary("reader");
     }
 
     private LogReader() {
