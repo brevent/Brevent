@@ -6,6 +6,11 @@ package android.util;
 public class Log {
 
     /**
+     * Priority constant for the println method; use Log.v.
+     */
+    public static final int VERBOSE = 2;
+
+    /**
      * Priority constant for the println method; use Log.d.
      */
     public static final int DEBUG = 3;
