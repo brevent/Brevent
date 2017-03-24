@@ -20,12 +20,16 @@
     <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby，或译“休眠”）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据级别延后 3 到 60 秒不等；您也可在设置中修改成立即处理。</string>
     <string name="start_brevent">进入黑域</string>
 
+    <string name="fragment_guide_adb">ADB</string>
+    <string name="fragment_guide_adb_message">Android 调试桥 (adb) 是一个通用命令行工具，其允许您与连接的 Android 设备进行通信。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 这里下载（长按进入复制模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows) 按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，就可以执行“adb”了\n\n3. (Mac OS X) 打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里，请使用显示的带前缀“adb”，如 “/Users/&lt;name&gt;/Downloads/platform-tools/adb” 代替 “adb”\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+
     <string name="brevent_service_start">请启动黑域服务</string>
     <string name="brevent_service_restart">请重启黑域服务</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机\n\n4. 在电脑命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（请参考“向导 - ADB”）\n\n4. 在电脑命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
-    <string name="brevent_service_command_copied">指令路径已复制: %s</string>
+    <string name="brevent_service_command_copied">指令已复制: %s</string>
     <string name="brevent_service_adb_running">(已启用)</string>
     <string name="brevent_service_usb_connected">(已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>

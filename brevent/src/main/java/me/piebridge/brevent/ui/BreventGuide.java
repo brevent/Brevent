@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -30,12 +31,14 @@ public class BreventGuide extends Activity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(mToolbar);
 
-        String[] titles = getResources().getStringArray(R.array.fragment_guide);
-        String[] messages = getResources().getStringArray(R.array.fragment_guide_message);
-        String[] messages2 = getResources().getStringArray(R.array.fragment_guide_message2);
+        Resources resources = getResources();
+        String[] titles = resources.getStringArray(R.array.fragment_guide);
+        String[] messages = resources.getStringArray(R.array.fragment_guide_message);
+        String[] messages2 = resources.getStringArray(R.array.fragment_guide_message2);
+        String titleShowButton = resources.getString(R.string.fragment_guide_enjoy);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, messages, messages2));
+        pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton, messages, messages2));
 
         ((TabLayout) findViewById(R.id.tabs)).setupWithViewPager(pager);
     }
@@ -52,12 +55,14 @@ public class BreventGuide extends Activity {
     public static class GuidePagerAdapter extends FragmentPagerAdapter {
 
         private final String[] mTitles;
+        private final String mTitleShowButton;
         private final String[] mMessages;
         private final String[] mMessages2;
 
-        GuidePagerAdapter(FragmentManager fragmentManager, String[] titles, String[] messages, String[] messages2) {
+        GuidePagerAdapter(FragmentManager fragmentManager, String[] titles, String titleShowbutton, String[] messages, String[] messages2) {
             super(fragmentManager);
             mTitles = titles;
+            mTitleShowButton = titleShowbutton;
             mMessages = messages;
             mMessages2 = messages2;
         }
@@ -68,7 +73,7 @@ public class BreventGuide extends Activity {
             Bundle arguments = fragment.getArguments();
             arguments.putString(GuideFragment.MESSAGE, mMessages[position]);
             arguments.putString(GuideFragment.MESSAGE2, mMessages2[position]);
-            if (position == mTitles.length - 1) {
+            if (mTitles[position].equals(mTitleShowButton)) {
                 arguments.putBoolean(GuideFragment.BUTTON, true);
             } else {
                 arguments.putBoolean(GuideFragment.BUTTON, false);
