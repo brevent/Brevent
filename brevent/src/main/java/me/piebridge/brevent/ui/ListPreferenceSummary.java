@@ -5,6 +5,7 @@ import android.preference.ListPreference;
 import android.util.AttributeSet;
 
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventUtils;
 
 /**
  * Created by thom on 15/10/3.
@@ -13,18 +14,16 @@ public class ListPreferenceSummary extends ListPreference {
 
     public ListPreferenceSummary(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if (!BreventUtils.supportStandby()) {
+            setEntries(R.array.brevent_method_entries);
+            setEntryValues(R.array.brevent_method_values);
+        }
     }
 
     @Override
     public CharSequence getSummary() {
         String value = getValue();
         switch (value) {
-            case "0":
-                return getContext().getString(R.string.brevent_timeout_label_never);
-            case "later":
-                return getContext().getString(R.string.brevent_mode_label_later);
-            case "immediate":
-                return getContext().getString(R.string.brevent_mode_label_immediate);
             case "standby":
             case "standby_forcestop":
                 return getContext().getString(R.string.brevent_method_standby_forcestop_label);

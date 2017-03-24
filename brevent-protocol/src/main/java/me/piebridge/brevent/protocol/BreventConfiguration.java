@@ -17,19 +17,8 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_AUTO_UPDATE = "brevent_auto_update";
     public static final boolean DEFAULT_BREVENT_AUTO_UPDATE = true;
 
-    public static final String BREVENT_MOVE_BACK = "brevent_move_back";
-    public static final boolean DEFAULT_BREVENT_MOVE_BACK = true;
-
-    public static final String BREVENT_BACK_HOME = "brevent_back_home";
-    public static final boolean DEFAULT_BREVENT_BACK_HOME = true;
-
     public static final String BREVENT_TIMEOUT = "brevent_timeout";
     public static final int DEFAULT_BREVENT_TIMEOUT = 1800;
-
-    public static final String BREVENT_MODE = "brevent_mode";
-    public static final int BREVENT_MODE_LATER = 0;
-    public static final int BREVENT_MODE_IMMEDIATE = 1;
-    public static final int DEFAULT_BREVENT_MODE = BREVENT_MODE_LATER;
 
     public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
     public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
@@ -51,13 +40,7 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
-    public boolean backMove = DEFAULT_BREVENT_MOVE_BACK;
-
-    public boolean backHome = DEFAULT_BREVENT_BACK_HOME;
-
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
-
-    public int mode = DEFAULT_BREVENT_MODE;
 
     public boolean allowRoot = DEFAULT_BREVENT_ALLOW_ROOT;
 
@@ -72,10 +55,7 @@ public class BreventConfiguration extends BreventToken {
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
-        backMove = sharedPreferences.getBoolean(BREVENT_MOVE_BACK, DEFAULT_BREVENT_MOVE_BACK);
-        backHome = sharedPreferences.getBoolean(BREVENT_BACK_HOME, DEFAULT_BREVENT_BACK_HOME);
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
-        mode = convertMode(sharedPreferences.getString(BREVENT_MODE, ""));
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
@@ -84,18 +64,6 @@ public class BreventConfiguration extends BreventToken {
             allowGcm = false;
         }
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT, "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
-    }
-
-    private int convertMode(String string) {
-        switch (string) {
-            case "immediate":
-            case "" + BREVENT_MODE_IMMEDIATE:
-                return BREVENT_MODE_IMMEDIATE;
-            case "later":
-            case "" + BREVENT_MODE_LATER:
-            default:
-                return BREVENT_MODE_LATER;
-        }
     }
 
     private int convertMethod(String string) {
@@ -117,10 +85,7 @@ public class BreventConfiguration extends BreventToken {
     protected BreventConfiguration(Parcel in) {
         super(in);
         autoUpdate = in.readInt() != 0;
-        backMove = in.readInt() != 0;
-        backHome = in.readInt() != 0;
         timeout = in.readInt();
-        mode = in.readInt();
         allowRoot = in.readInt() != 0;
         method = in.readInt();
         allowGcm = in.readInt() != 0;
@@ -135,10 +100,7 @@ public class BreventConfiguration extends BreventToken {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(autoUpdate ? 1 : 0);
-        dest.writeInt(backMove ? 1 : 0);
-        dest.writeInt(backHome ? 1 : 0);
         dest.writeInt(timeout);
-        dest.writeInt(mode);
         dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
         dest.writeInt(allowGcm ? 1 : 0);
@@ -148,10 +110,7 @@ public class BreventConfiguration extends BreventToken {
 
     public void write(PrintWriter pw) {
         write(pw, BREVENT_AUTO_UPDATE, autoUpdate);
-        write(pw, BREVENT_MOVE_BACK, backMove);
-        write(pw, BREVENT_BACK_HOME, backHome);
         write(pw, BREVENT_TIMEOUT, timeout);
-        write(pw, BREVENT_MODE, mode);
         write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
@@ -180,19 +139,10 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_AUTO_UPDATE:
                 autoUpdate = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_MOVE_BACK:
-                backMove = Boolean.parseBoolean(value);
-                break;
-            case BREVENT_BACK_HOME:
-                backHome = Boolean.parseBoolean(value);
-                break;
             case BREVENT_TIMEOUT:
                 if (TextUtils.isDigitsOnly(value) && value.length() < 0x6) {
                     timeout = Integer.parseInt(value);
                 }
-                break;
-            case BREVENT_MODE:
-                mode = convertMode(value);
                 break;
             case BREVENT_ALLOW_ROOT:
                 allowRoot = Boolean.parseBoolean(value);
@@ -222,20 +172,8 @@ public class BreventConfiguration extends BreventToken {
             this.autoUpdate = request.autoUpdate;
             updated = true;
         }
-        if (this.backMove != request.backMove) {
-            this.backMove = request.backMove;
-            updated = true;
-        }
-        if (this.backHome != request.backHome) {
-            this.backHome = request.backHome;
-            updated = true;
-        }
         if (this.timeout != request.timeout) {
             this.timeout = request.timeout;
-            updated = true;
-        }
-        if (this.mode != request.mode) {
-            this.mode = request.mode;
             updated = true;
         }
         if (this.allowRoot != request.allowRoot) {

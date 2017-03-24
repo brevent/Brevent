@@ -12,7 +12,6 @@
     </string-array>
 
     <string-array name="brevent_timeout_entries">
-        <item>@string/brevent_timeout_never</item>
         <item>@string/brevent_timeout_1min</item>
         <item>@string/brevent_timeout_5min</item>
         <item>@string/brevent_timeout_10min</item>
@@ -81,15 +80,18 @@
         <item>@string/brevent_method_forcestop_only</item>
     </string-array>
 
-    <string-array name="brevent_mode_values">
-        <item>later</item>
-        <item>immediate</item>
+    <string-array name="brevent_method_standby_values">
+        <item>standby_forcestop</item>
+        <item>standby_only</item>
+        <item>forcestop_only</item>
     </string-array>
 
-    <string-array name="brevent_mode_entries">
-        <item>@string/brevent_mode_later</item>
-        <item>@string/brevent_mode_immediate</item>
+    <string-array name="brevent_method_standby_entries">
+        <item>@string/brevent_method_standby_forcestop</item>
+        <item>@string/brevent_method_standby_only</item>
+        <item>@string/brevent_method_forcestop_only</item>
     </string-array>
+
 
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>

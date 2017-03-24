@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似软件需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 功能，可以跳过调试模式以及开机自启。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”点击 7 次“版本”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
+    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 功能，可以跳过调试模式以及开机自启。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”点击 7 次“版本”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
@@ -83,14 +83,15 @@
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
     <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
-    <string name="brevent_move_back">黑域“返回”移到后台</string>
-    <string name="brevent_move_back_label">有些应用，如微信，在您点击“返回”按钮时，不执行正常的“返回”操作，移到后台。启用之后，以正常“返回”按钮处理（仅支持 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑域“返回”打开主屏幕</string>
-    <string name="brevent_back_home_label">有些应用，如微博，在您点击“返回”按钮时，不执行正常的“返回”操作，像点击“主页”按钮一样打开主屏幕。启用之后，以正常“返回”处理。绝大部分情况下黑域都能有效区分，您也可连点击 7 次“主页”按钮来帮助黑域确认</string>
-    <string name="brevent_timeout">是否黑域后台应用</string>
-    <string name="brevent_timeout_label">离开后台应用 %1$s后\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
-    <string name="brevent_timeout_label_never">永不黑域后台应用\n\n后台应用是指您还未退出的应用，主界面动态显示离开时间</string>
-    <string name="brevent_timeout_never">永不</string>
+    <string name="brevent_method">工作方式</string>
+    <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
+    <string name="brevent_method_standby_only">只待机，不强行停止</string>
+    <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点击“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_only_label">退出应用（如点击“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">退出应用（如点击“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_timeout">后台应用超时</string>
+    <string name="brevent_timeout_label">离开后台应用 %1$s后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
     <string name="brevent_timeout_5min">5 分钟</string>
     <string name="brevent_timeout_10min">10 分钟</string>
@@ -101,18 +102,7 @@
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
     <string name="brevent_standby_timeout">待机超时</string>
-    <string name="brevent_method">怎样黑域</string>
-    <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
-    <string name="brevent_method_standby_only">只待机，不强行停止</string>
-    <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用时待机，超时后或者从最近列表划掉时强行停止\n\n仅针对点击“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
-    <string name="brevent_method_standby_only_label">只待机，不强行停止。不建议选择，专为强迫症患者准备\n\n仅针对点击“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
-    <string name="brevent_method_forcestop_only_label">只强行停止，不待机。不建议选择，专为强迫症患者准备\n\n仅针对点击“返回”按钮退出的应用，后台应用请参考“是否黑域后台应用”</string>
-    <string name="brevent_mode">何时黑域</string>
-    <string name="brevent_mode_later">动态延后（推荐）</string>
-    <string name="brevent_mode_immediate">立即处理</string>
-    <string name="brevent_mode_label_later">动态延后。自动根据事件处理，打开主屏幕时短点，被唤醒时长点，打开应用时最长，屏幕关闭时立即处理\n\n仅针对点击“返回”按钮退出的应用，后台退出的应用请参考“是否处理后台应用”</string>
-    <string name="brevent_mode_label_immediate">立即处理，包括但不限于打开主屏幕与应用，被唤醒及屏幕关闭。请谨慎选择，这种模式黑域服务将消耗更多电量，某些应用可能无法正常使用\n\n仅针对点击“返回”按钮退出的应用，后台应用请参考“是否处理后台应用”</string>
+    <string name="brevent_standby_timeout_label">应用待机 %1$s后强行停止，主界面不显示待机时长</string>
 
     <string name="brevent_ui">用户界面</string>
     <string name="show_donation">显示捐赠</string>

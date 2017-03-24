@@ -12,30 +12,13 @@
             android:title="@string/brevent_auto" />
 
         <me.piebridge.brevent.ui.ListPreferenceSummary
-            android:defaultValue="@string/later"
-            android:entries="@array/brevent_mode_entries"
-            android:entryValues="@array/brevent_mode_values"
-            android:key="brevent_mode"
-            android:summary="%1$s"
-            android:title="@string/brevent_mode" />
-
-        <me.piebridge.brevent.ui.ListPreferenceSummary
             android:defaultValue="@string/default_brevent_method"
-            android:entries="@array/brevent_method_entries"
-            android:entryValues="@array/brevent_method_values"
+            android:entries="@array/brevent_method_standby_entries"
+            android:entryValues="@array/brevent_method_standby_values"
             android:key="brevent_method"
-            android:summary="%1$s"
             android:title="@string/brevent_method" />
 
         <ListPreference
-            android:defaultValue="10800"
-            android:entries="@array/brevent_standby_timeout_entries"
-            android:entryValues="@array/brevent_standby_timeout_values"
-            android:key="brevent_standby_timeout"
-            android:summary="%1$s"
-            android:title="@string/brevent_standby_timeout" />
-
-        <me.piebridge.brevent.ui.ListPreferenceSummary
             android:defaultValue="1800"
             android:entries="@array/brevent_timeout_entries"
             android:entryValues="@array/brevent_timeout_values"
@@ -43,18 +26,13 @@
             android:summary="@string/brevent_timeout_label"
             android:title="@string/brevent_timeout" />
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:enabled="@bool/preference_brevent_move_back"
-            android:key="brevent_move_back"
-            android:summary="@string/brevent_move_back_label"
-            android:title="@string/brevent_move_back" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="brevent_back_home"
-            android:summary="@string/brevent_back_home_label"
-            android:title="@string/brevent_back_home" />
+        <ListPreference
+            android:defaultValue="10800"
+            android:entries="@array/brevent_standby_timeout_entries"
+            android:entryValues="@array/brevent_standby_timeout_values"
+            android:key="brevent_standby_timeout"
+            android:summary="@string/brevent_standby_timeout_label"
+            android:title="@string/brevent_standby_timeout" />
 
     </PreferenceCategory>
 

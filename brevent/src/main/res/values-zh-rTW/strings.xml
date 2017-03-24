@@ -83,14 +83,15 @@
     <string name="brevent_list">黑域清單</string>
     <string name="brevent_auto">自動更新</string>
     <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單</string>
-    <string name="brevent_move_back">黑域按返回鍵退出時移到背景</string>
-    <string name="brevent_move_back_label">有些應用程式，如微信，在您按返回鍵時，不執行正常的「返回」動作，而是將應用程式移到背景。啟用之後，依照正常的按返回鍵即退出應用程式處理（僅支援 Android 7.0 及以上）</string>
-    <string name="brevent_back_home">黑域按返回鍵開啟主畫面</string>
-    <string name="brevent_back_home_label">有些應用程式，如微博，在您按返回鍵時，不執行正常的「返回」動作，而像是按首頁鍵一樣開啟主畫面。啟用之後，依照正常的按返回鍵即退出應用程式處理。絕大部份情況下黑域都能有效區分，您也可連按 7 次首頁鍵來協助黑域確認</string>
-    <string name="brevent_timeout">是否黑域背景應用程式</string>
+    <string name="brevent_method">黑域方法</string>
+    <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
+    <string name="brevent_method_standby_only">只待機，不強制停止</string>
+    <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点击“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_only_label">退出应用（如点击“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">退出应用（如点击“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
-    <string name="brevent_timeout_label_never">永不黑域背景應用程式\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
-    <string name="brevent_timeout_never">永不</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
     <string name="brevent_timeout_5min">5 分鐘</string>
     <string name="brevent_timeout_10min">10 分鐘</string>
@@ -100,19 +101,9 @@
     <string name="brevent_timeout_2hour">2 小時</string>
     <string name="brevent_timeout_3hour">3 小時</string>
     <string name="brevent_timeout_6hour">6 小時</string>
-    <string name="brevent_standby_timeout">待機超時</string>
-    <string name="brevent_method">怎樣黑域？</string>
-    <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
-    <string name="brevent_method_standby_only">只待機，不強制停止</string>
-    <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">結束應用程式時待機，逾時後或者從最近使用的應用程式拉掉時強制停止\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_standby_only_label">只待機，不強制停止。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_method_forcestop_only_label">只強制停止，不待機。不建議選取，專為強迫症患者準備\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否黑域背景應用程式」</string>
-    <string name="brevent_mode">何時黑域？</string>
-    <string name="brevent_mode_later">動態延後（推薦）</string>
-    <string name="brevent_mode_immediate">立即處理</string>
-    <string name="brevent_mode_label_later">動態延後。自動根據事件處理，開啟主畫面時短點，被喚醒時長點，開啟應用程式時最長，螢幕關閉時立即處理\n\n僅針對按返回鍵結束的應用程式，背景結束的應用程式請參考「是否處理背景應用程式」</string>
-    <string name="brevent_mode_label_immediate">立即處理，包括但不限於開啟主畫面與應用程式，被喚醒及螢幕關閉。請謹慎選取，這種模式黑域服務將消耗更多電量，某些應用程式可能無法正常使用\n\n僅針對按返回鍵結束的應用程式，背景應用程式請參考「是否處理背景應用程式」</string>
+    <string name="brevent_standby_timeout">待機逾時</string>
+    <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
+
 
     <string name="brevent_ui">使用者介面</string>
     <string name="show_donation">顯示捐贈</string>

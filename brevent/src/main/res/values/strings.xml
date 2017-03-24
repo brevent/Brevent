@@ -85,14 +85,15 @@
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>
     <string name="brevent_auto_label">Update Brevent list when apps installed or uninstalled</string>
-    <string name="brevent_move_back">Brevent Back move background</string>
-    <string name="brevent_move_back_label">Some apps move to background when Back is pressed. When on, Brevent treat it as normal Back (Available since Android 7.0)</string>
-    <string name="brevent_back_home">Brevent Back open Home</string>
-    <string name="brevent_back_home_label">Some apps open Home when Back is pressed. When on, Brevent treat it as normal Back. Brevent could distinguish in most case, however you can press Home 7 times to help Brevent confirm</string>
+    <string name="brevent_method">Brevent method</string>
+    <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
+    <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
+    <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from Recent Tasks list\n\nAlways force-stop awaken apps have no activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps have no activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (by pressing \"Back\"), or background apps timed out, or clear apps from Recent Task list\n\nBrevent always force-stop awaken apps have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent show inactive time for background apps dynamically</string>
-    <string name="brevent_timeout_label_never">Background apps won\'t be brevented\n\nBrevent show inactive time for background apps dynamically</string>
-    <string name="brevent_timeout_never">Never</string>
     <string name="brevent_timeout_1min">1 minute</string>
     <string name="brevent_timeout_5min">5 minutes</string>
     <string name="brevent_timeout_10min">10 minutes</string>
@@ -102,18 +103,8 @@
     <string name="brevent_timeout_2hour">2 hours</string>
     <string name="brevent_timeout_3hour">3 hours</string>
     <string name="brevent_timeout_6hour">6 hours</string>
-    <string name="brevent_method">How brevent</string>
-    <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
-    <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
-    <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when exit apps, and force-stop when swiping away from recent tasks\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_method_standby_only_label">Only Standby, no force-stop. Of course, will force-stop apps awaken by other apps\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_method_forcestop_only_label">Only force-stop, no Standby. It may save battery, but costs more time when apps re-launch\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_mode">When brevent</string>
-    <string name="brevent_mode_later">Later (Recommend)</string>
-    <string name="brevent_mode_immediate">Immediate</string>
-    <string name="brevent_mode_label_later">Later. Short when Home focused, longer when awaken, longest when apps focused, immediately when screen off\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
-    <string name="brevent_mode_label_immediate">Immediate. Whenever apps / Home focused, screen off, awaken by other apps. Be careful, Brevent server will consume more battery, other apps may not work well\n\nOnly apply to non-background apps, for background apps, please refer to "Background apps timeout"</string>
+    <string name="brevent_standby_timeout">Standby timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s</string>
 
     <!-- settings user interface -->
     <string name="brevent_ui">User interface</string>
@@ -165,6 +156,5 @@
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">Thom</string>
     <string name="brevent_about_licenses">Licenses</string>
-    <string name="brevent_standby_timeout">Standby timeout</string>
 
 </resources>

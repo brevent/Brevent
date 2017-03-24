@@ -67,6 +67,7 @@ import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.BreventUtils;
 import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
@@ -548,6 +549,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private void updateConfiguration() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (!BreventUtils.supportStandby() && !"forcestop_only".equals(preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))) {
+            preferences.edit().putString(BreventConfiguration.BREVENT_METHOD, "forcestop_only").apply();
+        }
         BreventConfiguration configuration = new BreventConfiguration(getToken(), preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
         ComponentName componentName = new ComponentName(this, BreventReceiver.class);
