@@ -24,6 +24,8 @@
     <string name="brevent_service_restart">请重启黑域服务</string>
     <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机\n\n4. 在电脑命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
+    <string name="brevent_service_copy_path">复制指令</string>
+    <string name="brevent_service_command_copied">指令路径已复制: %s</string>
     <string name="brevent_service_adb_running">(已启用)</string>
     <string name="brevent_service_usb_connected">(已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>
