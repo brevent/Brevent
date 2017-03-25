@@ -18,7 +18,7 @@ android {
 
         defaultConfig {
             versionCode rootProject.versionCode
-            versionName rootProject.versionName
+            versionName properties['build.codename'] != null ? (properties['build.codename'] + " ( " + rootProject.versionName + " )") : rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
             targetSdkVersion rootProject.targetSdkVersion
@@ -54,7 +54,7 @@ android {
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 if (variant.buildType.name == 'release') {
-                    output.outputFile = rootProject.file("br-v${variant.versionName}.apk")
+                    output.outputFile = rootProject.file("br-v${rootProject.versionName}.apk")
                 }
             }
         }
