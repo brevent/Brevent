@@ -18,7 +18,7 @@ android {
 
         defaultConfig {
             versionCode rootProject.versionCode
-            versionName properties['build.codename'] != null ? (properties['build.codename'] + " ( " + rootProject.versionName + " )") : rootProject.versionName
+            versionName properties['build.codename'] != null ? (properties['build.codename'] + "(" + rootProject.versionName + ")") : rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
             targetSdkVersion rootProject.targetSdkVersion
