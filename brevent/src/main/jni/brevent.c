@@ -20,6 +20,8 @@ sig_atomic_t quited;
 
 #if defined(__aarch64__)
 #define ABI "arm64"
+#elif defined(__x86_64__)
+#define ABI "x86_64"
 #elif defined(__arm__)
 #define ABI "arm"
 #elif defined(__i386__)
