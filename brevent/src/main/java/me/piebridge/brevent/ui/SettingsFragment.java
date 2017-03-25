@@ -76,7 +76,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             if (!getArguments().getBoolean(HAS_PLAY, false)) {
                 preferenceDonation.setChecked(true);
             }
-            breventUi.removePreference(preferenceDonation);
+            removeDonationIfNeeded();
         }
         if (!getPreferenceScreen().getSharedPreferences().getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
@@ -156,7 +156,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (total <= 0) {
             preferenceDonation.setChecked(true);
             onShowDonationChanged();
-            breventUi.removePreference(preferenceDonation);
+            removeDonationIfNeeded();
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
@@ -181,6 +181,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             }
+        }
+    }
+
+    private void removeDonationIfNeeded() {
+        if (!"colombo".equals(Build.DEVICE)) {
+            breventUi.removePreference(preferenceDonation);
         }
     }
 
