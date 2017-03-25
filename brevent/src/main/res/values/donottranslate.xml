@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="brevent_timeout_values">
-        <item>0</item>
         <item>60</item>
         <item>300</item>
         <item>600</item>
