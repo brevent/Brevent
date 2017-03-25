@@ -40,15 +40,13 @@
         android:key="brevent_advanced"
         android:title="@string/brevent_advanced">
 
-        <SwitchPreference
-            android:defaultValue="false"
+        <Preference
             android:key="brevent_optimize_priority"
             android:summary="@string/brevent_optimize_priority_label"
             android:title="@string/brevent_optimize_priority" />
 
         <SwitchPreference
             android:defaultValue="false"
-            android:dependency="brevent_optimize_priority"
             android:key="brevent_allow_gcm"
             android:summary="@string/brevent_allow_gcm_label"
             android:title="@string/brevent_allow_gcm" />

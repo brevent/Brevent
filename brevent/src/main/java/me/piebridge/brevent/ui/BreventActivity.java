@@ -49,6 +49,7 @@ import android.widget.Toolbar;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventPackages;
+import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
 import me.piebridge.brevent.protocol.BreventUtils;
@@ -89,6 +91,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_VERSION_UNMATCHED = 7;
     public static final int UI_MESSAGE_UPDATE_BREVENT = 8;
     public static final int UI_MESSAGE_HIDE_DISABLED = 9;
+    public static final int UI_MESSAGE_UPDATE_PRIORITY = 10;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -125,6 +128,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private SimpleArrayMap<String, SparseIntArray> mProcesses = new SimpleArrayMap<>();
     private Set<String> mBrevent = new ArraySet<>();
+    private Set<String> mPriority = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
@@ -449,6 +453,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
     }
 
+    public boolean isPriority(String packageName) {
+        return mPriority.contains(packageName);
+    }
+
     public int getInactive(String packageName) {
         return BreventStatus.getInactive(mProcesses.get(packageName));
     }
@@ -687,6 +695,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             case BreventProtocol.UPDATE_BREVENT:
                 onBreventPackagesResponse((BreventPackages) response);
                 break;
+            case BreventProtocol.UPDATE_PRIORITY:
+                onBreventPriorityResponse((BreventPriority) response);
+                break;
             default:
                 break;
         }
@@ -708,18 +719,37 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
     }
 
+    public void updateBreventResponse(BreventPriority breventPriority) {
+        if (breventPriority.priority) {
+            mPriority.addAll(breventPriority.packageNames);
+        } else {
+            mPriority.removeAll(breventPriority.packageNames);
+        }
+        AppsFragment fragment = getFragment();
+        fragment.update(breventPriority.packageNames);
+    }
+
+    private void onBreventPriorityResponse(BreventPriority response) {
+        if (!response.packageNames.isEmpty()) {
+            uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_UPDATE_PRIORITY, response).sendToTarget();
+        }
+    }
+
     private void onBreventStatusResponse(BreventStatus status) {
         mProcesses.clear();
-        mProcesses.putAll(status.getProcesses());
+        mProcesses.putAll(status.mProcesses);
 
         mBrevent.clear();
-        mBrevent.addAll(status.getBrevent());
+        mBrevent.addAll(status.mBrevent);
+
+        mPriority.clear();
+        mPriority.addAll(status.mPriority);
 
         mImportant.clear();
         mFavorite.clear();
         mGcm.clear();
-        resolveImportantPackages(status.getProcesses(), mImportant);
-        for (String packageName : status.getTrustAgents()) {
+        resolveImportantPackages(status.mProcesses, mImportant);
+        for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
         }
         resolveFavoritePackages(mFavorite);
@@ -987,6 +1017,15 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         showProgress(R.string.process_retrieving);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
+    }
+
+    public void updatePriority(String packageName, boolean priority) {
+        BreventPriority breventPriority = new BreventPriority(priority, getToken(), Collections.singleton(packageName));
+        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPriority).sendToTarget();
+    }
+
+    public boolean isBrevent(String packageName) {
+        return mBrevent.contains(packageName);
     }
 
 }

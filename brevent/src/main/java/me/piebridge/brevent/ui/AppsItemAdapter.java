@@ -84,6 +84,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
             viewHolder.cardView = view;
             viewHolder.iconView = (ImageView) view.findViewById(R.id.icon);
             viewHolder.nameView = (TextView) view.findViewById(R.id.name);
+            viewHolder.syncView = (ImageView) view.findViewById(R.id.sync);
             viewHolder.statusView = (ImageView) view.findViewById(R.id.status);
             viewHolder.descriptionView = (TextView) view.findViewById(R.id.description);
             viewHolder.inactiveView = (TextView) view.findViewById(R.id.inactive);
@@ -167,7 +168,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     }
 
     private void updateStatus(BreventActivity breventActivity, AppsItemViewHolder viewHolder) {
-        int statusIcon = breventActivity.getStatusIcon(viewHolder.packageName);
+        String packageName = viewHolder.packageName;
+        int statusIcon = breventActivity.getStatusIcon(packageName);
         if (viewHolder.statusIconRes != statusIcon) {
             viewHolder.statusIconRes = statusIcon;
             if (statusIcon == 0) {
@@ -176,6 +178,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
                 viewHolder.statusView.setVisibility(View.VISIBLE);
                 viewHolder.statusView.setImageResource(statusIcon);
             }
+        }
+        if (breventActivity.isBrevent(packageName) && breventActivity.isPriority(packageName)) {
+            viewHolder.syncView.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.syncView.setVisibility(View.INVISIBLE);
         }
     }
 

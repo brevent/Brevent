@@ -25,15 +25,19 @@ public class BreventStatus extends BreventToken implements Parcelable {
 
     public static final int PROCESS_STATE_PERSISTENT = -4;
 
-    private final Collection<String> mBrevent;
+    public final Collection<String> mBrevent;
 
-    private final SimpleArrayMap<String, SparseIntArray> mProcesses;
+    public final Collection<String> mPriority;
 
-    private final Collection<String> mTrustAgents;
+    public final SimpleArrayMap<String, SparseIntArray> mProcesses;
 
-    public BreventStatus(UUID token, Collection<String> brevent, SimpleArrayMap<String, SparseIntArray> processes, Collection<String> trustAgents) {
+    public final Collection<String> mTrustAgents;
+
+    public BreventStatus(UUID token, Collection<String> brevent, Collection<String> priority,
+                         SimpleArrayMap<String, SparseIntArray> processes, Collection<String> trustAgents) {
         super(BreventProtocol.STATUS_RESPONSE, token);
         mBrevent = brevent;
+        mPriority = priority;
         mProcesses = processes;
         mTrustAgents = trustAgents;
     }
@@ -41,6 +45,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
     BreventStatus(Parcel in) {
         super(in);
         mBrevent = ParcelUtils.readCollection(in);
+        mPriority = ParcelUtils.readCollection(in);
         mProcesses = ParcelUtils.readSimpleArrayMap(in);
         mTrustAgents = ParcelUtils.readCollection(in);
     }
@@ -49,6 +54,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         ParcelUtils.writeCollection(dest, mBrevent);
+        ParcelUtils.writeCollection(dest, mPriority);
         ParcelUtils.writeSimpleArrayMap(dest, mProcesses);
         ParcelUtils.writeCollection(dest, mTrustAgents);
     }
@@ -64,19 +70,6 @@ public class BreventStatus extends BreventToken implements Parcelable {
             return new BreventStatus[size];
         }
     };
-
-    @NonNull
-    public SimpleArrayMap<String, SparseIntArray> getProcesses() {
-        return mProcesses;
-    }
-
-    public Collection<String> getBrevent() {
-        return mBrevent;
-    }
-
-    public Collection<String> getTrustAgents() {
-        return mTrustAgents;
-    }
 
     public static boolean isStandby(SparseIntArray status) {
         return status != null && status.get(PROCESS_STATE_IDLE, 0) != 0;

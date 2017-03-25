@@ -48,7 +48,7 @@ public final class BreventPackages extends BreventToken implements Parcelable {
     @Override
     public String toString() {
         return super.toString() + ", brevent: " + brevent + ", undoable: " + undoable
-                + ", brevent: " + brevent;
+                + ", packageNames: " + packageNames;
     }
 
     public static final Creator<BreventPackages> CREATOR = new Creator<BreventPackages>() {

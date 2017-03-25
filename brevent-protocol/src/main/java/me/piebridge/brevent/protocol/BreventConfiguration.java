@@ -32,9 +32,6 @@ public class BreventConfiguration extends BreventToken {
     public static final int BREVENT_METHOD_FORCE_STOP_ONLY = 3;
     public static final int DEFAULT_BREVENT_METHOD = BREVENT_METHOD_STANDBY_FORCE_STOP;
 
-    public static final String BREVENT_OPTIMIZE_PRIORITY = "brevent_optimize_priority";
-    public static final boolean DEFAULT_BREVENT_OPTIMIZE_PRIORITY = false;
-
     public static final String BREVENT_STANDBY_TIMEOUT = "brevent_standby_timeout";
     public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 10800;
 
@@ -48,8 +45,6 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean allowGcm = DEFAULT_BREVENT_ALLOW_GCM;
 
-    public boolean optimizePriority = DEFAULT_BREVENT_OPTIMIZE_PRIORITY;
-
     public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
 
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
@@ -59,10 +54,6 @@ public class BreventConfiguration extends BreventToken {
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
-        optimizePriority = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_PRIORITY, DEFAULT_BREVENT_OPTIMIZE_PRIORITY);
-        if (!optimizePriority) {
-            allowGcm = false;
-        }
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT, "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
     }
 
@@ -89,10 +80,6 @@ public class BreventConfiguration extends BreventToken {
         allowRoot = in.readInt() != 0;
         method = in.readInt();
         allowGcm = in.readInt() != 0;
-        optimizePriority = in.readInt() != 0;
-        if (!optimizePriority) {
-            allowGcm = false;
-        }
         standbyTimeout = in.readInt();
     }
 
@@ -104,7 +91,6 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
         dest.writeInt(allowGcm ? 1 : 0);
-        dest.writeInt(optimizePriority ? 1 : 0);
         dest.writeInt(standbyTimeout);
     }
 
@@ -114,7 +100,6 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
-        write(pw, BREVENT_OPTIMIZE_PRIORITY, optimizePriority);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
     }
 
@@ -153,9 +138,6 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_ALLOW_GCM:
                 allowGcm = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_OPTIMIZE_PRIORITY:
-                optimizePriority = Boolean.parseBoolean(value);
-                break;
             case BREVENT_STANDBY_TIMEOUT:
                 if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
                     standbyTimeout = Integer.parseInt(value);
@@ -186,10 +168,6 @@ public class BreventConfiguration extends BreventToken {
         }
         if (this.allowGcm != request.allowGcm) {
             this.allowGcm = request.allowGcm;
-            updated = true;
-        }
-        if (this.optimizePriority != request.optimizePriority) {
-            this.optimizePriority = request.optimizePriority;
             updated = true;
         }
         if (this.standbyTimeout != request.standbyTimeout) {

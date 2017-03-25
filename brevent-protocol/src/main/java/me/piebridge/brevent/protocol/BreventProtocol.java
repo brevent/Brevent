@@ -31,6 +31,7 @@ public class BreventProtocol implements Parcelable {
     public static final int STATUS_RESPONSE = 1;
     public static final int UPDATE_BREVENT = 2;
     public static final int CONFIGURATION = 3;
+    public static final int UPDATE_PRIORITY = 4;
 
     private int mVersion;
 
@@ -103,6 +104,9 @@ public class BreventProtocol implements Parcelable {
                 break;
             case CONFIGURATION:
                 creator = BreventConfiguration.CREATOR;
+                break;
+            case UPDATE_PRIORITY:
+                creator = BreventPriority.CREATOR;
                 break;
             default:
                 creator = null;

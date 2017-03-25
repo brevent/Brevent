@@ -35,6 +35,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
     CardView cardView;
     ImageView iconView;
     TextView nameView;
+    ImageView syncView;
     ImageView statusView;
     TextView descriptionView;
     TextView inactiveView;
@@ -62,7 +63,14 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
         } else if (mFragment.getActivity().getPackageManager().getLaunchIntentForPackage(packageName) != null) {
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE, R.string.context_menu_open);
         }
-        menu.add(Menu.NONE, R.string.context_menu_set_priority, Menu.NONE, R.string.context_menu_set_priority);
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
+        if (activity.isBrevent(packageName)) {
+            if (activity.isPriority(packageName)) {
+                menu.add(Menu.NONE, R.string.context_menu_unset_priority, Menu.NONE, R.string.context_menu_unset_priority);
+            } else {
+                menu.add(Menu.NONE, R.string.context_menu_set_priority, Menu.NONE, R.string.context_menu_set_priority);
+            }
+        }
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
             menu.getItem(i).setOnMenuItemClickListener(this);
@@ -71,6 +79,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
         switch (item.getItemId()) {
             case R.string.context_menu_app_info:
                 openAppInfo(packageName);
@@ -85,42 +94,21 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
                 copy(packageName);
                 break;
             case R.string.context_menu_open:
-                Activity activity = mFragment.getActivity();
                 Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
                 if (intent != null) {
                     activity.startActivity(intent);
                 }
                 break;
             case R.string.context_menu_set_priority:
-                openNotifications();
+                activity.updatePriority(packageName, true);
+                break;
+            case R.string.context_menu_unset_priority:
+                activity.updatePriority(packageName, false);
                 break;
             default:
                 break;
         }
         return true;
-    }
-
-    private boolean openNotifications() {
-        ApplicationInfo info;
-        Activity activity = mFragment.getActivity();
-        try {
-            info = activity.getPackageManager().getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("cannot find package " + packageName, e);
-            return false;
-        }
-        int uid = info.uid;
-        Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                .putExtra("app_package", packageName)
-                .putExtra("app_uid", uid);
-        try {
-            activity.startActivity(intent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            UILog.d("cannot start notification for " + packageName, e);
-            return false;
-        }
     }
 
     private void copy(String packageName) {

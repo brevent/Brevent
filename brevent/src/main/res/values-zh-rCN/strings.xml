@@ -141,9 +141,9 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">允许同步</string>
-    <string name="brevent_optimize_priority_label">启用之后，黑域清单中“允许同步”的应用有通知或者在后台运行，黑域都不会强行停止\n\n建议累计捐赠 1 美元</string>
+    <string name="brevent_optimize_priority_label">黑域清单中“允许同步”的应用有通知或者在后台运行，都不会被黑域强行停止\n\n建议累计捐赠 1 美元</string>
     <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
-    <string name="brevent_allow_gcm_label">依赖“允许同步”。启用之后，允许 FCM 消息唤醒用户应用（此时，其它系统广播也能唤醒）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或开机自动开启黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
