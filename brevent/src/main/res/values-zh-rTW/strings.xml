@@ -103,6 +103,7 @@
     <string name="brevent_timeout_2hour">2 小時</string>
     <string name="brevent_timeout_3hour">3 小時</string>
     <string name="brevent_timeout_6hour">6 小時</string>
+    <string name="brevent_timeout_999999">11.5 天</string>
     <string name="brevent_standby_timeout">待機逾時</string>
     <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
 

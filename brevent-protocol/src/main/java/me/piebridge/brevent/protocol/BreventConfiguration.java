@@ -19,6 +19,7 @@ public class BreventConfiguration extends BreventToken {
 
     public static final String BREVENT_TIMEOUT = "brevent_timeout";
     public static final int DEFAULT_BREVENT_TIMEOUT = 1800;
+    public static final int MIN_BREVENT_TIMEOUT = 60;
 
     public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
     public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
@@ -34,6 +35,7 @@ public class BreventConfiguration extends BreventToken {
 
     public static final String BREVENT_STANDBY_TIMEOUT = "brevent_standby_timeout";
     public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 10800;
+    public static final int MIN_BREVENT_STANDBY_TIMEOUT = 900;
 
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
@@ -125,8 +127,11 @@ public class BreventConfiguration extends BreventToken {
                 autoUpdate = Boolean.parseBoolean(value);
                 break;
             case BREVENT_TIMEOUT:
-                if (TextUtils.isDigitsOnly(value) && value.length() < 0x6) {
+                if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
                     timeout = Integer.parseInt(value);
+                }
+                if (timeout < MIN_BREVENT_TIMEOUT) {
+                    timeout = MIN_BREVENT_TIMEOUT;
                 }
                 break;
             case BREVENT_ALLOW_ROOT:
@@ -141,6 +146,9 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_STANDBY_TIMEOUT:
                 if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
                     standbyTimeout = Integer.parseInt(value);
+                }
+                if (standbyTimeout < MIN_BREVENT_STANDBY_TIMEOUT) {
+                    standbyTimeout = MIN_BREVENT_STANDBY_TIMEOUT;
                 }
                 break;
             default:
