@@ -62,7 +62,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
         } else if (mFragment.getActivity().getPackageManager().getLaunchIntentForPackage(packageName) != null) {
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE, R.string.context_menu_open);
         }
-        menu.add(Menu.NONE, R.string.context_menu_notifications, Menu.NONE, R.string.context_menu_notifications);
+        menu.add(Menu.NONE, R.string.context_menu_set_priority, Menu.NONE, R.string.context_menu_set_priority);
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
             menu.getItem(i).setOnMenuItemClickListener(this);
@@ -91,7 +91,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
                     activity.startActivity(intent);
                 }
                 break;
-            case R.string.context_menu_notifications:
+            case R.string.context_menu_set_priority:
                 openNotifications();
                 break;
             default:

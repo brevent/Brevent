@@ -73,7 +73,8 @@
     <string name="context_menu_app_info">Application Info</string>
     <string name="context_menu_open">Open</string>
     <string name="context_menu_brevent_server_info">Brevent server Info</string>
-    <string name="context_menu_notifications">Notifications</string>
+    <string name="context_menu_set_priority">Allow sync</string>
+    <string name="context_menu_unset_priority">Disallow sync</string>
     <string name="context_menu_snackbar_copied">Copied package name: %s</string>
 
     <!-- menu -->
@@ -142,7 +143,7 @@
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_optimize_priority">Keep notifications</string>
-    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force-stop \"Do Not Disturb overridden\" apps if they pushed notification or running in background, and will make sure them survive at least 30 seconds before force-stopped\n\nRecommend \"Override Do Not Disturb\" in notifications for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
+    <string name="brevent_optimize_priority_label">When checked, Brevent won\'t force-stop \"Allow Sync\" apps if they pushed notification or running in background, and will make sure them survive at least 30 seconds before force-stopped\n\nRecommend enable \"Allow sync\" for syncable account apps, IM apps or remove them from Brevent list. Recommend donate total 1 USD</string>
     <string name="brevent_allow_gcm">Allow FCM</string>
     <string name="brevent_allow_gcm_label">This feature allow brevented user apps to receive FCM (Firebase Cloud Message, previous GCM) message. If it\'s on, it can awake by FCM and other broadcast\n\nDepends on "Keep notifications". Requires donate total 2 USD for Play version, feel free to donate for other version</string>
     <string name="brevent_allow_root">Run as ROOT</string>

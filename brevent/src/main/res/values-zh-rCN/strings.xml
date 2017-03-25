@@ -71,7 +71,8 @@
     <string name="context_menu_app_info">应用信息</string>
     <string name="context_menu_open">打开</string>
     <string name="context_menu_brevent_server_info">黑域服务信息</string>
-    <string name="context_menu_notifications">通知</string>
+    <string name="context_menu_set_priority">允许同步</string>
+    <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_snackbar_copied">包名已复制: %s</string>
 
     <!-- menu -->
@@ -139,9 +140,9 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">启用之后，如果覆盖“勿扰”设置的应用有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用覆盖“勿扰”设置，或者不要黑域它们。建议累计捐赠 1 美元</string>
+    <string name="brevent_optimize_priority_label">启用之后，黑域清单中“允许同步”的应用有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用设置“允许同步”，或者不要黑域它们。建议累计捐赠 1 美元</string>
     <string name="brevent_allow_gcm">允许 FCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的用户应用接收 FCM（全称 Firebase Cloud Message，前身 GCM）消息。开启之后，FCM 和其它广播都能唤醒；但是如果没有消息，黑域都会清理它们\n\n依赖“保持通知”。Play 版需要累计捐赠 2 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_gcm_label">这项功能允许黑域后的用户应用接收 FCM（Firebase Cloud Message，前身 GCM）消息。开启之后，FCM 和其它广播都能唤醒；但是如果没有消息，黑域都会黑域它们\n\n依赖“保持通知”。Play 版需要累计捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全也没必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持。Play 版需要累计捐赠 3 美元，其它版请随意捐赠</string>
 
