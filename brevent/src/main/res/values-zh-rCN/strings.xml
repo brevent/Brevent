@@ -22,7 +22,7 @@
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debugg Bridge) 是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows) 按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，即可执行“adb”\n\n3. (Mac OS X) 打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里，请使用带前缀的“adb”，如“/Users/&lt;name&gt;/Downloads/platform-tools/adb”代替 “adb”\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows) 按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，即可执行“adb”\n\n3. (Mac OS X) 打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
 
     <string name="brevent_service_start">请启动黑域服务</string>
     <string name="brevent_service_restart">请重启黑域服务</string>
