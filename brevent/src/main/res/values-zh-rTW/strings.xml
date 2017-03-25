@@ -74,6 +74,7 @@
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_snackbar_copied">安裝包(Package)名稱已複製: %s</string>
+    <string name="brevent_service_success">黑域服务已成功启动。请点击图标，选择一些应用，然后黑域它们</string>
 
     <!-- menu -->
     <string name="menu_feedback">回饋</string>
@@ -140,12 +141,12 @@
     <string name="important_trust_agent">%s (信任的代理程式)</string>
 
     <string name="brevent_advanced">進階功能</string>
-    <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">啟用之後，黑域清單中「允許同步」的應用程式有通知或者在背景執行，黑域都不會強制停止；同時，保證它們被服務喚醒之後，至少執行 30 秒\n\n推薦為帳號同步及通訊類應用程式設定「允許同步」，或者不要黑域它們。建議累計捐贈 1 美元</string>
-    <string name="brevent_allow_gcm">允許 FCM 推送</string>
-    <string name="brevent_allow_gcm_label">這項功能允許黑域後的用戶應用程式接收 FCM「Firebase Cloud Message，前身 GCM」訊息。開啟之後，FCM 和其它廣播都能喚醒；但是如果沒有訊息，黑域都會黑域它們\n\n依賴「保持通知」。Play 版要求累計捐贈 2 美元，其它版本請隨意捐贈</string>
-    <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要停用 SELinux，不安全，也沒有必要。如果您的裝置已經 ROOT，此項功能可以跳過偵錯模式開機自啟或者透過第三方指令碼開啟黑域服務\n\n這個功能並不穩定，暫不提供任何支援。Play 版要求累計捐贈 3 美元，其它版本請隨意捐贈</string>
+    <string name="brevent_optimize_priority">允许同步</string>
+    <string name="brevent_optimize_priority_label">启用之后，黑域清单中“允许同步”的应用有通知或者在后台运行，黑域都不会强行停止\n\n建议累计捐赠 1 美元</string>
+    <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
+    <string name="brevent_allow_gcm_label">依赖“允许同步”。启用之后，允许 FCM 消息唤醒用户应用（此时，其它系统广播也能唤醒）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_root">允许 ROOT 运行</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或开机自动开启黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_developer">開發人員選項</string>

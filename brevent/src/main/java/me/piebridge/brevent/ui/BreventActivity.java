@@ -155,6 +155,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private volatile boolean hasResponse;
 
+    private Snackbar mSnackBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -654,6 +656,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
         mSelectMode = selectMode;
         if (mSelectMode) {
+            if (mSnackBar != null && mSnackBar.isShown()) {
+                mSnackBar.dismiss();
+                mSnackBar = null;
+            }
             mToolbar.setTitle(String.valueOf(count));
         } else {
             mToolbar.setTitle(R.string.app_name);
@@ -733,6 +739,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         if (!getToken().equals(status.getToken())) {
             updateConfiguration();
+        }
+        if (!mSelectMode && mBrevent.isEmpty()) {
+            mSnackBar = Snackbar.make(mCoordinator, R.string.brevent_service_success, Snackbar.LENGTH_INDEFINITE);
+            mSnackBar.show();
         }
     }
 

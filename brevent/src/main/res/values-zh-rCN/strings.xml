@@ -33,6 +33,7 @@
     <string name="brevent_service_adb_running">(已启用)</string>
     <string name="brevent_service_usb_connected">(已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>
+    <string name="brevent_service_success">黑域服务已成功启动。请点击图标，选择一些应用，然后黑域它们</string>
 
     <string name="fragment_apps_user">用户应用</string>
     <string name="fragment_apps_system">系统应用</string>
@@ -84,7 +85,7 @@
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
     <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单</string>
-    <string name="brevent_method">工作方式</string>
+    <string name="brevent_method">黑域方法</string>
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
@@ -139,12 +140,12 @@
     <string name="important_trust_agent">%s (可信代理)</string>
 
     <string name="brevent_advanced">高级功能</string>
-    <string name="brevent_optimize_priority">保持通知</string>
-    <string name="brevent_optimize_priority_label">启用之后，黑域清单中“允许同步”的应用有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用设置“允许同步”，或者不要黑域它们。建议累计捐赠 1 美元</string>
-    <string name="brevent_allow_gcm">允许 FCM 推送</string>
-    <string name="brevent_allow_gcm_label">这项功能允许黑域后的用户应用接收 FCM（Firebase Cloud Message，前身 GCM）消息。开启之后，FCM 和其它广播都能唤醒；但是如果没有消息，黑域都会黑域它们\n\n依赖“保持通知”。Play 版需要累计捐赠 2 美元，其它版请随意捐赠</string>
+    <string name="brevent_optimize_priority">允许同步</string>
+    <string name="brevent_optimize_priority_label">启用之后，黑域清单中“允许同步”的应用有通知或者在后台运行，黑域都不会强行停止\n\n建议累计捐赠 1 美元</string>
+    <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
+    <string name="brevent_allow_gcm_label">依赖“允许同步”。启用之后，允许 FCM 消息唤醒用户应用（此时，其它系统广播也能唤醒）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">ROOT 模式可能需要禁用 SELinux，不安全也没必要。如果您的设备已经 ROOT，此项功能可以跳过调试模式开机自启或者通过第三方脚本开启黑域服务\n\n这个功能并不稳定，暂不提供任何支持。Play 版需要累计捐赠 3 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或开机自动开启黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_developer">开发者选项</string>
