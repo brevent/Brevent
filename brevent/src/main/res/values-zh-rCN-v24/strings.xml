@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <string name="brevent_optimize_priority_label">启用之后，如果覆盖“勿扰”设置的应用有通知或者在后台运行，黑域都不会强行停止；同时，保证它们被服务唤醒之后，至少运行 30 秒\n\n推荐为帐号同步及通信类应用在通知中覆盖“勿扰”设置，或者不要黑域它们。建议累计捐赠 1 美元</string>
-
-</resources>

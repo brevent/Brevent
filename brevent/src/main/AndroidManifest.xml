@@ -48,7 +48,7 @@
 
         <receiver
             android:name=".ui.BreventReceiver"
-            android:directBootAware="@bool/direct_boot_aware"
+            android:directBootAware="true"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

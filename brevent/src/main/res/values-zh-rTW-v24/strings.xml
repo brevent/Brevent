@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <string name="brevent_optimize_priority_label">啟用之後，如果已覆寫「零打擾」設定的應用程式有通知或者在背景執行，黑域都不會強制停止；同時，保證它們被服務喚醒之後，至少執行 30 秒\n\n推薦為帳號同步及通訊類應用程式在通知中覆寫「零打擾」設定，或者不要黑域它們。建議累計捐贈 1 美元</string>
-
-</resources>
