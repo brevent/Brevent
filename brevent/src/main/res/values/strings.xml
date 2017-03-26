@@ -5,7 +5,7 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you finished your work and wanted to quit.\nPressing Home would start the launcher and kick this app into background.\n\n</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in backgroud and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back, they would be force-stopped immediately.\nPressing Home and they would be kept in the background to finish their tasks, once the time period you set is out they would be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in backgroud and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back, they would be force-stopped.\nPressing Home and they would be kept in the background to finish their tasks, once the time period you set is out they would be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command, along with your PC.\n\n</string>

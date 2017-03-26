@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby，或译“休眠”）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据级别延后 3 到 60 秒不等；您也可在设置中修改成立即处理。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby，或译“休眠”）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
