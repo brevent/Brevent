@@ -81,7 +81,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/marginItemText"
             android:layout_toEndOf="@+id/icon"
-            android:layout_toStartOf="@+id/sync"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             android:textColor="?android:attr/textColorSecondary" />
 
