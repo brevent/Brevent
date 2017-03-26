@@ -418,16 +418,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     + getResources().getQuantityString(R.plurals.process_process, total);
         } else {
             StringBuilder sb = new StringBuilder();
-            if (top > 0) {
-                sb.append(getString(R.string.process_top, top));
-                sb.append(", ");
-            }
             if (service > 0) {
                 sb.append(getString(R.string.process_service, service));
-                sb.append(", ");
-            }
-            if (cached > 0) {
-                sb.append(getString(R.string.process_cached, cached));
                 sb.append(", ");
             }
             if (total > 0) {
