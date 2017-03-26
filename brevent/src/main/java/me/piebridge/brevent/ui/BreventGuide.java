@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -26,7 +25,7 @@ public class BreventGuide extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_brevent);
+        setContentView(R.layout.activity_guide);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(mToolbar);
@@ -39,8 +38,6 @@ public class BreventGuide extends Activity {
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton, messages, messages2));
-
-        ((TabLayout) findViewById(R.id.tabs)).setupWithViewPager(pager);
     }
 
     final void startBrevent() {
