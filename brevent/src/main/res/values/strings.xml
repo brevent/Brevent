@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). If you find some apps still running, please use Brevent or other tools to check its status.\n\nAnd to increase battery performance, Brevent sever delay the processes by 3 to 60 seconds according the event level.\n\nWhen you swipe apps away from recent screen, Android will kill the processes and Brevent would force-stop them ASAP.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). If you find some apps still running, please use Brevent or other tools to check its status.\n\nAnd to increase battery performance, Brevent server delay the processes by 3 to 60 seconds according the event level.\n\nWhen you swipe apps away from recent screen, Android will kill the processes and Brevent would force-stop them ASAP.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets you communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
