@@ -27,7 +27,7 @@
             android:title="@string/brevent_timeout" />
 
         <ListPreference
-            android:defaultValue="10800"
+            android:defaultValue="3600"
             android:entries="@array/brevent_standby_timeout_entries"
             android:entryValues="@array/brevent_standby_timeout_values"
             android:key="brevent_standby_timeout"

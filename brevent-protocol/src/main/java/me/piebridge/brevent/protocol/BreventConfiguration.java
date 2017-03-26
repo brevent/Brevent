@@ -34,7 +34,7 @@ public class BreventConfiguration extends BreventToken {
     public static final int DEFAULT_BREVENT_METHOD = BREVENT_METHOD_STANDBY_FORCE_STOP;
 
     public static final String BREVENT_STANDBY_TIMEOUT = "brevent_standby_timeout";
-    public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 10800;
+    public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 3600;
     public static final int MIN_BREVENT_STANDBY_TIMEOUT = 900;
 
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
