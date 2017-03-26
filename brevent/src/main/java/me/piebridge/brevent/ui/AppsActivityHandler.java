@@ -66,7 +66,7 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol breventResponse = (BreventProtocol) message.obj;
-                if (breventResponse.versionUnmatched()) {
+                if (breventResponse.versionMismatched()) {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_VERSION_UNMATCHED);
                 } else {
                     BreventActivity activity = mReference.get();

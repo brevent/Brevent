@@ -65,7 +65,7 @@ public class BreventProtocol implements Parcelable {
         return mAction;
     }
 
-    public final boolean versionUnmatched() {
+    public final boolean versionMismatched() {
         return mVersion != VERSION;
     }
 
