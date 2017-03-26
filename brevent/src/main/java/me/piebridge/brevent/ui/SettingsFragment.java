@@ -168,7 +168,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             }
         } else {
             breventUi.addPreference(preferenceDonation);
-            if (total == 1) {
+            if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
+                preferenceAllowGcm.setEnabled(true);
+                preferenceAllowRoot.setEnabled(true);
+            } else if (total == 1) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
@@ -177,9 +180,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
-            } else {
-                preferenceAllowGcm.setEnabled(true);
-                preferenceAllowRoot.setEnabled(true);
             }
         }
     }
