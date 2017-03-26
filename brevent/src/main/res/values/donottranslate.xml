@@ -98,7 +98,6 @@
 
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
-    <string name="later" translatable="false">later</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>
 
 </resources>
