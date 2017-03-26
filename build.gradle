@@ -41,6 +41,16 @@ project.ext.targetSdkVersion = 25
 
 project.ext.versionCode = 28
 
-project.ext.versionName = getBreventVersion()
+project.ext.simpleVersionName = getBreventVersion()
+
+project.ext.versionName = project.ext.simpleVersionName
+
+if (rootProject.file('ant.properties').exists()) {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(rootProject.file('ant.properties')))
+    if (properties['build.codename'] != null) {
+        project.ext.versionName = properties['build.codename'] + "(" + getBreventVersion() + ")"
+    }
+}
 
 project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))
