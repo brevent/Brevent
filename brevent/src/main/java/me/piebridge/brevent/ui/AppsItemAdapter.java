@@ -32,7 +32,7 @@ import me.piebridge.brevent.protocol.TimeUtils;
 /**
  * Created by thom on 2017/1/25.
  */
-public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLongClickListener, View.OnClickListener {
+public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     private static final int VIEW_TYPE_SECTION = 0;
     private static final int VIEW_TYPE_ITEM = 1;
@@ -88,7 +88,6 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
             viewHolder.statusView = (ImageView) view.findViewById(R.id.status);
             viewHolder.descriptionView = (TextView) view.findViewById(R.id.description);
             viewHolder.inactiveView = (TextView) view.findViewById(R.id.inactive);
-            view.setOnLongClickListener(this);
             view.setOnClickListener(this);
             viewHolder.iconView.setOnClickListener(this);
             if (cardColorBackgroundDefault == Color.TRANSPARENT) {
@@ -227,16 +226,6 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
         BreventActivity breventActivity = getActivity();
         if (breventActivity != null) {
             updateAppsInfo();
-        }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        if (v instanceof CardView) {
-            onSelected((CardView) v);
-            return true;
-        } else {
-            return false;
         }
     }
 
