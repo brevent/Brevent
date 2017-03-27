@@ -288,6 +288,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void hideFragment(String tag) {
+        if (stopped) {
+            return;
+        }
         DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
             fragment.dismiss();
