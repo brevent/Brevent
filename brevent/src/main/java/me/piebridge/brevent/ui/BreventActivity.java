@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IDeviceIdleController;
 import android.os.Message;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.preference.PreferenceManager;
@@ -38,6 +40,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
+import android.telecom.TelecomManager;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -92,6 +96,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_UPDATE_BREVENT = 8;
     public static final int UI_MESSAGE_HIDE_DISABLED = 9;
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 10;
+    public static final int UI_MESSAGE_SHOW_SUCCESS = 11;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -186,6 +191,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             // do nothing
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (preferences.getBoolean(SettingsFragment.SHOW_ALL_APPS, false)) {
+            preferences.edit().putBoolean(SettingsFragment.SHOW_ALL_APPS, false).apply();
+        }
         if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
@@ -766,8 +774,23 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             updateConfiguration();
         }
         if (!mSelectMode && mBrevent.isEmpty()) {
-            mSnackBar = Snackbar.make(mCoordinator, R.string.brevent_service_success, Snackbar.LENGTH_INDEFINITE);
-            mSnackBar.show();
+            uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
+        }
+        unbreventImportant();
+    }
+
+    private void unbreventImportant() {
+        Set<String> importantBrevented = new ArraySet<>();
+        for (String packageName : mBrevent) {
+            if (mImportant.containsKey(packageName)) {
+                importantBrevented.add(packageName);
+            }
+        }
+        if (!importantBrevented.isEmpty()) {
+            UILog.i("will unbrevent: " + importantBrevented);
+            BreventPackages breventPackages = new BreventPackages(false, getToken(), importantBrevented);
+            breventPackages.undoable = false;
+            mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
     }
 
@@ -806,7 +829,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
-            String dialer = getSecureSetting(HideApiOverride.DIALER_DEFAULT_APPLICATION);
+            String dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE)).getDefaultDialerPackage();
             if (dialer != null) {
                 packageNames.put(dialer, IMPORTANT_DIALER);
             }
@@ -854,7 +877,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 packageNames.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
             }
         }
-        UILog.d("important: " + packageNames);
+
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("important: " + packageNames);
+        }
     }
 
     private String getPackageName(String component) {
@@ -880,7 +906,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             gcm.retainAll(checkReceiver(new Intent("com.google.android.c2dm.intent.RECEIVE")));
             packageNames.addAll(gcm);
         }
-        UILog.d("gcm: " + packageNames);
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("gcm: " + packageNames);
+        }
     }
 
     private void resolveFavoritePackages(SimpleArrayMap<String, Integer> packageNames) {
@@ -907,7 +935,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
         }
 
-        UILog.d("favorite: " + packageNames);
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("favorite: " + packageNames);
+        }
     }
 
     public void showViewPager() {
@@ -1021,6 +1051,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public boolean isBrevent(String packageName) {
         return mBrevent.contains(packageName);
+    }
+
+    public void showSuccess() {
+        mSnackBar = Snackbar.make(mCoordinator, R.string.brevent_service_success, Snackbar.LENGTH_INDEFINITE);
+        mSnackBar.show();
+    }
+
+    public void unbrevent(String packageName) {
+        UILog.i("will unbrevent: " + packageName);
+        BreventPackages breventPackages = new BreventPackages(false, getToken(), Collections.singleton(packageName));
+        breventPackages.undoable = false;
+        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
     }
 
 }

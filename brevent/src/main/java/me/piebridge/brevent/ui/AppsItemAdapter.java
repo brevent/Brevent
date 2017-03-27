@@ -382,10 +382,21 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnLong
     }
 
     public boolean accept(PackageManager pm, ApplicationInfo appInfo, boolean showAllApps) {
+        BreventActivity activity = getActivity();
+        String packageName = appInfo.packageName;
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
+            if (activity.isBrevent(packageName)) {
+                activity.unbrevent(packageName);
+            }
             return false;
         }
-        return (getActivity().isLauncher(appInfo.packageName) || mFragment.supportAllApps() || showAllApps || pm.getLaunchIntentForPackage(appInfo.packageName) != null)
+        boolean hasLaunchIntent = pm.getLaunchIntentForPackage(packageName) != null;
+        if (mFragment.isSystemPackage(appInfo.flags) && !hasLaunchIntent) {
+            if (activity.isBrevent(packageName)) {
+                activity.unbrevent(packageName);
+            }
+        }
+        return (activity.isLauncher(packageName) || mFragment.supportAllApps() || showAllApps || hasLaunchIntent)
                 && mFragment.accept(pm, appInfo);
     }
 

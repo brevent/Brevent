@@ -57,6 +57,9 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_UPDATE_PRIORITY:
                     activity.updateBreventResponse((BreventPriority) message.obj);
                     break;
+                case BreventActivity.UI_MESSAGE_SHOW_SUCCESS:
+                    activity.showSuccess();
+                    break;
                 default:
                     break;
             }

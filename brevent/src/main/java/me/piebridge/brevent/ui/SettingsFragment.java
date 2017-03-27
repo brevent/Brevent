@@ -78,7 +78,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             }
             removeDonationIfNeeded();
         }
-        if (!getPreferenceScreen().getSharedPreferences().getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(this);
         }
@@ -86,6 +87,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
         }
         onUpdateBreventMethod();
+
+        breventUi.removePreference(preferenceScreen.findPreference(SHOW_ALL_APPS));
     }
 
     @Override
