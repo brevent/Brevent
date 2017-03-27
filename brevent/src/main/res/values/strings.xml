@@ -149,7 +149,7 @@
     <string name="brevent_allow_gcm">Allow FCM (previous GCM)</string>
     <string name="brevent_allow_gcm_label">When checked, allow brevented \"Allow Sync\" apps to receive FCM message\n\nRequires donate total 2 USD for Play version, feel free to donate for other version</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without "USB Debugging"\n\Requires donate total 3 USD for Play version, feel free to donate for other version</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\Requires donate total 3 USD for Play version, feel free to donate for other version</string>
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>
