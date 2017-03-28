@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否为「未啓用」。\n\n此外，為了降低自身耗電，黑域集中處理，根據級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否为「未啓用」。\n\n此外，為了降低自身耗電，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -120,7 +120,7 @@
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
 
-    <string name="feedback_message" >歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
+    <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">郵件</string>
@@ -148,6 +148,8 @@
     <string name="brevent_optimize_priority_label">黑域清单中“允许同步”的应用有通知或者在后台运行，都不会被黑域强行停止\n\n建议累计捐赠 1 美元</string>
     <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
     <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
+    <string name="brevent_when_request">主动清理</string>
+    <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或开机自动开启黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 

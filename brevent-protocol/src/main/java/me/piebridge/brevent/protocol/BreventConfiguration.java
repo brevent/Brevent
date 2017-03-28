@@ -40,6 +40,9 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_CHECK_NOTIFICATION = "brevent_check_notification";
     public static final boolean DEFAULT_BREVENT_CHECK_NOTIFICATION = true;
 
+    public static final String BREVENT_WHEN_REQUEST = "brevent_when_request";
+    public static final boolean DEFAULT_BREVENT_WHEN_REQUEST = false;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
@@ -54,6 +57,8 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean checkNotification = DEFAULT_BREVENT_CHECK_NOTIFICATION;
 
+    public boolean breventRequest = DEFAULT_BREVENT_WHEN_REQUEST;
+
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
@@ -63,6 +68,7 @@ public class BreventConfiguration extends BreventToken {
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT, "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION, DEFAULT_BREVENT_CHECK_NOTIFICATION);
+        breventRequest = sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST, DEFAULT_BREVENT_WHEN_REQUEST);
     }
 
     private int convertMethod(String string) {
@@ -90,6 +96,7 @@ public class BreventConfiguration extends BreventToken {
         allowGcm = in.readInt() != 0;
         standbyTimeout = in.readInt();
         checkNotification = in.readInt() != 0;
+        breventRequest = in.readInt() != 0;
     }
 
     @Override
@@ -102,6 +109,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(allowGcm ? 1 : 0);
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
+        dest.writeInt(breventRequest ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -112,6 +120,7 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_ALLOW_GCM, allowGcm);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
+        write(pw, BREVENT_WHEN_REQUEST, breventRequest);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -163,6 +172,9 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_CHECK_NOTIFICATION:
                 checkNotification = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_WHEN_REQUEST:
+                breventRequest = Boolean.parseBoolean(value);
+                break;
             default:
                 break;
         }
@@ -196,6 +208,10 @@ public class BreventConfiguration extends BreventToken {
         }
         if (this.checkNotification != request.checkNotification) {
             this.checkNotification = request.checkNotification;
+            updated = true;
+        }
+        if (this.breventRequest != request.breventRequest) {
+            this.breventRequest = request.breventRequest;
             updated = true;
         }
         return updated;

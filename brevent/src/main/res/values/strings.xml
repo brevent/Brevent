@@ -150,6 +150,8 @@
     <string name="brevent_optimize_priority_label">Brevent won\'t force-stop \"Allow Sync\" apps if they pushed notification or running in background\n\nRecommend donate total 1 USD</string>
     <string name="brevent_allow_gcm">Allow FCM (previous GCM)</string>
     <string name="brevent_allow_gcm_label">When checked, allow brevented \"Allow Sync\" apps to receive FCM message\n\nRequires donate total 2 USD for Play version, feel free to donate for other version</string>
+    <string name="brevent_when_request">Brevent manually</string>
+    <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delay the processes according the event level\n\nRecommend donate total 2 USD</string>
     <string name="brevent_allow_root">Run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\Requires donate total 3 USD for Play version, feel free to donate for other version</string>
 
