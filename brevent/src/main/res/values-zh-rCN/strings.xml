@@ -141,6 +141,8 @@
     <string name="important_trust_agent">%s (可信代理)</string>
 
     <string name="brevent_advanced">高级功能</string>
+    <string name="brevent_check_notification">检查通知</string>
+    <string name="brevent_check_notification_label">如果您的机器上解锁或查看通知卡顿，请关闭并提交反馈</string>
     <string name="brevent_optimize_priority">允许同步</string>
     <string name="brevent_optimize_priority_label">黑域清单中“允许同步”的应用有通知或者在后台运行，都不会被黑域强行停止\n\n建议累计捐赠 1 美元</string>
     <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>

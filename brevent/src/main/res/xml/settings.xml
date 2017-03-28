@@ -40,6 +40,12 @@
         android:key="brevent_advanced"
         android:title="@string/brevent_advanced">
 
+        <SwitchPreference
+            android:key="brevent_check_notification"
+            android:defaultValue="true"
+            android:summary="@string/brevent_check_notification_label"
+            android:title="@string/brevent_check_notification" />
+
         <Preference
             android:key="brevent_optimize_priority"
             android:summary="@string/brevent_optimize_priority_label"

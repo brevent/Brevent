@@ -144,6 +144,8 @@
     <string name="important_trust_agent">%s (Trust agent)</string>
 
     <string name="brevent_advanced">Advanced Features</string>
+    <string name="brevent_check_notification">Check notifications</string>
+    <string name="brevent_check_notification_label">Turn off if device freeze when unlock or view notification</string>
     <string name="brevent_optimize_priority">Allow sync</string>
     <string name="brevent_optimize_priority_label">Brevent won\'t force-stop \"Allow Sync\" apps if they pushed notification or running in background\n\nRecommend donate total 1 USD</string>
     <string name="brevent_allow_gcm">Allow FCM (previous GCM)</string>
