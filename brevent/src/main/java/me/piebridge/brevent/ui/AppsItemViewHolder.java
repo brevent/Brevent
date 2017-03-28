@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,6 +71,10 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder implements View.
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
             menu.getItem(i).setOnMenuItemClickListener(this);
+        }
+        String important = activity.getLabel("", packageName);
+        if (!TextUtils.isEmpty(important)) {
+            menu.add(important);
         }
     }
 
