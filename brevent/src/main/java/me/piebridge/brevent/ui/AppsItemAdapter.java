@@ -379,21 +379,28 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     public boolean accept(PackageManager pm, ApplicationInfo appInfo, boolean showAllApps) {
         BreventActivity activity = getActivity();
         String packageName = appInfo.packageName;
+        // hard limit
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
-            if (activity.isBrevent(packageName)) {
-                activity.unbrevent(packageName);
-            }
             return false;
         }
-        boolean hasLaunchIntent = pm.getLaunchIntentForPackage(packageName) != null;
-        if (mFragment.isSystemPackage(appInfo.flags) && !hasLaunchIntent) {
-            if (activity.isBrevent(packageName)) {
-                activity.unbrevent(packageName);
-            }
+        // filter for fragment
+        if (!mFragment.accept(pm, appInfo)) {
+            return false;
         }
-        return (activity.isLauncher(packageName) || mFragment.supportAllApps() || showAllApps ||
-                hasLaunchIntent)
-                && mFragment.accept(pm, appInfo);
+        if (activity.isLauncher(packageName)) {
+            // always show launcher
+            return true;
+        }
+        if (showAllApps || mFragment.supportAllApps()) {
+            // always for all apps
+            return true;
+        }
+        if (activity.isBrevent(packageName)) {
+            // always for brevented apps
+            return true;
+        }
+        UILog.v("checking launcher for " + packageName);
+        return pm.getLaunchIntentForPackage(packageName) != null;
     }
 
 }

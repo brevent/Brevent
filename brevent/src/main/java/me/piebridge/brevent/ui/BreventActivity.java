@@ -196,9 +196,6 @@ public class BreventActivity extends Activity
         }
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (preferences.getBoolean(SettingsFragment.SHOW_ALL_APPS, false)) {
-            preferences.edit().putBoolean(SettingsFragment.SHOW_ALL_APPS, false).apply();
-        }
         if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
@@ -782,17 +779,9 @@ public class BreventActivity extends Activity
         resolveFavoritePackages(mFavorite);
         resolveGcmPackages(mGcm);
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
-                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
-        boolean showAllApps =
-                sp.getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         if (mAdapter == null) {
-            mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles, showFramework);
-        } else {
-            mAdapter.setShowFramework(showFramework);
+            mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
         }
-        mAdapter.setShowAllApps(showAllApps);
         uiHandler.sendEmptyMessage(UI_MESSAGE_HIDE_PROGRESS);
         uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_PAGER);
 
@@ -979,6 +968,13 @@ public class BreventActivity extends Activity
     }
 
     public void showViewPager() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
+                SettingsFragment.DEFAULT_SHOW_ALL_APPS);
+        boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
+                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
+        mAdapter.setShowAllApps(showAllApps);
+        mAdapter.setShowFramework(showFramework);
         if (mPager.getAdapter() == null) {
             mPager.setAdapter(mAdapter);
         } else {

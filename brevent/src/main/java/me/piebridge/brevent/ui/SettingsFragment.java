@@ -43,6 +43,7 @@ public class SettingsFragment extends PreferenceFragment
 
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
+    private SwitchPreference preferenceShowAllApps;
 
     private Preference preferenceStandbyTimeout;
 
@@ -75,16 +76,21 @@ public class SettingsFragment extends PreferenceFragment
                     preferenceStandbyTimeout);
         }
 
+        preferenceShowAllApps = (SwitchPreference) preferenceScreen.findPreference(SHOW_ALL_APPS);
+        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
         } else {
             if (!getArguments().getBoolean(HAS_PLAY, false)) {
+                // no play store
+                if (!sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
+                    breventUi.removePreference(preferenceShowAllApps);
+                }
                 preferenceDonation.setChecked(true);
             }
             removeDonationIfNeeded();
         }
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(
@@ -95,8 +101,6 @@ public class SettingsFragment extends PreferenceFragment
                     preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
         }
         onUpdateBreventMethod();
-
-        breventUi.removePreference(preferenceScreen.findPreference(SHOW_ALL_APPS));
     }
 
     @Override
@@ -168,6 +172,9 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
+            if (!getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_ALL_APPS, false)) {
+                breventUi.removePreference(preferenceShowAllApps);
+            }
             onShowDonationChanged();
             removeDonationIfNeeded();
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {

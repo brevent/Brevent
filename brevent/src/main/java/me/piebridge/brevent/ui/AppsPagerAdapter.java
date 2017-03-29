@@ -23,11 +23,10 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
 
     private boolean mShowAllApps;
 
-    public AppsPagerAdapter(FragmentManager fm, String[] titles, boolean showFramework) {
+    public AppsPagerAdapter(FragmentManager fm, String[] titles) {
         super(fm);
         this.mFragments = new AppsFragment[titles.length];
         this.mTitles = titles;
-        this.mShowFramework = showFramework;
     }
 
     @Override
@@ -62,10 +61,13 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        if (!mShowFramework && object == mFragments[FRAGMENT_FRAMEWORK_APPS]) {
-            return POSITION_NONE;
-        } else {
+        if (object == mFragments[FRAGMENT_USER_APPS] || object == mFragments[FRAGMENT_SYSTEM_APPS]) {
             return POSITION_UNCHANGED;
+        }
+        if (mShowFramework && object == mFragments[FRAGMENT_FRAMEWORK_APPS]) {
+            return POSITION_UNCHANGED;
+        } else {
+            return POSITION_NONE;
         }
     }
 
