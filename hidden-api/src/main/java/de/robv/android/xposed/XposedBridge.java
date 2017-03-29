@@ -11,9 +11,12 @@ public class XposedBridge {
 
     /*package*/ static boolean disableHooks = false;
 
-    private static Map<Member, CopyOnWriteSortedSet<XC_MethodHook>> sHookedMethodCallbacks = new HashMap<>();
+    private static Map<Member, CopyOnWriteSortedSet<XC_MethodHook>> sHookedMethodCallbacks =
+            new HashMap<>();
 
-    /** @hide */
+    /**
+     * @hide
+     */
     public static class CopyOnWriteSortedSet<E> {
 
         public Object[] getSnapshot() {

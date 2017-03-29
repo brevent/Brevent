@@ -9,7 +9,8 @@ public class PackageParser {
 
     }
 
-    public static void collectCertificates(Package pkg, int parseFlags) throws PackageParserException {
+    public static void collectCertificates(Package pkg, int parseFlags)
+            throws PackageParserException {
         throw new UnsupportedOperationException();
     }
 

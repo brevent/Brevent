@@ -27,7 +27,8 @@ public class AppsReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (BreventIntent.ACTION_BREVENT.equals(action)) {
             setResultData(mToken);
-            mHandler.obtainMessage(BreventActivity.MESSAGE_BREVENT_RESPONSE, BreventProtocol.unwrap(intent)).sendToTarget();
+            mHandler.obtainMessage(BreventActivity.MESSAGE_BREVENT_RESPONSE,
+                    BreventProtocol.unwrap(intent)).sendToTarget();
         }
     }
 

@@ -83,7 +83,8 @@ class ParcelUtils {
         return map;
     }
 
-    static void writeSimpleArrayMap(Parcel dest, @Nullable SimpleArrayMap<String, SparseIntArray> map) {
+    static void writeSimpleArrayMap(Parcel dest,
+                                    @Nullable SimpleArrayMap<String, SparseIntArray> map) {
         if (map == null) {
             dest.writeInt(-1);
         } else {

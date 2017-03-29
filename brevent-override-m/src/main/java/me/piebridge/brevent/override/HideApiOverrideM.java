@@ -22,7 +22,8 @@ public class HideApiOverrideM {
         return am.getRecentTasks(maxNum, flags, userId);
     }
 
-    public static void collectCertificates(PackageParser.Package pkg, int flags) throws PackageParser.PackageParserException {
+    public static void collectCertificates(PackageParser.Package pkg, int flags)
+            throws PackageParser.PackageParserException {
         PackageParser packageParser = new PackageParser();
         packageParser.collectCertificates(pkg, flags);
     }

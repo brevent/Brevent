@@ -19,6 +19,7 @@ public class AppOpsManager {
 
     /**
      * Class holding all of the operation information associated with an app.
+     *
      * @hide
      */
     public static class PackageOps {
@@ -39,6 +40,7 @@ public class AppOpsManager {
 
     /**
      * Class holding the information about one unique operation of an application.
+     *
      * @hide
      */
     public static class OpEntry {

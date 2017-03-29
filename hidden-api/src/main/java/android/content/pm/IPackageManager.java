@@ -31,13 +31,15 @@ public interface IPackageManager {
      */
     ParceledListSlice<PackageInfo> getInstalledPackages(int flags, int userId) throws RemoteException;
 
-    ResolveInfo resolveIntent(Intent intent, String resolvedType, int flags, int userId) throws RemoteException;
+    ResolveInfo resolveIntent(Intent intent, String resolvedType, int flags, int userId)
+            throws RemoteException;
 
     /**
      * Set whether the given package should be considered stopped, making
      * it not visible to implicit intents that filter out stopped packages.
      */
-    void setPackageStoppedState(String packageName, boolean stopped, int userId) throws RemoteException;
+    void setPackageStoppedState(String packageName, boolean stopped, int userId)
+            throws RemoteException;
 
     /**
      * This implements getPackagesHoldingPermissions via a "last returned row"
@@ -45,9 +47,11 @@ public interface IPackageManager {
      * limit that kicks in when flags are included that bloat up the data
      * returned.
      */
-    ParceledListSlice<PackageInfo> getPackagesHoldingPermissions(String[] permissions, int flags, int userId) throws RemoteException;
+    ParceledListSlice<PackageInfo> getPackagesHoldingPermissions(String[] permissions, int flags,
+                                                                 int userId) throws RemoteException;
 
-    ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId) throws RemoteException;
+    ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId)
+            throws RemoteException;
 
     class Stub {
 

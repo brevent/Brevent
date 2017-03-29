@@ -37,11 +37,14 @@ public class BreventGuide extends Activity {
         String titleShowButton = resources.getString(R.string.fragment_guide_enjoy);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton, messages, messages2));
+        pager.setAdapter(
+                new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton, messages,
+                        messages2));
     }
 
     final void startBrevent() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (preferences.getBoolean(GUIDE, true)) {
             preferences.edit().putBoolean(GUIDE, false).apply();
             startActivity(new Intent(this, BreventActivity.class));
@@ -56,7 +59,8 @@ public class BreventGuide extends Activity {
         private final String[] mMessages;
         private final String[] mMessages2;
 
-        GuidePagerAdapter(FragmentManager fragmentManager, String[] titles, String titleShowbutton, String[] messages, String[] messages2) {
+        GuidePagerAdapter(FragmentManager fragmentManager, String[] titles, String titleShowbutton,
+                          String[] messages, String[] messages2) {
             super(fragmentManager);
             mTitles = titles;
             mTitleShowButton = titleShowbutton;
@@ -105,12 +109,15 @@ public class BreventGuide extends Activity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
             if (mView == null) {
                 mView = inflater.inflate(R.layout.fragment_guide, container, false);
                 Bundle arguments = getArguments();
-                ((TextView) mView.findViewById(R.id.message)).setText(arguments.getString(MESSAGE, ""));
-                ((TextView) mView.findViewById(R.id.message2)).setText(arguments.getString(MESSAGE2, ""));
+                ((TextView) mView.findViewById(R.id.message)).setText(
+                        arguments.getString(MESSAGE, ""));
+                ((TextView) mView.findViewById(R.id.message2)).setText(
+                        arguments.getString(MESSAGE2, ""));
                 View button = mView.findViewById(R.id.button);
                 if (arguments.getBoolean(BUTTON)) {
                     button.setVisibility(View.VISIBLE);

@@ -34,7 +34,8 @@ public class BreventIntentService extends IntentService {
         String name = "libbrevent.so";
         try {
             PackageManager packageManager = getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
+            ApplicationInfo applicationInfo =
+                    packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
             File file = new File(applicationInfo.nativeLibraryDir, name);
             if (file.exists()) {
                 UILog.d("startBrevent: " + file.getAbsolutePath());

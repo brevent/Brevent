@@ -21,7 +21,9 @@ import me.piebridge.donation.DonateActivity;
 /**
  * Created by thom on 2017/2/8.
  */
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class SettingsFragment extends PreferenceFragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener,
+        Preference.OnPreferenceClickListener {
 
     public static final String SHOW_DONATION = "show_donation";
 
@@ -61,12 +63,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
-        preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM);
-        preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
+        preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_ALLOW_GCM);
+        preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_ALLOW_ROOT);
 
-        preferenceStandbyTimeout = preferenceScreen.findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+        preferenceStandbyTimeout =
+                preferenceScreen.findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
         if (!BreventUtils.supportStandby()) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(preferenceStandbyTimeout);
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(
+                    preferenceStandbyTimeout);
         }
 
         if (getArguments().getBoolean(IS_PLAY, false)) {
@@ -81,10 +87,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
-            preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(this);
+            preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(
+                    this);
         }
         if (getArguments().getInt(Intent.EXTRA_ALARM_COUNT, 0) == 0) {
-            breventAdvanced.removePreference(preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
+            breventAdvanced.removePreference(
+                    preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
         }
         onUpdateBreventMethod();
 
@@ -122,7 +130,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void onUpdateBreventMethod() {
-        if ("standby_forcestop".equals(getPreferenceScreen().getSharedPreferences().getString(BreventConfiguration.BREVENT_METHOD, null))) {
+        if ("standby_forcestop".equals(getPreferenceScreen().getSharedPreferences().getString(
+                BreventConfiguration.BREVENT_METHOD, null))) {
             preferenceStandbyTimeout.setEnabled(true);
         } else {
             preferenceStandbyTimeout.setEnabled(false);
@@ -130,7 +139,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void onShowDonationChanged() {
-        boolean showDonation = getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_DONATION, true);
+        boolean showDonation =
+                getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_DONATION, true);
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
@@ -202,7 +212,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();
-            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.DevelopmentSettings"));
+            intent.setComponent(new ComponentName("com.android.settings",
+                    "com.android.settings.DevelopmentSettings"));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             try {
                 startActivity(intent);

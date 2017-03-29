@@ -20,5 +20,5 @@ int android_logger_list_read(struct logger_list *UNUSED(logger_list),
     return 0;
 }
 
-void android_logger_list_free(struct logger_list* UNUSED(logger_list)) {
+void android_logger_list_free(struct logger_list *UNUSED(logger_list)) {
 }

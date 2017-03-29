@@ -42,7 +42,8 @@ public class HideApiOverride {
 
     private static final int FLAG_PERSISTENT = getFlagPersistent();
     private static final int PROCESS_STATE_CACHED_ACTIVITY = getProcessStateCachedActivity();
-    private static final int PROCESS_STATE_BOUND_FOREGROUND_SERVICE = getProcessStateBoundForegroundService();
+    private static final int PROCESS_STATE_BOUND_FOREGROUND_SERVICE =
+            getProcessStateBoundForegroundService();
     private static final int PROCESS_STATE_FOREGROUND_SERVICE = getProcessStateForegroundService();
     private static final int PROCESS_STATE_SERVICE = getProcessStateService();
     private static final int PROCESS_STATE_RECEIVER = getProcessStateReceiver();
@@ -50,7 +51,8 @@ public class HideApiOverride {
 
     private static final int RECENT_IGNORE_HOME_STACK_TASKS = getRecentIgnoreHomeStackTasks();
     private static final int RECENT_INCLUDE_PROFILES = getRecentIncludeProfiles();
-    private static final int RECENT_INGORE_DOCKED_STACK_TOP_TASK = getRecentIngoreDockedStackTopTask();
+    private static final int RECENT_INGORE_DOCKED_STACK_TOP_TASK =
+            getRecentIngoreDockedStackTopTask();
     private static final int RECENT_INGORE_PINNED_STACK_TASKS = getRecentIngorePinnedStackTasks();
 
     private HideApiOverride() {
@@ -347,7 +349,8 @@ public class HideApiOverride {
         try {
             return ActivityManager.RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS;
         } catch (LinkageError e) {
-            Log.w(TAG, "Can't find ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS nor ActivityManager.RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS");
+            Log.w(TAG, "Can't find ActivityManager.RECENT_IGNORE_HOME_STACK_TASKS" +
+                    " nor ActivityManager.RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS");
         }
         return 0x0008;
     }

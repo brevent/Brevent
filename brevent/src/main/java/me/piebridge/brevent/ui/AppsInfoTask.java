@@ -34,7 +34,8 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
 
         PackageManager pm = context.getPackageManager();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
+        boolean showAllApps =
+                sp.getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(context);
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);

@@ -34,7 +34,8 @@ public class BreventStatus extends BreventToken implements Parcelable {
     public final Collection<String> mTrustAgents;
 
     public BreventStatus(UUID token, Collection<String> brevent, Collection<String> priority,
-                         SimpleArrayMap<String, SparseIntArray> processes, Collection<String> trustAgents) {
+                         SimpleArrayMap<String, SparseIntArray> processes,
+                         Collection<String> trustAgents) {
         super(BreventProtocol.STATUS_RESPONSE, token);
         mBrevent = brevent;
         mPriority = priority;

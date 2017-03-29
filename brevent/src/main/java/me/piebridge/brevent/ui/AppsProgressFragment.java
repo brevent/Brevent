@@ -33,7 +33,8 @@ public class AppsProgressFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_progress_apps, container);
             mMessage = (TextView) mView.findViewById(R.id.message);

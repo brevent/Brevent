@@ -21,8 +21,9 @@ static inline int32_t get_tag(struct log_msg msg) {
  * Method:    readEvents
  * Signature: (ILme/piebridge/EventHandler;)V
  */
-JNIEXPORT void JNICALL Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid,
-                                                              jobject value) {
+JNIEXPORT void JNICALL
+Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid,
+                                       jobject value) {
     struct logger_list *logger_list;
     struct log_time log_time;
 
@@ -41,7 +42,7 @@ JNIEXPORT void JNICALL Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclas
 
     logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
     android_logger_open(logger_list, android_name_to_log_id("events"));
-    for (; ;) {
+    for (;;) {
         struct log_msg log_msg;
         int size = android_logger_list_read(logger_list, &log_msg);
         if (size <= 0) {

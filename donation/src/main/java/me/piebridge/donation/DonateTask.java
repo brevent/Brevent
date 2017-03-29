@@ -36,9 +36,11 @@ class DonateTask extends AsyncTask<DonateActivity.DonateItem, DonateActivity.Don
             PackageManager packageManager = context.getPackageManager();
             int size = resources.getDimensionPixelSize(android.R.dimen.app_icon_size);
             for (DonateActivity.DonateItem item : params) {
-                ActivityInfo activityInfo = packageManager.resolveActivity(item.intent, 0).activityInfo;
+                ActivityInfo activityInfo =
+                        packageManager.resolveActivity(item.intent, 0).activityInfo;
                 item.label = activityInfo.loadLabel(packageManager);
-                item.icon = DonateActivity.cropDrawable(resources, (BitmapDrawable) activityInfo.loadIcon(packageManager), size);
+                item.icon = DonateActivity.cropDrawable(resources,
+                        (BitmapDrawable) activityInfo.loadIcon(packageManager), size);
                 this.publishProgress(item);
             }
         }

@@ -62,13 +62,17 @@ public class BreventConfiguration extends BreventToken {
     public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
         super(CONFIGURATION, token);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
-        setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
+        setValue(BREVENT_TIMEOUT,
+                sharedPreferences.getString(BREVENT_TIMEOUT, "" + DEFAULT_BREVENT_TIMEOUT));
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
-        setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT, "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
-        checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION, DEFAULT_BREVENT_CHECK_NOTIFICATION);
-        breventRequest = sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST, DEFAULT_BREVENT_WHEN_REQUEST);
+        setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT,
+                "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
+        checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
+                DEFAULT_BREVENT_CHECK_NOTIFICATION);
+        breventRequest =
+                sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST, DEFAULT_BREVENT_WHEN_REQUEST);
     }
 
     private int convertMethod(String string) {

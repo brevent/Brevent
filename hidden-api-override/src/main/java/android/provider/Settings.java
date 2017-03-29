@@ -47,6 +47,7 @@ public class Settings {
 
         /**
          * Holds comma separated list of ordering of QS tiles.
+         *
          * @hide
          */
         public static String QS_TILES = "sysui_qs_tiles";

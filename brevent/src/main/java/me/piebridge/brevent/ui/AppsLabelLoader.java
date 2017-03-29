@@ -27,7 +27,8 @@ public class AppsLabelLoader {
     private final SharedPreferences mPreferences;
 
     public AppsLabelLoader(Context context) {
-        mPreferences = context.getSharedPreferences("label-" + Locale.getDefault(), Context.MODE_PRIVATE);
+        mPreferences =
+                context.getSharedPreferences("label-" + Locale.getDefault(), Context.MODE_PRIVATE);
         mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
     }
 
@@ -41,12 +42,14 @@ public class AppsLabelLoader {
         if (lastUpdateTime <= mLastSync && mPreferences.contains(packageName)) {
             return mPreferences.getString(packageName, packageName);
         } else {
-            Intent launchIntent = packageManager.getLaunchIntentForPackage(applicationInfo.packageName);
+            Intent launchIntent =
+                    packageManager.getLaunchIntentForPackage(applicationInfo.packageName);
             CharSequence label;
             if (launchIntent == null) {
                 label = applicationInfo.loadLabel(packageManager);
             } else {
-                label = packageManager.resolveActivity(launchIntent, 0).activityInfo.loadLabel(packageManager);
+                label = packageManager.resolveActivity(launchIntent, 0).activityInfo.loadLabel(
+                        packageManager);
             }
             String name = trim(label).toString();
             if (!label.equals(mPreferences.getString(packageName, null))) {

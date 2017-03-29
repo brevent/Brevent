@@ -30,7 +30,8 @@ import me.piebridge.brevent.override.HideApiOverride;
 /**
  * Created by thom on 2017/2/5.
  */
-public class AppsDisabledFragment extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
+public class AppsDisabledFragment extends DialogFragment
+        implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
 
     private static final String MESSAGE = "message";
 
@@ -72,9 +73,11 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = getActivity().registerReceiver(null, filter);
-        boolean connected = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+        boolean connected =
+                intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
-        builder.setMessage(getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
+        builder.setMessage(
+                getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         builder.setNeutralButton(R.string.menu_guide, this);
@@ -109,7 +112,8 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
         String name = "libbrevent.so";
         try {
             PackageManager packageManager = getActivity().getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
+            ApplicationInfo applicationInfo =
+                    packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
             File file = new File(applicationInfo.nativeLibraryDir, name);
             if (file.exists()) {
                 StringBuilder sb = new StringBuilder();
@@ -133,7 +137,8 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
     public void onClick(DialogInterface dialog, int which) {
         Activity activity = getActivity();
         if (which == DialogInterface.BUTTON_POSITIVE) {
-            boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
+            boolean adbRunning =
+                    SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
             if (adbRunning) {
                 String commandLine = getBootstrapCommandLine();
                 ((BreventActivity) activity).copy(commandLine);
@@ -141,7 +146,8 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
                 Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
             } else {
                 Intent intent = new Intent();
-                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.DevelopmentSettings"));
+                intent.setComponent(new ComponentName("com.android.settings",
+                        "com.android.settings.DevelopmentSettings"));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 try {
                     startActivity(intent);
@@ -161,10 +167,12 @@ public class AppsDisabledFragment extends DialogFragment implements DialogInterf
 
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN && ++repeat == 0x7) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN &&
+                ++repeat == 0x7) {
             PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
                     .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
-            ((BreventActivity) getActivity()).showDisabled(getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
+            ((BreventActivity) getActivity()).showDisabled(
+                    getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
         }
         return false;
     }

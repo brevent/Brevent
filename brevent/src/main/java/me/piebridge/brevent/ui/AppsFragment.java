@@ -51,7 +51,8 @@ public abstract class AppsFragment extends Fragment {
     private Signature[] frameworkSignatures;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_brevent, container, false);
             mRecycler = (RecyclerView) mView.findViewById(R.id.recycler);
@@ -121,7 +122,8 @@ public abstract class AppsFragment extends Fragment {
         }
         mRecycler.addOnScrollListener(new AppsScrollListener(mHandler));
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycler.addItemDecoration(new DividerItemDecoration(mRecycler.getContext(), LinearLayoutManager.VERTICAL));
+        mRecycler.addItemDecoration(
+                new DividerItemDecoration(mRecycler.getContext(), LinearLayoutManager.VERTICAL));
         if (mAdapter == null) {
             mAdapter = new AppsItemAdapter(this, mHandler);
         } else {
@@ -183,8 +185,10 @@ public abstract class AppsFragment extends Fragment {
     }
 
     protected final boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
-        if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) != PackageManager.SIGNATURE_MATCH) {
-            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == PackageManager.SIGNATURE_MATCH;
+        if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) !=
+                PackageManager.SIGNATURE_MATCH) {
+            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
+                    PackageManager.SIGNATURE_MATCH;
         } else {
             SharedPreferences preferences = null;
             Context context = getActivity();
@@ -194,7 +198,8 @@ public abstract class AppsFragment extends Fragment {
                     return preferences.getBoolean(packageName, false);
                 }
             }
-            boolean signature = Arrays.equals(getFrameworkSignatures(packageManager), getSignatures(packageManager, packageName));
+            boolean signature = Arrays.equals(getFrameworkSignatures(packageManager),
+                    getSignatures(packageManager, packageName));
             if (preferences != null) {
                 preferences.edit().putBoolean(packageName, signature).apply();
             }

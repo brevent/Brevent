@@ -30,7 +30,8 @@ import java.util.Map;
  * <p>
  * Created by thom on 2017/2/13.
  */
-class WechatTask extends AsyncTask<String, Void, Boolean> implements DialogInterface.OnCancelListener {
+class WechatTask extends AsyncTask<String, Void, Boolean>
+        implements DialogInterface.OnCancelListener {
 
     private final WeakReference<DonateActivity> mReference;
 
@@ -46,9 +47,12 @@ class WechatTask extends AsyncTask<String, Void, Boolean> implements DialogInter
 
         PackageManager packageManager = donateActivity.getPackageManager();
         Intent launcher = packageManager.getLaunchIntentForPackage(donateActivity.getPackageName());
-        BitmapDrawable drawable = (BitmapDrawable) packageManager.resolveActivity(launcher, 0).activityInfo.loadIcon(packageManager);
+        BitmapDrawable drawable =
+                (BitmapDrawable) packageManager.resolveActivity(launcher, 0).activityInfo.loadIcon(
+                        packageManager);
         Resources resources = donateActivity.getResources();
-        drawable = DonateActivity.cropDrawable(resources, drawable, resources.getDimensionPixelSize(android.R.dimen.app_icon_size));
+        drawable = DonateActivity.cropDrawable(resources, drawable,
+                resources.getDimensionPixelSize(android.R.dimen.app_icon_size));
         Bitmap bitmap;
         try {
             bitmap = createCode(link, drawable.getBitmap());
@@ -79,7 +83,8 @@ class WechatTask extends AsyncTask<String, Void, Boolean> implements DialogInter
         Map<EncodeHintType, Object> hints = new ArrayMap<>(0x2);
         hints.put(EncodeHintType.MARGIN, 0x2);
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-        BitMatrix matrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints);
+        BitMatrix matrix =
+                new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints);
         int width = matrix.getWidth();
         int height = matrix.getHeight();
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

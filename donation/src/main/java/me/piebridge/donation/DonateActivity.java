@@ -132,7 +132,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (hasPlay()) {
             HandlerThread thread = new HandlerThread("DonateService");
             thread.start();
-            activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE, thread.getLooper(), this);
+            activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE,
+                    thread.getLooper(), this);
             Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
             serviceIntent.setPackage(PACKAGE_PLAY);
             bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE);
@@ -169,7 +170,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private void donateViaPlay() {
         HandlerThread thread = new HandlerThread("DonateService");
         thread.start();
-        donateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE, thread.getLooper(), this);
+        donateConnection =
+                new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE, thread.getLooper(),
+                        this);
         Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
         serviceIntent.setPackage(PACKAGE_PLAY);
         bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE);
@@ -177,7 +180,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private void donateViaAlipay() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getAlipayLink()));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startDonateActivity(intent);
     }
 
@@ -209,7 +213,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getPaypalLink()));
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"));
-        ResolveInfo resolveInfo = getPackageManager().resolveActivity(browser, PackageManager.MATCH_DEFAULT_ONLY);
+        ResolveInfo resolveInfo =
+                getPackageManager().resolveActivity(browser, PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
             intent.setPackage(resolveInfo.activityInfo.packageName);
         }
@@ -221,7 +226,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     private boolean hasPermission(String permission) {
-        return checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return checkPermission(permission, Process.myPid(), Process.myUid()) ==
+                PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -231,7 +237,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
                 getContentResolver().takePersistableUriPermission(uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
                         .edit().putString(KEY_WECHAT_DONATE_SDA, uri.toString()).apply();
                 donateViaWechat();
@@ -251,7 +258,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     @Override
     @CallSuper
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (PERMISSION_WECHAT_DONATE == requestCode) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 donateViaWechat();
@@ -291,7 +299,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                     refreshQrCode(qrCode);
                 }
             } else {
-                DocumentFile documentFile = DocumentFile.fromSingleUri(getApplicationContext(), qrCode);
+                DocumentFile documentFile =
+                        DocumentFile.fromSingleUri(getApplicationContext(), qrCode);
                 if (documentFile.exists() && documentFile.delete()) {
                     refreshQrCode(qrCode);
                 }
@@ -310,7 +319,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     void hideDonateDialog() {
-        DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
+        DialogFragment fragment =
+                (DialogFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
         if (fragment != null) {
             fragment.dismiss();
         }
@@ -335,7 +345,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
         }
         if (items.isEmpty()) {
-            mDonationTip.setText(canSupportWechat ? R.string.donation_unsupported_wechat : R.string.donation_unsupported);
+            mDonationTip.setText(canSupportWechat ? R.string.donation_unsupported_wechat :
+                    R.string.donation_unsupported);
             mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
         } else {
             mDonationTip.setText(R.string.donation);
@@ -373,24 +384,28 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     protected boolean isPlay() {
-        return hasPlay() && PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getPackageName()));
+        return hasPlay() &&
+                PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getPackageName()));
     }
 
     private Uri getQrCodeUri() {
         String name = getPackageName() + ".donate.wechat.png";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences preferences =
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
             DocumentFile file = null;
             if (cachedUri != null) {
                 try {
-                    file = DocumentFile.fromTreeUri(this, Uri.parse(cachedUri)).createFile("image/png", name);
+                    file = DocumentFile.fromTreeUri(this, Uri.parse(cachedUri)).createFile(
+                            "image/png", name);
                 } catch (SecurityException e) { // NOSONAR
                     // do nothing
                 }
             }
             if (file == null) {
-                StorageManager storageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                StorageManager storageManager =
+                        (StorageManager) getSystemService(Context.STORAGE_SERVICE);
                 StorageVolume storageVolume = storageManager.getPrimaryStorageVolume();
                 Intent intent = storageVolume.createAccessIntent(Environment.DIRECTORY_PICTURES);
                 startActivityForResult(intent, REQUEST_WECHAT_DONATE_SDA);
@@ -407,7 +422,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             }
             return Uri.fromFile(new File(dir, name));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(this, new String[] {WECHAT_DONATE_PERMISSION}, PERMISSION_WECHAT_DONATE);
+            ActivityCompat.requestPermissions(this, new String[] {WECHAT_DONATE_PERMISSION},
+                    PERMISSION_WECHAT_DONATE);
             return Uri.EMPTY;
         } else {
             return null;
@@ -430,7 +446,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
 
         try (
-                OutputStream outputStream = isFile(uri) ? new FileOutputStream(uri.getPath()) : getContentResolver().openOutputStream(uri);
+                OutputStream outputStream = isFile(uri) ? new FileOutputStream(uri.getPath()) :
+                        getContentResolver().openOutputStream(uri);
                 FileInputStream fis = new FileInputStream(qrCode)
         ) {
             if (outputStream == null) {

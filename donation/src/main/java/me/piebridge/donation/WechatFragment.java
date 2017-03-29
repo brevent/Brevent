@@ -30,7 +30,8 @@ public class WechatFragment extends DialogFragment implements DialogInterface.On
         Intent intent = new Intent("com.tencent.mm.action.BIZSHORTCUT");
         intent.setPackage(DonateActivity.PACKAGE_WECHAT);
         intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         ((DonateActivity) getActivity()).startDonateActivity(intent);
     }
 

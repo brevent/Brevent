@@ -51,7 +51,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
                 .replace(R.id.content, settingsFragment)
                 .commit();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mConfiguration = new BreventConfiguration(null, preferences);
     }
 
@@ -82,7 +83,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     @Override
     public void finish() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         BreventConfiguration configuration = new BreventConfiguration(null, preferences);
         Intent data = new Intent();
         data.putExtra(Intent.ACTION_CONFIGURATION_CHANGED, mConfiguration.update(configuration));

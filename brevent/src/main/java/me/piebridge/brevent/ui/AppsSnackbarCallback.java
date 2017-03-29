@@ -10,7 +10,8 @@ import me.piebridge.brevent.protocol.BreventPackages;
 /**
  * Created by thom on 2017/2/7.
  */
-public class AppsSnackbarCallback extends BaseTransientBottomBar.BaseCallback<Snackbar> implements View.OnClickListener  {
+public class AppsSnackbarCallback extends BaseTransientBottomBar.BaseCallback<Snackbar>
+        implements View.OnClickListener {
 
     private final Handler handler;
 

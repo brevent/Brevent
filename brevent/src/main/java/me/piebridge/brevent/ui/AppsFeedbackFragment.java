@@ -37,7 +37,8 @@ public class AppsFeedbackFragment extends DialogFragment implements DialogInterf
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.menu_feedback);
         boolean hasEmailClient = hasEmailClient();
-        builder.setMessage(getString(R.string.feedback_message, hasEmailClient ? getString(R.string.feedback_message_email) : ""));
+        builder.setMessage(getString(R.string.feedback_message,
+                hasEmailClient ? getString(R.string.feedback_message_email) : ""));
         builder.setPositiveButton(R.string.feedback_github, this);
         if (hasEmailClient) {
             builder.setNegativeButton(R.string.feedback_email, this);
@@ -49,7 +50,8 @@ public class AppsFeedbackFragment extends DialogFragment implements DialogInterf
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setType("vnd.android.cursor.dir/email");
-        ResolveInfo resolveInfo = getActivity().getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        ResolveInfo resolveInfo = getActivity().getPackageManager().resolveActivity(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
         return resolveInfo != null;
     }
 
@@ -72,8 +74,10 @@ public class AppsFeedbackFragment extends DialogFragment implements DialogInterf
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setType("vnd.android.cursor.dir/email");
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME +
-                "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE + ")");
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME +
+                        "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE +
+                        ")");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
         getActivity().startActivity(intent);
     }

@@ -26,13 +26,13 @@ typedef struct log_time {
 #define LOGGER_ENTRY_MAX_LEN    (5*1024)
 
 struct logger_entry {
-    uint16_t    len;    /* length of the payload */
-    uint16_t    __pad;  /* no matter what, we get 2 bytes of padding */
-    int32_t     pid;    /* generating process's pid */
-    int32_t     tid;    /* generating process's tid */
-    int32_t     sec;    /* seconds since Epoch */
-    int32_t     nsec;   /* nanoseconds */
-    char        msg[0]; /* the entry's payload */
+    uint16_t len;    /* length of the payload */
+    uint16_t __pad;  /* no matter what, we get 2 bytes of padding */
+    int32_t pid;    /* generating process's pid */
+    int32_t tid;    /* generating process's tid */
+    int32_t sec;    /* seconds since Epoch */
+    int32_t nsec;   /* nanoseconds */
+    char msg[0]; /* the entry's payload */
 };
 
 struct logger_entry_v4 {
