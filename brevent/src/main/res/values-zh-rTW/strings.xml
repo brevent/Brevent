@@ -66,7 +66,7 @@
     <string name="action_snackbar_undo">還原</string>
     <string name="action_snackbar_undone">已還原</string>
 
-    <string name="context_menu_choose">選取</string>
+    <string name="context_menu_select">選取 / 不再選取</string>
     <string name="context_menu_package_name">複製安裝包(Package)名稱</string>
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>

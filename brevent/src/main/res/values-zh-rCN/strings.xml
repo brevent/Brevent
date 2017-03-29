@@ -67,7 +67,7 @@
     <string name="action_snackbar_undo">撤消</string>
     <string name="action_snackbar_undone">已撤消</string>
 
-    <string name="context_menu_choose">选择</string>
+    <string name="context_menu_select">选择 / 取消选择</string>
     <string name="context_menu_package_name">复制包名</string>
     <string name="context_menu_app_info">应用信息</string>
     <string name="context_menu_open">打开</string>

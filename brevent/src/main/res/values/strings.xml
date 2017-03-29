@@ -69,7 +69,7 @@
     <string name="action_snackbar_undo">Undo</string>
     <string name="action_snackbar_undone">Undone</string>
 
-    <string name="context_menu_choose">Choose</string>
+    <string name="context_menu_select">Select / Unselect</string>
     <string name="context_menu_package_name">Copy package name</string>
     <string name="context_menu_app_info">Application Info</string>
     <string name="context_menu_open">Open</string>

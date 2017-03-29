@@ -15,8 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Collections;
-
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
@@ -52,8 +50,8 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle(nameView.getText());
-        menu.add(Menu.NONE, R.string.context_menu_choose, Menu.NONE, R.string.context_menu_choose);
+        menu.setHeaderTitle(label);
+        menu.add(Menu.NONE, R.string.context_menu_select, Menu.NONE, R.string.context_menu_select);
         menu.add(Menu.NONE, R.string.context_menu_package_name, Menu.NONE,
                 R.string.context_menu_package_name);
         menu.add(Menu.NONE, R.string.context_menu_app_info, Menu.NONE,
@@ -96,8 +94,8 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             case R.string.context_menu_brevent_server_info:
                 openAppInfo(PACKAGE_SHELL);
                 break;
-            case R.string.context_menu_choose:
-                mFragment.select(Collections.singletonList(packageName));
+            case R.string.context_menu_select:
+                iconView.performClick();
                 break;
             case R.string.context_menu_package_name:
                 copy(packageName);
