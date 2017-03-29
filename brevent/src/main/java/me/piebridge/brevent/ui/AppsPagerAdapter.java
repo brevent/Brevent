@@ -77,6 +77,9 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
     public void setShowFramework(boolean showFramework) {
         if (mShowFramework != showFramework) {
             mShowFramework = showFramework;
+            if (!mShowFramework) {
+                mFragments[FRAGMENT_FRAMEWORK_APPS] = null;
+            }
         }
     }
 
