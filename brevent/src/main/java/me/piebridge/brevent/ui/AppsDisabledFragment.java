@@ -67,7 +67,8 @@ public class AppsDisabledFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         Bundle arguments = getArguments();
-        builder.setTitle(arguments.getInt(MESSAGE, DEFAULT_MESSAGE));
+        builder.setTitle(getString(arguments.getInt(MESSAGE, DEFAULT_MESSAGE),
+                BuildConfig.VERSION_NAME));
         String commandLine = getBootstrapCommandLine();
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
