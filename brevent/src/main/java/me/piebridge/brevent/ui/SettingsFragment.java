@@ -84,8 +84,9 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             if (!getArguments().getBoolean(HAS_PLAY, false)) {
                 // no play store
-                if (!sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
-                    breventUi.removePreference(preferenceShowAllApps);
+                breventUi.removePreference(preferenceShowAllApps);
+                if (sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
+                    sharedPreferences.edit().putBoolean(SHOW_ALL_APPS, false).apply();
                 }
                 preferenceDonation.setChecked(true);
             }
@@ -172,8 +173,10 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
-            if (!getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_ALL_APPS, false)) {
-                breventUi.removePreference(preferenceShowAllApps);
+            breventUi.removePreference(preferenceShowAllApps);
+            if (getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_ALL_APPS, false)) {
+                getPreferenceScreen().getSharedPreferences().edit().putBoolean(SHOW_ALL_APPS, false)
+                        .apply();
             }
             onShowDonationChanged();
             removeDonationIfNeeded();
