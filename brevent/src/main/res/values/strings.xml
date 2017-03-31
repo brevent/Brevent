@@ -153,7 +153,7 @@
     <string name="brevent_when_request">Brevent manually</string>
     <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delay the processes according the event level\n\nRecommend donate total 2 USD</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\Requires donate total 3 USD for Play version, feel free to donate for other version</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD for Play version, feel free to donate for other version</string>
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>
