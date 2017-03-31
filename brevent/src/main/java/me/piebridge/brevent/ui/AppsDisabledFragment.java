@@ -109,29 +109,37 @@ public class AppsDisabledFragment extends DialogFragment
         mDialog = null;
     }
 
-    private String getBootstrapCommandLine() {
-        String name = "libbrevent.so";
+    private File getBootstrapFile() {
         try {
             PackageManager packageManager = getActivity().getPackageManager();
             ApplicationInfo applicationInfo =
                     packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
-            File file = new File(applicationInfo.nativeLibraryDir, name);
+            File file = new File(applicationInfo.nativeLibraryDir, "libbrevent.so");
             if (file.exists()) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("adb ");
-                if (isEmulator()) {
-                    sb.append("-e ");
-                } else {
-                    sb.append("-d ");
-                }
-                sb.append("shell ");
-                sb.append(file.getAbsolutePath());
-                return sb.toString();
+                return file;
             }
         } catch (PackageManager.NameNotFoundException e) {
             // ignore
         }
-        return name;
+        return null;
+    }
+
+    private String getBootstrapCommandLine() {
+        File file = getBootstrapFile();
+        if (file != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("adb ");
+            if (isEmulator()) {
+                sb.append("-e ");
+            } else {
+                sb.append("-d ");
+            }
+            sb.append("shell ");
+            sb.append(file.getAbsolutePath());
+            return sb.toString();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -161,7 +169,7 @@ public class AppsDisabledFragment extends DialogFragment
             ((BreventActivity) activity).openGuide();
             dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-            ((BreventActivity) activity).runAsRoot();
+            ((BreventActivity) activity).runAsRoot(getBootstrapFile().toString());
             dismiss();
         }
     }

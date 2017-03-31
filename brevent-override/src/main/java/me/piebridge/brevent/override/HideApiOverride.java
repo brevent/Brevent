@@ -57,6 +57,10 @@ public class HideApiOverride {
         }
     }
 
+    public static int myPpid() {
+        return Process.myPpid();
+    }
+
     public static boolean isRoot(int uid) {
         return uid == ROOT_UID;
     }

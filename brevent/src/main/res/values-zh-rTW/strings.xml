@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式以及開機自啟，但相容性並不好。如需啟用，請在「啟動黑域服務」時點擊 7 次返回鍵，或者進入「設定」點擊 7 次「版本」。ROOT 模式不安全也沒必要，目前不提供任何支援。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式，或者通過第三方腳本開機啓動，但相容性並不好。如需啟用，請在「啟動黑域服務」時點擊 7 次返回鍵，或者進入「設定」點擊 7 次「版本」。ROOT 模式不安全也沒必要，目前不提供任何支援。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，如無特殊需要，請您關閉偵錯模式。</string>
@@ -151,7 +151,7 @@
     <string name="brevent_when_request">主动清理</string>
     <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或开机自动开启黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或者通过第三方脚本启动黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_developer">開發人員選項</string>

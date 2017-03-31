@@ -85,6 +85,7 @@ public class BreventActivity extends Activity
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
     public static final int MESSAGE_BREVENT_REQUEST = 4;
     public static final int MESSAGE_RETRIEVE3 = 5;
+    public static final int MESSAGE_RUN_AS_ROOT = 6;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -581,21 +582,6 @@ public class BreventActivity extends Activity
         }
         BreventConfiguration configuration = new BreventConfiguration(getToken(), preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
-        ComponentName componentName = new ComponentName(this, BreventReceiver.class);
-        PackageManager packageManager = getPackageManager();
-        int componentEnabled = packageManager.getComponentEnabledSetting(componentName);
-        if (configuration.allowRoot) {
-            if (componentEnabled != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                packageManager.setComponentEnabledSetting(componentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-            }
-        } else {
-            if (componentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                packageManager.setComponentEnabledSetting(componentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-            }
-        }
     }
 
     private void openSettings() {
@@ -1096,10 +1082,9 @@ public class BreventActivity extends Activity
         return label;
     }
 
-    public void runAsRoot() {
+    public void runAsRoot(String path) {
         showProgress(R.string.process_retrieving);
-        BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
-        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
+        new AppsRootRunner(path, uiHandler).submit();
     }
 
     public void updatePriority(String packageName, boolean priority) {

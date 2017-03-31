@@ -19,4 +19,12 @@ public class Process {
      */
     public static int SHELL_UID = 2000;
 
+    /**
+     * Returns the identifier of this process' parent.
+     * @hide
+     */
+    public static int myPpid() {
+        throw new UnsupportedOperationException();
+    }
+
 }
