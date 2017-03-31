@@ -82,7 +82,7 @@ public class AppsDisabledFragment extends DialogFragment
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean allowRoot = preferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         builder.setNeutralButton(R.string.menu_guide, this);
-        if (allowRoot) {
+        if (allowRoot || isAllowRoot()) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         } else {
             if (adbRunning) {
@@ -93,6 +93,10 @@ public class AppsDisabledFragment extends DialogFragment
             builder.setOnKeyListener(this);
         }
         return builder.create();
+    }
+
+    private boolean isAllowRoot() {
+        return ((BreventApplication) getActivity().getApplication()).isAllowRoot();
     }
 
     public void update(int title) {
@@ -169,7 +173,7 @@ public class AppsDisabledFragment extends DialogFragment
             ((BreventActivity) activity).openGuide();
             dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-            ((BreventActivity) activity).runAsRoot(getBootstrapFile().toString());
+            ((BreventActivity) activity).runAsRoot(String.valueOf(getBootstrapFile()));
             dismiss();
         }
     }
@@ -178,10 +182,9 @@ public class AppsDisabledFragment extends DialogFragment
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN &&
                 ++repeat == 0x7) {
-            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true).apply();
-            ((BreventActivity) getActivity()).showDisabled(
-                    getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
+            BreventActivity activity = (BreventActivity) getActivity();
+            ((BreventApplication) activity.getApplication()).setAllowRoot();
+            activity.showDisabled(getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
         }
         return false;
     }

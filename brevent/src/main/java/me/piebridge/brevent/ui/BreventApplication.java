@@ -11,7 +11,7 @@ public class BreventApplication extends Application {
 
     private UUID mToken;
 
-    boolean started;
+    private boolean allowRoot;
 
     @Override
     public void onCreate() {
@@ -21,6 +21,14 @@ public class BreventApplication extends Application {
 
     public UUID getToken() {
         return mToken;
+    }
+
+    public void setAllowRoot() {
+        allowRoot = true;
+    }
+
+    public boolean isAllowRoot() {
+        return allowRoot;
     }
 
 }

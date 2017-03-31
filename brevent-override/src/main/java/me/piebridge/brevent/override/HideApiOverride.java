@@ -3,7 +3,6 @@ package me.piebridge.brevent.override;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.hardware.usb.UsbManager;
-import android.os.Bundle;
 import android.os.Process;
 import android.os.UserHandle;
 import android.provider.Settings;

@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.os.Handler;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
