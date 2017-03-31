@@ -846,14 +846,26 @@ public class BreventActivity extends Activity
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
-            String dialer =
-                    ((TelecomManager) getSystemService(TELECOM_SERVICE)).getDefaultDialerPackage();
+            String dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
+                    .getDefaultDialerPackage();
             if (dialer != null) {
                 packageNames.put(dialer, IMPORTANT_DIALER);
             }
 
             // assistant
             String assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
+            if (assistant != null) {
+                packageNames.put(assistant, IMPORTANT_ASSISTANT);
+            }
+        } else {
+            // dialer
+            String dialer = getDefaultApp(Intent.ACTION_DIAL);
+            if (dialer != null) {
+                packageNames.put(dialer, IMPORTANT_DIALER);
+            }
+
+            // assistant
+            String assistant = getDefaultApp(Intent.ACTION_ASSIST);
             if (assistant != null) {
                 packageNames.put(assistant, IMPORTANT_ASSISTANT);
             }
@@ -905,6 +917,17 @@ public class BreventActivity extends Activity
 
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("important: " + packageNames);
+        }
+    }
+
+    private String getDefaultApp(String action) {
+        Intent intent = new Intent(action);
+        ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        if (resolveInfo != null) {
+            return resolveInfo.activityInfo.packageName;
+        } else {
+            return null;
         }
     }
 
