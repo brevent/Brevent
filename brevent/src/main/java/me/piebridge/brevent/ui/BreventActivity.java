@@ -853,7 +853,7 @@ public class BreventActivity extends Activity
             }
 
             // assistant
-            String assistant = getPackageName(getSecureSetting(HideApiOverride.ASSISTANT));
+            String assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
             if (assistant != null) {
                 packageNames.put(assistant, IMPORTANT_ASSISTANT);
             }
