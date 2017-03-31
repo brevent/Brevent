@@ -96,7 +96,7 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     private boolean isAllowRoot() {
-        return ((BreventApplication) getActivity().getApplication()).isAllowRoot();
+        return ((BreventApplication) getActivity().getApplication()).allowRoot();
     }
 
     public void update(int title) {

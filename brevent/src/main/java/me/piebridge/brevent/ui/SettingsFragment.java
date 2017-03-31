@@ -35,6 +35,7 @@ public class SettingsFragment extends PreferenceFragment
 
     public static final String HAS_PLAY = "has_play";
     public static final String IS_PLAY = "is_play";
+    public static final String SUPPORT_FCM = "support_fcm";
 
     private PreferenceCategory breventAdvanced;
     private PreferenceCategory breventUi;
@@ -59,6 +60,7 @@ public class SettingsFragment extends PreferenceFragment
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
+        Bundle arguments = getArguments();
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         breventAdvanced = (PreferenceCategory) preferenceScreen.findPreference("brevent_advanced");
         breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
@@ -78,11 +80,12 @@ public class SettingsFragment extends PreferenceFragment
 
         preferenceShowAllApps = (SwitchPreference) preferenceScreen.findPreference(SHOW_ALL_APPS);
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (getArguments().getBoolean(IS_PLAY, false)) {
+        preferenceShowAllApps.setEnabled(false);
+        if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
         } else {
-            if (!getArguments().getBoolean(HAS_PLAY, false)) {
+            if (!arguments.getBoolean(HAS_PLAY, false)) {
                 // no play store
                 breventUi.removePreference(preferenceShowAllApps);
                 if (sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
@@ -97,9 +100,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(
                     this);
         }
-        if (getArguments().getInt(Intent.EXTRA_ALARM_COUNT, 0) == 0) {
-            breventAdvanced.removePreference(
-                    preferenceScreen.findPreference(BreventConfiguration.BREVENT_ALLOW_GCM));
+        if (!arguments.getBoolean(SettingsFragment.SUPPORT_FCM)) {
+            breventAdvanced.removePreference(preferenceAllowGcm);
         }
         onUpdateBreventMethod();
     }
@@ -190,6 +192,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowRoot.setEnabled(true);
             }
         } else {
+            preferenceShowAllApps.setEnabled(true);
             breventUi.addPreference(preferenceDonation);
             if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
                 preferenceAllowGcm.setEnabled(true);

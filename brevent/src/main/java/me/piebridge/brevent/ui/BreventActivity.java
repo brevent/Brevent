@@ -83,7 +83,6 @@ public class BreventActivity extends Activity
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
     public static final int MESSAGE_BREVENT_REQUEST = 4;
     public static final int MESSAGE_RETRIEVE3 = 5;
-    public static final int MESSAGE_RUN_AS_ROOT = 6;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -584,7 +583,8 @@ public class BreventActivity extends Activity
 
     private void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
-        intent.putExtra(Intent.EXTRA_ALARM_COUNT, mGcm.size());
+        intent.putExtra(SettingsFragment.SUPPORT_FCM, !mGcm.isEmpty() &&
+                ((BreventApplication) getApplication()).supportStopped());
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
 
@@ -776,6 +776,8 @@ public class BreventActivity extends Activity
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
+
+        ((BreventApplication) getApplication()).setSupportStopped(status.mSupportStopped);
     }
 
     private void unbreventImportant() {

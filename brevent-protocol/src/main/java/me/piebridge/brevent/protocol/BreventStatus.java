@@ -33,14 +33,17 @@ public class BreventStatus extends BreventToken implements Parcelable {
 
     public final Collection<String> mTrustAgents;
 
+    public final boolean mSupportStopped;
+
     public BreventStatus(UUID token, Collection<String> brevent, Collection<String> priority,
                          SimpleArrayMap<String, SparseIntArray> processes,
-                         Collection<String> trustAgents) {
+                         Collection<String> trustAgents, boolean supportStopped) {
         super(BreventProtocol.STATUS_RESPONSE, token);
         mBrevent = brevent;
         mPriority = priority;
         mProcesses = processes;
         mTrustAgents = trustAgents;
+        mSupportStopped = supportStopped;
     }
 
     BreventStatus(Parcel in) {
@@ -49,6 +52,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
         mPriority = ParcelUtils.readCollection(in);
         mProcesses = ParcelUtils.readSimpleArrayMap(in);
         mTrustAgents = ParcelUtils.readCollection(in);
+        mSupportStopped = in.readInt() != 0;
     }
 
     @Override
@@ -58,6 +62,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
         ParcelUtils.writeCollection(dest, mPriority);
         ParcelUtils.writeSimpleArrayMap(dest, mProcesses);
         ParcelUtils.writeCollection(dest, mTrustAgents);
+        dest.writeInt(mSupportStopped ? 1 : 0);
     }
 
     public static final Creator<BreventStatus> CREATOR = new Creator<BreventStatus>() {

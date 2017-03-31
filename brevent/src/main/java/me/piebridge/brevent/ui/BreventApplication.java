@@ -13,6 +13,8 @@ public class BreventApplication extends Application {
 
     private boolean allowRoot;
 
+    private boolean mSupportStopped = true;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,8 +29,18 @@ public class BreventApplication extends Application {
         allowRoot = true;
     }
 
-    public boolean isAllowRoot() {
+    public boolean allowRoot() {
         return allowRoot;
+    }
+
+    public void setSupportStopped(boolean supportStopped) {
+        if (mSupportStopped != supportStopped) {
+            mSupportStopped = supportStopped;
+        }
+    }
+
+    public boolean supportStopped() {
+        return mSupportStopped;
     }
 
 }
