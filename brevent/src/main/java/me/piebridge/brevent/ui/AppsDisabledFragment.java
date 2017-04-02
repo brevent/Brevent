@@ -26,7 +26,6 @@ import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.override.HideApiOverride;
 
-
 /**
  * Created by thom on 2017/2/5.
  */
@@ -129,7 +128,8 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     private String getBootstrapCommandLine() {
-        File file = getBootstrapFile();
+        BreventApplication breventApplication = (BreventApplication) getActivity().getApplication();
+        File file = breventApplication.copyBrevent();
         if (file != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("adb ");
