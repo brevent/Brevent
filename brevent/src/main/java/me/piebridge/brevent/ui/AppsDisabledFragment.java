@@ -129,8 +129,8 @@ public class AppsDisabledFragment extends DialogFragment
 
     private String getBootstrapCommandLine() {
         BreventApplication breventApplication = (BreventApplication) getActivity().getApplication();
-        File file = breventApplication.copyBrevent();
-        if (file != null) {
+        String path = breventApplication.copyBrevent();
+        if (path != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("adb ");
             if (isEmulator()) {
@@ -139,7 +139,7 @@ public class AppsDisabledFragment extends DialogFragment
                 sb.append("-d ");
             }
             sb.append("shell ");
-            sb.append(file.getAbsolutePath());
+            sb.append(path);
             return sb.toString();
         } else {
             return null;

@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.Application;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,12 +57,12 @@ public class BreventApplication extends Application {
         return mSupportStopped;
     }
 
-    public File copyBrevent() {
+    public String copyBrevent() {
         File file = getApplicationContext().getExternalFilesDir(null);
         if (file == null) {
             return null;
         }
-        File output = new File(file, "brevent.sh");
+        File output = new File(file.getParent(), "brevent.sh");
         if (!copied) {
             try {
                 try (
@@ -83,7 +84,23 @@ public class BreventApplication extends Application {
                 return null;
             }
         }
-        return output;
+        String path = output.getAbsolutePath();
+        String sdcard = "/" + "sdcard";
+        if (!new File(sdcard).exists()) {
+            sdcard = System.getenv("EXTERNAL_STORAGE");
+        }
+        try {
+            String prefix = new File(sdcard).getCanonicalPath();
+            if (path.startsWith(prefix)) {
+                String newPath = sdcard + path.substring(prefix.length());
+                if (path.length() > newPath.length()) {
+                    path = newPath;
+                }
+            }
+        } catch (IOException e) {
+            UILog.d("Can't get sdcard", e);
+        }
+        return "sh " + path;
     }
 
     private boolean maySupportStandby() {
