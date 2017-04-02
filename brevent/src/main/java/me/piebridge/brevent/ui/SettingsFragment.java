@@ -15,7 +15,6 @@ import android.preference.SwitchPreference;
 
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
-import me.piebridge.brevent.protocol.BreventUtils;
 import me.piebridge.donation.DonateActivity;
 
 /**
@@ -73,7 +72,8 @@ public class SettingsFragment extends PreferenceFragment
 
         preferenceStandbyTimeout =
                 preferenceScreen.findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
-        if (!BreventUtils.supportStandby()) {
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        if (!application.supportStandby()) {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(
                     preferenceStandbyTimeout);
         }

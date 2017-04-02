@@ -5,7 +5,6 @@ import android.preference.ListPreference;
 import android.util.AttributeSet;
 
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventUtils;
 
 /**
  * Created by thom on 15/10/3.
@@ -14,7 +13,8 @@ public class ListPreferenceSummary extends ListPreference {
 
     public ListPreferenceSummary(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (!BreventUtils.supportStandby()) {
+        BreventApplication application = (BreventApplication) context.getApplicationContext();
+        if (!application.supportStandby()) {
             setEntries(R.array.brevent_method_entries);
             setEntryValues(R.array.brevent_method_values);
         }

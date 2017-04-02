@@ -71,7 +71,6 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
-import me.piebridge.brevent.protocol.BreventUtils;
 import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity
@@ -572,7 +571,8 @@ public class BreventActivity extends Activity
     private void updateConfiguration() {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (!BreventUtils.supportStandby() && !"forcestop_only".equals(
+        BreventApplication application = (BreventApplication) getApplication();
+        if (!application.supportStandby() && !"forcestop_only".equals(
                 preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))) {
             preferences.edit().putString(BreventConfiguration.BREVENT_METHOD,
                     "forcestop_only").apply();
@@ -777,7 +777,9 @@ public class BreventActivity extends Activity
         }
         unbreventImportant();
 
-        ((BreventApplication) getApplication()).setSupportStopped(status.mSupportStopped);
+        BreventApplication application = (BreventApplication) getApplication();
+        application.setSupportStopped(status.mSupportStopped);
+        application.setSupportStandby(status.mSupportStandby);
     }
 
     private void unbreventImportant() {
