@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個試驗性的 ROOT 功能，可以跳過偵錯模式，或者通過第三方腳本開機啓動，但相容性並不好。如需啟用，請在「啟動黑域服務」時點擊 7 次返回鍵，或者進入「設定」點擊 7 次「版本」。ROOT 模式不安全也沒必要，目前不提供任何支援。</string>
+    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 开启”黑域服务，甚至通过第三方应用启动黑域服务（需要在“设置”中开启“允许 ROOT 运行”）。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”然后开启“允许 ROOT 运行”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，如無特殊需要，請您關閉偵錯模式。</string>
@@ -26,7 +26,7 @@
 
     <string name="brevent_service_start">請啟動黑域服務 (%s)</string>
     <string name="brevent_service_restart">請重新啟動黑域服務 (%s)</string>
-    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB偵錯」 %1$s\n\n2. 使用 USB 連線到電腦 %2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「嚮導 - ADB」）\n\n4. 在電腦命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide">0. ROOT 用户可以直接开启（请认真阅读“向导” - “权限”）\n\n1. 開啟「開發人員選項」，啟用「USB偵錯」 %1$s\n\n2. 使用 USB 連線到電腦 %2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「嚮導 - ADB」）\n\n4. 在電腦命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>

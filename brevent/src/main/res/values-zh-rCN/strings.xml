@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 功能，可以跳过调试模式，或者通过第三方脚本启动。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”点击 7 次“版本”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
+    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 开启”黑域服务，甚至通过第三方应用启动黑域服务（需要在“设置”中开启“允许 ROOT 运行”）。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”然后开启“允许 ROOT 运行”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
@@ -26,7 +26,7 @@
 
     <string name="brevent_service_start">请启动黑域服务 (%s)</string>
     <string name="brevent_service_restart">请重启黑域服务 (%s)</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（请参考“向导 - ADB”）\n\n4. 在电脑命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">0. ROOT 用户可以直接开启（请认真阅读“向导” - “权限”）\n\n1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（请参考“向导 - ADB”）\n\n4. 在电脑命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
     <string name="brevent_service_command_copied">指令已复制: %s</string>
@@ -150,7 +150,7 @@
     <string name="brevent_when_request">主动清理</string>
     <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或者通过第三方脚本启动黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备通过第三方脚本启动黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_developer">开发者选项</string>

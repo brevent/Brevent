@@ -1085,6 +1085,7 @@ public class BreventActivity extends Activity
     public void runAsRoot(String path) {
         showProgress(R.string.process_retrieving);
         new AppsRootRunner(path, uiHandler).submit();
+        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
