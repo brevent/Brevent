@@ -27,15 +27,19 @@ public class VersionPreference extends Preference {
         Context context = getContext();
         Resources resources = context.getResources();
         BreventApplication application = (BreventApplication) context.getApplicationContext();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        String normal = resources.getString(R.string.brevent_about_version_mode_normal);
-        return resources.getString(R.string.brevent_about_version_summary,
-                BuildConfig.VERSION_NAME,
-                HideApiOverride.isShell(application.mUid) ?  normal:
-                        (HideApiOverride.isRoot(application.mUid) ? "ROOT" :
-                                resources.getString(android.R.string.unknownName)),
-                format.format(application.mDaemonTime)
-        );
+        if (application.mDaemonTime > 0) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            String normal = resources.getString(R.string.brevent_about_version_mode_normal);
+            return resources.getString(R.string.brevent_about_version_summary,
+                    BuildConfig.VERSION_NAME,
+                    HideApiOverride.isShell(application.mUid) ? normal :
+                            (HideApiOverride.isRoot(application.mUid) ? "ROOT" :
+                                    resources.getString(android.R.string.unknownName)),
+                    format.format(application.mDaemonTime)
+            );
+        } else {
+            return BuildConfig.VERSION_NAME;
+        }
     }
 
 }

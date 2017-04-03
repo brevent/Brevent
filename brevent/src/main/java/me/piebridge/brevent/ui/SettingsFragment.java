@@ -95,14 +95,19 @@ public class SettingsFragment extends PreferenceFragment
                 if (sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
                     sharedPreferences.edit().putBoolean(SHOW_ALL_APPS, false).apply();
                 }
+                breventUi.removePreference(preferenceAllowRoot);
+                if (sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+                    sharedPreferences.edit().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT,
+                            false).apply();
+                }
                 preferenceDonation.setChecked(true);
             }
             removeDonationIfNeeded();
         }
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowRoot);
-            preferenceScreen.findPreference("brevent_about_version").setOnPreferenceClickListener(
-                    this);
+            preferenceScreen.findPreference("brevent_about_version")
+                    .setOnPreferenceClickListener(this);
         }
         if (!arguments.getBoolean(SettingsFragment.SUPPORT_FCM)) {
             breventAdvanced.removePreference(preferenceAllowGcm);
@@ -180,6 +185,7 @@ public class SettingsFragment extends PreferenceFragment
         if (total <= 0) {
             preferenceDonation.setChecked(true);
             breventUi.removePreference(preferenceShowAllApps);
+            breventUi.removePreference(preferenceAllowRoot);
             if (getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_ALL_APPS, false)) {
                 getPreferenceScreen().getSharedPreferences().edit().putBoolean(SHOW_ALL_APPS, false)
                         .apply();
@@ -191,12 +197,9 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowGcm.setChecked(false);
                 preferenceAbnormalBack.setEnabled(false);
                 preferenceAbnormalBack.setChecked(false);
-                preferenceAllowRoot.setEnabled(false);
-                preferenceAllowRoot.setChecked(false);
             } else {
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
-                preferenceAllowRoot.setEnabled(true);
             }
         } else {
             preferenceShowAllApps.setEnabled(true);
