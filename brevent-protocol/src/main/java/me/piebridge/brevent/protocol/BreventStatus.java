@@ -37,10 +37,16 @@ public class BreventStatus extends BreventToken implements Parcelable {
 
     public final boolean mSupportStandby;
 
+    public final long mDaemonTime;
+
+    public final long mServerTime;
+
+    public final int mUid;
+
     public BreventStatus(UUID token, Collection<String> brevent, Collection<String> priority,
                          SimpleArrayMap<String, SparseIntArray> processes,
                          Collection<String> trustAgents, boolean supportStopped,
-                         boolean supportStandby) {
+                         boolean supportStandby, long daemonTime, long serverTime, int uid) {
         super(BreventProtocol.STATUS_RESPONSE, token);
         mBrevent = brevent;
         mPriority = priority;
@@ -48,6 +54,9 @@ public class BreventStatus extends BreventToken implements Parcelable {
         mTrustAgents = trustAgents;
         mSupportStopped = supportStopped;
         mSupportStandby = supportStandby;
+        mDaemonTime = daemonTime;
+        mServerTime = serverTime;
+        mUid = uid;
     }
 
     BreventStatus(Parcel in) {
@@ -58,6 +67,9 @@ public class BreventStatus extends BreventToken implements Parcelable {
         mTrustAgents = ParcelUtils.readCollection(in);
         mSupportStopped = in.readInt() != 0;
         mSupportStandby = in.readInt() != 0;
+        mDaemonTime = in.readLong();
+        mServerTime = in.readLong();
+        mUid = in.readInt();
     }
 
     @Override
@@ -69,6 +81,9 @@ public class BreventStatus extends BreventToken implements Parcelable {
         ParcelUtils.writeCollection(dest, mTrustAgents);
         dest.writeInt(mSupportStopped ? 1 : 0);
         dest.writeInt(mSupportStandby ? 1 : 0);
+        dest.writeLong(mDaemonTime);
+        dest.writeLong(mServerTime);
+        dest.writeInt(mUid);
     }
 
     public static final Creator<BreventStatus> CREATOR = new Creator<BreventStatus>() {

@@ -153,9 +153,11 @@
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备通过第三方脚本启动黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意捐赠</string>
 
     <string name="brevent_about">关于</string>
+    <string name="brevent_about_version">版本</string>
+    <string name="brevent_about_version_mode_normal">普通</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s模式, 自 %3$s 起</string>
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
-    <string name="brevent_about_version">版本</string>
     <string name="brevent_about_project">项目地址</string>
     <string name="brevent_about_licenses">软件许可</string>
     <string name="brevent_about_translation">翻译</string>

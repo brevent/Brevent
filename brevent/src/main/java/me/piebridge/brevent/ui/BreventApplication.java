@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventStatus;
 
 /**
  * Created by thom on 2017/2/7.
@@ -28,6 +29,12 @@ public class BreventApplication extends Application {
     private boolean mSupportStandby = maySupportStandby();
 
     private boolean copied;
+
+    public long mDaemonTime;
+
+    public long mServerTime;
+
+    public int mUid;
 
     @Override
     public void onCreate() {
@@ -47,7 +54,7 @@ public class BreventApplication extends Application {
         return allowRoot;
     }
 
-    public void setSupportStopped(boolean supportStopped) {
+    private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
             mSupportStopped = supportStopped;
         }
@@ -116,7 +123,7 @@ public class BreventApplication extends Application {
         }
     }
 
-    public void setSupportStandby(boolean supportStandby) {
+    private void setSupportStandby(boolean supportStandby) {
         if (!mSupportStandby && supportStandby) {
             mSupportStandby = true;
         }
@@ -126,4 +133,11 @@ public class BreventApplication extends Application {
         return mSupportStandby;
     }
 
+    public void updateStatus(BreventStatus breventStatus) {
+        mDaemonTime = breventStatus.mDaemonTime;
+        mServerTime = breventStatus.mServerTime;
+        mUid = breventStatus.mUid;
+        setSupportStandby(breventStatus.mSupportStandby);
+        setSupportStopped(breventStatus.mSupportStopped);
+    }
 }

@@ -157,6 +157,8 @@
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>
+    <string name="brevent_about_version_mode_normal">Normal</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s mode, since %3$s</string>
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_project">Project</string>

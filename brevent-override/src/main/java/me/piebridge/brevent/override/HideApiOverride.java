@@ -64,6 +64,10 @@ public class HideApiOverride {
         return uid == ROOT_UID;
     }
 
+    public static boolean isShell(int uid) {
+        return uid == SHELL_UID;
+    }
+
     public static int getCurrentUser() {
         return ActivityManager.getCurrentUser();
     }

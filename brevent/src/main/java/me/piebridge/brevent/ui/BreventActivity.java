@@ -778,8 +778,7 @@ public class BreventActivity extends Activity
         unbreventImportant();
 
         BreventApplication application = (BreventApplication) getApplication();
-        application.setSupportStopped(status.mSupportStopped);
-        application.setSupportStandby(status.mSupportStandby);
+        application.updateStatus(status);
     }
 
     private void unbreventImportant() {
