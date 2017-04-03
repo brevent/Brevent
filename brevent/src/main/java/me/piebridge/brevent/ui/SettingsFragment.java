@@ -84,9 +84,9 @@ public class SettingsFragment extends PreferenceFragment
         preferenceShowAllApps = (SwitchPreference) preferenceScreen.findPreference(SHOW_ALL_APPS);
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         preferenceShowAllApps.setEnabled(false);
+        preferenceAllowRoot.setEnabled(false);
         if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
-            preferenceAllowRoot.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
         } else {
             if (!arguments.getBoolean(HAS_PLAY, false)) {
