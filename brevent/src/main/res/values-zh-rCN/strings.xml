@@ -142,9 +142,9 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_check_notification">检查通知</string>
-    <string name="brevent_check_notification_label">如果您的机器上解锁或查看通知卡顿，请关闭并提交反馈</string>
-    <string name="brevent_optimize_priority">允许同步</string>
-    <string name="brevent_optimize_priority_label">黑域清单中“允许同步”的应用有通知或者在后台运行，都不会被黑域强行停止\n\n建议累计捐赠 1 美元</string>
+    <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
+    <string name="brevent_abnormal_back">优化非正常“返回”</string>
+    <string name="brevent_abnormal_back_label">某些应用在您按“返回”按钮时，移到后台或者打开主屏幕。启用之后，当正常“返回”处理。请现在按“主页”让黑域确认真正的“主页”\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
     <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_when_request">主动清理</string>

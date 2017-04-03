@@ -46,10 +46,11 @@
             android:summary="@string/brevent_check_notification_label"
             android:title="@string/brevent_check_notification" />
 
-        <Preference
-            android:key="brevent_optimize_priority"
-            android:summary="@string/brevent_optimize_priority_label"
-            android:title="@string/brevent_optimize_priority" />
+        <SwitchPreference
+            android:key="brevent_abnormal_back"
+            android:defaultValue="false"
+            android:summary="@string/brevent_abnormal_back_label"
+            android:title="@string/brevent_abnormal_back" />
 
         <SwitchPreference
             android:defaultValue="false"

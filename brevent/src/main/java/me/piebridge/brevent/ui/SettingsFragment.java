@@ -44,6 +44,7 @@ public class SettingsFragment extends PreferenceFragment
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
     private SwitchPreference preferenceShowAllApps;
+    private SwitchPreference preferenceAbnormalBack;
 
     private Preference preferenceStandbyTimeout;
 
@@ -69,9 +70,11 @@ public class SettingsFragment extends PreferenceFragment
                 BreventConfiguration.BREVENT_ALLOW_GCM);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_ALLOW_ROOT);
+        preferenceAbnormalBack = (SwitchPreference) preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_ABNORMAL_BACK);
 
-        preferenceStandbyTimeout =
-                preferenceScreen.findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+        preferenceStandbyTimeout = preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
         BreventApplication application = (BreventApplication) getActivity().getApplication();
         if (!application.supportStandby()) {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(
@@ -84,6 +87,7 @@ public class SettingsFragment extends PreferenceFragment
         if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
+            preferenceAbnormalBack.setEnabled(false);
         } else {
             if (!arguments.getBoolean(HAS_PLAY, false)) {
                 // no play store
@@ -185,10 +189,13 @@ public class SettingsFragment extends PreferenceFragment
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
+                preferenceAbnormalBack.setEnabled(false);
+                preferenceAbnormalBack.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             } else {
                 preferenceAllowGcm.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             }
         } else {
@@ -196,14 +203,18 @@ public class SettingsFragment extends PreferenceFragment
             breventUi.addPreference(preferenceDonation);
             if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
                 preferenceAllowGcm.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             } else if (total == 1) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
+                preferenceAbnormalBack.setEnabled(false);
+                preferenceAbnormalBack.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             } else if (total == 2) {
                 preferenceAllowGcm.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
             }
