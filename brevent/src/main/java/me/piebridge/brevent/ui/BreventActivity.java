@@ -834,28 +834,31 @@ public class BreventActivity extends Activity
         // sms
         packageNames.put(getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION), IMPORTANT_SMS);
 
+        // dialer
+        String dialer = getDefaultApp(Intent.ACTION_DIAL);
+        if (dialer != null) {
+            packageNames.put(dialer, IMPORTANT_DIALER);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
-            String dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
+            dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
                     .getDefaultDialerPackage();
             if (dialer != null) {
                 packageNames.put(dialer, IMPORTANT_DIALER);
             }
+        }
 
-            // assistant
-            String assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
-            if (assistant != null) {
-                packageNames.put(assistant, IMPORTANT_ASSISTANT);
-            }
-        } else {
-            // dialer
-            String dialer = getDefaultApp(Intent.ACTION_DIAL);
-            if (dialer != null) {
-                packageNames.put(dialer, IMPORTANT_DIALER);
-            }
-
-            // assistant
-            String assistant = getDefaultApp(Intent.ACTION_ASSIST);
+        // assistant
+        String assistant = getDefaultApp(Intent.ACTION_ASSIST);
+        if (assistant != null) {
+            packageNames.put(assistant, IMPORTANT_ASSISTANT);
+        }
+        assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
+        if (assistant != null) {
+            packageNames.put(assistant, IMPORTANT_ASSISTANT);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
             if (assistant != null) {
                 packageNames.put(assistant, IMPORTANT_ASSISTANT);
             }

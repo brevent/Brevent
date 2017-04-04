@@ -242,6 +242,15 @@ public class HideApiOverride {
         }
     }
 
+    public static String getVoiceInteractionService() {
+        try {
+            return Settings.Secure.VOICE_INTERACTION_SERVICE;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Secure.VOICE_INTERACTION_SERVICE");
+            return "voice_interaction_service";
+        }
+    }
+
     private static int getRootUid() {
         try {
             return Process.ROOT_UID;

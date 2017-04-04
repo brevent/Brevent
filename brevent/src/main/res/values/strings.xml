@@ -132,7 +132,7 @@
     <string name="important_sms">%s (SMS app)</string>
     <string name="important_home">%s (Home app)</string>
     <string name="important_persistent">%s (Persistent)</string>
-    <string name="important_android">%s (Android)</string>
+    <string name="important_android">%s (Android process)</string>
     <string name="important_dialer">%s (Phone app)</string>
     <string name="important_assistant">%s (Assist app)</string>
     <string name="important_webview">%s (WebView)</string>

@@ -129,7 +129,7 @@
     <string name="important_sms">%s（短信应用）</string>
     <string name="important_home">%s（主屏幕应用）</string>
     <string name="important_persistent">%s（永久进程）</string>
-    <string name="important_android">%s（Android）</string>
+    <string name="important_android">%s（Android 进程）</string>
     <string name="important_dialer">%s (电话应用)</string>
     <string name="important_assistant">%s (辅助应用)</string>
     <string name="important_webview">%s (Webview 实现)</string>
