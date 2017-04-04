@@ -43,7 +43,6 @@ public class SettingsFragment extends PreferenceFragment
 
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
-    private SwitchPreference preferenceShowAllApps;
     private SwitchPreference preferenceAbnormalBack;
 
     private Preference preferenceStandbyTimeout;
@@ -81,9 +80,7 @@ public class SettingsFragment extends PreferenceFragment
                     preferenceStandbyTimeout);
         }
 
-        preferenceShowAllApps = (SwitchPreference) preferenceScreen.findPreference(SHOW_ALL_APPS);
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        preferenceShowAllApps.setEnabled(false);
         preferenceAllowRoot.setEnabled(false);
         if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
@@ -91,10 +88,6 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             if (!arguments.getBoolean(HAS_PLAY, false)) {
                 // no play store
-                breventUi.removePreference(preferenceShowAllApps);
-                if (sharedPreferences.getBoolean(SHOW_ALL_APPS, false)) {
-                    sharedPreferences.edit().putBoolean(SHOW_ALL_APPS, false).apply();
-                }
                 breventUi.removePreference(preferenceAllowRoot);
                 if (sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
                     sharedPreferences.edit().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT,
@@ -184,12 +177,7 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
-            breventUi.removePreference(preferenceShowAllApps);
             breventUi.removePreference(preferenceAllowRoot);
-            if (getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_ALL_APPS, false)) {
-                getPreferenceScreen().getSharedPreferences().edit().putBoolean(SHOW_ALL_APPS, false)
-                        .apply();
-            }
             onShowDonationChanged();
             removeDonationIfNeeded();
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
@@ -202,7 +190,6 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAbnormalBack.setEnabled(true);
             }
         } else {
-            preferenceShowAllApps.setEnabled(true);
             breventUi.addPreference(preferenceDonation);
             if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
                 preferenceAllowGcm.setEnabled(true);
