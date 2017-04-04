@@ -760,6 +760,9 @@ public class BreventActivity extends Activity
         for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
         }
+        for (String packageName : status.mAndroidProcesses) {
+            mImportant.put(packageName, IMPORTANT_ANDROID);
+        }
         resolveFavoritePackages(mFavorite);
         resolveGcmPackages(mGcm);
 
