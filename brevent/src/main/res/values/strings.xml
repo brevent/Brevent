@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require root access or modifying your unlocked device. Debugging mode doesn\'t require root access, nor unlocking, it\'s much safer to use. \n\nThere is an experimental ROOT feature, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page, or press \"Version\" 7 times in \"Settings\" to enable \"Run as ROOT\". ROOT mode is unsafe and unnessary, we do not offer support for those who prefer ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">Some similar apps require root access or modifying your unlocked device. Debugging mode doesn\'t require root access, nor unlocking, it\'s much safer to use. \n\nThere is an experimental ROOT feature, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to enable \"Allow run as ROOT\". ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after starting Brevent service successfully.</string>
@@ -152,7 +152,7 @@
     <string name="brevent_allow_gcm_label">When checked, allow brevented \"Allow Sync\" apps to receive FCM message\n\nRequires donate total 2 USD for Play version, feel free to donate for other version</string>
     <string name="brevent_when_request">Brevent manually</string>
     <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delay the processes according the event level\n\nRecommend donate total 2 USD</string>
-    <string name="brevent_allow_root">Run as ROOT</string>
+    <string name="brevent_allow_root">Allow run as ROOT (experimental)</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD in Play Store</string>
 
     <string name="brevent_about">About</string>

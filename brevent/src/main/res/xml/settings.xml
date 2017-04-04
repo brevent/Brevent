@@ -47,6 +47,12 @@
             android:title="@string/brevent_check_notification" />
 
         <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_when_request"
+            android:summary="@string/brevent_when_request_label"
+            android:title="@string/brevent_when_request" />
+
+        <SwitchPreference
             android:key="brevent_abnormal_back"
             android:defaultValue="false"
             android:summary="@string/brevent_abnormal_back_label"
@@ -57,12 +63,6 @@
             android:key="brevent_allow_gcm"
             android:summary="@string/brevent_allow_gcm_label"
             android:title="@string/brevent_allow_gcm" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="brevent_when_request"
-            android:summary="@string/brevent_when_request_label"
-            android:title="@string/brevent_when_request" />
 
         <SwitchPreference
             android:defaultValue="false"

@@ -149,7 +149,7 @@
     <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_when_request">主动清理</string>
     <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
-    <string name="brevent_allow_root">允许 ROOT 运行</string>
+    <string name="brevent_allow_root">允许 ROOT 运行（实验性）</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备通过第三方脚本启动黑域服务\n\n需要通过 Play 商店捐赠 3 美元</string>
 
     <string name="brevent_about">关于</string>
