@@ -3,6 +3,9 @@ package me.piebridge.brevent.ui;
 import android.app.Application;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Environment;
+import android.system.ErrnoException;
+import android.system.Os;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventStatus;
 
@@ -68,7 +72,17 @@ public class BreventApplication extends Application {
         if (file == null) {
             return null;
         }
-        File output = new File(file.getParent(), "brevent.sh");
+        String sdcard = "/" + "sdcard";
+        File externalStorageDirectory = Environment.getExternalStorageDirectory();
+        File output = buildPath(externalStorageDirectory,
+                "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh");
+        String path;
+        if (readpath(sdcard).equals(readpath(externalStorageDirectory.getAbsolutePath()))) {
+            path = buildPath(new File(sdcard),
+                    "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh").getAbsolutePath();
+        } else {
+            path = output.getAbsolutePath();
+        }
         if (!copied) {
             try {
                 try (
@@ -90,23 +104,35 @@ public class BreventApplication extends Application {
                 return null;
             }
         }
-        String path = output.getAbsolutePath();
-        String sdcard = "/" + "sdcard";
-        if (!new File(sdcard).exists()) {
-            sdcard = System.getenv("EXTERNAL_STORAGE");
+        return "sh " + path;
+    }
+
+    private String readpath(String link) {
+        String path = link;
+        while (true) {
+            try {
+                path = Os.readlink(path);
+                UILog.d("path: " + path);
+            } catch (ErrnoException e) {
+                UILog.d("cannot read link for " + path, e);
+                break;
+            }
         }
-        try {
-            String prefix = new File(sdcard).getCanonicalPath();
-            if (path.startsWith(prefix)) {
-                String newPath = sdcard + path.substring(prefix.length());
-                if (path.length() > newPath.length()) {
-                    path = newPath;
+        return path;
+    }
+
+    private File buildPath(File base, String... children) {
+        File path = base;
+        for (String child : children) {
+            if (child != null) {
+                if (path == null) {
+                    path = new File(child);
+                } else {
+                    path = new File(path, child);
                 }
             }
-        } catch (IOException e) {
-            UILog.d("Can't get sdcard", e);
         }
-        return "sh " + path;
+        return path;
     }
 
     private boolean maySupportStandby() {
