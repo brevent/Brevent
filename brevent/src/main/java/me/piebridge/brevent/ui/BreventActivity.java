@@ -849,11 +849,7 @@ public class BreventActivity extends Activity
         }
 
         // assistant
-        String assistant = getDefaultApp(Intent.ACTION_ASSIST);
-        if (assistant != null) {
-            packageNames.put(assistant, IMPORTANT_ASSISTANT);
-        }
-        assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
+        String assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
         if (assistant != null) {
             packageNames.put(assistant, IMPORTANT_ASSISTANT);
         }
