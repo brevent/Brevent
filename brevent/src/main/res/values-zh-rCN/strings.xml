@@ -4,7 +4,7 @@
     <string name="app_name">黑域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”(Overview)按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
     <string name="fragment_guide_welcome_message2">当您点击“返回”按钮退出应用时，应用及所包含的服务不再运行；当您点击“主页”按钮或者“总览”按钮或者其它方式把应用放到后台时，后台应用及所包含的服务可以继续运行；当您从最近列表划掉时，黑域将强行停止它。\n\n对于后台应用，黑域动态显示空闲时间。</string>
 
     <string name="fragment_guide_permission">权限</string>
@@ -21,17 +21,17 @@
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) 是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows) 按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，即可执行“adb”\n\n3. (Mac OS X) 打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，即可执行“adb”\n\n3.（Mac OS X）打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
 
-    <string name="brevent_service_start">请启动黑域服务 (%s)</string>
-    <string name="brevent_service_restart">请重启黑域服务 (%s)</string>
+    <string name="brevent_service_start">请启动黑域服务（%s）</string>
+    <string name="brevent_service_restart">请重启黑域服务（%s）</string>
     <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（请参考“向导 - ADB”）\n\n4. 在电脑命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
-    <string name="brevent_service_command_copied">指令已复制: %s</string>
-    <string name="brevent_service_adb_running">(已启用)</string>
-    <string name="brevent_service_usb_connected">(已连接)</string>
+    <string name="brevent_service_command_copied">指令已复制：%s</string>
+    <string name="brevent_service_adb_running">（已启用）</string>
+    <string name="brevent_service_usb_connected">（已连接）</string>
     <string name="brevent_service_run_as_root">使用 ROOT 开启</string>
     <string name="brevent_service_success">黑域服务已成功启动。请点击图标，选择一些应用，然后黑域它们</string>
 
@@ -39,13 +39,13 @@
     <string name="fragment_apps_system">系统应用</string>
     <string name="fragment_apps_framework">框架应用</string>
 
-    <string name="process_retrieving">正在获取进程状态，请稍候. . .</string>
-    <string name="process_retrieving_apps">正在获取应用信息，请稍候. . .</string>
+    <string name="process_retrieving">正在获取进程状态，请稍候……</string>
+    <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
 
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>
     <string name="process_status_stopped">没有运行</string>
-    <string name="process_not_running">(没有运行)</string>
+    <string name="process_not_running">（没有运行）</string>
     <string name="process_all_top">%d 个前台</string>
     <string name="process_all_service">%d 个服务</string>
     <string name="process_all_cached">%d 个缓存</string>
@@ -74,7 +74,7 @@
     <string name="context_menu_brevent_server_info">黑域服务信息</string>
     <string name="context_menu_set_priority">允许同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_snackbar_copied">包名已复制: %s</string>
+    <string name="context_menu_snackbar_copied">包名已复制：%s</string>
 
     <!-- menu -->
     <string name="menu_feedback">反馈</string>
@@ -130,22 +130,22 @@
     <string name="important_home">%s（主屏幕应用）</string>
     <string name="important_persistent">%s（永久进程）</string>
     <string name="important_android">%s（Android 进程）</string>
-    <string name="important_dialer">%s (电话应用)</string>
-    <string name="important_assistant">%s (辅助应用)</string>
-    <string name="important_webview">%s (Webview 实现)</string>
-    <string name="important_tile">%s (快捷设置)</string>
-    <string name="important_accessibility">%s (无障碍应用)</string>
-    <string name="important_device_admin">%s (设备管理器)</string>
+    <string name="important_dialer">%s（电话应用）</string>
+    <string name="important_assistant">%s（辅助应用）</string>
+    <string name="important_webview">%s（Webview 实现）</string>
+    <string name="important_tile">%s（快捷设置）</string>
+    <string name="important_accessibility">%s（无障碍应用）</string>
+    <string name="important_device_admin">%s（设备管理器）</string>
     <string name="important_gcm">%s（FCM）</string>
     <string name="important_battery">%s（无法待机，电池未优化）</string>
-    <string name="important_trust_agent">%s (可信代理)</string>
+    <string name="important_trust_agent">%s（可信代理）</string>
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_check_notification">检查通知</string>
     <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
     <string name="brevent_abnormal_back">优化非正常“返回”</string>
     <string name="brevent_abnormal_back_label">某些应用在您按“返回”按钮时，移到后台或者打开主屏幕。启用之后，当正常“返回”处理。请现在按“主页”让黑域确认真正的“主页”\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
-    <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
+    <string name="brevent_allow_gcm">允许 FCM（前身 GCM）推送</string>
     <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
     <string name="brevent_when_request">主动清理</string>
     <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
@@ -155,7 +155,7 @@
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通</string>
-    <string name="brevent_about_version_summary">%1$s\n%2$s模式, 自 %3$s 起</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s模式，自 %3$s 起</string>
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_project">项目地址</string>

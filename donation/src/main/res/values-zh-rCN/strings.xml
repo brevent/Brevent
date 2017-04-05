@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="donation">如果喜欢，请随(duo)意(duo)捐赠</string>
+    <string name="donation">如果喜欢，请随（duo）意（duo）捐赠</string>
     <string name="donation_wechat_guide">1. 打开“微信”，进入“扫一扫”\n\n2. 点击菜单\n\n3. 选择“从相册中选取二维码”\n\n4. 选取黑域捐赠二维码</string>
     <string name="donation_wechat_scan">前往“微信扫一扫”</string>
     <string name="donation_wechat_permission">微信捐赠需要把二维码放入相册中，请授予“存储空间”权限</string>
