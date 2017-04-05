@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 开启”黑域服务，甚至通过第三方应用启动黑域服务（需要在“设置”中开启“允许 ROOT 运行”）。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”然后开启“允许 ROOT 运行”。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個試驗性的 ROOT 功能，可以直接「使用 ROOT 開啟」黑域服務，甚至通過第三方應用程式啟動黑域服務（需要在「設定」中開啟「允許 ROOT 執行」）。如需啟用，請在「啟動黑域服務」時點擊 7 次返回鍵，或者進入「設定」點擊 7 次「版本」。ROOT 模式不安全也沒必要，目前不提供任何支援。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在啟動黑域服務後，如無特殊需要，請您關閉偵錯模式。</string>
@@ -17,28 +17,29 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否为「未啓用」。\n\n此外，為了降低自身耗電，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否為「未啓用」。\n\n此外，為了降低自身耗電，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) 是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.com/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows) 按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，即可执行“adb”\n\n3. (Mac OS X) 打开“Finder”，进入“应用程序”，进入“实用工具”，打开“终端”，然后把“adb”拖到“终端”里（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) 是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3. (Windows) 按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「adb」\n\n3. (Mac OS X) 開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="brevent_service_start">請啟動黑域服務 (%s)</string>
     <string name="brevent_service_restart">請重新啟動黑域服務 (%s)</string>
-    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB偵錯」 %1$s\n\n2. 使用 USB 連線到電腦 %2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「嚮導 - ADB」）\n\n4. 在電腦命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB偵錯」 %1$s\n\n2. 使用 USB 連線到電腦 %2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在電腦命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">(已啟用)</string>
     <string name="brevent_service_usb_connected">(已連線)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
+    <string name="brevent_service_success">黑域服務已成功啟動。請點擊圖示，選擇一些應用程式，然後黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>
     <string name="fragment_apps_system">系統</string>
-    <string name="fragment_apps_framework">框架(Framework)應用程式</string>
+    <string name="fragment_apps_framework">框架</string>
 
-    <string name="process_retrieving">正在取得程序狀態，請稍候. . .</string>
+    <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
     <string name="process_retrieving_apps">正在取得應用程式訊息，請稍候. . .</string>
 
     <string name="process_status_running">正在執行</string>
@@ -49,9 +50,9 @@
     <string name="process_all_service">%d 個服務</string>
     <string name="process_all_cached">%d 個快取</string>
     <string name="process_all_total">%d 個</string>
-    <string name="process_top">%d 前景</string>
-    <string name="process_service">%d 服務</string>
-    <string name="process_cached">%d 快取</string>
+    <string name="process_top">%d 個前景</string>
+    <string name="process_service">%d 個服務</string>
+    <string name="process_cached">%d 個快取</string>
     <string name="process_total">共 %d 個</string>
     <plurals name="process_process">
         <item quantity="other">程序</item>
@@ -74,12 +75,11 @@
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_snackbar_copied">安裝包(Package)名稱已複製: %s</string>
-    <string name="brevent_service_success">黑域服务已成功启动。请点击图标，选择一些应用，然后黑域它们</string>
 
     <!-- menu -->
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
-    <string name="menu_guide">導覽</string>
+    <string name="menu_guide">指引</string>
 
     <!-- settings brevent list -->
     <string name="brevent_list">黑域清單</string>
@@ -89,9 +89,9 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点击“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_standby_only_label">退出应用（如点击“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点击“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如點擊「返回」按钮），或者背景應用程式逾時後先待命；待命逾時或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但没有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如點擊「返回」按钮），或者背景應用程式逾時後待命\n\n針對被喚醒但没有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">退出應用程式（如點擊「返回」按钮），或者背景應用程式逾時，或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但没有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -105,8 +105,7 @@
     <string name="brevent_timeout_6hour">6 小時</string>
     <string name="brevent_timeout_999999">11.5 天</string>
     <string name="brevent_standby_timeout">待機逾時</string>
-    <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
-
+    <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
 
     <string name="brevent_ui">使用者介面</string>
     <string name="show_donation">顯示捐贈</string>
@@ -129,8 +128,8 @@
     <string name="important_alarm">%s（鬧鐘應用程式）</string>
     <string name="important_sms">%s（簡訊應用程式）</string>
     <string name="important_home">%s（主畫面應用程式）</string>
-    <string name="important_persistent">%s（永久程序）</string>
-    <string name="important_android">%s（Android 进程）</string>
+    <string name="important_persistent">%s（永久應用程式）</string>
+    <string name="important_android">%s（Android 處理程序）</string>
     <string name="important_dialer">%s (電話應用程式)</string>
     <string name="important_assistant">%s (小幫手應用程式)</string>
     <string name="important_webview">%s (WebView 實作)</string>
@@ -142,26 +141,26 @@
     <string name="important_trust_agent">%s (信任的代理程式)</string>
 
     <string name="brevent_advanced">進階功能</string>
-    <string name="brevent_check_notification">检查通知</string>
-    <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
-    <string name="brevent_abnormal_back">优化非正常“返回”</string>
-    <string name="brevent_abnormal_back_label">某些应用在您按“返回”按钮时，移到后台或者打开主屏幕。启用之后，当正常“返回”处理。请现在按“主页”让黑域确认真正的“主页”\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
-    <string name="brevent_allow_gcm">允许 FCM (前身 GCM) 推送</string>
-    <string name="brevent_allow_gcm_label">启用之后，允许 FCM 消息唤醒“允许同步”的应用（此时，其它系统广播也能唤醒这些应用）\n\nPlay 版需要捐赠 2 美元，其它版请随意捐赠</string>
-    <string name="brevent_when_request">主动清理</string>
-    <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
-    <string name="brevent_allow_root">允许 ROOT 运行（实验性）</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备跳过调试模式，或者通过第三方脚本启动黑域服务\n\n需要透過 Play 商店捐赠 3 美元</string>
+    <string name="brevent_check_notification">檢查通知</string>
+    <string name="brevent_check_notification_label">僅在您的裝置上進行解鎖及檢視通知時有延遲現象，才需要關閉</string>
+    <string name="brevent_abnormal_back">優化非正常「返回」</string>
+    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。啟用之後，當正常「返回」處理。請現在按「主頁」讓黑域確認真正的「主頁」\n\nPlay 版需要捐贈 2 美元，其它版請隨意捐贈</string>
+    <string name="brevent_allow_gcm">允許 FCM (前身 GCM) 推送</string>
+    <string name="brevent_allow_gcm_label">啟用之後，允許 FCM 訊息喚醒「允許同步」的應用程式（此時，其它系统廣播也能喚醒這些應用程式）\n\nPlay商店 版需要捐贈 2 美元，其它版請隨意捐贈</string>
+    <string name="brevent_when_request">主動清理</string>
+    <string name="brevent_when_request_label">進入黑域時，立即黑域，而不是根據事件級別延後處理。強迫症必備\n\n建議累計捐贈 2 美元</string>
+    <string name="brevent_allow_root">允許 ROOT 執行 （實驗性）</string>
+    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置跳過偵錯模式，或者藉由第三方腳本啟動黑域服務\n\nPlay商店 版需要捐贈 3 美元</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通</string>
-    <string name="brevent_about_version_summary">%1$s\n%2$s模式, 自 %3$s 起</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s模式，從 %3$s 使用</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_project">項目位址</string>
     <string name="brevent_about_licenses">軟體授權</string>
-    <string name="brevent_about_translation">繁體中文(臺灣) 語言翻譯</string>
-    <string name="brevent_about_translator">孟武．尼德霍格．龍</string>
+    <string name="brevent_about_translation">翻譯</string>
+    <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
 
 </resources>
