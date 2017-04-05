@@ -39,6 +39,8 @@ public class BreventApplication extends Application {
 
     public int mUid;
 
+    public boolean started;
+
     @Override
     public void onCreate() {
         super.onCreate();

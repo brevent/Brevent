@@ -32,6 +32,9 @@ public class SettingsFragment extends PreferenceFragment
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
+    public static final String BREVENT_ALLOW_RECEIVER = "brevent_allow_receiver";
+    public static final boolean DEFAULT_BREVENT_ALLOW_RECEIVER = false;
+
     public static final String HAS_PLAY = "has_play";
     public static final String IS_PLAY = "is_play";
     public static final String SUPPORT_FCM = "support_fcm";
@@ -43,6 +46,7 @@ public class SettingsFragment extends PreferenceFragment
 
     private SwitchPreference preferenceAllowGcm;
     private SwitchPreference preferenceAllowRoot;
+    private SwitchPreference preferenceAllowReceiver;
     private SwitchPreference preferenceAbnormalBack;
 
     private Preference preferenceStandbyTimeout;
@@ -69,6 +73,8 @@ public class SettingsFragment extends PreferenceFragment
                 BreventConfiguration.BREVENT_ALLOW_GCM);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_ALLOW_ROOT);
+        preferenceAllowReceiver = (SwitchPreference) preferenceScreen.findPreference(
+                BREVENT_ALLOW_RECEIVER);
         preferenceAbnormalBack = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_ABNORMAL_BACK);
 
@@ -82,22 +88,21 @@ public class SettingsFragment extends PreferenceFragment
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         preferenceAllowRoot.setEnabled(false);
+        preferenceAllowReceiver.setEnabled(false);
         if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
         } else {
             if (!arguments.getBoolean(HAS_PLAY, false)) {
                 // no play store
+                breventUi.removePreference(preferenceAllowReceiver);
                 breventUi.removePreference(preferenceAllowRoot);
-                if (sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
-                    sharedPreferences.edit().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT,
-                            false).apply();
-                }
                 preferenceDonation.setChecked(true);
             }
             removeDonationIfNeeded();
         }
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+            breventAdvanced.removePreference(preferenceAllowReceiver);
             breventAdvanced.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
@@ -177,6 +182,7 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
+            breventUi.removePreference(preferenceAllowReceiver);
             breventUi.removePreference(preferenceAllowRoot);
             onShowDonationChanged();
             removeDonationIfNeeded();
@@ -195,6 +201,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
+                preferenceAllowReceiver.setEnabled(true);
             } else if (total == 1) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
@@ -202,11 +209,15 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAbnormalBack.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
+                preferenceAllowReceiver.setEnabled(false);
+                preferenceAllowReceiver.setChecked(false);
             } else if (total == 2) {
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
+                preferenceAllowReceiver.setEnabled(false);
+                preferenceAllowReceiver.setChecked(false);
             }
         }
     }
@@ -223,6 +234,7 @@ public class SettingsFragment extends PreferenceFragment
         if ("brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
                 breventAdvanced.addPreference(preferenceAllowRoot);
+                breventAdvanced.addPreference(preferenceAllowReceiver);
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();

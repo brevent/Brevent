@@ -1,0 +1,93 @@
+package me.piebridge.brevent.ui;
+
+import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+
+import java.io.File;
+import java.util.List;
+
+import eu.chainfire.libsuperuser.Shell;
+import me.piebridge.brevent.BuildConfig;
+import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventIntent;
+import me.piebridge.donation.DonateActivity;
+
+public class BreventIntentService extends IntentService {
+
+    public static final int ID = 59526;
+
+    public BreventIntentService() {
+        super("BreventIntentService");
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        BreventApplication application = (BreventApplication) getApplication();
+        String action = intent.getAction();
+        UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
+        if (!application.started || BreventIntent.ACTION_BREVENT.equals(action)) {
+            application.started = true;
+            startBrevent();
+            hideNotification();
+        }
+    }
+
+    private boolean startBrevent() {
+        String name = "libbrevent.so";
+        try {
+            PackageManager packageManager = getPackageManager();
+            ApplicationInfo applicationInfo =
+                    packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
+            File file = new File(applicationInfo.nativeLibraryDir, name);
+            if (file.exists()) {
+                postNotification();
+                UILog.d("startBrevent: " + file.getAbsolutePath());
+                List<String> results = Shell.SU.run(file.getAbsolutePath());
+                if (results != null) {
+                    for (String result : results) {
+                        UILog.d(result);
+                    }
+                    return true;
+                }
+            } else {
+                UILog.e("Can't find libbrevent.so");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // ignore
+        }
+        ((BreventApplication) getApplication()).started = false;
+        return false;
+    }
+
+    private void hideNotification() {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancel(ID);
+    }
+
+    private void postNotification() {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setAutoCancel(false);
+        builder.setOngoing(true);
+        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        Notification notification = builder.build();
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(ID, notification);
+    }
+
+    public static void startBrevent(Context context, String action) {
+        Intent intent = new Intent(context, BreventIntentService.class);
+        intent.setAction(action);
+        context.startService(intent);
+    }
+
+}

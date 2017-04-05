@@ -1,5 +1,7 @@
 package me.piebridge.brevent.ui;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -62,6 +64,7 @@ public class AppsActivityHandler extends Handler {
                 if (!hasResponse) {
                     UILog.d("received response");
                     hasResponse = true;
+                    hideNotification();
                 }
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
@@ -82,6 +85,15 @@ public class AppsActivityHandler extends Handler {
             case BreventActivity.MESSAGE_BREVENT_REQUEST:
                 send((BreventProtocol) message.obj);
                 break;
+        }
+    }
+
+    private void hideNotification() {
+        BreventActivity breventActivity = mReference.get();
+        if (breventActivity != null) {
+            Context context = breventActivity.getApplicationContext();
+            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+                    .cancel(BreventIntentService.ID);
         }
     }
 

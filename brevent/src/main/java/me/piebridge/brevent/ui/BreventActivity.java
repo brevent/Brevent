@@ -579,6 +579,24 @@ public class BreventActivity extends Activity
         }
         BreventConfiguration configuration = new BreventConfiguration(getToken(), preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
+
+        ComponentName componentName = new ComponentName(this, BreventReceiver.class);
+        PackageManager packageManager = getPackageManager();
+        int componentEnabled = packageManager.getComponentEnabledSetting(componentName);
+        boolean allowReceiver = preferences.getBoolean(SettingsFragment.BREVENT_ALLOW_RECEIVER,
+                SettingsFragment.DEFAULT_BREVENT_ALLOW_RECEIVER);
+        if (configuration.allowRoot && allowReceiver) {
+            if (componentEnabled != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                packageManager.setComponentEnabledSetting(componentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            }
+        } else {
+            if (componentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+                packageManager.setComponentEnabledSetting(componentName,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+            }
+        }
     }
 
     private void openSettings() {
@@ -849,7 +867,8 @@ public class BreventActivity extends Activity
         }
 
         // assistant
-        String assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
+        String assistant;
+        assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
         if (assistant != null) {
             packageNames.put(assistant, IMPORTANT_ASSISTANT);
         }
@@ -1087,7 +1106,7 @@ public class BreventActivity extends Activity
 
     public void runAsRoot(String path) {
         showProgress(R.string.process_retrieving);
-        new AppsRootRunner(path, uiHandler).submit();
+        BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
     }
 

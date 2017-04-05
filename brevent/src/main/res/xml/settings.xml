@@ -70,6 +70,13 @@
             android:summary="@string/brevent_allow_root_label"
             android:title="@string/brevent_allow_root" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="brevent_allow_root"
+            android:key="brevent_allow_receiver"
+            android:summary="@string/brevent_allow_receiver_label"
+            android:title="@string/brevent_allow_receiver" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
