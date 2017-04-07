@@ -121,6 +121,8 @@ public class BreventActivity extends Activity
 
     private static final String FRAGMENT_FEEDBACK = "feedback";
 
+    private static final String FRAGMENT_UNSUPPORTED = "unsupported";
+
     private static final int REQUEST_CODE_SETTINGS = 1;
 
     private ViewPager mPager;
@@ -193,7 +195,9 @@ public class BreventActivity extends Activity
         }
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
+        if (!BreventApplication.IS_OWNER) {
+            new UnsupportedFragment().show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        } else if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
         } else {
@@ -334,6 +338,7 @@ public class BreventActivity extends Activity
     private void dismissDialogFragmentIfNeeded(boolean allowStateLoss) {
         dismissDialogFragmentIfNeeded(FRAGMENT_DISABLED, allowStateLoss);
         dismissDialogFragmentIfNeeded(FRAGMENT_PROGRESS, allowStateLoss);
+        dismissDialogFragmentIfNeeded(FRAGMENT_UNSUPPORTED, allowStateLoss);
     }
 
     private void dismissDialogFragmentIfNeeded(String tag, boolean allowStateLoss) {

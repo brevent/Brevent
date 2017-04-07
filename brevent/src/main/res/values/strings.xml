@@ -168,4 +168,6 @@
     <string name="brevent_about_translator">Thom, DKOUT</string>
     <string name="brevent_about_licenses">Licenses</string>
 
+    <string name="unsupported_owner">Brevent is only available for Owner.</string>
+
 </resources>

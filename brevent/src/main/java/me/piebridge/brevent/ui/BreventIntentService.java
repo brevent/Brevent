@@ -7,11 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 
 import java.io.File;
 import java.util.List;
@@ -20,7 +15,6 @@ import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventIntent;
-import me.piebridge.donation.DonateActivity;
 
 public class BreventIntentService extends IntentService {
 

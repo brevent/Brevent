@@ -56,6 +56,10 @@ public class HideApiOverride {
         }
     }
 
+    public static int getUserId() {
+        return UserHandle.myUserId();
+    }
+
     public static int myPpid() {
         return Process.myPpid();
     }

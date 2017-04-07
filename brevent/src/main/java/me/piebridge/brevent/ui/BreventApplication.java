@@ -16,6 +16,8 @@ import java.util.UUID;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventStatus;
 
 /**
@@ -40,6 +42,8 @@ public class BreventApplication extends Application {
     public int mUid;
 
     public boolean started;
+
+    public static boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
     @Override
     public void onCreate() {
@@ -167,4 +171,11 @@ public class BreventApplication extends Application {
         setSupportStandby(breventStatus.mSupportStandby);
         setSupportStopped(breventStatus.mSupportStopped);
     }
+
+    private static int getOwner() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                ? HideApiOverrideN.USER_SYSTEM
+                : HideApiOverride.USER_OWNER;
+    }
+
 }
