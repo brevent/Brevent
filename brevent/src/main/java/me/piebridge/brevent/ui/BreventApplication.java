@@ -79,18 +79,13 @@ public class BreventApplication extends Application {
             return null;
         }
         String sdcard = "/" + "sdcard";
-        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-        File output = buildPath(externalStorageDirectory,
-                "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh");
-        String path;
-        if (readpath(sdcard).equals(readpath(externalStorageDirectory.getAbsolutePath()))) {
-            path = buildPath(new File(sdcard),
-                    "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh").getAbsolutePath();
-        } else {
-            path = output.getAbsolutePath();
-        }
+        String path = buildPath(new File(sdcard),
+                "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh").getAbsolutePath();
         if (!copied) {
             try {
+                File externalStorageDirectory = Environment.getExternalStorageDirectory();
+                File output = buildPath(externalStorageDirectory,
+                        "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh");
                 try (
                         InputStream is = getResources().openRawResource(R.raw.brevent);
                         OutputStream os = new FileOutputStream(output)
