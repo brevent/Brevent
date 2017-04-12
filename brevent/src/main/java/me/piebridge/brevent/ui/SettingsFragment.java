@@ -40,7 +40,6 @@ public class SettingsFragment extends PreferenceFragment
     public static final String SUPPORT_FCM = "support_fcm";
 
     private PreferenceCategory breventAdvanced;
-    private PreferenceCategory breventUi;
 
     private SwitchPreference preferenceDonation;
 
@@ -66,7 +65,6 @@ public class SettingsFragment extends PreferenceFragment
         Bundle arguments = getArguments();
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         breventAdvanced = (PreferenceCategory) preferenceScreen.findPreference("brevent_advanced");
-        breventUi = (PreferenceCategory) preferenceScreen.findPreference("brevent_ui");
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
         preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(
@@ -87,19 +85,14 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        preferenceAllowRoot.setEnabled(false);
-        preferenceAllowReceiver.setEnabled(false);
         if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
-        } else {
-            if (!arguments.getBoolean(HAS_PLAY, false)) {
-                // no play store
-                breventUi.removePreference(preferenceAllowReceiver);
-                breventUi.removePreference(preferenceAllowRoot);
-                preferenceDonation.setChecked(true);
-            }
-            removeDonationIfNeeded();
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowReceiver.setEnabled(false);
+        } else if (arguments.getBoolean(HAS_PLAY, false)) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowReceiver.setEnabled(false);
         }
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventAdvanced.removePreference(preferenceAllowReceiver);
@@ -182,10 +175,11 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
-            breventUi.removePreference(preferenceAllowReceiver);
-            breventUi.removePreference(preferenceAllowRoot);
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+            preferenceAllowReceiver.setEnabled(false);
+            preferenceAllowReceiver.setChecked(false);
             onShowDonationChanged();
-            removeDonationIfNeeded();
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
                 preferenceAllowGcm.setEnabled(false);
                 preferenceAllowGcm.setChecked(false);
@@ -196,7 +190,6 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAbnormalBack.setEnabled(true);
             }
         } else {
-            breventUi.addPreference(preferenceDonation);
             if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
                 preferenceAllowGcm.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
@@ -219,12 +212,6 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowReceiver.setEnabled(false);
                 preferenceAllowReceiver.setChecked(false);
             }
-        }
-    }
-
-    private void removeDonationIfNeeded() {
-        if (!"colombo".equals(Build.DEVICE)) {
-            breventUi.removePreference(preferenceDonation);
         }
     }
 
