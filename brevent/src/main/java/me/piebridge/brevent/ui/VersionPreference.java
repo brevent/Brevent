@@ -30,12 +30,14 @@ public class VersionPreference extends Preference {
         if (application.mDaemonTime > 0) {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             String normal = resources.getString(R.string.brevent_about_version_mode_normal);
+            String root = resources.getString(R.string.brevent_about_version_mode_root);
             return resources.getString(R.string.brevent_about_version_summary,
                     BuildConfig.VERSION_NAME,
                     HideApiOverride.isShell(application.mUid) ? normal :
-                            (HideApiOverride.isRoot(application.mUid) ? "ROOT" :
+                            (HideApiOverride.isRoot(application.mUid) ? root :
                                     resources.getString(android.R.string.unknownName)),
-                    format.format(application.mDaemonTime)
+                    format.format(application.mDaemonTime),
+                    format.format(application.mServerTime)
             );
         } else {
             return BuildConfig.VERSION_NAME;

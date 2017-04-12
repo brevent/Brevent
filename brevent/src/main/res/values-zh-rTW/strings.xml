@@ -156,8 +156,9 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
-    <string name="brevent_about_version_mode_normal">普通</string>
-    <string name="brevent_about_version_summary">%1$s\n%2$s模式，從 %3$s 使用</string>
+    <string name="brevent_about_version_mode_normal">普通模式</string>
+    <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s\n首次启动：%3$s\n本次启动：%4$s</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_project">項目位址</string>

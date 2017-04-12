@@ -150,14 +150,15 @@
     <string name="brevent_when_request">主动清理</string>
     <string name="brevent_when_request_label">进入黑域时，立即黑域，而不是根据事件级别延后处理。强迫症专享\n\n建议累计捐赠 2 美元</string>
     <string name="brevent_allow_root">允许 ROOT 运行（实验性）</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要通过 Play 商店捐赠 3 美元</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要通过 Play 商店捐赠 3 美元，没有 Play 商店时请随意捐赠</string>
     <string name="brevent_allow_receiver">开机自启（实验性）</string>
     <string name="brevent_allow_receiver_label">启动完成后开启黑域服务\n\n依赖“允许 ROOT 运行”</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
-    <string name="brevent_about_version_mode_normal">普通</string>
-    <string name="brevent_about_version_summary">%1$s\n%2$s模式，自 %3$s 起</string>
+    <string name="brevent_about_version_mode_normal">普通模式</string>
+    <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
+    <string name="brevent_about_version_summary">%1$s\n%2$s\n首次启动：%3$s\n本次启动：%4$s</string>
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_project">项目地址</string>
