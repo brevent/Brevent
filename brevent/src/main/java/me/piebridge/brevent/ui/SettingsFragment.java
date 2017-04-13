@@ -13,6 +13,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.donation.DonateActivity;
@@ -85,7 +86,9 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (arguments.getBoolean(IS_PLAY, false)) {
+        if (!BuildConfig.RELEASE) {
+            // do nothing
+        } else if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAllowGcm.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
