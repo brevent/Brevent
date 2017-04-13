@@ -38,13 +38,12 @@ public class SettingsFragment extends PreferenceFragment
 
     public static final String HAS_PLAY = "has_play";
     public static final String IS_PLAY = "is_play";
-    public static final String SUPPORT_FCM = "support_fcm";
 
     private PreferenceCategory breventAdvanced;
 
     private SwitchPreference preferenceDonation;
 
-    private SwitchPreference preferenceAllowGcm;
+    private SwitchPreference preferenceOptimizeVpn;
     private SwitchPreference preferenceAllowRoot;
     private SwitchPreference preferenceAllowReceiver;
     private SwitchPreference preferenceAbnormalBack;
@@ -68,8 +67,8 @@ public class SettingsFragment extends PreferenceFragment
         breventAdvanced = (PreferenceCategory) preferenceScreen.findPreference("brevent_advanced");
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
-        preferenceAllowGcm = (SwitchPreference) preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_ALLOW_GCM);
+        preferenceOptimizeVpn = (SwitchPreference) preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_OPTIMIZE_VPN);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_ALLOW_ROOT);
         preferenceAllowReceiver = (SwitchPreference) preferenceScreen.findPreference(
@@ -89,11 +88,12 @@ public class SettingsFragment extends PreferenceFragment
         if (!BuildConfig.RELEASE) {
             // do nothing
         } else if (arguments.getBoolean(IS_PLAY, false)) {
-            preferenceAllowGcm.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
+            preferenceOptimizeVpn.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowReceiver.setEnabled(false);
         } else if (arguments.getBoolean(HAS_PLAY, false)) {
+            preferenceOptimizeVpn.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowReceiver.setEnabled(false);
         }
@@ -102,9 +102,6 @@ public class SettingsFragment extends PreferenceFragment
             breventAdvanced.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
-        }
-        if (!arguments.getBoolean(SettingsFragment.SUPPORT_FCM)) {
-            breventAdvanced.removePreference(preferenceAllowGcm);
         }
         onUpdateBreventMethod();
     }
@@ -178,29 +175,28 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (total <= 0) {
             preferenceDonation.setChecked(true);
+            preferenceOptimizeVpn.setEnabled(false);
+            preferenceOptimizeVpn.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
             onShowDonationChanged();
             if (getArguments().getBoolean(IS_PLAY, false) && total == 0) {
-                preferenceAllowGcm.setEnabled(false);
-                preferenceAllowGcm.setChecked(false);
                 preferenceAbnormalBack.setEnabled(false);
                 preferenceAbnormalBack.setChecked(false);
             } else {
-                preferenceAllowGcm.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
             }
         } else {
             if (!getArguments().getBoolean(IS_PLAY, false) || total >= 0x3) {
-                preferenceAllowGcm.setEnabled(true);
+                preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
                 preferenceAllowReceiver.setEnabled(true);
             } else if (total == 1) {
-                preferenceAllowGcm.setEnabled(false);
-                preferenceAllowGcm.setChecked(false);
+                preferenceOptimizeVpn.setEnabled(false);
+                preferenceOptimizeVpn.setChecked(false);
                 preferenceAbnormalBack.setEnabled(false);
                 preferenceAbnormalBack.setChecked(false);
                 preferenceAllowRoot.setEnabled(false);
@@ -208,7 +204,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowReceiver.setEnabled(false);
                 preferenceAllowReceiver.setChecked(false);
             } else if (total == 2) {
-                preferenceAllowGcm.setEnabled(true);
+                preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);

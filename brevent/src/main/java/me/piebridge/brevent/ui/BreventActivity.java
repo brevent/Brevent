@@ -78,7 +78,6 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
-import me.piebridge.brevent.protocol.SignatureUtils;
 import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity
@@ -641,8 +640,6 @@ public class BreventActivity extends Activity
 
     private void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
-        intent.putExtra(SettingsFragment.SUPPORT_FCM, !mGcm.isEmpty() &&
-                ((BreventApplication) getApplication()).supportStopped());
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
 
@@ -802,6 +799,9 @@ public class BreventActivity extends Activity
     }
 
     private void onBreventStatusResponse(BreventStatus status) {
+        BreventApplication application = (BreventApplication) getApplication();
+        application.updateStatus(status);
+
         mProcesses.clear();
         mProcesses.putAll(status.mProcesses);
 
@@ -822,7 +822,9 @@ public class BreventActivity extends Activity
             mImportant.put(packageName, IMPORTANT_ANDROID);
         }
         resolveFavoritePackages(mFavorite);
-        resolveGcmPackages(mGcm);
+        if (((BreventApplication) getApplication()).supportStopped()) {
+            resolveGcmPackages(mGcm);
+        }
 
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
@@ -837,9 +839,6 @@ public class BreventActivity extends Activity
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
-
-        BreventApplication application = (BreventApplication) getApplication();
-        application.updateStatus(status);
     }
 
     private void unbreventImportant() {

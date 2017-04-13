@@ -24,8 +24,8 @@ public class BreventConfiguration extends BreventToken {
     public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
     public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
 
-    public static final String BREVENT_ALLOW_GCM = "brevent_allow_gcm";
-    public static final boolean DEFAULT_BREVENT_ALLOW_GCM = false;
+    public static final String BREVENT_OPTIMIZE_VPN = "brevent_optimize_vpn";
+    public static final boolean DEFAULT_BREVENT_OPTIMIZE_VPN = false;
 
     public static final String BREVENT_METHOD = "brevent_method";
     public static final int BREVENT_METHOD_STANDBY_FORCE_STOP = 1;
@@ -54,7 +54,7 @@ public class BreventConfiguration extends BreventToken {
 
     public int method = DEFAULT_BREVENT_METHOD;
 
-    public boolean allowGcm = DEFAULT_BREVENT_ALLOW_GCM;
+    public boolean optimizeVpn = DEFAULT_BREVENT_OPTIMIZE_VPN;
 
     public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
 
@@ -71,7 +71,7 @@ public class BreventConfiguration extends BreventToken {
                 "" + DEFAULT_BREVENT_TIMEOUT));
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
-        allowGcm = sharedPreferences.getBoolean(BREVENT_ALLOW_GCM, DEFAULT_BREVENT_ALLOW_GCM);
+        optimizeVpn = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_VPN, DEFAULT_BREVENT_OPTIMIZE_VPN);
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT,
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
@@ -104,7 +104,7 @@ public class BreventConfiguration extends BreventToken {
         timeout = in.readInt();
         allowRoot = in.readInt() != 0;
         method = in.readInt();
-        allowGcm = in.readInt() != 0;
+        optimizeVpn = in.readInt() != 0;
         standbyTimeout = in.readInt();
         checkNotification = in.readInt() != 0;
         breventRequest = in.readInt() != 0;
@@ -118,7 +118,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(timeout);
         dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
-        dest.writeInt(allowGcm ? 1 : 0);
+        dest.writeInt(optimizeVpn ? 1 : 0);
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
         dest.writeInt(breventRequest ? 1 : 0);
@@ -130,7 +130,7 @@ public class BreventConfiguration extends BreventToken {
         write(pw, BREVENT_TIMEOUT, timeout);
         write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
-        write(pw, BREVENT_ALLOW_GCM, allowGcm);
+        write(pw, BREVENT_OPTIMIZE_VPN, optimizeVpn);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
         write(pw, BREVENT_WHEN_REQUEST, breventRequest);
@@ -172,8 +172,8 @@ public class BreventConfiguration extends BreventToken {
             case BREVENT_METHOD:
                 method = convertMethod(value);
                 break;
-            case BREVENT_ALLOW_GCM:
-                allowGcm = Boolean.parseBoolean(value);
+            case BREVENT_OPTIMIZE_VPN:
+                optimizeVpn = Boolean.parseBoolean(value);
                 break;
             case BREVENT_STANDBY_TIMEOUT:
                 if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
@@ -215,8 +215,8 @@ public class BreventConfiguration extends BreventToken {
             this.method = request.method;
             updated = true;
         }
-        if (this.allowGcm != request.allowGcm) {
-            this.allowGcm = request.allowGcm;
+        if (this.optimizeVpn != request.optimizeVpn) {
+            this.optimizeVpn = request.optimizeVpn;
             updated = true;
         }
         if (this.standbyTimeout != request.standbyTimeout) {

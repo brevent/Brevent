@@ -21,7 +21,6 @@ import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.SignatureUtils;
 
 /**
  * Created by thom on 2017/1/25.

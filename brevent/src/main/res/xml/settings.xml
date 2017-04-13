@@ -60,9 +60,9 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="brevent_allow_gcm"
-            android:summary="@string/brevent_allow_gcm_label"
-            android:title="@string/brevent_allow_gcm" />
+            android:key="brevent_optimize_vpn"
+            android:summary="@string/brevent_optimize_vpn_label"
+            android:title="@string/brevent_optimize_vpn" />
 
         <SwitchPreference
             android:defaultValue="false"

@@ -185,6 +185,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             }
         }
         if (breventActivity.isBrevent(packageName) && breventActivity.isPriority(packageName)) {
+            if (breventActivity.isGcm(packageName)) {
+                viewHolder.syncView.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
+            } else {
+                viewHolder.syncView.setImageResource(R.drawable.ic_sync_black_24dp);
+            }
             viewHolder.syncView.setVisibility(View.VISIBLE);
         } else {
             viewHolder.syncView.setVisibility(View.INVISIBLE);

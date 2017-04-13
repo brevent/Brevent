@@ -143,8 +143,8 @@
     <string name="brevent_check_notification_label">僅在您的裝置上進行解鎖及檢視通知時有延遲現象，才需要關閉</string>
     <string name="brevent_abnormal_back">優化非正常「返回」</string>
     <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。啟用之後，當正常「返回」處理。請現在按「主頁」讓黑域確認真正的「主頁」\n\nPlay 版需要捐贈 2 美元，其它版請隨意捐贈</string>
-    <string name="brevent_allow_gcm">允許 FCM (前身 GCM) 推送</string>
-    <string name="brevent_allow_gcm_label">啟用之後，允許 FCM 訊息喚醒「允許同步」的應用程式（此時，其它系统廣播也能喚醒這些應用程式）\n\nPlay商店 版需要捐贈 2 美元，其它版請隨意捐贈</string>
+    <string name="brevent_optimize_vpn">优化 VPN</string>
+    <string name="brevent_optimize_vpn_label">启用之后，不处理已连接的 VPN 应用\n\n需要通过 Play 商店捐赠 1 美元，没有 Play 商店时请随意捐赠</string>
     <string name="brevent_when_request">主動清理</string>
     <string name="brevent_when_request_label">進入黑域時，立即黑域，而不是根據事件級別延後處理。強迫症必備\n\n建議累計捐贈 2 美元</string>
     <string name="brevent_allow_root">允許 ROOT 執行（實驗性）</string>
@@ -156,7 +156,7 @@
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
-    <string name="brevent_about_version_summary">%1$s\n%2$s\n首次启动：%3$s\n本次启动：%4$s</string>
+    <string name="brevent_about_version_summary">%1$s，%2$s\n首次启动：%3$s\n本次启动：%4$s</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_project">項目位址</string>
