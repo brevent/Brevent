@@ -30,6 +30,7 @@ android {
             buildConfigField 'String', 'FEEDBACK', properties['build.feedback']
             buildConfigField 'String', 'EMAIL', properties['build.email']
             buildConfigField 'String', 'PROJECT', properties['build.project']
+            buildConfigField 'byte[]', 'SIGNATURE', properties['build.signature']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
         }
 
@@ -71,6 +72,7 @@ android {
             buildConfigField 'String', 'FEEDBACK', 'null'
             buildConfigField 'String', 'EMAIL', 'null'
             buildConfigField 'String', 'PROJECT', 'null'
+            buildConfigField 'byte[]', 'SIGNATURE', 'null'
         }
     }
 

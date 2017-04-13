@@ -14,9 +14,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
 import android.content.pm.ResolveInfo;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +53,9 @@ import android.widget.Toolbar;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -64,6 +70,7 @@ import de.robv.android.xposed.XposedBridge;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.override.HideApiOverrideM;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
@@ -71,6 +78,7 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.SignatureUtils;
 import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity
@@ -193,6 +201,9 @@ public class BreventActivity extends Activity
         } catch (Throwable t) { // NOSONAR
             // do nothing
         }
+        if (BuildConfig.RELEASE) {
+            verifySignatures();
+        }
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!BreventApplication.IS_OWNER) {
@@ -225,6 +236,30 @@ public class BreventActivity extends Activity
             mColorControlNormal = resolveColor(android.R.attr.colorControlNormal);
             mTextColorPrimary = resolveColor(android.R.attr.textColorPrimary);
             mColorControlHighlight = resolveColor(android.R.attr.colorControlHighlight);
+        }
+    }
+
+    private void verifySignatures() {
+        Signature[] signatures = getSignatures(getPackageManager(), BuildConfig.APPLICATION_ID);
+        boolean equals = false;
+        if (signatures != null) {
+            for (Signature signature : signatures) {
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    byte[] sha1 = md.digest();
+                    if (Arrays.equals(BuildConfig.SIGNATURE, sha1)) {
+                        equals = true;
+                        break;
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    UILog.w("NoSuchAlgorithmException");
+                }
+            }
+        }
+        if (!equals) {
+            UILog.e("invalid signature");
+            finish();
         }
     }
 
@@ -1137,6 +1172,24 @@ public class BreventActivity extends Activity
                 new BreventPackages(false, getToken(), Collections.singleton(packageName));
         breventPackages.undoable = false;
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
+    }
+
+    public static Signature[] getSignatures(PackageManager packageManager, String packageName) {
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+            String codePath = applicationInfo.sourceDir;
+            PackageParser.Package pkg = new PackageParser.Package(codePath);
+            pkg.baseCodePath = codePath;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            } else {
+                HideApiOverrideM.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            }
+            return pkg.mSignatures;
+        } catch (PackageManager.NameNotFoundException | PackageParser.PackageParserException e) {
+            // do nothing
+            return null;
+        }
     }
 
 }
