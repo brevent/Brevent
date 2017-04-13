@@ -51,9 +51,7 @@
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
     <string name="process_all_total">%d</string>
-    <string name="process_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
-    <string name="process_cached" tools:ignore="PluralsCandidate">%d cached</string>
     <string name="process_total">total %d</string>
     <plurals name="process_process">
         <item quantity="one">&#160;process</item>

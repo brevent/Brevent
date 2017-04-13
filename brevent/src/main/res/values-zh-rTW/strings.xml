@@ -50,9 +50,7 @@
     <string name="process_all_service">%d 個服務</string>
     <string name="process_all_cached">%d 個快取</string>
     <string name="process_all_total">%d 個</string>
-    <string name="process_top">%d 個前景</string>
     <string name="process_service">%d 個服務</string>
-    <string name="process_cached">%d 個快取</string>
     <string name="process_total">共 %d 個</string>
     <plurals name="process_process">
         <item quantity="other">程序</item>
