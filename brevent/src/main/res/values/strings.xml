@@ -144,15 +144,17 @@
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_check_notification">Check notifications</string>
     <string name="brevent_check_notification_label">Only turn off if device freeze when unlock or view notification</string>
-    <string name="brevent_abnormal_back">Optimize Abnormal Back</string>
-    <string name="brevent_abnormal_back_label">Some apps move to background or open Launcher when Back is pressed. When checked, treat it as normal Back. Please click Home now to help Brevent make sure real Home\n\nRequires donate total 2 USD for Play version, feel free to donate for other version</string>
-    <string name="brevent_optimize_vpn">Optimize VPN (experimental)</string>
-    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD in Play Store, feel free to donate if no Play Store</string>
     <string name="brevent_when_request">Brevent manually</string>
     <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delay the processes according the event level\n\nRecommend donate total 2 USD</string>
-    <string name="brevent_allow_root">Allow run as ROOT (experimental)</string>
+    <string name="brevent_abnormal_back">Optimize Abnormal Back</string>
+    <string name="brevent_abnormal_back_label">Some apps move to background or open Launcher when Back is pressed. When checked, treat it as normal Back. Please click Home now to help Brevent make sure real Home\n\nRequires donate total 2 USD for Play version</string>
+
+    <string name="brevent_experimental">Experimental Features</string>
+    <string name="brevent_optimize_vpn">Optimize VPN</string>
+    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD in Play Store</string>
+    <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD in Play Store</string>
-    <string name="brevent_allow_receiver">Enable boot receiver (experimental)</string>
+    <string name="brevent_allow_receiver">Enable boot receiver</string>
     <string name="brevent_allow_receiver_label">Start Brevent server when received \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
     <string name="brevent_about">About</string>

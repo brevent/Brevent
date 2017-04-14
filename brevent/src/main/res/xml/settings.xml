@@ -58,6 +58,12 @@
             android:summary="@string/brevent_abnormal_back_label"
             android:title="@string/brevent_abnormal_back" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="brevent_experimental"
+        android:title="@string/brevent_experimental">
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="brevent_optimize_vpn"
