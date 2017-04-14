@@ -2,7 +2,18 @@
 
 package=me.piebridge.brevent
 brevent=/data/local/tmp/brevent
-lnld=`dumpsys package $package | grep legacyNativeLibraryDir`
+if [ -x /system/bin/grep ]; then
+    grep=grep
+elif [ -f /system/bin/grep ]; then
+    rm -rf /data/local/tmp/grep
+    cp /system/bin/grep /data/local/tmp/grep
+    chmod 0755 /data/local/tmp/grep
+    grep=/data/local/tmp/grep
+else
+    echo "no grep" >&2
+    exit 1
+fi
+lnld=`dumpsys package $package | $grep legacyNativeLibraryDir`
 if [ x"$lnld" == x"" ]; then
     echo "please install $package" >&2
     exit 1
@@ -15,7 +26,7 @@ else
     else
         rm -rf $brevent
         cp $path $brevent
-        if echo $path | grep -q -v 64; then
+        if echo $path | $grep -q -v 64; then
             rm -rf /data/local/tmp/app_process
             if [ -x /system/bin/app_process32 ]; then
                 ln -s /system/bin/app_process32 /data/local/tmp/app_process
