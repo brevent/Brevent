@@ -5,7 +5,7 @@
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三個按鈕\n\n1. 返回鍵結束應用程式回到上一層畫面\n\n2. 點擊首頁鍵回到首頁\n\n3. 透過 最近使用的應用程式鍵 把應用程式放到背景；同時，允許應用程式使用長期執行的服務。當然，您也可以直接從清單內拉掉某個應用程式。\n\n黑域透過這種方式辨識您是否開啟或已經結束，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
-    <string name="fragment_guide_welcome_message2">當您按返回鍵結束應用程式時，應用程式及所包含的服務將不再執行；當您按 首頁鍵 或者 最近使用的應用程式鍵 或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域動態顯示空閒時間。</string>
+    <string name="fragment_guide_welcome_message2">當您按返回鍵結束應用程式時，應用程式及所包含的服務將不再執行；當您按「首頁鍵」或者「最近使用的應用程式鍵」或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域動態顯示空閒時間。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
@@ -144,7 +144,7 @@
     <string name="brevent_when_request">主動清理</string>
     <string name="brevent_when_request_label">進入黑域時，立即黑域，而不是根據事件級別延後處理。強迫症必備\n\n建議累計捐贈 2 美元</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。請現在按「主頁」讓黑域確認真正的「主頁」\n\nPlay 版需要捐贈 2 美元</string>
+    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。請現在按「首頁鍵」讓黑域確認真正的「首頁鍵」\n\nPlay 版需要捐贈 2 美元</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
@@ -152,7 +152,7 @@
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接啟動黑域服務\n\n需要透過 Play 商店捐贈 3 美元</string>
     <string name="brevent_allow_receiver">開機啟動</string>
-    <string name="brevent_allow_receiver_label">開機完成後開啟黑域服務\n\n依赖「允许 ROOT 執行」</string>
+    <string name="brevent_allow_receiver_label">開機完成後開啟黑域服務\n\n依賴「允許 ROOT 執行」</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
@@ -166,6 +166,6 @@
     <string name="brevent_about_translation">翻譯</string>
     <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
 
-    <string name="unsupported_owner">只有机主可以使用黑域。</string>
+    <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
 
 </resources>
