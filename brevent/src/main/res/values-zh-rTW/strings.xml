@@ -143,8 +143,8 @@
     <string name="brevent_check_notification_label">僅在您的裝置上進行解鎖及檢視通知時有延遲現象，才需要關閉</string>
     <string name="brevent_when_request">主動清理</string>
     <string name="brevent_when_request_label">進入黑域時，立即黑域，而不是根據事件級別延後處理。強迫症必備\n\n建議累計捐贈 2 美元</string>
-    <string name="brevent_abnormal_back">優化非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。啟用之後，當正常「返回」處理。請現在按「主頁」讓黑域確認真正的「主頁」\n\nPlay 版需要捐贈 2 美元，其它版請隨意捐贈</string>
+    <string name="brevent_abnormal_back">識別非正常「返回」</string>
+    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。請現在按「主頁」讓黑域確認真正的「主頁」\n\nPlay 版需要捐贈 2 美元</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
