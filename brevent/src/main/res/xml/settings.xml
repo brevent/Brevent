@@ -53,10 +53,16 @@
             android:title="@string/brevent_when_request" />
 
         <SwitchPreference
-            android:key="brevent_abnormal_back"
             android:defaultValue="false"
-            android:summary="@string/brevent_abnormal_back_label"
-            android:title="@string/brevent_abnormal_back" />
+            android:key="show_framework_apps"
+            android:summary="@string/show_framework_apps_label"
+            android:title="@string/show_framework_apps" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_all_apps"
+            android:summary="@string/show_all_apps_label"
+            android:title="@string/show_all_apps" />
 
     </PreferenceCategory>
 
@@ -69,6 +75,12 @@
             android:key="brevent_optimize_vpn"
             android:summary="@string/brevent_optimize_vpn_label"
             android:title="@string/brevent_optimize_vpn" />
+
+        <SwitchPreference
+            android:key="brevent_abnormal_back"
+            android:defaultValue="false"
+            android:summary="@string/brevent_abnormal_back_label"
+            android:title="@string/brevent_abnormal_back" />
 
         <SwitchPreference
             android:defaultValue="false"
@@ -86,31 +98,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="brevent_ui"
-        android:title="@string/brevent_ui">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="show_all_apps"
-            android:summary="@string/show_all_apps_label"
-            android:title="@string/show_all_apps" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="show_framework_apps"
-            android:summary="@string/show_framework_apps_label"
-            android:title="@string/show_framework_apps" />
+        android:key="brevent_about"
+        android:title="@string/brevent_about">
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
             android:title="@string/show_donation" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="brevent_about"
-        android:title="@string/brevent_about">
 
         <me.piebridge.brevent.ui.VersionPreference
             android:key="brevent_about_version"
@@ -120,10 +114,6 @@
             android:key="brevent_about_developer"
             android:summary="@string/brevent_about_developer_adb"
             android:title="@string/brevent_about_developer" />
-
-        <me.piebridge.brevent.ui.ProjectPreference
-            android:key="brevent_about_project"
-            android:title="@string/brevent_about_project" />
 
         <Preference
             android:key="brevent_about_translator"

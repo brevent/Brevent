@@ -40,11 +40,11 @@ public class SettingsFragment extends PreferenceFragment
 
     private PreferenceCategory breventExperimental;
 
-    private SwitchPreference preferenceDonation;
     private SwitchPreference preferenceOptimizeVpn;
+    private SwitchPreference preferenceAbnormalBack;
     private SwitchPreference preferenceAllowRoot;
     private SwitchPreference preferenceAllowReceiver;
-    private SwitchPreference preferenceAbnormalBack;
+    private SwitchPreference preferenceDonation;
 
     private Preference preferenceStandbyTimeout;
 
@@ -62,18 +62,20 @@ public class SettingsFragment extends PreferenceFragment
 
         Bundle arguments = getArguments();
         PreferenceScreen preferenceScreen = getPreferenceScreen();
+
         breventExperimental = (PreferenceCategory) preferenceScreen
                 .findPreference("brevent_experimental");
-        preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
         preferenceOptimizeVpn = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_OPTIMIZE_VPN);
+        preferenceAbnormalBack = (SwitchPreference) preferenceScreen.findPreference(
+                BreventConfiguration.BREVENT_ABNORMAL_BACK);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_ALLOW_ROOT);
         preferenceAllowReceiver = (SwitchPreference) preferenceScreen.findPreference(
                 BREVENT_ALLOW_RECEIVER);
-        preferenceAbnormalBack = (SwitchPreference) preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_ABNORMAL_BACK);
+
+        preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
         preferenceStandbyTimeout = preferenceScreen.findPreference(
                 BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
@@ -84,11 +86,9 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (!BuildConfig.RELEASE) {
-            // do nothing
-        } else if (arguments.getBoolean(IS_PLAY, false)) {
-            preferenceAbnormalBack.setEnabled(false);
+        if (BuildConfig.RELEASE && arguments.getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(false);
+            preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowReceiver.setEnabled(false);
         }
@@ -141,8 +141,8 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void onShowDonationChanged() {
-        boolean showDonation =
-                getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_DONATION, true);
+        boolean showDonation = getPreferenceScreen().getSharedPreferences()
+                .getBoolean(SHOW_DONATION, true);
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
@@ -174,33 +174,33 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void updatePlayVersion(int total) {
-        if (total < 0x1) {
-            preferenceAbnormalBack.setEnabled(false);
-            preferenceAbnormalBack.setChecked(false);
+        if (total <= 0x0) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceOptimizeVpn.setChecked(false);
-            preferenceAllowRoot.setEnabled(false);
-            preferenceAllowRoot.setChecked(false);
-            preferenceAllowReceiver.setEnabled(false);
-            preferenceAllowReceiver.setChecked(false);
-        } else if (total < 0x2) {
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);
-            preferenceOptimizeVpn.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
-        } else if (total < 0x3) {
-            preferenceAbnormalBack.setEnabled(true);
+        } else if (total == 0x1) {
             preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(false);
+            preferenceAbnormalBack.setChecked(false);
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+            preferenceAllowReceiver.setEnabled(false);
+            preferenceAllowReceiver.setChecked(false);
+        } else if (total == 0x2) {
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
         } else {
-            preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
             preferenceAllowReceiver.setEnabled(true);
         }
