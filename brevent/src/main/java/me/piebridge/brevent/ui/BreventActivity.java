@@ -52,7 +52,6 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -60,13 +59,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
+import dalvik.system.PathClassLoader;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -173,32 +169,27 @@ public class BreventActivity extends Activity
 
     private Snackbar mSnackBar;
 
+    private static final String CLASS_XPOSED_BRIDGE = "de.robv.android.xposed.XposedBridge";
+    private static final String CLASS_BREVENT_SERVER = "me.piebridge.brevent.server.BreventServer";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             // disable hooks
-            Field disableHooks = XposedBridge.class.getDeclaredField("disableHooks");
+            ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+            Class<?> clazz = Class.forName(CLASS_XPOSED_BRIDGE, false, systemClassLoader);
+            Field disableHooks = clazz.getDeclaredField("disableHooks");
             disableHooks.setAccessible(true);
             disableHooks.set(null, true);
 
-            // replace hooked method callbacks
-            Field sHookedMethodCallbacks =
-                    XposedBridge.class.getDeclaredField("sHookedMethodCallbacks");
-            sHookedMethodCallbacks.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<Member, XposedBridge.CopyOnWriteSortedSet<XC_MethodHook>> map =
-                    (Map<Member, XposedBridge.CopyOnWriteSortedSet<XC_MethodHook>>) sHookedMethodCallbacks.get(
-                            null);
-            for (XposedBridge.CopyOnWriteSortedSet<XC_MethodHook> hooked : map.values()) {
-                Object[] snapshot = hooked.getSnapshot();
-                int length = snapshot.length;
-                for (int i = 0; i < length; ++i) {
-                    snapshot[i] = XC_MethodReplacement.DO_NOTHING;
-                }
-            }
-        } catch (Throwable t) { // NOSONAR
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
+            PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
+            classLoader.loadClass(CLASS_BREVENT_SERVER).getMethod("b").invoke(null);
+        } catch (ClassNotFoundException e) {
             // do nothing
+        } catch (Throwable t) { // NOSONAR
+            UILog.e("Can't disable Xposed", t);
         }
         if (BuildConfig.RELEASE) {
             verifySignatures();
