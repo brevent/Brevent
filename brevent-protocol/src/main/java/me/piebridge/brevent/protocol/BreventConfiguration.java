@@ -159,7 +159,7 @@ public class BreventConfiguration extends BreventToken {
                 autoUpdate = Boolean.parseBoolean(value);
                 break;
             case BREVENT_TIMEOUT:
-                if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
+                if (isDigit(value, 0x7)) {
                     timeout = Integer.parseInt(value);
                 }
                 if (timeout < MIN_BREVENT_TIMEOUT) {
@@ -176,7 +176,7 @@ public class BreventConfiguration extends BreventToken {
                 optimizeVpn = Boolean.parseBoolean(value);
                 break;
             case BREVENT_STANDBY_TIMEOUT:
-                if (TextUtils.isDigitsOnly(value) && value.length() < 0x7) {
+                if (isDigit(value, 0x7)) {
                     standbyTimeout = Integer.parseInt(value);
                 }
                 if (standbyTimeout < MIN_BREVENT_STANDBY_TIMEOUT) {
@@ -195,6 +195,10 @@ public class BreventConfiguration extends BreventToken {
             default:
                 break;
         }
+    }
+
+    private boolean isDigit(String value, int maxLength) {
+        return !TextUtils.isEmpty(value) && TextUtils.isDigitsOnly(value) && value.length() < maxLength;
     }
 
     public boolean update(BreventConfiguration request) {
