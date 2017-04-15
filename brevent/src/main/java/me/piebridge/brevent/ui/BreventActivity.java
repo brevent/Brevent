@@ -735,6 +735,9 @@ public class BreventActivity extends Activity
     }
 
     public void onBreventResponse(BreventProtocol response) {
+        if (stopped) {
+            return;
+        }
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
@@ -1044,6 +1047,9 @@ public class BreventActivity extends Activity
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {
+        if (stopped) {
+            return;
+        }
         Message message = uiHandler.obtainMessage(UI_MESSAGE_SHOW_FRAGMENT, fragment);
         uiHandler.sendMessageDelayed(message, delayMillis);
     }

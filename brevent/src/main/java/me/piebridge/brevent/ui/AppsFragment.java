@@ -77,7 +77,10 @@ public abstract class AppsFragment extends Fragment {
     private void lazyLoad() {
         if (mVisible && mResumed && mRecycler != null) {
             if (mRecycler.getAdapter() == null) {
-                ((BreventActivity) getActivity()).showFragmentAsync(this, 0);
+                BreventActivity activity = (BreventActivity) getActivity();
+                if (activity != null) {
+                    activity.showFragmentAsync(this, 0);
+                }
             } else if (mExpired) {
                 mExpired = false;
                 mAdapter.retrievePackagesAsync();
