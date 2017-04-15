@@ -36,7 +36,6 @@ public class SettingsFragment extends PreferenceFragment
     public static final String BREVENT_ALLOW_RECEIVER = "brevent_allow_receiver";
     public static final boolean DEFAULT_BREVENT_ALLOW_RECEIVER = false;
 
-    public static final String HAS_PLAY = "has_play";
     public static final String IS_PLAY = "is_play";
 
     private PreferenceCategory breventExperimental;
@@ -89,10 +88,6 @@ public class SettingsFragment extends PreferenceFragment
             // do nothing
         } else if (arguments.getBoolean(IS_PLAY, false)) {
             preferenceAbnormalBack.setEnabled(false);
-            preferenceOptimizeVpn.setEnabled(false);
-            preferenceAllowRoot.setEnabled(false);
-            preferenceAllowReceiver.setEnabled(false);
-        } else if (arguments.getBoolean(HAS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowReceiver.setEnabled(false);
@@ -170,29 +165,41 @@ public class SettingsFragment extends PreferenceFragment
         } else if (contributor) {
             preferenceDonation.setSummary(R.string.show_donation_contributor);
         }
-        if (contributor) {
-            total += 0x5;
+        if (getArguments().getBoolean(IS_PLAY, false)) {
+            if (contributor) {
+                total += 0x5;
+            }
+            updatePlayVersion(total);
         }
-        if (getArguments().getBoolean(IS_PLAY, false) && total < 0x2) {
+    }
+
+    private void updatePlayVersion(int total) {
+        if (total < 0x1) {
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);
-        } else {
-            preferenceAbnormalBack.setEnabled(true);
-        }
-        if (total < 0x1) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceOptimizeVpn.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
+        } else if (total < 0x2) {
+            preferenceAbnormalBack.setEnabled(false);
+            preferenceAbnormalBack.setChecked(false);
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+            preferenceAllowReceiver.setEnabled(false);
+            preferenceAllowReceiver.setChecked(false);
         } else if (total < 0x3) {
+            preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
         } else {
+            preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
             preferenceAllowReceiver.setEnabled(true);

@@ -151,9 +151,9 @@
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
-    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD in Play Store</string>
+    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD in Play Store</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD for Play version</string>
     <string name="brevent_allow_receiver">Enable boot receiver</string>
     <string name="brevent_allow_receiver_label">Start Brevent server when received \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
