@@ -254,4 +254,8 @@ public class BreventConfiguration extends BreventToken {
         }
     };
 
+    public boolean isForceStopOnly() {
+        return method == BREVENT_METHOD_FORCE_STOP_ONLY;
+    }
+
 }
