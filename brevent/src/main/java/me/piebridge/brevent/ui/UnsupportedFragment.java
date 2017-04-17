@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,6 +16,8 @@ import me.piebridge.brevent.R;
  */
 public class UnsupportedFragment extends DialogFragment implements DialogInterface.OnKeyListener {
 
+    private int message = R.string.unsupported_owner;
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createDialog();
     }
@@ -23,7 +26,7 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        builder.setMessage(getString(R.string.unsupported_owner));
+        builder.setMessage(getString(message));
         builder.setOnKeyListener(this);
         return builder.create();
     }
@@ -34,6 +37,11 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
             getActivity().finish();
         }
         return false;
+    }
+
+    public DialogFragment setMessage(int message) {
+        this.message = message;
+        return this;
     }
 
 }

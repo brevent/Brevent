@@ -162,5 +162,6 @@
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
+    <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
 
 </resources>

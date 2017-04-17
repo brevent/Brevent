@@ -52,6 +52,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -175,10 +176,12 @@ public class BreventActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        boolean disabledXposed = true;
         try {
             // disable hooks
             ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
             Class<?> clazz = Class.forName(CLASS_XPOSED_BRIDGE, false, systemClassLoader);
+            disabledXposed = false;
             Field disableHooks = clazz.getDeclaredField("disableHooks");
             disableHooks.setAccessible(true);
             disableHooks.set(null, true);
@@ -186,17 +189,22 @@ public class BreventActivity extends Activity
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
             PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
             classLoader.loadClass(CLASS_BREVENT_SERVER).getMethod("b").invoke(null);
-        } catch (ClassNotFoundException e) {
+            disabledXposed = true;
+        } catch (ClassNotFoundException | PackageManager.NameNotFoundException e) {
             // do nothing
-        } catch (Throwable t) { // NOSONAR
-            UILog.e("Can't disable Xposed", t);
+        } catch (ReflectiveOperationException e) {
+            UILog.d("Can't disable Xposed", e);
         }
         if (BuildConfig.RELEASE) {
             verifySignatures();
         }
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (!BreventApplication.IS_OWNER) {
+        if (!disabledXposed) {
+            new UnsupportedFragment()
+                    .setMessage(R.string.unsupported_xposed)
+                    .show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        } else if (!BreventApplication.IS_OWNER) {
             new UnsupportedFragment().show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
         } else if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
