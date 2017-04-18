@@ -51,7 +51,6 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -170,30 +169,34 @@ public class BreventActivity extends Activity
 
     private Snackbar mSnackBar;
 
-    private static final String CLASS_XPOSED_BRIDGE = "de.robv.android.xposed.XposedBridge";
-    private static final String CLASS_BREVENT_SERVER = "me.piebridge.brevent.server.BreventServer";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean disabledXposed = true;
-        try {
-            // disable hooks
-            ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-            Class<?> clazz = Class.forName(CLASS_XPOSED_BRIDGE, false, systemClassLoader);
-            disabledXposed = false;
-            Field disableHooks = clazz.getDeclaredField("disableHooks");
-            disableHooks.setAccessible(true);
-            disableHooks.set(null, true);
-
-            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
-            PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
-            classLoader.loadClass(CLASS_BREVENT_SERVER).getMethod("b").invoke(null);
-            disabledXposed = true;
-        } catch (ClassNotFoundException | PackageManager.NameNotFoundException e) {
-            // do nothing
-        } catch (ReflectiveOperationException e) {
-            UILog.d("Can't disable Xposed", e);
+        boolean disabledXposed = !BuildConfig.RELEASE;
+        if (BuildConfig.SERVER != null) {
+            String clazzServer = String.valueOf(BuildConfig.SERVER);
+            try {
+                ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+                ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
+                PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
+                classLoader.loadClass(clazzServer).getMethod(String.valueOf('b')).invoke(null);
+                disabledXposed = true;
+            } catch (Throwable t) {
+                if (t instanceof InvocationTargetException) {
+                    Throwable throwable = ((InvocationTargetException) t).getTargetException();
+                    if (throwable instanceof NoClassDefFoundError) {
+                        StackTraceElement[] elements = throwable.getStackTrace();
+                        int l = elements.length - 1;
+                        if (l > 0x7 && elements[0].getClassName().equals(clazzServer) &&
+                                elements[l].getClassName().startsWith("com.android.internal.os")) {
+                            disabledXposed = true;
+                        }
+                    }
+                }
+                if (!disabledXposed) {
+                    UILog.d("Can't disable Xposed", t);
+                }
+            }
         }
         if (BuildConfig.RELEASE) {
             verifySignatures();

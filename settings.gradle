@@ -1,4 +1,4 @@
 include ':hidden-api', ':brevent', ':log-reader', ':donation', ':hidden-api-override-m', ':brevent-override-m', ':brevent-override', ':hidden-api-override', ':brevent-protocol'
-if (file('ant.properties').exists()) {
+if (file('brevent-server').exists()) {
     include ':brevent-server'
 }

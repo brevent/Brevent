@@ -6,3 +6,12 @@ dependencies {
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+task deleteField(type: Delete) {
+    delete fileTree('build').include('**/Field.class')
+    delete file('build/classes/main/java')
+}
+
+tasks.withType(JavaCompile) { compileTask ->
+    compileTask.finalizedBy deleteField
+}
