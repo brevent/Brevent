@@ -26,6 +26,7 @@ else
     else
         rm -rf $brevent
         cp $path $brevent
+        chmod 0755 $brevent
         if echo $path | $grep -q -v 64; then
             rm -rf /data/local/tmp/app_process
             if [ -x /system/bin/app_process32 ]; then
