@@ -167,5 +167,6 @@
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
+    <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
 
 </resources>

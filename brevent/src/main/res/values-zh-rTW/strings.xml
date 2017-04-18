@@ -165,6 +165,6 @@
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
-
+    <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
 
 </resources>

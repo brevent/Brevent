@@ -64,6 +64,9 @@
             <intent-filter>
                 <action android:name="me.piebridge.brevent.intent.action.HOME_TID" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.ADD_PACKAGE" />
+            </intent-filter>
         </receiver>
 
         <service android:name=".ui.BreventIntentService" />

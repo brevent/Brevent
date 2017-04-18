@@ -3,6 +3,8 @@ package me.piebridge.brevent.ui;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.widget.Toast;
 
 import me.piebridge.brevent.R;
@@ -22,7 +24,35 @@ public class BreventServerReceiver extends BroadcastReceiver {
                 String message = context.getResources().getString(R.string.toast_home_tid, homeTid);
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
+        } else if (BreventIntent.ACTION_ADD_PACKAGE.equals(action)) {
+            String packageName = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME);
+            int size = intent.getIntExtra(BreventIntent.EXTRA_BREVENT_SIZE, 0);
+            CharSequence label = getLabel(context, packageName);
+            if (label != null && size > 1) {
+                String message = context.getResources().getString(R.string.toast_add_package,
+                        label, size);
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            }
         }
+    }
+
+    private CharSequence getLabel(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        ApplicationInfo applicationInfo;
+        try {
+            applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            return null;
+        }
+        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
+        CharSequence label;
+        if (launchIntent == null) {
+            label = applicationInfo.loadLabel(packageManager);
+        } else {
+            label = packageManager.resolveActivity(launchIntent, 0).activityInfo.loadLabel(
+                    packageManager);
+        }
+        return label;
     }
 
 }
