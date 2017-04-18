@@ -138,7 +138,7 @@
     <string name="brevent_optimize_vpn">優化 VPN</string>
     <string name="brevent_optimize_vpn_label">啓用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要捐贈 1 美元</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。請現在按「首頁鍵」讓黑域確認真正的「首頁鍵」\n\nPlay 版需要捐贈 2 美元</string>
+    <string name="brevent_abnormal_back_label">某些應用程式在您按「返回」按鈕時，移到後台或者打開主畫面。請連按 7 次「首頁鍵」讓黑域確認真正的「首頁鍵」\n\nPlay 版需要捐贈 2 美元</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接啟動黑域服務\n\nPlay 版需要捐贈 3 美元</string>
     <string name="brevent_allow_receiver">開機啟動</string>

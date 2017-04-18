@@ -140,7 +140,7 @@
     <string name="brevent_optimize_vpn">Optimize VPN</string>
     <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD for Play version</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
-    <string name="brevent_abnormal_back_label">Some apps move to background or open Launcher when Back is pressed. Please click Home now to help Brevent make sure real Home\n\nRequires donate total 2 USD for Play version</string>
+    <string name="brevent_abnormal_back_label">Some apps move to background or open Launcher when Back is pressed. Please click Home 7 times to help Brevent make sure real Home\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD for Play version</string>
     <string name="brevent_allow_receiver">Enable boot receiver</string>
