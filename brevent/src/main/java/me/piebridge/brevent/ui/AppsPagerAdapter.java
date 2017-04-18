@@ -105,4 +105,12 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    public void setExpired() {
+        for (AppsFragment fragment : mFragments) {
+            if (fragment != null) {
+                fragment.setExpired();
+            }
+        }
+    }
+
 }

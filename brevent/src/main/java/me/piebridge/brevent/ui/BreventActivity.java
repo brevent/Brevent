@@ -169,6 +169,8 @@ public class BreventActivity extends Activity
 
     private Snackbar mSnackBar;
 
+    private int mInstalledCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -831,8 +833,13 @@ public class BreventActivity extends Activity
             resolveGcmPackages(mGcm);
         }
 
+        int installedCount = getPackageManager().getInstalledPackages(0).size();
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
+            mInstalledCount = installedCount;
+        } else if (mInstalledCount != installedCount) {
+            mInstalledCount = installedCount;
+            mAdapter.setExpired();
         }
         uiHandler.sendEmptyMessage(UI_MESSAGE_HIDE_PROGRESS);
         uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_PAGER);
