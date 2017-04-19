@@ -16,6 +16,11 @@ android {
         Properties properties = new Properties()
         properties.load(new FileInputStream(rootProject.file('ant.properties')))
 
+        dexOptions {
+            additionalParameters += '--main-dex-list=build/maindexlist.txt'
+            additionalParameters += '--minimal-main-dex'
+        }
+
         defaultConfig {
             versionCode rootProject.versionCode
             versionName rootProject.versionName
@@ -33,6 +38,7 @@ android {
             buildConfigField 'byte[]', 'SIGNATURE', properties['build.signature']
             buildConfigField 'char[]', 'SERVER', properties['build.server']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
+            multiDexEnabled true
         }
 
         signingConfigs {
@@ -179,3 +185,23 @@ tasks.withType(JavaCompile) { compileTask ->
 
 clean.dependsOn cleanBootstrap
 clean.dependsOn deleteNativeBuild
+
+task genMainDexList {
+    doLast {
+        def path = fileTree(dir: 'build', include: '**/*.jar').asPath
+        def writer = new java.io.PrintWriter('build/maindexlist.txt')
+        def file = new java.util.zip.ZipFile(path)
+        file.entries().each {
+            if (!it.name.startsWith('me/piebridge/brevent/server')) {
+                writer.println(it.name)
+            }
+        }
+        writer.close()
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'transformClassesAndResourcesWithProguardForRelease') {
+        task.finalizedBy genMainDexList
+    }
+}

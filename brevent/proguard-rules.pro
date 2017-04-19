@@ -23,6 +23,14 @@
 
 -keep class com.android.vending.billing.**
 
+-keepnames class me.piebridge.brevent.protocol.** {
+    public <methods>;
+}
+
+-keepnames class me.piebridge.brevent.override.** {
+    public <methods>;
+}
+
 -keep class me.piebridge.brevent.server.BreventServer {
     public <methods>;
 }
