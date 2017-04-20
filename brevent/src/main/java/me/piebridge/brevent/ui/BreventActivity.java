@@ -42,6 +42,7 @@ import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
 import android.telecom.TelecomManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
@@ -54,6 +55,7 @@ import android.widget.Toolbar;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -74,10 +76,12 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventStatus;
-import me.piebridge.brevent.protocol.TileUtils;
 
 public class BreventActivity extends Activity
         implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
+
+    private static final String CUSTOM_TILE_PREFIX = "custom(";
+    private static final int CUSTOM_TILE_LENGTH = 7;
 
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
@@ -1039,7 +1043,7 @@ public class BreventActivity extends Activity
         // tile
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String tiles = getSecureSetting(HideApiOverrideN.QS_TILES);
-            for (String packageName : TileUtils.parseTiles(tiles)) {
+            for (String packageName : parseTiles(tiles)) {
                 packageNames.put(packageName, IMPORTANT_TILE);
             }
         }
@@ -1204,6 +1208,23 @@ public class BreventActivity extends Activity
             // do nothing
             return null;
         }
+    }
+
+    public static Collection<String> parseTiles(String tiles) {
+        if (TextUtils.isEmpty(tiles)) {
+            return Collections.emptyList();
+        }
+        Collection<String> packageNames = new ArrayList<>();
+        for (String tile : tiles.split(",")) {
+            // custom(com.github.shadowsocks/.ShadowsocksTileService)
+            if (tile.startsWith(CUSTOM_TILE_PREFIX) && tile.endsWith(")")) {
+                int index = tile.indexOf('/');
+                if (index > 0) {
+                    packageNames.add(tile.substring(CUSTOM_TILE_LENGTH, index));
+                }
+            }
+        }
+        return packageNames;
     }
 
 }

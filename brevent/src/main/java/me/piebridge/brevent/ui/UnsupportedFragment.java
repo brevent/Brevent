@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

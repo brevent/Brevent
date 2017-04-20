@@ -86,6 +86,10 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        if (!BuildConfig.RELEASE) {
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
+                    .removePreference(preferenceDonation);
+        }
         if (BuildConfig.RELEASE && arguments.getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);

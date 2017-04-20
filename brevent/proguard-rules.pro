@@ -23,11 +23,11 @@
 
 -keep class com.android.vending.billing.**
 
--keep public class me.piebridge.brevent.protocol.** {
+-keep public class me.piebridge.brevent.protocol.Brevent** {
     public *;
 }
 
--keep public class me.piebridge.brevent.override.** {
+-keep public class me.piebridge.brevent.override.HideApiOverride** {
     public *;
 }
 

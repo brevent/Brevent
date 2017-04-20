@@ -128,6 +128,26 @@ if (rootProject.file('brevent-server').exists()) {
     dependencies {
         compile project(':brevent-server')
     }
+
+    task genMainDexList {
+        doLast {
+            def path = fileTree(dir: 'build', include: '**/*.jar').asPath
+            def writer = new java.io.PrintWriter('build/maindexlist.txt')
+            def file = new java.util.zip.ZipFile(path)
+            file.entries().each {
+                if (!it.name.startsWith('me/piebridge/brevent/server')) {
+                    writer.println(it.name)
+                }
+            }
+            writer.close()
+        }
+    }
+
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'transformClassesAndResourcesWithProguardForRelease') {
+            task.finalizedBy genMainDexList
+        }
+    }
 }
 
 
@@ -186,23 +206,3 @@ tasks.withType(JavaCompile) { compileTask ->
 
 clean.dependsOn cleanBootstrap
 clean.dependsOn deleteNativeBuild
-
-task genMainDexList {
-    doLast {
-        def path = fileTree(dir: 'build', include: '**/*.jar').asPath
-        def writer = new java.io.PrintWriter('build/maindexlist.txt')
-        def file = new java.util.zip.ZipFile(path)
-        file.entries().each {
-            if (!it.name.startsWith('me/piebridge/brevent/server')) {
-                writer.println(it.name)
-            }
-        }
-        writer.close()
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'transformClassesAndResourcesWithProguardForRelease') {
-        task.finalizedBy genMainDexList
-    }
-}

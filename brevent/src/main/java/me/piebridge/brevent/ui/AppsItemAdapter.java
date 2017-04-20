@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.TimeUtils;
+import me.piebridge.brevent.protocol.BreventStatus;
 
 /**
  * Created by thom on 2017/1/25.
@@ -165,7 +165,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             if (viewHolder.inactive > 0) {
                 viewHolder.inactiveView.setVisibility(View.VISIBLE);
                 viewHolder.inactiveView.setText(
-                        DateUtils.formatElapsedTime(TimeUtils.now() - viewHolder.inactive));
+                        DateUtils.formatElapsedTime(BreventStatus.now() - viewHolder.inactive));
             } else {
                 viewHolder.inactiveView.setVisibility(View.GONE);
             }

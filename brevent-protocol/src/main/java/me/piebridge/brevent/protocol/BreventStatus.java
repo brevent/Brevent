@@ -3,12 +3,14 @@ package me.piebridge.brevent.protocol;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseIntArray;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import me.piebridge.brevent.override.HideApiOverride;
 
@@ -176,6 +178,11 @@ public class BreventStatus extends BreventToken implements Parcelable {
             }
         }
         return false;
+    }
+
+    public static int now() {
+        // i don't think can larger than Integer.MAX_VALUE, which is boot since 68 years
+        return (int) TimeUnit.MILLISECONDS.toSeconds(SystemClock.elapsedRealtime());
     }
 
 }
