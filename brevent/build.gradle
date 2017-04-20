@@ -120,6 +120,7 @@ dependencies {
     compile project(':donation')
     compile project(':brevent-protocol')
     compile project(':brevent-override-m')
+    compile project(':log-reader')
     compile 'eu.chainfire:libsuperuser:1.0.0.201608240809'
 }
 

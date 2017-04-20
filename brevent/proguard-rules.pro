@@ -23,12 +23,12 @@
 
 -keep class com.android.vending.billing.**
 
--keepnames class me.piebridge.brevent.protocol.** {
-    public <methods>;
+-keep public class me.piebridge.brevent.protocol.** {
+    public *;
 }
 
--keepnames class me.piebridge.brevent.override.** {
-    public <methods>;
+-keep public class me.piebridge.brevent.override.** {
+    public *;
 }
 
 -keep class me.piebridge.brevent.server.BreventServer {
@@ -40,6 +40,8 @@
 -keep class me.piebridge.LogReader { *; }
 
 -dontnote eu.chainfire.libsuperuser.Shell*
+
+-dontnote me.piebridge.brevent.server.BreventServer
 
 -dontwarn me.piebridge.brevent.override.HideApiOverride*
 
