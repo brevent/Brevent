@@ -145,8 +145,13 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void onShowDonationChanged() {
-        boolean showDonation = getPreferenceScreen().getSharedPreferences()
-                .getBoolean(SHOW_DONATION, true);
+        boolean showDonation;
+        if (BuildConfig.RELEASE) {
+            showDonation = getPreferenceScreen().getSharedPreferences()
+                    .getBoolean(SHOW_DONATION, true);
+        } else {
+            showDonation = false;
+        }
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
