@@ -4,20 +4,20 @@
     <string name="app_name">Brevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you finished your work and wanted to quit.\nPressing Home would start the launcher and kick this app into background.</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in backgroud and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back, they would be force-stopped.\nPressing Home and they would be kept in the background to finish their tasks, once the time period you set is out they would be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and wanted to quit.\nPressing Home will start the launcher and kick this app into background.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in backgroud and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require root access or modifying your unlocked device. Debugging mode doesn\'t require root access, nor unlocking, it\'s much safer to use. \n\nThere is an experimental ROOT feature, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT features. ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">Some similar apps require root access or modifying your unlocked device. Debugging mode doesn\'t require root access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT feature, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT features. ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after starting Brevent service successfully.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these API, so there would be some issues when using.</string>
+    <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after Brevent service is started successfully.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). If you find some apps still running, please use Brevent or other tools to check its status.\n\nAnd to increase battery performance, Brevent server delay the processes by 3 to 60 seconds according the event level.\n\nWhen you swipe apps away from recent screen, Android will kill the processes and Brevent would force-stop them ASAP.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). If you find some apps still running, please use Brevent or other tools to check its status.\n\nAnd to increase battery performance, Brevent server delay the processes by 3 to 60 seconds according to the event level.\n\nWhen you swipe apps away from recent screen, Android will kill the processes and Brevent would force-stop them ASAP.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets you communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
@@ -34,7 +34,7 @@
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
     <string name="brevent_service_run_as_root">Run as ROOT</string>
-    <string name="brevent_service_success">Brevent service started successfully. Please click app icons to choose them, and brevent them</string>
+    <string name="brevent_service_success">Brevent service started successfully. Please click app icons to choose them and brevent them</string>
 
     <string name="fragment_apps_user">User Apps</string>
     <string name="fragment_apps_system">System Apps</string>
@@ -108,9 +108,9 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from Recent Tasks list\n\nAlways force-stop awaken apps have no activity</string>
-    <string name="brevent_method_standby_only_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps have no activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (by pressing \"Back\"), or background apps timed out, or clear apps from Recent Task list\n\nBrevent always force-stop awaken apps have no activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from Recent Tasks list\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (by pressing \"Back\"), or background apps timed out, or clear apps from Recent Task list\n\nBrevent always force-stop awaken apps which have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
@@ -128,13 +128,13 @@
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_check_notification">Check notifications</string>
-    <string name="brevent_check_notification_label">Only turn off if device freeze when unlock or view notification</string>
+    <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
     <string name="brevent_when_request">Brevent manually</string>
-    <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delay the processes according the event level</string>
+    <string name="brevent_when_request_label">Do a brevent when you launch Brevent. Normally, Brevent server delays the processes according to the event level</string>
     <string name="show_framework_apps">Show framework apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
     <string name="show_all_apps">Show all apps</string>
-    <string name="show_all_apps_label">Including system and framework apps cannot be open\n\nBe careful when breventing system and framework apps cannot be open</string>
+    <string name="show_all_apps_label">Including system and framework apps which cannot be open\n\nBe careful when breventing system and framework apps which cannot be open</string>
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
@@ -144,7 +144,7 @@
     <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD for Play version</string>
     <string name="brevent_allow_receiver">Enable boot receiver</string>
-    <string name="brevent_allow_receiver_label">Start Brevent server when received \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
+    <string name="brevent_allow_receiver_label">Start Brevent server when receives \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show donation</string>
@@ -160,7 +160,7 @@
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">Thom, DKOUT</string>
+    <string name="brevent_about_translator">Thom, DKOUT, aviraxp</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
