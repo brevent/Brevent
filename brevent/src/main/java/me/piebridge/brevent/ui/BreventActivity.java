@@ -845,6 +845,9 @@ public class BreventActivity extends Activity
             mInstalledCount = installedCount;
             mAdapter.setExpired();
         }
+        if (uiHandler == null) {
+            return;
+        }
         uiHandler.sendEmptyMessage(UI_MESSAGE_HIDE_PROGRESS);
         uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_PAGER);
 
