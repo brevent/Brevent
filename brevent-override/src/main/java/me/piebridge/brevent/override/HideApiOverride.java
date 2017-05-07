@@ -60,6 +60,10 @@ public class HideApiOverride {
         return UserHandle.myUserId();
     }
 
+    public static int getUserId(int uid) {
+        return UserHandle.getUserId(uid);
+    }
+
     public static int myPpid() {
         return Process.myPpid();
     }

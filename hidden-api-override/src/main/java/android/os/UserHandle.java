@@ -19,4 +19,8 @@ public class UserHandle {
         throw new UnsupportedOperationException();
     }
 
+    public static int getUserId(int uid) {
+        throw new UnsupportedOperationException();
+    }
+
 }
