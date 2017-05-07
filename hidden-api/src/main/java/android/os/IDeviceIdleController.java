@@ -1,11 +1,11 @@
 package android.os;
 
-import android.annotation.TargetApi;
+import android.support.annotation.RequiresApi;
 
 /**
  * Created by thom on 2017/3/4.
  */
-@TargetApi(Build.VERSION_CODES.M)
+@RequiresApi(Build.VERSION_CODES.M)
 public interface IDeviceIdleController {
 
     String[] getFullPowerWhitelist() throws RemoteException;
