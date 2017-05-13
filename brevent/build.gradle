@@ -132,7 +132,7 @@ if (rootProject.file('brevent-server').exists()) {
     task genMainDexList {
         doLast {
             def path = fileTree(dir: 'build', include: '**/*.jar').asPath
-            def writer = new java.io.PrintWriter('build/maindexlist.txt')
+            def writer = new PrintWriter('build/maindexlist.txt')
             def file = new java.util.zip.ZipFile(path)
             file.entries().each {
                 if (!it.name.startsWith('me/piebridge/brevent/server')) {
