@@ -349,7 +349,7 @@ public class BreventActivity extends Activity
         }
         DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
-            fragment.dismiss();
+            fragment.dismissAllowingStateLoss();
         }
     }
 
