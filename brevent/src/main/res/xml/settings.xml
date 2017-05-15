@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
+    <me.piebridge.brevent.ui.ColorPreferenceCategory
         android:key="brevent_list"
         android:title="@string/brevent_list">
 
@@ -34,9 +34,9 @@
             android:summary="@string/brevent_standby_timeout_label"
             android:title="@string/brevent_standby_timeout" />
 
-    </PreferenceCategory>
+    </me.piebridge.brevent.ui.ColorPreferenceCategory>
 
-    <PreferenceCategory
+    <me.piebridge.brevent.ui.ColorPreferenceCategory
         android:key="brevent_advanced"
         android:title="@string/brevent_advanced">
 
@@ -64,9 +64,9 @@
             android:summary="@string/show_all_apps_label"
             android:title="@string/show_all_apps" />
 
-    </PreferenceCategory>
+    </me.piebridge.brevent.ui.ColorPreferenceCategory>
 
-    <PreferenceCategory
+    <me.piebridge.brevent.ui.ColorPreferenceCategory
         android:key="brevent_experimental"
         android:title="@string/brevent_experimental">
 
@@ -95,9 +95,9 @@
             android:summary="@string/brevent_allow_receiver_label"
             android:title="@string/brevent_allow_receiver" />
 
-    </PreferenceCategory>
+    </me.piebridge.brevent.ui.ColorPreferenceCategory>
 
-    <PreferenceCategory
+    <me.piebridge.brevent.ui.ColorPreferenceCategory
         android:key="brevent_about"
         android:title="@string/brevent_about">
 
@@ -128,6 +128,6 @@
 
         </PreferenceScreen>
 
-    </PreferenceCategory>
+    </me.piebridge.brevent.ui.ColorPreferenceCategory>
 
 </PreferenceScreen>
