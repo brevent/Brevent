@@ -34,6 +34,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         setContentView(R.layout.activity_settings);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ColorUtils.fixToolbar(this, toolbar);
         setActionBar(toolbar);
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
