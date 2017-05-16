@@ -498,7 +498,9 @@ public class BreventActivity extends Activity
             return 0;
         }
         SparseIntArray status = mProcesses.get(packageName);
-        if (BreventStatus.isStandby(status)) {
+        if (isFavorite(packageName)) {
+            return R.drawable.ic_favorite_black_24dp;
+        } else if (BreventStatus.isStandby(status)) {
             return R.drawable.ic_snooze_black_24dp;
         } else if (BreventStatus.isRunning(status)) {
             return R.drawable.ic_alarm_black_24dp;
