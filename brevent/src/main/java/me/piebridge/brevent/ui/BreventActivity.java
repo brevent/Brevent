@@ -241,9 +241,9 @@ public class BreventActivity extends Activity
 
             mTitles = getResources().getStringArray(R.array.fragment_apps);
 
-            mColorControlNormal = resolveColor(android.R.attr.colorControlNormal);
-            mTextColorPrimary = resolveColor(android.R.attr.textColorPrimary);
-            mColorControlHighlight = resolveColor(android.R.attr.colorControlHighlight);
+            mColorControlNormal = ColorUtils.resolveColor(this, android.R.attr.colorControlNormal);
+            mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
+            mColorControlHighlight = ColorUtils.resolveColor(this, android.R.attr.colorControlHighlight);
         }
     }
 
@@ -1105,19 +1105,6 @@ public class BreventActivity extends Activity
 
     public void showSnackbar(String message) {
         Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG).show();
-    }
-
-    public int resolveColor(int resId) {
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(resId, tv, true);
-        if (tv.type == TypedValue.TYPE_NULL) {
-            return Color.BLACK;
-        } else if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT &&
-                tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            return tv.data;
-        } else {
-            return ContextCompat.getColor(this, tv.resourceId);
-        }
     }
 
     public String getLabel(String label, String packageName) {

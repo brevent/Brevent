@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.widget.Toolbar;
@@ -17,7 +18,9 @@ public class ColorUtils {
     public static int resolveColor(Context context, int resId) {
         TypedValue tv = new TypedValue();
         context.getTheme().resolveAttribute(resId, tv, true);
-        if (isColor(tv.type)) {
+        if (tv.type == TypedValue.TYPE_NULL) {
+            return Color.BLACK;
+        } else if (isColor(tv.type)) {
             return tv.data;
         } else {
             return ContextCompat.getColor(context, tv.resourceId);
