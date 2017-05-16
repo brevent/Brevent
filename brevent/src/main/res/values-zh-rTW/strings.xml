@@ -83,7 +83,6 @@
     <string name="important_dialer">%s (電話應用程式)</string>
     <string name="important_assistant">%s (小幫手應用程式)</string>
     <string name="important_webview">%s (WebView 實作)</string>
-    <string name="important_tile">%s (快捷設定)</string>
     <string name="important_accessibility">%s (無障礙設定)</string>
     <string name="important_device_admin">%s (裝置管理員)</string>
     <string name="important_gcm">%s（FCM）</string>

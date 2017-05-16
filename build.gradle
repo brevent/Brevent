@@ -39,7 +39,7 @@ project.ext.minSdkVersion = 21
 
 project.ext.targetSdkVersion = 25
 
-project.ext.versionCode = 41
+project.ext.versionCode = 42
 
 project.ext.simpleVersionName = getBreventVersion()
 

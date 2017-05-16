@@ -16,7 +16,6 @@ public class HideApiOverrideN {
     public static final int USER_SYSTEM = getUserSystem();
 
     public static final String WEBVIEW_PROVIDER = getWebviewProvider();
-    public static final String QS_TILES = getQsTiles();
 
     public static final int FREEFORM_WORKSPACE_STACK_ID = getFreeformWorkspaceStackId();
 
@@ -43,15 +42,6 @@ public class HideApiOverrideN {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find Settings.Global.WEBVIEW_PROVIDER");
             return "webview_provider";
-        }
-    }
-
-    private static String getQsTiles() {
-        try {
-            return Settings.Secure.QS_TILES;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find Settings.Secure.QS_TILES");
-            return "sysui_qs_tiles";
         }
     }
 

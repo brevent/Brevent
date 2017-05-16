@@ -85,7 +85,6 @@
     <string name="important_dialer">%s (Phone app)</string>
     <string name="important_assistant">%s (Assist app)</string>
     <string name="important_webview">%s (WebView)</string>
-    <string name="important_tile">%s (Quick Settings)</string>
     <string name="important_accessibility">%s (Accessibility)</string>
     <string name="important_device_admin">%s (Device admin)</string>
     <string name="important_gcm">%s (FCM)</string>

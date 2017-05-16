@@ -83,7 +83,6 @@
     <string name="important_dialer">%s（电话应用）</string>
     <string name="important_assistant">%s（辅助应用）</string>
     <string name="important_webview">%s（Webview 实现）</string>
-    <string name="important_tile">%s（快捷设置）</string>
     <string name="important_accessibility">%s（无障碍应用）</string>
     <string name="important_device_admin">%s（设备管理器）</string>
     <string name="important_gcm">%s（FCM）</string>

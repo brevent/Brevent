@@ -20,7 +20,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,15 +36,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
 import android.telecom.TelecomManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +51,6 @@ import android.widget.Toolbar;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,9 +74,6 @@ import me.piebridge.brevent.protocol.BreventStatus;
 
 public class BreventActivity extends Activity
         implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
-
-    private static final String CUSTOM_TILE_PREFIX = "custom(";
-    private static final int CUSTOM_TILE_LENGTH = 7;
 
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
@@ -112,11 +104,10 @@ public class BreventActivity extends Activity
     public static final int IMPORTANT_DIALER = 6;
     public static final int IMPORTANT_ASSISTANT = 7;
     public static final int IMPORTANT_WEBVIEW = 8;
-    public static final int IMPORTANT_TILE = 9;
-    public static final int IMPORTANT_ACCESSIBILITY = 10;
-    public static final int IMPORTANT_DEVICE_ADMIN = 11;
-    public static final int IMPORTANT_BATTERY = 13;
-    public static final int IMPORTANT_TRUST_AGENT = 14;
+    public static final int IMPORTANT_ACCESSIBILITY = 9;
+    public static final int IMPORTANT_DEVICE_ADMIN = 10;
+    public static final int IMPORTANT_BATTERY = 11;
+    public static final int IMPORTANT_TRUST_AGENT = 12;
 
     private static final int ROOT_TIMEOUT = 10000;
 
@@ -499,7 +490,7 @@ public class BreventActivity extends Activity
         }
         SparseIntArray status = mProcesses.get(packageName);
         if (isFavorite(packageName)) {
-            return R.drawable.ic_favorite_black_24dp;
+            return R.drawable.ic_favorite_border_black_24dp;
         } else if (BreventStatus.isStandby(status)) {
             return R.drawable.ic_snooze_black_24dp;
         } else if (BreventStatus.isRunning(status)) {
@@ -1035,22 +1026,14 @@ public class BreventActivity extends Activity
             try {
                 IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(
                         ServiceManager.getService("deviceidle"));
-                String[] fullPowerWhitelist = deviceidle.getFullPowerWhitelist();
-                if (fullPowerWhitelist != null) {
-                    for (String s : fullPowerWhitelist) {
+                String[] fullPowerWhiteList = deviceidle.getFullPowerWhitelist();
+                if (fullPowerWhiteList != null) {
+                    for (String s : fullPowerWhiteList) {
                         packageNames.put(s, IMPORTANT_BATTERY);
                     }
                 }
             } catch (RemoteException e) {
                 // do nothing
-            }
-        }
-
-        // tile
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            String tiles = getSecureSetting(HideApiOverrideN.QS_TILES);
-            for (String packageName : parseTiles(tiles)) {
-                packageNames.put(packageName, IMPORTANT_TILE);
             }
         }
 
@@ -1139,8 +1122,6 @@ public class BreventActivity extends Activity
                 return getString(R.string.important_assistant, label);
             case IMPORTANT_WEBVIEW:
                 return getString(R.string.important_webview, label);
-            case IMPORTANT_TILE:
-                return getString(R.string.important_tile, label);
             case IMPORTANT_ACCESSIBILITY:
                 return getString(R.string.important_accessibility, label);
             case IMPORTANT_DEVICE_ADMIN:
@@ -1201,23 +1182,6 @@ public class BreventActivity extends Activity
             // do nothing
             return null;
         }
-    }
-
-    public static Collection<String> parseTiles(String tiles) {
-        if (TextUtils.isEmpty(tiles)) {
-            return Collections.emptyList();
-        }
-        Collection<String> packageNames = new ArrayList<>();
-        for (String tile : tiles.split(",")) {
-            // custom(com.github.shadowsocks/.ShadowsocksTileService)
-            if (tile.startsWith(CUSTOM_TILE_PREFIX) && tile.endsWith(")")) {
-                int index = tile.indexOf('/');
-                if (index > 0) {
-                    packageNames.add(tile.substring(CUSTOM_TILE_LENGTH, index));
-                }
-            }
-        }
-        return packageNames;
     }
 
 }
