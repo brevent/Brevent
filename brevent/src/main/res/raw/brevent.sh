@@ -8,6 +8,10 @@ package=me.piebridge.brevent
 brevent=/data/local/tmp/brevent
 rm -rf $brevent
 cp $path $brevent
+if [ ! -f $brevent ]; then
+    echo "/data/local/tmp is not writalbe" >&2
+    exit 1
+fi
 chmod 0755 $brevent
 if [ x"$abi64" == x"false" ]; then
     rm -rf /data/local/tmp/app_process

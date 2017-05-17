@@ -384,8 +384,20 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     protected boolean isPlay() {
-        return hasPlay() &&
-                PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getPackageName()));
+        PackageManager pm = getPackageManager();
+        String packageName = getPackageName();
+        return (hasPlay() && PACKAGE_PLAY.equals(pm.getInstallerPackageName(packageName)))
+                || isPlayDerived(pm, packageName);
+    }
+
+    private boolean isPlayDerived(PackageManager pm, String packageName) {
+        try {
+            return pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+                    .metaData.containsKey("com.android.vending.derived.apk.id");
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d(TAG, "Can't get application for " + packageName, e);
+            return false;
+        }
     }
 
     private Uri getQrCodeUri() {
