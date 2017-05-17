@@ -10,8 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
@@ -19,12 +17,10 @@ import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import java.io.File;
-
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 
 /**
  * Created by thom on 2017/2/5.
@@ -112,21 +108,6 @@ public class AppsDisabledFragment extends DialogFragment
         mDialog = null;
     }
 
-    private File getBootstrapFile() {
-        try {
-            PackageManager packageManager = getActivity().getPackageManager();
-            ApplicationInfo applicationInfo =
-                    packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
-            File file = new File(applicationInfo.nativeLibraryDir, "libbrevent.so");
-            if (file.exists()) {
-                return file;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // ignore
-        }
-        return null;
-    }
-
     private String getBootstrapCommandLine() {
         BreventApplication breventApplication = (BreventApplication) getActivity().getApplication();
         String path = breventApplication.copyBrevent();
@@ -138,7 +119,7 @@ public class AppsDisabledFragment extends DialogFragment
             } else {
                 sb.append("-d ");
             }
-            sb.append("shell ");
+            sb.append("shell sh ");
             sb.append(path);
             return sb.toString();
         } else {
@@ -173,7 +154,7 @@ public class AppsDisabledFragment extends DialogFragment
             ((BreventActivity) activity).openGuide();
             dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-            ((BreventActivity) activity).runAsRoot(String.valueOf(getBootstrapFile()));
+            ((BreventActivity) activity).runAsRoot();
             dismiss();
         }
     }

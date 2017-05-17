@@ -1,16 +1,17 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
-import android.system.ErrnoException;
-import android.system.Os;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 import me.piebridge.brevent.BuildConfig;
@@ -72,9 +73,25 @@ public class BreventApplication extends Application {
         return mSupportStopped;
     }
 
+    private File getBootstrapFile() {
+        try {
+            PackageManager packageManager = getPackageManager();
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(
+                    BuildConfig.APPLICATION_ID, 0);
+            File file = new File(applicationInfo.nativeLibraryDir, "libbrevent.so");
+            if (file.exists()) {
+                return file;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // ignore
+        }
+        return null;
+    }
+
     public String copyBrevent() {
         File file = getApplicationContext().getExternalFilesDir(null);
-        if (file == null) {
+        File brevent = getBootstrapFile();
+        if (file == null || brevent == null) {
             return null;
         }
         String sdcard = "/" + "sdcard";
@@ -87,8 +104,15 @@ public class BreventApplication extends Application {
                         "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh");
                 try (
                         InputStream is = getResources().openRawResource(R.raw.brevent);
-                        OutputStream os = new FileOutputStream(output)
+                        OutputStream os = new FileOutputStream(output);
+                        PrintWriter pw = new PrintWriter(os);
                 ) {
+                    pw.println("#!/system/bin/sh");
+                    pw.println();
+                    pw.println("path=" + brevent);
+                    pw.println("abi64=" + brevent.getPath().contains("64"));
+                    pw.println();
+                    pw.flush();
                     byte[] bytes = new byte[0x400];
                     int length;
                     while ((length = is.read(bytes)) != -1) {
@@ -102,20 +126,6 @@ public class BreventApplication extends Application {
             } catch (IOException e) {
                 UILog.d("Can't copy brevent", e);
                 return null;
-            }
-        }
-        return "sh " + path;
-    }
-
-    private String readpath(String link) {
-        String path = link;
-        while (true) {
-            try {
-                path = Os.readlink(path);
-                UILog.d("path: " + path);
-            } catch (ErrnoException e) {
-                UILog.d("cannot read link for " + path, e);
-                break;
             }
         }
         return path;

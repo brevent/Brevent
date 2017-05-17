@@ -1136,7 +1136,7 @@ public class BreventActivity extends Activity
         return label;
     }
 
-    public void runAsRoot(String path) {
+    public void runAsRoot() {
         showProgress(R.string.process_retrieving);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
