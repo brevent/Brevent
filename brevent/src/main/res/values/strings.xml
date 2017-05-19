@@ -137,7 +137,7 @@
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
-    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\nRequires donate total 1 USD for Play version</string>
+    <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\n\nRequires donate total 1 USD for Play version</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Please click Home 7 times to help Brevent make sure normal Home\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
