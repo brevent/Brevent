@@ -24,7 +24,7 @@ public class AppsActivityUIHandler extends Handler {
     @Override
     public void handleMessage(Message message) {
         BreventActivity activity = mReference.get();
-        if (activity != null) {
+        if (activity != null && !activity.isStopped()) {
             switch (message.what) {
                 case BreventActivity.UI_MESSAGE_SHOW_PROGRESS:
                     activity.showProgress(R.string.process_retrieving);

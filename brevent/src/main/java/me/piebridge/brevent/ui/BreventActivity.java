@@ -787,13 +787,18 @@ public class BreventActivity extends Activity
     }
 
     public void updateBreventResponse(BreventPriority breventPriority) {
+        if (stopped) {
+            return;
+        }
         if (breventPriority.priority) {
             mPriority.addAll(breventPriority.packageNames);
         } else {
             mPriority.removeAll(breventPriority.packageNames);
         }
-        AppsFragment fragment = getFragment();
-        fragment.update(breventPriority.packageNames);
+        if (mAdapter != null) {
+            AppsFragment fragment = getFragment();
+            fragment.update(breventPriority.packageNames);
+        }
     }
 
     private void onBreventPriorityResponse(BreventPriority response) {
@@ -1070,16 +1075,21 @@ public class BreventActivity extends Activity
     }
 
     public void updateBreventResponse(BreventPackages breventPackages) {
+        if (stopped) {
+            return;
+        }
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
         } else {
             mBrevent.removeAll(breventPackages.packageNames);
         }
-        AppsFragment fragment = getFragment();
-        if (!breventPackages.undoable) {
-            fragment.select(breventPackages.packageNames);
-        } else {
-            fragment.update(breventPackages.packageNames);
+        if (mAdapter != null) {
+            AppsFragment fragment = getFragment();
+            if (!breventPackages.undoable) {
+                fragment.select(breventPackages.packageNames);
+            } else {
+                fragment.update(breventPackages.packageNames);
+            }
         }
     }
 
@@ -1182,6 +1192,10 @@ public class BreventActivity extends Activity
             // do nothing
             return null;
         }
+    }
+
+    public boolean isStopped() {
+        return stopped;
     }
 
 }
