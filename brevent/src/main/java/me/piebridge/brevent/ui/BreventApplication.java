@@ -105,7 +105,7 @@ public class BreventApplication extends Application {
                 try (
                         InputStream is = getResources().openRawResource(R.raw.brevent);
                         OutputStream os = new FileOutputStream(output);
-                        PrintWriter pw = new PrintWriter(os);
+                        PrintWriter pw = new PrintWriter(os)
                 ) {
                     pw.println("#!/system/bin/sh");
                     pw.println();
