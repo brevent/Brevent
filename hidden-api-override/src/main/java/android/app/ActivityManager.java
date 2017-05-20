@@ -206,13 +206,6 @@ public class ActivityManager {
     }
 
     /**
-     * Flag for use with {@link #getRecentTasks}: return all tasks, even those
-     * that have set their
-     * {@link android.content.Intent#FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS} flag.
-     */
-    public static int RECENT_WITH_EXCLUDED = 0x0001;
-
-    /**
      * Provides a list that does not contain any
      * recent tasks that currently are not available to the user.
      */
