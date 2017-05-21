@@ -13,12 +13,10 @@ if [ ! -f $brevent ]; then
     exit 1
 fi
 chmod 0755 $brevent
-if [ x"$abi64" == x"false" ]; then
+if [ x"$abi64" == x"false" -a -x /system/bin/app_process64 ]; then
     rm -rf /data/local/tmp/app_process
-    if [ -x /system/bin/app_process32 ]; then
-        ln -s /system/bin/app_process32 /data/local/tmp/app_process
-        export PATH=/data/local/tmp:$PATH
-    fi
+    ln -s /system/bin/app_process32 /data/local/tmp/app_process
+    export PATH=/data/local/tmp:$PATH
 fi
 if [ -x $brevent ]; then
     exec $brevent
