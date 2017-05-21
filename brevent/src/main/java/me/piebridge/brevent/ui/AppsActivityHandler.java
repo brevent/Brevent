@@ -73,7 +73,7 @@ public class AppsActivityHandler extends Handler {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_VERSION_UNMATCHED);
                 } else {
                     BreventActivity activity = mReference.get();
-                    if (activity != null) {
+                    if (activity != null && !activity.isStopped()) {
                         activity.onBreventResponse(breventResponse);
                     }
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);

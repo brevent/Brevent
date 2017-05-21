@@ -78,7 +78,7 @@ public abstract class AppsFragment extends Fragment {
         if (mVisible && mResumed && mRecycler != null) {
             if (mRecycler.getAdapter() == null) {
                 BreventActivity activity = (BreventActivity) getActivity();
-                if (activity != null) {
+                if (activity != null && !activity.isStopped()) {
                     activity.showFragmentAsync(this, 0);
                 }
             } else if (mExpired) {

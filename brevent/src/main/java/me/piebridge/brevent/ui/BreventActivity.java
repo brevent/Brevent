@@ -234,7 +234,8 @@ public class BreventActivity extends Activity
 
             mColorControlNormal = ColorUtils.resolveColor(this, android.R.attr.colorControlNormal);
             mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
-            mColorControlHighlight = ColorUtils.resolveColor(this, android.R.attr.colorControlHighlight);
+            mColorControlHighlight =
+                    ColorUtils.resolveColor(this, android.R.attr.colorControlHighlight);
         }
     }
 
@@ -278,9 +279,6 @@ public class BreventActivity extends Activity
     }
 
     public void showDisabled(int title) {
-        if (stopped) {
-            return;
-        }
         AppsDisabledFragment disabledFragment =
                 (AppsDisabledFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DISABLED);
         if (disabledFragment != null) {
@@ -296,9 +294,6 @@ public class BreventActivity extends Activity
     }
 
     public void showProgress(int message) {
-        if (stopped) {
-            return;
-        }
         hideDisabled();
         ProgressFragment progressFragment =
                 (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
@@ -311,9 +306,6 @@ public class BreventActivity extends Activity
     }
 
     public void showAppProgress(int progress, int max, int size) {
-        if (stopped) {
-            return;
-        }
         AppsProgressFragment progressFragment =
                 (AppsProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS_APPS);
         if (progressFragment == null) {
@@ -336,9 +328,6 @@ public class BreventActivity extends Activity
     }
 
     private void hideFragment(String tag) {
-        if (stopped) {
-            return;
-        }
         DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
             fragment.dismissAllowingStateLoss();
@@ -346,8 +335,9 @@ public class BreventActivity extends Activity
     }
 
     @Override
-    protected void onStart() {
+    protected synchronized void onStart() {
         super.onStart();
+        UILog.d("onStart, update stopped to false");
         stopped = false;
         if (mReceiver != null) {
             registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT),
@@ -359,7 +349,8 @@ public class BreventActivity extends Activity
     }
 
     @Override
-    protected void onStop() {
+    protected synchronized void onStop() {
+        UILog.d("onStop, update stopped to true");
         stopped = true;
         if (mReceiver != null) {
             unregisterReceiver(mReceiver);
@@ -578,9 +569,6 @@ public class BreventActivity extends Activity
     }
 
     private void openFeedback() {
-        if (stopped) {
-            return;
-        }
         new AppsFeedbackFragment().show(getFragmentManager(), FRAGMENT_FEEDBACK);
     }
 
@@ -746,9 +734,6 @@ public class BreventActivity extends Activity
     }
 
     public void onBreventResponse(BreventProtocol response) {
-        if (stopped) {
-            return;
-        }
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
@@ -787,9 +772,6 @@ public class BreventActivity extends Activity
     }
 
     public void updateBreventResponse(BreventPriority breventPriority) {
-        if (stopped) {
-            return;
-        }
         if (breventPriority.priority) {
             mPriority.addAll(breventPriority.packageNames);
         } else {
@@ -1063,9 +1045,6 @@ public class BreventActivity extends Activity
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {
-        if (stopped) {
-            return;
-        }
         Message message = uiHandler.obtainMessage(UI_MESSAGE_SHOW_FRAGMENT, fragment);
         uiHandler.sendMessageDelayed(message, delayMillis);
     }
@@ -1075,9 +1054,6 @@ public class BreventActivity extends Activity
     }
 
     public void updateBreventResponse(BreventPackages breventPackages) {
-        if (stopped) {
-            return;
-        }
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
         } else {
@@ -1194,7 +1170,7 @@ public class BreventActivity extends Activity
         }
     }
 
-    public boolean isStopped() {
+    public synchronized boolean isStopped() {
         return stopped;
     }
 
