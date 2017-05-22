@@ -13,7 +13,7 @@
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
 #define LOGE(...) (__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
 
-#define PROJECT "https://github.com/liudongmiao/Brevent/issues"
+#define PROJECT "https://github.com/brevent/Brevent/issues"
 
 sig_atomic_t update;
 sig_atomic_t quited;
