@@ -155,7 +155,11 @@
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
-    <string name="brevent_about_version_summary">%1$s, %2$s\nDaemon: %3$s\nServer: %4$s</string>
+    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>
+    <string name="brevent_about_version_play">Play</string>
+    <string name="brevent_about_version_meizu">Meizu</string>
+    <string name="brevent_about_version_smartisan">Smartisan</string>
+    <string name="brevent_about_version_other">Unknown</string>
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>

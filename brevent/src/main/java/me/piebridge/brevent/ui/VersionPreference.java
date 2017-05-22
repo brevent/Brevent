@@ -1,8 +1,10 @@
 package me.piebridge.brevent.ui;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.preference.Preference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import java.text.DateFormat;
@@ -12,6 +14,7 @@ import java.util.Locale;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.donation.DonateActivity;
 
 /**
  * Created by thom on 2017/3/2.
@@ -32,7 +35,7 @@ public class VersionPreference extends Preference {
             String normal = resources.getString(R.string.brevent_about_version_mode_normal);
             String root = resources.getString(R.string.brevent_about_version_mode_root);
             return resources.getString(R.string.brevent_about_version_summary,
-                    BuildConfig.VERSION_NAME,
+                    BuildConfig.VERSION_NAME, getVersion(application),
                     HideApiOverride.isShell(application.mUid) ? normal :
                             (HideApiOverride.isRoot(application.mUid) ? root :
                                     resources.getString(android.R.string.unknownName)),
@@ -42,6 +45,23 @@ public class VersionPreference extends Preference {
         } else {
             return BuildConfig.VERSION_NAME;
         }
+    }
+
+    private String getVersion(Context context) {
+        final String packageName = BuildConfig.APPLICATION_ID;
+        PackageManager pm = context.getPackageManager();
+        if (DonateActivity.isPlayDerived(pm, packageName)) {
+            return context.getString(R.string.brevent_about_version_play);
+        }
+        String installer = pm.getInstallerPackageName(packageName);
+        if (!TextUtils.isEmpty(installer) && pm.getLaunchIntentForPackage(installer) != null) {
+            if ("com.meizu.mstore".equals(installer)) {
+                return context.getString(R.string.brevent_about_version_meizu);
+            } else if ("com.smartisanos.appstore".equals(installer)) {
+                return context.getString(R.string.brevent_about_version_smartisan);
+            }
+        }
+        return context.getString(R.string.brevent_about_version_other);
     }
 
 }

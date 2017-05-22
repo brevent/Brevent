@@ -153,7 +153,11 @@
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
-    <string name="brevent_about_version_summary">%1$s，%2$s\n首次啓動：%3$s\n本次啓動：%4$s</string>
+    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次啓動：%4$s\n本次啓動：%5$s</string>
+    <string name="brevent_about_version_play">Play 版</string>
+    <string name="brevent_about_version_meizu">魅族版</string>
+    <string name="brevent_about_version_smartisan">锤子版</string>
+    <string name="brevent_about_version_other">其它版</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_translation">翻譯</string>

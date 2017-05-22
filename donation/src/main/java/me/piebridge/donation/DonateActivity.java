@@ -387,11 +387,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     protected boolean isPlay() {
         PackageManager pm = getPackageManager();
         String packageName = getPackageName();
-        return (hasPlay() && PACKAGE_PLAY.equals(pm.getInstallerPackageName(packageName)))
-                || isPlayDerived(pm, packageName);
+        return isPlayDerived(pm, packageName);
     }
 
-    private boolean isPlayDerived(PackageManager pm, String packageName) {
+    public static boolean isPlayDerived(PackageManager pm, String packageName) {
         try {
             Bundle bundle = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData;
             return bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
