@@ -25,7 +25,7 @@
     <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3. (Windows) 按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「.\\adb」\n\n3. (Mac OS X) 開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="brevent_service_start">請啟動黑域服務 (%s)</string>
-    <string name="brevent_service_restart">請重新啟動黑域服務 (%s)</string>
+    <string name="brevent_service_no_response">黑域服務沒有響應 (%s)</string>
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB偵錯」 %1$s\n\n2. 使用 USB 連線到電腦 %2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在電腦命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>

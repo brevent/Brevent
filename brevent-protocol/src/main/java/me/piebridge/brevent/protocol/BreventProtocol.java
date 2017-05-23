@@ -7,9 +7,13 @@ import android.os.RemoteException;
 import android.os.TransactionTooLargeException;
 import android.support.annotation.CallSuper;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * brevent protocol, request via socket, response via broadcast
@@ -75,6 +79,7 @@ public class BreventProtocol implements Parcelable {
         byte[] bytes = parcel.marshall();
         parcel.recycle();
 
+        bytes = compress(bytes);
         int size = bytes.length;
         if (size > Short.MAX_VALUE) {
             throw new TransactionTooLargeException();
@@ -123,12 +128,49 @@ public class BreventProtocol implements Parcelable {
         }
     }
 
+    public static byte[] compress(byte[] bytes) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            GZIPOutputStream gos = new GZIPOutputStream(baos);
+            gos.write(bytes);
+            gos.close();
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static byte[] uncompress(byte[] compressed) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
+            GZIPInputStream gis = new GZIPInputStream(bais);
+            byte[] buffer = new byte[0x1000];
+            int length;
+            while ((length = gis.read(buffer)) != -1) {
+                if (length > 0) {
+                    baos.write(buffer, 0, length);
+                }
+            }
+            gis.close();
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void wrap(Intent intent, BreventProtocol protocol) {
-        intent.putExtra(KEY_BREVENT, protocol);
+        Parcel parcel = Parcel.obtain();
+        protocol.writeToParcel(parcel, 0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle();
+        byte[] compressed = compress(bytes);
+        intent.putExtra(KEY_BREVENT, compressed);
     }
 
     public static BreventProtocol unwrap(Intent intent) {
-        return intent.getParcelableExtra(KEY_BREVENT);
+        byte[] compressed = intent.getByteArrayExtra(KEY_BREVENT);
+        return BreventProtocol.unwrap(uncompress(compressed));
     }
 
     @Override

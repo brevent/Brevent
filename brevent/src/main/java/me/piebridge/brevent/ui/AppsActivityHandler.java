@@ -24,7 +24,7 @@ public class AppsActivityHandler extends Handler {
 
     public static final long DELAY = 15000;
 
-    public static final int LATER = 3000;
+    public static final int LATER = 6000;
 
     private final Handler uiHandler;
 
@@ -69,15 +69,11 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol breventResponse = (BreventProtocol) message.obj;
-                if (breventResponse.versionMismatched()) {
-                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_VERSION_UNMATCHED);
-                } else {
-                    BreventActivity activity = mReference.get();
-                    if (activity != null && !activity.isStopped()) {
-                        activity.onBreventResponse(breventResponse);
-                    }
-                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);
+                BreventActivity activity = mReference.get();
+                if (activity != null && !activity.isStopped()) {
+                    activity.onBreventResponse(breventResponse);
                 }
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);
                 break;
             case BreventActivity.MESSAGE_BREVENT_NO_RESPONSE:
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT_DATA);

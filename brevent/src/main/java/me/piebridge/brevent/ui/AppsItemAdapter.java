@@ -12,6 +12,7 @@ import android.support.v4.util.ArraySet;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -404,7 +405,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             // always for brevented apps
             return true;
         }
-        UILog.v("checking launcher for " + packageName);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            UILog.v("checking launcher for " + packageName);
+        }
         return pm.getLaunchIntentForPackage(packageName) != null;
     }
 

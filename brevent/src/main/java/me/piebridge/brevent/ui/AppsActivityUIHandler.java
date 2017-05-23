@@ -48,8 +48,7 @@ public class AppsActivityUIHandler extends Handler {
                     activity.showDisabled();
                     break;
                 case BreventActivity.UI_MESSAGE_NO_BREVENT_DATA:
-                case BreventActivity.UI_MESSAGE_VERSION_UNMATCHED:
-                    activity.showDisabled(R.string.brevent_service_restart);
+                    activity.showDisabled(R.string.brevent_service_no_response);
                     break;
                 case BreventActivity.UI_MESSAGE_UPDATE_BREVENT:
                     activity.updateBreventResponse((BreventPackages) message.obj);

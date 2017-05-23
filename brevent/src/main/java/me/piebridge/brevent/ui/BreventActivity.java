@@ -89,11 +89,10 @@ public class BreventActivity extends Activity
     public static final int UI_MESSAGE_NO_BREVENT = 4;
     public static final int UI_MESSAGE_IO_BREVENT = 5;
     public static final int UI_MESSAGE_NO_BREVENT_DATA = 6;
-    public static final int UI_MESSAGE_VERSION_UNMATCHED = 7;
-    public static final int UI_MESSAGE_UPDATE_BREVENT = 8;
-    public static final int UI_MESSAGE_HIDE_DISABLED = 9;
-    public static final int UI_MESSAGE_UPDATE_PRIORITY = 10;
-    public static final int UI_MESSAGE_SHOW_SUCCESS = 11;
+    public static final int UI_MESSAGE_UPDATE_BREVENT = 7;
+    public static final int UI_MESSAGE_HIDE_DISABLED = 8;
+    public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
+    public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
