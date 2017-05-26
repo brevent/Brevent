@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.BreventResponse;
 
 /**
  * handler for apps item
@@ -72,7 +72,7 @@ public class AppsItemHandler extends Handler {
     }
 
     private boolean updateInactiveTime(Set<Integer> positions) {
-        final int now = BreventStatus.now();
+        final int now = BreventResponse.now();
         for (int position : positions) {
             AppsItemViewHolder viewHolder = getViewHolder(position);
             if (viewHolder != null) {
@@ -110,7 +110,7 @@ public class AppsItemHandler extends Handler {
             return Collections.emptySet();
         }
         Set<Integer> positions = new ArraySet<>();
-        final int now = BreventStatus.now();
+        final int now = BreventResponse.now();
         last = Math.min(last, appsInfoList.size() - 1);
         for (int i = first; i <= last; ++i) {
             AppsInfo info = appsInfoList.get(i);

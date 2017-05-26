@@ -25,7 +25,7 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         String action = intent.getAction();
         UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
-        if (!application.started || BreventIntent.ACTION_BREVENT.equals(action)) {
+        if (!application.started || BreventIntent.ACTION_RUN_AS_ROOT.equals(action)) {
             application.started = true;
             startBrevent();
             hideNotification();

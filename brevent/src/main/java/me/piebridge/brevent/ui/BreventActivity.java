@@ -12,7 +12,6 @@ import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -24,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IDeviceIdleController;
+import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -57,7 +57,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import dalvik.system.PathClassLoader;
 import me.piebridge.brevent.BuildConfig;
@@ -70,7 +69,7 @@ import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
-import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.BreventResponse;
 
 public class BreventActivity extends Activity
         implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
@@ -143,8 +142,6 @@ public class BreventActivity extends Activity
 
     private Handler mHandler;
     private Handler uiHandler;
-
-    private AppsReceiver mReceiver;
 
     private boolean mAppBarHidden = false;
 
@@ -227,7 +224,6 @@ public class BreventActivity extends Activity
 
             uiHandler = new AppsActivityUIHandler(this);
             mHandler = new AppsActivityHandler(this, uiHandler);
-            mReceiver = new AppsReceiver(mHandler, getToken().toString());
 
             mTitles = getResources().getStringArray(R.array.fragment_apps);
 
@@ -265,7 +261,7 @@ public class BreventActivity extends Activity
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mReceiver != null && hasResponse) {
+        if (mHandler != null && hasResponse) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
         }
     }
@@ -338,9 +334,7 @@ public class BreventActivity extends Activity
         super.onStart();
         UILog.d("onStart, update stopped to false");
         stopped = false;
-        if (mReceiver != null) {
-            registerReceiver(mReceiver, new IntentFilter(BreventIntent.ACTION_BREVENT),
-                    BreventIntent.PERMISSION_SHELL, mHandler);
+        if (mHandler != null) {
             if (!hasResponse) {
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
             }
@@ -351,8 +345,7 @@ public class BreventActivity extends Activity
     protected synchronized void onStop() {
         UILog.d("onStop, update stopped to true");
         stopped = true;
-        if (mReceiver != null) {
-            unregisterReceiver(mReceiver);
+        if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
         }
@@ -381,9 +374,10 @@ public class BreventActivity extends Activity
 
     @Override
     protected void onDestroy() {
-        if (mReceiver != null) {
-            if (mHandler != null && mHandler.getLooper() != null) {
-                mHandler.getLooper().quit();
+        if (mHandler != null) {
+            Looper looper = mHandler.getLooper();
+            if (looper != null) {
+                looper.quit();
             }
             mHandler = null;
             uiHandler = null;
@@ -415,7 +409,7 @@ public class BreventActivity extends Activity
         SparseIntArray status = mProcesses.get(packageName);
         if (status == null) {
             return AppsInfo.STATUS_STOPPED;
-        } else if (BreventStatus.isStandby(status)) {
+        } else if (BreventResponse.isStandby(status)) {
             return AppsInfo.STATUS_STANDBY;
         } else {
             return AppsInfo.STATUS_RUNNING;
@@ -435,13 +429,13 @@ public class BreventActivity extends Activity
         int size = status.size();
         for (int i = 0; i < size; ++i) {
             int processState = status.keyAt(i);
-            if (BreventStatus.isProcess(processState)) {
+            if (BreventResponse.isProcess(processState)) {
                 total++;
-                if (BreventStatus.isTop(processState)) {
+                if (BreventResponse.isTop(processState)) {
                     top++;
-                } else if (BreventStatus.isService(processState)) {
+                } else if (BreventResponse.isService(processState)) {
                     service++;
-                } else if (BreventStatus.isCached(processState)) {
+                } else if (BreventResponse.isCached(processState)) {
                     cached++;
                 }
             }
@@ -481,9 +475,9 @@ public class BreventActivity extends Activity
         SparseIntArray status = mProcesses.get(packageName);
         if (isFavorite(packageName)) {
             return R.drawable.ic_favorite_border_black_24dp;
-        } else if (BreventStatus.isStandby(status)) {
+        } else if (BreventResponse.isStandby(status)) {
             return R.drawable.ic_snooze_black_24dp;
-        } else if (BreventStatus.isRunning(status)) {
+        } else if (BreventResponse.isRunning(status)) {
             return R.drawable.ic_alarm_black_24dp;
         } else {
             return R.drawable.ic_block_black_24dp;
@@ -495,7 +489,7 @@ public class BreventActivity extends Activity
     }
 
     public int getInactive(String packageName) {
-        return BreventStatus.getInactive(mProcesses.get(packageName));
+        return BreventResponse.getInactive(mProcesses.get(packageName));
     }
 
     @Override
@@ -605,7 +599,7 @@ public class BreventActivity extends Activity
             preferences.edit().putString(BreventConfiguration.BREVENT_METHOD,
                     "forcestop_only").apply();
         }
-        BreventConfiguration configuration = new BreventConfiguration(getToken(), preferences);
+        BreventConfiguration configuration = new BreventConfiguration(preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
 
         ComponentName componentName = new ComponentName(this, BreventReceiver.class);
@@ -678,7 +672,7 @@ public class BreventActivity extends Activity
             }
         }
         if (!selected.isEmpty()) {
-            BreventPackages breventPackages = new BreventPackages(brevent, getToken(), selected);
+            BreventPackages breventPackages = new BreventPackages(brevent, selected);
             breventPackages.undoable = true;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
@@ -733,13 +727,13 @@ public class BreventActivity extends Activity
     }
 
     public void onBreventResponse(BreventProtocol response) {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("response: " + response);
+        }
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
-                if (!hasResponse) {
-                    hasResponse = true;
-                }
-                onBreventStatusResponse((BreventStatus) response);
+                onBreventStatusResponse((BreventResponse) response);
                 break;
             case BreventProtocol.UPDATE_BREVENT:
                 onBreventPackagesResponse((BreventPackages) response);
@@ -789,7 +783,7 @@ public class BreventActivity extends Activity
         }
     }
 
-    private void onBreventStatusResponse(BreventStatus status) {
+    private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
 
@@ -831,9 +825,11 @@ public class BreventActivity extends Activity
         uiHandler.sendEmptyMessage(UI_MESSAGE_HIDE_PROGRESS);
         uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_PAGER);
 
-        if (!getToken().equals(status.getToken())) {
+        if (!hasResponse) {
             updateConfiguration();
+            hasResponse = true;
         }
+
         if (!mSelectMode && mBrevent.isEmpty()) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
@@ -849,8 +845,7 @@ public class BreventActivity extends Activity
         }
         if (!importantBrevented.isEmpty()) {
             UILog.i("will unbrevent: " + importantBrevented);
-            BreventPackages breventPackages =
-                    new BreventPackages(false, getToken(), importantBrevented);
+            BreventPackages breventPackages = new BreventPackages(false, importantBrevented);
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
@@ -956,7 +951,7 @@ public class BreventActivity extends Activity
         // persistent
         int size = processes.size();
         for (int i = 0; i < size; ++i) {
-            if (BreventStatus.isPersistent(processes.valueAt(i))) {
+            if (BreventResponse.isPersistent(processes.valueAt(i))) {
                 packageNames.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
             }
         }
@@ -1048,10 +1043,6 @@ public class BreventActivity extends Activity
         uiHandler.sendMessageDelayed(message, delayMillis);
     }
 
-    public UUID getToken() {
-        return ((BreventApplication) getApplication()).getToken();
-    }
-
     public void updateBreventResponse(BreventPackages breventPackages) {
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
@@ -1123,14 +1114,13 @@ public class BreventActivity extends Activity
 
     public void runAsRoot() {
         showProgress(R.string.process_retrieving);
-        BreventIntentService.startBrevent(this, BreventIntent.ACTION_BREVENT);
+        BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
-        BreventPriority breventPriority =
-                new BreventPriority(priority, getToken(), Collections.singleton(packageName));
-        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPriority).sendToTarget();
+        BreventProtocol request = new BreventPriority(priority, Collections.singleton(packageName));
+        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, request).sendToTarget();
     }
 
     public boolean isBrevent(String packageName) {
@@ -1145,8 +1135,8 @@ public class BreventActivity extends Activity
 
     public void unbrevent(String packageName) {
         UILog.i("will unbrevent: " + packageName);
-        BreventPackages breventPackages =
-                new BreventPackages(false, getToken(), Collections.singleton(packageName));
+        BreventPackages breventPackages = new BreventPackages(false, Collections.singleton
+                (packageName));
         breventPackages.undoable = false;
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
     }

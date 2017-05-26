@@ -4,21 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Collection;
-import java.util.UUID;
 
 /**
  * brevent list
  * <p>
  * Created by thom on 2017/2/6.
  */
-public final class BreventPriority extends BreventToken implements Parcelable {
+public final class BreventPriority extends BreventProtocol implements Parcelable {
 
     public boolean priority = false;
 
     public Collection<String> packageNames;
 
-    public BreventPriority(boolean priority, UUID uuid, Collection<String> packageNames) {
-        super(UPDATE_PRIORITY, uuid);
+    public BreventPriority(boolean priority, Collection<String> packageNames) {
+        super(UPDATE_PRIORITY);
         this.priority = priority;
         this.packageNames = packageNames;
     }

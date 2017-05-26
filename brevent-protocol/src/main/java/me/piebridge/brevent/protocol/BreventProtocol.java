@@ -3,12 +3,11 @@ package me.piebridge.brevent.protocol;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.RemoteException;
-import android.os.TransactionTooLargeException;
 import android.support.annotation.CallSuper;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -20,9 +19,7 @@ import java.util.zip.GZIPOutputStream;
  * <p>
  * Created by thom on 2017/2/6.
  */
-public class BreventProtocol implements Parcelable {
-
-    private static final String KEY_BREVENT = "brevent";
+public abstract class BreventProtocol implements Parcelable {
 
     public static final InetAddress HOST = InetAddress.getLoopbackAddress();
 
@@ -73,7 +70,7 @@ public class BreventProtocol implements Parcelable {
         return mVersion != VERSION;
     }
 
-    public void writeTo(DataOutputStream os) throws IOException, RemoteException {
+    public void writeTo(DataOutputStream os) throws IOException {
         Parcel parcel = Parcel.obtain();
         writeToParcel(parcel, 0);
         byte[] bytes = parcel.marshall();
@@ -81,11 +78,48 @@ public class BreventProtocol implements Parcelable {
 
         bytes = compress(bytes);
         int size = bytes.length;
-        if (size > Short.MAX_VALUE) {
-            throw new TransactionTooLargeException();
+        if (size > 0xffff) {
+            throw new IOTooLargeException(size);
         }
         os.writeShort(size);
         os.write(bytes);
+    }
+
+    public static BreventProtocol readFrom(DataInputStream is) throws IOException {
+        int size = is.readUnsignedShort();
+        if (size == 0) {
+            return null;
+        }
+
+        byte[] bytes = new byte[size];
+        int length;
+        int offset = 0;
+        int remain = bytes.length;
+        while (remain > 0 && (length = is.read(bytes, offset, remain)) != -1) {
+            if (length > 0) {
+                offset += length;
+                remain -= length;
+            }
+        }
+
+        return unwrap(uncompress(bytes));
+    }
+
+    private String getActionName(int action) {
+        switch (action) {
+            case STATUS_REQUEST:
+                return "request";
+            case STATUS_RESPONSE:
+                return "response";
+            case UPDATE_BREVENT:
+                return "brevent";
+            case CONFIGURATION:
+                return "configuration";
+            case UPDATE_PRIORITY:
+                return "priority";
+            default:
+                return "(unknown: " + action + ")";
+        }
     }
 
     public static BreventProtocol unwrap(byte[] bytes) {
@@ -99,10 +133,10 @@ public class BreventProtocol implements Parcelable {
         Parcelable.Creator<? extends BreventProtocol> creator;
         switch (action) {
             case STATUS_REQUEST:
-                creator = BreventProtocol.CREATOR;
+                creator = BreventRequest.CREATOR;
                 break;
             case STATUS_RESPONSE:
-                creator = BreventStatus.CREATOR;
+                creator = BreventResponse.CREATOR;
                 break;
             case UPDATE_BREVENT:
                 creator = BreventPackages.CREATOR;
@@ -159,35 +193,24 @@ public class BreventProtocol implements Parcelable {
         }
     }
 
-    public static void wrap(Intent intent, BreventProtocol protocol) {
-        Parcel parcel = Parcel.obtain();
-        protocol.writeToParcel(parcel, 0);
-        byte[] bytes = parcel.marshall();
-        parcel.recycle();
-        byte[] compressed = compress(bytes);
-        intent.putExtra(KEY_BREVENT, compressed);
-    }
-
-    public static BreventProtocol unwrap(Intent intent) {
-        byte[] compressed = intent.getByteArrayExtra(KEY_BREVENT);
-        return BreventProtocol.unwrap(uncompress(compressed));
-    }
-
     @Override
     public String toString() {
-        return "version: " + mVersion + ", action: " + mAction;
+        return "version: " + mVersion + ", action: " + getActionName(mAction);
     }
 
-    public static final Creator<BreventProtocol> CREATOR = new Creator<BreventProtocol>() {
-        @Override
-        public BreventProtocol createFromParcel(Parcel in) {
-            return new BreventProtocol(in);
+    public static class IOTooLargeException extends IOException {
+
+        private final int mSize;
+
+        public IOTooLargeException(int size) {
+            super();
+            mSize = size;
         }
 
-        @Override
-        public BreventProtocol[] newArray(int size) {
-            return new BreventProtocol[size];
+        public int getSize() {
+            return mSize;
         }
-    };
+
+    }
 
 }

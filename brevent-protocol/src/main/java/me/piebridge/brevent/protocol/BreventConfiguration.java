@@ -5,14 +5,13 @@ import android.os.Parcel;
 import android.text.TextUtils;
 
 import java.io.PrintWriter;
-import java.util.UUID;
 
 /**
  * configuration
  * <p>
  * Created by thom on 2017/2/6.
  */
-public class BreventConfiguration extends BreventToken {
+public class BreventConfiguration extends BreventProtocol {
 
     public static final String BREVENT_AUTO_UPDATE = "brevent_auto_update";
     public static final boolean DEFAULT_BREVENT_AUTO_UPDATE = true;
@@ -64,19 +63,24 @@ public class BreventConfiguration extends BreventToken {
 
     public boolean abnormalBack = DEFAULT_BREVENT_ABNORMAL_BACK;
 
-    public BreventConfiguration(UUID token, SharedPreferences sharedPreferences) {
-        super(CONFIGURATION, token);
+    public BreventConfiguration() {
+        super(CONFIGURATION);
+    }
+
+    public BreventConfiguration(SharedPreferences sharedPreferences) {
+        super(CONFIGURATION);
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT,
                 "" + DEFAULT_BREVENT_TIMEOUT));
         allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
-        optimizeVpn = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_VPN, DEFAULT_BREVENT_OPTIMIZE_VPN);
+        optimizeVpn = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_VPN,
+                DEFAULT_BREVENT_OPTIMIZE_VPN);
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT,
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
                 DEFAULT_BREVENT_CHECK_NOTIFICATION);
-        breventRequest =sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST,
+        breventRequest = sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST,
                 DEFAULT_BREVENT_WHEN_REQUEST);
         abnormalBack = sharedPreferences.getBoolean(BREVENT_ABNORMAL_BACK,
                 DEFAULT_BREVENT_ABNORMAL_BACK);
@@ -122,7 +126,7 @@ public class BreventConfiguration extends BreventToken {
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
         dest.writeInt(breventRequest ? 1 : 0);
-        dest.writeInt(abnormalBack ? 1: 0);
+        dest.writeInt(abnormalBack ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -147,10 +151,6 @@ public class BreventConfiguration extends BreventToken {
         pw.print(key);
         pw.print("=");
         pw.println(value);
-    }
-
-    public BreventConfiguration(UUID token) {
-        super(CONFIGURATION, token);
     }
 
     public void setValue(String key, String value) {
@@ -198,7 +198,8 @@ public class BreventConfiguration extends BreventToken {
     }
 
     private boolean isDigit(String value, int maxLength) {
-        return !TextUtils.isEmpty(value) && TextUtils.isDigitsOnly(value) && value.length() < maxLength;
+        return !TextUtils.isEmpty(value) && TextUtils.isDigitsOnly(value) &&
+                value.length() < maxLength;
     }
 
     public boolean update(BreventConfiguration request) {

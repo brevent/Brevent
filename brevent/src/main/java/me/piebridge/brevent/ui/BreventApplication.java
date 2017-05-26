@@ -12,20 +12,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.UUID;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
-import me.piebridge.brevent.protocol.BreventStatus;
+import me.piebridge.brevent.protocol.BreventResponse;
 
 /**
  * Created by thom on 2017/2/7.
  */
 public class BreventApplication extends Application {
-
-    private UUID mToken;
 
     private boolean allowRoot;
 
@@ -48,11 +45,6 @@ public class BreventApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mToken = UUID.randomUUID();
-    }
-
-    public UUID getToken() {
-        return mToken;
     }
 
     public void setAllowRoot() {
@@ -153,12 +145,12 @@ public class BreventApplication extends Application {
         return mSupportStandby;
     }
 
-    public void updateStatus(BreventStatus breventStatus) {
-        mDaemonTime = breventStatus.mDaemonTime;
-        mServerTime = breventStatus.mServerTime;
-        mUid = breventStatus.mUid;
-        setSupportStandby(breventStatus.mSupportStandby);
-        setSupportStopped(breventStatus.mSupportStopped);
+    public void updateStatus(BreventResponse breventResponse) {
+        mDaemonTime = breventResponse.mDaemonTime;
+        mServerTime = breventResponse.mServerTime;
+        mUid = breventResponse.mUid;
+        setSupportStandby(breventResponse.mSupportStandby);
+        setSupportStopped(breventResponse.mSupportStopped);
     }
 
     private static int getOwner() {
@@ -166,5 +158,4 @@ public class BreventApplication extends Application {
                 ? HideApiOverrideN.USER_SYSTEM
                 : HideApiOverride.USER_OWNER;
     }
-
 }

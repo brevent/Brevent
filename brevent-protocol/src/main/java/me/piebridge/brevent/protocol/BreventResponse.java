@@ -9,7 +9,6 @@ import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseIntArray;
 
 import java.util.Collection;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import me.piebridge.brevent.override.HideApiOverride;
@@ -19,7 +18,7 @@ import me.piebridge.brevent.override.HideApiOverride;
  * <p>
  * Created by thom on 2017/2/5.
  */
-public class BreventStatus extends BreventToken implements Parcelable {
+public class BreventResponse extends BreventProtocol implements Parcelable {
 
     public static final int PROCESS_STATE_IDLE = -2;
 
@@ -47,12 +46,12 @@ public class BreventStatus extends BreventToken implements Parcelable {
 
     public final Collection<String> mAndroidProcesses;
 
-    public BreventStatus(UUID token, Collection<String> brevent, Collection<String> priority,
-                         SimpleArrayMap<String, SparseIntArray> processes,
-                         Collection<String> trustAgents, boolean supportStopped,
-                         boolean supportStandby, long daemonTime, long serverTime, int uid,
-                         Collection<String> androidProcesses) {
-        super(BreventProtocol.STATUS_RESPONSE, token);
+    public BreventResponse(Collection<String> brevent, Collection<String> priority,
+                           SimpleArrayMap<String, SparseIntArray> processes,
+                           Collection<String> trustAgents, boolean supportStopped,
+                           boolean supportStandby, long daemonTime, long serverTime, int uid,
+                           Collection<String> androidProcesses) {
+        super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
         mProcesses = processes;
@@ -65,7 +64,7 @@ public class BreventStatus extends BreventToken implements Parcelable {
         mAndroidProcesses = androidProcesses;
     }
 
-    BreventStatus(Parcel in) {
+    BreventResponse(Parcel in) {
         super(in);
         mBrevent = ParcelUtils.readCollection(in);
         mPriority = ParcelUtils.readCollection(in);
@@ -94,15 +93,15 @@ public class BreventStatus extends BreventToken implements Parcelable {
         ParcelUtils.writeCollection(dest, mAndroidProcesses);
     }
 
-    public static final Creator<BreventStatus> CREATOR = new Creator<BreventStatus>() {
+    public static final Creator<BreventResponse> CREATOR = new Creator<BreventResponse>() {
         @Override
-        public BreventStatus createFromParcel(Parcel in) {
-            return new BreventStatus(in);
+        public BreventResponse createFromParcel(Parcel in) {
+            return new BreventResponse(in);
         }
 
         @Override
-        public BreventStatus[] newArray(int size) {
-            return new BreventStatus[size];
+        public BreventResponse[] newArray(int size) {
+            return new BreventResponse[size];
         }
     };
 

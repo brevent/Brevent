@@ -4,14 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Collection;
-import java.util.UUID;
 
 /**
  * brevent list
  * <p>
  * Created by thom on 2017/2/6.
  */
-public final class BreventPackages extends BreventToken implements Parcelable {
+public final class BreventPackages extends BreventProtocol implements Parcelable {
 
     public boolean brevent = false;
 
@@ -19,8 +18,8 @@ public final class BreventPackages extends BreventToken implements Parcelable {
 
     public Collection<String> packageNames;
 
-    public BreventPackages(boolean brevent, UUID uuid, Collection<String> packageNames) {
-        super(UPDATE_BREVENT, uuid);
+    public BreventPackages(boolean brevent, Collection<String> packageNames) {
+        super(UPDATE_BREVENT);
         this.brevent = brevent;
         this.packageNames = packageNames;
     }

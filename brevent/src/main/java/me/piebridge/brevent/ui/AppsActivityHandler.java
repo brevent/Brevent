@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.os.RemoteException;
 import android.support.annotation.WorkerThread;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -16,6 +16,7 @@ import java.net.ConnectException;
 import java.net.Socket;
 
 import me.piebridge.brevent.protocol.BreventProtocol;
+import me.piebridge.brevent.protocol.BreventRequest;
 
 /**
  * Created by thom on 2017/2/3.
@@ -52,13 +53,11 @@ public class AppsActivityHandler extends Handler {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
             case BreventActivity.MESSAGE_RETRIEVE2:
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
-                send(new BreventProtocol(BreventProtocol.STATUS_REQUEST));
+                requestStatus(false);
                 break;
             case BreventActivity.MESSAGE_RETRIEVE3:
                 UILog.d("retry request status");
-                BreventProtocol breventProtocol = new BreventProtocol(BreventProtocol.STATUS_REQUEST);
-                breventProtocol.retry = true;
-                send(breventProtocol);
+                requestStatus(true);
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
                 if (!hasResponse) {
@@ -68,10 +67,10 @@ public class AppsActivityHandler extends Handler {
                 }
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
-                BreventProtocol breventResponse = (BreventProtocol) message.obj;
+                BreventProtocol response = (BreventProtocol) message.obj;
                 BreventActivity activity = mReference.get();
-                if (activity != null && !activity.isStopped()) {
-                    activity.onBreventResponse(breventResponse);
+                if (response != null && activity != null && !activity.isStopped()) {
+                    activity.onBreventResponse(response);
                 }
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);
                 break;
@@ -82,6 +81,12 @@ public class AppsActivityHandler extends Handler {
                 send((BreventProtocol) message.obj);
                 break;
         }
+    }
+
+    private void requestStatus(boolean retry) {
+        BreventRequest request = new BreventRequest();
+        request.retry = retry;
+        send(request);
     }
 
     private void hideNotification() {
@@ -104,18 +109,25 @@ public class AppsActivityHandler extends Handler {
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
             message.writeTo(os);
             os.flush();
-            socket.close();
             if (action != BreventProtocol.STATUS_REQUEST) {
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE, DELAY);
             } else {
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE, DELAY * 2);
             }
+
+            DataInputStream is = new DataInputStream(socket.getInputStream());
+            BreventProtocol response = BreventProtocol.readFrom(is);
+            obtainMessage(BreventActivity.MESSAGE_BREVENT_RESPONSE, response).sendToTarget();
+
+            os.close();
+            is.close();
+            socket.close();
         } catch (ConnectException e) {
             UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
             }
-        } catch (IOException | RemoteException e) {
+        } catch (IOException e) {
             UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
