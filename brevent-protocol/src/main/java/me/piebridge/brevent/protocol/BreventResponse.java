@@ -2,7 +2,6 @@ package me.piebridge.brevent.protocol;
 
 import android.os.Build;
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SimpleArrayMap;
@@ -18,7 +17,7 @@ import me.piebridge.brevent.override.HideApiOverride;
  * <p>
  * Created by thom on 2017/2/5.
  */
-public class BreventResponse extends BreventProtocol implements Parcelable {
+public class BreventResponse extends BreventProtocol {
 
     public static final int PROCESS_STATE_IDLE = -2;
 
@@ -92,18 +91,6 @@ public class BreventResponse extends BreventProtocol implements Parcelable {
         dest.writeInt(mUid);
         ParcelUtils.writeCollection(dest, mAndroidProcesses);
     }
-
-    public static final Creator<BreventResponse> CREATOR = new Creator<BreventResponse>() {
-        @Override
-        public BreventResponse createFromParcel(Parcel in) {
-            return new BreventResponse(in);
-        }
-
-        @Override
-        public BreventResponse[] newArray(int size) {
-            return new BreventResponse[size];
-        }
-    };
 
     public static boolean isStandby(SparseIntArray status) {
         return status != null && status.get(PROCESS_STATE_IDLE, 0) != 0;

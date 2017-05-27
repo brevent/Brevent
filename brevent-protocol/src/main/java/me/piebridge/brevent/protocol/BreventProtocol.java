@@ -1,16 +1,14 @@
 package me.piebridge.brevent.protocol;
 
-import android.content.Intent;
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -19,9 +17,7 @@ import java.util.zip.GZIPOutputStream;
  * <p>
  * Created by thom on 2017/2/6.
  */
-public abstract class BreventProtocol implements Parcelable {
-
-    public static final InetAddress HOST = InetAddress.getLoopbackAddress();
+public abstract class BreventProtocol {
 
     // md5(BuildConfig.APPLICATION_ID)
     public static final int PORT = 59526;
@@ -45,21 +41,15 @@ public abstract class BreventProtocol implements Parcelable {
         this.mAction = action;
     }
 
-    protected BreventProtocol(Parcel in) {
+    BreventProtocol(Parcel in) {
         mVersion = in.readInt();
         mAction = in.readInt();
     }
 
-    @Override
     @CallSuper
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mVersion);
         dest.writeInt(mAction);
-    }
-
-    @Override
-    public final int describeContents() {
-        return 0;
     }
 
     public final int getAction() {
@@ -70,9 +60,9 @@ public abstract class BreventProtocol implements Parcelable {
         return mVersion != VERSION;
     }
 
-    public void writeTo(DataOutputStream os) throws IOException {
+    public static void writeTo(BreventProtocol protocol, DataOutputStream os) throws IOException {
         Parcel parcel = Parcel.obtain();
-        writeToParcel(parcel, 0);
+        protocol.writeToParcel(parcel, 0);
         byte[] bytes = parcel.marshall();
         parcel.recycle();
 
@@ -85,6 +75,7 @@ public abstract class BreventProtocol implements Parcelable {
         os.write(bytes);
     }
 
+    @Nullable
     public static BreventProtocol readFrom(DataInputStream is) throws IOException {
         int size = is.readUnsignedShort();
         if (size == 0) {
@@ -122,7 +113,7 @@ public abstract class BreventProtocol implements Parcelable {
         }
     }
 
-    public static BreventProtocol unwrap(byte[] bytes) {
+    private static BreventProtocol unwrap(byte[] bytes) {
         Parcel parcel = Parcel.obtain();
         parcel.unmarshall(bytes, 0, bytes.length);
         parcel.setDataPosition(0);
@@ -130,39 +121,27 @@ public abstract class BreventProtocol implements Parcelable {
         int action = parcel.readInt();
         parcel.setDataPosition(0);
 
-        Parcelable.Creator<? extends BreventProtocol> creator;
-        switch (action) {
-            case STATUS_REQUEST:
-                creator = BreventRequest.CREATOR;
-                break;
-            case STATUS_RESPONSE:
-                creator = BreventResponse.CREATOR;
-                break;
-            case UPDATE_BREVENT:
-                creator = BreventPackages.CREATOR;
-                break;
-            case CONFIGURATION:
-                creator = BreventConfiguration.CREATOR;
-                break;
-            case UPDATE_PRIORITY:
-                creator = BreventPriority.CREATOR;
-                break;
-            default:
-                creator = null;
-                break;
-        }
         try {
-            if (creator != null) {
-                return creator.createFromParcel(parcel);
-            } else {
-                return null;
+            switch (action) {
+                case STATUS_REQUEST:
+                    return new BreventRequest(parcel);
+                case STATUS_RESPONSE:
+                    return new BreventResponse(parcel);
+                case UPDATE_BREVENT:
+                    return new BreventPackages(parcel);
+                case CONFIGURATION:
+                    return new BreventConfiguration(parcel);
+                case UPDATE_PRIORITY:
+                    return new BreventPriority(parcel);
+                default:
+                    return null;
             }
         } finally {
             parcel.recycle();
         }
     }
 
-    public static byte[] compress(byte[] bytes) {
+    private static byte[] compress(byte[] bytes) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             GZIPOutputStream gos = new GZIPOutputStream(baos);
@@ -174,7 +153,7 @@ public abstract class BreventProtocol implements Parcelable {
         }
     }
 
-    public static byte[] uncompress(byte[] compressed) {
+    private static byte[] uncompress(byte[] compressed) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
@@ -202,7 +181,7 @@ public abstract class BreventProtocol implements Parcelable {
 
         private final int mSize;
 
-        public IOTooLargeException(int size) {
+        IOTooLargeException(int size) {
             super();
             mSize = size;
         }

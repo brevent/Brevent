@@ -102,7 +102,7 @@ public class BreventConfiguration extends BreventProtocol {
         }
     }
 
-    protected BreventConfiguration(Parcel in) {
+    BreventConfiguration(Parcel in) {
         super(in);
         autoUpdate = in.readInt() != 0;
         timeout = in.readInt();
@@ -242,18 +242,6 @@ public class BreventConfiguration extends BreventProtocol {
         }
         return updated;
     }
-
-    public static final Creator<BreventConfiguration> CREATOR = new Creator<BreventConfiguration>() {
-        @Override
-        public BreventConfiguration createFromParcel(Parcel in) {
-            return new BreventConfiguration(in);
-        }
-
-        @Override
-        public BreventConfiguration[] newArray(int size) {
-            return new BreventConfiguration[size];
-        }
-    };
 
     public boolean isForceStopOnly() {
         return method == BREVENT_METHOD_FORCE_STOP_ONLY;

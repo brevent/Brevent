@@ -15,16 +15,4 @@ public class BreventRequest extends BreventProtocol {
         super(in);
     }
 
-    public static final Creator<BreventRequest> CREATOR = new Creator<BreventRequest>() {
-        @Override
-        public BreventRequest createFromParcel(Parcel in) {
-            return new BreventRequest(in);
-        }
-
-        @Override
-        public BreventRequest[] newArray(int size) {
-            return new BreventRequest[size];
-        }
-    };
-
 }

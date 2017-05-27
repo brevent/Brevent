@@ -16,10 +16,12 @@ android {
         Properties properties = new Properties()
         properties.load(new FileInputStream(rootProject.file('ant.properties')))
 
-        dexOptions {
-            additionalParameters += '--main-dex-list=build/maindexlist.txt'
-            additionalParameters += '--minimal-main-dex'
-        }
+        if (rootProject.file('brevent-server').exists()) {
+            dexOptions {
+                additionalParameters += '--main-dex-list=build/maindexlist.txt'
+                additionalParameters += '--minimal-main-dex'
+            }
+	}
 
         defaultConfig {
             versionCode rootProject.versionCode

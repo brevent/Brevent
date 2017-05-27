@@ -13,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.Socket;
 
 import me.piebridge.brevent.protocol.BreventProtocol;
@@ -102,12 +103,12 @@ public class AppsActivityHandler extends Handler {
     private void send(BreventProtocol message) {
         int action = message.getAction();
         try {
-            Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT);
+            Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
             if (action == BreventProtocol.STATUS_REQUEST) {
                 socket.setSoTimeout(LATER);
             }
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
-            message.writeTo(os);
+            BreventProtocol.writeTo(message, os);
             os.flush();
             if (action != BreventProtocol.STATUS_REQUEST) {
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE, DELAY);
@@ -123,12 +124,12 @@ public class AppsActivityHandler extends Handler {
             is.close();
             socket.close();
         } catch (ConnectException e) {
-            UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
+            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
             }
         } catch (IOException e) {
-            UILog.v("cannot connect to " + BreventProtocol.HOST + ":" + BreventProtocol.PORT, e);
+            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
         if (!hasResponse && action == BreventProtocol.STATUS_REQUEST) {

@@ -23,8 +23,10 @@
 
 -keep class com.android.vending.billing.**
 
--keep public class me.piebridge.brevent.protocol.Brevent** {
-    public *;
+-keep public !final class me.piebridge.brevent.protocol.Brevent** {
+    public !static <fields>;
+    public <init>(*);
+    public <methods>;
 }
 
 -keep public class me.piebridge.brevent.override.HideApiOverride** {
@@ -44,12 +46,6 @@
 -dontnote me.piebridge.brevent.server.BreventServer
 
 -dontwarn me.piebridge.brevent.override.HideApiOverride*
-
--keepnames class * implements android.os.Parcelable
-
--keepclassmembers class * implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
 
 # -repackageclasses ''
 

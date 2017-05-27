@@ -1,7 +1,6 @@
 package me.piebridge.brevent.protocol;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.Collection;
 
@@ -10,7 +9,7 @@ import java.util.Collection;
  * <p>
  * Created by thom on 2017/2/6.
  */
-public final class BreventPackages extends BreventProtocol implements Parcelable {
+public class BreventPackages extends BreventProtocol {
 
     public boolean brevent = false;
 
@@ -24,7 +23,7 @@ public final class BreventPackages extends BreventProtocol implements Parcelable
         this.packageNames = packageNames;
     }
 
-    protected BreventPackages(Parcel in) {
+    BreventPackages(Parcel in) {
         super(in);
         brevent = in.readInt() != 0;
         undoable = in.readInt() != 0;
@@ -49,17 +48,5 @@ public final class BreventPackages extends BreventProtocol implements Parcelable
         return super.toString() + ", brevent: " + brevent + ", undoable: " + undoable
                 + ", packageNames: " + packageNames;
     }
-
-    public static final Creator<BreventPackages> CREATOR = new Creator<BreventPackages>() {
-        @Override
-        public BreventPackages createFromParcel(Parcel in) {
-            return new BreventPackages(in);
-        }
-
-        @Override
-        public BreventPackages[] newArray(int size) {
-            return new BreventPackages[size];
-        }
-    };
 
 }
