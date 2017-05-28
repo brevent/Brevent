@@ -28,9 +28,11 @@ import me.piebridge.brevent.protocol.BreventConfiguration;
 public class AppsDisabledFragment extends DialogFragment
         implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
 
-    private static final String MESSAGE = "message";
+    private static final String TITLE = "title";
 
-    private static final int DEFAULT_MESSAGE = R.string.brevent_service_start;
+    private static final String CONNECTED = "connected";
+
+    private static final int DEFAULT_TITLE = R.string.brevent_service_start;
 
     private Dialog mDialog;
 
@@ -62,15 +64,16 @@ public class AppsDisabledFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         Bundle arguments = getArguments();
-        builder.setTitle(getString(arguments.getInt(MESSAGE, DEFAULT_MESSAGE),
+        builder.setTitle(getString(arguments.getInt(TITLE, DEFAULT_TITLE),
                 BuildConfig.VERSION_NAME));
-        String commandLine = getBootstrapCommandLine();
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = getActivity().registerReceiver(null, filter);
         boolean connected =
                 intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+        arguments.putBoolean(CONNECTED, connected);
+        String commandLine = getBootstrapCommandLine();
         String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(
                 getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
@@ -96,7 +99,7 @@ public class AppsDisabledFragment extends DialogFragment
 
     public void update(int title) {
         Bundle arguments = getArguments();
-        arguments.putInt(MESSAGE, title);
+        arguments.putInt(TITLE, title);
         if (mDialog != null) {
             mDialog.setTitle(title);
         }
@@ -113,13 +116,12 @@ public class AppsDisabledFragment extends DialogFragment
         String path = breventApplication.copyBrevent();
         if (path != null) {
             StringBuilder sb = new StringBuilder();
-            sb.append("adb ");
             if (isEmulator()) {
-                sb.append("-e ");
-            } else {
-                sb.append("-d ");
+                sb.append("adb -e shell ");
+            } else if (isConnected()) {
+                sb.append("adb -d shell ");
             }
-            sb.append("shell sh ");
+            sb.append("sh ");
             sb.append(path);
             return sb.toString();
         } else {
@@ -165,9 +167,17 @@ public class AppsDisabledFragment extends DialogFragment
                 ++repeat == 0x7) {
             BreventActivity activity = (BreventActivity) getActivity();
             ((BreventApplication) activity.getApplication()).setAllowRoot();
-            activity.showDisabled(getArguments().getInt(MESSAGE, DEFAULT_MESSAGE));
+            activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE));
         }
         return false;
+    }
+
+    public int getTitle() {
+        return getArguments().getInt(TITLE);
+    }
+
+    public boolean isConnected() {
+        return getArguments().getBoolean(CONNECTED, false);
     }
 
 }

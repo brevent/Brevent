@@ -5,13 +5,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -162,6 +163,8 @@ public class BreventActivity extends Activity
 
     private int mInstalledCount;
 
+    private UsbConnectedReceiver mConnectedReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -274,6 +277,11 @@ public class BreventActivity extends Activity
     }
 
     public void showDisabled(int title) {
+        if (mConnectedReceiver == null) {
+            mConnectedReceiver = new UsbConnectedReceiver(this);
+            IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
+            registerReceiver(mConnectedReceiver, filter);
+        }
         AppsDisabledFragment disabledFragment =
                 (AppsDisabledFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DISABLED);
         if (disabledFragment != null) {
@@ -285,7 +293,7 @@ public class BreventActivity extends Activity
     }
 
     public void hideDisabled() {
-        hideFragment(FRAGMENT_DISABLED);
+        dismissDialog(FRAGMENT_DISABLED);
     }
 
     public void showProgress(int message) {
@@ -314,19 +322,12 @@ public class BreventActivity extends Activity
     }
 
     public void hideProgress() {
-        hideFragment(FRAGMENT_PROGRESS);
+        dismissDialog(FRAGMENT_PROGRESS);
     }
 
     public void hideAppProgress() {
-        hideFragment(FRAGMENT_PROGRESS);
-        hideFragment(FRAGMENT_PROGRESS_APPS);
-    }
-
-    private void hideFragment(String tag) {
-        DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
-        if (fragment != null) {
-            fragment.dismissAllowingStateLoss();
-        }
+        dismissDialog(FRAGMENT_PROGRESS);
+        dismissDialog(FRAGMENT_PROGRESS_APPS);
     }
 
     @Override
@@ -349,26 +350,20 @@ public class BreventActivity extends Activity
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
         }
+        unregisterReceiver();
         super.onStop();
     }
 
-    private void dismissDialogFragmentIfNeeded(boolean allowStateLoss) {
-        dismissDialogFragmentIfNeeded(FRAGMENT_DISABLED, allowStateLoss);
-        dismissDialogFragmentIfNeeded(FRAGMENT_PROGRESS, allowStateLoss);
-        dismissDialogFragmentIfNeeded(FRAGMENT_UNSUPPORTED, allowStateLoss);
+    private void dismissDialog() {
+        dismissDialog(FRAGMENT_DISABLED);
+        dismissDialog(FRAGMENT_PROGRESS);
+        dismissDialog(FRAGMENT_UNSUPPORTED);
     }
 
-    private void dismissDialogFragmentIfNeeded(String tag, boolean allowStateLoss) {
-        Fragment fragment = getFragmentManager().findFragmentByTag(tag);
-        if (fragment instanceof DialogFragment) {
-            DialogFragment dialogFragment = (DialogFragment) fragment;
-            if (dialogFragment.isVisible()) {
-                if (allowStateLoss) {
-                    dialogFragment.dismissAllowingStateLoss();
-                } else {
-                    dialogFragment.dismiss();
-                }
-            }
+    private void dismissDialog(String tag) {
+        DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
+        if (fragment != null) {
+            fragment.dismissAllowingStateLoss();
         }
     }
 
@@ -382,7 +377,7 @@ public class BreventActivity extends Activity
             mHandler = null;
             uiHandler = null;
         }
-        dismissDialogFragmentIfNeeded(true);
+        dismissDialog();
         super.onDestroy();
     }
 
@@ -827,6 +822,7 @@ public class BreventActivity extends Activity
 
         if (!hasResponse) {
             updateConfiguration();
+            unregisterReceiver();
             hasResponse = true;
         }
 
@@ -1161,6 +1157,39 @@ public class BreventActivity extends Activity
 
     public synchronized boolean isStopped() {
         return stopped;
+    }
+
+    private void unregisterReceiver() {
+        if (mConnectedReceiver != null) {
+            unregisterReceiver(mConnectedReceiver);
+            mConnectedReceiver = null;
+        }
+    }
+
+    void updateDisabled(boolean connected) {
+        AppsDisabledFragment fragment = (AppsDisabledFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_DISABLED);
+        if (fragment != null && connected != fragment.isConnected()) {
+            showDisabled(fragment.getTitle());
+        }
+    }
+
+    private static class UsbConnectedReceiver extends BroadcastReceiver {
+
+        private final BreventActivity mActivity;
+
+        public UsbConnectedReceiver(BreventActivity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        public void onReceive(Context content, Intent intent) {
+            String action = intent.getAction();
+            if (HideApiOverride.ACTION_USB_STATE.equals(action)) {
+                boolean connected = intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+                mActivity.updateDisabled(connected);
+            }
+        }
     }
 
 }
