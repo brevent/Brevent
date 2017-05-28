@@ -22,6 +22,11 @@ public class HideApiOverrideU {
         mHandlerThread.start();
         mUiAutomation = new UiAutomation(mHandlerThread.getLooper(),
                 new UiAutomationConnection());
+        try {
+            mUiAutomation.disconnect();
+        } catch (RuntimeException e) {
+            // do nothing
+        }
         mUiAutomation.connect();
     }
 
