@@ -33,6 +33,12 @@ public class BreventServerReceiver extends BroadcastReceiver {
                         label, size);
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
+        } else if (BreventIntent.ACTION_ALIPAY.equals(action)) {
+            int count = intent.getIntExtra(BreventIntent.EXTRA_ALIPAY_COUNT, 0);
+            String sum = intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM);
+            String message = context.getResources().getString(R.string.toast_alipay,
+                    count, sum);
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
     }
 

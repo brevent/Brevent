@@ -171,5 +171,6 @@
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
+    <string name="toast_alipay">Thanks for donating %2$s RMB via Alipay in %1$d month</string>
 
 </resources>

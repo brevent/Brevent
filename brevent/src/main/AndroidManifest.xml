@@ -67,6 +67,9 @@
             <intent-filter>
                 <action android:name="me.piebridge.brevent.intent.action.ADD_PACKAGE" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.ALIPAY" />
+            </intent-filter>
         </receiver>
 
         <service android:name=".ui.BreventIntentService" />

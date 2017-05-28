@@ -169,5 +169,6 @@
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
+    <string name="toast_alipay">感谢您 %1$d 个月通过支付宝捐赠 %2$s 元</string>
 
 </resources>
