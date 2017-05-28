@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <android/log.h>
+#include <pwd.h>
 
 #define TAG "BreventLoader"
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
@@ -270,14 +271,20 @@ static size_t compute(int argc, char **argv) {
 
 int main(int argc, char **argv) {
     int fd;
-    int uid;
+    uid_t uid;
+    struct passwd *pw;
     struct timeval tv;
 
     uid = getuid();
     if (uid == 0) {
         printf("WARNING: run as root is experimental!!!\n");
     } else if (uid != 2000) {
-        printf("ERROR: cannot be run as non-shell.\n");
+        pw = getpwuid(uid);
+        if (pw != NULL) {
+            printf("ERROR: cannot be run as %s(%d).\n", pw->pw_name, uid);
+        } else {
+            printf("ERROR: cannot be run as non-shell(%d).\n", uid);
+        }
         exit(EPERM);
     }
 

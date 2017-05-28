@@ -7,27 +7,28 @@ fi
 package=me.piebridge.brevent
 brevent=/data/local/tmp/brevent
 
-name=`id -un`
-if [ x"$name" = x"root" ]; then
-    :
-elif [ x"$name" != x"shell" ]; then
-    echo "ERROR: cannot be run as non-shell." >&2
-    exit 1
-fi
-
-rm -rf $brevent
-cp $path $brevent
+# some os cannot execute $path directly
 if [ -f $brevent ]; then
-    chmod 0755 $brevent
-else
+    rm -rf $brevent
+fi
+if [ -f $brevent ]; then
     echo "WARNING: /data/local/tmp is not writalbe" >&2
+else
+    cp $path $brevent
+    if [ -f $brevent ]; then
+        chmod 0755 $brevent
+    else
+        echo "WARNING: /data/local/tmp is not writalbe" >&2
+    fi
 fi
 
+# some os is 64bit, but load 32bit library(and binary)
 if [ x"$abi64" == x"false" -a -x /system/bin/app_process64 ]; then
     rm -rf /data/local/tmp/app_process
     ln -s /system/bin/app_process32 /data/local/tmp/app_process
     export PATH=/data/local/tmp:$PATH
 fi
+
 if [ -x $brevent ]; then
     exec $brevent
 elif [ -x $path ]; then
