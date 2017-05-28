@@ -270,7 +270,16 @@ static size_t compute(int argc, char **argv) {
 
 int main(int argc, char **argv) {
     int fd;
+    int uid;
     struct timeval tv;
+
+    uid = getuid();
+    if (uid == 0) {
+        printf("WARNING: run as root is experimental!!!\n");
+    } else if (uid != 2000) {
+        printf("ERROR: cannot be run as non-shell.\n");
+        exit(EPERM);
+    }
 
     check_original();
 
