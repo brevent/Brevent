@@ -23,11 +23,8 @@ import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IDeviceIdleController;
 import android.os.Looper;
 import android.os.Message;
-import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -801,7 +798,12 @@ public class BreventActivity extends Activity
         for (String packageName : status.mAndroidProcesses) {
             mImportant.put(packageName, IMPORTANT_ANDROID);
         }
-        resolveFavoritePackages(mFavorite);
+        for (String packageName : status.mFullPowerList) {
+            mFavorite.put(packageName, IMPORTANT_BATTERY);
+        }
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("favorite: " + mFavorite);
+        }
         if (((BreventApplication) getApplication()).supportStopped()) {
             resolveGcmPackages(mGcm);
         }
@@ -994,28 +996,6 @@ public class BreventActivity extends Activity
         }
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("gcm: " + packageNames);
-        }
-    }
-
-    private void resolveFavoritePackages(SimpleArrayMap<String, Integer> packageNames) {
-        // battery
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                IDeviceIdleController deviceidle = IDeviceIdleController.Stub.asInterface(
-                        ServiceManager.getService("deviceidle"));
-                String[] fullPowerWhiteList = deviceidle.getFullPowerWhitelist();
-                if (fullPowerWhiteList != null) {
-                    for (String s : fullPowerWhiteList) {
-                        packageNames.put(s, IMPORTANT_BATTERY);
-                    }
-                }
-            } catch (RemoteException e) {
-                // do nothing
-            }
-        }
-
-        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("favorite: " + packageNames);
         }
     }
 
