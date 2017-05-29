@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion rootProject.targetSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -8,6 +7,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,7 +21,7 @@ android {
                 additionalParameters += '--main-dex-list=build/maindexlist.txt'
                 additionalParameters += '--minimal-main-dex'
             }
-	}
+        }
 
         defaultConfig {
             versionCode rootProject.versionCode
@@ -151,7 +151,6 @@ if (rootProject.file('brevent-server').exists()) {
         }
     }
 }
-
 
 if (project.gradle.startParameter.taskRequests?.empty) {
     // for ide
