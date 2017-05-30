@@ -70,7 +70,7 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol response = (BreventProtocol) message.obj;
                 BreventActivity activity = mReference.get();
-                if (response != null && activity != null && !activity.isStopped()) {
+                if (activity != null && !activity.isStopped()) {
                     activity.onBreventResponse(response);
                 }
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);

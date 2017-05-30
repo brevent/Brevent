@@ -30,6 +30,8 @@ import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -154,6 +156,8 @@ public class BreventActivity extends Activity
 
     private volatile boolean stopped;
 
+    private volatile boolean paused;
+
     private volatile boolean hasResponse;
 
     private Snackbar mSnackBar;
@@ -266,6 +270,21 @@ public class BreventActivity extends Activity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mHandler != null && paused) {
+            mHandler.sendEmptyMessage(hasResponse ? MESSAGE_RETRIEVE2 : MESSAGE_RETRIEVE);
+        }
+        paused = false;
+    }
+
+    @Override
+    protected void onPause() {
+        paused = true;
+        super.onPause();
+    }
+
     public void showDisabled() {
         if (mHandler != null) {
             hideProgress();
@@ -330,18 +349,15 @@ public class BreventActivity extends Activity
     @Override
     protected synchronized void onStart() {
         super.onStart();
-        UILog.d("onStart, update stopped to false");
         stopped = false;
-        if (mHandler != null) {
-            if (!hasResponse) {
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
-            }
+        paused = false;
+        if (mHandler != null && !hasResponse) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
         }
     }
 
     @Override
     protected synchronized void onStop() {
-        UILog.d("onStop, update stopped to true");
         stopped = true;
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
@@ -718,10 +734,18 @@ public class BreventActivity extends Activity
         }
     }
 
-    public void onBreventResponse(BreventProtocol response) {
+    public void onBreventResponse(@Nullable BreventProtocol response) {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("response: " + response);
         }
+        if (response == null) {
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_PROGRESS);
+        } else {
+            dispatchResponse(response);
+        }
+    }
+
+    private void dispatchResponse(@NonNull BreventProtocol response) {
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
