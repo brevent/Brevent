@@ -95,7 +95,6 @@
         <item>@string/brevent_method_forcestop_only</item>
     </string-array>
 
-
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>

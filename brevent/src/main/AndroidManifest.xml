@@ -22,7 +22,7 @@
         android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".ui.BreventActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,17 +32,17 @@
         </activity>
         <activity
             android:name=".ui.BreventSettings"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:label="@string/menu_settings"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.BreventGuide"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:label="@string/menu_guide"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.BreventLicenses"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Material.Dialog"
             android:windowSoftInputMode="stateHidden" />
 
