@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -382,15 +383,16 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         mAppsInfo.add(new AppsInfo(packageName, label));
     }
 
-    public boolean accept(PackageManager pm, ApplicationInfo appInfo, boolean showAllApps) {
+    public boolean accept(PackageManager pm, PackageInfo pkgInfo, boolean showAllApps) {
         BreventActivity activity = getActivity();
+        ApplicationInfo appInfo = pkgInfo.applicationInfo;
         String packageName = appInfo.packageName;
         // hard limit
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
             return false;
         }
         // filter for fragment
-        if (!mFragment.accept(pm, appInfo)) {
+        if (!mFragment.accept(pm, pkgInfo)) {
             return false;
         }
         if (activity.isLauncher(packageName)) {

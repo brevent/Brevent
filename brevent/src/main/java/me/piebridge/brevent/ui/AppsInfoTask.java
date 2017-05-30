@@ -44,7 +44,7 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
         int size = 0;
         for (PackageInfo pkgInfo : installedPackages) {
             ApplicationInfo appInfo = pkgInfo.applicationInfo;
-            if (appInfo.enabled && mAdapter.accept(pm, appInfo, showAllApps)) {
+            if (appInfo.enabled && mAdapter.accept(pm, pkgInfo, showAllApps)) {
                 String label = labelLoader.loadLabel(pm, pkgInfo);
                 mAdapter.addPackage(appInfo.packageName, label);
                 ++size;

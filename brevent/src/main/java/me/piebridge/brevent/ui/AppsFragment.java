@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
@@ -105,7 +106,7 @@ public abstract class AppsFragment extends Fragment {
         super.onDestroy();
     }
 
-    public abstract boolean accept(PackageManager packageManager, ApplicationInfo applicationInfo);
+    public abstract boolean accept(PackageManager packageManager, PackageInfo packageInfo);
 
     public void refresh() {
         if (mAdapter != null) {
@@ -184,7 +185,9 @@ public abstract class AppsFragment extends Fragment {
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
-    protected final boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
+    protected final boolean isFrameworkPackage(PackageManager packageManager, PackageInfo packageInfo,
+                                               boolean force) {
+        String packageName = packageInfo.packageName;
         if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) !=
                 PackageManager.SIGNATURE_MATCH) {
             return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
@@ -194,8 +197,9 @@ public abstract class AppsFragment extends Fragment {
             Context context = getActivity();
             if (context != null) {
                 preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
-                if (preferences.contains(packageName)) {
-                    return preferences.getBoolean(packageName, false);
+                if (preferences.contains(packageName) && (!force
+                        || packageInfo.lastUpdateTime <= AppsLabelLoader.getLastSync(context))) {
+                    preferences.getBoolean(packageName, false);
                 }
             }
             boolean signature = Arrays.equals(getFrameworkSignatures(packageManager),

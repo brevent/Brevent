@@ -26,10 +26,20 @@ public class AppsLabelLoader {
 
     private final SharedPreferences mPreferences;
 
+    private static long lastSync;
+
     public AppsLabelLoader(Context context) {
         mPreferences =
                 context.getSharedPreferences("label-" + Locale.getDefault(), Context.MODE_PRIVATE);
-        mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
+        lastSync = mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
+    }
+
+    public static long getLastSync(Context context) {
+        if (lastSync == 0) {
+            lastSync = context.getSharedPreferences("label-" + Locale.getDefault(),
+                    Context.MODE_PRIVATE).getLong(KEY_LAST_SYNC, 0);
+        }
+        return lastSync;
     }
 
     public String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {
