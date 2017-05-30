@@ -1006,10 +1006,8 @@ public class BreventActivity extends Activity
 
     private void resolveGcmPackages(Set<String> packageNames) {
         // gcm
-        List<PackageInfo> packageInfos =
-                getPackageManager().getPackagesHoldingPermissions(new String[] {
-                        "com.google.android.c2dm.permission.RECEIVE",
-                }, 0);
+        List<PackageInfo> packageInfos = getPackageManager().getPackagesHoldingPermissions(
+                new String[] {"com.google.android.c2dm.permission.RECEIVE"}, 0);
         if (packageInfos != null) {
             Set<String> gcm = new ArraySet<>();
             for (PackageInfo packageInfo : packageInfos) {
