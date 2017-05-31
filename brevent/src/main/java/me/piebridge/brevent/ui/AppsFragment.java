@@ -48,6 +48,12 @@ public abstract class AppsFragment extends Fragment {
 
     private Signature[] frameworkSignatures;
 
+    private static boolean warned;
+
+    private SharedPreferences preferences;
+
+    private long lastSync;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -185,30 +191,41 @@ public abstract class AppsFragment extends Fragment {
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
-    protected final boolean isFrameworkPackage(PackageManager packageManager, PackageInfo packageInfo,
-                                               boolean force) {
+    protected final boolean isFrameworkPackage(PackageManager packageManager,
+                                               PackageInfo packageInfo) {
         String packageName = packageInfo.packageName;
         if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) !=
                 PackageManager.SIGNATURE_MATCH) {
             return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
                     PackageManager.SIGNATURE_MATCH;
         } else {
-            SharedPreferences preferences = null;
-            Context context = getActivity();
-            if (context != null) {
-                preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
-                if (preferences.contains(packageName) && (!force
-                        || packageInfo.lastUpdateTime <= AppsLabelLoader.getLastSync(context))) {
-                    preferences.getBoolean(packageName, false);
+            if (preferences == null) {
+                if (!warned) {
+                    warned = true;
+                    UILog.w(BuildConfig.APPLICATION_ID + " shouldn't be framework app");
+                }
+                Context context = getActivity();
+                if (context == null) {
+                    return isFrameworkPackage(packageManager, packageName);
+                } else {
+                    preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
+                    lastSync = AppsLabelLoader.getLastSync(context);
                 }
             }
-            boolean signature = Arrays.equals(getFrameworkSignatures(packageManager),
-                    BreventActivity.getSignatures(packageManager, packageName));
-            if (preferences != null) {
-                preferences.edit().putBoolean(packageName, signature).apply();
+            if (preferences.contains(packageName) && packageInfo.lastUpdateTime <= lastSync) {
+                return preferences.getBoolean(packageName, false);
             }
+            boolean signature = isFrameworkPackage(packageManager, packageName);
+            preferences.edit().putBoolean(packageName, signature).apply();
             return signature;
         }
+    }
+
+    private boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
+        boolean frameworkApp = Arrays.equals(getFrameworkSignatures(packageManager),
+                BreventActivity.getSignatures(packageManager, packageName));
+        UILog.i("checking framework app for " + packageName + ": " + (frameworkApp ? "yes" : "no"));
+        return frameworkApp;
     }
 
     private Signature[] getFrameworkSignatures(PackageManager packageManager) {

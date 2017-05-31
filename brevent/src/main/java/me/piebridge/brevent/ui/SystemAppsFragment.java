@@ -11,7 +11,7 @@ public class SystemAppsFragment extends AppsFragment {
     @Override
     public boolean accept(PackageManager packageManager, PackageInfo packageInfo) {
         return isSystemPackage(packageInfo.applicationInfo.flags)
-                && !isFrameworkPackage(packageManager, packageInfo, false);
+                && !isFrameworkPackage(packageManager, packageInfo);
     }
 
 }

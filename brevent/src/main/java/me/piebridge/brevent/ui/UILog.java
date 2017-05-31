@@ -18,7 +18,7 @@ class UILog {
     }
 
     static void v(String msg, Throwable t) {
-        Log.e(TAG, msg);
+        Log.v(TAG, msg);
     }
 
     static void d(String msg) {
@@ -38,11 +38,11 @@ class UILog {
     }
 
     static void w(String msg) {
-        Log.e(TAG, msg);
+        Log.w(TAG, msg);
     }
 
     static void w(String msg, Throwable t) {
-        Log.e(TAG, msg, t);
+        Log.w(TAG, msg, t);
     }
 
     static void e(String msg, Throwable t) {
