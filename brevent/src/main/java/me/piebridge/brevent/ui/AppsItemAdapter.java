@@ -43,6 +43,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     private final List<AppsInfo> mAppsInfo;
 
+    private final List<AppsInfo> mNext;
+
     private final Set<String> mPackages;
 
     private final Set<String> mSelected;
@@ -63,6 +65,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         mFragment = fragment;
         mHandler = handler;
         mAppsInfo = new ArrayList<>();
+        mNext = new ArrayList<>();
         mPackages = new ArraySet<>();
         mStatus = fragment.getResources().getStringArray(R.array.process_status);
         mSelected = new ArraySet<>();
@@ -282,7 +285,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             return;
         }
         mCompleted = false;
-        mAppsInfo.clear();
+        mNext.clear();
         mPackages.clear();
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
         new AppsInfoTask(this).execute(activity);
@@ -290,10 +293,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     public void updateAppsInfo() {
         if (mCompleted) {
-            if (updateAppsStatus()) {
-                Collections.sort(mAppsInfo);
-                notifyDataSetChanged();
-            }
+            updateAppsStatus();
             mHandler.sendEmptyMessage(AppsItemHandler.MSG_UPDATE_ITEM);
         }
     }
@@ -306,7 +306,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         boolean changed = false;
         SparseIntArray counter = new SparseIntArray();
         SparseArray<AppsInfo> appsInfoStatus = new SparseArray<>();
-        for (AppsInfo appsInfo : mAppsInfo) {
+        for (AppsInfo appsInfo : mNext) {
             if (appsInfo.isPackage()) {
                 int status = activity.getStatus(appsInfo.packageName);
                 if (appsInfo.status != status) {
@@ -329,7 +329,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             String label = String.valueOf(counter.valueAt(i));
             AppsInfo appsInfo = appsInfoStatus.get(status);
             if (appsInfo == null) {
-                mAppsInfo.add(new AppsInfo(status, label));
+                mNext.add(new AppsInfo(status, label));
             } else {
                 appsInfo.label = label;
                 appsInfoStatus.remove(status);
@@ -337,8 +337,16 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
         size = appsInfoStatus.size();
         for (int i = 0; i < size; ++i) {
-            mAppsInfo.remove(appsInfoStatus.valueAt(i));
+            mNext.remove(appsInfoStatus.valueAt(i));
         }
+        Collections.sort(mNext);
+        size = mAppsInfo.size();
+        if (size > 0) {
+            mAppsInfo.clear();
+            notifyItemRangeRemoved(0, size);
+        }
+        mAppsInfo.addAll(mNext);
+        notifyItemRangeInserted(0, mNext.size());
         return true;
     }
 
@@ -380,7 +388,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     public void addPackage(String packageName, String label) {
         mPackages.add(packageName);
-        mAppsInfo.add(new AppsInfo(packageName, label));
+        mNext.add(new AppsInfo(packageName, label));
     }
 
     public boolean accept(PackageManager pm, PackageInfo pkgInfo, boolean showAllApps) {
