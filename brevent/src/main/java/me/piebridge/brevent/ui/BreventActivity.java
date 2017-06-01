@@ -301,7 +301,7 @@ public class BreventActivity extends Activity
         AppsDisabledFragment disabledFragment =
                 (AppsDisabledFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DISABLED);
         if (disabledFragment != null) {
-            disabledFragment.dismiss();
+            disabledFragment.dismissAllowingStateLoss();
         }
         disabledFragment = new AppsDisabledFragment();
         disabledFragment.update(title);
@@ -317,7 +317,7 @@ public class BreventActivity extends Activity
         ProgressFragment progressFragment =
                 (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
         if (progressFragment != null) {
-            progressFragment.dismiss();
+            progressFragment.dismissAllowingStateLoss();
         }
         progressFragment = new ProgressFragment();
         progressFragment.updateMessage(message);
