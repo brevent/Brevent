@@ -28,6 +28,8 @@ public class AppsActivityHandler extends Handler {
 
     public static final int LATER = 6000;
 
+    public static final int RETRY = 1000;
+
     private final Handler uiHandler;
 
     private final WeakReference<BreventActivity> mReference;
@@ -127,6 +129,9 @@ public class AppsActivityHandler extends Handler {
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+            }
+            if (hasResponse && action == BreventProtocol.STATUS_REQUEST) {
+                sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, RETRY);
             }
         } catch (IOException e) {
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
