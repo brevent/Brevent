@@ -25,7 +25,9 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
 
     @Override
     protected void onPreExecute() {
-        mAdapter.getActivity().showAppProgress(R.string.process_retrieving_apps, 0, 0);
+        if (mAdapter != null && mAdapter.getActivity() != null) {
+            mAdapter.getActivity().showAppProgress(R.string.process_retrieving_apps, 0, 0);
+        }
     }
 
     @Override
@@ -57,13 +59,17 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
 
     @Override
     protected void onProgressUpdate(Integer... progress) {
-        mAdapter.getActivity().showAppProgress(progress[0], progress[1], progress[2]);
+        if (mAdapter != null && mAdapter.getActivity() != null) {
+            mAdapter.getActivity().showAppProgress(progress[0], progress[1], progress[2]);
+        }
     }
 
     @Override
     protected void onPostExecute(Void result) {
-        mAdapter.getActivity().hideAppProgress();
-        mAdapter.onCompleted();
+        if (mAdapter != null && mAdapter.getActivity() != null) {
+            mAdapter.getActivity().hideAppProgress();
+            mAdapter.onCompleted();
+        }
     }
 
 }

@@ -292,7 +292,10 @@ public class BreventActivity extends Activity
         }
     }
 
-    public void showDisabled(int title) {
+    public synchronized void showDisabled(int title) {
+        if (isStopped()) {
+            return;
+        }
         if (mConnectedReceiver == null) {
             mConnectedReceiver = new UsbConnectedReceiver(this);
             IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
@@ -312,7 +315,10 @@ public class BreventActivity extends Activity
         dismissDialog(FRAGMENT_DISABLED);
     }
 
-    public void showProgress(int message) {
+    public synchronized void showProgress(int message) {
+        if (isStopped()) {
+            return;
+        }
         hideDisabled();
         ProgressFragment progressFragment =
                 (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
@@ -324,7 +330,10 @@ public class BreventActivity extends Activity
         progressFragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
     }
 
-    public void showAppProgress(int progress, int max, int size) {
+    public synchronized void showAppProgress(int progress, int max, int size) {
+        if (isStopped()) {
+            return;
+        }
         AppsProgressFragment progressFragment =
                 (AppsProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS_APPS);
         if (progressFragment == null) {
