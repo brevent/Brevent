@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Process;
 import android.support.annotation.ColorInt;
 import android.support.v4.util.ArraySet;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -44,6 +45,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     private final List<AppsInfo> mAppsInfo;
 
     private final List<AppsInfo> mNext;
+
+    private boolean mChanged;
 
     private final Set<String> mPackages;
 
@@ -286,6 +289,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
         mCompleted = false;
         mNext.clear();
+        mChanged = true;
         mPackages.clear();
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
         new AppsInfoTask(this).execute(activity);
@@ -303,7 +307,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (activity == null) {
             return false;
         }
-        boolean changed = false;
+        boolean changed = mChanged;
         SparseIntArray counter = new SparseIntArray();
         SparseArray<AppsInfo> appsInfoStatus = new SparseArray<>();
         for (AppsInfo appsInfo : mNext) {
@@ -311,7 +315,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 int status = activity.getStatus(appsInfo.packageName);
                 if (appsInfo.status != status) {
                     appsInfo.status = status;
-                    changed = true;
+                    if (!changed) {
+                        changed = true;
+                    }
                 }
                 int oldValue = counter.get(status, 0);
                 counter.put(status, oldValue + 1);
@@ -322,6 +328,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!changed) {
             return false;
         }
+        mChanged = false;
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
         int size = counter.size();
         for (int i = 0; i < size; ++i) {
@@ -340,13 +347,15 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             mNext.remove(appsInfoStatus.valueAt(i));
         }
         Collections.sort(mNext);
-        size = mAppsInfo.size();
-        if (size > 0) {
+        if (mAppsInfo.isEmpty()) {
+            mAppsInfo.addAll(mNext);
+            notifyItemRangeInserted(0, mNext.size());
+        } else {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback(mAppsInfo, mNext));
             mAppsInfo.clear();
-            notifyItemRangeRemoved(0, size);
+            mAppsInfo.addAll(mNext);
+            result.dispatchUpdatesTo(this);
         }
-        mAppsInfo.addAll(mNext);
-        notifyItemRangeInserted(0, mNext.size());
         return true;
     }
 
@@ -419,6 +428,39 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             UILog.v("checking launcher for " + packageName);
         }
         return pm.getLaunchIntentForPackage(packageName) != null;
+    }
+
+    private static class DiffCallback extends DiffUtil.Callback {
+
+        private final List<AppsInfo> mOldList;
+
+        private final List<AppsInfo> mNewList;
+
+        DiffCallback(List<AppsInfo> oldList, List<AppsInfo> newList) {
+            mOldList = oldList;
+            mNewList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return mOldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return mNewList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return mOldList.get(oldItemPosition).equals(mNewList.get(newItemPosition));
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return false;
+        }
+
     }
 
 }
