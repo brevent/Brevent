@@ -213,8 +213,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getPaypalLink()));
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"));
-        ResolveInfo resolveInfo =
-                getPackageManager().resolveActivity(browser, PackageManager.MATCH_DEFAULT_ONLY);
+        ResolveInfo resolveInfo = getPackageManager()
+                .resolveActivity(browser, PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
             intent.setPackage(resolveInfo.activityInfo.packageName);
         }
@@ -299,8 +299,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                     refreshQrCode(qrCode);
                 }
             } else {
-                DocumentFile documentFile =
-                        DocumentFile.fromSingleUri(getApplicationContext(), qrCode);
+                DocumentFile documentFile = DocumentFile.fromSingleUri(this, qrCode);
                 if (documentFile.exists() && documentFile.delete()) {
                     refreshQrCode(qrCode);
                 }
@@ -319,8 +318,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     void hideDonateDialog() {
-        DialogFragment fragment =
-                (DialogFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
+        DialogFragment fragment = (DialogFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
         if (fragment != null) {
             fragment.dismiss();
         }
@@ -384,9 +383,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     protected boolean isPlay() {
-        PackageManager pm = getPackageManager();
-        String packageName = getPackageName();
-        return isPlayDerived(pm, packageName);
+        return isPlayDerived(getPackageManager(), getPackageName());
     }
 
     public static boolean isPlayDerived(PackageManager pm, String packageName) {
@@ -402,8 +399,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private Uri getQrCodeUri() {
         String name = getPackageName() + ".donate.wechat.png";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SharedPreferences preferences =
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
             DocumentFile file = null;
             if (cachedUri != null) {
@@ -415,10 +411,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 }
             }
             if (file == null) {
-                StorageManager storageManager =
-                        (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                StorageVolume storageVolume = storageManager.getPrimaryStorageVolume();
-                Intent intent = storageVolume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+                StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                StorageVolume sv = sm.getPrimaryStorageVolume();
+                Intent intent = sv.createAccessIntent(Environment.DIRECTORY_PICTURES);
                 startActivityForResult(intent, REQUEST_WECHAT_DONATE_SDA);
                 return Uri.EMPTY;
             }

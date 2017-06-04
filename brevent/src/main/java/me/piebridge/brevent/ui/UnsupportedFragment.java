@@ -19,6 +19,7 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
 
     public UnsupportedFragment() {
         setArguments(new Bundle());
+        setStyle(STYLE_NO_TITLE, 0);
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {

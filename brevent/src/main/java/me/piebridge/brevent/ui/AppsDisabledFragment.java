@@ -30,7 +30,7 @@ public class AppsDisabledFragment extends DialogFragment
 
     private static final String TITLE = "title";
 
-    private static final String CONNECTED = "connected";
+    private static final String USB_CONNECTED = "USB_CONNECTED";
 
     private static final int DEFAULT_TITLE = R.string.brevent_service_start;
 
@@ -70,11 +70,10 @@ public class AppsDisabledFragment extends DialogFragment
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = getActivity().registerReceiver(null, filter);
-        boolean connected =
-                intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
-        arguments.putBoolean(CONNECTED, connected);
+        boolean usb = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+        arguments.putBoolean(USB_CONNECTED, usb);
         String commandLine = getBootstrapCommandLine();
-        String usbStatus = connected ? getString(R.string.brevent_service_usb_connected) : "";
+        String usbStatus = usb ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(
                 getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -133,8 +132,7 @@ public class AppsDisabledFragment extends DialogFragment
     public void onClick(DialogInterface dialog, int which) {
         Activity activity = getActivity();
         if (which == DialogInterface.BUTTON_POSITIVE) {
-            boolean adbRunning =
-                    SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
+            boolean adbRunning = SystemProperties.get("init.svc.adbd", "").equals("running");
             if (adbRunning) {
                 String commandLine = getBootstrapCommandLine();
                 ((BreventActivity) activity).copy(commandLine);
@@ -177,7 +175,7 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     public boolean isConnected() {
-        return getArguments().getBoolean(CONNECTED, false);
+        return getArguments().getBoolean(USB_CONNECTED, false);
     }
 
 }

@@ -49,12 +49,13 @@ public class VersionPreference extends Preference {
 
     private String getVersion(Context context) {
         final String packageName = BuildConfig.APPLICATION_ID;
-        PackageManager pm = context.getPackageManager();
-        if (DonateActivity.isPlayDerived(pm, packageName)) {
+        PackageManager packageManager = context.getPackageManager();
+        if (DonateActivity.isPlayDerived(packageManager, packageName)) {
             return context.getString(R.string.brevent_about_version_play);
         }
-        String installer = pm.getInstallerPackageName(packageName);
-        if (!TextUtils.isEmpty(installer) && pm.getLaunchIntentForPackage(installer) != null) {
+        String installer = packageManager.getInstallerPackageName(packageName);
+        if (!TextUtils.isEmpty(installer)
+                && packageManager.getLaunchIntentForPackage(installer) != null) {
             if ("com.meizu.mstore".equals(installer)) {
                 return context.getString(R.string.brevent_about_version_meizu);
             } else if ("com.smartisanos.appstore".equals(installer)) {

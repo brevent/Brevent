@@ -93,9 +93,8 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private void doDonate(String sku) {
         try {
-            Bundle buyIntent =
-                    mService.getBuyIntent(PLAY_VERSION, mPackageName, sku, PLAY_TYPE, null);
-            PendingIntent intent = buyIntent.getParcelable("BUY_INTENT");
+            Bundle bundle = mService.getBuyIntent(PLAY_VERSION, mPackageName, sku, PLAY_TYPE, null);
+            PendingIntent intent = bundle.getParcelable("BUY_INTENT");
             DonateActivity donateActivity = mReference.get();
             if (donateActivity != null && intent != null) {
                 uiHandler.obtainMessage(MESSAGE_DONATE, intent.getIntentSender()).sendToTarget();
@@ -197,9 +196,8 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private static byte[] getSignature(byte[] sha1) {
         // rfc3447, sha-1
-        byte[] algorithm =
-                {0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02, 0x1a, 0x05, 0x00, 0x04,
-                        0x14};
+        byte[] algorithm = {0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02,
+                0x1a, 0x05, 0x00, 0x04, 0x14};
         ByteArrayOutputStream signature = new ByteArrayOutputStream(0xff);
         signature.write(0x01);
         // 0xff - 2 - algorithm - sha1

@@ -122,7 +122,7 @@ dependencies {
         compile project(':design-snackbar-tablayout')
     } else {
         compile project(':appcompat-dummy')
-        compile ("com.android.support:design:${rootProject.supportLibraryVersion}") {
+        compile("com.android.support:design:${rootProject.supportLibraryVersion}") {
             exclude group: 'com.android.support', module: 'appcompat-v7'
         }
     }

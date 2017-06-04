@@ -193,8 +193,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (BuildConfig.RELEASE) {
             verifySignatures();
         }
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!disabledXposed) {
             showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
@@ -221,8 +220,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
             mColorControlNormal = ColorUtils.resolveColor(this, android.R.attr.colorControlNormal);
             mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
-            mColorControlHighlight =
-                    ColorUtils.resolveColor(this, android.R.attr.colorControlHighlight);
+            mColorControlHighlight = ColorUtils.resolveColor(this,
+                    android.R.attr.colorControlHighlight);
         }
     }
 
@@ -295,8 +294,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
             registerReceiver(mConnectedReceiver, filter);
         }
-        AppsDisabledFragment disabledFragment =
-                (AppsDisabledFragment) getFragmentManager().findFragmentByTag(FRAGMENT_DISABLED);
+        AppsDisabledFragment disabledFragment = (AppsDisabledFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_DISABLED);
         if (disabledFragment != null) {
             disabledFragment.dismissAllowingStateLoss();
         }
@@ -314,8 +313,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             return;
         }
         hideDisabled();
-        ProgressFragment progressFragment =
-                (ProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS);
+        ProgressFragment progressFragment = (ProgressFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_PROGRESS);
         if (progressFragment != null) {
             progressFragment.dismissAllowingStateLoss();
         }
@@ -328,8 +327,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (isStopped()) {
             return;
         }
-        AppsProgressFragment progressFragment =
-                (AppsProgressFragment) getFragmentManager().findFragmentByTag(FRAGMENT_PROGRESS_APPS);
+        AppsProgressFragment progressFragment = (AppsProgressFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_PROGRESS_APPS);
         if (progressFragment == null) {
             progressFragment = new AppsProgressFragment();
             progressFragment.setTitle(R.string.process_retrieving_apps);
@@ -512,15 +511,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             menu.add(Menu.NONE, R.string.menu_guide, Menu.NONE, R.string.menu_guide);
             menu.add(Menu.NONE, R.string.menu_settings, Menu.NONE, R.string.menu_settings);
         } else {
-            MenuItem remove =
-                    menu.add(Menu.NONE, R.string.action_restore, Menu.NONE, R.string.action_restore)
-                            .setIcon(R.drawable.ic_panorama_fish_eye_black_24dp);
+            MenuItem remove = menu.add(Menu.NONE, R.string.action_restore, Menu.NONE,
+                    R.string.action_restore).setIcon(R.drawable.ic_panorama_fish_eye_black_24dp);
             remove.getIcon().setTint(mColorControlNormal);
             remove.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-            MenuItem brevent =
-                    menu.add(Menu.NONE, R.string.action_brevent, Menu.NONE, R.string.action_brevent)
-                            .setIcon(R.drawable.ic_block_black_24dp);
+            MenuItem brevent = menu.add(Menu.NONE, R.string.action_brevent, Menu.NONE,
+                    R.string.action_brevent).setIcon(R.drawable.ic_block_black_24dp);
             brevent.getIcon().setTint(mColorControlNormal);
             brevent.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -601,8 +598,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void updateConfiguration() {
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
         if (!application.supportStandby() && !"forcestop_only".equals(
                 preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))) {
@@ -936,26 +932,25 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         // launcher
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        ResolveInfo resolveInfo =
-                getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        ResolveInfo resolveInfo = getPackageManager().resolveActivity(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
             mLauncher = resolveInfo.activityInfo.packageName;
             packageNames.put(mLauncher, IMPORTANT_HOME);
         }
 
-        AccessibilityManager accessibilityManager =
-                (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        List<AccessibilityServiceInfo> enabledAccessibilityServiceList =
-                accessibilityManager.getEnabledAccessibilityServiceList(
-                        AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
-        for (AccessibilityServiceInfo accessibilityServiceInfo : enabledAccessibilityServiceList) {
+        AccessibilityManager accessibility = (AccessibilityManager) getSystemService(
+                Context.ACCESSIBILITY_SERVICE);
+        List<AccessibilityServiceInfo> enabled = accessibility.getEnabledAccessibilityServiceList(
+                AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+        for (AccessibilityServiceInfo accessibilityServiceInfo : enabled) {
             packageNames.put(accessibilityServiceInfo.getResolveInfo().serviceInfo.packageName,
                     IMPORTANT_ACCESSIBILITY);
         }
 
-        DevicePolicyManager devicePolicyManager =
-                (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        List<ComponentName> componentNames = devicePolicyManager.getActiveAdmins();
+        DevicePolicyManager devicePolicy = (DevicePolicyManager) getSystemService(
+                Context.DEVICE_POLICY_SERVICE);
+        List<ComponentName> componentNames = devicePolicy.getActiveAdmins();
         if (componentNames != null) {
             for (ComponentName componentName : componentNames) {
                 packageNames.put(componentName.getPackageName(), IMPORTANT_DEVICE_ADMIN);

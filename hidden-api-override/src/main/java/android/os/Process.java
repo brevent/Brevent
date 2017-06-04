@@ -21,6 +21,7 @@ public class Process {
 
     /**
      * Returns the identifier of this process' parent.
+     *
      * @hide
      */
     public static int myPpid() {

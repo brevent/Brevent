@@ -47,6 +47,7 @@ public class Settings {
 
         /**
          * The currently selected voice interaction service flattened ComponentName.
+         *
          * @hide
          */
         public static String VOICE_INTERACTION_SERVICE = "voice_interaction_service";

@@ -17,6 +17,7 @@ public class ProgressFragment extends DialogFragment {
     public ProgressFragment() {
         super();
         setCancelable(false);
+        setStyle(STYLE_NO_TITLE, 0);
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

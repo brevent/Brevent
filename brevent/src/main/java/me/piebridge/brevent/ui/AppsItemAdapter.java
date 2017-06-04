@@ -81,17 +81,15 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_SECTION) {
-            View view =
-                    LayoutInflater.from(parent.getContext()).inflate(R.layout.item_section, parent,
-                            false);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_section, parent, false);
             AppsSectionViewHolder viewHolder = new AppsSectionViewHolder(view);
             viewHolder.statusView = (TextView) view.findViewById(R.id.status);
             viewHolder.countView = (TextView) view.findViewById(R.id.count);
             return viewHolder;
         } else {
-            CardView view =
-                    (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_apps,
-                            parent, false);
+            CardView view = (CardView) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_apps, parent, false);
             AppsItemViewHolder viewHolder = new AppsItemViewHolder(mFragment, view);
             viewHolder.cardView = view;
             viewHolder.iconView = (ImageView) view.findViewById(R.id.icon);
@@ -148,8 +146,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_favorite_black_44dp);
             } else if (mFragment.isGcm(viewHolder.packageName)) {
-                String label =
-                        mFragment.getActivity().getString(R.string.important_gcm, viewHolder.label);
+                String label = mFragment.getActivity().getString(R.string.important_gcm,
+                        viewHolder.label);
                 viewHolder.nameView.setText(label);
                 viewHolder.iconView.setImageResource(R.drawable.ic_cloud_circle_black_44dp);
             } else {

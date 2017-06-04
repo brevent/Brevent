@@ -30,6 +30,7 @@ public class AppsProgressFragment extends DialogFragment {
     public AppsProgressFragment() {
         setArguments(new Bundle());
         setCancelable(false);
+        setStyle(STYLE_NO_TITLE, 0);
     }
 
     @Override

@@ -34,20 +34,20 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
     protected Void doInBackground(Context... params) {
         Context context = params[0];
 
-        PackageManager pm = context.getPackageManager();
+        PackageManager packageManager = context.getPackageManager();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean showAllApps =
-                sp.getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
+        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
+                SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(context);
-        List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
+        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
         int max = installedPackages.size();
         int progress = 0;
         int size = 0;
         for (PackageInfo pkgInfo : installedPackages) {
             ApplicationInfo appInfo = pkgInfo.applicationInfo;
-            if (appInfo.enabled && mAdapter.accept(pm, pkgInfo, showAllApps)) {
-                String label = labelLoader.loadLabel(pm, pkgInfo);
+            if (appInfo.enabled && mAdapter.accept(packageManager, pkgInfo, showAllApps)) {
+                String label = labelLoader.loadLabel(packageManager, pkgInfo);
                 mAdapter.addPackage(appInfo.packageName, label);
                 ++size;
             }

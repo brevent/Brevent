@@ -47,9 +47,8 @@ class WechatTask extends AsyncTask<String, Void, Boolean>
 
         PackageManager packageManager = donateActivity.getPackageManager();
         Intent launcher = packageManager.getLaunchIntentForPackage(donateActivity.getPackageName());
-        BitmapDrawable drawable =
-                (BitmapDrawable) packageManager.resolveActivity(launcher, 0).activityInfo.loadIcon(
-                        packageManager);
+        BitmapDrawable drawable = (BitmapDrawable) packageManager.resolveActivity(launcher, 0)
+                .activityInfo.loadIcon(packageManager);
         Resources resources = donateActivity.getResources();
         drawable = DonateActivity.cropDrawable(resources, drawable,
                 resources.getDimensionPixelSize(android.R.dimen.app_icon_size));
