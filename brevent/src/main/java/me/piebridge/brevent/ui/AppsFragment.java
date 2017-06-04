@@ -129,8 +129,8 @@ public abstract class AppsFragment extends Fragment {
         }
         mRecycler.addOnScrollListener(new AppsScrollListener(mHandler));
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycler.addItemDecoration(
-                new DividerItemDecoration(mRecycler.getContext(), LinearLayoutManager.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(mRecycler.getContext(),
+                LinearLayoutManager.VERTICAL));
         if (mAdapter == null) {
             mAdapter = new AppsItemAdapter(this, mHandler);
         } else {

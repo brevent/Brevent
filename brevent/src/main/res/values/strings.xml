@@ -64,8 +64,8 @@
     <string name="action_select_inverse">Inverse</string>
     <string name="action_brevent_results" tools:ignore="PluralsCandidate">Brevented %d apps</string>
     <string name="action_restore_results" tools:ignore="PluralsCandidate">Restored %d apps</string>
-    <string name="action_snackbar_undo">Undo</string>
-    <string name="action_snackbar_undone">Undone</string>
+    <string name="action_message_undo">Undo</string>
+    <string name="action_message_undone">Undone</string>
 
     <string name="context_menu_select">Select / Unselect</string>
     <string name="context_menu_package_name">Copy package name</string>
@@ -74,7 +74,7 @@
     <string name="context_menu_brevent_server_info">Brevent server Info</string>
     <string name="context_menu_set_priority">Allow sync</string>
     <string name="context_menu_unset_priority">Disallow sync</string>
-    <string name="context_menu_snackbar_copied">Copied package name: %s</string>
+    <string name="context_menu_message_copied">Copied package name: %s</string>
 
     <string name="important_input">%s (Input method)</string>
     <string name="important_alarm">%s (Alarm app)</string>

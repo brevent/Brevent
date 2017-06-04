@@ -15,7 +15,11 @@ import me.piebridge.brevent.R;
  */
 public class UnsupportedFragment extends DialogFragment implements DialogInterface.OnKeyListener {
 
-    private int message = R.string.unsupported_owner;
+    private static final String MESSAGE = "MESSAGE";
+
+    public UnsupportedFragment() {
+        setArguments(new Bundle());
+    }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createDialog();
@@ -25,7 +29,7 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        builder.setMessage(getString(message));
+        builder.setMessage(getString(getArguments().getInt(MESSAGE)));
         builder.setOnKeyListener(this);
         return builder.create();
     }
@@ -38,9 +42,8 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
         return false;
     }
 
-    public DialogFragment setMessage(int message) {
-        this.message = message;
-        return this;
+    public void setMessage(int resId) {
+        getArguments().putInt(MESSAGE, resId);
     }
 
 }

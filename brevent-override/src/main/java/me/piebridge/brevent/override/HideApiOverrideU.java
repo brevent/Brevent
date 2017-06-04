@@ -20,8 +20,7 @@ public class HideApiOverrideU {
             throw new IllegalStateException("Already connected!");
         }
         mHandlerThread.start();
-        mUiAutomation = new UiAutomation(mHandlerThread.getLooper(),
-                new UiAutomationConnection());
+        mUiAutomation = new UiAutomation(mHandlerThread.getLooper(), new UiAutomationConnection());
         try {
             mUiAutomation.disconnect();
         } catch (RuntimeException e) {

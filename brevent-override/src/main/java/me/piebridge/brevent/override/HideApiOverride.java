@@ -2,6 +2,7 @@ package me.piebridge.brevent.override;
 
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
+import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
 import android.os.UserHandle;
@@ -394,6 +395,10 @@ public class HideApiOverride {
             Log.w(TAG, "Can't find ActivityManager.RECENT_INGORE_DOCKED_STACK_TOP_TASK");
             return 0x0010;
         }
+    }
+
+    public static AssetManager newAssetManager() {
+        return new AssetManager();
     }
 
 }

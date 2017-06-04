@@ -38,9 +38,8 @@ public class BreventGuide extends Activity {
         String titleShowButton = resources.getString(R.string.fragment_guide_enjoy);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(
-                new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton, messages,
-                        messages2));
+        pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton,
+                messages, messages2));
     }
 
     final void startBrevent() {

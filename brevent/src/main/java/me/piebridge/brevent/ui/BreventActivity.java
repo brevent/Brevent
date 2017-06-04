@@ -32,10 +32,8 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
@@ -46,6 +44,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.lang.reflect.InvocationTargetException;
@@ -71,8 +70,7 @@ import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
-public class BreventActivity extends Activity
-        implements ViewPager.OnPageChangeListener, AppBarLayout.OnOffsetChangedListener {
+public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener {
 
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
@@ -138,12 +136,10 @@ public class BreventActivity extends Activity
 
     private CoordinatorLayout mCoordinator;
     private Toolbar mToolbar;
-    private AppBarLayout mAppBar;
+    private Snackbar mSnackBar;
 
     private Handler mHandler;
     private Handler uiHandler;
-
-    private boolean mAppBarHidden = false;
 
     @ColorInt
     int mColorControlNormal;
@@ -160,7 +156,6 @@ public class BreventActivity extends Activity
 
     private volatile boolean hasResponse;
 
-    private Snackbar mSnackBar;
 
     private int mInstalledCount;
 
@@ -201,11 +196,9 @@ public class BreventActivity extends Activity
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!disabledXposed) {
-            new UnsupportedFragment()
-                    .setMessage(R.string.unsupported_xposed)
-                    .show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+            showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
-            new UnsupportedFragment().show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+            showUnsupported(R.string.unsupported_owner);
         } else if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
@@ -213,18 +206,13 @@ public class BreventActivity extends Activity
             setContentView(R.layout.activity_brevent);
 
             mCoordinator = (CoordinatorLayout) findViewById(R.id.coordinator);
-
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
             ColorUtils.fixToolbar(this, mToolbar);
             setActionBar(mToolbar);
 
             mPager = (ViewPager) findViewById(R.id.pager);
             mPager.addOnPageChangeListener(this);
-
-            ((TabLayout) findViewById(R.id.tabs)).setupWithViewPager(mPager);
-
-            mAppBar = (AppBarLayout) findViewById(R.id.appbar);
-            mAppBar.addOnOffsetChangedListener(this);
+            mPager.setVisibility(View.INVISIBLE);
 
             uiHandler = new AppsActivityUIHandler(this);
             mHandler = new AppsActivityHandler(this, uiHandler);
@@ -236,6 +224,12 @@ public class BreventActivity extends Activity
             mColorControlHighlight =
                     ColorUtils.resolveColor(this, android.R.attr.colorControlHighlight);
         }
+    }
+
+    private void showUnsupported(int resId) {
+        UnsupportedFragment fragment = new UnsupportedFragment();
+        fragment.setMessage(resId);
+        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
     }
 
     private void verifySignatures() {
@@ -412,7 +406,6 @@ public class BreventActivity extends Activity
     public void onPageSelected(int position) {
         AppsFragment fragment = mAdapter.getFragment(position);
         if (fragment != null) {
-            mAppBar.setExpanded(true);
             setSelectCount(fragment.getSelectedSize());
         }
     }
@@ -733,16 +726,6 @@ public class BreventActivity extends Activity
         }
     }
 
-    @Override
-    public void onOffsetChanged(AppBarLayout appBar, int offset) {
-        boolean appBarHidden = appBar.getHeight() + offset == 0;
-        if (appBarHidden != mAppBarHidden) {
-            mAppBarHidden = appBarHidden;
-            getWindow().getDecorView().setSystemUiVisibility(
-                    mAppBarHidden ? View.SYSTEM_UI_FLAG_LOW_PROFILE : 0);
-        }
-    }
-
     public void onBreventResponse(@Nullable BreventProtocol response) {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("response: " + response);
@@ -779,10 +762,10 @@ public class BreventActivity extends Activity
                 String message = getString(response.brevent ? R.string.action_brevent_results :
                         R.string.action_restore_results, response.packageNames.size());
                 snackbar = Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG);
-                snackbar.setAction(R.string.action_snackbar_undo, callback);
+                snackbar.setAction(R.string.action_message_undo, callback);
             } else {
-                snackbar = Snackbar.make(mCoordinator, R.string.action_snackbar_undone,
-                        Snackbar.LENGTH_LONG);
+                String message = getString(R.string.action_message_undone);
+                snackbar = Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG);
             }
             snackbar.addCallback(callback);
             snackbar.show();
@@ -1031,6 +1014,7 @@ public class BreventActivity extends Activity
     }
 
     public void showViewPager() {
+        mPager.setVisibility(View.VISIBLE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
@@ -1071,7 +1055,7 @@ public class BreventActivity extends Activity
         clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
     }
 
-    public void showSnackbar(String message) {
+    public void showMessage(String message) {
         Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG).show();
     }
 

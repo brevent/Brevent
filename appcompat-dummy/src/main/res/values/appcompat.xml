@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="alpha" format="float" />
+
+    <attr name="title" format="string" />
+
+    <attr name="elevation" format="dimension" />
+    <attr name="listPreferredItemHeightSmall" format="dimension" />
+    <attr name="listPreferredItemPaddingLeft" format="dimension" />
+    <attr name="listPreferredItemPaddingRight" format="dimension" />
+
+    <attr name="textAllCaps" format="boolean" />
+    <attr name="windowActionBar" format="boolean" />
+    <attr name="windowNoTitle" format="boolean" />
+
+    <attr name="backgroundTint" format="color" />
+    <attr name="colorAccent" format="color" />
+    <attr name="colorPrimary" format="color" />
+    <attr name="colorPrimaryDark" format="color" />
+    <attr name="colorControlHighlight" format="color" />
+    <attr name="colorControlActivated" format="color" />
+
+    <attr name="backgroundTintMode" format="reference" />
+    <attr name="borderlessButtonStyle" format="reference" />
+    <attr name="selectableItemBackground" format="reference" />
+    <attr name="selectableItemBackgroundBorderless" format="reference" />
+
+    <style name="Animation.AppCompat.Dialog" parent="android:Animation">
+
+    </style>
+
+    <style name="TextAppearance.AppCompat.Display1" parent="android:TextAppearance.Material.Display1">
+
+    </style>
+
+    <style name="TextAppearance.AppCompat.Caption" parent="android:TextAppearance.Material.Caption">
+
+    </style>
+
+    <style name="TextAppearance.AppCompat.Button" parent="android:TextAppearance.Material.Button">
+
+    </style>
+
+    <style name="Theme.AppCompat" parent="android:Theme.Material">
+
+    </style>
+
+    <style name="Theme.AppCompat.Dialog" parent="android:Theme.Material.Dialog">
+
+    </style>
+
+    <style name="Theme.AppCompat.Light" parent="android:Theme.Material.Light">
+
+    </style>
+
+    <style name="Theme.AppCompat.Light.Dialog" parent="android:Theme.Material.Light.Dialog">
+
+    </style>
+
+    <style name="TextAppearance.AppCompat.Body2" parent="android:TextAppearance.Material.Body2">
+
+    </style>
+
+    <style name="ThemeOverlay.AppCompat.Dark" parent="android:ThemeOverlay.Material.Dark">
+
+    </style>
+
+    <style name="TextAppearance" parent="android:TextAppearance.Material">
+
+    </style>
+
+    <declare-styleable name="TextAppearance">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:textStyle" />
+        <attr name="android:typeface" />
+        <attr name="textAllCaps" />
+        <attr name="android:shadowColor" />
+        <attr name="android:shadowDy" />
+        <attr name="android:shadowDx" />
+        <attr name="android:shadowRadius" />
+    </declare-styleable>
+
+</resources>

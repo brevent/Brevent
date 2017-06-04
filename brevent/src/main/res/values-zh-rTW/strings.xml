@@ -62,8 +62,8 @@
     <string name="action_select_inverse">反向選擇</string>
     <string name="action_brevent_results">成功黑域 %d 個應用程式</string>
     <string name="action_restore_results">不再黑域 %d 個應用程式</string>
-    <string name="action_snackbar_undo">還原</string>
-    <string name="action_snackbar_undone">已還原</string>
+    <string name="action_message_undo">還原</string>
+    <string name="action_message_undone">已還原</string>
 
     <string name="context_menu_select">選取 / 不再選取</string>
     <string name="context_menu_package_name">複製安裝包(Package)名稱</string>
@@ -72,7 +72,7 @@
     <string name="context_menu_brevent_server_info">黑域服務訊息</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_snackbar_copied">安裝包(Package)名稱已複製: %s</string>
+    <string name="context_menu_message_copied">安裝包(Package)名稱已複製: %s</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘應用程式）</string>

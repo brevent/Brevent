@@ -171,9 +171,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private void donateViaPlay() {
         HandlerThread thread = new HandlerThread("DonateService");
         thread.start();
-        donateConnection =
-                new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE, thread.getLooper(),
-                        this);
+        donateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE,
+                thread.getLooper(), this);
         Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
         serviceIntent.setPackage(PACKAGE_PLAY);
         bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE);
