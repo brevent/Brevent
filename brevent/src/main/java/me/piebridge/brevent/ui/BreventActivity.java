@@ -44,7 +44,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.lang.reflect.InvocationTargetException;
@@ -105,8 +104,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_BATTERY = 11;
     public static final int IMPORTANT_TRUST_AGENT = 12;
 
-    private static final int ROOT_TIMEOUT = 10000;
-
     private static final String FRAGMENT_DISABLED = "disabled";
 
     private static final String FRAGMENT_PROGRESS = "progress";
@@ -152,10 +149,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private volatile boolean stopped;
 
-    private volatile boolean paused;
-
     private volatile boolean hasResponse;
-
 
     private int mInstalledCount;
 
@@ -222,6 +216,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
             mColorControlHighlight = ColorUtils.resolveColor(this,
                     android.R.attr.colorControlHighlight);
+
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
         }
     }
 
@@ -258,34 +254,25 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mHandler != null && hasResponse) {
+        if (mHandler != null) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mHandler != null && paused) {
-            mHandler.sendEmptyMessage(hasResponse ? MESSAGE_RETRIEVE2 : MESSAGE_RETRIEVE);
-        }
-        paused = false;
-    }
-
-    @Override
-    protected void onPause() {
-        paused = true;
-        super.onPause();
-    }
-
     public void showDisabled() {
-        if (mHandler != null) {
-            hideProgress();
-            showDisabled(R.string.brevent_service_start);
-        }
+        hideProgress();
+        showDisabled(R.string.brevent_service_start);
     }
 
-    public synchronized void showDisabled(int title) {
+    public void showDisabled(int title) {
+        showDisabled(title, false);
+    }
+
+    public void showDisabled(int title, boolean force) {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_DISABLED + ", " + title + ": " + title + ", force: " + force
+                    + ", stopped: " + isStopped());
+        }
         if (isStopped()) {
             return;
         }
@@ -294,73 +281,77 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
             registerReceiver(mConnectedReceiver, filter);
         }
-        AppsDisabledFragment disabledFragment = (AppsDisabledFragment) getFragmentManager()
+        AppsDisabledFragment fragment = (AppsDisabledFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_DISABLED);
-        if (disabledFragment != null) {
-            disabledFragment.dismissAllowingStateLoss();
+        if (force || fragment == null || fragment.getTitle() != title) {
+            if (fragment != null) {
+                fragment.dismiss();
+            }
+            fragment = new AppsDisabledFragment();
+            fragment.update(title);
+            fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
         }
-        disabledFragment = new AppsDisabledFragment();
-        disabledFragment.update(title);
-        disabledFragment.show(getFragmentManager(), FRAGMENT_DISABLED);
     }
 
     public void hideDisabled() {
-        dismissDialog(FRAGMENT_DISABLED);
+        dismissDialog(FRAGMENT_DISABLED, false);
     }
 
-    public synchronized void showProgress(int message) {
+    public void showProgress(int message) {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_PROGRESS + ", " + message + ": " + message
+                    + ", stopped: " + isStopped());
+        }
         if (isStopped()) {
             return;
         }
         hideDisabled();
-        ProgressFragment progressFragment = (ProgressFragment) getFragmentManager()
+        ProgressFragment fragment = (ProgressFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROGRESS);
-        if (progressFragment != null) {
-            progressFragment.dismissAllowingStateLoss();
+        if (fragment == null || fragment.getMessage() != message) {
+            if (fragment != null) {
+                fragment.dismiss();
+            }
+            fragment = new ProgressFragment();
+            fragment.updateMessage(message);
+            fragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
         }
-        progressFragment = new ProgressFragment();
-        progressFragment.updateMessage(message);
-        progressFragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
     }
 
-    public synchronized void showAppProgress(int progress, int max, int size) {
+    public void showAppProgress(int progress, int max, int size) {
+        if (max == 0 && size == 0 && Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", " + progress + ": " + progress
+                    + ", max: " + max + ", size: " + size
+                    + ", stopped: " + isStopped());
+        }
         if (isStopped()) {
             return;
         }
-        AppsProgressFragment progressFragment = (AppsProgressFragment) getFragmentManager()
+        AppsProgressFragment fragment = (AppsProgressFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROGRESS_APPS);
-        if (progressFragment == null) {
-            progressFragment = new AppsProgressFragment();
-            progressFragment.setTitle(R.string.process_retrieving_apps);
-            progressFragment.update(progress, max, size);
-            progressFragment.show(getFragmentManager(), FRAGMENT_PROGRESS_APPS);
+        if (fragment == null || (max == 0 && size == 0)) {
+            if (fragment != null) {
+                fragment.dismiss();
+            }
+            fragment = new AppsProgressFragment();
+            fragment.setTitle(progress);
+            fragment.show(getFragmentManager(), FRAGMENT_PROGRESS_APPS);
         } else {
-            progressFragment.update(progress, max, size);
+            fragment.update(progress, max, size);
         }
     }
 
     public void hideProgress() {
-        dismissDialog(FRAGMENT_PROGRESS);
+        dismissDialog(FRAGMENT_PROGRESS, false);
     }
 
     public void hideAppProgress() {
-        dismissDialog(FRAGMENT_PROGRESS);
-        dismissDialog(FRAGMENT_PROGRESS_APPS);
+        dismissDialog(FRAGMENT_PROGRESS, false);
+        dismissDialog(FRAGMENT_PROGRESS_APPS, false);
     }
 
     @Override
-    protected synchronized void onStart() {
-        super.onStart();
-        stopped = false;
-        paused = false;
-        if (mHandler != null && !hasResponse) {
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
-        }
-    }
-
-    @Override
-    protected synchronized void onStop() {
-        stopped = true;
+    protected void onStop() {
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
@@ -369,16 +360,36 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         super.onStop();
     }
 
-    private void dismissDialog() {
-        dismissDialog(FRAGMENT_DISABLED);
-        dismissDialog(FRAGMENT_PROGRESS);
-        dismissDialog(FRAGMENT_UNSUPPORTED);
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        stopped = false;
     }
 
-    private void dismissDialog(String tag) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        stopped = true;
+        super.onSaveInstanceState(outState);
+    }
+
+    private void dismissDialog() {
+        dismissDialog(FRAGMENT_DISABLED, true);
+        dismissDialog(FRAGMENT_PROGRESS, true);
+        dismissDialog(FRAGMENT_UNSUPPORTED, true);
+    }
+
+    private void dismissDialog(String tag, boolean allowStateLoss) {
         DialogFragment fragment = (DialogFragment) getFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
-            fragment.dismissAllowingStateLoss();
+            if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+                UILog.d("dismiss " + tag + ", " + allowStateLoss + ": " + allowStateLoss
+                        + ", stopped: " + isStopped());
+            }
+            if (allowStateLoss) {
+                fragment.dismissAllowingStateLoss();
+            } else if (!isStopped()) {
+                fragment.dismiss();
+            }
         }
     }
 
@@ -392,7 +403,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mHandler = null;
             uiHandler = null;
         }
-        dismissDialog();
         super.onDestroy();
     }
 
@@ -1101,7 +1111,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public void runAsRoot() {
         showProgress(R.string.process_retrieving);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
-        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, ROOT_TIMEOUT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
@@ -1145,7 +1154,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
     }
 
-    public synchronized boolean isStopped() {
+    public boolean isStopped() {
         return stopped;
     }
 
@@ -1160,7 +1169,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         AppsDisabledFragment fragment = (AppsDisabledFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_DISABLED);
         if (fragment != null && connected != fragment.isConnected()) {
-            showDisabled(fragment.getTitle());
+            showDisabled(fragment.getTitle(), true);
         }
     }
 

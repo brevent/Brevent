@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +18,7 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventResponse;
 
 /**
@@ -45,10 +47,12 @@ public class BreventApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
     }
 
-    public void setAllowRoot() {
-        allowRoot = true;
+    public void toggleAllowRoot() {
+        allowRoot = !allowRoot;
     }
 
     public boolean allowRoot() {

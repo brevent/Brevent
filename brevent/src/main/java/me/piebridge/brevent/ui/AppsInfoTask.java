@@ -15,7 +15,7 @@ import me.piebridge.brevent.R;
 /**
  * Created by thom on 2017/2/4.
  */
-public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
+public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
 
     private final AppsItemAdapter mAdapter;
 
@@ -25,13 +25,14 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
 
     @Override
     protected void onPreExecute() {
-        if (mAdapter != null && mAdapter.getActivity() != null) {
-            mAdapter.getActivity().showAppProgress(R.string.process_retrieving_apps, 0, 0);
+        BreventActivity activity = mAdapter.getActivity();
+        if (activity != null) {
+            activity.showAppProgress(R.string.process_retrieving_apps, 0, 0);
         }
     }
 
     @Override
-    protected Void doInBackground(Context... params) {
+    protected Boolean doInBackground(Context... params) {
         Context context = params[0];
 
         PackageManager packageManager = context.getPackageManager();
@@ -45,6 +46,10 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
         int progress = 0;
         int size = 0;
         for (PackageInfo pkgInfo : installedPackages) {
+            BreventActivity activity = mAdapter.getActivity();
+            if (activity == null || activity.isStopped()) {
+                return false;
+            }
             ApplicationInfo appInfo = pkgInfo.applicationInfo;
             if (appInfo.enabled && mAdapter.accept(packageManager, pkgInfo, showAllApps)) {
                 String label = labelLoader.loadLabel(packageManager, pkgInfo);
@@ -54,22 +59,20 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Void> {
             publishProgress(++progress, max, size);
         }
         labelLoader.onCompleted();
-        return null;
+        return true;
     }
 
     @Override
     protected void onProgressUpdate(Integer... progress) {
-        if (mAdapter != null && mAdapter.getActivity() != null) {
-            mAdapter.getActivity().showAppProgress(progress[0], progress[1], progress[2]);
+        BreventActivity activity = mAdapter.getActivity();
+        if (activity != null) {
+            activity.showAppProgress(progress[0], progress[1], progress[2]);
         }
     }
 
     @Override
-    protected void onPostExecute(Void result) {
-        if (mAdapter != null && mAdapter.getActivity() != null) {
-            mAdapter.getActivity().hideAppProgress();
-            mAdapter.onCompleted();
-        }
+    protected void onPostExecute(Boolean result) {
+        mAdapter.onCompleted(result == null ? false : result);
     }
 
 }

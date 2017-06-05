@@ -31,6 +31,8 @@ class AppsInfo implements Comparable<AppsInfo> {
 
     int status = STATUS_UNKNOWN;
 
+    boolean updated = false;
+
     AppsInfo(String packageName, String label) {
         this.packageName = packageName;
         this.label = label;

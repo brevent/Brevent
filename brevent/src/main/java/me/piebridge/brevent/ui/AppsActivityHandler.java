@@ -26,7 +26,7 @@ public class AppsActivityHandler extends Handler {
 
     public static final long DELAY = 15000;
 
-    public static final int LATER = 6000;
+    public static final int LATER = 3000;
 
     public static final int RETRY = 1000;
 
@@ -137,7 +137,8 @@ public class AppsActivityHandler extends Handler {
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
-        if (!hasResponse && action == BreventProtocol.STATUS_REQUEST) {
+        if (!hasMessages(BreventActivity.MESSAGE_RETRIEVE3) &&
+                action == BreventProtocol.STATUS_REQUEST) {
             sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, LATER);
         }
     }

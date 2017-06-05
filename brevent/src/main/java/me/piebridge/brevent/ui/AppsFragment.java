@@ -133,8 +133,6 @@ public abstract class AppsFragment extends Fragment {
                 LinearLayoutManager.VERTICAL));
         if (mAdapter == null) {
             mAdapter = new AppsItemAdapter(this, mHandler);
-        } else {
-            mAdapter.getActivity();
         }
         mRecycler.setAdapter(mAdapter);
         mLoaded = true;

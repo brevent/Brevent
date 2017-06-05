@@ -15,7 +15,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import me.piebridge.brevent.R;
@@ -63,6 +64,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     private AppsFragment mFragment;
 
     private boolean mCompleted;
+
+    private boolean mSuccess;
 
     public AppsItemAdapter(AppsFragment fragment, Handler handler) {
         mFragment = fragment;
@@ -238,11 +241,15 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         return (BreventActivity) mFragment.getActivity();
     }
 
-    public void onCompleted() {
+    public void onCompleted(boolean success) {
         mCompleted = true;
+        mSuccess = success;
         BreventActivity breventActivity = getActivity();
         if (breventActivity != null) {
-            updateAppsInfo();
+            if (success) {
+                updateAppsInfo();
+            }
+            breventActivity.hideAppProgress();
         }
     }
 
@@ -286,6 +293,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             return;
         }
         mCompleted = false;
+        mSuccess = false;
         mNext.clear();
         mChanged = true;
         mPackages.clear();
@@ -295,8 +303,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     public void updateAppsInfo() {
         if (mCompleted) {
-            updateAppsStatus();
-            mHandler.sendEmptyMessage(AppsItemHandler.MSG_UPDATE_ITEM);
+            if (mSuccess) {
+                updateAppsStatus();
+                mHandler.sendEmptyMessage(AppsItemHandler.MSG_UPDATE_ITEM);
+            } else {
+                retrievePackages();
+            }
         }
     }
 
@@ -307,20 +319,18 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
         boolean changed = mChanged;
         SparseIntArray counter = new SparseIntArray();
-        SparseArray<AppsInfo> appsInfoStatus = new SparseArray<>();
         for (AppsInfo appsInfo : mNext) {
             if (appsInfo.isPackage()) {
                 int status = activity.getStatus(appsInfo.packageName);
                 if (appsInfo.status != status) {
                     appsInfo.status = status;
+                    appsInfo.updated = true;
                     if (!changed) {
                         changed = true;
                     }
                 }
                 int oldValue = counter.get(status, 0);
                 counter.put(status, oldValue + 1);
-            } else {
-                appsInfoStatus.put(appsInfo.status, appsInfo);
             }
         }
         if (!changed) {
@@ -328,21 +338,15 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
         mChanged = false;
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
-        int size = counter.size();
-        for (int i = 0; i < size; ++i) {
-            int status = counter.keyAt(i);
-            String label = String.valueOf(counter.valueAt(i));
-            AppsInfo appsInfo = appsInfoStatus.get(status);
-            if (appsInfo == null) {
-                mNext.add(new AppsInfo(status, label));
-            } else {
-                appsInfo.label = label;
-                appsInfoStatus.remove(status);
+        Iterator<AppsInfo> it = mNext.iterator();
+        while (it.hasNext()) {
+            if (!it.next().isPackage()) {
+                it.remove();
             }
         }
-        size = appsInfoStatus.size();
+        int size = counter.size();
         for (int i = 0; i < size; ++i) {
-            mNext.remove(appsInfoStatus.valueAt(i));
+            mNext.add(new AppsInfo(counter.keyAt(i), String.valueOf(counter.valueAt(i))));
         }
         Collections.sort(mNext);
         if (mAppsInfo.isEmpty()) {
@@ -410,7 +414,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!mFragment.accept(pm, pkgInfo)) {
             return false;
         }
-        if (activity.isLauncher(packageName)) {
+        if (activity != null && activity.isLauncher(packageName)) {
             // always show launcher
             return true;
         }
@@ -418,7 +422,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             // always for all apps
             return true;
         }
-        if (activity.isBrevent(packageName)) {
+        if (activity != null && activity.isBrevent(packageName)) {
             // always for brevented apps
             return true;
         }
@@ -451,12 +455,28 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
         @Override
         public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            return mOldList.get(oldItemPosition).equals(mNewList.get(newItemPosition));
+            AppsInfo oldItem = mOldList.get(oldItemPosition);
+            AppsInfo newItem = mNewList.get(newItemPosition);
+            if (oldItem.isPackage() && newItem.isPackage()) {
+                return Objects.equals(oldItem.packageName, newItem.packageName);
+            } else if (!oldItem.isPackage() && !newItem.isPackage()) {
+                return oldItem.status == newItem.status;
+            }
+            return false;
         }
 
         @Override
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            return false;
+            AppsInfo oldItem = mOldList.get(oldItemPosition);
+            AppsInfo newItem = mNewList.get(newItemPosition);
+            if (!oldItem.equals(newItem)) {
+                return false;
+            } else if (newItem.updated) {
+                newItem.updated = false;
+                return false;
+            } else {
+                return true;
+            }
         }
 
     }

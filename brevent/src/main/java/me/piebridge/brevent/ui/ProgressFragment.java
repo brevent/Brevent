@@ -46,9 +46,6 @@ public class ProgressFragment extends DialogFragment {
         mMessage = null;
     }
 
-    private void updateMessage() {
-    }
-
     public void updateMessage(int message) {
         Bundle arguments = getArguments();
         if (message != arguments.getInt(MESSAGE)) {
@@ -57,6 +54,10 @@ public class ProgressFragment extends DialogFragment {
                 mMessage.setText(getArguments().getInt(MESSAGE));
             }
         }
+    }
+
+    public int getMessage() {
+        return getArguments().getInt(MESSAGE);
     }
 
 }
