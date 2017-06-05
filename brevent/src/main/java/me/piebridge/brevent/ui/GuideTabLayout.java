@@ -39,7 +39,7 @@ public class GuideTabLayout extends TabLayout {
         @Override
         public int getDimensionPixelSize(@DimenRes int id) throws NotFoundException {
             if (id == android.support.design.R.dimen.design_tab_scrollable_min_width) {
-                return (int) (Resources.getSystem().getDisplayMetrics().widthPixels / 2.5);
+                return Resources.getSystem().getDisplayMetrics().widthPixels / 3;
             } else {
                 return mWrapper.getDimensionPixelSize(id);
             }

@@ -17,7 +17,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby，或译“休眠”）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -26,7 +26,7 @@
 
     <string name="brevent_service_start">请启动黑域服务（%s）</string>
     <string name="brevent_service_no_response">黑域服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在电脑命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试” %1$s\n\n2. 使用 USB 连接到电脑 %2$s（或认真阅读“向导 - 权限”使用实验性的 ROOT 模式）\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
     <string name="brevent_service_command_copied">指令已复制：%s</string>
