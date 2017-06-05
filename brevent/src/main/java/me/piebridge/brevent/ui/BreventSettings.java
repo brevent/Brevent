@@ -3,8 +3,10 @@ package me.piebridge.brevent.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +30,14 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     private SettingsFragment settingsFragment;
 
+    private boolean mPlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        mPlay = checkPlay();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ColorUtils.fixToolbar(this, toolbar);
@@ -100,7 +106,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    public void showPlay(Collection<String> purchased) {
+    public void showPlay(@Nullable Collection<String> purchased) {
         if (purchased == null) {
             settingsFragment.updatePlayDonation(-1, -1, false);
         } else {
@@ -128,6 +134,22 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             }
         }
         settingsFragment.updatePlayDonation(count, total, contributor);
+    }
+
+    @Override
+    protected boolean isPlay() {
+        return mPlay;
+    }
+
+    private boolean checkPlay() {
+        try {
+            Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,
+                    PackageManager.GET_META_DATA).metaData;
+            return bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
+        } catch (PackageManager.NameNotFoundException e) {
+            UILog.d("Can't get application for " + BuildConfig.APPLICATION_ID, e);
+            return false;
+        }
     }
 
 }

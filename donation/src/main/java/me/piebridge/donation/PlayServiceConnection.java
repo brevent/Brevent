@@ -38,9 +38,13 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     static final int MESSAGE_DONATE = 1;
 
-    static final int PLAY_VERSION = 0x3;
+    private static final int MESSAGE_CHECK = 2;
 
-    static final String PLAY_TYPE = "inapp";
+    private static final int DELAY = 1000;
+
+    private static final int VERSION = 0x3;
+
+    private static final String TYPE = "inapp";
 
     static final String ACTION_BIND = "com.android.vending.billing.InAppBillingService.BIND";
 
@@ -50,7 +54,9 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private final String mPackageName;
 
-    private IInAppBillingService mService;
+    private IInAppBillingService mInApp;
+
+    private Object lock = new Object();
 
     private Handler uiHandler;
 
@@ -69,14 +75,24 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        mService = IInAppBillingService.Stub.asInterface(service);
+        synchronized (lock) {
+            mInApp = IInAppBillingService.Stub.asInterface(service);
+        }
         obtainMessage(mType, mSku).sendToTarget();
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        mService = null;
+        synchronized (lock) {
+            mInApp = null;
+        }
         getLooper().quit();
+    }
+
+    boolean isConnected() {
+        synchronized (lock) {
+            return mInApp != null;
+        }
     }
 
     @Override
@@ -93,7 +109,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private void doDonate(String sku) {
         try {
-            Bundle bundle = mService.getBuyIntent(PLAY_VERSION, mPackageName, sku, PLAY_TYPE, null);
+            Bundle bundle = mInApp.getBuyIntent(VERSION, mPackageName, sku, TYPE, null);
             PendingIntent intent = bundle.getParcelable("BUY_INTENT");
             DonateActivity donateActivity = mReference.get();
             if (donateActivity != null && intent != null) {
@@ -107,10 +123,14 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
     private void doActivate() {
         try {
             Collection<String> purchased = null;
-            if (mService.isBillingSupported(PLAY_VERSION, mPackageName, PLAY_TYPE) == 0) {
-                Bundle inapp = mService.getPurchases(PLAY_VERSION, mPackageName, PLAY_TYPE, null);
-                purchased = checkPurchased(inapp);
+            uiHandler.sendEmptyMessageDelayed(MESSAGE_CHECK, DELAY);
+            synchronized (lock) {
+                if (mInApp != null && mInApp.isBillingSupported(VERSION, mPackageName, TYPE) == 0) {
+                    Bundle inapp = mInApp.getPurchases(VERSION, mPackageName, TYPE, null);
+                    purchased = checkPurchased(inapp);
+                }
             }
+            uiHandler.removeMessages(MESSAGE_CHECK);
             uiHandler.obtainMessage(MESSAGE_ACTIVATE, purchased).sendToTarget();
         } catch (RemoteException e) {
             Log.d(TAG, "Can't check Play", e);
@@ -232,6 +252,9 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
                     case MESSAGE_DONATE:
                         IntentSender sender = (IntentSender) message.obj;
                         donateActivity.donatePlay(sender);
+                        break;
+                    case MESSAGE_CHECK:
+                        donateActivity.showPlayCheck();
                         break;
                 }
             }

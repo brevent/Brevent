@@ -14,7 +14,6 @@ import java.util.Locale;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
-import me.piebridge.donation.DonateActivity;
 
 /**
  * Created by thom on 2017/3/2.
@@ -35,7 +34,7 @@ public class VersionPreference extends Preference {
             String normal = resources.getString(R.string.brevent_about_version_mode_normal);
             String root = resources.getString(R.string.brevent_about_version_mode_root);
             return resources.getString(R.string.brevent_about_version_summary,
-                    BuildConfig.VERSION_NAME, getVersion(application),
+                    BuildConfig.VERSION_NAME, getVersion(context),
                     HideApiOverride.isShell(application.mUid) ? normal :
                             (HideApiOverride.isRoot(application.mUid) ? root :
                                     resources.getString(android.R.string.unknownName)),
@@ -48,12 +47,11 @@ public class VersionPreference extends Preference {
     }
 
     private String getVersion(Context context) {
-        final String packageName = BuildConfig.APPLICATION_ID;
-        PackageManager packageManager = context.getPackageManager();
-        if (DonateActivity.isPlayDerived(packageManager, packageName)) {
+        if (((BreventSettings) context).isPlay()) {
             return context.getString(R.string.brevent_about_version_play);
         }
-        String installer = packageManager.getInstallerPackageName(packageName);
+        PackageManager packageManager = context.getPackageManager();
+        String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (!TextUtils.isEmpty(installer)
                 && packageManager.getLaunchIntentForPackage(installer) != null) {
             if ("com.meizu.mstore".equals(installer)) {

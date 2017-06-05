@@ -7,5 +7,7 @@
     <string name="donation_wechat_permission">Donation via Wechat requires Storage permission to save QR code into Album</string>
     <string name="donation_unsupported">Please install Alipay or PayPal to donate</string>
     <string name="donation_unsupported_wechat">Please install Alipay, WeChat or PayPal to donate</string>
+    <string name="donation_play_unavailable">Play In-app Billing is unavailable</string>
+    <string name="donation_play_checking">Checking Play In-app Billing…</string>
 
 </resources>

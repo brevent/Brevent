@@ -7,5 +7,7 @@
     <string name="donation_wechat_permission">微信捐贈需要把二維碼放入相冊中，請授予「儲存」權限</string>
     <string name="donation_unsupported">請安裝支付寶，或 PayPal 以便捐贈</string>
     <string name="donation_unsupported_wechat">請安裝支付寶，或微信，或 PayPal 以便捐贈</string>
+    <string name="donation_play_unavailable">Play In-app Billing is unavailable</string>
+    <string name="donation_play_checking">Checking Play In-app Billing…</string>
 
 </resources>

@@ -7,7 +7,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -26,6 +25,7 @@ import android.os.storage.StorageVolume;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
@@ -84,9 +84,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private View mDonation;
     private TextView mDonationTip;
 
-    private ServiceConnection activateConnection;
+    private PlayServiceConnection activateConnection;
 
-    private ServiceConnection donateConnection;
+    private PlayServiceConnection donateConnection;
 
     private List<String> mSkus;
 
@@ -94,19 +94,26 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private volatile boolean mShowDonation = true;
 
-    @CallSuper
-    public void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
-        stopped = false;
-        mDonation = findViewById(R.id.donation);
-        mDonationTip = (TextView) findViewById(R.id.donation_tip);
+        if (mDonation == null) {
+            mDonation = findViewById(R.id.donation);
+            mDonationTip = (TextView) findViewById(R.id.donation_tip);
+        }
         updateDonations();
     }
 
-    @CallSuper
-    public void onStop() {
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        stopped = false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
         stopped = true;
-        super.onStop();
+        super.onSaveInstanceState(outState);
     }
 
     public final void updateDonations() {
@@ -129,15 +136,48 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
     }
 
-    private void activatePlay() {
+    private synchronized void activatePlay() {
         if (hasPlay()) {
+            showPlayCheck();
             HandlerThread thread = new HandlerThread("DonateService");
             thread.start();
+            unbindActivateService();
             activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE,
                     thread.getLooper(), this);
             Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
             serviceIntent.setPackage(PACKAGE_PLAY);
-            bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE);
+            if (!bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE)) {
+                unbindService(activateConnection);
+                activateConnection = null;
+            }
+        } else if (isPlay()) {
+            showPlay(null);
+        }
+    }
+
+    private void unbindActivateService() {
+        if (activateConnection != null) {
+            if (activateConnection.isConnected()) {
+                try {
+                    unbindService(activateConnection);
+                } catch (IllegalArgumentException e) {
+                    Log.d(TAG, "cannot unbind activateConnection", e);
+                }
+            }
+            activateConnection = null;
+        }
+    }
+
+    private void unbindDonateService() {
+        if (donateConnection != null) {
+            if (donateConnection.isConnected()) {
+                try {
+                    unbindService(donateConnection);
+                } catch (IllegalArgumentException e) {
+                    Log.d(TAG, "cannot unbind donateConnection", e);
+                }
+            }
+            donateConnection = null;
         }
     }
 
@@ -168,14 +208,18 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    private void donateViaPlay() {
+    private synchronized void donateViaPlay() {
         HandlerThread thread = new HandlerThread("DonateService");
         thread.start();
+        unbindDonateService();
         donateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE,
                 thread.getLooper(), this);
         Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
         serviceIntent.setPackage(PACKAGE_PLAY);
-        bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE);
+        if (!bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE)) {
+            unbindService(donateConnection);
+            donateConnection = null;
+        }
     }
 
     private void donateViaAlipay() {
@@ -385,17 +429,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     protected boolean isPlay() {
-        return isPlayDerived(getPackageManager(), getPackageName());
-    }
-
-    public static boolean isPlayDerived(PackageManager pm, String packageName) {
-        try {
-            Bundle bundle = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData;
-            return bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d(TAG, "Can't get application for " + packageName, e);
-            return false;
-        }
+        return hasPlay() && PACKAGE_PLAY.equals(getPackageManager()
+                .getInstallerPackageName(getPackageName()));
     }
 
     private Uri getQrCodeUri() {
@@ -487,9 +522,12 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     @CallSuper
-    public void showPlay(Collection<String> purchased) {
+    public void showPlay(@Nullable Collection<String> purchased) {
         if (purchased == null) {
-            activateDonations();
+            if (isPlay()) {
+                mDonationTip.setText(R.string.donation_play_unavailable);
+                mDonation.setVisibility(View.GONE);
+            }
         } else if (canDonatePlay(purchased)) {
             Collection<DonateItem> items = new ArrayList<>(0x1);
             checkPackage(items, R.id.play, PACKAGE_PLAY);
@@ -497,6 +535,14 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 mDonationTip.setText(R.string.donation);
                 new DonateTask(this, true).execute(items.toArray(new DonateItem[items.size()]));
             }
+        }
+    }
+
+    @CallSuper
+    public void showPlayCheck() {
+        if (isPlay()) {
+            mDonationTip.setText(R.string.donation_play_checking);
+            findViewById(R.id.play).setVisibility(View.GONE);
         }
     }
 
@@ -526,15 +572,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return !mSkus.isEmpty();
     }
 
-    public void unbindService() {
-        if (activateConnection != null) {
-            unbindService(activateConnection);
-            activateConnection = null;
-        }
-        if (donateConnection != null) {
-            unbindService(donateConnection);
-            donateConnection = null;
-        }
+    public synchronized void unbindService() {
+        unbindActivateService();
+        unbindDonateService();
     }
 
     public void donatePlay(IntentSender sender) {
