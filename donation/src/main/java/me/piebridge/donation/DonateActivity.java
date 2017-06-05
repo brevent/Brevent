@@ -200,7 +200,9 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     void copyQrCodeAndDonate() {
-        if (copyQrCode() && !stopped) {
+        Uri uri = copyQrCode();
+        if (uri != null && !stopped) {
+            refreshQrCode(uri);
             new WechatFragment().show(getFragmentManager(), FRAGMENT_DONATION_WECHAT);
         }
     }
@@ -436,19 +438,19 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    private boolean copyQrCode() {
+    private Uri copyQrCode() {
         File qrCode = getWechatQrCode();
         if (qrCode == null || !qrCode.isFile()) {
             hideWechat();
-            return false;
+            return null;
         }
 
-        Uri uri = getQrCodeUri();
+        final Uri uri = getQrCodeUri();
         if (uri == null) {
             hideWechat();
-            return false;
+            return null;
         } else if (Uri.EMPTY.equals(uri)) {
-            return false;
+            return null;
         }
 
         try (
@@ -458,23 +460,20 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         ) {
             if (outputStream == null) {
                 hideWechat();
-                return false;
+                return null;
             }
             byte[] bytes = new byte[0x2000];
             int length;
             while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
                 outputStream.write(bytes, 0, length);
             }
-            outputStream.flush();
-            outputStream.close();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             preferences.edit().putString(KEY_WECHAT_DONATE_URI, uri.toString()).apply();
-            refreshQrCode(uri);
-            return true;
+            return uri;
         } catch (IOException e) {
             // IOException
             hideWechat();
-            return false;
+            return null;
         }
     }
 
