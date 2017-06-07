@@ -157,7 +157,8 @@
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
     <string name="brevent_about_version_smartisan">十八爷</string>
-    <string name="brevent_about_version_other">其它版</string>
+    <string name="brevent_about_version_other">特别版</string>
+    <string name="brevent_about_version_extra">夏·</string>
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_translation">翻译</string>
