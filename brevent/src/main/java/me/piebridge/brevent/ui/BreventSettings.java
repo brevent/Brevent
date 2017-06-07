@@ -40,8 +40,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         mPlay = checkPlay();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ColorUtils.fixToolbar(this, toolbar);
         setActionBar(toolbar);
+
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

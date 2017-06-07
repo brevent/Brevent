@@ -27,9 +27,8 @@ public class BreventGuide extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        ColorUtils.fixToolbar(this, mToolbar);
-        setActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
 
         Resources resources = getResources();
         String[] titles = resources.getStringArray(R.array.fragment_guide);

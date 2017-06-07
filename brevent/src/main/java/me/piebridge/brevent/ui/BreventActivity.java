@@ -200,7 +200,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
             mCoordinator = (CoordinatorLayout) findViewById(R.id.coordinator);
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
-            ColorUtils.fixToolbar(this, mToolbar);
             setActionBar(mToolbar);
 
             mPager = (ViewPager) findViewById(R.id.pager);

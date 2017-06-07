@@ -31,8 +31,4 @@ public class ColorUtils {
         return type >= TypedValue.TYPE_FIRST_COLOR_INT && type <= TypedValue.TYPE_LAST_COLOR_INT;
     }
 
-    public static void fixToolbar(Context context, Toolbar toolbar) {
-        toolbar.setTitleTextColor(resolveColor(context, android.R.attr.textColorPrimary));
-    }
-
 }

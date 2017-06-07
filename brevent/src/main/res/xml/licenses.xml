@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/brevent_about_licenses">
 
-    <me.piebridge.brevent.ui.ColorPreferenceCategory
+    <PreferenceCategory
         android:key="brevent_about_licenses"
         android:title="@string/brevent_about_licenses">
 
@@ -39,6 +39,6 @@
                 android:data="https://github.com/Chainfire/libsuperuser/" />
         </PreferenceScreen>
 
-    </me.piebridge.brevent.ui.ColorPreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>
