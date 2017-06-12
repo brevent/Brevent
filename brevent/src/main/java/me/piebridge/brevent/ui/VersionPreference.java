@@ -33,9 +33,8 @@ public class VersionPreference extends Preference {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             String normal = resources.getString(R.string.brevent_about_version_mode_normal);
             String root = resources.getString(R.string.brevent_about_version_mode_root);
-            String extra = resources.getString(R.string.brevent_about_version_extra);
             return resources.getString(R.string.brevent_about_version_summary,
-                    BuildConfig.VERSION_NAME, extra + getVersion(context),
+                    BuildConfig.VERSION_NAME, getVersion(context),
                     HideApiOverride.isShell(application.mUid) ? normal :
                             (HideApiOverride.isRoot(application.mUid) ? root :
                                     resources.getString(android.R.string.unknownName)),

@@ -24,11 +24,11 @@ import me.piebridge.brevent.protocol.BreventRequest;
  */
 public class AppsActivityHandler extends Handler {
 
-    public static final long DELAY = 15000;
+    private static final long DELAY = 15000;
 
-    public static final int LATER = 3000;
+    private static final int TIMEOUT = 5000;
 
-    public static final int RETRY = 1000;
+    private static final int RETRY = 1000;
 
     private final Handler uiHandler;
 
@@ -107,7 +107,7 @@ public class AppsActivityHandler extends Handler {
         try {
             Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
             if (action == BreventProtocol.STATUS_REQUEST) {
-                socket.setSoTimeout(LATER);
+                socket.setSoTimeout(TIMEOUT);
             }
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
             BreventProtocol.writeTo(message, os);
@@ -130,16 +130,13 @@ public class AppsActivityHandler extends Handler {
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
             }
-            if (hasResponse && action == BreventProtocol.STATUS_REQUEST) {
-                sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, RETRY);
-            }
         } catch (IOException e) {
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
-        if (!hasMessages(BreventActivity.MESSAGE_RETRIEVE3) &&
-                action == BreventProtocol.STATUS_REQUEST) {
-            sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, LATER);
+        if (action == BreventProtocol.STATUS_REQUEST) {
+            sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3,
+                    AppsDisabledFragment.isEmulator() ? TIMEOUT : RETRY);
         }
     }
 

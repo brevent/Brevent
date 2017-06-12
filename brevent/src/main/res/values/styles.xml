@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="theme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+    <style name="toolbarTitle" parent="@android:style/TextAppearance.Material.Widget.Toolbar.Title">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="toolbar" parent="@android:style/Widget.Material.Toolbar">
+        <item name="android:titleTextAppearance">@style/toolbarTitle</item>
+    </style>
+
+    <style name="theme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">#ff2d2d2d</item>
+        <item name="android:colorPrimaryDark">#ff242424</item>
+        <item name="android:colorAccent">#ff5e97f6</item>
+        <item name="android:statusBarColor">?android:attr/colorPrimary</item>
+        <item name="android:toolbarStyle">@style/toolbar</item>
         <item name="colorPrimary">?android:attr/colorPrimary</item>
         <item name="colorPrimaryDark">?android:attr/colorPrimaryDark</item>
         <item name="colorAccent">?android:attr/colorAccent</item>

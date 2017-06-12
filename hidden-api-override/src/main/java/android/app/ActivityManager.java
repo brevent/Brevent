@@ -226,7 +226,7 @@ public class ActivityManager {
      */
     public static int RECENT_IGNORE_HOME_STACK_TASKS = 0x0008;
 
-    // android-o, sdk version is 25 too...
+    // android-o
     public static int RECENT_IGNORE_HOME_AND_RECENTS_STACK_TASKS = 0x0008;
 
     /**
