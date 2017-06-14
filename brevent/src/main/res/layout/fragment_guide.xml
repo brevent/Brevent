@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/paddingFragment"
-            android:background="?android:attr/colorPrimary"
             android:paddingEnd="@dimen/marginItemEnd"
             android:paddingStart="@dimen/marginItemStart"
             android:text="@string/start_brevent"
