@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -44,18 +46,20 @@ public class BreventApplication extends Application {
 
     public static boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-    }
+    private boolean fetched;
+
+    private WeakReference<Handler> handlerReference;
 
     public void toggleAllowRoot() {
         allowRoot = !allowRoot;
     }
 
-    public boolean allowRoot() {
+    public synchronized boolean allowRoot() {
+        if (!fetched) {
+            fetched = true;
+            allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        }
         return allowRoot;
     }
 
@@ -162,4 +166,18 @@ public class BreventApplication extends Application {
                 ? HideApiOverrideN.USER_SYSTEM
                 : HideApiOverride.USER_OWNER;
     }
+
+    public void setHandler(Handler handler) {
+        handlerReference = new WeakReference<>(handler);
+    }
+
+    public void notifyRootCompleted() {
+        if (handlerReference != null) {
+            Handler handler = handlerReference.get();
+            if (handler != null) {
+                handler.sendEmptyMessage(BreventActivity.MESSAGE_ROOT_COMPLETED);
+            }
+        }
+    }
+
 }

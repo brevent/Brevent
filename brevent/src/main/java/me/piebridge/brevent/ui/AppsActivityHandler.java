@@ -60,6 +60,7 @@ public class AppsActivityHandler extends Handler {
                 break;
             case BreventActivity.MESSAGE_RETRIEVE3:
                 UILog.d("retry request status");
+                hasResponse = false;
                 requestStatus(true);
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
@@ -83,6 +84,11 @@ public class AppsActivityHandler extends Handler {
             case BreventActivity.MESSAGE_BREVENT_REQUEST:
                 send((BreventProtocol) message.obj);
                 break;
+            case BreventActivity.MESSAGE_ROOT_COMPLETED:
+                if (!hasResponse) {
+                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+                }
+                break;
         }
     }
 
@@ -95,8 +101,7 @@ public class AppsActivityHandler extends Handler {
     private void hideNotification() {
         BreventActivity breventActivity = mReference.get();
         if (breventActivity != null) {
-            Context context = breventActivity.getApplicationContext();
-            ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+            ((NotificationManager) breventActivity.getSystemService(Context.NOTIFICATION_SERVICE))
                     .cancel(BreventIntentService.ID);
         }
     }
@@ -126,11 +131,13 @@ public class AppsActivityHandler extends Handler {
             is.close();
             socket.close();
         } catch (ConnectException e) {
+            hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
             }
         } catch (IOException e) {
+            hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }

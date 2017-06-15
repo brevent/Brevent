@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
@@ -154,11 +155,15 @@ public abstract class AppsFragment extends Fragment {
     }
 
     public void select(Collection<String> packageNames) {
-        update(mAdapter.select(packageNames));
+        if (mAdapter != null) {
+            update(mAdapter.select(packageNames));
+        }
     }
 
     public void clearSelected() {
-        update(mAdapter.clearSelected());
+        if (mAdapter != null) {
+            update(mAdapter.clearSelected());
+        }
     }
 
     public int getSelectedSize() {
@@ -170,19 +175,23 @@ public abstract class AppsFragment extends Fragment {
     }
 
     public void selectInverse() {
-        update(mAdapter.selectInverse());
-    }
-
-    public void selectAll() {
-        update(mAdapter.selectAll());
+        if (mAdapter != null) {
+            update(mAdapter.selectInverse());
+        }
     }
 
     public void retrievePackages() {
-        mAdapter.retrievePackages();
+        if (mAdapter != null) {
+            mAdapter.retrievePackages();
+        }
     }
 
     public Collection<String> getSelected() {
-        return mAdapter.getSelected();
+        if (mAdapter != null) {
+            return mAdapter.getSelected();
+        } else {
+            return Collections.emptySet();
+        }
     }
 
     protected final boolean isSystemPackage(int flags) {

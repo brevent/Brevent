@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
-import android.widget.Toolbar;
 
 /**
  * Created by thom on 2017/5/16.

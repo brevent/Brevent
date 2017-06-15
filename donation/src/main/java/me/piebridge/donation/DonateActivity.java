@@ -451,7 +451,11 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
                 StorageVolume sv = sm.getPrimaryStorageVolume();
                 Intent intent = sv.createAccessIntent(Environment.DIRECTORY_PICTURES);
-                startActivityForResult(intent, REQUEST_WECHAT_DONATE_SDA);
+                try {
+                    startActivityForResult(intent, REQUEST_WECHAT_DONATE_SDA);
+                } catch (ActivityNotFoundException e) { // NOSONAR
+                    // do nothing
+                }
                 return Uri.EMPTY;
             }
             return file.getUri();

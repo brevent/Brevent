@@ -38,10 +38,10 @@ public class AppsProgressFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_progress_apps, container);
-            mMessage = (TextView) mView.findViewById(R.id.message);
-            mProgress = (ProgressBar) mView.findViewById(R.id.progress);
-            mPercent = (TextView) mView.findViewById(R.id.progress_percent);
-            mNumber = (TextView) mView.findViewById(R.id.progress_number);
+            mMessage = mView.findViewById(R.id.message);
+            mProgress = mView.findViewById(R.id.progress);
+            mPercent = mView.findViewById(R.id.progress_percent);
+            mNumber = mView.findViewById(R.id.progress_number);
         }
         updateMessage();
         updateProgress();
@@ -59,8 +59,9 @@ public class AppsProgressFragment extends DialogFragment {
     }
 
     private void updateMessage() {
-        if (mMessage != null) {
-            mMessage.setText(getArguments().getInt(TITLE));
+        int title = getArguments().getInt(TITLE);
+        if (mMessage != null && title != 0) {
+            mMessage.setText(title);
         }
     }
 

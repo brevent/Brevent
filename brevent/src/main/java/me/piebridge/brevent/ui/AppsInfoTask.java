@@ -27,7 +27,7 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
     protected void onPreExecute() {
         BreventActivity activity = mAdapter.getActivity();
         if (activity != null) {
-            activity.showAppProgress(R.string.process_retrieving_apps, 0, 0);
+            activity.showAppProgress(R.string.process_retrieving_apps, -1, -1);
         }
     }
 

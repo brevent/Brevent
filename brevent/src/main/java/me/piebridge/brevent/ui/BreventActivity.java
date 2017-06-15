@@ -77,6 +77,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
     public static final int MESSAGE_BREVENT_REQUEST = 4;
     public static final int MESSAGE_RETRIEVE3 = 5;
+    public static final int MESSAGE_ROOT_COMPLETED = 6;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -198,11 +199,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         } else {
             setContentView(R.layout.activity_brevent);
 
-            mCoordinator = (CoordinatorLayout) findViewById(R.id.coordinator);
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            mCoordinator = findViewById(R.id.coordinator);
+            mToolbar = findViewById(R.id.toolbar);
             setActionBar(mToolbar);
 
-            mPager = (ViewPager) findViewById(R.id.pager);
+            mPager = findViewById(R.id.pager);
             mPager.addOnPageChangeListener(this);
             mPager.setVisibility(View.INVISIBLE);
 
@@ -318,7 +319,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showAppProgress(int progress, int max, int size) {
-        if (max == 0 && size == 0 && Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+        if (size == -1 && Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", " + progress + ": " + progress
                     + ", max: " + max + ", size: " + size
                     + ", stopped: " + isStopped());
@@ -328,7 +329,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
         AppsProgressFragment fragment = (AppsProgressFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROGRESS_APPS);
-        if (fragment == null || (max == 0 && size == 0)) {
+        if (fragment == null || size == -1) {
             if (fragment != null) {
                 fragment.dismiss();
             }
@@ -598,7 +599,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public void onBackPressed() {
         if (mAdapter != null) {
             AppsFragment fragment = getFragment();
-            if (fragment.getSelectedSize() > 0) {
+            if (fragment != null && fragment.getSelectedSize() > 0) {
                 fragment.clearSelected();
                 return;
             }
@@ -1108,6 +1109,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void runAsRoot() {
+        BreventApplication application = (BreventApplication) getApplication();
+        application.setHandler(mHandler);
         showProgress(R.string.process_retrieving);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
     }

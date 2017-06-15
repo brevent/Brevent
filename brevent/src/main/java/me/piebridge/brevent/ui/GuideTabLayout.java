@@ -31,6 +31,7 @@ public class GuideTabLayout extends TabLayout {
 
         Resources mWrapper;
 
+        @SuppressWarnings("deprecation")
         ResourcesWrapper(Resources wrapper) {
             super(HideApiOverride.newAssetManager(), null, null);
             mWrapper = wrapper;

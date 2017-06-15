@@ -12,7 +12,7 @@ import me.piebridge.brevent.R;
 public class BreventLicenses extends PreferenceActivity {
 
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);

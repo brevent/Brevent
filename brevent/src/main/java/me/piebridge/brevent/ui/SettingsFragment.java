@@ -156,6 +156,9 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void updatePlayDonation(int count, int total, boolean contributor) {
+        if (getActivity() == null) {
+            return;
+        }
         String summary;
         if (count == 1) {
             if (contributor) {
@@ -200,7 +203,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
-        } else if (total == 0x2) {
+        } else if (total < donateAmount()) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
@@ -213,6 +216,10 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setEnabled(true);
             preferenceAllowReceiver.setEnabled(true);
         }
+    }
+
+    private int donateAmount() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
 
     @Override

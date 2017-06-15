@@ -125,7 +125,9 @@ public class AppsDisabledFragment extends DialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
-        if (which == DialogInterface.BUTTON_POSITIVE) {
+        if (activity == null) {
+            // do nothing
+        } else if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean adbRunning = SystemProperties.get("init.svc.adbd", "").equals("running");
             if (adbRunning) {
                 String commandLine = getBootstrapCommandLine();
