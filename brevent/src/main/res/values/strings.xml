@@ -5,11 +5,11 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and wanted to quit.\nPressing Home will start the launcher and kick this app into background.</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in backgroud and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require root access or modifying your unlocked device. Debugging mode doesn\'t require root access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT feature, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT features. ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT mode. ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after Brevent service is started successfully.</string>
@@ -27,7 +27,7 @@
 
     <string name="brevent_service_start">Please start Brevent service (%s)</string>
     <string name="brevent_service_no_response">Brevent Service no response (%s)</string>
-    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can find device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s, or read \"Guide - Permissions\" to run as ROOT (experimental)\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can find device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_open_development">Developer options</string>
     <string name="brevent_service_copy_path">Copy command</string>
     <string name="brevent_service_command_copied">Command copied: %s</string>
