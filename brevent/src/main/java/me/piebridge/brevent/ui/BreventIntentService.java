@@ -26,16 +26,20 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        postNotification();
-        BreventApplication application = (BreventApplication) getApplication();
         String action = intent.getAction();
+        postNotification(action);
+        BreventApplication application = (BreventApplication) getApplication();
         UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
-        if (!application.started || BreventIntent.ACTION_RUN_AS_ROOT.equals(action)) {
+        boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
+        if (!application.started || runAsRoot) {
             application.started = true;
             startBrevent();
-            application.notifyRootCompleted();
+            if (runAsRoot) {
+                application.notifyRootCompleted();
+            }
         }
         hideNotification();
+        stopSelf();
     }
 
     private boolean startBrevent() {
@@ -80,7 +84,7 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private void postNotification() {
+    private void postNotification(String action) {
         Notification.Builder builder = buildNotification();
         builder.setAutoCancel(false);
         builder.setOngoing(true);
@@ -88,12 +92,24 @@ public class BreventIntentService extends IntentService {
         Notification notification = builder.build();
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
                 .notify(ID, notification);
+        if (shouldForeground(action)) {
+            startForeground(ID, notification);
+        }
     }
 
     public static void startBrevent(Context context, String action) {
         Intent intent = new Intent(context, BreventIntentService.class);
         intent.setAction(action);
-        context.startService(intent);
+        if (shouldForeground(action)) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    private static boolean shouldForeground(String action) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                !BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
     }
 
 }

@@ -157,8 +157,9 @@ public class AppsDisabledFragment extends DialogFragment
 
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN &&
-                ++repeat == 0x7) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN
+                && ++repeat == 0x7) {
             BreventActivity activity = (BreventActivity) getActivity();
             ((BreventApplication) activity.getApplication()).toggleAllowRoot();
             activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);

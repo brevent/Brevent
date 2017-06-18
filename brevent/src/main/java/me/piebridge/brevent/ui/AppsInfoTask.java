@@ -10,12 +10,10 @@ import android.preference.PreferenceManager;
 
 import java.util.List;
 
-import me.piebridge.brevent.R;
-
 /**
  * Created by thom on 2017/2/4.
  */
-public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
+public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
 
     private final AppsItemAdapter mAdapter;
 
@@ -27,13 +25,16 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
     protected void onPreExecute() {
         BreventActivity activity = mAdapter.getActivity();
         if (activity != null) {
-            activity.showAppProgress(R.string.process_retrieving_apps, -1, -1);
+            activity.showAppProgress();
         }
     }
 
     @Override
-    protected Boolean doInBackground(Context... params) {
-        Context context = params[0];
+    protected Boolean doInBackground(Void... args) {
+        Context context = mAdapter.getActivity();
+        if (context == null) {
+            return false;
+        }
 
         PackageManager packageManager = context.getPackageManager();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -54,7 +55,7 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
             if (appInfo.enabled && mAdapter.accept(packageManager, pkgInfo, showAllApps)) {
                 String label = labelLoader.loadLabel(packageManager, pkgInfo);
                 mAdapter.addPackage(appInfo.packageName, label);
-                ++size;
+                size++;
             }
             publishProgress(++progress, max, size);
         }
@@ -66,7 +67,7 @@ public class AppsInfoTask extends AsyncTask<Context, Integer, Boolean> {
     protected void onProgressUpdate(Integer... progress) {
         BreventActivity activity = mAdapter.getActivity();
         if (activity != null) {
-            activity.showAppProgress(progress[0], progress[1], progress[2]);
+            activity.updateAppProgress(progress[0], progress[1], progress[2]);
         }
     }
 

@@ -298,7 +298,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         mChanged = true;
         mPackages.clear();
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
-        new AppsInfoTask(this).execute(activity);
+        new AppsInfoTask(this).execute();
     }
 
     public void updateAppsInfo() {

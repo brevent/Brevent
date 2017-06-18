@@ -92,7 +92,7 @@ public class AppsLabelLoader {
             int start = 0;
             int end = last;
             while (start <= end && isWhiteSpace(cs.charAt(start))) {
-                ++start;
+                start++;
             }
             while (end >= start && isWhiteSpace(cs.charAt(end))) {
                 --end;

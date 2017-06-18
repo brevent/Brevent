@@ -16,13 +16,11 @@ import me.piebridge.brevent.R;
  */
 public class AppsProgressFragment extends DialogFragment {
 
-    private static final String TITLE = "title";
     private static final String MAX = "max";
     private static final String PROGRESS = "progress";
     private static final String SIZE = "size";
 
     private View mView;
-    private TextView mMessage;
     private ProgressBar mProgress;
     private TextView mPercent;
     private TextView mNumber;
@@ -38,12 +36,10 @@ public class AppsProgressFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_progress_apps, container);
-            mMessage = mView.findViewById(R.id.message);
             mProgress = mView.findViewById(R.id.progress);
             mPercent = mView.findViewById(R.id.progress_percent);
             mNumber = mView.findViewById(R.id.progress_number);
         }
-        updateMessage();
         updateProgress();
         return mView;
     }
@@ -51,18 +47,10 @@ public class AppsProgressFragment extends DialogFragment {
     @Override
     public void onStop() {
         mView = null;
-        mMessage = null;
         mProgress = null;
         mPercent = null;
         mNumber = null;
         super.onStop();
-    }
-
-    private void updateMessage() {
-        int title = getArguments().getInt(TITLE);
-        if (mMessage != null && title != 0) {
-            mMessage.setText(title);
-        }
     }
 
     private void updateProgress() {
@@ -93,16 +81,6 @@ public class AppsProgressFragment extends DialogFragment {
             arguments.putInt(SIZE, size);
             if (mProgress != null) {
                 updateProgress();
-            }
-        }
-    }
-
-    public void setTitle(int title) {
-        Bundle arguments = getArguments();
-        if (title != arguments.getInt(TITLE)) {
-            arguments.putInt(TITLE, title);
-            if (mMessage != null) {
-                updateMessage();
             }
         }
     }

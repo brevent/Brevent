@@ -156,6 +156,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private UsbConnectedReceiver mConnectedReceiver;
 
+    private final Object updateLock = new Object();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -318,27 +320,35 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
     }
 
-    public void showAppProgress(int progress, int max, int size) {
-        if (size == -1 && Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", " + progress + ": " + progress
-                    + ", max: " + max + ", size: " + size
-                    + ", stopped: " + isStopped());
+    public AppsProgressFragment showAppProgress() {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", stopped: " + isStopped());
         }
+        if (isStopped()) {
+            return null;
+        }
+        AppsProgressFragment fragment = (AppsProgressFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_PROGRESS_APPS);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new AppsProgressFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_PROGRESS_APPS);
+        return fragment;
+    }
+
+
+    public void updateAppProgress(int progress, int max, int size) {
         if (isStopped()) {
             return;
         }
         AppsProgressFragment fragment = (AppsProgressFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROGRESS_APPS);
-        if (fragment == null || size == -1) {
-            if (fragment != null) {
-                fragment.dismiss();
-            }
+        if (fragment == null) {
             fragment = new AppsProgressFragment();
-            fragment.setTitle(progress);
             fragment.show(getFragmentManager(), FRAGMENT_PROGRESS_APPS);
-        } else {
-            fragment.update(progress, max, size);
         }
+        fragment.update(progress, max, size);
     }
 
     public void hideProgress() {
@@ -352,6 +362,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     @Override
     protected void onStop() {
+        stopped = true;
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
@@ -508,7 +519,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public int getInactive(String packageName) {
-        return BreventResponse.getInactive(mProcesses.get(packageName));
+        synchronized (updateLock) {
+            return BreventResponse.getInactive(mProcesses.get(packageName));
+        }
     }
 
     @Override
@@ -801,8 +814,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
 
-        mProcesses.clear();
-        mProcesses.putAll(status.mProcesses);
+        synchronized (updateLock) {
+            mProcesses.clear();
+            mProcesses.putAll(status.mProcesses);
+        }
 
         mBrevent.clear();
         mBrevent.addAll(status.mBrevent);
