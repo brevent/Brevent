@@ -141,6 +141,11 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         return mPlay;
     }
 
+    @Override
+    protected String getApplicationId() {
+        return BuildConfig.APPLICATION_ID;
+    }
+
     private boolean checkPlay() {
         try {
             Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,

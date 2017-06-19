@@ -428,13 +428,17 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
     }
 
+    protected String getApplicationId() {
+        return getPackageName();
+    }
+
     protected boolean isPlay() {
         return hasPlay() && PACKAGE_PLAY.equals(getPackageManager()
-                .getInstallerPackageName(getPackageName()));
+                .getInstallerPackageName(getApplicationId()));
     }
 
     private Uri getQrCodeUri() {
-        String name = getPackageName() + ".donate.wechat.png";
+        String name = getApplicationId() + ".donate.wechat.png";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);

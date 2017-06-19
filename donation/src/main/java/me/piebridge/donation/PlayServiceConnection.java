@@ -56,7 +56,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private IInAppBillingService mInApp;
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     private Handler uiHandler;
 
@@ -68,7 +68,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
         super(looper);
         mType = type;
         mReference = new WeakReference<>(donateActivity);
-        mPackageName = donateActivity.getPackageName();
+        mPackageName = donateActivity.getApplicationId();
         uiHandler = new UiHandler(donateActivity);
         mSku = mType == MESSAGE_DONATE ? donateActivity.getSku() : null;
     }

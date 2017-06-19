@@ -166,7 +166,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             String clazzServer = String.valueOf(BuildConfig.SERVER);
             try {
                 ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-                ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
+                ApplicationInfo ai = getPackageManager().getApplicationInfo(
+                        BuildConfig.APPLICATION_ID, 0);
                 PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
                 classLoader.loadClass(clazzServer).getMethod(String.valueOf('b')).invoke(null);
                 disabledXposed = true;

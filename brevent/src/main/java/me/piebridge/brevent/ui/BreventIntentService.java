@@ -77,8 +77,7 @@ public class BreventIntentService extends IntentService {
                     CHANNEL_ID, getString(R.string.app_name),
                     NotificationManager.IMPORTANCE_LOW);
             nm.createNotificationChannel(channel);
-            return new Notification.Builder(this, getPackageName())
-                    .setChannelId(CHANNEL_ID);
+            return new Notification.Builder(this, CHANNEL_ID);
         } else {
             return new Notification.Builder(this);
         }

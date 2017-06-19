@@ -46,7 +46,7 @@ class WechatTask extends AsyncTask<String, Void, Boolean>
         File path = new File(params[1]);
 
         PackageManager packageManager = donateActivity.getPackageManager();
-        Intent launcher = packageManager.getLaunchIntentForPackage(donateActivity.getPackageName());
+        Intent launcher = packageManager.getLaunchIntentForPackage(donateActivity.getApplicationId());
         BitmapDrawable drawable = (BitmapDrawable) packageManager.resolveActivity(launcher, 0)
                 .activityInfo.loadIcon(packageManager);
         Resources resources = donateActivity.getResources();
