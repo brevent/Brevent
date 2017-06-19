@@ -165,6 +165,7 @@
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
+    <string name="unsupported_clone">黑域不適用於 App clone。</string>
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>

@@ -196,6 +196,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
             showUnsupported(R.string.unsupported_owner);
+        } else if (isFlymeClone()) {
+            showUnsupported(R.string.unsupported_clone);
         } else if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
@@ -222,6 +224,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
         }
+    }
+
+    private boolean isFlymeClone() {
+        return BuildConfig.RELEASE &&
+                getIntent().getIntExtra(String.valueOf(BuildConfig.FLYME_CLONE), 0) != 0;
     }
 
     private void showUnsupported(int resId) {

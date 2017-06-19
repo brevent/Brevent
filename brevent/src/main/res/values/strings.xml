@@ -167,6 +167,7 @@
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
+    <string name="unsupported_clone">Brevent is unavailable in App clone.</string>
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>

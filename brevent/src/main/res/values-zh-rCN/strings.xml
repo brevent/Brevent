@@ -165,6 +165,7 @@
     <string name="brevent_about_licenses">软件许可</string>
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>
+    <string name="unsupported_clone">黑域不支持“应用分身”。</string>
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>

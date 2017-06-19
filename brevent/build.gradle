@@ -39,6 +39,7 @@ android {
             buildConfigField 'String', 'PROJECT', properties['build.project']
             buildConfigField 'byte[]', 'SIGNATURE', properties['build.signature']
             buildConfigField 'char[]', 'SERVER', properties['build.server']
+            buildConfigField 'char[]', 'FLYME_CLONE', properties['build.flyme.clone']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
             multiDexEnabled true
         }
@@ -85,6 +86,7 @@ android {
             buildConfigField 'String', 'PROJECT', 'null'
             buildConfigField 'byte[]', 'SIGNATURE', 'null'
             buildConfigField 'char[]', 'SERVER', 'null'
+            buildConfigField 'char[]', 'FLYME_CLONE', 'null'
         }
     }
 
