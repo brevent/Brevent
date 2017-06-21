@@ -118,6 +118,11 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         super.showPlay(purchased);
     }
 
+    @Override
+    protected void onShowDonate() {
+        settingsFragment.onShowDonate();
+    }
+
     private void updatePlayDonation(Collection<String> purchased) {
         int count = 0;
         int total = 0;

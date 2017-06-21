@@ -94,6 +94,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     private volatile boolean mShowDonation = true;
 
+    private boolean canDonate;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -395,6 +397,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
         } else {
             mDonationTip.setText(R.string.donation);
+            showDonate();
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
     }
@@ -541,9 +544,21 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             checkPackage(items, R.id.play, PACKAGE_PLAY);
             if (!items.isEmpty()) {
                 mDonationTip.setText(R.string.donation);
+                showDonate();
                 new DonateTask(this, true).execute(items.toArray(new DonateItem[items.size()]));
             }
         }
+    }
+
+    private void showDonate() {
+        if (!canDonate) {
+            canDonate = true;
+            onShowDonate();
+        }
+    }
+
+    protected void onShowDonate() {
+
     }
 
     @CallSuper

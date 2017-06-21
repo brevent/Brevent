@@ -86,15 +86,14 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (!BuildConfig.RELEASE) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
-                    .removePreference(preferenceDonation);
-        }
-        if (BuildConfig.RELEASE && arguments.getBoolean(IS_PLAY, false)) {
+        if (BuildConfig.RELEASE) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowReceiver.setEnabled(false);
+        } else {
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
+                    .removePreference(preferenceDonation);
         }
         if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventExperimental.removePreference(preferenceAllowReceiver);
@@ -238,6 +237,15 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         return false;
+    }
+
+    public void onShowDonate() {
+        if (!getArguments().getBoolean(IS_PLAY, false)) {
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceAllowRoot.setEnabled(true);
+            preferenceAllowReceiver.setEnabled(true);
+        }
     }
 
 }
