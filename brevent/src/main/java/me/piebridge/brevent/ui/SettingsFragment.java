@@ -203,7 +203,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setChecked(false);
             preferenceAllowReceiver.setEnabled(false);
             preferenceAllowReceiver.setChecked(false);
-        } else if (total < donateAmount()) {
+        } else if (total < BreventSettings.donateAmount()) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
@@ -216,10 +216,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setEnabled(true);
             preferenceAllowReceiver.setEnabled(true);
         }
-    }
-
-    private int donateAmount() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
 
     @Override

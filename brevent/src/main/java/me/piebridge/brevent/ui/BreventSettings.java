@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.widget.Toolbar;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -146,6 +149,19 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         return BuildConfig.APPLICATION_ID;
     }
 
+    @Override
+    protected List<String> getPlaySkus() {
+        List<String> skus = new ArrayList<>();
+        boolean allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        int amount = allowRoot ? donateAmount() : 0x2;
+        for (int j = 0; j < 0x5; ++j) {
+            char a = (char) ('a' + j);
+            skus.add("donation" + amount + a + "_" + amount);
+        }
+        return skus;
+    }
+
     private boolean checkPlay() {
         try {
             Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,
@@ -155,6 +171,10 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             UILog.d("Can't get application for " + BuildConfig.APPLICATION_ID, e);
             return false;
         }
+    }
+
+    static int donateAmount() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
 
 }
