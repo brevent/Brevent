@@ -418,6 +418,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             // always show launcher
             return true;
         }
+        if (activity != null && activity.isGms(packageName)) {
+            // always show gms
+            return true;
+        }
         if (showAllApps || mFragment.supportAllApps()) {
             // always for all apps
             return true;

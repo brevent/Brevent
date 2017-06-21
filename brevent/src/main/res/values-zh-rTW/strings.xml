@@ -88,6 +88,7 @@
     <string name="important_gcm">%s（FCM）</string>
     <string name="important_battery">%s（無法待機，電池未最佳化）</string>
     <string name="important_trust_agent">%s (信任的代理程式)</string>
+    <string name="important_gms">%s (GMS)</string>
 
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
@@ -166,6 +167,7 @@
 
     <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
     <string name="unsupported_clone">黑域不適用於 App clone。</string>
+    <string name="unsupported_signature">請勿破解黑域。</string>
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>

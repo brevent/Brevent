@@ -71,6 +71,15 @@ import me.piebridge.brevent.protocol.BreventResponse;
 
 public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener {
 
+    private static final String GMS = "com.google.android.gms";
+
+    private static final byte[][] GMS_SIGNATURES = {
+            {56, -111, -118, 69, 61, 7, 25, -109, 84, -8,
+                    -79, -102, -16, 94, -58, 86, 44, -19, 87, -120},
+            {88, -31, -60, 19, 63, 116, 65, -20, 61, 44,
+                    39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
+    };
+
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
@@ -104,6 +113,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_DEVICE_ADMIN = 10;
     public static final int IMPORTANT_BATTERY = 11;
     public static final int IMPORTANT_TRUST_AGENT = 12;
+    public static final int IMPORTANT_GMS = 13;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -188,17 +198,16 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 }
             }
         }
-        if (BuildConfig.RELEASE) {
-            verifySignatures();
-        }
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!disabledXposed) {
             showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
             showUnsupported(R.string.unsupported_owner);
+        } else if (!verifySignature()) {
+            showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
-        } else if (preferences.getBoolean(BreventGuide.GUIDE, true)) {
+        } else if (PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
             finish();
         } else {
@@ -237,27 +246,47 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
     }
 
-    private void verifySignatures() {
+    private boolean verifySignature() {
+        if (!BuildConfig.RELEASE) {
+            return true;
+        }
         Signature[] signatures = getSignatures(getPackageManager(), BuildConfig.APPLICATION_ID);
-        boolean equals = false;
-        if (signatures != null) {
-            for (Signature signature : signatures) {
-                try {
-                    MessageDigest md = MessageDigest.getInstance("SHA");
-                    md.update(signature.toByteArray());
-                    byte[] sha1 = md.digest();
-                    if (Arrays.equals(BuildConfig.SIGNATURE, sha1)) {
-                        equals = true;
-                        break;
-                    }
-                } catch (NoSuchAlgorithmException e) {
-                    UILog.w("NoSuchAlgorithmException");
-                }
+        return signatures != null && signatures.length == 0x1 &&
+                Arrays.equals(BuildConfig.SIGNATURE, sha1(signatures[0].toByteArray()));
+    }
+
+    public boolean hasGms() {
+        PackageManager packageManager = getPackageManager();
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(GMS, 0);
+            if (!applicationInfo.enabled) {
+                return false;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
+            return false;
+        }
+        Signature[] signatures = getSignatures(packageManager, GMS);
+        if (signatures == null || signatures.length != 0x1) {
+            return false;
+        }
+        byte[] sha1 = sha1(signatures[0].toByteArray());
+        for (byte[] bytes : GMS_SIGNATURES) {
+            if (Arrays.equals(sha1, bytes)) {
+                return true;
             }
         }
-        if (!equals) {
-            UILog.e("invalid signature");
-            finish();
+        return false;
+    }
+
+    public static byte[] sha1(byte[] bytes) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(bytes);
+            return md.digest();
+        } catch (NoSuchAlgorithmException e) {
+            UILog.w("NoSuchAlgorithmException", e);
+            return null;
         }
     }
 
@@ -697,6 +726,15 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return mLauncher != null && mLauncher.equals(packageName);
     }
 
+    public boolean isGms(String packageName) {
+        if (GMS.equals(packageName)) {
+            Integer important = mImportant.get(packageName);
+            return important != null && important == IMPORTANT_GMS;
+        } else {
+            return false;
+        }
+    }
+
     private boolean updateBrevent(boolean brevent) {
         AppsFragment fragment = getFragment();
         Collection<String> selected = new ArraySet<>(fragment.getSelected());
@@ -849,8 +887,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("favorite: " + mFavorite);
         }
-        if (((BreventApplication) getApplication()).supportStopped()) {
-            resolveGcmPackages(mGcm);
+        if (hasGms()) {
+            mImportant.put(GMS, IMPORTANT_GMS);
+            if (((BreventApplication) getApplication()).supportStopped()) {
+                resolveGcmPackages(mGcm);
+            }
         }
 
         int installedCount = getPackageManager().getInstalledPackages(0).size();
@@ -1125,6 +1166,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 return getString(R.string.important_battery, label);
             case IMPORTANT_TRUST_AGENT:
                 return getString(R.string.important_trust_agent, label);
+            case IMPORTANT_GMS:
+                return getString(R.string.important_gms, label);
             default:
                 break;
         }
