@@ -166,8 +166,14 @@ public class BreventApplication extends Application {
                 : HideApiOverride.USER_OWNER;
     }
 
+    public boolean isRunningAsRoot() {
+        return handlerReference != null && handlerReference.get() != null;
+    }
+
     public void setHandler(Handler handler) {
-        handlerReference = new WeakReference<>(handler);
+        if (handlerReference == null || handlerReference.get() != handler) {
+            handlerReference = new WeakReference<>(handler);
+        }
     }
 
     public void notifyRootCompleted() {
@@ -176,6 +182,7 @@ public class BreventApplication extends Application {
             if (handler != null) {
                 handler.sendEmptyMessage(BreventActivity.MESSAGE_ROOT_COMPLETED);
             }
+            handlerReference = null;
         }
     }
 

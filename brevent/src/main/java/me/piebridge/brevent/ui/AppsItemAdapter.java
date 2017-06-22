@@ -130,11 +130,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     private void updateViewHolder(AppsItemViewHolder viewHolder) {
         updateIcon(viewHolder);
-        BreventActivity breventActivity = getActivity();
-        if (breventActivity != null) {
-            updateInactive(breventActivity, viewHolder);
-            updateStatus(breventActivity, viewHolder);
-            updateDescription(breventActivity, viewHolder);
+        BreventActivity activity = getActivity();
+        if (activity != null) {
+            updateInactive(activity, viewHolder);
+            updateStatus(activity, viewHolder);
+            updateDescription(activity, viewHolder);
         }
     }
 
@@ -167,8 +167,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateInactive(BreventActivity breventActivity, AppsItemViewHolder viewHolder) {
-        int inactive = breventActivity.getInactive(viewHolder.packageName);
+    private void updateInactive(BreventActivity activity, AppsItemViewHolder viewHolder) {
+        int inactive = activity.getInactive(viewHolder.packageName);
         if (viewHolder.inactive != inactive) {
             viewHolder.inactive = inactive;
             if (viewHolder.inactive > 0) {
@@ -181,9 +181,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateStatus(BreventActivity breventActivity, AppsItemViewHolder viewHolder) {
+    private void updateStatus(BreventActivity activity, AppsItemViewHolder viewHolder) {
         String packageName = viewHolder.packageName;
-        int statusIcon = breventActivity.getStatusIcon(packageName);
+        int statusIcon = activity.getStatusIcon(packageName);
         if (viewHolder.statusIconRes != statusIcon) {
             viewHolder.statusIconRes = statusIcon;
             if (statusIcon == 0) {
@@ -193,8 +193,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 viewHolder.statusView.setImageResource(statusIcon);
             }
         }
-        if (breventActivity.isBrevent(packageName) && breventActivity.isPriority(packageName)) {
-            if (breventActivity.isGcm(packageName)) {
+        if (activity.isBrevent(packageName) && activity.isPriority(packageName)) {
+            if (activity.isGcm(packageName)) {
                 viewHolder.syncView.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
             } else {
                 viewHolder.syncView.setImageResource(R.drawable.ic_sync_black_24dp);
@@ -205,8 +205,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateDescription(BreventActivity breventActivity, AppsItemViewHolder viewHolder) {
-        String description = breventActivity.getDescription(viewHolder.packageName);
+    private void updateDescription(BreventActivity activity, AppsItemViewHolder viewHolder) {
+        String description = activity.getDescription(viewHolder.packageName);
         if (description == null) {
             viewHolder.descriptionView.setText(R.string.process_not_running);
         } else {
@@ -244,12 +244,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     public void onCompleted(boolean success) {
         mCompleted = true;
         mSuccess = success;
-        BreventActivity breventActivity = getActivity();
-        if (breventActivity != null) {
+        BreventActivity activity = getActivity();
+        if (activity != null) {
             if (success) {
                 updateAppsInfo();
             }
-            breventActivity.hideAppProgress();
+            activity.hideAppProgress();
         }
     }
 
@@ -275,10 +275,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         } else {
             mSelected.add(packageName);
         }
-        BreventActivity breventActivity = getActivity();
-        if (breventActivity != null) {
+        BreventActivity activity = getActivity();
+        if (activity != null) {
             updateIcon(holder);
-            breventActivity.setSelectCount(mSelected.size());
+            activity.setSelectCount(mSelected.size());
         }
         return true;
     }

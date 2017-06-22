@@ -140,8 +140,8 @@ public abstract class AppsFragment extends Fragment {
     }
 
     public void update(Collection<String> packageNames) {
-        BreventActivity breventActivity = (BreventActivity) getActivity();
-        if (mAdapter != null && breventActivity != null) {
+        BreventActivity activity = (BreventActivity) getActivity();
+        if (mAdapter != null && activity != null) {
             List<AppsInfo> appsInfoList = mAdapter.getAppsInfo();
             int size = appsInfoList.size();
             for (int i = 0; i < size; ++i) {
@@ -150,7 +150,7 @@ public abstract class AppsFragment extends Fragment {
                     mAdapter.notifyItemChanged(i);
                 }
             }
-            breventActivity.setSelectCount(mAdapter.getSelectedSize());
+            activity.setSelectCount(mAdapter.getSelectedSize());
         }
     }
 

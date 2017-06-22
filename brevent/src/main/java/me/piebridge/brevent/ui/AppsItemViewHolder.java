@@ -119,11 +119,9 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
     }
 
     private void copy(String packageName) {
-        BreventActivity breventActivity = (BreventActivity) mFragment.getActivity();
-        breventActivity.copy(packageName);
-        String message = breventActivity.getString(R.string.context_menu_message_copied,
-                packageName);
-        breventActivity.showMessage(message);
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
+        activity.copy(packageName);
+        activity.showMessage(activity.getString(R.string.context_menu_message_copied, packageName));
     }
 
     private void openAppInfo(String packageName) {

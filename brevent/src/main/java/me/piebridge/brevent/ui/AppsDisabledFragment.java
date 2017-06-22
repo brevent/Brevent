@@ -105,8 +105,8 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     private String getBootstrapCommandLine() {
-        BreventApplication breventApplication = (BreventApplication) getActivity().getApplication();
-        String path = breventApplication.copyBrevent();
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        String path = application.copyBrevent();
         if (path != null) {
             StringBuilder sb = new StringBuilder();
             if (isEmulator()) {
@@ -118,7 +118,7 @@ public class AppsDisabledFragment extends DialogFragment
             sb.append(path);
             return sb.toString();
         } else {
-            return null;
+            return getString(R.string.unsupported_path);
         }
     }
 

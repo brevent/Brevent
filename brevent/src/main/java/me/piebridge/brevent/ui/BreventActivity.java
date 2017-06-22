@@ -293,7 +293,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     protected void onRestart() {
         super.onRestart();
         if (mHandler != null) {
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+            if (((BreventApplication) getApplication()).isRunningAsRoot()) {
+                showProgress(R.string.process_retrieving);
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE3);
+            } else {
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+            }
         }
     }
 

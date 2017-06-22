@@ -21,17 +21,17 @@
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) 是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3. (Windows) 按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「.\\adb」\n\n3. (Mac OS X) 開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「.\\adb」\n\n3.（Mac OS X）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
-    <string name="brevent_service_start">請啟動黑域服務 (%s)</string>
-    <string name="brevent_service_no_response">黑域服務沒有響應 (%s)</string>
+    <string name="brevent_service_start">請啟動黑域服務（%s）</string>
+    <string name="brevent_service_no_response">黑域服務沒有響應（%s）</string>
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s，或認真閱讀「指引 - 權限」使用 ROOT 開啟（實驗性）\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
-    <string name="brevent_service_adb_running">(已啟用)</string>
-    <string name="brevent_service_usb_connected">(已連線)</string>
+    <string name="brevent_service_adb_running">（已啟用）</string>
+    <string name="brevent_service_usb_connected">（已連線）</string>
     <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
     <string name="brevent_service_success">黑域服務已成功啟動。請點擊圖示，選擇一些應用程式，然後黑域它們</string>
 
@@ -45,7 +45,7 @@
     <string name="process_status_running">正在執行</string>
     <string name="process_status_standby">已經待機</string>
     <string name="process_status_stopped">沒有執行</string>
-    <string name="process_not_running">(沒有執行)</string>
+    <string name="process_not_running">（沒有執行）</string>
     <string name="process_all_top">%d 個前景</string>
     <string name="process_all_service">%d 個服務</string>
     <string name="process_all_cached">%d 個快取</string>
@@ -66,13 +66,13 @@
     <string name="action_message_undone">已還原</string>
 
     <string name="context_menu_select">選取 / 不再選取</string>
-    <string name="context_menu_package_name">複製安裝包(Package)名稱</string>
+    <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>
     <string name="context_menu_brevent_server_info">黑域服務訊息</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_message_copied">安裝包(Package)名稱已複製: %s</string>
+    <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘應用程式）</string>
@@ -80,15 +80,15 @@
     <string name="important_home">%s（主畫面應用程式）</string>
     <string name="important_persistent">%s（永久應用程式）</string>
     <string name="important_android">%s（Android 處理程序）</string>
-    <string name="important_dialer">%s (電話應用程式)</string>
-    <string name="important_assistant">%s (小幫手應用程式)</string>
-    <string name="important_webview">%s (WebView 實作)</string>
-    <string name="important_accessibility">%s (無障礙設定)</string>
-    <string name="important_device_admin">%s (裝置管理員)</string>
+    <string name="important_dialer">%s（電話應用程式）</string>
+    <string name="important_assistant">%s（小幫手應用程式）</string>
+    <string name="important_webview">%s（WebView 實作）</string>
+    <string name="important_accessibility">%s（無障礙設定）</string>
+    <string name="important_device_admin">%s（裝置管理員）</string>
     <string name="important_gcm">%s（FCM）</string>
     <string name="important_battery">%s（無法待機，電池未最佳化）</string>
-    <string name="important_trust_agent">%s (信任的代理程式)</string>
-    <string name="important_gms">%s (GMS)</string>
+    <string name="important_trust_agent">%s（信任的代理程式）</string>
+    <string name="important_gms">%s（GMS）</string>
 
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
@@ -148,8 +148,8 @@
     <string name="show_donation">顯示捐贈</string>
     <string name="show_donation_play_one">感謝您透過 Play 商店捐贈 %d 美金</string>
     <string name="show_donation_play_one_and_contributor">感謝您透過 Play 商店捐贈 %d 美金，以及爲黑域所作的特別貢獻</string>
-    <string name="show_donation_play_multi">感謝您透過 Play 商店捐贈 %1$d 次(共 %2$d 美金)</string>
-    <string name="show_donation_play_multi_and_contributor">感謝您透過 Play 商店捐贈 %1$d 次(共 %2$d 美金)，以及爲黑域所作的特別貢獻</string>
+    <string name="show_donation_play_multi">感謝您透過 Play 商店捐贈 %1$d 次（共 %2$d 美金）</string>
+    <string name="show_donation_play_multi_and_contributor">感謝您透過 Play 商店捐贈 %1$d 次（共 %2$d 美金），以及爲黑域所作的特別貢獻</string>
     <string name="show_donation_contributor">感謝您爲黑域所作的特別貢獻</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
@@ -169,6 +169,7 @@
     <string name="unsupported_clone">黑域不適用於 App clone。</string>
     <string name="unsupported_signature">請勿破解黑域。</string>
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
+    <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
