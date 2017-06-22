@@ -66,23 +66,23 @@ public class SettingsFragment extends PreferenceFragment
         breventExperimental = (PreferenceCategory) preferenceScreen
                 .findPreference("brevent_experimental");
 
-        preferenceOptimizeVpn = (SwitchPreference) preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_OPTIMIZE_VPN);
-        preferenceAbnormalBack = (SwitchPreference) preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_ABNORMAL_BACK);
-        preferenceAllowRoot = (SwitchPreference) preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_ALLOW_ROOT);
-        preferenceAllowReceiver = (SwitchPreference) preferenceScreen.findPreference(
-                BREVENT_ALLOW_RECEIVER);
+        preferenceOptimizeVpn = (SwitchPreference) preferenceScreen
+                .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_VPN);
+        preferenceAbnormalBack = (SwitchPreference) preferenceScreen
+                .findPreference(BreventConfiguration.BREVENT_ABNORMAL_BACK);
+        preferenceAllowRoot = (SwitchPreference) preferenceScreen
+                .findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
+        preferenceAllowReceiver = (SwitchPreference) preferenceScreen
+                .findPreference(BREVENT_ALLOW_RECEIVER);
 
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
-        preferenceStandbyTimeout = preferenceScreen.findPreference(
-                BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+        preferenceStandbyTimeout = preferenceScreen
+                .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
         BreventApplication application = (BreventApplication) getActivity().getApplication();
         if (!application.supportStandby()) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list")).removePreference(
-                    preferenceStandbyTimeout);
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list"))
+                    .removePreference(preferenceStandbyTimeout);
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
@@ -135,8 +135,9 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void onUpdateBreventMethod() {
-        if ("standby_forcestop".equals(getPreferenceScreen().getSharedPreferences().getString(
-                BreventConfiguration.BREVENT_METHOD, null))) {
+        String method = getPreferenceScreen().getSharedPreferences()
+                .getString(BreventConfiguration.BREVENT_METHOD, null);
+        if ("standby_forcestop".equals(method)) {
             preferenceStandbyTimeout.setEnabled(true);
         } else {
             preferenceStandbyTimeout.setEnabled(false);
@@ -144,13 +145,8 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void onShowDonationChanged() {
-        boolean showDonation;
-        if (BuildConfig.RELEASE) {
-            showDonation = getPreferenceScreen().getSharedPreferences()
-                    .getBoolean(SHOW_DONATION, true);
-        } else {
-            showDonation = false;
-        }
+        boolean showDonation = BuildConfig.RELEASE &&
+                getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_DONATION, true);
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 

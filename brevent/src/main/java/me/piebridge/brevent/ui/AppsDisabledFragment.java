@@ -70,8 +70,8 @@ public class AppsDisabledFragment extends DialogFragment
         arguments.putBoolean(USB_CONNECTED, usb);
         String commandLine = getBootstrapCommandLine();
         String usbStatus = usb ? getString(R.string.brevent_service_usb_connected) : "";
-        builder.setMessage(
-                getString(R.string.brevent_service_guide, adbStatus, usbStatus, commandLine));
+        builder.setMessage(getString(R.string.brevent_service_guide,
+                adbStatus, usbStatus, commandLine));
         builder.setNeutralButton(R.string.menu_guide, this);
         if (allowRoot()) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);

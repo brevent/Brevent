@@ -112,10 +112,8 @@ public class BreventGuide extends Activity {
             if (mView == null) {
                 mView = inflater.inflate(R.layout.fragment_guide, container, false);
                 Bundle arguments = getArguments();
-                ((TextView) mView.findViewById(R.id.message)).setText(
-                        arguments.getString(MESSAGE, ""));
-                ((TextView) mView.findViewById(R.id.message2)).setText(
-                        arguments.getString(MESSAGE2, ""));
+                updateMessage(R.id.message, arguments.getString(MESSAGE, ""));
+                updateMessage(R.id.message2, arguments.getString(MESSAGE2, ""));
                 View button = mView.findViewById(R.id.button);
                 if (arguments.getBoolean(BUTTON)) {
                     button.setVisibility(View.VISIBLE);
@@ -125,6 +123,11 @@ public class BreventGuide extends Activity {
                 }
             }
             return mView;
+        }
+
+        private void updateMessage(int resId, String message) {
+            TextView textView = mView.findViewById(resId);
+            textView.setText(message);
         }
 
         @Override

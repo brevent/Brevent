@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.widget.Toast;
 
 import me.piebridge.brevent.R;
@@ -44,19 +45,21 @@ public class BreventServerReceiver extends BroadcastReceiver {
 
     private CharSequence getLabel(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
-        ApplicationInfo applicationInfo;
+        ApplicationInfo ai;
         try {
-            applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+            ai = packageManager.getApplicationInfo(packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
         Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
-        CharSequence label;
+        CharSequence label = null;
         if (launchIntent == null) {
-            label = applicationInfo.loadLabel(packageManager);
+            label = ai.loadLabel(packageManager);
         } else {
-            label = packageManager.resolveActivity(launchIntent, 0).activityInfo.loadLabel(
-                    packageManager);
+            ResolveInfo resolveInfo = packageManager.resolveActivity(launchIntent, 0);
+            if (resolveInfo != null) {
+                label = resolveInfo.activityInfo.loadLabel(packageManager);
+            }
         }
         return label;
     }

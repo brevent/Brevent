@@ -176,8 +176,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             String clazzServer = String.valueOf(BuildConfig.SERVER);
             try {
                 ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-                ApplicationInfo ai = getPackageManager().getApplicationInfo(
-                        BuildConfig.APPLICATION_ID, 0);
+                ApplicationInfo ai = getPackageManager()
+                        .getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
                 PathClassLoader classLoader = new PathClassLoader(ai.sourceDir, systemClassLoader);
                 classLoader.loadClass(clazzServer).getMethod(String.valueOf('b')).invoke(null);
                 disabledXposed = true;
@@ -258,8 +258,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public boolean hasGms() {
         PackageManager packageManager = getPackageManager();
         try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(GMS, 0);
-            if (!applicationInfo.enabled) {
+            if (!packageManager.getApplicationInfo(GMS, 0).enabled) {
                 return false;
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -660,10 +659,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private void updateConfiguration() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
-        if (!application.supportStandby() && !"forcestop_only".equals(
-                preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))) {
-            preferences.edit().putString(BreventConfiguration.BREVENT_METHOD,
-                    "forcestop_only").apply();
+        if (!"forcestop_only".equals(preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))
+                && !application.supportStandby()) {
+            preferences.edit()
+                    .putString(BreventConfiguration.BREVENT_METHOD, "forcestop_only").apply();
         }
         BreventConfiguration configuration = new BreventConfiguration(preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
@@ -1206,8 +1205,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public static Signature[] getSignatures(PackageManager packageManager, String packageName) {
         try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
-            String codePath = applicationInfo.sourceDir;
+            String codePath = packageManager.getApplicationInfo(packageName, 0).sourceDir;
             PackageParser.Package pkg = new PackageParser.Package(codePath);
             pkg.baseCodePath = codePath;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

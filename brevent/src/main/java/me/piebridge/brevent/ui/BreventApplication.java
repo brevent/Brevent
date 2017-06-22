@@ -76,9 +76,8 @@ public class BreventApplication extends Application {
     private File getBootstrapFile() {
         try {
             PackageManager packageManager = getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(
-                    BuildConfig.APPLICATION_ID, 0);
-            File file = new File(applicationInfo.nativeLibraryDir, "libbrevent.so");
+            ApplicationInfo ai = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
+            File file = new File(ai.nativeLibraryDir, "libbrevent.so");
             if (file.exists()) {
                 return file;
             }

@@ -43,7 +43,6 @@ public class AppsLabelLoader {
     }
 
     public String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {
-        ApplicationInfo applicationInfo = packageInfo.applicationInfo;
         long lastUpdateTime = packageInfo.lastUpdateTime;
         if (lastUpdateTime > mLastUpdateTime) {
             mLastUpdateTime = lastUpdateTime;
@@ -55,10 +54,10 @@ public class AppsLabelLoader {
             Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
             CharSequence label;
             if (launchIntent == null) {
-                label = applicationInfo.loadLabel(packageManager);
+                label = packageInfo.applicationInfo.loadLabel(packageManager);
             } else {
-                label = packageManager.resolveActivity(launchIntent, 0).activityInfo.loadLabel(
-                        packageManager);
+                label = packageManager.resolveActivity(launchIntent, 0).activityInfo
+                        .loadLabel(packageManager);
             }
             String name = trim(label).toString();
             if (!label.equals(mPreferences.getString(packageName, null))) {

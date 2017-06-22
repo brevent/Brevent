@@ -448,8 +448,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             DocumentFile file = null;
             if (cachedUri != null) {
                 try {
-                    file = DocumentFile.fromTreeUri(this, Uri.parse(cachedUri)).createFile(
-                            "image/png", name);
+                    file = DocumentFile.fromTreeUri(this, Uri.parse(cachedUri))
+                            .createFile("image/png", name);
                 } catch (SecurityException e) { // NOSONAR
                     // do nothing
                 }

@@ -173,8 +173,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             viewHolder.inactive = inactive;
             if (viewHolder.inactive > 0) {
                 viewHolder.inactiveView.setVisibility(View.VISIBLE);
-                viewHolder.inactiveView.setText(
-                        DateUtils.formatElapsedTime(BreventResponse.now() - viewHolder.inactive));
+                int elapsed = BreventResponse.now() - viewHolder.inactive;
+                viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
             } else {
                 viewHolder.inactiveView.setVisibility(View.GONE);
             }

@@ -76,8 +76,8 @@ public class AppsItemHandler extends Handler {
         for (int position : positions) {
             AppsItemViewHolder viewHolder = getViewHolder(position);
             if (viewHolder != null) {
-                viewHolder.inactiveView.setText(
-                        DateUtils.formatElapsedTime(now - viewHolder.inactive));
+                int elapsed = now - viewHolder.inactive;
+                viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
             }
         }
         return true;
@@ -122,8 +122,11 @@ public class AppsItemHandler extends Handler {
                 AppsItemViewHolder viewHolder = getViewHolder(i);
                 if (viewHolder != null) {
                     viewHolder.inactive = inactive;
-                    viewHolder.inactiveView.setText(
-                            inactive > 0 ? DateUtils.formatElapsedTime(now - inactive) : null);
+                    if (inactive > 0) {
+                        viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(now - inactive));
+                    } else {
+                        viewHolder.inactiveView.setText(null);
+                    }
                 }
             }
         }
