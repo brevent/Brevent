@@ -27,7 +27,7 @@ public class BreventGuide extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
         Resources resources = getResources();
@@ -36,7 +36,7 @@ public class BreventGuide extends Activity {
         String[] messages2 = resources.getStringArray(R.array.fragment_guide_message2);
         String titleShowButton = resources.getString(R.string.fragment_guide_enjoy);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        ViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton,
                 messages, messages2));
     }

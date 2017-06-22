@@ -87,20 +87,20 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_section, parent, false);
             AppsSectionViewHolder viewHolder = new AppsSectionViewHolder(view);
-            viewHolder.statusView = (TextView) view.findViewById(R.id.status);
-            viewHolder.countView = (TextView) view.findViewById(R.id.count);
+            viewHolder.statusView = view.findViewById(R.id.status);
+            viewHolder.countView = view.findViewById(R.id.count);
             return viewHolder;
         } else {
             CardView view = (CardView) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_apps, parent, false);
             AppsItemViewHolder viewHolder = new AppsItemViewHolder(mFragment, view);
             viewHolder.cardView = view;
-            viewHolder.iconView = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.nameView = (TextView) view.findViewById(R.id.name);
-            viewHolder.syncView = (ImageView) view.findViewById(R.id.sync);
-            viewHolder.statusView = (ImageView) view.findViewById(R.id.status);
-            viewHolder.descriptionView = (TextView) view.findViewById(R.id.description);
-            viewHolder.inactiveView = (TextView) view.findViewById(R.id.inactive);
+            viewHolder.iconView = view.findViewById(R.id.icon);
+            viewHolder.nameView = view.findViewById(R.id.name);
+            viewHolder.syncView = view.findViewById(R.id.sync);
+            viewHolder.statusView = view.findViewById(R.id.status);
+            viewHolder.descriptionView = view.findViewById(R.id.description);
+            viewHolder.inactiveView = view.findViewById(R.id.inactive);
             view.setOnClickListener(this);
             viewHolder.iconView.setOnClickListener(this);
             if (cardColorBackgroundDefault == Color.TRANSPARENT) {

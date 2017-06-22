@@ -39,7 +39,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
         mPlay = checkPlay();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
         ActionBar actionBar = getActionBar();

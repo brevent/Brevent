@@ -60,7 +60,7 @@ public abstract class AppsFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_brevent, container, false);
-            mRecycler = (RecyclerView) mView.findViewById(R.id.recycler);
+            mRecycler = mView.findViewById(R.id.recycler);
         }
         return mView;
     }

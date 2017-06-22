@@ -35,7 +35,7 @@ public class ProgressFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container);
-        mMessage = (TextView) view.findViewById(R.id.message);
+        mMessage = view.findViewById(R.id.message);
         mMessage.setText(getArguments().getInt(MESSAGE));
         return view;
     }

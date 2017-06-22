@@ -99,7 +99,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         super.onStart();
         if (mDonation == null) {
             mDonation = findViewById(R.id.donation);
-            mDonationTip = (TextView) findViewById(R.id.donation_tip);
+            mDonationTip = findViewById(R.id.donation_tip);
         }
         updateDonations();
     }
@@ -404,7 +404,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (intent != null) {
             DonateItem item = new DonateItem();
             item.intent = intent;
-            item.textView = (TextView) findViewById(resId);
+            item.textView = findViewById(resId);
             item.textView.setOnClickListener(this);
             if (items != null) {
                 items.add(item);
