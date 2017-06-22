@@ -635,6 +635,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     @CallSuper
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS) {
+            if (mAdapter != null && updateAdapter(mAdapter)) {
+                mAdapter.refreshFragment();
+            }
             if (resultCode == Activity.RESULT_OK &&
                     data.getBooleanExtra(Intent.ACTION_CONFIGURATION_CHANGED, false)) {
                 updateConfiguration();
@@ -1083,18 +1086,21 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public void showViewPager() {
         mPager.setVisibility(View.VISIBLE);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
-                SettingsFragment.DEFAULT_SHOW_ALL_APPS);
-        boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
-                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
-        mAdapter.setShowAllApps(showAllApps);
-        mAdapter.setShowFramework(showFramework);
+        updateAdapter(mAdapter);
         if (mPager.getAdapter() == null) {
             mPager.setAdapter(mAdapter);
         } else {
             mAdapter.refreshFragment();
         }
+    }
+
+    private boolean updateAdapter(AppsPagerAdapter adapter) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
+                SettingsFragment.DEFAULT_SHOW_ALL_APPS);
+        boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
+                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
+        return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {

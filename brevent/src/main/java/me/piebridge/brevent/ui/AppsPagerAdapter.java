@@ -76,12 +76,15 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
         return mTitles[position];
     }
 
-    public void setShowFramework(boolean showFramework) {
+    public boolean setShowFramework(boolean showFramework) {
         if (mShowFramework != showFramework) {
             mShowFramework = showFramework;
             if (!mShowFramework) {
                 mFragments[FRAGMENT_FRAMEWORK_APPS] = null;
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -94,7 +97,7 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    public void setShowAllApps(boolean showAllApps) {
+    public boolean setShowAllApps(boolean showAllApps) {
         if (mShowAllApps != showAllApps) {
             mShowAllApps = showAllApps;
             for (AppsFragment fragment : mFragments) {
@@ -102,6 +105,9 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
                     fragment.setExpired();
                 }
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
