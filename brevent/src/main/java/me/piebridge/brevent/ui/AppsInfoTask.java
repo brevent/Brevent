@@ -46,14 +46,14 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
         int max = installedPackages.size();
         int progress = 0;
         int size = 0;
-        for (PackageInfo pkgInfo : installedPackages) {
+        for (PackageInfo packageInfo : installedPackages) {
             BreventActivity activity = mAdapter.getActivity();
             if (activity == null || activity.isStopped()) {
                 return false;
             }
-            ApplicationInfo appInfo = pkgInfo.applicationInfo;
-            if (appInfo.enabled && mAdapter.accept(packageManager, pkgInfo, showAllApps)) {
-                String label = labelLoader.loadLabel(packageManager, pkgInfo);
+            ApplicationInfo appInfo = packageInfo.applicationInfo;
+            if (appInfo.enabled && mAdapter.accept(packageManager, packageInfo, showAllApps)) {
+                String label = labelLoader.loadLabel(packageManager, packageInfo);
                 mAdapter.addPackage(appInfo.packageName, label);
                 size++;
             }

@@ -45,16 +45,16 @@ public class BreventServerReceiver extends BroadcastReceiver {
 
     private CharSequence getLabel(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
-        ApplicationInfo ai;
+        ApplicationInfo applicationInfo;
         try {
-            ai = packageManager.getApplicationInfo(packageName, 0);
+            applicationInfo = packageManager.getApplicationInfo(packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
         Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
         CharSequence label = null;
         if (launchIntent == null) {
-            label = ai.loadLabel(packageManager);
+            label = applicationInfo.loadLabel(packageManager);
         } else {
             ResolveInfo resolveInfo = packageManager.resolveActivity(launchIntent, 0);
             if (resolveInfo != null) {

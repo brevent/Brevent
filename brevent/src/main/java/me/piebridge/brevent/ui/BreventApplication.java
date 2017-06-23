@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Application;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
@@ -76,8 +75,9 @@ public class BreventApplication extends Application {
     private File getBootstrapFile() {
         try {
             PackageManager packageManager = getPackageManager();
-            ApplicationInfo ai = packageManager.getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
-            File file = new File(ai.nativeLibraryDir, "libbrevent.so");
+            String nativeLibraryDir = packageManager
+                    .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).nativeLibraryDir;
+            File file = new File(nativeLibraryDir, "libbrevent.so");
             if (file.exists()) {
                 return file;
             }

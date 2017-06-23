@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -402,16 +401,16 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         mNext.add(new AppsInfo(packageName, label));
     }
 
-    public boolean accept(PackageManager pm, PackageInfo pkgInfo, boolean showAllApps) {
+    public boolean accept(PackageManager pm, PackageInfo packageInfo, boolean showAllApps) {
         BreventActivity activity = getActivity();
-        ApplicationInfo appInfo = pkgInfo.applicationInfo;
+        ApplicationInfo appInfo = packageInfo.applicationInfo;
         String packageName = appInfo.packageName;
         // hard limit
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
             return false;
         }
         // filter for fragment
-        if (!mFragment.accept(pm, pkgInfo)) {
+        if (!mFragment.accept(pm, packageInfo)) {
             return false;
         }
         if (activity != null && activity.isLauncher(packageName)) {
