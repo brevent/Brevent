@@ -89,6 +89,7 @@
     <string name="important_battery">%s（無法待機，電池未最佳化）</string>
     <string name="important_trust_agent">%s（信任的代理程式）</string>
     <string name="important_gms">%s（GMS）</string>
+    <string name="important_wallpaper">%s（壁纸）</string>
 
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>

@@ -5,6 +5,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
+import android.app.WallpaperInfo;
+import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
@@ -114,6 +116,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int IMPORTANT_BATTERY = 11;
     public static final int IMPORTANT_TRUST_AGENT = 12;
     public static final int IMPORTANT_GMS = 13;
+    public static final int IMPORTANT_WALLPAPER = 14;
 
     private static final String FRAGMENT_DISABLED = "disabled";
 
@@ -1049,6 +1052,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
         }
 
+        // wallpaper
+        WallpaperInfo wallpaperInfo = WallpaperManager.getInstance(this).getWallpaperInfo();
+        if (wallpaperInfo != null) {
+            packageNames.put(wallpaperInfo.getPackageName(), IMPORTANT_WALLPAPER);
+        }
+
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("important: " + packageNames);
         }
@@ -1181,6 +1190,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 return getString(R.string.important_trust_agent, label);
             case IMPORTANT_GMS:
                 return getString(R.string.important_gms, label);
+            case IMPORTANT_WALLPAPER:
+                return getString(R.string.important_wallpaper, label);
             default:
                 break;
         }

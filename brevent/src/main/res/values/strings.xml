@@ -91,6 +91,7 @@
     <string name="important_battery">%s (no Standby, Battery not optimized)</string>
     <string name="important_trust_agent">%s (Trust agent)</string>
     <string name="important_gms">%s (GMS)</string>
+    <string name="important_wallpaper">%s (Wallpaper)</string>
 
     <string name="menu_feedback">Feedback</string>
     <string name="menu_settings">Settings</string>
