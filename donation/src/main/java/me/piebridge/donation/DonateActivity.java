@@ -110,12 +110,19 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     protected void onPostResume() {
         super.onPostResume();
         stopped = false;
+        hideDonateDialog();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         stopped = true;
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onStop() {
+        stopped = true;
+        super.onStop();
     }
 
     public final void updateDonations() {
@@ -187,7 +194,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        hideDonateDialog();
         try {
             deleteQrCodeIfNeeded();
         } catch (SecurityException e) { // NOSONAR
@@ -368,7 +374,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     void hideDonateDialog() {
         DialogFragment fragment = (DialogFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
-        if (fragment != null) {
+        if (fragment != null && !stopped) {
             fragment.dismiss();
         }
     }
