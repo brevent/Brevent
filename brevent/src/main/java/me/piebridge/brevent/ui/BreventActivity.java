@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -129,6 +131,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
 
     private static final int REQUEST_CODE_SETTINGS = 1;
+
+    private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
 
     private ViewPager mPager;
 
@@ -1025,6 +1029,16 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mLauncher = resolveInfo.activityInfo.packageName;
             packageNames.put(mLauncher, IMPORTANT_HOME);
         }
+
+        // installer
+        intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setDataAndType(Uri.fromFile(new File("foo.apk")), PACKAGE_MIME_TYPE);
+        resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (resolveInfo != null) {
+            packageNames.put(resolveInfo.activityInfo.packageName, IMPORTANT_ANDROID);
+        }
+        packageNames.put("com.android.defcontainer", IMPORTANT_ANDROID);
 
         AccessibilityManager accessibility = (AccessibilityManager) getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
