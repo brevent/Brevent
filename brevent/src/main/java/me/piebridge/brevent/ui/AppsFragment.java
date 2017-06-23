@@ -194,10 +194,6 @@ public abstract class AppsFragment extends Fragment {
         }
     }
 
-    protected final boolean isSystemPackage(int flags) {
-        return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
-    }
-
     protected final boolean isFrameworkPackage(PackageManager packageManager,
                                                PackageInfo packageInfo) {
         String packageName = packageInfo.packageName;

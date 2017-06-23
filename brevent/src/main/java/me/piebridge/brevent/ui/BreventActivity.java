@@ -895,7 +895,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             UILog.d("favorite: " + mFavorite);
         }
         if (hasGms()) {
-            mImportant.put(GMS, IMPORTANT_GMS);
+            mFavorite.put(GMS, IMPORTANT_GMS);
             if (((BreventApplication) getApplication()).supportStopped()) {
                 resolveGcmPackages(mGcm);
             }
@@ -974,18 +974,21 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         }
 
         // sms
-        packageNames.put(getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION), IMPORTANT_SMS);
+        String sms = getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION);
+        if (!isSystemPackage(sms)) {
+            packageNames.put(sms, IMPORTANT_SMS);
+        }
 
         // dialer
         String dialer = getDefaultApp(Intent.ACTION_DIAL);
-        if (dialer != null) {
+        if (dialer != null && !isSystemPackage(dialer)) {
             packageNames.put(dialer, IMPORTANT_DIALER);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
             dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
                     .getDefaultDialerPackage();
-            if (dialer != null) {
+            if (dialer != null && !isSystemPackage(dialer)) {
                 packageNames.put(dialer, IMPORTANT_DIALER);
             }
         }
@@ -1248,6 +1251,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (fragment != null && connected != fragment.isConnected()) {
             showDisabled(fragment.getTitle(), true);
         }
+    }
+
+    private boolean isSystemPackage(String packageName) {
+        try {
+            return isSystemPackage(getPackageManager().getApplicationInfo(packageName, 0).flags);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    static boolean isSystemPackage(int flags) {
+        return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
