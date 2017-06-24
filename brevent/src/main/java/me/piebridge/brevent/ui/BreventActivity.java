@@ -171,6 +171,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private String mSms;
 
+    private String mDialer;
+
     private volatile boolean stopped;
 
     private volatile boolean hasResponse;
@@ -975,9 +977,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
-        if (mSms != null && mBrevent.contains(mSms) && !mPriority.contains(mSms)) {
-            updatePriority(mSms, true);
+        if (mSms != null) {
+            updatePriority(mSms);
         }
+        if (mDialer != null) {
+            updatePriority(mDialer);
+        }
+    }
+
+    private void updatePriority(String packageName) {
+         if (mBrevent.contains(packageName) && !mPriority.contains(packageName)) {
+             updatePriority(packageName, true);
+         }
     }
 
     private Collection<String> checkReceiver(Intent intent) {
@@ -1020,26 +1031,27 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             }
 
             // dialer
-            String dialer = getDefaultApp(Intent.ACTION_DIAL);
-            if (dialer != null) {
-                if (isSystemPackage(dialer)) {
-                    mFavorite.put(dialer, IMPORTANT_DIALER);
+            mDialer = getDefaultApp(Intent.ACTION_DIAL);
+            if (mDialer != null) {
+                if (isSystemPackage(mDialer)) {
+                    mFavorite.put(mDialer, IMPORTANT_DIALER);
                 } else {
-                    mImportant.put(dialer, IMPORTANT_DIALER);
+                    mImportant.put(mDialer, IMPORTANT_DIALER);
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
+                mDialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
                         .getDefaultDialerPackage();
-                if (dialer != null) {
-                    if (isSystemPackage(dialer)) {
-                        mFavorite.put(dialer, IMPORTANT_DIALER);
+                if (mDialer != null) {
+                    if (isSystemPackage(mDialer)) {
+                        mFavorite.put(mDialer, IMPORTANT_DIALER);
                     } else {
-                        mImportant.put(dialer, IMPORTANT_DIALER);
+                        mImportant.put(mDialer, IMPORTANT_DIALER);
                     }
                 }
             }
         } else {
             mSms = null;
+            mDialer = null;
         }
 
         // assistant
