@@ -77,6 +77,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private static final String GMS = "com.google.android.gms";
 
+    private static final String GMS_VALID = "gms-valid";
+
+    private static final String GMS_LAST_UPDATE = "gms-last-update";
+
     private static final byte[][] GMS_SIGNATURES = {
             {56, -111, -118, 69, 61, 7, 25, -109, 84, -8,
                     -79, -102, -16, 94, -58, 86, 44, -19, 87, -120},
@@ -264,15 +268,33 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public boolean hasGms() {
         PackageManager packageManager = getPackageManager();
+        PackageInfo packageInfo;
         try {
-            if (!packageManager.getApplicationInfo(GMS, 0).enabled) {
+            packageInfo = packageManager.getPackageInfo(GMS, 0);
+            if (!packageInfo.applicationInfo.enabled) {
                 return false;
             }
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
             return false;
         }
-        Signature[] signatures = getSignatures(packageManager, GMS);
+
+        SharedPreferences preferences = getSharedPreferences("signature", Context.MODE_PRIVATE);
+        long lastUpdate = preferences.getLong(GMS_LAST_UPDATE, 0);
+        if (preferences.contains(GMS_VALID) && packageInfo.lastUpdateTime == lastUpdate) {
+            return preferences.getBoolean(GMS_VALID, false);
+        }
+
+        boolean valid = checkGms(packageInfo.applicationInfo.sourceDir);
+        preferences.edit()
+                .putBoolean(GMS_VALID, valid)
+                .putLong(GMS_LAST_UPDATE, packageInfo.lastUpdateTime)
+                .apply();
+        return valid;
+    }
+
+    private boolean checkGms(String sourceDir) {
+        Signature[] signatures = getSignatures(sourceDir);
         if (signatures == null || signatures.length != 0x1) {
             return false;
         }
@@ -1257,16 +1279,24 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public static Signature[] getSignatures(PackageManager packageManager, String packageName) {
         try {
-            String codePath = packageManager.getApplicationInfo(packageName, 0).sourceDir;
-            PackageParser.Package pkg = new PackageParser.Package(codePath);
-            pkg.baseCodePath = codePath;
+            return getSignatures(packageManager.getApplicationInfo(packageName, 0).sourceDir);
+        } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
+            return null;
+        }
+    }
+
+    public static Signature[] getSignatures(String sourceDir) {
+        try {
+            PackageParser.Package pkg = new PackageParser.Package(sourceDir);
+            pkg.baseCodePath = sourceDir;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
             } else {
                 HideApiOverrideM.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
             }
             return pkg.mSignatures;
-        } catch (PackageManager.NameNotFoundException | PackageParser.PackageParserException e) {
+        } catch (PackageParser.PackageParserException e) {
             // do nothing
             return null;
         }
