@@ -888,7 +888,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mImportant.clear();
         mFavorite.clear();
         mGcm.clear();
-        resolveImportantPackages(status.mProcesses, mImportant);
+        resolveImportantPackages(status.mProcesses);
         for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
         }
@@ -964,12 +964,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         return Settings.Secure.getString(getContentResolver(), name);
     }
 
-    private void resolveImportantPackages(SimpleArrayMap<String, SparseIntArray> processes,
-                                          SimpleArrayMap<String, Integer> packageNames) {
+    private void resolveImportantPackages(SimpleArrayMap<String, SparseIntArray> processes) {
         // input method
         String input = getPackageName(getSecureSetting(Settings.Secure.DEFAULT_INPUT_METHOD));
         if (input != null) {
-            packageNames.put(input, IMPORTANT_INPUT);
+            mImportant.put(input, IMPORTANT_INPUT);
         }
 
         // next alarm
@@ -977,26 +976,36 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         AlarmManager.AlarmClockInfo alarmClock = alarmManager.getNextAlarmClock();
         if (alarmClock != null && alarmClock.getShowIntent() != null) {
             String alarmClockPackage = alarmClock.getShowIntent().getCreatorPackage();
-            packageNames.put(alarmClockPackage, IMPORTANT_ALARM);
+            mImportant.put(alarmClockPackage, IMPORTANT_ALARM);
         }
 
         // sms
         String sms = getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION);
-        if (!isSystemPackage(sms)) {
-            packageNames.put(sms, IMPORTANT_SMS);
+        if (isSystemPackage(sms)) {
+            mFavorite.put(sms, IMPORTANT_SMS);
+        } else {
+            mImportant.put(sms, IMPORTANT_SMS);
         }
 
         // dialer
         String dialer = getDefaultApp(Intent.ACTION_DIAL);
-        if (dialer != null && !isSystemPackage(dialer)) {
-            packageNames.put(dialer, IMPORTANT_DIALER);
+        if (dialer != null) {
+            if (isSystemPackage(dialer)) {
+                mFavorite.put(dialer, IMPORTANT_DIALER);
+            } else {
+                mImportant.put(dialer, IMPORTANT_DIALER);
+            }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // dialer
             dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
                     .getDefaultDialerPackage();
-            if (dialer != null && !isSystemPackage(dialer)) {
-                packageNames.put(dialer, IMPORTANT_DIALER);
+            if (dialer != null) {
+                if (isSystemPackage(dialer)) {
+                    mFavorite.put(dialer, IMPORTANT_DIALER);
+                } else {
+                    mImportant.put(dialer, IMPORTANT_DIALER);
+                }
             }
         }
 
@@ -1004,12 +1013,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         String assistant;
         assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
         if (assistant != null) {
-            packageNames.put(assistant, IMPORTANT_ASSISTANT);
+            mImportant.put(assistant, IMPORTANT_ASSISTANT);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
             if (assistant != null) {
-                packageNames.put(assistant, IMPORTANT_ASSISTANT);
+                mImportant.put(assistant, IMPORTANT_ASSISTANT);
             }
         }
 
@@ -1017,7 +1026,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String webView = Settings.Global.getString(getContentResolver(),
                     HideApiOverrideN.WEBVIEW_PROVIDER);
-            packageNames.put(webView, IMPORTANT_WEBVIEW);
+            mImportant.put(webView, IMPORTANT_WEBVIEW);
         }
 
         // launcher
@@ -1027,7 +1036,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
             mLauncher = resolveInfo.activityInfo.packageName;
-            packageNames.put(mLauncher, IMPORTANT_HOME);
+            mImportant.put(mLauncher, IMPORTANT_HOME);
         }
 
         // installer
@@ -1036,16 +1045,16 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         intent.setDataAndType(Uri.fromFile(new File("foo.apk")), PACKAGE_MIME_TYPE);
         resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfo != null) {
-            packageNames.put(resolveInfo.activityInfo.packageName, IMPORTANT_ANDROID);
+            mImportant.put(resolveInfo.activityInfo.packageName, IMPORTANT_ANDROID);
         }
-        packageNames.put("com.android.defcontainer", IMPORTANT_ANDROID);
+        mImportant.put("com.android.defcontainer", IMPORTANT_ANDROID);
 
         AccessibilityManager accessibility = (AccessibilityManager) getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
         List<AccessibilityServiceInfo> enabled = accessibility.getEnabledAccessibilityServiceList(
                 AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
         for (AccessibilityServiceInfo accessibilityServiceInfo : enabled) {
-            packageNames.put(accessibilityServiceInfo.getResolveInfo().serviceInfo.packageName,
+            mImportant.put(accessibilityServiceInfo.getResolveInfo().serviceInfo.packageName,
                     IMPORTANT_ACCESSIBILITY);
         }
 
@@ -1054,7 +1063,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         List<ComponentName> componentNames = devicePolicy.getActiveAdmins();
         if (componentNames != null) {
             for (ComponentName componentName : componentNames) {
-                packageNames.put(componentName.getPackageName(), IMPORTANT_DEVICE_ADMIN);
+                mImportant.put(componentName.getPackageName(), IMPORTANT_DEVICE_ADMIN);
             }
         }
 
@@ -1062,18 +1071,18 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         int size = processes.size();
         for (int i = 0; i < size; ++i) {
             if (BreventResponse.isPersistent(processes.valueAt(i))) {
-                packageNames.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
+                mImportant.put(processes.keyAt(i), IMPORTANT_PERSISTENT);
             }
         }
 
         // wallpaper
         WallpaperInfo wallpaperInfo = WallpaperManager.getInstance(this).getWallpaperInfo();
         if (wallpaperInfo != null) {
-            packageNames.put(wallpaperInfo.getPackageName(), IMPORTANT_WALLPAPER);
+            mImportant.put(wallpaperInfo.getPackageName(), IMPORTANT_WALLPAPER);
         }
 
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("important: " + packageNames);
+            UILog.d("important: " + mImportant);
         }
     }
 
