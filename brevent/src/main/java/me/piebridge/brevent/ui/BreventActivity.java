@@ -721,6 +721,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         for (int i = 0; i < size; ++i) {
             important.add(mImportant.keyAt(i));
         }
+        size = mFavorite.size();
+        for (int i = 0; i < size; ++i) {
+            important.add(mFavorite.keyAt(i));
+        }
         return important;
     }
 
