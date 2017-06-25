@@ -29,11 +29,15 @@ import me.piebridge.donation.DonateActivity;
  */
 public class BreventSettings extends DonateActivity implements View.OnClickListener {
 
+    static final int CONTRIBUTOR = 5;
+
     private BreventConfiguration mConfiguration;
 
     private SettingsFragment settingsFragment;
 
     private boolean mPlay;
+
+    private int mTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +114,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     @Override
     public void showPlay(@Nullable Collection<String> purchased) {
+        mTotal = 0;
         if (purchased == null) {
             settingsFragment.updatePlayDonation(-1, -1, false);
         } else {
@@ -141,6 +146,10 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
                 }
             }
         }
+        mTotal += total;
+        if (contributor) {
+            mTotal += CONTRIBUTOR;
+        }
         settingsFragment.updatePlayDonation(count, total, contributor);
     }
 
@@ -155,14 +164,19 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    protected List<String> getPlaySkus() {
+    protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
         boolean allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        allowRoot |= settingsFragment.getArguments()
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         int amount = allowRoot ? donateAmount() : 0x2;
-        for (int j = 0; j < 0x5; ++j) {
-            char a = (char) ('a' + j);
-            skus.add("donation" + amount + a + "_" + amount);
+        amount -= mTotal;
+        if (amount > 0) {
+            for (int j = 0; j < 0x5; ++j) {
+                char a = (char) ('a' + j);
+                skus.add("donation" + amount + a + "_" + amount);
+            }
         }
         return skus;
     }

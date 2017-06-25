@@ -575,11 +575,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    protected List<String> getPlaySkus() {
+    protected List<String> getAllSkus() {
         List<String> skus = new ArrayList<>(IAB_MAX_DONATE);
-        for (int i = 1; i <= 0x3; ++i) {
-            int max = i == 1 ? 10 : 5;
-            for (int j = 0; j < max; ++j) {
+        for (int i = 1; i <= 0x4; ++i) {
+            for (int j = 0; j < 0x5; ++j) {
                 char a = (char) ('a' + j);
                 skus.add("donation" + i + a + "_" + i);
             }
@@ -587,9 +586,17 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return skus;
     }
 
+    @NonNull
+    protected List<String> getDonateSkus() {
+        return mSkus;
+    }
+
     protected boolean canDonatePlay(Collection<String> purchased) {
+        if (purchased.size() >= IAB_MAX_DONATE) {
+            return false;
+        }
         if (mSkus == null) {
-            mSkus = getPlaySkus();
+            mSkus = getAllSkus();
         }
         Iterator<String> iterator = mSkus.iterator();
         while (iterator.hasNext()) {
@@ -616,9 +623,13 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     public String getSku() {
-        List<String> skus = new ArrayList<>(mSkus);
-        Collections.shuffle(skus, new SecureRandom());
-        return skus.get(0);
+        List<String> skus = new ArrayList<>(getDonateSkus());
+        for (String sku : skus) {
+            if (mSkus.contains(sku)) {
+                return sku;
+            }
+        }
+        return mSkus.get(0);
     }
 
     static class DonateItem {

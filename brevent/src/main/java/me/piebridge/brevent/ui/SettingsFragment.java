@@ -60,7 +60,6 @@ public class SettingsFragment extends PreferenceFragment
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
-        Bundle arguments = getArguments();
         PreferenceScreen preferenceScreen = getPreferenceScreen();
 
         breventExperimental = (PreferenceCategory) preferenceScreen
@@ -174,7 +173,7 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             if (contributor) {
-                total += 0x5;
+                total += BreventSettings.CONTRIBUTOR;
             }
             updatePlayVersion(total);
         }
@@ -218,6 +217,7 @@ public class SettingsFragment extends PreferenceFragment
         String key = preference.getKey();
         if ("brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
+                getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
                 breventExperimental.addPreference(preferenceAllowRoot);
                 breventExperimental.addPreference(preferenceAllowReceiver);
             }
