@@ -59,6 +59,9 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_SHOW_SUCCESS:
                     activity.showSuccess();
                     break;
+                case BreventActivity.UI_MESSAGE_NO_EVENT:
+                    activity.makeEvent();
+                    break;
                 default:
                     break;
             }

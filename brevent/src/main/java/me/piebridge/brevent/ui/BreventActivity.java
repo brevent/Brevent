@@ -107,6 +107,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_HIDE_DISABLED = 8;
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
+    public static final int UI_MESSAGE_NO_EVENT = 11;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -840,7 +841,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             UILog.d("response: " + response);
         }
         if (response == null) {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_PROGRESS);
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
         } else {
             dispatchResponse(response);
         }
@@ -1350,6 +1351,17 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     static boolean isSystemPackage(int flags) {
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
+    }
+
+    public void makeEvent() {
+        // https://stackoverflow.com/a/3419987/3289354
+        // recreate has no appropriate event
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        finish();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
