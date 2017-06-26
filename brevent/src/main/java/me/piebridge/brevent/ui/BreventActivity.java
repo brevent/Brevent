@@ -1358,6 +1358,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void makeEvent() {
+        UILog.d("make event by restart");
         // https://stackoverflow.com/a/3419987/3289354
         // recreate has no appropriate event
         Intent intent = getIntent();

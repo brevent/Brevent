@@ -18,7 +18,11 @@ class UILog {
     }
 
     static void v(String msg, Throwable t) {
-        Log.v(TAG, msg);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        } else {
+            Log.v(TAG, msg);
+        }
     }
 
     static void d(String msg) {
@@ -27,6 +31,9 @@ class UILog {
 
     static void d(String msg, Throwable t) {
         Log.d(TAG, msg);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        }
     }
 
     static void i(String msg) {
@@ -35,6 +42,9 @@ class UILog {
 
     static void i(String msg, Throwable t) {
         Log.i(TAG, msg);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        }
     }
 
     static void w(String msg) {
@@ -42,11 +52,17 @@ class UILog {
     }
 
     static void w(String msg, Throwable t) {
-        Log.w(TAG, msg, t);
+        Log.w(TAG, msg);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        }
     }
 
     static void e(String msg, Throwable t) {
-        Log.e(TAG, msg, t);
+        Log.e(TAG, msg);
+        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
+            Log.v(TAG, msg, t);
+        }
     }
 
     static void e(String msg) {

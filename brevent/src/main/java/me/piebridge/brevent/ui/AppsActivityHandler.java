@@ -15,6 +15,7 @@ import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventRequest;
@@ -108,6 +109,7 @@ public class AppsActivityHandler extends Handler {
 
     @WorkerThread
     private void send(BreventProtocol message) {
+        boolean timeout = false;
         int action = message.getAction();
         try {
             Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
@@ -130,7 +132,10 @@ public class AppsActivityHandler extends Handler {
             os.close();
             is.close();
             socket.close();
-        } catch (ConnectException e) {
+        } catch (ConnectException | SocketTimeoutException e) {
+            if (e instanceof SocketTimeoutException) {
+                timeout = true;
+            }
             hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             if (!message.retry) {
@@ -143,7 +148,7 @@ public class AppsActivityHandler extends Handler {
         }
         if (action == BreventProtocol.STATUS_REQUEST) {
             sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3,
-                    AppsDisabledFragment.isEmulator() ? TIMEOUT : RETRY);
+                    (!timeout && AppsDisabledFragment.isEmulator()) ? TIMEOUT : RETRY);
         }
     }
 
