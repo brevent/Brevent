@@ -858,10 +858,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void dispatchResponse(@NonNull BreventProtocol response) {
+        BreventApplication application = (BreventApplication) getApplication();
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
                 onBreventStatusResponse((BreventResponse) response);
+                application.resetEvent();
                 break;
             case BreventProtocol.UPDATE_BREVENT:
                 onBreventPackagesResponse((BreventPackages) response);
@@ -870,7 +872,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
             case BreventProtocol.STATUS_NO_EVENT:
-                BreventApplication application = (BreventApplication) getApplication();
                 if (!application.isEventMade()) {
                     application.makeEvent();
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);

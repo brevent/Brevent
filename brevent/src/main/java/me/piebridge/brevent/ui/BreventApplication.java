@@ -193,7 +193,15 @@ public class BreventApplication extends Application {
     }
 
     public void makeEvent() {
-        eventMade = true;
+        if (!eventMade) {
+            eventMade = true;
+        }
+    }
+
+    public void resetEvent() {
+        if (eventMade) {
+            eventMade = false;
+        }
     }
 
 }
