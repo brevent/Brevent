@@ -132,18 +132,19 @@ public class AppsActivityHandler extends Handler {
             os.close();
             is.close();
             socket.close();
-        } catch (ConnectException | SocketTimeoutException e) {
-            if (e instanceof SocketTimeoutException) {
-                timeout = true;
-            }
+        } catch (ConnectException e) {
             hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
             if (!message.retry) {
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
             }
+        } catch (SocketTimeoutException e) {
+            timeout = true;
+            hasResponse = false;
+            UILog.v("timeout to localhost:" + BreventProtocol.PORT, e);
         } catch (IOException e) {
             hasResponse = false;
-            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+            UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
         if (action == BreventProtocol.STATUS_REQUEST) {
