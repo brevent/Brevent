@@ -108,6 +108,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
     public static final int UI_MESSAGE_NO_EVENT = 11;
+    public static final int UI_MESSAGE_NO_PERMISSION = 12;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -841,7 +842,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             UILog.d("response: " + response);
         }
         if (response == null) {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_PERMISSION);
         } else {
             dispatchResponse(response);
         }
@@ -858,6 +859,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 break;
             case BreventProtocol.UPDATE_PRIORITY:
                 onBreventPriorityResponse((BreventPriority) response);
+                break;
+            case BreventProtocol.STATUS_NO_EVENT:
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
                 break;
             default:
                 break;
@@ -1362,6 +1366,12 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+    }
+
+    public void showNoPermission() {
+        hideProgress();
+        hideDisabled();
+        showUnsupported(R.string.unsupported_permission);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

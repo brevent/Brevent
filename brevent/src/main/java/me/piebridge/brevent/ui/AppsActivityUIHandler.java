@@ -62,6 +62,9 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_NO_EVENT:
                     activity.makeEvent();
                     break;
+                case BreventActivity.UI_MESSAGE_NO_PERMISSION:
+                    activity.showNoPermission();
+                    break;
                 default:
                     break;
             }
