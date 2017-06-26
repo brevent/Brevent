@@ -49,6 +49,8 @@ public class BreventApplication extends Application {
 
     private WeakReference<Handler> handlerReference;
 
+    private boolean eventMade;
+
     public void toggleAllowRoot() {
         allowRoot = !allowRoot;
     }
@@ -184,6 +186,14 @@ public class BreventApplication extends Application {
             }
             handlerReference = null;
         }
+    }
+
+    public boolean isEventMade() {
+        return eventMade;
+    }
+
+    public void makeEvent() {
+        eventMade = true;
     }
 
 }

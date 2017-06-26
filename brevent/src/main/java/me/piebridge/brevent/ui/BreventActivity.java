@@ -75,6 +75,8 @@ import me.piebridge.brevent.protocol.BreventResponse;
 
 public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener {
 
+    private static final int DELAY = 1000;
+
     private static final String GMS = "com.google.android.gms";
 
     private static final String GMS_VALID = "gms-valid";
@@ -339,7 +341,14 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public void showDisabled() {
         hideProgress();
-        showDisabled(R.string.brevent_service_start);
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.isEventMade()) {
+            showUnsupported(R.string.unsupported_no_event);
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        } else {
+            showDisabled(R.string.brevent_service_start);
+        }
     }
 
     public void showDisabled(int title) {
@@ -861,7 +870,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
             case BreventProtocol.STATUS_NO_EVENT:
-                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
+                BreventApplication application = (BreventApplication) getApplication();
+                if (!application.isEventMade()) {
+                    application.makeEvent();
+                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
+                } else {
+                    mHandler.sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, DELAY);
+                }
                 break;
             default:
                 break;
@@ -991,9 +1006,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void updatePriority(String packageName) {
-         if (mBrevent.contains(packageName) && !mPriority.contains(packageName)) {
-             updatePriority(packageName, true);
-         }
+        if (mBrevent.contains(packageName) && !mPriority.contains(packageName)) {
+            updatePriority(packageName, true);
+        }
     }
 
     private Collection<String> checkReceiver(Intent intent) {
