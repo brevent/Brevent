@@ -1197,6 +1197,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void showViewPager() {
+        dismissDialog(FRAGMENT_UNSUPPORTED, false);
         mPager.setVisibility(View.VISIBLE);
         updateAdapter(mAdapter);
         if (mPager.getAdapter() == null) {
