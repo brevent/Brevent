@@ -41,6 +41,7 @@
 
     <string name="process_retrieving">正在获取进程状态，请稍候……</string>
     <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
+    <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
 
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>

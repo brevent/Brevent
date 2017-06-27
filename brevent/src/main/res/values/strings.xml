@@ -42,6 +42,7 @@
 
     <string name="process_retrieving">Retrieving processes status, just a moment. . .</string>
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
+    <string name="process_waiting">Waiting events, please open then close notification to make events. . .</string>
 
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>

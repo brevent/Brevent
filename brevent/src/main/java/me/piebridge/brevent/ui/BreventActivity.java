@@ -77,6 +77,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private static final int DELAY = 1000;
 
+    private static final int DELAY5 = 5000;
+
     private static final String GMS = "com.google.android.gms";
 
     private static final String GMS_VALID = "gms-valid";
@@ -111,6 +113,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
     public static final int UI_MESSAGE_NO_EVENT = 11;
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
+    public static final int UI_MESSAGE_MAKE_EVENT = 13;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -851,7 +854,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             UILog.d("response: " + response);
         }
         if (response == null) {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_PERMISSION);
+            uiHandler.sendEmptyMessage(UI_MESSAGE_NO_PERMISSION);
         } else {
             dispatchResponse(response);
         }
@@ -862,8 +865,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
-                onBreventStatusResponse((BreventResponse) response);
+                uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
                 application.resetEvent();
+                onBreventStatusResponse((BreventResponse) response);
                 break;
             case BreventProtocol.UPDATE_BREVENT:
                 onBreventPackagesResponse((BreventPackages) response);
@@ -872,11 +876,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
             case BreventProtocol.STATUS_NO_EVENT:
+                uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
+                mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE3, DELAY);
                 if (!application.isEventMade()) {
-                    application.makeEvent();
-                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_EVENT);
-                } else {
-                    mHandler.sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3, DELAY);
+                    uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
                 }
                 break;
             default:
@@ -916,8 +919,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private void onBreventPriorityResponse(BreventPriority response) {
         if (!response.packageNames.isEmpty()) {
-            uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_UPDATE_PRIORITY,
-                    response).sendToTarget();
+            uiHandler.obtainMessage(UI_MESSAGE_UPDATE_PRIORITY, response).sendToTarget();
         }
     }
 
@@ -1374,6 +1376,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     public void makeEvent() {
+        ((BreventApplication) getApplication()).makeEvent();
         UILog.d("make event by restart");
         // https://stackoverflow.com/a/3419987/3289354
         // recreate has no appropriate event
@@ -1389,6 +1392,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         hideProgress();
         hideDisabled();
         showUnsupported(R.string.unsupported_permission);
+    }
+
+    public void showNoEvent() {
+        hideDisabled();
+        showProgress(R.string.process_waiting);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
