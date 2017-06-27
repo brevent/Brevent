@@ -1000,6 +1000,10 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
+        makeDialerAndSms();
+    }
+
+    private void makeDialerAndSms() {
         if (mSms != null) {
             updatePriority(mSms);
         }
@@ -1219,6 +1223,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public void updateBreventResponse(BreventPackages breventPackages) {
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
+            makeDialerAndSms();
         } else {
             mBrevent.removeAll(breventPackages.packageNames);
         }
