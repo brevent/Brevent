@@ -786,7 +786,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public boolean isGms(String packageName) {
         if (GMS.equals(packageName)) {
-            Integer important = mImportant.get(packageName);
+            Integer important = mFavorite.get(packageName);
             return important != null && important == IMPORTANT_GMS;
         } else {
             return false;

@@ -404,7 +404,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     public boolean accept(PackageManager pm, PackageInfo packageInfo, boolean showAllApps) {
         BreventActivity activity = getActivity();
         ApplicationInfo appInfo = packageInfo.applicationInfo;
-        String packageName = appInfo.packageName;
+        String packageName = packageInfo.packageName;
         // hard limit
         if (appInfo.uid < Process.FIRST_APPLICATION_UID) {
             return false;
@@ -413,21 +413,23 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!mFragment.accept(pm, packageInfo)) {
             return false;
         }
-        if (activity != null && activity.isLauncher(packageName)) {
-            // always show launcher
-            return true;
-        }
-        if (activity != null && activity.isGms(packageName)) {
-            // always show gms
-            return true;
-        }
         if (showAllApps || mFragment.supportAllApps()) {
             // always for all apps
             return true;
         }
-        if (activity != null && activity.isBrevent(packageName)) {
-            // always for brevented apps
-            return true;
+        if (activity != null) {
+            if (activity.isLauncher(packageName)) {
+                // always show launcher
+                return true;
+            }
+            if (activity.isGms(packageName)) {
+                // always show gms
+                return true;
+            }
+            if (activity.isBrevent(packageName)) {
+                // always for brevented apps
+                return true;
+            }
         }
         if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
             UILog.v("checking launcher for " + packageName);
