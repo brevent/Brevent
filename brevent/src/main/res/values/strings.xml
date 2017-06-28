@@ -175,7 +175,7 @@
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent Server.</string>
-    <string name="unsupported_no_event">Brevent requires event log.</string>
+    <string name="unsupported_no_event">No event log. Please try later or reboot.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

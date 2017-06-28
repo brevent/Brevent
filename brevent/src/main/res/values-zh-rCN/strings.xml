@@ -173,7 +173,7 @@
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域依赖事件日志。</string>
+    <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

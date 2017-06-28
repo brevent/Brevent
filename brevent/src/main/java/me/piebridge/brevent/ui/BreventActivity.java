@@ -68,6 +68,7 @@ import me.piebridge.brevent.override.HideApiOverrideM;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
+import me.piebridge.brevent.protocol.BreventNoEvent;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
@@ -344,14 +345,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     public void showDisabled() {
         hideProgress();
-        BreventApplication application = (BreventApplication) getApplication();
-        if (application.isEventMade()) {
-            showUnsupported(R.string.unsupported_no_event);
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
-        } else {
-            showDisabled(R.string.brevent_service_start);
-        }
+        showDisabled(R.string.brevent_service_start);
     }
 
     public void showDisabled(int title) {
@@ -861,11 +855,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void dispatchResponse(@NonNull BreventProtocol response) {
-        BreventApplication application = (BreventApplication) getApplication();
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
                 uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
+                BreventApplication application = (BreventApplication) getApplication();
                 application.resetEvent();
                 onBreventStatusResponse((BreventResponse) response);
                 break;
@@ -876,14 +870,25 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
             case BreventProtocol.STATUS_NO_EVENT:
-                uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
-                mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE3, DELAY);
-                if (!application.isEventMade()) {
-                    uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
-                }
+                onBreventNoEvent((BreventNoEvent) response);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void onBreventNoEvent(BreventNoEvent response) {
+        if (response.mExit) {
+            showUnsupported(R.string.unsupported_no_event);
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        } else {
+            uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
+            mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE3, DELAY);
+            BreventApplication application = (BreventApplication) getApplication();
+            if (!application.isEventMade()) {
+                uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
+            }
         }
     }
 

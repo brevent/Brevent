@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -36,9 +37,22 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
     }
 
     @Override
+    public void onCancel(DialogInterface dialog) {
+        finishActivity();
+    }
+
+    private void finishActivity() {
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.finish();
+        }
+    }
+
+
+    @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            getActivity().finish();
+            finishActivity();
         }
         return false;
     }

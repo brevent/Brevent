@@ -7,12 +7,22 @@ import android.os.Parcel;
  */
 public class BreventNoEvent extends BreventProtocol {
 
-    public BreventNoEvent() {
+    public boolean mExit;
+
+    public BreventNoEvent(boolean exit) {
         super(BreventProtocol.STATUS_NO_EVENT);
+        mExit = exit;
     }
 
     BreventNoEvent(Parcel in) {
         super(in);
+        mExit = in.readInt() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mExit ? 1 : 0);
     }
 
 }
