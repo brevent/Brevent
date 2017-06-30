@@ -6,16 +6,6 @@
 
 #define ANDROID_UTIL_EVENT_LOG_EVENT "android/util/EventLog$Event"
 
-static inline int32_t get_tag(struct log_msg msg) {
-    char *buf;
-    if (msg.entry.hdr_size) {
-        buf = (char *) msg.buf + msg.entry.hdr_size;
-    } else {
-        buf = (char *) msg.entry_v1.msg;
-    }
-    return *((int32_t *) buf);
-}
-
 /*
  * Class:     me_piebridge_LogReader
  * Method:    readEvents
@@ -41,15 +31,30 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint p
     log_time.tv_nsec = (uint32_t) (now.tv_usec / 1000);
 
     logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
-    android_logger_open(logger_list, android_name_to_log_id("events"));
+    if (!android_logger_open(logger_list, LOG_ID_EVENTS)) {
+        return;
+    }
+
     for (;;) {
+        char *buf;
+        int32_t tag;
         struct log_msg log_msg;
         int size = android_logger_list_read(logger_list, &log_msg);
-        if (size <= 0) {
+
+        if (size == -EINTR) {
+            continue;
+        } else if (size <= 0) {
             break;
         }
 
-        if ((*env)->CallBooleanMethod(env, value, accept, get_tag(log_msg))) {
+        if (log_msg.entry.lid != LOG_ID_EVENTS) {
+            continue;
+        }
+
+        buf = log_msg.entry.hdr_size ? (char *) log_msg.buf + log_msg.entry.hdr_size
+                                     : log_msg.entry_v1.msg;
+        tag = *(int32_t *) buf;
+        if ((*env)->CallBooleanMethod(env, value, accept, tag)) {
             jsize len = size;
             jbyteArray array = (*env)->NewByteArray(env, len);
             if (array == NULL) {
