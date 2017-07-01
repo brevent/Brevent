@@ -9,10 +9,10 @@
 /*
  * Class:     me_piebridge_LogReader
  * Method:    readEvents
- * Signature: (ILme/piebridge/EventHandler;)V
+ * Signature: (IJLme/piebridge/EventHandler;)V
  */
 JNIEXPORT void JNICALL
-Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid,
+Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid, jlong since,
                                        jobject value) {
     struct logger_list *logger_list;
     struct log_time log_time;
@@ -25,10 +25,8 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint p
     jmethodID onEvent = (*env)->GetMethodID(env, eventHandler, "onEvent",
                                             "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)Z");
 
-    struct timeval now;
-    gettimeofday(&now, NULL);
-    log_time.tv_sec = (uint32_t) now.tv_sec;
-    log_time.tv_nsec = (uint32_t) (now.tv_usec / 1000);
+    log_time.tv_sec = (uint32_t) (since / NS_PER_SEC);
+    log_time.tv_nsec = (uint32_t) (since % NS_PER_SEC);
 
     logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
     if (!android_logger_open(logger_list, LOG_ID_EVENTS)) {

@@ -17,6 +17,8 @@ typedef enum log_id {
     LOG_ID_EVENTS = 2,
 } log_id_t;
 
+#define NS_PER_SEC 1000000000ULL
+
 typedef struct log_time {
     uint32_t tv_sec;
     uint32_t tv_nsec;
