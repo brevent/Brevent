@@ -1,9 +1,5 @@
 #include "log.h"
 
-log_id_t android_name_to_log_id(const char *UNUSED(logName)) {
-    return LOG_ID_MIN;
-}
-
 struct logger_list *android_logger_list_alloc_time(int UNUSED(mode),
                                                    log_time UNUSED(start),
                                                    pid_t UNUSED(pid)) {
@@ -21,4 +17,8 @@ int android_logger_list_read(struct logger_list *UNUSED(logger_list),
 }
 
 void android_logger_list_free(struct logger_list *UNUSED(logger_list)) {
+}
+
+int __android_log_print(int UNUSED(prio), const char *UNUSED(tag), const char *UNUSED(fmt), ...) {
+    return 0;
 }

@@ -2,9 +2,48 @@
 #include <string.h>
 #include <jni.h>
 #include <fcntl.h>
+#include <dirent.h>
+#include <stdlib.h>
+#include <android/log.h>
 #include "log.h"
 
+#define TAG "BreventServer"
+#define LOGW(...) (__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
+#define LOGI(...) (__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
+
 #define ANDROID_UTIL_EVENT_LOG_EVENT "android/util/EventLog$Event"
+
+static int get_pid() {
+    int pid = 0;
+    DIR *proc;
+    struct dirent *entry;
+
+    if (!(proc = opendir("/proc"))) {
+        return pid;
+    };
+
+    while ((entry = readdir(proc))) {
+        int id;
+        FILE *fp;
+        char buf[PATH_MAX];
+
+        if (!(id = atoi(entry->d_name))) {
+            continue;
+        }
+        sprintf(buf, "/proc/%u/cmdline", id);
+        fp = fopen(buf, "r");
+        if (fp != NULL) {
+            fgets(buf, PATH_MAX - 1, fp);
+            fclose(fp);
+            if (!strcasecmp(buf, "system_server")) {
+                pid = id;
+                break;
+            }
+        }
+    }
+    closedir(proc);
+    return pid;
+}
 
 /*
  * Class:     me_piebridge_LogReader
@@ -25,10 +64,20 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint p
     jmethodID onEvent = (*env)->GetMethodID(env, eventHandler, "onEvent",
                                             "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)Z");
 
+    int systemServer = get_pid();
+    if (systemServer <= 0) {
+        LOGW("system_server: %d", systemServer);
+        systemServer = pid;
+    } else if (systemServer != pid) {
+        LOGW("system_server: %d, pid: %d", systemServer, pid);
+    } else {
+        LOGI("system_server: %d, since: %lld", systemServer, since);
+    }
+
     log_time.tv_sec = (uint32_t) (since / NS_PER_SEC);
     log_time.tv_nsec = (uint32_t) (since % NS_PER_SEC);
 
-    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
+    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, systemServer);
     if (!android_logger_open(logger_list, LOG_ID_EVENTS)) {
         return;
     }
