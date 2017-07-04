@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.system.ErrnoException;
+import android.system.Os;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -90,37 +92,38 @@ public class BreventApplication extends Application {
     }
 
     public String copyBrevent() {
-        File file = getApplicationContext().getExternalFilesDir(null);
         File brevent = getBootstrapFile();
-        if (file == null || brevent == null) {
+        if (brevent == null) {
             return null;
         }
-        String sdcard = "/" + "sdcard";
-        String path = buildPath(new File(sdcard),
-                "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh").getAbsolutePath();
+        File parent = getFilesDir().getParentFile();
+        String father = parent.getParent();
+        try {
+            father = Os.readlink(father);
+            parent = new File(father, parent.getName());
+        } catch (ErrnoException e) {
+            UILog.d("Can't read link for " + father, e);
+        }
+        File output = new File(parent, "brevent.sh");
+        String path = output.getAbsolutePath();
         if (!copied) {
-            try {
-                File externalStorageDirectory = Environment.getExternalStorageDirectory();
-                File output = buildPath(externalStorageDirectory,
-                        "Android", "data", BuildConfig.APPLICATION_ID, "brevent.sh");
-                try (
-                        InputStream is = getResources().openRawResource(R.raw.brevent);
-                        OutputStream os = new FileOutputStream(output);
-                        PrintWriter pw = new PrintWriter(os)
-                ) {
-                    pw.println("#!/system/bin/sh");
-                    pw.println();
-                    pw.println("path=" + brevent);
-                    pw.println("abi64=" + brevent.getPath().contains("64"));
-                    pw.println();
-                    pw.flush();
-                    byte[] bytes = new byte[0x400];
-                    int length;
-                    while ((length = is.read(bytes)) != -1) {
-                        os.write(bytes, 0, length);
-                        if (length < 0x400) {
-                            break;
-                        }
+            try (
+                    InputStream is = getResources().openRawResource(R.raw.brevent);
+                    OutputStream os = new FileOutputStream(output);
+                    PrintWriter pw = new PrintWriter(os)
+            ) {
+                pw.println("#!/system/bin/sh");
+                pw.println();
+                pw.println("path=" + brevent);
+                pw.println("abi64=" + brevent.getPath().contains("64"));
+                pw.println();
+                pw.flush();
+                byte[] bytes = new byte[0x400];
+                int length;
+                while ((length = is.read(bytes)) != -1) {
+                    os.write(bytes, 0, length);
+                    if (length < 0x400) {
+                        break;
                     }
                 }
                 copied = true;
@@ -129,19 +132,12 @@ public class BreventApplication extends Application {
                 return null;
             }
         }
-        return path;
-    }
-
-    private File buildPath(File base, String... children) {
-        File path = base;
-        for (String child : children) {
-            if (child != null) {
-                if (path == null) {
-                    path = new File(child);
-                } else {
-                    path = new File(path, child);
-                }
-            }
+        try {
+            Os.chmod(parent.getPath(), 00755);
+            Os.chmod(path, 00755);
+        } catch (ErrnoException e) {
+            UILog.d("Can't chmod brevent", e);
+            return null;
         }
         return path;
     }
