@@ -1,11 +1,11 @@
 package me.piebridge.donation;
 
-
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
@@ -38,8 +38,13 @@ class DonateTask extends AsyncTask<DonateActivity.DonateItem, DonateActivity.Don
             for (DonateActivity.DonateItem item : params) {
                 ActivityInfo ai = packageManager.resolveActivity(item.intent, 0).activityInfo;
                 item.label = ai.loadLabel(packageManager);
-                item.icon = DonateActivity.cropDrawable(resources,
-                        (BitmapDrawable) ai.loadIcon(packageManager), size);
+                Drawable drawable = ai.loadIcon(packageManager);
+                BitmapDrawable bitmap = DonateActivity.bitmap(drawable);
+                if (bitmap != null) {
+                    item.icon = DonateActivity.cropDrawable(resources, bitmap, size);
+                } else {
+                    item.icon = drawable;
+                }
                 this.publishProgress(item);
             }
         }

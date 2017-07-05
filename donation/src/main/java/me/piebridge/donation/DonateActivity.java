@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -635,6 +636,17 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Drawable icon;
         CharSequence label;
         TextView textView;
+    }
+
+    static BitmapDrawable bitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return (BitmapDrawable) drawable;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && drawable instanceof AdaptiveIconDrawable) {
+            return bitmap(((AdaptiveIconDrawable) drawable).getForeground());
+        } else {
+            return null;
+        }
     }
 
 }
