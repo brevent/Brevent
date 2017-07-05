@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <android/log.h>
+#include <time.h>
 #include "log.h"
 
 #define TAG "BreventServer"
@@ -48,11 +49,12 @@ static int get_pid() {
 /*
  * Class:     me_piebridge_LogReader
  * Method:    readEvents
- * Signature: (IJLme/piebridge/EventHandler;)V
+ * Signature: (Lme/piebridge/EventHandler;)V
  */
 JNIEXPORT void JNICALL
-Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid, jlong since,
-                                       jobject value) {
+Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jobject value) {
+    int pid;
+    struct timespec ts;
     struct logger_list *logger_list;
     struct log_time log_time;
 
@@ -64,20 +66,14 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint p
     jmethodID onEvent = (*env)->GetMethodID(env, eventHandler, "onEvent",
                                             "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)Z");
 
-    int systemServer = get_pid();
-    if (systemServer <= 0) {
-        LOGW("system_server: %d", systemServer);
-        systemServer = pid;
-    } else if (systemServer != pid) {
-        LOGW("system_server: %d, pid: %d", systemServer, pid);
-    } else {
-        LOGI("system_server: %d, since: %lld", systemServer, since);
-    }
+    pid = get_pid();
+    clock_gettime(CLOCK_REALTIME, &ts);
+    LOGI("system_server: %d, now: %ld", pid, ts.tv_sec);
 
-    log_time.tv_sec = (uint32_t) (since / NS_PER_SEC);
-    log_time.tv_nsec = (uint32_t) (since % NS_PER_SEC);
+    log_time.tv_sec = (uint32_t) ts.tv_sec;
+    log_time.tv_nsec = (uint32_t) ts.tv_nsec;
 
-    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, systemServer);
+    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
     if (!android_logger_open(logger_list, LOG_ID_EVENTS)) {
         return;
     }
