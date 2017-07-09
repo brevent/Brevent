@@ -131,8 +131,8 @@
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_check_notification">Check notifications</string>
     <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
-    <string name="brevent_when_request">Brevent immediately</string>
-    <string name="brevent_when_request_label">Brevent immediately. Normally, Brevent server delays the processes according to the event level\n\nBe careful</string>
+    <string name="brevent_aggressive">Aggressive mode</string>
+    <string name="brevent_aggressive_label">Brevent immediately and force-stop non-service processes.\n\nBe careful</string>
     <string name="show_framework_apps">Show framework apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
     <string name="show_all_apps">Show all apps</string>

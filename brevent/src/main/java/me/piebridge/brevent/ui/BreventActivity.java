@@ -587,6 +587,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         SparseIntArray status = mProcesses.get(packageName);
         if (isFavorite(packageName)) {
             return R.drawable.ic_favorite_border_black_24dp;
+        } else if (status != null && !BreventResponse.isService(status)) {
+            return R.drawable.ic_panorama_fish_eye_black_24dp;
         } else if (BreventResponse.isStandby(status)) {
             return R.drawable.ic_snooze_black_24dp;
         } else if (BreventResponse.isRunning(status)) {

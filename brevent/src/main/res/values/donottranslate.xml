@@ -4,7 +4,6 @@
     <string-array name="brevent_timeout_values">
         <item>60</item>
         <item>300</item>
-        <item>600</item>
         <item>900</item>
         <item>1800</item>
         <item>3600</item>
@@ -14,7 +13,6 @@
     <string-array name="brevent_timeout_entries">
         <item>@string/brevent_timeout_1min</item>
         <item>@string/brevent_timeout_5min</item>
-        <item>@string/brevent_timeout_10min</item>
         <item>@string/brevent_timeout_15min</item>
         <item>@string/brevent_timeout_30min</item>
         <item>@string/brevent_timeout_1hour</item>
@@ -22,19 +20,19 @@
     </string-array>
 
     <string-array name="brevent_standby_timeout_values">
+        <item>300</item>
         <item>900</item>
         <item>1800</item>
         <item>3600</item>
-        <item>7200</item>
         <item>10800</item>
         <item>21600</item>
     </string-array>
 
     <string-array name="brevent_standby_timeout_entries">
+        <item>@string/brevent_timeout_5min</item>
         <item>@string/brevent_timeout_15min</item>
         <item>@string/brevent_timeout_30min</item>
         <item>@string/brevent_timeout_1hour</item>
-        <item>@string/brevent_timeout_2hour</item>
         <item>@string/brevent_timeout_3hour</item>
         <item>@string/brevent_timeout_6hour</item>
     </string-array>

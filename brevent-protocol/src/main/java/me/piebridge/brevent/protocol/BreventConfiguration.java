@@ -34,13 +34,13 @@ public class BreventConfiguration extends BreventProtocol {
 
     public static final String BREVENT_STANDBY_TIMEOUT = "brevent_standby_timeout";
     public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 3600;
-    public static final int MIN_BREVENT_STANDBY_TIMEOUT = 900;
+    public static final int MIN_BREVENT_STANDBY_TIMEOUT = 300;
 
     public static final String BREVENT_CHECK_NOTIFICATION = "brevent_check_notification";
     public static final boolean DEFAULT_BREVENT_CHECK_NOTIFICATION = true;
 
-    public static final String BREVENT_WHEN_REQUEST = "brevent_when_request";
-    public static final boolean DEFAULT_BREVENT_WHEN_REQUEST = false;
+    public static final String BREVENT_AGGRESSIVE = "brevent_aggressive";
+    public static final boolean DEFAULT_BREVENT_AGGRESSIVE = false;
 
     public static final String BREVENT_ABNORMAL_BACK = "brevent_abnormal_back";
     public static final boolean DEFAULT_BREVENT_ABNORMAL_BACK = false;
@@ -59,7 +59,7 @@ public class BreventConfiguration extends BreventProtocol {
 
     public boolean checkNotification = DEFAULT_BREVENT_CHECK_NOTIFICATION;
 
-    public boolean breventRequest = DEFAULT_BREVENT_WHEN_REQUEST;
+    public boolean aggressive = DEFAULT_BREVENT_AGGRESSIVE;
 
     public boolean abnormalBack = DEFAULT_BREVENT_ABNORMAL_BACK;
 
@@ -80,8 +80,8 @@ public class BreventConfiguration extends BreventProtocol {
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
                 DEFAULT_BREVENT_CHECK_NOTIFICATION);
-        breventRequest = sharedPreferences.getBoolean(BREVENT_WHEN_REQUEST,
-                DEFAULT_BREVENT_WHEN_REQUEST);
+        aggressive = sharedPreferences.getBoolean(BREVENT_AGGRESSIVE,
+                DEFAULT_BREVENT_AGGRESSIVE);
         abnormalBack = sharedPreferences.getBoolean(BREVENT_ABNORMAL_BACK,
                 DEFAULT_BREVENT_ABNORMAL_BACK);
     }
@@ -111,7 +111,7 @@ public class BreventConfiguration extends BreventProtocol {
         optimizeVpn = in.readInt() != 0;
         standbyTimeout = in.readInt();
         checkNotification = in.readInt() != 0;
-        breventRequest = in.readInt() != 0;
+        aggressive = in.readInt() != 0;
         abnormalBack = in.readInt() != 0;
     }
 
@@ -125,7 +125,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(optimizeVpn ? 1 : 0);
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
-        dest.writeInt(breventRequest ? 1 : 0);
+        dest.writeInt(aggressive ? 1 : 0);
         dest.writeInt(abnormalBack ? 1 : 0);
     }
 
@@ -137,7 +137,7 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_OPTIMIZE_VPN, optimizeVpn);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
-        write(pw, BREVENT_WHEN_REQUEST, breventRequest);
+        write(pw, BREVENT_AGGRESSIVE, aggressive);
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
     }
 
@@ -186,8 +186,8 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_CHECK_NOTIFICATION:
                 checkNotification = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_WHEN_REQUEST:
-                breventRequest = Boolean.parseBoolean(value);
+            case BREVENT_AGGRESSIVE:
+                aggressive = Boolean.parseBoolean(value);
                 break;
             case BREVENT_ABNORMAL_BACK:
                 abnormalBack = Boolean.parseBoolean(value);
@@ -232,8 +232,8 @@ public class BreventConfiguration extends BreventProtocol {
             this.checkNotification = request.checkNotification;
             updated = true;
         }
-        if (this.breventRequest != request.breventRequest) {
-            this.breventRequest = request.breventRequest;
+        if (this.aggressive != request.aggressive) {
+            this.aggressive = request.aggressive;
             updated = true;
         }
         if (this.abnormalBack != request.abnormalBack) {
