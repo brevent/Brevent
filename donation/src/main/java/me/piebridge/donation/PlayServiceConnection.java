@@ -19,7 +19,6 @@ import com.android.vending.billing.IInAppBillingService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
@@ -33,6 +32,9 @@ import java.util.List;
  */
 
 public class PlayServiceConnection extends Handler implements ServiceConnection {
+
+    private static final byte[] SHA_EXPECTED = {-23, -73, -17, -27, 64, -2, -89, 121, 97, -67,
+            59, -119, 71, 50, -47, -2, 119, 72, -48, 80};
 
     static final int MESSAGE_ACTIVATE = 0;
 
@@ -147,7 +149,8 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
         List<String> dataList = bundle.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
         List<String> signatureList = bundle.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
 
-        if (isEmpty(dataList) || isEmpty(signatureList)) {
+        DonateActivity donateActivity = mReference.get();
+        if (isEmpty(dataList) || isEmpty(signatureList) || donateActivity == null) {
             return purchased;
         }
 
@@ -156,7 +159,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             size = signatureList.size();
         }
 
-        BigInteger modulus = mReference.get().getPlayModulus();
+        BigInteger modulus = donateActivity.getPlayModulus();
         for (int i = 0; i < size; ++i) {
             String s = dataList.get(i);
             if (verify(modulus, s, signatureList.get(i))) {
@@ -190,44 +193,25 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
         try {
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
             sha1.update(data.getBytes());
-            byte[] plain = getSignature(sha1.digest());
+            byte[] digest = sha1.digest();
             byte[] key = Base64.decode(signature, Base64.DEFAULT);
             byte[] sign = new BigInteger(1, key).modPow(exponent, modulus).toByteArray();
-            return equals(plain, sign);
+            for (int i = digest.length - 1, j = sign.length - 1; i >= 0; --i, --j) {
+                sign[j] ^= digest[i];
+            }
+            sha1.reset();
+            sha1.update(sign);
+            digest = sha1.digest();
+            for (int i = digest.length - 1; i >= 0; --i) {
+                if (digest[i] != SHA_EXPECTED[i]) {
+                    return false;
+                }
+            }
+            return true;
         } catch (IllegalArgumentException | GeneralSecurityException e) {
             Log.d(TAG, "Can't verify");
         }
         return false;
-    }
-
-    private static boolean equals(byte[] a, byte[] b) { // NOSONAR
-        int length = a.length;
-        if (length != b.length) {
-            return false;
-        }
-
-        for (int i = 0; i < length; ++i) {
-            if (a[i] != b[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static byte[] getSignature(byte[] sha1) {
-        // rfc3447, sha-1
-        byte[] algorithm = {0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02,
-                0x1a, 0x05, 0x00, 0x04, 0x14};
-        ByteArrayOutputStream signature = new ByteArrayOutputStream(0xff);
-        signature.write(0x01);
-        // 0xff - 2 - algorithm - sha1
-        for (int i = 0; i < 0xda; ++i) {
-            signature.write(0xff);
-        }
-        signature.write(0x00);
-        signature.write(algorithm, 0, algorithm.length);
-        signature.write(sha1, 0, sha1.length);
-        return signature.toByteArray();
     }
 
     private static class UiHandler extends Handler {
