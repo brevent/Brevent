@@ -186,8 +186,17 @@ task renameBootstrap {
     }
 }
 
+def getNdkBuild = { ->
+    def ndkBuild = file("${android.ndkDirectory}/ndk-build.cmd")
+    if (ndkBuild.exists()) {
+        return ndkBuild.path
+    } else {
+        return file("${android.ndkDirectory}/ndk-build").path
+    }
+}
+
 task buildBootstrap(type: Exec) {
-    commandLine "${android.ndkDirectory}/ndk-build",
+    commandLine getNdkBuild(),
             '-C', file('src/main/jni').path,
             'APP_BUILD_SCRIPT=Android.mk',
             'NDK_APPLICATION_MK=Application.mk'
@@ -196,7 +205,7 @@ task buildBootstrap(type: Exec) {
 buildBootstrap.finalizedBy renameBootstrap
 
 task cleanBootstrap(type: Exec) {
-    commandLine "${android.ndkDirectory}/ndk-build",
+    commandLine getNdkBuild(),
             '-C', file('src/main/jni').path,
             'APP_BUILD_SCRIPT=Android.mk',
             'NDK_APPLICATION_MK=Application.mk',
