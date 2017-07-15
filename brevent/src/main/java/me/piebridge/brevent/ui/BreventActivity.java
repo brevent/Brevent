@@ -707,6 +707,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         super.onBackPressed();
     }
 
+    @Override
+    public void finish() {
+        super.finishAndRemoveTask();
+    }
+
     private void updateConfiguration() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
