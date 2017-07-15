@@ -44,7 +44,11 @@ project.ext.targetSdkVersion = 26
 
 project.ext.versionCode = 63
 
-project.ext.simpleVersionName = getBreventVersion()
+if (rootProject.file('.git').exists()) {
+    project.ext.simpleVersionName = getBreventVersion()
+} else {
+    project.ext.simpleVersionName = 'brevent'
+}
 
 project.ext.versionName = project.ext.simpleVersionName
 
@@ -52,7 +56,7 @@ if (rootProject.file('ant.properties').exists()) {
     Properties properties = new Properties()
     properties.load(new FileInputStream(rootProject.file('ant.properties')))
     if (properties['build.codename'] != null) {
-        project.ext.versionName = properties['build.codename'] + "(" + getBreventVersion() + ")"
+        project.ext.versionName = properties['build.codename'] + "(" + project.ext.simpleVersionName + ")"
     }
 }
 
