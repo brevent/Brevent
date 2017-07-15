@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.os.Handler;
 import android.os.Message;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 import me.piebridge.brevent.R;
@@ -67,6 +68,10 @@ public class AppsActivityUIHandler extends Handler {
                     break;
                 case BreventActivity.UI_MESSAGE_NO_PERMISSION:
                     activity.showNoPermission();
+                    break;
+                case BreventActivity.UI_MESSAGE_LOGS:
+                    activity.hideProgress();
+                    activity.onLogsCompleted((File) message.obj);
                     break;
                 default:
                     break;

@@ -10,13 +10,24 @@ import android.support.annotation.WorkerThread;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventRequest;
 
@@ -24,6 +35,12 @@ import me.piebridge.brevent.protocol.BreventRequest;
  * Created by thom on 2017/2/3.
  */
 public class AppsActivityHandler extends Handler {
+
+    private static final String[][] LOGS = new String[][] {
+            {"system.txt", "-b system"},
+            {"events.txt", "-b events am_pss:s"},
+            {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI"}
+    };
 
     private static final long DELAY = 15000;
 
@@ -51,6 +68,7 @@ public class AppsActivityHandler extends Handler {
 
     @Override
     public void handleMessage(Message message) {
+        BreventActivity activity = mReference.get();
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
                 UILog.d("request status");
@@ -73,7 +91,6 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol response = (BreventProtocol) message.obj;
-                BreventActivity activity = mReference.get();
                 if (activity != null && !activity.isStopped()) {
                     activity.onBreventResponse(response);
                 }
@@ -90,6 +107,60 @@ public class AppsActivityHandler extends Handler {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
                 }
                 break;
+            case BreventActivity.MESSAGE_LOGS:
+                File path = null;
+                File dir;
+                if (activity != null && (dir = activity.getExternalFilesDir("logs")) != null) {
+                    DateFormat df = new SimpleDateFormat("yyyyMMdd.HHmm", Locale.US);
+                    String date = df.format(Calendar.getInstance().getTime());
+                    File cacheDir = activity.getCacheDir();
+                    try {
+                        for (String[] log : LOGS) {
+                            File file = new File(cacheDir, date + "." + log[0]);
+                            String command = "/system/bin/logcat -d -v threadtime -f "
+                                    + file.getPath() + " " + log[1];
+                            UILog.d("logcat for " + log[0]);
+                            Runtime.getRuntime().exec(command).waitFor();
+                        }
+                        Runtime.getRuntime().exec("sync").waitFor();
+                        path = zipLog(activity, dir, date);
+                    } catch (IOException | InterruptedException e) {
+                        UILog.w("Can't get logs", e);
+                    }
+                }
+                uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_LOGS, path).sendToTarget();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private File zipLog(Context context, File dir, String date) {
+        try {
+            File path = new File(dir, "logs-v" + BuildConfig.VERSION_NAME + "-" + date + ".zip");
+            try (
+                    ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(path))
+            ) {
+                for (String[] log : LOGS) {
+                    File file = new File(context.getCacheDir(), date + "." + log[0]);
+                    zos.putNextEntry(new ZipEntry(file.getName()));
+                    try (
+                            InputStream is = new FileInputStream(file)
+                    ) {
+                        int length;
+                        byte[] buffer = new byte[0x1000];
+                        while ((length = is.read(buffer)) > 0) {
+                            zos.write(buffer, 0, length);
+                        }
+                    }
+                    zos.closeEntry();
+                    file.delete();
+                }
+            }
+            return path;
+        } catch (IOException e) {
+            UILog.e("cannot report bug", e);
+            return null;
         }
     }
 

@@ -41,6 +41,7 @@
 
     <string name="process_retrieving">正在获取进程状态，请稍候……</string>
     <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
+    <string name="process_retrieving_logs">正在获取日志，请稍候……</string>
     <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
 
     <string name="process_status_running">正在运行</string>
@@ -95,6 +96,7 @@
     <string name="menu_feedback">反馈</string>
     <string name="menu_settings">设置</string>
     <string name="menu_guide">向导</string>
+    <string name="menu_logs">日志</string>
 
     <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
@@ -115,11 +117,9 @@
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
     <string name="brevent_timeout_5min">5 分钟</string>
-    <string name="brevent_timeout_10min">10 分钟</string>
     <string name="brevent_timeout_15min">15 分钟</string>
     <string name="brevent_timeout_30min">30 分钟</string>
     <string name="brevent_timeout_1hour">1 小时</string>
-    <string name="brevent_timeout_2hour">2 小时</string>
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
     <string name="brevent_timeout_999999">11.5 天</string>
@@ -175,9 +175,12 @@
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
     <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升級，请稍候重试。</string>
+    <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
     <string name="toast_alipay">感谢您 %1$d 个月通过支付宝捐赠 %2$s 元</string>
+
+    <string name="logs_description">（请描述与日志相关的问题。）</string>
 
 </resources>

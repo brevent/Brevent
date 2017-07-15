@@ -42,6 +42,10 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
     }
 
     private void finishActivity() {
+        int message = getArguments().getInt(MESSAGE);
+        if (message == R.string.unsupported_logs) {
+            return;
+        }
         Activity activity = getActivity();
         if (activity != null) {
             activity.finish();

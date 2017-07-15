@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -28,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -37,6 +40,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
@@ -53,11 +57,13 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
@@ -100,6 +106,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int MESSAGE_BREVENT_REQUEST = 4;
     public static final int MESSAGE_RETRIEVE3 = 5;
     public static final int MESSAGE_ROOT_COMPLETED = 6;
+    public static final int MESSAGE_LOGS = 7;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -115,6 +122,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public static final int UI_MESSAGE_NO_EVENT = 11;
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
     public static final int UI_MESSAGE_MAKE_EVENT = 13;
+    public static final int UI_MESSAGE_LOGS = 14;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -614,6 +622,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         if (!mSelectMode) {
             if (BuildConfig.RELEASE) {
                 menu.add(Menu.NONE, R.string.menu_feedback, Menu.NONE, R.string.menu_feedback);
+                if (getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
+                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED
+                        && hasEmailClient(this)) {
+                    menu.add(Menu.NONE, R.string.menu_logs, Menu.NONE, R.string.menu_logs);
+                }
             }
             menu.add(Menu.NONE, R.string.menu_guide, Menu.NONE, R.string.menu_guide);
             menu.add(Menu.NONE, R.string.menu_settings, Menu.NONE, R.string.menu_settings);
@@ -662,6 +675,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             case R.string.menu_guide:
                 openGuide();
                 break;
+            case R.string.menu_logs:
+                fetchLogs();
+                break;
             case R.string.menu_settings:
                 openSettings();
                 break;
@@ -669,6 +685,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 return super.onOptionsItemSelected(menuItem);
         }
         return true;
+    }
+
+    private void fetchLogs() {
+        showProgress(R.string.process_retrieving_logs);
+        mHandler.sendEmptyMessage(MESSAGE_LOGS);
     }
 
     public void openGuide() {
@@ -1419,6 +1440,74 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     public void showNoEvent() {
         hideDisabled();
         showProgress(R.string.process_waiting);
+    }
+
+    public void onLogsCompleted(File path) {
+        if (path == null) {
+            showUnsupported(R.string.unsupported_logs);
+        } else {
+            sendEmail(this, path, getString(R.string.logs_description));
+        }
+    }
+
+    static Intent getEmailIntent() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setData(Uri.parse("mailto:"));
+        return intent;
+    }
+
+    static boolean hasEmailClient(Context context) {
+        return context.getPackageManager().resolveActivity(getEmailIntent(),
+                PackageManager.MATCH_DEFAULT_ONLY) != null;
+    }
+
+    private static String getSubject(Context context) {
+        return context.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME +
+                "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE + ")";
+    }
+
+    public static void sendEmail(Context context, File path, String content) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setType("message/rfc822");
+        if (path != null) {
+            intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context,
+                    BuildConfig.APPLICATION_ID + ".fileprovider", path));
+        }
+        intent.putExtra(Intent.EXTRA_SUBJECT, getSubject(context));
+        intent.putExtra(Intent.EXTRA_TEXT, content);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
+        sendEmail(context, intent);
+    }
+
+    private static void sendEmail(Context context, Intent intent) {
+        Intent email = getEmailIntent();
+        PackageManager packageManager = context.getPackageManager();
+        Set<ComponentName> emails = new ArraySet<>();
+        for (ResolveInfo resolveInfo : packageManager.queryIntentActivities(email, 0)) {
+            ActivityInfo activityInfo = resolveInfo.activityInfo;
+            emails.add(new ComponentName(activityInfo.packageName, activityInfo.name));
+        }
+        List<ResolveInfo> rfc822 = packageManager.queryIntentActivities(intent, 0);
+        List<Intent> intents = new ArrayList<>();
+        for (ResolveInfo resolveInfo : rfc822) {
+            ActivityInfo activityInfo = resolveInfo.activityInfo;
+            ComponentName componentName = new ComponentName(activityInfo.packageName,
+                    activityInfo.name);
+            if (emails.contains(componentName)) {
+                intents.add(new Intent(intent).setComponent(componentName));
+            }
+        }
+        CharSequence title = context.getText(R.string.feedback_email);
+        if (intents.isEmpty()) {
+            context.startActivity(Intent.createChooser(intent, title));
+        } else {
+            Intent chooser = Intent.createChooser(intents.remove(0), title);
+            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                    intents.toArray(new Parcelable[intents.size()]));
+            context.startActivity(chooser);
+        }
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

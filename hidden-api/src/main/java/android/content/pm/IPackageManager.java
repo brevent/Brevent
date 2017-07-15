@@ -65,6 +65,23 @@ public interface IPackageManager {
     ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId)
             throws RemoteException;
 
+    /**
+     * @deprecated since api-23
+     */
+    int checkPermission(String permName, String pkgName) throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    int checkPermission(String permName, String pkgName, int userId) throws RemoteException;
+
+    /**
+     * @deprecated since api-23
+     */
+    void grantPermission(String pkgName, String permName) throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    void grantRuntimePermission(String pkgName, String permName, int userId)
+            throws RemoteException;
+
     class Stub {
 
         public static IPackageManager asInterface(IBinder binder) {

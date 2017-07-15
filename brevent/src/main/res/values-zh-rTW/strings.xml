@@ -41,6 +41,7 @@
 
     <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
     <string name="process_retrieving_apps">正在取得應用程式訊息，請稍候. . .</string>
+    <string name="process_retrieving_logs">正在取得日誌，請稍候. . .</string>
     <string name="process_waiting">正在等待事件日誌，請查看然後關閉通知以觸發事件. . .</string>
 
     <string name="process_status_running">正在執行</string>
@@ -95,6 +96,7 @@
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
     <string name="menu_guide">指引</string>
+    <string name="menu_logs">日誌</string>
 
     <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
@@ -115,11 +117,9 @@
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
     <string name="brevent_timeout_5min">5 分鐘</string>
-    <string name="brevent_timeout_10min">10 分鐘</string>
     <string name="brevent_timeout_15min">15 分鐘</string>
     <string name="brevent_timeout_30min">30 分鐘</string>
     <string name="brevent_timeout_1hour">1 小時</string>
-    <string name="brevent_timeout_2hour">2 小時</string>
     <string name="brevent_timeout_3hour">3 小時</string>
     <string name="brevent_timeout_6hour">6 小時</string>
     <string name="brevent_timeout_999999">11.5 天</string>
@@ -175,9 +175,12 @@
     <string name="unsupported_permission">沒有權限訪問黑域服務。</string>
     <string name="unsupported_no_event">黑域服務已經啓動，但是沒有事件日誌。請稍候重試，或者重啓手機。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
+    <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
     <string name="toast_alipay">感谢您 %1$d 个月通过支付宝捐赠 %2$s 元</string>
+
+    <string name="logs_description">（請描述與日誌相關的問題。）</string>
 
 </resources>
