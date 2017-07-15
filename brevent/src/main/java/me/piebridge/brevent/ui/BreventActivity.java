@@ -880,7 +880,11 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void onBreventNoEvent(BreventNoEvent response) {
-        if (response.mExit) {
+        if (response.versionMismatched()) {
+            showUnsupported(R.string.unsupported_version_mismatched);
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        } else if (response.mExit) {
             showUnsupported(R.string.unsupported_no_event);
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
