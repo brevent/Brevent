@@ -36,15 +36,15 @@ public class BreventApplication extends Application {
 
     private boolean copied;
 
-    public long mDaemonTime;
+    long mDaemonTime;
 
-    public long mServerTime;
+    long mServerTime;
 
-    public int mUid;
+    int mUid;
 
-    public boolean started;
+    boolean started;
 
-    public static boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
+    public static final boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
     private boolean fetched;
 
@@ -85,7 +85,7 @@ public class BreventApplication extends Application {
                 return file;
             }
         } catch (PackageManager.NameNotFoundException e) {
-            // ignore
+            UILog.d("Can't find " + BuildConfig.APPLICATION_ID, e);
         }
         return null;
     }
@@ -121,9 +121,6 @@ public class BreventApplication extends Application {
                 int length;
                 while ((length = is.read(bytes)) != -1) {
                     os.write(bytes, 0, length);
-                    if (length < 0x400) {
-                        break;
-                    }
                 }
                 copied = true;
             } catch (IOException e) {
