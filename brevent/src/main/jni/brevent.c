@@ -18,6 +18,7 @@
 
 sig_atomic_t update;
 sig_atomic_t quited;
+sig_atomic_t looped;
 
 #if defined(__aarch64__)
 #define ABI "arm64"
@@ -41,13 +42,16 @@ static void rstrip(char *loader) {
     }
 }
 
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+
 static int worker() {
     FILE *file;
     char *path;
     char line[PATH_MAX];
     char classpath[PATH_MAX];
     char *arg[] = {"app_process", "/system/bin", "--nice-name=brevent_server",
-                   "me.piebridge.brevent.server.BreventServer", NULL};
+                   "me.piebridge.brevent.server.BreventServer", STR(SIGUSR1), NULL};
     file = popen("pm path me.piebridge.brevent", "r");
     if (file != NULL) {
         fgets(line, sizeof(line), file);
@@ -92,6 +96,7 @@ static int server(size_t length, char *arg) {
 
     sigemptyset(&set);
     sigaddset(&set, SIGCHLD);
+    sigaddset(&set, SIGUSR1);
 
     if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
         LOGE("cannot sigprocmask");
@@ -113,6 +118,7 @@ static int server(size_t length, char *arg) {
             }
             update = 0;
             quited = 0;
+            looped = 0;
             if (worker() <= 0) {
                 break;
             }
@@ -187,13 +193,21 @@ static int get_pid() {
     return pid;
 }
 
+static void signal_check(int signo) {
+    LOGD("check received signal: %d, ppid: %d", signo, getppid());
+    if (signo == SIGUSR1) {
+        looped = 1;
+    }
+}
+
 static int check(time_t now) {
     int pid = 0;
-    printf("checking..");
+    signal(SIGUSR1, signal_check);
+    printf("checking for server.");
     for (int i = 0; i < 10; ++i) {
         int id = get_pid();
         if (pid == 0 && id > 0) {
-            printf("brevent_server started, pid: %d\n", id);
+            printf("started, pid: %d\n", id);
             printf("checking for stable.");
             i = 0;
             pid = id;
@@ -202,6 +216,8 @@ static int check(time_t now) {
             fflush(stdout);
             report(now);
             return EXIT_FAILURE;
+        } else if (quited || looped) {
+            break;
         }
         printf(".");
         fflush(stdout);
@@ -260,6 +276,13 @@ static void signal_handler(int signo) {
                 LOGE("worker %d exited on signal %d", pid, WTERMSIG(status));
             }
         }
+    } else if (signo == SIGUSR1) {
+        pid_t ppid = getppid();
+        LOGD("received signal: %d, ppid: %d", signo, ppid);
+        if (ppid > 1) {
+            looped = 1;
+            kill(getppid(), SIGUSR1);
+        }
     }
 }
 
@@ -291,6 +314,7 @@ int main(int argc, char **argv) {
     check_original();
 
     signal(SIGCHLD, signal_handler);
+    signal(SIGUSR1, signal_handler);
 
     gettimeofday(&tv, NULL);
     switch (fork()) {
