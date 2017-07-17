@@ -147,7 +147,7 @@ public class AppsDisabledFragment extends DialogFragment
             }
             activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
         } else if (which == DialogInterface.BUTTON_NEUTRAL) {
-            activity.openGuide();
+            activity.openGuide("disabled");
             dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
             activity.runAsRoot();

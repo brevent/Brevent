@@ -53,6 +53,9 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
@@ -239,7 +242,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             showUnsupported(R.string.unsupported_clone);
         } else if (PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(BreventGuide.GUIDE, true)) {
-            openGuide();
+            openGuide("first");
             super.finish();
         } else {
             setContentView(R.layout.activity_brevent);
@@ -673,7 +676,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                 }
                 break;
             case R.string.menu_guide:
-                openGuide();
+                openGuide("menu");
                 break;
             case R.string.menu_logs:
                 fetchLogs();
@@ -692,8 +695,15 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         mHandler.sendEmptyMessage(MESSAGE_LOGS);
     }
 
-    public void openGuide() {
+    public void openGuide(String type) {
         startActivity(new Intent(this, BreventGuide.class));
+        if (BuildConfig.RELEASE) {
+            Answers.getInstance().logContentView(new ContentViewEvent()
+                    .putContentName("Guide")
+                    .putContentType(type)
+                    .putContentId("guide-" + type));
+            UILog.i("logContentView");
+        }
     }
 
     private void openFeedback() {

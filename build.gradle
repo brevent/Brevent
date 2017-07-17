@@ -1,9 +1,14 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
+        // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
+        classpath 'io.fabric.tools:gradle:1.23.0'
     }
 }
 
@@ -12,6 +17,9 @@ allprojects {
         jcenter()
         maven {
             url "https://dl.google.com/dl/android/maven2"
+        }
+        maven {
+            url 'https://maven.fabric.io/public'
         }
     }
 }

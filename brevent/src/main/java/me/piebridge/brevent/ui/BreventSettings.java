@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,9 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toolbar;
 
+import com.crashlytics.android.answers.AddToCartEvent;
+import com.crashlytics.android.answers.Answers;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
@@ -195,5 +201,30 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     static int donateAmount() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
+
+    @Override
+    public void startDonateActivity(Intent intent, String type) {
+        super.startDonateActivity(intent, type);
+        logDonate(type);
+    }
+
+    @Override
+    public void donatePlay(IntentSender intentSender) {
+        super.donatePlay(intentSender);
+        logDonate("play");
+    }
+
+    private void logDonate(String type) {
+        if (BuildConfig.RELEASE) {
+            Answers.getInstance().logAddToCart(new AddToCartEvent()
+                    .putItemPrice(BigDecimal.ONE)
+                    .putCurrency(Currency.getInstance("USD"))
+                    .putItemName("Donate")
+                    .putItemType(type)
+                    .putItemId("donate-" + type));
+            UILog.i("logAddToCart");
+        }
+    }
+
 
 }

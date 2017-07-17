@@ -2,3 +2,4 @@
 /.externalNativeBuild
 /src/main/obj
 /src/main/libs
+/fabric.properties

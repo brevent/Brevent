@@ -8,6 +8,9 @@ import android.preference.PreferenceManager;
 import android.system.ErrnoException;
 import android.system.Os;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.RatingEvent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,7 +18,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
+import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -51,6 +56,14 @@ public class BreventApplication extends Application {
     private WeakReference<Handler> handlerReference;
 
     private boolean eventMade;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (BuildConfig.RELEASE) {
+            Fabric.with(this, new Answers());
+        }
+    }
 
     public void toggleAllowRoot() {
         allowRoot = !allowRoot;
@@ -147,11 +160,29 @@ public class BreventApplication extends Application {
     }
 
     public void updateStatus(BreventResponse breventResponse) {
+        boolean shouldUpdated = mDaemonTime != breventResponse.mDaemonTime;
         mDaemonTime = breventResponse.mDaemonTime;
         mServerTime = breventResponse.mServerTime;
         mUid = breventResponse.mUid;
         setSupportStandby(breventResponse.mSupportStandby);
         setSupportStopped(breventResponse.mSupportStopped);
+        if (BuildConfig.RELEASE && shouldUpdated) {
+            long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
+            int rating = (int) (days / 7) + ((days % 7 == 0) ? 0 : 1);
+            if (rating > 5) {
+                rating = 5;
+            }
+            String type = HideApiOverride.isShell(mUid) ? "shell" :
+                    (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
+            Answers.getInstance().logRating(new RatingEvent()
+                    .putRating(rating)
+                    .putContentName("Brevent")
+                    .putContentType(type)
+                    .putContentId("brevent-" + type + "-" + rating)
+                    .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
+                    .putCustomAttribute("stopped", Boolean.toString(mSupportStopped)));
+            UILog.i("logRating");
+        }
     }
 
     private static int getOwner() {

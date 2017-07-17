@@ -39,6 +39,14 @@
                 android:data="https://github.com/Chainfire/libsuperuser/" />
         </PreferenceScreen>
 
+        <PreferenceScreen
+            android:summary="Fabric Software and Services Agreement"
+            android:title="Fabric">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://fabric.io/terms" />
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

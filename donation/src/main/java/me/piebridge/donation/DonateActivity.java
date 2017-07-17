@@ -233,7 +233,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getAlipayLink()));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
                 Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startDonateActivity(intent);
+        startDonateActivity(intent, "alipay");
     }
 
     private void donateViaWechat() {
@@ -271,7 +271,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (resolveInfo != null) {
             intent.setPackage(resolveInfo.activityInfo.packageName);
         }
-        startDonateActivity(intent);
+        startDonateActivity(intent, "paypal");
     }
 
     private boolean mayHasPermission(String permission) {
@@ -361,7 +361,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    void startDonateActivity(Intent intent) {
+    protected void startDonateActivity(Intent intent, String type) {
         showDonateDialog();
         try {
             startActivity(intent);
