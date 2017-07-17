@@ -174,7 +174,7 @@
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
     <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
-    <string name="unsupported_version_mismatched">黑域服务正在升級，请稍候重试。</string>
+    <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
