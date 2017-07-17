@@ -179,11 +179,16 @@ public class AppsActivityHandler extends Handler {
     }
 
     @WorkerThread
-    private void send(BreventProtocol message) {
+    private boolean send(BreventProtocol message) {
+        BreventActivity activity = mReference.get();
+        if (activity == null || activity.isStopped()) {
+            return false;
+        }
         boolean timeout = false;
         int action = message.getAction();
-        try {
-            Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+        try (
+                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+        ) {
             if (action == BreventProtocol.STATUS_REQUEST) {
                 socket.setSoTimeout(TIMEOUT);
             }
@@ -198,11 +203,15 @@ public class AppsActivityHandler extends Handler {
 
             DataInputStream is = new DataInputStream(socket.getInputStream());
             BreventProtocol response = BreventProtocol.readFrom(is);
-            obtainMessage(BreventActivity.MESSAGE_BREVENT_RESPONSE, response).sendToTarget();
-
             os.close();
             is.close();
-            socket.close();
+            if (response == null && !message.retry) {
+                message.retry = true;
+                send(message);
+            } else {
+                obtainMessage(BreventActivity.MESSAGE_BREVENT_RESPONSE, response).sendToTarget();
+            }
+            return true;
         } catch (ConnectException e) {
             hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
@@ -222,6 +231,7 @@ public class AppsActivityHandler extends Handler {
             sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3,
                     (!timeout && AppsDisabledFragment.isEmulator()) ? TIMEOUT : RETRY);
         }
+        return false;
     }
 
 }
