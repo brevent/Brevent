@@ -200,7 +200,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             }
             viewHolder.syncView.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.syncView.setVisibility(View.INVISIBLE);
+            viewHolder.syncView.setVisibility(View.GONE);
         }
     }
 
