@@ -47,6 +47,8 @@
 
 -dontwarn me.piebridge.brevent.override.HideApiOverride*
 
+-dontnote com.google.android.gms.ads.AdView
+
 # -repackageclasses ''
 
 # -allowaccessmodification
