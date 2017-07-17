@@ -240,7 +240,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         } else if (PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(BreventGuide.GUIDE, true)) {
             openGuide();
-            finish();
+            super.finish();
         } else {
             setContentView(R.layout.activity_brevent);
 
@@ -1425,7 +1425,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         // recreate has no appropriate event
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
-        finish();
+        super.finish();
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
