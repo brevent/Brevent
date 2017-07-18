@@ -224,12 +224,16 @@ static int check(time_t now) {
         sleep(1);
     }
     if (pid > 0) {
-        printf("ok\n\n");
+        if (looped) {
+            printf("success\n\n");
+        } else {
+            printf("timeout\n\n");
+        }
         fflush(stdout);
         feedback();
         return EXIT_SUCCESS;
     } else {
-        printf("cannot listen port\n");
+        printf("fail\n");
         fflush(stdout);
         report(now);
         return EXIT_FAILURE;
