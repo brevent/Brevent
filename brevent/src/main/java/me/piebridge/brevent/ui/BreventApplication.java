@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.text.TextUtils;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.RatingEvent;
@@ -159,6 +160,20 @@ public class BreventApplication extends Application {
         return mSupportStandby;
     }
 
+    public String getInstaller() {
+        String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
+        if (TextUtils.isEmpty(installer)) {
+            return "unknown";
+        } else {
+            return installer;
+        }
+    }
+
+    public String getMode() {
+        return HideApiOverride.isShell(mUid) ? "shell" :
+                (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
+    }
+
     public void updateStatus(BreventResponse breventResponse) {
         boolean shouldUpdated = mDaemonTime != breventResponse.mDaemonTime;
         mDaemonTime = breventResponse.mDaemonTime;
@@ -168,19 +183,25 @@ public class BreventApplication extends Application {
         setSupportStopped(breventResponse.mSupportStopped);
         if (BuildConfig.RELEASE && shouldUpdated) {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
+            long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             int rating = (int) (days / 7) + ((days % 7 == 0) ? 0 : 1);
+            if (rating == 0) {
+                rating = 1;
+            }
             if (rating > 5) {
                 rating = 5;
             }
-            String type = HideApiOverride.isShell(mUid) ? "shell" :
-                    (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
+            String mode = getMode();
             Answers.getInstance().logRating(new RatingEvent()
                     .putRating(rating)
                     .putContentName("Brevent")
-                    .putContentType(type)
-                    .putContentId("brevent-" + type + "-" + rating)
+                    .putContentType(mode)
+                    .putContentId("brevent-" + mode)
                     .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
-                    .putCustomAttribute("stopped", Boolean.toString(mSupportStopped)));
+                    .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
+                    .putCustomAttribute("days", days)
+                    .putCustomAttribute("living", living)
+                    .putCustomAttribute("installer", getInstaller()));
             UILog.i("logRating");
         }
     }

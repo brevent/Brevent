@@ -216,12 +216,16 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     private void logDonate(String type) {
         if (BuildConfig.RELEASE) {
+            BreventApplication application = (BreventApplication) getApplication();
+            String installer = application.getInstaller();
             Answers.getInstance().logAddToCart(new AddToCartEvent()
                     .putItemPrice(BigDecimal.ONE)
                     .putCurrency(Currency.getInstance("USD"))
                     .putItemName("Donate")
                     .putItemType(type)
-                    .putItemId("donate-" + type));
+                    .putItemId("donate-" + type)
+                    .putCustomAttribute("mode", application.getMode())
+                    .putCustomAttribute("installer", installer));
             UILog.i("logAddToCart");
         }
     }
