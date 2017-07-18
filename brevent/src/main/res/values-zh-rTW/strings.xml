@@ -182,6 +182,6 @@
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
     <string name="toast_alipay">感謝您 %1$d 個月透過支付寶捐贈 %2$s 元</string>
 
-    <string name="logs_description">（請描述與日誌相關的問題。）</string>
+    <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
 
 </resources>

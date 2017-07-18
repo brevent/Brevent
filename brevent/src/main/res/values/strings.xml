@@ -183,6 +183,6 @@
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Thanks for donating %2$s RMB via Alipay in %1$d month</string>
 
-    <string name="logs_description">(Please give a description for the logs.)</string>
+    <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
 
 </resources>

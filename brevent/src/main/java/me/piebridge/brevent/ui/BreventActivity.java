@@ -196,8 +196,6 @@ public class BreventActivity extends Activity
 
     private String mDialer;
 
-    private volatile boolean started;
-
     private volatile boolean stopped;
 
     private volatile boolean hasResponse;
@@ -400,6 +398,9 @@ public class BreventActivity extends Activity
             fragment = new AppsDisabledFragment();
             fragment.update(title);
             fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
+        }
+        if (hasResponse) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
         }
     }
 
@@ -1481,7 +1482,7 @@ public class BreventActivity extends Activity
         if (path == null) {
             showUnsupported(R.string.unsupported_logs);
         } else {
-            sendEmail(this, path, getString(R.string.logs_description));
+            sendEmail(this, path, getString(R.string.logs_description, Build.FINGERPRINT));
         }
     }
 
