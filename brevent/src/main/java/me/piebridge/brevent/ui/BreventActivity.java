@@ -102,7 +102,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
 
-    public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
@@ -192,6 +191,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
 
     private String mDialer;
 
+    private volatile boolean started;
+
     private volatile boolean stopped;
 
     private volatile boolean hasResponse;
@@ -265,7 +266,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mColorControlHighlight = ColorUtils.resolveColor(this,
                     android.R.attr.colorControlHighlight);
 
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
         }
     }
 
@@ -338,19 +339,6 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         } catch (NoSuchAlgorithmException e) {
             UILog.w("NoSuchAlgorithmException", e);
             return null;
-        }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (mHandler != null) {
-            if (((BreventApplication) getApplication()).isRunningAsRoot()) {
-                showProgress(R.string.process_retrieving);
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE3);
-            } else {
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
-            }
         }
     }
 
@@ -468,6 +456,14 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     protected void onPostResume() {
         super.onPostResume();
         stopped = false;
+        if (mHandler != null) {
+            if (((BreventApplication) getApplication()).isRunningAsRoot()) {
+                showProgress(R.string.process_retrieving);
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE3);
+            } else {
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+            }
+        }
     }
 
     @Override

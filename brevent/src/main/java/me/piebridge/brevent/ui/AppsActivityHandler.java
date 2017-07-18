@@ -70,11 +70,9 @@ public class AppsActivityHandler extends Handler {
     public void handleMessage(Message message) {
         BreventActivity activity = mReference.get();
         switch (message.what) {
-            case BreventActivity.MESSAGE_RETRIEVE:
-                UILog.d("request status");
-                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
             case BreventActivity.MESSAGE_RETRIEVE2:
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
+                UILog.d("request status");
                 requestStatus(false);
                 break;
             case BreventActivity.MESSAGE_RETRIEVE3:
@@ -182,6 +180,7 @@ public class AppsActivityHandler extends Handler {
     private boolean send(BreventProtocol message) {
         BreventActivity activity = mReference.get();
         if (activity == null || activity.isStopped()) {
+            UILog.w("Can't send request now");
             return false;
         }
         boolean timeout = false;
