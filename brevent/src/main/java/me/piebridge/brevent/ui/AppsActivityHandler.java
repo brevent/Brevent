@@ -70,12 +70,12 @@ public class AppsActivityHandler extends Handler {
     public void handleMessage(Message message) {
         BreventActivity activity = mReference.get();
         switch (message.what) {
-            case BreventActivity.MESSAGE_RETRIEVE2:
+            case BreventActivity.MESSAGE_RETRIEVE:
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
                 requestStatus(false);
                 break;
-            case BreventActivity.MESSAGE_RETRIEVE3:
+            case BreventActivity.MESSAGE_RETRIEVE2:
                 UILog.d("retry request status");
                 hasResponse = false;
                 requestStatus(true);
@@ -86,7 +86,7 @@ public class AppsActivityHandler extends Handler {
                     hasResponse = true;
                     hideNotification();
                 }
-                removeMessages(BreventActivity.MESSAGE_RETRIEVE3);
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol response = (BreventProtocol) message.obj;
                 if (activity != null && !activity.isStopped()) {
@@ -227,7 +227,7 @@ public class AppsActivityHandler extends Handler {
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
         if (action == BreventProtocol.STATUS_REQUEST) {
-            sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE3,
+            sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE2,
                     (!timeout && AppsDisabledFragment.isEmulator()) ? TIMEOUT : RETRY);
         }
         return false;

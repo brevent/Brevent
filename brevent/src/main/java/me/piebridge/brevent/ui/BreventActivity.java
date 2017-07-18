@@ -44,11 +44,13 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.telecom.TelecomManager;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
@@ -83,7 +85,8 @@ import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
-public class BreventActivity extends Activity implements ViewPager.OnPageChangeListener {
+public class BreventActivity extends Activity
+        implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int DELAY = 1000;
 
@@ -102,13 +105,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
 
+    public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
     public static final int MESSAGE_BREVENT_NO_RESPONSE = 3;
     public static final int MESSAGE_BREVENT_REQUEST = 4;
-    public static final int MESSAGE_RETRIEVE3 = 5;
-    public static final int MESSAGE_ROOT_COMPLETED = 6;
-    public static final int MESSAGE_LOGS = 7;
+    public static final int MESSAGE_ROOT_COMPLETED = 5;
+    public static final int MESSAGE_LOGS = 6;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -157,6 +160,8 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
 
     private ViewPager mPager;
+
+    private SwipeRefreshLayout mRefresh;
 
     private AppsPagerAdapter mAdapter;
 
@@ -253,7 +258,21 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             setActionBar(mToolbar);
 
             mPager = findViewById(R.id.pager);
+            mRefresh = findViewById(R.id.refresh);
             mPager.addOnPageChangeListener(this);
+            mPager.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    mRefresh.setEnabled(false);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_UP:
+                            mRefresh.setEnabled(true);
+                            break;
+                    }
+                    return false;
+                }
+            });
+            mRefresh.setOnRefreshListener(this);
             mPager.setVisibility(View.INVISIBLE);
 
             uiHandler = new AppsActivityUIHandler(this);
@@ -266,6 +285,14 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             mColorControlHighlight = ColorUtils.resolveColor(this,
                     android.R.attr.colorControlHighlight);
 
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (uiHandler != null && ((BreventApplication) getApplication()).isRunningAsRoot()) {
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
         }
     }
@@ -458,10 +485,9 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         stopped = false;
         if (mHandler != null) {
             if (((BreventApplication) getApplication()).isRunningAsRoot()) {
-                showProgress(R.string.process_retrieving);
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE3);
-            } else {
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+            } else {
+                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
             }
         }
     }
@@ -922,7 +948,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             uiHandler.removeCallbacksAndMessages(null);
         } else {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
-            mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE3, DELAY);
+            mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY);
             BreventApplication application = (BreventApplication) getApplication();
             if (!application.isEventMade()) {
                 uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
@@ -1248,6 +1274,7 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
         } else {
             mAdapter.refreshFragment();
         }
+        mRefresh.setRefreshing(false);
     }
 
     private boolean updateAdapter(AppsPagerAdapter adapter) {
@@ -1513,6 +1540,13 @@ public class BreventActivity extends Activity implements ViewPager.OnPageChangeL
             chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS,
                     intents.toArray(new Parcelable[intents.size()]));
             context.startActivity(chooser);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mHandler != null) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
         }
     }
 
