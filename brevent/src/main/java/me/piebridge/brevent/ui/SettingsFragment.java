@@ -103,6 +103,11 @@ public class SettingsFragment extends PreferenceFragment
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
         }
+        String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString("alipay_sum", "");
+        if (!TextUtils.isEmpty(alipaySum)) {
+            preferenceDonation.setSummary(getString(R.string.show_donation_alipay, alipaySum));
+        }
         onUpdateBreventMethod();
     }
 
@@ -157,28 +162,43 @@ public class SettingsFragment extends PreferenceFragment
             return;
         }
         String summary;
-        if (count == 1) {
-            if (contributor) {
-                summary = getString(R.string.show_donation_play_one_and_contributor, total);
+        String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString("alipay_sum", "");
+        boolean hasAlipay = !TextUtils.isEmpty(alipaySum);
+        if (contributor) {
+            if (total > 0) {
+                if (hasAlipay) {
+                    summary = getString(R.string.show_donation_play_and_alipay_and_contributor,
+                            total, alipaySum);
+                } else {
+                    summary = getString(R.string.show_donation_play_and_contributor, total);
+                }
             } else {
-                summary = getString(R.string.show_donation_play_one, total);
+                if (hasAlipay) {
+                    summary = getString(R.string.show_donation_alipay_and_contributor, alipaySum);
+                } else {
+                    summary = getString(R.string.show_donation_contributor);
+                }
             }
-            preferenceDonation.setSummary(summary);
-        } else if (count > 1) {
-            if (contributor) {
-                summary = getString(R.string.show_donation_play_multi_and_contributor, count, total);
-            } else {
-                summary = getString(R.string.show_donation_play_multi, count, total);
-            }
-            preferenceDonation.setSummary(summary);
-        } else if (contributor) {
-            preferenceDonation.setSummary(R.string.show_donation_contributor);
+
         } else {
-            String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .getString("alipay_sum", "");
-            if (!TextUtils.isEmpty(alipaySum)) {
-                preferenceDonation.setSummary(getString(R.string.show_donation_alipay, alipaySum));
+            if (total > 0) {
+                if (hasAlipay) {
+                    summary = getString(R.string.show_donation_play_and_alipay,
+                            total, alipaySum);
+                } else {
+                    summary = getString(R.string.show_donation_play, total);
+                }
+            } else {
+                if (hasAlipay) {
+                    summary = getString(R.string.show_donation_alipay, alipaySum);
+                } else {
+                    summary = null;
+                }
             }
+        }
+        if (summary != null) {
+            preferenceDonation.setSummary(summary);
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             if (contributor) {

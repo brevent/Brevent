@@ -150,12 +150,13 @@
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show donation</string>
-    <string name="show_donation_play_one">Thanks for donating %d USD in Play Store</string>
-    <string name="show_donation_play_one_and_contributor">Thanks for donating %d USD in Play Store, and priceless contribution on Brevent</string>
-    <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store</string>
-    <string name="show_donation_play_multi_and_contributor" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store, and priceless contribution on Brevent</string>
-    <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
+    <string name="show_donation_play">Thanks for donating %d USD in Play Store</string>
     <string name="show_donation_alipay">Thanks for donating %s RMB in Alipay</string>
+    <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_alipay">Thanks for donating %1$d USD in Play Store, %2$s RMB in Alipay</string>
+    <string name="show_donation_play_and_contributor">Thanks for donating %d USD in Play Store, and priceless contribution on Brevent</string>
+    <string name="show_donation_alipay_and_contributor">Thanks for donating %s RMB in Alipay, and priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_alipay_and_contributor">Thanks for donating %1$d USD in Play Store, %2$s RMB in Alipay, and priceless contribution on Brevent</string>
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>

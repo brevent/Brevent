@@ -149,12 +149,13 @@
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示捐贈</string>
-    <string name="show_donation_play_one">感謝您透過 Play 商店捐贈 %d 美金</string>
-    <string name="show_donation_play_one_and_contributor">感謝您透過 Play 商店捐贈 %d 美金，以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_play_multi">感謝您透過 Play 商店捐贈 %1$d 次（共 %2$d 美金）</string>
-    <string name="show_donation_play_multi_and_contributor">感謝您透過 Play 商店捐贈 %1$d 次（共 %2$d 美金），以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
+    <string name="show_donation_play">感謝您透過 Play 商店捐贈 %d 美元</string>
     <string name="show_donation_alipay">感謝您透過支付寶捐贈 %s 元</string>
+    <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_alipay">感謝您透過 Play 商店捐贈 %1$d 美元，透過支付寶捐贈 %2$s 元</string>
+    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店捐贈 %d 美元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_alipay_and_contributor">感謝您透過支付寶捐贈 %s 元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_alipay_and_contributor">感謝您透過 Play 商店捐贈 %1$d 美元，透過支付寶捐贈 %2$s 元，以及為黑域所作的特別貢獻</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
