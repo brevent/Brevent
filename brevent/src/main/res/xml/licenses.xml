@@ -40,6 +40,14 @@
         </PreferenceScreen>
 
         <PreferenceScreen
+            android:summary="Apache License, Version 2.0"
+            android:title="ConstraintLayout library">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://developer.android.com/reference/android/support/constraint/ConstraintLayout.html" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
             android:summary="Fabric Software and Services Agreement"
             android:title="Fabric">
             <intent
