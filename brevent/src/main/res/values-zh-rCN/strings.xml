@@ -142,7 +142,7 @@
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要捐赠 2 美元，其它版请随意</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要捐赠 3 美元或 15 人民币</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要捐赠 3 美元或 15 人民币（仅支持支付宝）</string>
     <string name="brevent_allow_receiver">开机自启</string>
     <string name="brevent_allow_receiver_label">启动完成后开启黑域服务\n\n依赖“允许 ROOT 运行”</string>
 
@@ -153,7 +153,7 @@
     <string name="show_donation_play_multi">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美元</string>
     <string name="show_donation_play_multi_and_contributor">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美元，以及为黑域所作的特别贡献</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
-    <string name="show_donation_alipay">感谢您通过支付宝捐赠 %d 元</string>
+    <string name="show_donation_alipay">感谢您通过支付宝捐赠 %s 元</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>

@@ -10,8 +10,10 @@ import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.text.TextUtils;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -171,6 +173,12 @@ public class SettingsFragment extends PreferenceFragment
             preferenceDonation.setSummary(summary);
         } else if (contributor) {
             preferenceDonation.setSummary(R.string.show_donation_contributor);
+        } else {
+            String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                    .getString("alipay_sum", "");
+            if (!TextUtils.isEmpty(alipaySum)) {
+                preferenceDonation.setSummary(getString(R.string.show_donation_alipay, alipaySum));
+            }
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             if (contributor) {

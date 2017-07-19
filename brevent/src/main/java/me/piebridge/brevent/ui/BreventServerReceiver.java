@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import me.piebridge.brevent.R;
@@ -39,6 +40,8 @@ public class BreventServerReceiver extends BroadcastReceiver {
             String sum = intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM);
             String message = context.getResources().getString(R.string.toast_alipay,
                     count, sum);
+            PreferenceManager.getDefaultSharedPreferences(context)
+                    .edit().putString("alipay_sum", sum).apply();
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
     }

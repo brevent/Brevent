@@ -144,7 +144,7 @@
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Some apps move background instead of exit when pressing Back\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB (via Alipay)</string>
     <string name="brevent_allow_receiver">Enable boot receiver</string>
     <string name="brevent_allow_receiver_label">Start Brevent server when receives \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
@@ -155,7 +155,7 @@
     <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store</string>
     <string name="show_donation_play_multi_and_contributor" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
-    <string name="show_donation_alipay">Thanks for donating %d RMB in Alipay</string>
+    <string name="show_donation_alipay">Thanks for donating %s RMB in Alipay</string>
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>

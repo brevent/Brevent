@@ -79,11 +79,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    protected String getPaypalLink() {
-        return BuildConfig.DONATE_PAYPAL;
-    }
-
-    @Override
     protected String getWechatLink() {
         return BuildConfig.DONATE_WECHAT;
     }
@@ -230,6 +225,5 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             UILog.i("logAddToCart");
         }
     }
-
 
 }

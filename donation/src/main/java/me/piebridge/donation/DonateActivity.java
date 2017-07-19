@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AdaptiveIconDrawable;
@@ -47,7 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Donate activity, support alipay, wechat, paypal, play store
+ * Donate activity, support alipay, wechat, play store
  * <p>
  * Created by thom on 2017/2/9.
  */
@@ -56,8 +55,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     public static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
 
     public static final String PACKAGE_WECHAT = "com.tencent.mm";
-
-    public static final String PACKAGE_PAYPAL = "com.paypal.android.p2pmobile";
 
     public static final String PACKAGE_PLAY = "com.android.vending";
 
@@ -208,8 +205,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
             donateViaAlipay();
         } else if (id == R.id.wechat) {
             donateViaWechat();
-        } else if (id == R.id.paypal) {
-            donateViaPaypal();
         } else if (id == R.id.play) {
             donateViaPlay();
         }
@@ -260,18 +255,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     void hideWechat() {
         findViewById(R.id.wechat).setVisibility(View.GONE);
-    }
-
-    private void donateViaPaypal() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getPaypalLink()));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"));
-        ResolveInfo resolveInfo = getPackageManager()
-                .resolveActivity(browser, PackageManager.MATCH_DEFAULT_ONLY);
-        if (resolveInfo != null) {
-            intent.setPackage(resolveInfo.activityInfo.packageName);
-        }
-        startDonateActivity(intent, "paypal");
     }
 
     private boolean mayHasPermission(String permission) {
@@ -389,9 +372,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);
         }
-        if (!TextUtils.isEmpty(getPaypalLink())) {
-            checkPackage(items, R.id.paypal, PACKAGE_PAYPAL);
-        }
         boolean canSupportWechat = mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (canSupportWechat && !TextUtils.isEmpty(getWechatLink())) {
             checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
@@ -421,8 +401,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     protected abstract String getAlipayLink();
-
-    protected abstract String getPaypalLink();
 
     protected abstract String getWechatLink();
 
