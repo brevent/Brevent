@@ -157,7 +157,7 @@ static void report(time_t now) {
     system(command);
     fflush(stdout);
     printf("--- brevent end ---\n");
-    printf("cannot listen port, please report bug to " PROJECT " with log above\n");
+    printf("please report bug to " PROJECT " with log above\n");
     fflush(stdout);
 }
 
