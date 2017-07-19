@@ -933,6 +933,11 @@ public class BreventActivity extends Activity
             case BreventProtocol.STATUS_NO_EVENT:
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
+            case BreventProtocol.STATUS_DISABLE_ROOT:
+                showUnsupported(R.string.unsupported_disable_root);
+                mHandler.removeCallbacksAndMessages(null);
+                uiHandler.removeCallbacksAndMessages(null);
+                break;
             default:
                 break;
         }

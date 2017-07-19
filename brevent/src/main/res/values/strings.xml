@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT mode. ROOT mode is unsafe and unnecessary, we do not offer support for those who prefer ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode. You can press Back 7 times on \"Please start Brevent service\" page to \"Run as Root\", or press \"Version\" 7 times in \"Settings\" to show experimental ROOT mode. Brevent server may not work well in ROOT mode.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after Brevent service is started successfully.</string>
@@ -27,7 +27,7 @@
 
     <string name="brevent_service_start">Please start Brevent service (%s)</string>
     <string name="brevent_service_no_response">Brevent Service no response (%s)</string>
-    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s, or read \"Guide - Permissions\" to run as ROOT (experimental)\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can find device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can find device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_open_development">Developer options</string>
     <string name="brevent_service_copy_path">Copy command</string>
     <string name="brevent_service_command_copied">Command copied: %s</string>
@@ -144,7 +144,7 @@
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Some apps move background instead of exit when pressing Back\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD for Play version</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB</string>
     <string name="brevent_allow_receiver">Enable boot receiver</string>
     <string name="brevent_allow_receiver_label">Start Brevent server when receives \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
@@ -155,6 +155,7 @@
     <string name="show_donation_play_multi" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store</string>
     <string name="show_donation_play_multi_and_contributor" tools:ignore="PluralsCandidate">Thanks for donating %1$d times total %2$d USD in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
+    <string name="show_donation_alipay">Thanks for donating %d RMB in Alipay</string>
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
@@ -178,6 +179,7 @@
     <string name="unsupported_no_event">No event log. Please try later or reboot.</string>
     <string name="unsupported_version_mismatched">Brevent Server is upgrading. Please try later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try later.</string>
+    <string name="unsupported_disable_root">Please enable \"Allow run as ROOT\" in settings.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

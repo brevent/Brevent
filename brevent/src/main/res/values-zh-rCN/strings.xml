@@ -9,7 +9,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令开启黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 开启”黑域服务，甚至开机直接启动黑域服务。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”显示并启用实验性功能。ROOT 模式不安全也没必要，当前不提供任何支持。</string>
+    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 开启”黑域服务，甚至开机直接启动黑域服务。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”显示并启用实验性功能。ROOT 模式可能无法正常开启黑域服务。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式开启黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
@@ -26,7 +26,7 @@
 
     <string name="brevent_service_start">请启动黑域服务（%s）</string>
     <string name="brevent_service_no_response">黑域服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s，或认真阅读“向导 - 权限”使用 ROOT 开启（实验性）\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 开启“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
     <string name="brevent_service_command_copied">指令已复制：%s</string>
@@ -142,7 +142,7 @@
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要捐赠 2 美元，其它版请随意</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\nPlay 版需要捐赠 3 美元，其它版请随意</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要捐赠 3 美元或 15 人民币</string>
     <string name="brevent_allow_receiver">开机自启</string>
     <string name="brevent_allow_receiver_label">启动完成后开启黑域服务\n\n依赖“允许 ROOT 运行”</string>
 
@@ -153,6 +153,7 @@
     <string name="show_donation_play_multi">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美元</string>
     <string name="show_donation_play_multi_and_contributor">感谢您通过 Play 商店捐赠 %1$d 次共 %2$d 美元，以及为黑域所作的特别贡献</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
+    <string name="show_donation_alipay">感谢您通过支付宝捐赠 %d 元</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
@@ -176,6 +177,7 @@
     <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
+    <string name="unsupported_disable_root">请先在设置中开启“允许 ROOT 运行”，否则无权使用 ROOT 开启黑域服务。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

@@ -94,7 +94,8 @@ public class SettingsFragment extends PreferenceFragment
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
                     .removePreference(preferenceDonation);
         }
-        if (!sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+        if (!"root".equals(application.getMode())
+                && !sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
             breventExperimental.removePreference(preferenceAllowReceiver);
             breventExperimental.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version")
