@@ -97,6 +97,14 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    public void setRefreshEnabled(boolean enabled) {
+        for (AppsFragment fragment : mFragments) {
+            if (fragment != null) {
+                fragment.setRefreshEnabled(enabled);
+            }
+        }
+    }
+
     public boolean setShowAllApps(boolean showAllApps) {
         if (mShowAllApps != showAllApps) {
             mShowAllApps = showAllApps;

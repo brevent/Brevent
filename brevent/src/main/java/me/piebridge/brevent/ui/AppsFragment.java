@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,12 +55,15 @@ public abstract class AppsFragment extends Fragment {
 
     private long lastSync;
 
+    private SwipeRefreshLayout mRefresh;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_brevent, container, false);
             mRecycler = mView.findViewById(R.id.recycler);
+            mRefresh = mView.findViewById(R.id.refresh);
         }
         return mView;
     }
@@ -118,6 +122,15 @@ public abstract class AppsFragment extends Fragment {
         if (mAdapter != null) {
             mAdapter.updateAppsInfo();
         }
+        if (mRefresh != null) {
+            mRefresh.setRefreshing(false);
+        }
+    }
+
+    public void setRefreshEnabled(boolean enabled) {
+        if (mRefresh != null) {
+            mRefresh.setEnabled(enabled);
+        }
     }
 
     @UiThread
@@ -133,6 +146,9 @@ public abstract class AppsFragment extends Fragment {
                 LinearLayoutManager.VERTICAL));
         if (mAdapter == null) {
             mAdapter = new AppsItemAdapter(this, mHandler);
+            if (mRefresh != null) {
+                mRefresh.setOnRefreshListener((BreventActivity) getActivity());
+            }
         }
         mRecycler.setAdapter(mAdapter);
         mLoaded = true;

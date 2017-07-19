@@ -256,21 +256,19 @@ public class BreventActivity extends Activity
             setActionBar(mToolbar);
 
             mPager = findViewById(R.id.pager);
-            mRefresh = findViewById(R.id.refresh);
             mPager.addOnPageChangeListener(this);
             mPager.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    mRefresh.setEnabled(false);
+                    setRefreshEnabled(false);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_UP:
-                            mRefresh.setEnabled(true);
+                            setRefreshEnabled(true);
                             break;
                     }
                     return false;
                 }
             });
-            mRefresh.setOnRefreshListener(this);
             mPager.setVisibility(View.INVISIBLE);
 
             uiHandler = new AppsActivityUIHandler(this);
@@ -1277,7 +1275,12 @@ public class BreventActivity extends Activity
         } else {
             mAdapter.refreshFragment();
         }
-        mRefresh.setRefreshing(false);
+    }
+
+    public void setRefreshEnabled(boolean enabled) {
+        if (mAdapter != null) {
+            mAdapter.setRefreshEnabled(enabled);
+        }
     }
 
     private boolean updateAdapter(AppsPagerAdapter adapter) {
