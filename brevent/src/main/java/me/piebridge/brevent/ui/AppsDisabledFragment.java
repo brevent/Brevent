@@ -53,7 +53,7 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     static boolean isEmulator() {
-        return SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN).equals("1");
+        return "1".equals(SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN));
     }
 
     private Dialog createDialog() {

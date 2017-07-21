@@ -87,7 +87,7 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (BuildConfig.RELEASE) {
+        if (BuildConfig.RELEASE && !AppsDisabledFragment.isEmulator()) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
