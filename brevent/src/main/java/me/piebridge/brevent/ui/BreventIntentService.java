@@ -31,6 +31,9 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
         boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
+        if (!runAsRoot && !application.started && Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+            application.started = AppsActivityHandler.checkPort();
+        }
         if (!application.started || runAsRoot) {
             application.started = true;
             startBrevent();
