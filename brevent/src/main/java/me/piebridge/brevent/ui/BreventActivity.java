@@ -646,9 +646,7 @@ public class BreventActivity extends Activity
         if (!mSelectMode) {
             if (BuildConfig.RELEASE) {
                 menu.add(Menu.NONE, R.string.menu_feedback, Menu.NONE, R.string.menu_feedback);
-                if (getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
-                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED
-                        && hasEmailClient(this)) {
+                if (canFetchLogs()) {
                     menu.add(Menu.NONE, R.string.menu_logs, Menu.NONE, R.string.menu_logs);
                 }
             }
@@ -671,6 +669,12 @@ public class BreventActivity extends Activity
                     R.string.action_select_inverse);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean canFetchLogs() {
+        return BuildConfig.RELEASE && hasEmailClient(this) &&
+                getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
+                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -711,7 +715,7 @@ public class BreventActivity extends Activity
         return true;
     }
 
-    private void fetchLogs() {
+    public void fetchLogs() {
         showProgress(R.string.process_retrieving_logs);
         mHandler.sendEmptyMessage(MESSAGE_LOGS);
     }

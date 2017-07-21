@@ -57,7 +57,8 @@ public class AppsDisabledFragment extends DialogFragment
     }
 
     private Dialog createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        BreventActivity activity = (BreventActivity) getActivity();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
         Bundle arguments = getArguments();
         builder.setTitle(getString(arguments.getInt(TITLE, DEFAULT_TITLE),
@@ -65,14 +66,18 @@ public class AppsDisabledFragment extends DialogFragment
         boolean adbRunning = "running".equals(SystemProperties.get("init.svc.adbd", Build.UNKNOWN));
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
-        Intent intent = getActivity().registerReceiver(null, filter);
+        Intent intent = activity.registerReceiver(null, filter);
         boolean usb = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         arguments.putBoolean(USB_CONNECTED, usb);
         String commandLine = getBootstrapCommandLine();
         String usbStatus = usb ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(getString(R.string.brevent_service_guide,
                 adbStatus, usbStatus, commandLine));
-        builder.setNeutralButton(R.string.menu_guide, this);
+        if (activity.canFetchLogs()) {
+            builder.setNeutralButton(R.string.menu_logs, this);
+        } else {
+            builder.setNeutralButton(R.string.menu_guide, this);
+        }
         if (allowRoot()) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         } else {
@@ -153,7 +158,11 @@ public class AppsDisabledFragment extends DialogFragment
             }
             activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
         } else if (which == DialogInterface.BUTTON_NEUTRAL) {
-            activity.openGuide("disabled");
+            if (activity.canFetchLogs()) {
+                activity.fetchLogs();
+            } else {
+                activity.openGuide("disabled");
+            }
             dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
             activity.runAsRoot();
