@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,6 +37,8 @@ import me.piebridge.brevent.protocol.BreventRequest;
  * Created by thom on 2017/2/3.
  */
 public class AppsActivityHandler extends Handler {
+
+    private boolean checked;
 
     private static final String[][] LOGS = new String[][] {
             {"system.txt", "-b system"},
@@ -71,6 +75,10 @@ public class AppsActivityHandler extends Handler {
         BreventActivity activity = mReference.get();
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
+                if (!checked && !checkPort() && activity != null) {
+                    ((BreventApplication) activity.getApplication()).copyBrevent();
+                    checkAdb();
+                }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
                 requestStatus(false);
@@ -133,6 +141,24 @@ public class AppsActivityHandler extends Handler {
         }
     }
 
+    private boolean checkAdb() {
+        String port = SystemProperties.get("service.adb.tcp.port", "");
+        if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
+            final int p = Integer.parseInt(port);
+            if (p > 0 && p <= 0xffff) {
+                try {
+                    UILog.d(new SimpleAdb(p).run());
+                    checked = true;
+                    return true;
+                } catch (IOException e) {
+                    UILog.d("Cann't adb", e);
+                }
+            }
+
+        }
+        return false;
+    }
+
     private File zipLog(Context context, File dir, String date) {
         try {
             File path = new File(dir, "logs-v" + BuildConfig.VERSION_NAME + "-" + date + ".zip");
@@ -173,6 +199,22 @@ public class AppsActivityHandler extends Handler {
         if (activity != null) {
             ((NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE))
                     .cancel(BreventIntentService.ID);
+        }
+    }
+
+    @WorkerThread
+    public static boolean checkPort() {
+        try (
+                Socket ignored = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT)
+        ) {
+            UILog.d("connected to localhost: " + BreventProtocol.PORT);
+            return true;
+        } catch (ConnectException e) {
+            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+            return false;
+        } catch (IOException e) {
+            UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
+            return false;
         }
     }
 

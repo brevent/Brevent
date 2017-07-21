@@ -62,7 +62,7 @@ public class AppsDisabledFragment extends DialogFragment
         Bundle arguments = getArguments();
         builder.setTitle(getString(arguments.getInt(TITLE, DEFAULT_TITLE),
                 BuildConfig.VERSION_NAME));
-        boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
+        boolean adbRunning = "running".equals(SystemProperties.get("init.svc.adbd", Build.UNKNOWN));
         String adbStatus = adbRunning ? getString(R.string.brevent_service_adb_running) : "";
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = getActivity().registerReceiver(null, filter);
@@ -76,7 +76,7 @@ public class AppsDisabledFragment extends DialogFragment
         if (allowRoot()) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         } else {
-            if (adbRunning) {
+            if (usb) {
                 builder.setPositiveButton(R.string.brevent_service_copy_path, this);
             } else {
                 builder.setPositiveButton(R.string.brevent_service_open_development, this);
@@ -113,6 +113,8 @@ public class AppsDisabledFragment extends DialogFragment
                 sb.append("adb -e shell ");
             } else if (isConnected()) {
                 sb.append("adb -d shell ");
+            } else {
+                sb.append("adb shell ");
             }
             sb.append("sh ");
             sb.append(path);
@@ -128,19 +130,23 @@ public class AppsDisabledFragment extends DialogFragment
         if (activity == null) {
             // do nothing
         } else if (which == DialogInterface.BUTTON_POSITIVE) {
-            boolean adbRunning = SystemProperties.get("init.svc.adbd", "").equals("running");
-            if (adbRunning) {
+            IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
+            Intent intent = getActivity().registerReceiver(null, filter);
+            boolean usb = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED,
+                    false);
+            if (usb) {
                 String commandLine = getBootstrapCommandLine();
                 activity.copy(commandLine);
                 String message = getString(R.string.brevent_service_command_copied, commandLine);
                 Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
             } else {
-                Intent intent = new Intent();
+                intent = new Intent();
                 intent.setComponent(new ComponentName("com.android.settings",
                         "com.android.settings.DevelopmentSettings"));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 try {
                     startActivity(intent);
+                    getActivity().finish();
                 } catch (ActivityNotFoundException e) {
                     UILog.d("Can't find settings", e);
                 }

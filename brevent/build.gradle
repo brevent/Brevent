@@ -40,6 +40,10 @@ android {
             buildConfigField 'byte[]', 'SIGNATURE', properties['build.signature']
             buildConfigField 'char[]', 'SERVER', properties['build.server']
             buildConfigField 'char[]', 'FLYME_CLONE', properties['build.flyme.clone']
+            buildConfigField 'byte[]', 'ADB_D', properties['build.adb.d']
+            buildConfigField 'byte[]', 'ADB_M', properties['build.adb.m']
+            buildConfigField 'byte[]', 'ADB_P', properties['build.adb.p']
+            buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
             multiDexEnabled true
         }
@@ -86,6 +90,10 @@ android {
             buildConfigField 'byte[]', 'SIGNATURE', 'null'
             buildConfigField 'char[]', 'SERVER', 'null'
             buildConfigField 'char[]', 'FLYME_CLONE', 'null'
+            buildConfigField 'byte[]', 'ADB_D', 'null'
+            buildConfigField 'byte[]', 'ADB_M', 'null'
+            buildConfigField 'byte[]', 'ADB_P', 'null'
+            buildConfigField 'byte[]', 'ADB_K', 'null'
         }
     }
 
@@ -159,6 +167,8 @@ if (rootProject.file('brevent-server').exists()) {
     tasks.whenTaskAdded { task ->
         if (task.name == 'transformClassesWithDexForRelease') {
             task.dependsOn genMainDexList
+        } else if (task.name == 'crashlyticsUploadDeobsRelease') {
+            task.enabled = false
         }
     }
 }
