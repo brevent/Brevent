@@ -132,7 +132,7 @@
     <string name="brevent_check_notification">檢查通知</string>
     <string name="brevent_check_notification_label">僅在您的裝置上進行解鎖及檢視通知時有延遲現象，才需要關閉</string>
     <string name="brevent_aggressive">激進模式</string>
-    <string name="brevent_aggressive_label">立即黑域，自動黑域和強制停止沒有服務應用程式\n\n強迫症必備，請謹慎啟用</string>
+    <string name="brevent_aggressive_label">立即黑域，自動黑域沒有服務應用程式，強制停止安全應用程式\n\n強迫症必備，請謹慎啟用</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟的系統應用程式和框架應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
     <string name="show_framework_apps">顯示框架應用程式</string>

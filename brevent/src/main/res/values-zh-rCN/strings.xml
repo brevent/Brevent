@@ -131,7 +131,7 @@
     <string name="brevent_check_notification">检查通知</string>
     <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
     <string name="brevent_aggressive">激进模式</string>
-    <string name="brevent_aggressive_label">立即黑域，自动黑域和强行停止没有服务应用\n\n强迫症专享，请谨慎启用</string>
+    <string name="brevent_aggressive_label">立即黑域，自动黑域没有服务应用，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
