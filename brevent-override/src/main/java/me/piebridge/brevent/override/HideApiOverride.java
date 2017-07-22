@@ -94,6 +94,10 @@ public class HideApiOverride {
         return processState >= PROCESS_STATE_CACHED_ACTIVITY;
     }
 
+    public static boolean isSafe(int processState) {
+        return processState > PROCESS_STATE_RECEIVER;
+    }
+
     public static boolean isService(int processState) {
         return processState == getProcessStateBoundForegroundService()
                 || processState == getProcessStateForegroundService()

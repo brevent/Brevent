@@ -159,6 +159,17 @@ public class BreventResponse extends BreventProtocol {
         return false;
     }
 
+    public static boolean isSafe(@NonNull SparseIntArray status) {
+        int size = status.size();
+        for (int i = 0; i < size; ++i) {
+            int processState = status.keyAt(i);
+            if (!HideApiOverride.isSafe(processState)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isForegroundService(@NonNull SparseIntArray status) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int size = status.size();
