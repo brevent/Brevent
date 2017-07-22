@@ -59,6 +59,8 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -128,6 +130,9 @@ public class BreventActivity extends Activity
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
     public static final int UI_MESSAGE_MAKE_EVENT = 13;
     public static final int UI_MESSAGE_LOGS = 14;
+    public static final int UI_MESSAGE_ROOT_COMPLETED = 15;
+    public static final int UI_MESSAGE_SHELL_COMPLETED = 16;
+    public static final int UI_MESSAGE_SHOW_PROGRESS_ADB = 17;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -154,6 +159,8 @@ public class BreventActivity extends Activity
     private static final String FRAGMENT_FEEDBACK = "feedback";
 
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
+
+    private static final String FRAGMENT_REPORT = "report";
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -299,9 +306,17 @@ public class BreventActivity extends Activity
     }
 
     private void showUnsupported(int resId) {
+        showUnsupported(resId, false);
+    }
+
+    private void showUnsupported(int resId, boolean exit) {
         UnsupportedFragment fragment = new UnsupportedFragment();
         fragment.setMessage(resId);
         fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        if (exit) {
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     private boolean verifySignature() {
@@ -949,13 +964,9 @@ public class BreventActivity extends Activity
 
     private void onBreventNoEvent(BreventNoEvent response) {
         if (response.versionMismatched()) {
-            showUnsupported(R.string.unsupported_version_mismatched);
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
+            showUnsupported(R.string.unsupported_version_mismatched, true);
         } else if (response.mExit) {
-            showUnsupported(R.string.unsupported_no_event);
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
+            showUnsupported(R.string.unsupported_no_event, true);
         } else {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY);
@@ -1563,6 +1574,31 @@ public class BreventActivity extends Activity
         if (mHandler != null) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
         }
+    }
+
+    public void showRootCompleted(List<String> output) {
+        hideDisabled();
+        hideProgress();
+        ReportFragment fragment = new ReportFragment();
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        for (String s : output) {
+            pw.println(s);
+        }
+        fragment.setDetails(R.string.unsupported_root, sw.toString());
+        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        mHandler.removeCallbacksAndMessages(null);
+        uiHandler.removeCallbacksAndMessages(null);
+    }
+
+    public void showShellCompleted(String message) {
+        hideDisabled();
+        hideProgress();
+        ReportFragment fragment = new ReportFragment();
+        fragment.setDetails(R.string.unsupported_shell, message);
+        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        mHandler.removeCallbacksAndMessages(null);
+        uiHandler.removeCallbacksAndMessages(null);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

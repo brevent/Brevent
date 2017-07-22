@@ -5,6 +5,7 @@ import android.os.Message;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventPackages;
@@ -72,6 +73,16 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_LOGS:
                     activity.hideProgress();
                     activity.onLogsCompleted((File) message.obj);
+                    break;
+                case BreventActivity.UI_MESSAGE_ROOT_COMPLETED:
+                    List<String> output = (List<String>) message.obj;
+                    activity.showRootCompleted(output);
+                    break;
+                case BreventActivity.UI_MESSAGE_SHELL_COMPLETED:
+                    activity.showShellCompleted((String) message.obj);
+                    break;
+                case BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB:
+                    activity.showProgress(R.string.process_retrieving_adb);
                     break;
                 default:
                     break;

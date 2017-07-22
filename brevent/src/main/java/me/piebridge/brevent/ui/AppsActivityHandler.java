@@ -58,6 +58,10 @@ public class AppsActivityHandler extends Handler {
 
     private boolean hasResponse;
 
+    private String adb;
+
+    private boolean adbing;
+
     public AppsActivityHandler(BreventActivity activity, Handler handler) {
         super(newLooper());
         mReference = new WeakReference<>(activity);
@@ -110,7 +114,8 @@ public class AppsActivityHandler extends Handler {
                 break;
             case BreventActivity.MESSAGE_ROOT_COMPLETED:
                 if (!hasResponse) {
-                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+                    uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_ROOT_COMPLETED, message.obj)
+                            .sendToTarget();
                 }
                 break;
             case BreventActivity.MESSAGE_LOGS:
@@ -143,16 +148,27 @@ public class AppsActivityHandler extends Handler {
 
     private boolean checkAdb() {
         String port = SystemProperties.get("service.adb.tcp.port", "");
+        UILog.d("service.adb.tcp.port: " + port);
         if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
             final int p = Integer.parseInt(port);
             if (p > 0 && p <= 0xffff) {
-                try {
-                    UILog.d(new SimpleAdb(p).run());
-                    checked = true;
-                    return true;
-                } catch (IOException e) {
-                    UILog.d("Cann't adb", e);
-                }
+                adbing = true;
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            adb = new SimpleAdb(p).run();
+                        } catch (IOException e) {
+                            UILog.d("Cann't adb", e);
+                        } finally {
+                            adbing = false;
+                            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+                        }
+                    }
+                }).start();
+                checked = true;
+                return true;
             }
 
         }
@@ -256,8 +272,15 @@ public class AppsActivityHandler extends Handler {
         } catch (ConnectException e) {
             hasResponse = false;
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
-            if (!message.retry) {
-                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+            UILog.d("adbing: " + adbing);
+            if (!adbing) {
+                if (adb != null) {
+                    uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_SHELL_COMPLETED, adb)
+                            .sendToTarget();
+                    adb = null;
+                } else if (!message.retry) {
+                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+                }
             }
         } catch (SocketTimeoutException e) {
             timeout = true;

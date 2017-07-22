@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import java.util.Collections;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -36,16 +37,16 @@ public class BreventIntentService extends IntentService {
         }
         if (!application.started || runAsRoot) {
             application.started = true;
-            startBrevent();
+            List<String> output = startBrevent();
             if (runAsRoot) {
-                application.notifyRootCompleted();
+                application.notifyRootCompleted(output);
             }
         }
         hideNotification();
         stopSelf();
     }
 
-    private boolean startBrevent() {
+    private List<String> startBrevent() {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path != null) {
@@ -55,11 +56,11 @@ public class BreventIntentService extends IntentService {
                 for (String result : results) {
                     UILog.d(result);
                 }
-                return true;
+                return results;
             }
         }
         ((BreventApplication) getApplication()).started = false;
-        return false;
+        return Collections.emptyList();
     }
 
     private void hideNotification() {

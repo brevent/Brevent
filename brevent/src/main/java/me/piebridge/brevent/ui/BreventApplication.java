@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
@@ -222,11 +223,11 @@ public class BreventApplication extends Application {
         }
     }
 
-    public void notifyRootCompleted() {
+    public void notifyRootCompleted(List<String> output) {
         if (handlerReference != null) {
             Handler handler = handlerReference.get();
             if (handler != null) {
-                handler.sendEmptyMessage(BreventActivity.MESSAGE_ROOT_COMPLETED);
+                handler.obtainMessage(BreventActivity.MESSAGE_ROOT_COMPLETED, output).sendToTarget();
             }
             handlerReference = null;
         }

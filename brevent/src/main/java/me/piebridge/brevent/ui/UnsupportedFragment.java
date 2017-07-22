@@ -52,7 +52,6 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
         }
     }
 
-
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {

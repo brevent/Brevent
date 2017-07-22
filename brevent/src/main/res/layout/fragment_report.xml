@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/paddingFragment">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:text="@string/unsupported_root"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginItemTop">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                tools:text="Monospace" />
+
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+
+</LinearLayout>

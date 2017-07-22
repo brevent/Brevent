@@ -44,6 +44,7 @@
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
     <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
     <string name="process_waiting">Waiting events, please open then close notification to make events. . .</string>
+    <string name="process_retrieving_adb">Starting Brevent Server, just a moment. . .</string>
 
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
@@ -181,6 +182,8 @@
     <string name="unsupported_version_mismatched">Brevent Server is upgrading. Please try later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try later.</string>
     <string name="unsupported_disable_root">Please enable \"Allow run as ROOT\" in settings.</string>
+    <string name="unsupported_root">Fail to start Brevent Server as ROOT.</string>
+    <string name="unsupported_shell">Fail to start Brevent Server.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

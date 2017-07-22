@@ -12,7 +12,6 @@ import android.os.Bundle;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
-
 /**
  * Created by thom on 2017/2/5.
  */
