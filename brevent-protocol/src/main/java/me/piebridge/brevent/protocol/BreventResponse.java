@@ -163,7 +163,7 @@ public class BreventResponse extends BreventProtocol {
         int size = status.size();
         for (int i = 0; i < size; ++i) {
             int processState = status.keyAt(i);
-            if (!HideApiOverride.isSafe(processState)) {
+            if (BreventResponse.isProcess(processState) && !HideApiOverride.isSafe(processState)) {
                 return false;
             }
         }
