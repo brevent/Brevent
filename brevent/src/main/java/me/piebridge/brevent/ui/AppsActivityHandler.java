@@ -169,7 +169,9 @@ public class AppsActivityHandler extends Handler {
                             UILog.d("Can't adb", e);
                         } finally {
                             adbing = false;
-                            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+                            if (!hasResponse) {
+                                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+                            }
                         }
                     }
                 });
@@ -291,7 +293,7 @@ public class AppsActivityHandler extends Handler {
                     uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_SHELL_COMPLETED, adb)
                             .sendToTarget();
                     adb = null;
-                } else {
+                } else if (!((BreventApplication) activity.getApplication()).isRunningAsRoot()) {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
                 }
             }

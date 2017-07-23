@@ -1560,6 +1560,9 @@ public class BreventActivity extends Activity
     }
 
     public void showRootCompleted(List<String> output) {
+        if (hasResponse) {
+            return;
+        }
         hideDisabled();
         hideProgress();
         ReportFragment fragment = new ReportFragment();
@@ -1575,6 +1578,9 @@ public class BreventActivity extends Activity
     }
 
     public void showShellCompleted(String message) {
+        if (hasResponse) {
+            return;
+        }
         hideDisabled();
         hideProgress();
         ReportFragment fragment = new ReportFragment();

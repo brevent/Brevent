@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -233,7 +234,9 @@ public class BreventApplication extends Application {
         if (handlerReference != null) {
             Handler handler = handlerReference.get();
             if (handler != null) {
-                handler.obtainMessage(BreventActivity.MESSAGE_ROOT_COMPLETED, output).sendToTarget();
+                Message message = handler.obtainMessage(BreventActivity.MESSAGE_ROOT_COMPLETED,
+                        output);
+                handler.sendMessageDelayed(message, 0x400);
             }
             handlerReference = null;
         }
