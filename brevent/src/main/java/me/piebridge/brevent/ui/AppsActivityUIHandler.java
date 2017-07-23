@@ -82,7 +82,7 @@ public class AppsActivityUIHandler extends Handler {
                     activity.showShellCompleted((String) message.obj);
                     break;
                 case BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB:
-                    activity.showProgress(R.string.process_retrieving_adb);
+                    activity.showProgress(R.string.process_starting);
                     break;
                 default:
                     break;

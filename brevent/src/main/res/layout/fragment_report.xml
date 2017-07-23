@@ -11,19 +11,17 @@
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:text="@string/unsupported_root"
         android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginItemTop">
 
         <HorizontalScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView

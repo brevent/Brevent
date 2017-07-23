@@ -795,24 +795,6 @@ public class BreventActivity extends Activity
         }
         BreventConfiguration configuration = new BreventConfiguration(preferences);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
-
-        ComponentName componentName = new ComponentName(this, BreventReceiver.class);
-        PackageManager packageManager = getPackageManager();
-        int componentEnabled = packageManager.getComponentEnabledSetting(componentName);
-        boolean allowReceiver = preferences.getBoolean(SettingsFragment.BREVENT_ALLOW_RECEIVER,
-                SettingsFragment.DEFAULT_BREVENT_ALLOW_RECEIVER);
-        if (configuration.allowRoot && allowReceiver) {
-            if (componentEnabled != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                packageManager.setComponentEnabledSetting(componentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-            }
-        } else {
-            if (componentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-                packageManager.setComponentEnabledSetting(componentName,
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-            }
-        }
     }
 
     private void openSettings() {
@@ -1394,7 +1376,7 @@ public class BreventActivity extends Activity
     public void runAsRoot() {
         BreventApplication application = (BreventApplication) getApplication();
         application.setHandler(mHandler);
-        showProgress(R.string.process_retrieving);
+        showProgress(R.string.process_starting);
         BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
@@ -1586,7 +1568,7 @@ public class BreventActivity extends Activity
             pw.println(s);
         }
         fragment.setDetails(R.string.unsupported_root, sw.toString());
-        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        fragment.show(getFragmentManager(), FRAGMENT_REPORT);
         mHandler.removeCallbacksAndMessages(null);
         uiHandler.removeCallbacksAndMessages(null);
     }
@@ -1596,7 +1578,7 @@ public class BreventActivity extends Activity
         hideProgress();
         ReportFragment fragment = new ReportFragment();
         fragment.setDetails(R.string.unsupported_shell, message);
-        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        fragment.show(getFragmentManager(), FRAGMENT_REPORT);
         mHandler.removeCallbacksAndMessages(null);
         uiHandler.removeCallbacksAndMessages(null);
     }

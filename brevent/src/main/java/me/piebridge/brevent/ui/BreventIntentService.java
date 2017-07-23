@@ -4,15 +4,18 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 import java.util.Collections;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
 
 public class BreventIntentService extends IntentService {
@@ -27,23 +30,32 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        String action = intent.getAction();
-        postNotification(action);
-        BreventApplication application = (BreventApplication) getApplication();
-        UILog.d("onHandleIntent, action: " + action + ", started: " + application.started);
-        boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
-        if (!runAsRoot && !application.started && Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            application.started = AppsActivityHandler.checkPort();
+        Notification notification = postNotification(getApplicationContext());
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+                .notify(ID, notification);
+        if (shouldForeground()) {
+            startForeground(ID, notification);
         }
-        if (!application.started || runAsRoot) {
-            application.started = true;
-            List<String> output = startBrevent();
-            if (runAsRoot) {
-                application.notifyRootCompleted(output);
-            }
+        if (!AppsActivityHandler.checkPort()) {
+            startBrevent(intent.getAction());
         }
-        hideNotification();
+        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+                .cancel(ID);
         stopSelf();
+        String action = intent.getAction();
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !AppsActivityHandler.checkPort()) {
+            showStopped(getApplicationContext());
+        }
+    }
+
+    private void startBrevent(String action) {
+        UILog.d("startBrevent, action: " + action);
+        boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
+        List<String> output = startBrevent();
+        if (runAsRoot) {
+            BreventApplication application = (BreventApplication) getApplication();
+            application.notifyRootCompleted(output);
+        }
     }
 
     private List<String> startBrevent() {
@@ -59,59 +71,68 @@ public class BreventIntentService extends IntentService {
                 return results;
             }
         }
-        ((BreventApplication) getApplication()).started = false;
         return Collections.emptyList();
     }
 
-    private void hideNotification() {
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancel(ID);
-    }
-
     @SuppressWarnings("deprecation")
-    private Notification.Builder buildNotification() {
+    private static Notification.Builder buildNotification(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager nm = (NotificationManager) getSystemService(
+            NotificationManager nm = (NotificationManager) context.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
             if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_LOW) {
                 nm.deleteNotificationChannel(CHANNEL_ID);
             }
-            channel = new NotificationChannel(CHANNEL_ID, getString(R.string.app_name),
+            channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.app_name),
                     NotificationManager.IMPORTANCE_LOW);
             nm.createNotificationChannel(channel);
-            return new Notification.Builder(this, CHANNEL_ID);
+            return new Notification.Builder(context, CHANNEL_ID);
         } else {
-            return new Notification.Builder(this);
+            return new Notification.Builder(context);
         }
     }
 
-    private void postNotification(String action) {
-        Notification.Builder builder = buildNotification();
+    private static Notification postNotification(Context context) {
+        Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(false);
         builder.setOngoing(true);
         builder.setSmallIcon(R.drawable.ic_brevent_server);
+        builder.setContentTitle(context.getString(R.string.brevent_status_starting));
+        return builder.build();
+    }
+
+    private static void showStopped(Context context) {
+        Notification.Builder builder = buildNotification(context);
+        builder.setAutoCancel(true);
+        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        builder.setContentTitle(context.getString(R.string.brevent_status_stopped));
+        builder.setContentIntent(PendingIntent.getActivity(context, 0,
+                new Intent(context, BreventActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = builder.build();
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
                 .notify(ID, notification);
-        if (shouldForeground(action)) {
-            startForeground(ID, notification);
-        }
     }
 
     public static void startBrevent(Context context, String action) {
-        Intent intent = new Intent(context, BreventIntentService.class);
-        intent.setAction(action);
-        if (shouldForeground(action)) {
-            context.startForegroundService(intent);
+        boolean allowRoot = PreferenceManager
+                .getDefaultSharedPreferences(context.getApplicationContext())
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        UILog.d("action: " + action + ", allowRoot: " + allowRoot);
+        if ((BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot)) {
+            Intent intent = new Intent(context, BreventIntentService.class);
+            intent.setAction(action);
+            if (shouldForeground()) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         } else {
-            context.startService(intent);
+            showStopped(context);
         }
     }
 
-    private static boolean shouldForeground(String action) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                !BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
+    private static boolean shouldForeground() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
 }

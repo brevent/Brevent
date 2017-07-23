@@ -35,9 +35,6 @@ public class SettingsFragment extends PreferenceFragment
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
-    public static final String BREVENT_ALLOW_RECEIVER = "brevent_allow_receiver";
-    public static final boolean DEFAULT_BREVENT_ALLOW_RECEIVER = false;
-
     public static final String IS_PLAY = "is_play";
 
     private PreferenceCategory breventExperimental;
@@ -45,7 +42,6 @@ public class SettingsFragment extends PreferenceFragment
     private SwitchPreference preferenceOptimizeVpn;
     private SwitchPreference preferenceAbnormalBack;
     private SwitchPreference preferenceAllowRoot;
-    private SwitchPreference preferenceAllowReceiver;
     private SwitchPreference preferenceDonation;
 
     private Preference preferenceStandbyTimeout;
@@ -73,8 +69,6 @@ public class SettingsFragment extends PreferenceFragment
                 .findPreference(BreventConfiguration.BREVENT_ABNORMAL_BACK);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
-        preferenceAllowReceiver = (SwitchPreference) preferenceScreen
-                .findPreference(BREVENT_ALLOW_RECEIVER);
 
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
@@ -91,14 +85,12 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
-            preferenceAllowReceiver.setEnabled(false);
         } else {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
                     .removePreference(preferenceDonation);
         }
         if (!"root".equals(application.getMode())
                 && !sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
-            breventExperimental.removePreference(preferenceAllowReceiver);
             breventExperimental.removePreference(preferenceAllowRoot);
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
@@ -216,28 +208,21 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            preferenceAllowReceiver.setEnabled(false);
-            preferenceAllowReceiver.setChecked(false);
         } else if (total == 0x1) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            preferenceAllowReceiver.setEnabled(false);
-            preferenceAllowReceiver.setChecked(false);
         } else if (total < BreventSettings.donateAmount()) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            preferenceAllowReceiver.setEnabled(false);
-            preferenceAllowReceiver.setChecked(false);
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
-            preferenceAllowReceiver.setEnabled(true);
         }
     }
 
@@ -248,7 +233,6 @@ public class SettingsFragment extends PreferenceFragment
             if (++repeat == 0x7) {
                 getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
                 breventExperimental.addPreference(preferenceAllowRoot);
-                breventExperimental.addPreference(preferenceAllowReceiver);
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();
@@ -269,7 +253,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
-            preferenceAllowReceiver.setEnabled(true);
         }
     }
 

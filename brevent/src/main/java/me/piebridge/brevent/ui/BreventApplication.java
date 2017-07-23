@@ -10,7 +10,9 @@ import android.system.Os;
 import android.text.TextUtils;
 
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.LoginEvent;
 import com.crashlytics.android.answers.RatingEvent;
+import com.crashlytics.android.answers.SignUpEvent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,8 +50,6 @@ public class BreventApplication extends Application {
     long mServerTime;
 
     int mUid;
-
-    boolean started;
 
     public static final boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
@@ -204,6 +204,12 @@ public class BreventApplication extends Application {
                     .putCustomAttribute("living", living)
                     .putCustomAttribute("installer", getInstaller()));
             UILog.i("logRating");
+            if ("root".equals(mode)) {
+                Answers.getInstance().logSignUp(new SignUpEvent()
+                        .putMethod(mode).putSuccess(true));
+            }
+            Answers.getInstance().logLogin(new LoginEvent()
+                    .putMethod(mode).putSuccess(true));
         }
     }
 

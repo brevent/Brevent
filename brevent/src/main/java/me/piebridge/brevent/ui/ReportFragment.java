@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,13 @@ public class ReportFragment extends DialogFragment {
         mMessage = view.findViewById(R.id.message);
         mMessage.setText(arguments.getInt(MESSAGE));
         mDetails = view.findViewById(R.id.details);
-        mDetails.setText(arguments.getString(DETAILS));
+        String details = arguments.getString(DETAILS);
+        if (TextUtils.isEmpty(details)) {
+            mDetails.setVisibility(View.GONE);
+        } else {
+            mDetails.setVisibility(View.VISIBLE);
+            mDetails.setText(details);
+        }
         return view;
     }
 
@@ -55,10 +62,10 @@ public class ReportFragment extends DialogFragment {
         mDetails = null;
     }
 
-    public void setDetails(int message, String s) {
+    public void setDetails(int message, String details) {
         Bundle arguments = getArguments();
         arguments.putInt(MESSAGE, message);
-        arguments.putString(DETAILS, s);
+        arguments.putString(DETAILS, details);
     }
 
     @Override

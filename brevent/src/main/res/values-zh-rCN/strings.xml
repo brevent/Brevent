@@ -43,7 +43,7 @@
     <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
     <string name="process_retrieving_logs">正在获取日志，请稍候……</string>
     <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
-    <string name="process_retrieving_adb">正在启动黑域服务，请稍候……</string>
+    <string name="process_starting">正在启动黑域服务，请稍候……</string>
 
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>
@@ -144,8 +144,6 @@
     <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要捐赠 2 美元，其它版请随意</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要捐赠 3 美元或 15 人民币（仅支持支付宝）</string>
-    <string name="brevent_allow_receiver">开机自启</string>
-    <string name="brevent_allow_receiver_label">开机完成后启动黑域服务\n\n依赖“允许 ROOT 运行”</string>
 
     <string name="brevent_about">关于</string>
     <string name="show_donation">显示捐赠</string>
@@ -188,5 +186,8 @@
     <string name="toast_alipay">感谢您 %1$d 个月通过支付宝捐赠 %2$s 元</string>
 
     <string name="logs_description">%1$s\n（请描述与日志相关的问题。）</string>
+
+    <string name="brevent_status_starting">正在启动黑域服务</string>
+    <string name="brevent_status_stopped">黑域服务没有启动</string>
 
 </resources>

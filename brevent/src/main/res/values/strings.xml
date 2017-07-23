@@ -44,7 +44,7 @@
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
     <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
     <string name="process_waiting">Waiting events, please open then close notification to make events. . .</string>
-    <string name="process_retrieving_adb">Starting Brevent Server, just a moment. . .</string>
+    <string name="process_starting">Starting Brevent Server, just a moment. . .</string>
 
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
@@ -146,8 +146,6 @@
     <string name="brevent_abnormal_back_label">Some apps move background instead of exit when pressing Back\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB (via Alipay)</string>
-    <string name="brevent_allow_receiver">Enable boot receiver</string>
-    <string name="brevent_allow_receiver_label">Start Brevent server when receives \"boot completed\"\n\nDepends on \"Allow run as ROOT\"</string>
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show donation</string>
@@ -190,5 +188,8 @@
     <string name="toast_alipay">Thanks for donating %2$s RMB via Alipay in %1$d month</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
+
+    <string name="brevent_status_starting">Starting Brevent Server</string>
+    <string name="brevent_status_stopped">Brevent Server is not started</string>
 
 </resources>
