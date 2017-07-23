@@ -221,8 +221,13 @@ public class AppsActivityHandler extends Handler {
     @WorkerThread
     public static boolean checkPort() {
         try (
-                Socket ignored = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT)
+                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                DataInputStream is = new DataInputStream(socket.getInputStream())
         ) {
+            os.writeShort(0);
+            os.flush();
+            BreventProtocol.readFrom(is);
             UILog.d("connected to localhost: " + BreventProtocol.PORT);
             return true;
         } catch (ConnectException e) {
