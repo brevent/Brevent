@@ -62,6 +62,8 @@ public class AppsActivityHandler extends Handler {
 
     private boolean adbing;
 
+    private Thread adbThread;
+
     public AppsActivityHandler(BreventActivity activity, Handler handler) {
         super(newLooper());
         mReference = new WeakReference<>(activity);
@@ -141,6 +143,10 @@ public class AppsActivityHandler extends Handler {
                 }
                 uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_LOGS, path).sendToTarget();
                 break;
+            case BreventActivity.MESSAGE_REMOVE_ADB:
+                adbing = false;
+                adbThread.interrupt();
+                break;
             default:
                 break;
         }
@@ -154,7 +160,7 @@ public class AppsActivityHandler extends Handler {
             if (p > 0 && p <= 0xffff) {
                 adbing = true;
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
-                new Thread(new Runnable() {
+                adbThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -166,7 +172,9 @@ public class AppsActivityHandler extends Handler {
                             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
                         }
                     }
-                }).start();
+                });
+                adbThread.start();
+                sendEmptyMessageDelayed(BreventActivity.MESSAGE_REMOVE_ADB, DELAY);
                 checked = true;
                 return true;
             }
@@ -283,7 +291,7 @@ public class AppsActivityHandler extends Handler {
                     uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_SHELL_COMPLETED, adb)
                             .sendToTarget();
                     adb = null;
-                } else if (!message.retry) {
+                } else {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
                 }
             }

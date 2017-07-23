@@ -114,6 +114,7 @@ public class BreventActivity extends Activity
     public static final int MESSAGE_BREVENT_REQUEST = 4;
     public static final int MESSAGE_ROOT_COMPLETED = 5;
     public static final int MESSAGE_LOGS = 6;
+    public static final int MESSAGE_REMOVE_ADB = 7;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
