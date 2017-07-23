@@ -74,28 +74,35 @@ public class BreventIntentService extends IntentService {
         return Collections.emptyList();
     }
 
-    @SuppressWarnings("deprecation")
     private static Notification.Builder buildNotification(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager nm = (NotificationManager) context.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
-            if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_LOW) {
+            if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_MAX) {
                 nm.deleteNotificationChannel(CHANNEL_ID);
             }
             channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.app_name),
-                    NotificationManager.IMPORTANCE_LOW);
+                    NotificationManager.IMPORTANCE_MAX);
             nm.createNotificationChannel(channel);
             return new Notification.Builder(context, CHANNEL_ID);
         } else {
-            return new Notification.Builder(context);
+            return buildNotificationDeprecation(context);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Notification.Builder buildNotificationDeprecation(Context context) {
+        Notification.Builder builder = new Notification.Builder(context);
+        builder.setPriority(Notification.PRIORITY_MAX);
+        return builder;
     }
 
     private static Notification postNotification(Context context) {
         Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(false);
         builder.setOngoing(true);
+        builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         builder.setSmallIcon(R.drawable.ic_brevent_server);
         builder.setContentTitle(context.getString(R.string.brevent_status_starting));
         return builder.build();
@@ -104,6 +111,7 @@ public class BreventIntentService extends IntentService {
     private static void showStopped(Context context) {
         Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(true);
+        builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         builder.setSmallIcon(R.drawable.ic_brevent_server);
         builder.setContentTitle(context.getString(R.string.brevent_status_stopped));
         builder.setContentIntent(PendingIntent.getActivity(context, 0,
