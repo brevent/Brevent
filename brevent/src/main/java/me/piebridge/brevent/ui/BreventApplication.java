@@ -11,9 +11,8 @@ import android.system.Os;
 import android.text.TextUtils;
 
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.InviteEvent;
 import com.crashlytics.android.answers.LoginEvent;
-import com.crashlytics.android.answers.RatingEvent;
-import com.crashlytics.android.answers.SignUpEvent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -186,31 +185,24 @@ public class BreventApplication extends Application {
         if (BuildConfig.RELEASE && shouldUpdated) {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
-            int rating = (int) (days / 7) + ((days % 7 == 0) ? 0 : 1);
-            if (rating == 0) {
-                rating = 1;
-            }
-            if (rating > 5) {
-                rating = 5;
-            }
             String mode = getMode();
-            Answers.getInstance().logRating(new RatingEvent()
-                    .putRating(rating)
-                    .putContentName("Brevent")
-                    .putContentType(mode)
-                    .putContentId("brevent-" + mode)
-                    .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
-                    .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
-                    .putCustomAttribute("days", days)
-                    .putCustomAttribute("living", living)
-                    .putCustomAttribute("installer", getInstaller()));
-            UILog.i("logRating");
             if ("root".equals(mode)) {
-                Answers.getInstance().logSignUp(new SignUpEvent()
-                        .putMethod(mode).putSuccess(true));
+                Answers.getInstance().logInvite(new InviteEvent()
+                        .putMethod(mode)
+                        .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
+                        .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
+                        .putCustomAttribute("days", days)
+                        .putCustomAttribute("living", living)
+                        .putCustomAttribute("installer", getInstaller()));
+            } else {
+                Answers.getInstance().logLogin(new LoginEvent()
+                        .putMethod(mode).putSuccess(true)
+                        .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
+                        .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
+                        .putCustomAttribute("days", days)
+                        .putCustomAttribute("living", living)
+                        .putCustomAttribute("installer", getInstaller()));
             }
-            Answers.getInstance().logLogin(new LoginEvent()
-                    .putMethod(mode).putSuccess(true));
         }
     }
 
