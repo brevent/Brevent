@@ -1073,16 +1073,17 @@ public class BreventActivity extends Activity
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
-        makeDialerAndSms();
+        makePriority();
     }
 
-    private void makeDialerAndSms() {
+    private void makePriority() {
         if (mSms != null) {
             updatePriority(mSms);
         }
         if (mDialer != null) {
             updatePriority(mDialer);
         }
+        updatePriority(BuildConfig.APPLICATION_ID);
     }
 
     private void updatePriority(String packageName) {
@@ -1303,7 +1304,7 @@ public class BreventActivity extends Activity
     public void updateBreventResponse(BreventPackages breventPackages) {
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
-            makeDialerAndSms();
+            makePriority();
         } else {
             mBrevent.removeAll(breventPackages.packageNames);
         }

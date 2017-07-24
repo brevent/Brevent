@@ -31,6 +31,7 @@ public class BreventIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Notification notification = postNotification(getApplicationContext());
+        UILog.d("show notification");
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
                 .notify(ID, notification);
         if (shouldForeground()) {
@@ -39,6 +40,7 @@ public class BreventIntentService extends IntentService {
         if (!AppsActivityHandler.checkPort()) {
             startBrevent(intent.getAction());
         }
+        UILog.d("hide notification");
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
                 .cancel(ID);
         stopSelf();
@@ -70,6 +72,7 @@ public class BreventIntentService extends IntentService {
                 }
                 return results;
             }
+            UILog.w("(no output)");
         }
         return Collections.emptyList();
     }
@@ -130,8 +133,10 @@ public class BreventIntentService extends IntentService {
             Intent intent = new Intent(context, BreventIntentService.class);
             intent.setAction(action);
             if (shouldForeground()) {
+                UILog.d("will startForegroundService");
                 context.startForegroundService(intent);
             } else {
+                UILog.d("will startService");
                 context.startService(intent);
             }
         } else {
