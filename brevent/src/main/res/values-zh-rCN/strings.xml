@@ -44,6 +44,7 @@
     <string name="process_retrieving_logs">正在获取日志，请稍候……</string>
     <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
     <string name="process_starting">正在启动黑域服务，请稍候……</string>
+    <string name="process_checking">正在检查黑域服务，请稍候……</string>
 
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>
@@ -180,6 +181,8 @@
     <string name="unsupported_disable_root">请先在设置中启用“允许 ROOT 运行”，否则无权使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
+    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。</string>
+    <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，或者联系 SU 提供方。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

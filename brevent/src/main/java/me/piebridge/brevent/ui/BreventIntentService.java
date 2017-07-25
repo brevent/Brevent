@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.accounts.NetworkErrorException;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -28,6 +29,14 @@ public class BreventIntentService extends IntentService {
         super("BreventIntentService");
     }
 
+    private boolean checkPort() {
+        try {
+            return BreventApplication.checkPort();
+        } catch (NetworkErrorException e) {
+            return false;
+        }
+    }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         Notification notification = postNotification(getApplicationContext());
@@ -37,7 +46,7 @@ public class BreventIntentService extends IntentService {
         if (shouldForeground()) {
             startForeground(ID, notification);
         }
-        if (!AppsActivityHandler.checkPort()) {
+        if (!checkPort()) {
             startBrevent(intent.getAction());
         }
         UILog.d("hide notification");
@@ -45,7 +54,7 @@ public class BreventIntentService extends IntentService {
                 .cancel(ID);
         stopSelf();
         String action = intent.getAction();
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !AppsActivityHandler.checkPort()) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !checkPort()) {
             showStopped(getApplicationContext());
         }
     }

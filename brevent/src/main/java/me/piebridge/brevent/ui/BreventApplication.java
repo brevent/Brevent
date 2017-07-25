@@ -1,11 +1,13 @@
 package me.piebridge.brevent.ui;
 
+import android.accounts.NetworkErrorException;
 import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.annotation.WorkerThread;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.text.TextUtils;
@@ -14,6 +16,8 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.InviteEvent;
 import com.crashlytics.android.answers.LoginEvent;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,15 +25,26 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
+import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import dalvik.system.PathClassLoader;
 import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
+import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
 /**
@@ -58,6 +73,8 @@ public class BreventApplication extends Application {
     private WeakReference<Handler> handlerReference;
 
     private boolean eventMade;
+
+    private static ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
     @Override
     public void onCreate() {
@@ -247,6 +264,61 @@ public class BreventApplication extends Application {
     public void resetEvent() {
         if (eventMade) {
             eventMade = false;
+        }
+    }
+
+    public static boolean checkPort() throws NetworkErrorException {
+        Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return checkPortSync();
+            }
+        });
+        try {
+            return future.get(5, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            UILog.d("Can't check port: " + e.getMessage(), e);
+            throw new NetworkErrorException(e);
+        } finally {
+            if (!future.isDone()) {
+                future.cancel(true);
+            }
+        }
+    }
+
+    @WorkerThread
+    public static boolean checkPortSync() {
+        try (
+                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                DataInputStream is = new DataInputStream(socket.getInputStream())
+        ) {
+            os.writeShort(0);
+            os.flush();
+            BreventProtocol.readFrom(is);
+            UILog.v("connected to localhost: " + BreventProtocol.PORT);
+            return true;
+        } catch (ConnectException e) {
+            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+            return false;
+        } catch (IOException e) {
+            UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
+            return false;
+        }
+    }
+
+    public boolean hasXposed() {
+        String clazzServer = String.valueOf(BuildConfig.SERVER);
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        try {
+            String sourceDir = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0)
+                    .sourceDir;
+            PathClassLoader classLoader = new PathClassLoader(sourceDir, systemClassLoader);
+            return (boolean) classLoader.loadClass(clazzServer).getMethod(String.valueOf('c'))
+                    .invoke(null);
+        } catch (ReflectiveOperationException | PackageManager.NameNotFoundException e) { // NOSONAR
+            // do nothing
+            return false;
         }
     }
 

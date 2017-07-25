@@ -134,6 +134,8 @@ public class BreventActivity extends Activity
     public static final int UI_MESSAGE_ROOT_COMPLETED = 15;
     public static final int UI_MESSAGE_SHELL_COMPLETED = 16;
     public static final int UI_MESSAGE_SHOW_PROGRESS_ADB = 17;
+    public static final int UI_MESSAGE_CHECKING_BREVENT = 18;
+    public static final int UI_MESSAGE_NO_LOCAL_NETWORK = 19;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -152,16 +154,12 @@ public class BreventActivity extends Activity
     public static final int IMPORTANT_WALLPAPER = 14;
 
     private static final String FRAGMENT_DISABLED = "disabled";
-
     private static final String FRAGMENT_PROGRESS = "progress";
-
     private static final String FRAGMENT_PROGRESS_APPS = "progress_apps";
-
     private static final String FRAGMENT_FEEDBACK = "feedback";
-
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
-
     private static final String FRAGMENT_REPORT = "report";
+    private static final String FRAGMENT_PROGRESS2 = "progress2";
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -306,11 +304,11 @@ public class BreventActivity extends Activity
                 getIntent().getIntExtra(String.valueOf(BuildConfig.FLYME_CLONE), 0) != 0;
     }
 
-    private void showUnsupported(int resId) {
+    public void showUnsupported(int resId) {
         showUnsupported(resId, false);
     }
 
-    private void showUnsupported(int resId, boolean exit) {
+    public void showUnsupported(int resId, boolean exit) {
         UnsupportedFragment fragment = new UnsupportedFragment();
         fragment.setMessage(resId);
         fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
@@ -443,6 +441,24 @@ public class BreventActivity extends Activity
         }
     }
 
+    public void showProcessChecking() {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_PROGRESS2  + ", stopped: " + isStopped());
+        }
+        if (isStopped()) {
+            return;
+        }
+        hideDisabled();
+        ProgressFragment fragment = (ProgressFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_PROGRESS2);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new ProgressFragment();
+        fragment.updateMessage(R.string.process_checking);
+        fragment.show(getFragmentManager(), FRAGMENT_PROGRESS2);
+    }
+
     public AppsProgressFragment showAppProgress() {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", stopped: " + isStopped());
@@ -511,12 +527,6 @@ public class BreventActivity extends Activity
     protected void onSaveInstanceState(Bundle outState) {
         stopped = true;
         super.onSaveInstanceState(outState);
-    }
-
-    private void dismissDialog() {
-        dismissDialog(FRAGMENT_DISABLED, true);
-        dismissDialog(FRAGMENT_PROGRESS, true);
-        dismissDialog(FRAGMENT_UNSUPPORTED, true);
     }
 
     private void dismissDialog(String tag, boolean allowStateLoss) {
@@ -1566,16 +1576,21 @@ public class BreventActivity extends Activity
         }
         hideDisabled();
         hideProgress();
-        ReportFragment fragment = new ReportFragment();
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         for (String s : output) {
             pw.println(s);
         }
-        fragment.setDetails(R.string.unsupported_root, sw.toString());
-        fragment.show(getFragmentManager(), FRAGMENT_REPORT);
-        mHandler.removeCallbacksAndMessages(null);
-        uiHandler.removeCallbacksAndMessages(null);
+        String message = sw.toString();
+        if (message.contains("dumpsys remote dead")) {
+            showUnsupported(R.string.unsupported_dumpsys, true);
+        } else {
+            ReportFragment fragment = new ReportFragment();
+            fragment.setDetails(R.string.unsupported_root, message);
+            fragment.show(getFragmentManager(), FRAGMENT_REPORT);
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     public void showShellCompleted(String message) {

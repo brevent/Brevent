@@ -45,6 +45,7 @@
     <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
     <string name="process_waiting">Waiting events, please open then close notification to make events. . .</string>
     <string name="process_starting">Starting Brevent Server, just a moment. . .</string>
+    <string name="process_checking">Checking Brevent server, just a moment. . .</string>
 
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
@@ -182,6 +183,8 @@
     <string name="unsupported_disable_root">Please enable \"Allow run as ROOT\" in settings.</string>
     <string name="unsupported_root">Fail to start Brevent Server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent Server.</string>
+    <string name="unsupported_no_local_network">Brevent can\'t access local network.</string>
+    <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux or contact provider of SU.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

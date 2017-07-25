@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.accounts.NetworkErrorException;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Handler;
@@ -38,8 +39,6 @@ import me.piebridge.brevent.protocol.BreventRequest;
  */
 public class AppsActivityHandler extends Handler {
 
-    private boolean checked;
-
     private static final String[][] LOGS = new String[][] {
             {"system.txt", "-b system"},
             {"events.txt", "-b events am_pss:s"},
@@ -52,6 +51,10 @@ public class AppsActivityHandler extends Handler {
 
     private static final int RETRY = 1000;
 
+    private static final int SHORT = 250;
+
+    private static final int LATER = 3000;
+
     private final Handler uiHandler;
 
     private final WeakReference<BreventActivity> mReference;
@@ -61,6 +64,8 @@ public class AppsActivityHandler extends Handler {
     private String adb;
 
     private boolean adbing;
+
+    private boolean adbChecked;
 
     private Thread adbThread;
 
@@ -81,9 +86,19 @@ public class AppsActivityHandler extends Handler {
         BreventActivity activity = mReference.get();
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
-                if (!checked && !checkPort() && activity != null) {
-                    ((BreventApplication) activity.getApplication()).copyBrevent();
-                    checkAdb();
+                if (!adbChecked && activity != null) {
+                    uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT,
+                            SHORT);
+                    try {
+                        if (BreventApplication.checkPort()) {
+                            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
+                        } else {
+                            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
+                            checkAdb(activity);
+                        }
+                    } catch (NetworkErrorException e) {
+                        uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
+                    }
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
@@ -152,7 +167,7 @@ public class AppsActivityHandler extends Handler {
         }
     }
 
-    private boolean checkAdb() {
+    private boolean checkAdb(BreventActivity activity) {
         String port = SystemProperties.get("service.adb.tcp.port", "");
         UILog.d("service.adb.tcp.port: " + port);
         if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
@@ -160,6 +175,7 @@ public class AppsActivityHandler extends Handler {
             if (p > 0 && p <= 0xffff) {
                 adbing = true;
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
+                ((BreventApplication) activity.getApplication()).copyBrevent();
                 adbThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -177,7 +193,7 @@ public class AppsActivityHandler extends Handler {
                 });
                 adbThread.start();
                 sendEmptyMessageDelayed(BreventActivity.MESSAGE_REMOVE_ADB, DELAY);
-                checked = true;
+                adbChecked = true;
                 return true;
             }
 
@@ -229,31 +245,18 @@ public class AppsActivityHandler extends Handler {
     }
 
     @WorkerThread
-    public static boolean checkPort() {
-        try (
-                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
-                DataOutputStream os = new DataOutputStream(socket.getOutputStream());
-                DataInputStream is = new DataInputStream(socket.getInputStream())
-        ) {
-            os.writeShort(0);
-            os.flush();
-            BreventProtocol.readFrom(is);
-            UILog.d("connected to localhost: " + BreventProtocol.PORT);
-            return true;
-        } catch (ConnectException e) {
-            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
-            return false;
-        } catch (IOException e) {
-            UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
-            return false;
-        }
-    }
-
-    @WorkerThread
     private boolean send(BreventProtocol message) {
         BreventActivity activity = mReference.get();
         if (activity == null || activity.isStopped()) {
             UILog.w("Can't send request now");
+            return false;
+        }
+        try {
+            uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
+            BreventApplication.checkPort();
+            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
+        } catch (NetworkErrorException e) {
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
             return false;
         }
         boolean timeout = false;

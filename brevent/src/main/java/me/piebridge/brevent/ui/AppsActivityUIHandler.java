@@ -84,6 +84,12 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB:
                     activity.showProgress(R.string.process_starting);
                     break;
+                case BreventActivity.UI_MESSAGE_CHECKING_BREVENT:
+                    activity.showProcessChecking();
+                    break;
+                case BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK:
+                    activity.showUnsupported(R.string.unsupported_no_local_network, true);
+                    break;
                 default:
                     break;
             }
