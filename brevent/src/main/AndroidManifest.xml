@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
     <application
         android:name=".ui.BreventApplication"

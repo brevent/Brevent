@@ -31,6 +31,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -55,6 +57,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toolbar;
 
+import com.android.internal.statusbar.IStatusBarService;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 
@@ -168,8 +171,6 @@ public class BreventActivity extends Activity
 
     private ViewPager mPager;
 
-    private SwipeRefreshLayout mRefresh;
-
     private AppsPagerAdapter mAdapter;
 
     private String[] mTitles;
@@ -212,6 +213,8 @@ public class BreventActivity extends Activity
     private UsbConnectedReceiver mConnectedReceiver;
 
     private final Object updateLock = new Object();
+
+    private boolean notificationEventMade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -444,7 +447,7 @@ public class BreventActivity extends Activity
 
     public void showProcessChecking() {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("show " + FRAGMENT_PROGRESS2  + ", stopped: " + isStopped());
+            UILog.d("show " + FRAGMENT_PROGRESS2 + ", stopped: " + isStopped());
         }
         if (isStopped()) {
             return;
@@ -936,6 +939,7 @@ public class BreventActivity extends Activity
         int action = response.getAction();
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
+                collapsePanels();
                 uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
                 BreventApplication application = (BreventApplication) getApplication();
                 application.resetEvent();
@@ -968,9 +972,36 @@ public class BreventActivity extends Activity
         } else {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY);
+            expandNotificationsPanel();
             BreventApplication application = (BreventApplication) getApplication();
             if (!application.isEventMade()) {
                 uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
+            }
+        }
+    }
+
+    private void expandNotificationsPanel() {
+        if (!notificationEventMade) {
+            try {
+                IStatusBarService service = IStatusBarService.Stub
+                        .asInterface(ServiceManager.getService("statusbar"));
+                service.expandNotificationsPanel();
+                notificationEventMade = true;
+            } catch (RemoteException | RuntimeException e) {
+                UILog.d("Can't expandNotificationsPanel: " + e.getMessage(), e);
+            }
+        }
+    }
+
+    private void collapsePanels() {
+        if (notificationEventMade) {
+            try {
+                IStatusBarService service = IStatusBarService.Stub
+                        .asInterface(ServiceManager.getService("statusbar"));
+                service.collapsePanels();
+                notificationEventMade = false;
+            } catch (RemoteException | RuntimeException e) {
+                UILog.d("Can't collapsePanels: " + e.getMessage(), e);
             }
         }
     }
