@@ -5,6 +5,8 @@
 
     <attr name="title" format="string" />
 
+    <attr name="colorError" format="color" />
+
     <attr name="elevation" format="dimension" />
     <attr name="listPreferredItemHeightSmall" format="dimension" />
     <attr name="listPreferredItemPaddingLeft" format="dimension" />
