@@ -53,8 +53,6 @@ public class AppsActivityHandler extends Handler {
 
     private static final int SHORT = 250;
 
-    private static final int LATER = 3000;
-
     private final Handler uiHandler;
 
     private final WeakReference<BreventActivity> mReference;
@@ -87,17 +85,12 @@ public class AppsActivityHandler extends Handler {
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
                 if (!adbChecked && activity != null) {
-                    uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT,
-                            SHORT);
                     try {
-                        if (BreventApplication.checkPort()) {
-                            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
-                        } else {
-                            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
+                        if (!checkPort()) {
                             checkAdb(activity);
                         }
                     } catch (NetworkErrorException e) {
-                        uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
+                        break;
                     }
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
@@ -164,6 +157,18 @@ public class AppsActivityHandler extends Handler {
                 break;
             default:
                 break;
+        }
+    }
+
+    private boolean checkPort() throws NetworkErrorException {
+        uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
+        try {
+            return BreventApplication.checkPort();
+        } catch (NetworkErrorException e) {
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
+            throw e;
+        } finally {
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_CHECKED_BREVENT);
         }
     }
 
@@ -252,11 +257,8 @@ public class AppsActivityHandler extends Handler {
             return false;
         }
         try {
-            uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
-            BreventApplication.checkPort();
-            uiHandler.removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
+            checkPort();
         } catch (NetworkErrorException e) {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
             return false;
         }
         boolean timeout = false;

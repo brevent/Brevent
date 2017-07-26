@@ -136,6 +136,7 @@ public class BreventActivity extends Activity
     public static final int UI_MESSAGE_SHOW_PROGRESS_ADB = 17;
     public static final int UI_MESSAGE_CHECKING_BREVENT = 18;
     public static final int UI_MESSAGE_NO_LOCAL_NETWORK = 19;
+    public static final int UI_MESSAGE_CHECKED_BREVENT = 20;
 
     public static final int IMPORTANT_INPUT = 0;
     public static final int IMPORTANT_ALARM = 1;
@@ -457,6 +458,10 @@ public class BreventActivity extends Activity
         fragment = new ProgressFragment();
         fragment.updateMessage(R.string.process_checking);
         fragment.show(getFragmentManager(), FRAGMENT_PROGRESS2);
+    }
+
+    public void hideProcessChecking() {
+        dismissDialog(FRAGMENT_PROGRESS2, false);
     }
 
     public AppsProgressFragment showAppProgress() {
