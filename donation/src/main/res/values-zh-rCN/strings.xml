@@ -7,6 +7,7 @@
     <string name="donation_wechat_permission">微信捐赠需要把二维码放入相册中，请授予“存储空间”权限</string>
     <string name="donation_unsupported">请安装支付宝以便捐赠</string>
     <string name="donation_unsupported_wechat">请安装支付宝或微信以便捐赠</string>
+    <string name="donation_unsupported_unsafe">暂不支持捐赠</string>
     <string name="donation_play_unavailable">无法使用 Play 应用内结算</string>
     <string name="donation_play_checking">正在检查 Play 应用内结算…</string>
 

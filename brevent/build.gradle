@@ -44,6 +44,7 @@ android {
             buildConfigField 'byte[]', 'ADB_M', properties['build.adb.m']
             buildConfigField 'byte[]', 'ADB_P', properties['build.adb.p']
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
+            buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
             multiDexEnabled true
         }
@@ -84,6 +85,7 @@ android {
             buildConfigField 'String', 'DONATE_ALIPAY', 'null'
             buildConfigField 'String', 'DONATE_WECHAT', 'null'
             buildConfigField 'byte[]', 'DONATE_PLAY', 'null'
+            buildConfigField 'byte[]', 'DONATE_M', 'null'
             buildConfigField 'String', 'FEEDBACK', 'null'
             buildConfigField 'String', 'EMAIL', 'null'
             buildConfigField 'String', 'PROJECT', 'null'

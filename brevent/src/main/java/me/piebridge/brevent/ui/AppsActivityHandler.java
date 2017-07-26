@@ -84,7 +84,7 @@ public class AppsActivityHandler extends Handler {
         BreventActivity activity = mReference.get();
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
-                if (!adbChecked && activity != null) {
+                if (BuildConfig.RELEASE && !adbChecked && activity != null) {
                     try {
                         if (!checkPort()) {
                             checkAdb(activity);

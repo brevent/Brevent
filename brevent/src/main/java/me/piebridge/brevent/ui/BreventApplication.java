@@ -2,20 +2,29 @@ package me.piebridge.brevent.ui;
 
 import android.accounts.NetworkErrorException;
 import android.app.Application;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.WorkerThread;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.InviteEvent;
 import com.crashlytics.android.answers.LoginEvent;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -25,9 +34,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
+import java.math.BigInteger;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.security.GeneralSecurityException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -46,6 +62,7 @@ import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
+import me.piebridge.donation.DonateActivity;
 
 /**
  * Created by thom on 2017/2/7.
@@ -73,6 +90,12 @@ public class BreventApplication extends Application {
     private WeakReference<Handler> handlerReference;
 
     private boolean eventMade;
+
+    private long id;
+
+    private Boolean play;
+
+    private BigInteger modulus;
 
     private static ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
@@ -308,7 +331,26 @@ public class BreventApplication extends Application {
         }
     }
 
-    public boolean hasXposed() {
+    public long getId() {
+        if (id == 0) {
+            String androidId = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            if (!"9774d56d682e549c".equals(androidId)) {
+                try {
+                    id = Long.parseLong(androidId, 16);
+                } catch (NumberFormatException e) {
+                    UILog.d("cannot get android id", e);
+                    return 0;
+                }
+            }
+        }
+        return id;
+    }
+
+    public boolean isUnsafe() {
+        if (getId() == 0) {
+            return true;
+        }
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
@@ -321,6 +363,115 @@ public class BreventApplication extends Application {
             // do nothing
             return false;
         }
+    }
+
+    public double decode(String message, boolean auto) {
+        if (TextUtils.isEmpty(message)) {
+            return 0d;
+        }
+        try {
+            if (auto) {
+                return decode(message, new BigInteger(1, BuildConfig.DONATE_M));
+            } else {
+                return decode(message, getSignature());
+            }
+        } catch (NumberFormatException e) {
+            return 0d;
+        }
+    }
+
+    public BigInteger getSignature() {
+        if (modulus != null) {
+            return modulus;
+        }
+        Signature[] signatures = BreventActivity.getSignatures(getPackageManager(),
+                BuildConfig.APPLICATION_ID);
+        if (signatures == null || signatures.length != 1) {
+            return null;
+        }
+        try {
+            final CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+            final ByteArrayInputStream bais = new ByteArrayInputStream(signatures[0].toByteArray());
+            final Certificate cert = certFactory.generateCertificate(bais);
+            modulus = ((RSAPublicKey) cert.getPublicKey()).getModulus();
+        } catch (GeneralSecurityException e) {
+            UILog.d("Can't get signature", e);
+            return null;
+        }
+        return modulus;
+    }
+
+    private double decode(String message, BigInteger module) {
+        if (module == null) {
+            return 0d;
+        }
+        byte[] m = {1, 0, 1};
+        byte[] bytes = new BigInteger(message, 16).modPow(new BigInteger(1, m), module).toByteArray();
+        ByteBuffer buffer = ByteBuffer.allocate(25);
+        buffer.put(bytes, bytes.length == 25 ? 0 : 1, 25);
+        buffer.flip();
+        buffer.get();
+        long a = buffer.getLong();
+        if (a != getId()) {
+            return 0d;
+        } else {
+            double d = Double.longBitsToDouble(buffer.getLong());
+            if (d > 0) {
+                return d;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public boolean hasPlay() {
+        return getPackageManager().getLaunchIntentForPackage(DonateActivity.PACKAGE_PLAY) != null;
+    }
+
+    public boolean isPlay() {
+        if (play != null) {
+            return play;
+        }
+        try {
+            Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,
+                    PackageManager.GET_META_DATA).metaData;
+            play = bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
+        } catch (PackageManager.NameNotFoundException e) {
+            UILog.d("Can't get application for " + BuildConfig.APPLICATION_ID, e);
+            play = false;
+        }
+        return play;
+    }
+
+    public double decodeFromClipboard() {
+        double donate2 = 0d;
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = clipboard.getPrimaryClip();
+        if (clip != null && clip.getItemCount() > 0) {
+            CharSequence text = clip.getItemAt(0).getText();
+            if (text != null && text.toString().startsWith("br")) {
+                String alipay2 = text.subSequence(2, text.length()).toString().trim();
+                donate2 = decode(alipay2, false);
+                if (donate2 > 0) {
+                    PreferenceManager.getDefaultSharedPreferences(this)
+                            .edit().putString("alipay2", alipay2).apply();
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String message = getString(R.string.toast_donate, df.format(donate2));
+                    clipboard.setText(message);
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        return donate2;
+    }
+
+    public double getDonation() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String alipay1 = preferences.getString("alipay1", "");
+        double donate1 = decode(alipay1, true);
+        String alipay2 = preferences.getString("alipay2", "");
+        double donate2 = decode(alipay2, false);
+        return donate1 + donate2;
     }
 
 }

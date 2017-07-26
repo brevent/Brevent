@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -50,7 +49,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        mPlay = checkPlay();
+        mPlay = ((BreventApplication) getApplication()).isPlay();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
@@ -182,17 +181,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         return skus;
     }
 
-    private boolean checkPlay() {
-        try {
-            Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,
-                    PackageManager.GET_META_DATA).metaData;
-            return bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
-        } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't get application for " + BuildConfig.APPLICATION_ID, e);
-            return false;
-        }
-    }
-
     static int donateAmount() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
@@ -223,6 +211,13 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
                     .putCustomAttribute("mode", mode)
                     .putCustomAttribute("installer", installer));
             UILog.i("logAddToCart");
+        }
+    }
+
+    @Override
+    public void activateDonations() {
+        if (!((BreventApplication) getApplication()).isUnsafe()) {
+            super.activateDonations();
         }
     }
 

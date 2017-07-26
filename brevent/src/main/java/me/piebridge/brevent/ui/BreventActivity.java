@@ -322,6 +322,15 @@ public class BreventActivity extends Activity
         }
     }
 
+    public void showDonate() {
+        hideDisabled();
+        hideProgress();
+        AppsDonateFragment fragment = new AppsDonateFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+        mHandler.removeCallbacksAndMessages(null);
+        uiHandler.removeCallbacksAndMessages(null);
+    }
+
     private boolean verifySignature() {
         if (!BuildConfig.RELEASE) {
             return true;
@@ -529,6 +538,7 @@ public class BreventActivity extends Activity
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
             }
         }
+        ((BreventApplication) getApplication()).decodeFromClipboard();
     }
 
     @Override
@@ -813,7 +823,11 @@ public class BreventActivity extends Activity
                     .putString(BreventConfiguration.BREVENT_METHOD, "forcestop_only").apply();
         }
         BreventConfiguration configuration = new BreventConfiguration(preferences);
+        if (BuildConfig.RELEASE) {
+            configuration.androidId = application.getId();
+        }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
+
     }
 
     private void openSettings() {
@@ -1097,7 +1111,13 @@ public class BreventActivity extends Activity
         if (!hasResponse) {
             updateConfiguration();
             unregisterReceiver();
-            hasResponse = true;
+            if ("root".equals(application.getMode())
+                    && !application.hasPlay() && !application.isPlay()
+                    && application.getDonation() < 15) {
+                showDonate();
+            } else {
+                hasResponse = true;
+            }
         }
 
         if (!mSelectMode && mBrevent.isEmpty()) {
@@ -1570,7 +1590,7 @@ public class BreventActivity extends Activity
         sendEmail(context, intent);
     }
 
-    private static void sendEmail(Context context, Intent intent) {
+    public static void sendEmail(Context context, Intent intent) {
         Intent email = getEmailIntent();
         PackageManager packageManager = context.getPackageManager();
         Set<ComponentName> emails = new ArraySet<>();

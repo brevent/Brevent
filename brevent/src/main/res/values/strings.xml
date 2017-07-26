@@ -151,12 +151,12 @@
     <string name="brevent_about">About</string>
     <string name="show_donation">Show donation</string>
     <string name="show_donation_play">Thanks for donating %d USD in Play Store</string>
-    <string name="show_donation_alipay">Thanks for donating %s RMB in Alipay</string>
+    <string name="show_donation_rmb">Thanks for donating %s RMB</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_alipay">Thanks for donating %1$d USD in Play Store, %2$s RMB in Alipay</string>
+    <string name="show_donation_play_and_rmb">Thanks for donating %1$d USD in Play Store, %2$s RMB</string>
     <string name="show_donation_play_and_contributor">Thanks for donating %d USD in Play Store, and priceless contribution on Brevent</string>
-    <string name="show_donation_alipay_and_contributor">Thanks for donating %s RMB in Alipay, and priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_alipay_and_contributor">Thanks for donating %1$d USD in Play Store, %2$s RMB in Alipay, and priceless contribution on Brevent</string>
+    <string name="show_donation_rmb_and_contributor">Thanks for donating %s RMB, and priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Thanks for donating %1$d USD in Play Store, %2$s RMB, and priceless contribution on Brevent</string>
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
@@ -189,10 +189,17 @@
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Thanks for donating %2$s RMB via Alipay in %1$d month</string>
+    <string name="toast_donate">Thanks for donating %1$s RMB</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
 
     <string name="brevent_status_starting">Starting Brevent Server</string>
     <string name="brevent_status_stopped">Brevent Server is not started</string>
+
+    <string name="root_donate_required">Please donate 15 RMB or more to use ROOT mode.\n\nIf you have donated, please open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or donated via non Alipay, please send Email with screenshots of donation.</string>
+    <string name="root_donate_alipay">open Alipay</string>
+    <string name="root_donate_email">Email</string>
+    <string name="root_donate_email_subject">Donate verify (%s)</string>
+    <string name="root_donate_email_text">(Please attach screenshots of donation.)</string>
 
 </resources>

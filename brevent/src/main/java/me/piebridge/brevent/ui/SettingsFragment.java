@@ -10,10 +10,11 @@ import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.text.TextUtils;
+
+import java.text.DecimalFormat;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -95,10 +96,14 @@ public class SettingsFragment extends PreferenceFragment
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
         }
-        String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getString("alipay_sum", "");
-        if (!TextUtils.isEmpty(alipaySum)) {
-            preferenceDonation.setSummary(getString(R.string.show_donation_alipay, alipaySum));
+        double donation = application.getDonation();
+        if (donation > 0) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            preferenceDonation.setSummary(getString(R.string.show_donation_rmb, df.format(donation)));
+        }
+        if (!application.hasPlay() && donation < 15) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
         }
         onUpdateBreventMethod();
     }
@@ -154,20 +159,20 @@ public class SettingsFragment extends PreferenceFragment
             return;
         }
         String summary;
-        String alipaySum = PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getString("alipay_sum", "");
-        boolean hasAlipay = !TextUtils.isEmpty(alipaySum);
+        double donation = ((BreventApplication) getActivity().getApplication()).getDonation();
+        String rmb = donation > 0 ? new DecimalFormat("#.##").format(donation) : "";
+        boolean hasAlipay = !TextUtils.isEmpty(rmb);
         if (contributor) {
             if (total > 0) {
                 if (hasAlipay) {
-                    summary = getString(R.string.show_donation_play_and_alipay_and_contributor,
-                            total, alipaySum);
+                    summary = getString(R.string.show_donation_play_and_rmb_and_contributor,
+                            total, rmb);
                 } else {
                     summary = getString(R.string.show_donation_play_and_contributor, total);
                 }
             } else {
                 if (hasAlipay) {
-                    summary = getString(R.string.show_donation_alipay_and_contributor, alipaySum);
+                    summary = getString(R.string.show_donation_rmb_and_contributor, rmb);
                 } else {
                     summary = getString(R.string.show_donation_contributor);
                 }
@@ -176,14 +181,14 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             if (total > 0) {
                 if (hasAlipay) {
-                    summary = getString(R.string.show_donation_play_and_alipay,
-                            total, alipaySum);
+                    summary = getString(R.string.show_donation_play_and_rmb,
+                            total, rmb);
                 } else {
                     summary = getString(R.string.show_donation_play, total);
                 }
             } else {
                 if (hasAlipay) {
-                    summary = getString(R.string.show_donation_alipay, alipaySum);
+                    summary = getString(R.string.show_donation_rmb, rmb);
                 } else {
                     summary = null;
                 }
@@ -192,11 +197,15 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
+        total += donation / 5;
         if (getArguments().getBoolean(IS_PLAY, false)) {
             if (contributor) {
                 total += BreventSettings.CONTRIBUTOR;
             }
             updatePlayVersion(total);
+        } else if (total < 3) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
         }
     }
 

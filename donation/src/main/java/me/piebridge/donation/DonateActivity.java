@@ -367,7 +367,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    private void activateDonations() {
+    protected void activateDonations() {
         Collection<DonateItem> items = new ArrayList<>(0x3);
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);

@@ -63,6 +63,8 @@ public class BreventConfiguration extends BreventProtocol {
 
     public boolean abnormalBack = DEFAULT_BREVENT_ABNORMAL_BACK;
 
+    public long androidId;
+
     public BreventConfiguration() {
         super(CONFIGURATION);
     }
@@ -113,6 +115,7 @@ public class BreventConfiguration extends BreventProtocol {
         checkNotification = in.readInt() != 0;
         aggressive = in.readInt() != 0;
         abnormalBack = in.readInt() != 0;
+        androidId = in.readLong();
     }
 
     @Override
@@ -127,6 +130,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(checkNotification ? 1 : 0);
         dest.writeInt(aggressive ? 1 : 0);
         dest.writeInt(abnormalBack ? 1 : 0);
+        dest.writeLong(androidId);
     }
 
     public void write(PrintWriter pw) {
