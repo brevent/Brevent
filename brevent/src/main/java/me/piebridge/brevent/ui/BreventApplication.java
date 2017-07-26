@@ -203,21 +203,22 @@ public class BreventApplication extends Application {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             String mode = getMode();
+            UILog.d("days: " + days + ", living: " + living);
             if ("root".equals(mode)) {
                 Answers.getInstance().logInvite(new InviteEvent()
                         .putMethod(mode)
                         .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
                         .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
-                        .putCustomAttribute("days", days)
-                        .putCustomAttribute("living", living)
+                        .putCustomAttribute("days", Long.toString(days))
+                        .putCustomAttribute("living", Long.toString(living))
                         .putCustomAttribute("installer", getInstaller()));
             } else {
                 Answers.getInstance().logLogin(new LoginEvent()
                         .putMethod(mode).putSuccess(true)
                         .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
                         .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
-                        .putCustomAttribute("days", days)
-                        .putCustomAttribute("living", living)
+                        .putCustomAttribute("days", Long.toString(days))
+                        .putCustomAttribute("living", Long.toString(living))
                         .putCustomAttribute("installer", getInstaller()));
             }
         }
