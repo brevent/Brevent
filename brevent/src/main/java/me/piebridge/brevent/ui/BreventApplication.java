@@ -391,6 +391,7 @@ public class BreventApplication extends Application {
                 return decode(message, getSignature());
             }
         } catch (NumberFormatException e) {
+            UILog.d("cannot decode, auto: " + auto, e);
             return 0d;
         }
     }
@@ -426,16 +427,12 @@ public class BreventApplication extends Application {
         buffer.put(bytes, bytes.length == 25 ? 0 : 1, 25);
         buffer.flip();
         buffer.get();
-        long a = buffer.getLong();
-        if (a != getId()) {
+        long breventId = buffer.getLong();
+        if (breventId != getId()) {
+            UILog.d("id: " + Long.toHexString(breventId) + " != " + Long.toHexString(getId()));
             return 0d;
         } else {
-            double d = Double.longBitsToDouble(buffer.getLong());
-            if (d > 0) {
-                return d;
-            } else {
-                return 0;
-            }
+            return Double.longBitsToDouble(buffer.getLong());
         }
     }
 
@@ -484,8 +481,16 @@ public class BreventApplication extends Application {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String alipay1 = preferences.getString("alipay1", "");
         double donate1 = decode(alipay1, true);
+        if (donate1 < 0) {
+            donate1 = 0;
+            preferences.edit().remove("alipay1").apply();
+        }
         String alipay2 = preferences.getString("alipay2", "");
         double donate2 = decode(alipay2, false);
+        if (donate2 < 0) {
+            donate2 = 0;
+            preferences.edit().remove("alipay2").apply();
+        }
         return donate1 + donate2;
     }
 
