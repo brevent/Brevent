@@ -40,6 +40,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
@@ -333,24 +334,38 @@ public class BreventApplication extends Application {
 
     public long getId() {
         if (id == 0) {
-            String androidId = Settings.Secure.getString(getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-            if (!"9774d56d682e549c".equals(androidId)) {
-                try {
-                    id = Long.parseLong(androidId, 16);
-                } catch (NumberFormatException e) {
-                    UILog.d("cannot get android id", e);
-                    return 0;
+            synchronized (this) {
+                if (id == 0) {
+                    id = getId(this);
                 }
             }
         }
         return id;
     }
 
-    public boolean isUnsafe() {
-        if (getId() == 0) {
-            return true;
+    private static long getId(Context context) {
+        String androidId = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        if ("9774d56d682e549c".equals(androidId)) {
+            androidId = PreferenceManager.getDefaultSharedPreferences(context)
+                    .getString(Settings.Secure.ANDROID_ID, "0");
         }
+        long breventId;
+        try {
+            breventId = new BigInteger(androidId, 16).longValue();
+        } catch (NumberFormatException e) {
+            breventId = 0;
+            UILog.d("cannot parse " + androidId, e);
+        }
+        if (breventId == 0) {
+            breventId = 0xdeadbeef00000000L | new SecureRandom().nextInt();
+            PreferenceManager.getDefaultSharedPreferences(context).edit()
+                    .putString(Settings.Secure.ANDROID_ID, Long.toHexString(breventId)).apply();
+        }
+        return breventId;
+    }
+
+    public boolean isUnsafe() {
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
