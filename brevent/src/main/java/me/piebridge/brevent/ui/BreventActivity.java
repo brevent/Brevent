@@ -164,6 +164,7 @@ public class BreventActivity extends Activity
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
     private static final String FRAGMENT_REPORT = "report";
     private static final String FRAGMENT_PROGRESS2 = "progress2";
+    private static final String FRAGMENT_DONATE = "donate";
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -326,9 +327,7 @@ public class BreventActivity extends Activity
         hideDisabled();
         hideProgress();
         AppsDonateFragment fragment = new AppsDonateFragment();
-        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
-        mHandler.removeCallbacksAndMessages(null);
-        uiHandler.removeCallbacksAndMessages(null);
+        fragment.show(getFragmentManager(), FRAGMENT_DONATE);
     }
 
     private boolean verifySignature() {
@@ -1111,12 +1110,11 @@ public class BreventActivity extends Activity
         if (!hasResponse) {
             updateConfiguration();
             unregisterReceiver();
+            hasResponse = true;
             if ("root".equals(application.getMode())
                     && !application.hasPlay() && !application.isPlay()
                     && application.getDonation() < 15) {
                 showDonate();
-            } else {
-                hasResponse = true;
             }
         }
 

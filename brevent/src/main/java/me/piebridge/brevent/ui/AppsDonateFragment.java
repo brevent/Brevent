@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -8,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -18,9 +16,15 @@ import me.piebridge.donation.DonateActivity;
  * Created by thom on 2017/2/5.
  */
 public class AppsDonateFragment extends DialogFragment implements DialogInterface.OnClickListener,
-        DialogInterface.OnKeyListener {
+        DialogInterface.OnShowListener {
 
     private Dialog mDialog;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setCancelable(false);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,19 +37,14 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
     private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
-        boolean hasEmailClient = BreventActivity.hasEmailClient(getActivity());
         builder.setTitle(R.string.app_name);
         builder.setMessage(R.string.root_donate_required);
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
-        if (!application.isUnsafe() && application.getPackageManager()
-                .getLaunchIntentForPackage(DonateActivity.PACKAGE_ALIPAY) != null) {
-            builder.setPositiveButton(R.string.root_donate_alipay, this);
-        }
-        builder.setOnKeyListener(this);
-        if (hasEmailClient) {
-            builder.setNegativeButton(R.string.root_donate_email, this);
-        }
-        return builder.create();
+        builder.setPositiveButton(R.string.root_donate_alipay, this);
+        builder.setNegativeButton(R.string.root_donate_email, this);
+        builder.setNeutralButton(R.string.root_donate_later, this);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(this);
+        return alertDialog;
     }
 
     @Override
@@ -68,6 +67,8 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
             BreventActivity.sendEmail(getActivity(), intent);
+        } else if (DialogInterface.BUTTON_NEUTRAL == which) {
+            dismiss();
         }
     }
 
@@ -79,22 +80,17 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
-        finishActivity();
-    }
-
-    @Override
-    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            finishActivity();
+    public void onShow(DialogInterface dialog) {
+        if (getActivity() == null) {
+            return;
         }
-        return false;
-    }
-
-    private void finishActivity() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            activity.finish();
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        if (application.isUnsafe() || application.getPackageManager()
+                .getLaunchIntentForPackage(DonateActivity.PACKAGE_ALIPAY) == null) {
+            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        }
+        if (!BreventActivity.hasEmailClient(application)) {
+            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
         }
     }
 

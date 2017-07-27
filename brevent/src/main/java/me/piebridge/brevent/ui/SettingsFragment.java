@@ -82,7 +82,7 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        if (BuildConfig.RELEASE && !AppsDisabledFragment.isEmulator()) {
+        if (BuildConfig.RELEASE) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
@@ -100,8 +100,14 @@ public class SettingsFragment extends PreferenceFragment
         if (donation > 0) {
             DecimalFormat df = new DecimalFormat("#.##");
             preferenceDonation.setSummary(getString(R.string.show_donation_rmb, df.format(donation)));
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
         }
-        if (!application.hasPlay() && donation < 15) {
+        if (donation >= BreventSettings.donateAmount() * 5) {
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceAllowRoot.setEnabled(true);
+        } else if (!application.hasPlay()) {
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
         }
@@ -154,7 +160,7 @@ public class SettingsFragment extends PreferenceFragment
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
-    public void updatePlayDonation(int count, int total, boolean contributor) {
+    public void updatePlayDonation(int total, boolean contributor) {
         if (getActivity() == null) {
             return;
         }
@@ -197,15 +203,23 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
-        total += donation / 5;
+        int count = total + (contributor ? BreventSettings.CONTRIBUTOR : 0);
         if (getArguments().getBoolean(IS_PLAY, false)) {
-            if (contributor) {
-                total += BreventSettings.CONTRIBUTOR;
+            updatePlayVersion(count);
+        } else {
+            if (donation > 0) {
+                count += (int) (donation / 5);
             }
-            updatePlayVersion(total);
-        } else if (total < 3) {
-            preferenceAllowRoot.setEnabled(false);
-            preferenceAllowRoot.setChecked(false);
+            if (count < BreventSettings.donateAmount()) {
+                preferenceOptimizeVpn.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
+                preferenceAllowRoot.setEnabled(false);
+                preferenceAllowRoot.setChecked(false);
+            } else {
+                preferenceOptimizeVpn.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
+                preferenceAllowRoot.setEnabled(true);
+            }
         }
     }
 
@@ -261,7 +275,6 @@ public class SettingsFragment extends PreferenceFragment
         if (!getArguments().getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
-            preferenceAllowRoot.setEnabled(true);
         }
     }
 

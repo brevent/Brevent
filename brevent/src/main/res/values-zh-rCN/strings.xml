@@ -197,6 +197,7 @@
     <string name="root_donate_required">ROOT 模式需要捐赠至少 15 元。\n\n如果您已经捐赠，请打开支付宝，点开转账记录，会自动识别捐赠。\n\n如果无法自动识别，或者其它方式捐赠，请发送邮件，附上捐赠截图。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
+    <string name="root_donate_later">先看看</string>
     <string name="root_donate_email_subject">捐赠确认（%s）</string>
     <string name="root_donate_email_text">（请附上捐赠截图。）</string>
 
