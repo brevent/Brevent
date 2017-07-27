@@ -96,20 +96,22 @@ public class SettingsFragment extends PreferenceFragment
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
         }
-        double donation = application.getDonation();
-        if (donation > 0) {
-            DecimalFormat df = new DecimalFormat("#.##");
-            preferenceDonation.setSummary(getString(R.string.show_donation_rmb, df.format(donation)));
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-        }
-        if (donation >= BreventSettings.donateAmount() * 5) {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceAllowRoot.setEnabled(true);
-        } else if (!application.hasPlay()) {
-            preferenceAllowRoot.setEnabled(false);
-            preferenceAllowRoot.setChecked(false);
+        if (BuildConfig.RELEASE) {
+            double donation = application.getDonation();
+            if (donation > 0) {
+                preferenceDonation.setSummary(getString(R.string.show_donation_rmb,
+                        new DecimalFormat("#.##").format(donation)));
+                preferenceOptimizeVpn.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
+            }
+            if (donation >= BreventSettings.donateAmount() * 5) {
+                preferenceOptimizeVpn.setEnabled(true);
+                preferenceAbnormalBack.setEnabled(true);
+                preferenceAllowRoot.setEnabled(true);
+            } else if (!application.hasPlay()) {
+                preferenceAllowRoot.setEnabled(false);
+                preferenceAllowRoot.setChecked(false);
+            }
         }
         onUpdateBreventMethod();
     }

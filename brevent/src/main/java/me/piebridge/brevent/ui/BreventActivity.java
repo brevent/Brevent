@@ -77,6 +77,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
+import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -220,6 +221,9 @@ public class BreventActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (BuildConfig.RELEASE) {
+            Fabric.with(getApplicationContext(), new Answers());
+        }
         boolean disabledXposed = !BuildConfig.RELEASE;
         if (BuildConfig.SERVER != null) {
             String clazzServer = String.valueOf(BuildConfig.SERVER);
@@ -537,7 +541,9 @@ public class BreventActivity extends Activity
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
             }
         }
-        ((BreventApplication) getApplication()).decodeFromClipboard();
+        if (BuildConfig.RELEASE) {
+            ((BreventApplication) getApplication()).decodeFromClipboard();
+        }
     }
 
     @Override
@@ -1000,7 +1006,7 @@ public class BreventActivity extends Activity
                         .asInterface(ServiceManager.getService("statusbar"));
                 service.expandNotificationsPanel();
                 notificationEventMade = true;
-            } catch (RemoteException | RuntimeException e) {
+            } catch (RemoteException | RuntimeException | LinkageError e) {
                 UILog.d("Can't expandNotificationsPanel: " + e.getMessage(), e);
             }
         }
@@ -1013,7 +1019,7 @@ public class BreventActivity extends Activity
                         .asInterface(ServiceManager.getService("statusbar"));
                 service.collapsePanels();
                 notificationEventMade = false;
-            } catch (RemoteException | RuntimeException e) {
+            } catch (RemoteException | RuntimeException | LinkageError e) {
                 UILog.d("Can't collapsePanels: " + e.getMessage(), e);
             }
         }
@@ -1111,7 +1117,7 @@ public class BreventActivity extends Activity
             updateConfiguration();
             unregisterReceiver();
             hasResponse = true;
-            if ("root".equals(application.getMode())
+            if (BuildConfig.RELEASE && "root".equals(application.getMode())
                     && !application.hasPlay() && !application.isPlay()
                     && application.getDonation() < 15) {
                 showDonate();

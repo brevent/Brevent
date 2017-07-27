@@ -151,8 +151,13 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                     thread.getLooper(), this);
             Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
             serviceIntent.setPackage(PACKAGE_PLAY);
-            if (!bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE)) {
-                unbindService(activateConnection);
+            try {
+                if (!bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE)) {
+                    unbindService(activateConnection);
+                }
+            } catch (IllegalArgumentException e) {
+                Log.d(TAG, "cannot bind activateConnection", e);
+            } finally {
                 activateConnection = null;
             }
         } else if (isPlay()) {
