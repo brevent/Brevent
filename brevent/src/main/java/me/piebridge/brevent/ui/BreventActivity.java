@@ -165,7 +165,7 @@ public class BreventActivity extends Activity
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
     private static final String FRAGMENT_REPORT = "report";
     private static final String FRAGMENT_PROGRESS2 = "progress2";
-    private static final String FRAGMENT_DONATE = "donate";
+    private static final String FRAGMENT_ROOT = "root";
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -327,11 +327,23 @@ public class BreventActivity extends Activity
         }
     }
 
-    public void showDonate() {
+    public void showRoot() {
         hideDisabled();
         hideProgress();
-        AppsDonateFragment fragment = new AppsDonateFragment();
-        fragment.show(getFragmentManager(), FRAGMENT_DONATE);
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_ROOT + ", stopped: " + isStopped());
+        }
+        if (isStopped()) {
+            return;
+        }
+        AppsRootFragment fragment = (AppsRootFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_ROOT);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new AppsRootFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_ROOT);
+        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 
     private boolean verifySignature() {
@@ -495,7 +507,6 @@ public class BreventActivity extends Activity
         fragment.show(getFragmentManager(), FRAGMENT_PROGRESS_APPS);
         return fragment;
     }
-
 
     public void updateAppProgress(int progress, int max, int size) {
         if (isStopped()) {
@@ -833,9 +844,12 @@ public class BreventActivity extends Activity
         }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
 
+        if (BuildConfig.RELEASE && "root".equals(application.getMode()) && !configuration.allowRoot) {
+            showRoot();
+        }
     }
 
-    private void openSettings() {
+    public void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
@@ -973,10 +987,8 @@ public class BreventActivity extends Activity
             case BreventProtocol.STATUS_NO_EVENT:
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
-            case BreventProtocol.STATUS_DISABLE_ROOT:
-                showUnsupported(R.string.unsupported_disable_root);
-                mHandler.removeCallbacksAndMessages(null);
-                uiHandler.removeCallbacksAndMessages(null);
+            case BreventProtocol.SHOW_ROOT:
+                showRoot();
                 break;
             default:
                 break;
@@ -1117,11 +1129,6 @@ public class BreventActivity extends Activity
             updateConfiguration();
             unregisterReceiver();
             hasResponse = true;
-            if (BuildConfig.RELEASE && "root".equals(application.getMode())
-                    && !application.hasPlay() && !application.isPlay()
-                    && application.getDonation() < 15) {
-                showDonate();
-            }
         }
 
         if (!mSelectMode && mBrevent.isEmpty()) {

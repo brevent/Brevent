@@ -13,6 +13,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.text.DecimalFormat;
 
@@ -37,6 +38,8 @@ public class SettingsFragment extends PreferenceFragment
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
     public static final String IS_PLAY = "is_play";
+
+    private static final String FRAGMENT_DONATE = "donate";
 
     private PreferenceCategory breventExperimental;
 
@@ -111,9 +114,23 @@ public class SettingsFragment extends PreferenceFragment
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
+                showDonate();
             }
         }
         onUpdateBreventMethod();
+    }
+
+    public void showDonate() {
+        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
+            UILog.d("show " + FRAGMENT_DONATE);
+        }
+        AppsDonateFragment fragment = (AppsDonateFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_DONATE);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new AppsDonateFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_DONATE);
     }
 
     @Override
@@ -217,6 +234,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
+                showDonate();
             } else {
                 preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);

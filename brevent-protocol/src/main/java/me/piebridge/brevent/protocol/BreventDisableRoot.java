@@ -8,7 +8,7 @@ import android.os.Parcel;
 public class BreventDisableRoot extends BreventProtocol {
 
     public BreventDisableRoot() {
-        super(BreventProtocol.STATUS_DISABLE_ROOT);
+        super(BreventProtocol.SHOW_ROOT);
     }
 
     BreventDisableRoot(Parcel parcel) {

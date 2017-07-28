@@ -180,7 +180,7 @@
     <string name="unsupported_no_event">No event log. Please try later or reboot.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try later.</string>
-    <string name="unsupported_disable_root">Please enable \"Allow run as ROOT\" in settings.</string>
+    <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Allow run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network.</string>

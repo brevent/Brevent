@@ -178,7 +178,7 @@
     <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
-    <string name="unsupported_disable_root">请先在设置中启用“允许 ROOT 运行”，否则无权使用 ROOT 启动黑域服务。</string>
+    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新黑域服务及开机自启。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。</string>

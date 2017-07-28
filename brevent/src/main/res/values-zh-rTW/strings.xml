@@ -179,7 +179,7 @@
     <string name="unsupported_no_event">黑域服務已經開啟，但是沒有事件日誌。請稍候重試，或者重啟手機。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
-    <string name="unsupported_disable_root">請先在設置中啟用「允許 ROOT 執行」，否則無權使用 ROOT 開啟黑域服務。</string>
+    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新黑域服务及开机自启。</string>
     <string name="unsupported_root">無法使用 ROOT 開啟黑域服務。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。</string>

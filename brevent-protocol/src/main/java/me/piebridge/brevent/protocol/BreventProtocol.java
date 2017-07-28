@@ -30,7 +30,7 @@ public abstract class BreventProtocol {
     public static final int CONFIGURATION = 3;
     public static final int UPDATE_PRIORITY = 4;
     public static final int STATUS_NO_EVENT = 5;
-    public static final int STATUS_DISABLE_ROOT = 6;
+    public static final int SHOW_ROOT = 6;
 
     private int mVersion;
 
@@ -139,7 +139,7 @@ public abstract class BreventProtocol {
                     return new BreventPriority(parcel);
                 case STATUS_NO_EVENT:
                     return new BreventNoEvent(parcel);
-                case STATUS_DISABLE_ROOT:
+                case SHOW_ROOT:
                     return new BreventDisableRoot(parcel);
                 default:
                     return null;
