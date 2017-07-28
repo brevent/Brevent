@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要捐赠 4 美元或 20 人民币（仅支持支付宝）</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要支付 4 美元或 20 人民币（仅支持支付宝）</string>
 
 </resources>

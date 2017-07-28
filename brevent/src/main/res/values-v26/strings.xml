@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent service without \"USB Debugging\"\n\nRequires donate total 4 USD or 20 RMB (via Alipay)</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 4 USD or 20 RMB (via Alipay)</string>
 
 </resources>

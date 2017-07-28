@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="donation">Feel free to donate if you like</string>
-    <string name="donation_wechat_guide">1. Open Wechat, navigate to \"Scan QR Code\"\n\n2. Click menu\n\n3. Click \"Choose QR Code from Album\"\n\n4. Pick Brevent donation QR Code</string>
+    <string name="donation">Feel free to pay if you like</string>
+    <string name="donation_wechat_guide">1. Open Wechat, navigate to \"Scan QR Code\"\n\n2. Click menu\n\n3. Click \"Choose QR Code from Album\"\n\n4. Pick Brevent QR Code</string>
     <string name="donation_wechat_scan">Open \"Wechat Scan QR Code\"</string>
-    <string name="donation_wechat_permission">Donation via Wechat requires Storage permission to save QR code into Album</string>
-    <string name="donation_unsupported">Please install Alipay to donate</string>
-    <string name="donation_unsupported_wechat">Please install Alipay or WeChat to donate</string>
-    <string name="donation_unsupported_unsafe">Unsafe for donation</string>
+    <string name="donation_wechat_permission">Pay via Wechat requires Storage permission to save QR code into Album</string>
+    <string name="donation_unsupported">Please install Alipay</string>
+    <string name="donation_unsupported_wechat">Please install Alipay or WeChat</string>
+    <string name="donation_unsupported_unsafe">Unsafe to pay</string>
     <string name="donation_play_unavailable">Play In-app Billing is unavailable</string>
     <string name="donation_play_checking">Checking Play In-app Billing…</string>
 

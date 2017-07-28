@@ -141,21 +141,21 @@
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">啟用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要捐贈 2 美元</string>
+    <string name="brevent_optimize_vpn_label">啟用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要支付 2 美元</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要捐贈 2 美元</string>
+    <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要支付 2 美元</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要捐贈 3 美元或 15 人民幣（僅支持支付寶）</string>
+    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要支付 3 美元或 15 人民幣（僅支持支付寶）</string>
 
     <string name="brevent_about">關於</string>
-    <string name="show_donation">顯示捐贈</string>
-    <string name="show_donation_play">感謝您透過 Play 商店捐贈 %d 美元</string>
-    <string name="show_donation_rmb">感謝您捐贈人民幣 %s 元</string>
+    <string name="show_donation">顯示支付</string>
+    <string name="show_donation_play">感謝您透過 Play 商店支付 %d 美元</string>
+    <string name="show_donation_rmb">感謝您支付人民幣 %s 元</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店捐贈 %1$d 美元，人民幣 %2$s 元</string>
-    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店捐贈 %d 美元，以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_rmb_and_contributor">感謝您捐贈人民幣 %s 元，以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店捐贈 %1$d 美元，人民幣 %2$s 元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$d 美元，人民幣 %2$s 元</string>
+    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %d 美元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_rmb_and_contributor">感謝您支付人民幣 %s 元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$d 美元，人民幣 %2$s 元，以及為黑域所作的特別貢獻</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
@@ -187,19 +187,19 @@
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
-    <string name="toast_alipay">感謝您 %1$d 個月透過支付寶捐贈 %2$s 元</string>
-    <string name="toast_donate">感謝您捐贈 %1$s 元</string>
+    <string name="toast_alipay">感謝您 %1$d 個月透過支付寶支付 %2$s 元</string>
+    <string name="toast_donate">感謝您支付 %1$s 元</string>
 
     <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
 
     <string name="brevent_status_starting">正在開啟黑域服務</string>
     <string name="brevent_status_stopped">黑域服務沒有開啓</string>
 
-    <string name="root_donate_required">ROOT 模式需要捐赠至少 15 元。\n\n如果您已经捐赠，请打开支付宝，点开转账记录，会自动识别捐赠。\n\n如果无法自动识别，或者其它方式捐赠，请发送邮件，附上捐赠截图。</string>
+    <string name="root_donate_required">“允許 ROOT 執行”需要支付。\n\n如您已经支付，请打开“支付宝”，点开“转账记录”，将会自动识别。\n\n如果无法自动识别，或者其它方式支付，请发送邮件，附上支付订单截图。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
-    <string name="root_donate_later">先看看</string>
-    <string name="root_donate_email_subject">捐赠确认（%s）</string>
-    <string name="root_donate_email_text">（请附上捐赠截图。）</string>
+    <string name="root_donate_later">再看看</string>
+    <string name="root_donate_email_subject">支付确认（%s）</string>
+    <string name="root_donate_email_text">（请附上支付订单截图。）</string>
 
 </resources>

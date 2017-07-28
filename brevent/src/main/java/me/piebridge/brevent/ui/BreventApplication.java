@@ -100,14 +100,6 @@ public class BreventApplication extends Application {
 
     private static ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        if (BuildConfig.RELEASE) {
-            Fabric.with(this, new Answers());
-        }
-    }
-
     public void toggleAllowRoot() {
         allowRoot = !allowRoot;
     }
