@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+if (file('fabric.properties').exists()) {
+    apply plugin: 'io.fabric'
+}
 
 android {
     compileSdkVersion rootProject.targetSdkVersion
@@ -96,6 +98,7 @@ android {
             buildConfigField 'byte[]', 'ADB_M', 'null'
             buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
+            buildConfigField 'byte[]', 'DONATE_M', 'null'
         }
     }
 
