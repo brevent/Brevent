@@ -134,10 +134,15 @@ public class BreventIntentService extends IntentService {
     }
 
     public static void startBrevent(Context context, String action) {
-        boolean allowRoot = PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext())
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-        UILog.d("action: " + action + ", allowRoot: " + allowRoot);
+        boolean allowRoot;
+        try {
+            allowRoot = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext())
+                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+            UILog.d("action: " + action + ", allowRoot: " + allowRoot);
+        } catch (IllegalStateException e) {
+            allowRoot = true;
+            UILog.d("action: " + action + ", allowRoot: (assume true)", e);
+        }
         if ((BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot)) {
             Intent intent = new Intent(context, BreventIntentService.class);
             intent.setAction(action);

@@ -226,23 +226,21 @@ public class SettingsFragment extends PreferenceFragment
             preferenceDonation.setSummary(summary);
         }
         int count = total + (contributor ? BreventSettings.CONTRIBUTOR : 0);
+        if (donation > 0) {
+            count += (int) (donation / 5);
+        }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
+        } else if (count < BreventSettings.donateAmount()) {
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+            showDonate();
         } else {
-            if (donation > 0) {
-                count += (int) (donation / 5);
-            }
-            if (count < BreventSettings.donateAmount()) {
-                preferenceOptimizeVpn.setEnabled(true);
-                preferenceAbnormalBack.setEnabled(true);
-                preferenceAllowRoot.setEnabled(false);
-                preferenceAllowRoot.setChecked(false);
-                showDonate();
-            } else {
-                preferenceOptimizeVpn.setEnabled(true);
-                preferenceAbnormalBack.setEnabled(true);
-                preferenceAllowRoot.setEnabled(true);
-            }
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceAllowRoot.setEnabled(true);
         }
     }
 
