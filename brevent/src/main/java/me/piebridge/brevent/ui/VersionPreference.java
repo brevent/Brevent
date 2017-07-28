@@ -29,7 +29,10 @@ public class VersionPreference extends Preference {
         Context context = getContext();
         Resources resources = context.getResources();
         BreventApplication application = (BreventApplication) context.getApplicationContext();
-        if (application.mDaemonTime > 0) {
+        if (!BuildConfig.RELEASE) {
+            return resources.getString(R.string.brevent_about_version_summary_debug,
+                    BuildConfig.VERSION_NAME);
+        } else if (application.mDaemonTime > 0) {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             String normal = resources.getString(R.string.brevent_about_version_mode_normal);
             String root = resources.getString(R.string.brevent_about_version_mode_root);

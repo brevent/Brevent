@@ -143,10 +143,13 @@
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
     <string name="brevent_optimize_vpn_label">When checked, connected VPN won\'t be standby nor force-stopped\n\nRequires donate total 2 USD for Play version</string>
+    <string name="brevent_optimize_vpn_label_debug">When checked, connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Some apps move background instead of exit when pressing Back\n\nRequires donate total 2 USD for Play version</string>
+    <string name="brevent_abnormal_back_label_debug">Some apps move background instead of exit when pressing Back</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB (via Alipay)</string>
+    <string name="brevent_allow_root_label_debug">When checked, allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show payment</string>
@@ -161,6 +164,7 @@
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s\nNo donation, No support</string>
     <string name="brevent_about_version_play">Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>

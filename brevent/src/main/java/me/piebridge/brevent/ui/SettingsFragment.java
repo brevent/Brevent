@@ -92,6 +92,9 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
                     .removePreference(preferenceDonation);
+            preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
+            preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
+            preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
         if (!"root".equals(application.getMode())
                 && !sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {

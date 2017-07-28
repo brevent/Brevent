@@ -142,10 +142,13 @@
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
     <string name="brevent_optimize_vpn_label">啟用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要支付 2 美元</string>
+    <string name="brevent_optimize_vpn_label_debug">啟用之後，不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要支付 2 美元</string>
+    <string name="brevent_abnormal_back_label_debug">有些應用按「返回」時放到背景而不結束</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要支付 3 美元或 15 人民幣（僅支持支付寶）</string>
+    <string name="brevent_allow_root_label_debug">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
@@ -160,6 +163,7 @@
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次開啟：%4$s\n本次開啟：%5$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s\n没有捐赠，没有支持</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
     <string name="brevent_about_version_smartisan">錘子版</string>
