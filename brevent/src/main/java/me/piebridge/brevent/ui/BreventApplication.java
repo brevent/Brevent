@@ -192,7 +192,8 @@ public class BreventApplication extends Application {
     }
 
     public void updateStatus(BreventResponse breventResponse) {
-        boolean shouldUpdated = mDaemonTime != breventResponse.mDaemonTime;
+        boolean shouldUpdated = breventResponse.mDaemonTime != 0
+                && mDaemonTime != breventResponse.mDaemonTime;
         mDaemonTime = breventResponse.mDaemonTime;
         mServerTime = breventResponse.mServerTime;
         mUid = breventResponse.mUid;
