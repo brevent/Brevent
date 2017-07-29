@@ -1,5 +1,7 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -117,7 +119,9 @@ public class SettingsFragment extends PreferenceFragment
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
-                showDonate();
+                if ("root".equals(application.getMode())) {
+                    showDonate();
+                }
             }
         }
         onUpdateBreventMethod();
@@ -183,11 +187,13 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void updatePlayDonation(int total, boolean contributor) {
-        if (getActivity() == null) {
+        Activity activity = getActivity();
+        if (activity == null) {
             return;
         }
+        BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
-        double donation = ((BreventApplication) getActivity().getApplication()).getDonation();
+        double donation = application.getDonation();
         String rmb = donation > 0 ? new DecimalFormat("#.##").format(donation) : "";
         boolean hasAlipay = !TextUtils.isEmpty(rmb);
         if (contributor) {
@@ -236,7 +242,9 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            showDonate();
+            if ("root".equals(application.getMode())) {
+                showDonate();
+            }
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
