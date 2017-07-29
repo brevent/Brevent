@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -35,13 +36,18 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
     }
 
     private Dialog createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Activity activity = getActivity();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.app_name);
-        builder.setMessage(R.string.root_donate_required);
-        builder.setPositiveButton(R.string.root_donate_alipay, this);
-        builder.setNegativeButton(R.string.root_donate_email, this);
-        builder.setNeutralButton(R.string.root_donate_later, this);
+        if (((BreventApplication) activity.getApplication()).isPlay()) {
+            builder.setMessage(R.string.root_donate_required_play);
+        } else {
+            builder.setMessage(R.string.root_donate_required);
+            builder.setPositiveButton(R.string.root_donate_alipay, this);
+            builder.setNegativeButton(R.string.root_donate_email, this);
+        }
+        builder.setNeutralButton(android.R.string.ok, this);
         AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(this);
         return alertDialog;

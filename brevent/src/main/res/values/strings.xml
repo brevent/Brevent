@@ -148,7 +148,7 @@
     <string name="brevent_abnormal_back_label">Some apps move background instead of exit when pressing Back\n\nRequires donate total 2 USD for Play version</string>
     <string name="brevent_abnormal_back_label_debug">Some apps move background instead of exit when pressing Back</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires donate total 3 USD or 15 RMB (via Alipay)</string>
+    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires donate total 3 USD</string>
     <string name="brevent_allow_root_label_debug">When checked, allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="brevent_about">About</string>
@@ -200,10 +200,11 @@
     <string name="brevent_status_starting">Starting Brevent server</string>
     <string name="brevent_status_stopped">Brevent server is not started</string>
 
-    <string name="root_donate_required">Please pay to use \"Allow run as ROOT\".\n\nIf you have payed, please open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or payed via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_required_play">Please pay 3 USD to use \"Allow run as ROOT\".</string>
+    <string name="root_donate_required">Please pay 3 USD or 15 RMB to use \"Allow run as ROOT\".\n\nIf you have paid, please open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_alipay">open Alipay</string>
     <string name="root_donate_email">Email</string>
-    <string name="root_donate_later">Later</string>
+    <string name="root_donate_later">Not now</string>
     <string name="root_donate_email_subject">Payment verify (%s)</string>
     <string name="root_donate_email_text">(Please attach screenshots of payment details.)</string>
 

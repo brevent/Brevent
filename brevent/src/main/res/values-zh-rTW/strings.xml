@@ -147,7 +147,7 @@
     <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要支付 2 美元</string>
     <string name="brevent_abnormal_back_label_debug">有些應用按「返回」時放到背景而不結束</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要支付 3 美元或 15 人民幣（僅支持支付寶）</string>
+    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要支付 3 美元</string>
     <string name="brevent_allow_root_label_debug">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="brevent_about">關於</string>
@@ -199,7 +199,8 @@
     <string name="brevent_status_starting">正在開啟黑域服務</string>
     <string name="brevent_status_stopped">黑域服務沒有開啓</string>
 
-    <string name="root_donate_required">“允許 ROOT 執行”需要支付。\n\n如您已经支付，请打开“支付宝”，点开“转账记录”，将会自动识别。\n\n如果无法自动识别，或者其它方式支付，请发送邮件，附上支付订单截图。</string>
+    <string name="root_donate_required_play">“允许 ROOT 启动”需要支付 3 美元。</string>
+    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 15 人民币。\n\n如您已经支付，请打开“支付宝”，点开“转账记录”，将会自动识别。\n\n如果无法自动识别，或者其它方式支付，请发送邮件，附上支付订单截图。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">再看看</string>
