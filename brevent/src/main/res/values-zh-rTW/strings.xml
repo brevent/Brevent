@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">黑域</string>
+    <string name="app_name_debug">黑域 社區版</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三個按鈕\n\n1. 返回鍵結束應用程式回到上一層畫面\n\n2. 點擊首頁鍵回到首頁\n\n3. 透過 最近使用的應用程式鍵 把應用程式放到背景；同時，允許應用程式使用長期執行的服務。當然，您也可以直接從清單內拉掉某個應用程式。\n\n黑域透過這種方式辨識您是否開啟或已經結束，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
@@ -163,7 +164,7 @@
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次開啟：%4$s\n本次開啟：%5$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s\n没有捐赠，没有支持</string>
+    <string name="brevent_about_version_summary_debug">%1$s（社區版）</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
     <string name="brevent_about_version_smartisan">錘子版</string>

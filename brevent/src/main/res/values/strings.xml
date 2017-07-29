@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Brevent</string>
+    <string name="app_name_debug">Brevent Community</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and wanted to quit.\nPressing Home will start the launcher and kick this app into background.</string>
@@ -164,7 +165,7 @@
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s\nNo donation, No support</string>
+    <string name="brevent_about_version_summary_debug">%1$s (Community Edition)</string>
     <string name="brevent_about_version_play">Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>

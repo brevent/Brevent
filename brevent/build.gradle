@@ -48,6 +48,7 @@ android {
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
+            resValue "string", "brevent", "@string/app_name"
             multiDexEnabled true
         }
 
@@ -99,6 +100,7 @@ android {
             buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
+            resValue "string", "brevent", "@string/app_name_debug"
         }
     }
 
