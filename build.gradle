@@ -54,6 +54,9 @@ project.ext.versionCode = 77
 
 if (rootProject.file('.git').exists()) {
     project.ext.simpleVersionName = getBreventVersion()
+    if (!rootProject.file('ant.properties').exists()) {
+        project.ext.simpleVersionName = project.ext.simpleVersionName.split('-')[0] + '-ce'
+    }
 } else {
     project.ext.simpleVersionName = 'brevent'
 }
