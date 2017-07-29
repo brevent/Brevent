@@ -77,6 +77,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
+import eu.chainfire.libsuperuser.Shell;
 import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -1645,19 +1646,26 @@ public class BreventActivity extends Activity
         hideProgress();
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
+        pw.println(Build.FINGERPRINT);
+        pw.println("SELinux: " + Shell.SU.isSELinuxEnforcing());
+        pw.println();
         for (String s : output) {
             pw.println(s);
         }
-        String message = sw.toString();
-        if (message.contains("dumpsys remote dead")) {
-            showUnsupported(R.string.unsupported_dumpsys, true);
+        String details = sw.toString();
+        int message;
+        if (details.contains("brevent dumpsys dead")) {
+            message = R.string.unsupported_dumpsys;
+        } else if (details.contains("brevent network error")) {
+            message = R.string.unsupported_network;
         } else {
-            ReportFragment fragment = new ReportFragment();
-            fragment.setDetails(R.string.unsupported_root, message);
-            fragment.show(getFragmentManager(), FRAGMENT_REPORT);
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
+            message = R.string.unsupported_root;
         }
+        ReportFragment fragment = new ReportFragment();
+        fragment.setDetails(message, details);
+        fragment.show(getFragmentManager(), FRAGMENT_REPORT);
+        mHandler.removeCallbacksAndMessages(null);
+        uiHandler.removeCallbacksAndMessages(null);
     }
 
     public void showShellCompleted(String message) {

@@ -18,6 +18,7 @@ import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
+import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
 
@@ -31,7 +32,7 @@ public class BreventIntentService extends IntentService {
 
     private boolean checkPort() {
         try {
-            return BreventApplication.checkPort();
+            return BreventProtocol.checkPort(UILog.TAG);
         } catch (NetworkErrorException e) {
             return false;
         }

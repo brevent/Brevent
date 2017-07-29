@@ -187,7 +187,8 @@
     <string name="unsupported_root">無法使用 ROOT 開啟黑域服務。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。</string>
-    <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，或者联系 SU 提供方。</string>
+    <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
+    <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>

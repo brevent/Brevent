@@ -4,13 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.donation.DonateActivity;
 
 /**
  * Created by thom on 2017/2/5.

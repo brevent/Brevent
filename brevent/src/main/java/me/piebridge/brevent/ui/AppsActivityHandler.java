@@ -163,7 +163,7 @@ public class AppsActivityHandler extends Handler {
     private boolean checkPort() throws NetworkErrorException {
         uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
         try {
-            return BreventApplication.checkPort();
+            return BreventProtocol.checkPort(UILog.TAG);
         } catch (NetworkErrorException e) {
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
             throw e;
