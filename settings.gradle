@@ -6,3 +6,6 @@ include ':appcompat-dummy'
 if (file('design-snackbar-tablayout').exists()) {
     include ':design-snackbar-tablayout'
 }
+if (file('support-compat-nores').exists()) {
+    include ':support-compat-nores'
+}

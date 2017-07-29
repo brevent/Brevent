@@ -48,7 +48,12 @@ android {
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
-            resValue "string", "brevent", "@string/app_name"
+            if (!project.gradle.startParameter.taskRequests?.empty
+                && project.gradle.startParameter.taskRequests[0].args[0].endsWith('aR')) {
+                resValue "string", "brevent", "@string/app_name"
+            } else {
+                resValue "string", "brevent", "Brevent"
+            }
             multiDexEnabled true
         }
 
@@ -100,7 +105,12 @@ android {
             buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
-            resValue "string", "brevent", "@string/app_name_debug"
+            if (!project.gradle.startParameter.taskRequests?.empty
+                && project.gradle.startParameter.taskRequests[0].args[0].endsWith('aR')) {
+                resValue "string", "brevent", "@string/app_name_debug"
+            } else {
+                resValue "string", "brevent", "Brevent"
+            }
         }
     }
 
@@ -129,13 +139,22 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:support-core-ui:${rootProject.supportLibraryVersion}"
+    if (rootProject.file('support-compat-nores').exists()) {
+        compile project(':support-compat-nores')
+    } else {
+        compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
+    }
+    compile("com.android.support:support-core-ui:${rootProject.supportLibraryVersion}") {
+        exclude group: 'com.android.support', module: 'support-compat'
+    }
     compile("com.android.support:support-v13:${rootProject.supportLibraryVersion}") {
-        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'support-v4'
     }
     compile "com.android.support:cardview-v7:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}"
+    compile("com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}") {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-core-ui'
+    }
     if (rootProject.file('design-snackbar-tablayout').exists()) {
         compile project(':design-snackbar-tablayout')
     } else {

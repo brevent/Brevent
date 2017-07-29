@@ -8,7 +8,8 @@ Simple instruction:
 1. build the Brevent (UI) from source code
 
 ```
-gradle clean :brevent:aR
+gradle clean
+gradle :brevent:aR
 ```
 
 2. get `classes2.dex` from `brevent.apk`

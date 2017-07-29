@@ -13,7 +13,11 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
+    if (rootProject.file('support-compat-nores').exists()) {
+        compile project(':support-compat-nores')
+    } else {
+        compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
+    }
     compile "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
     compile project(':brevent-override')
 }
