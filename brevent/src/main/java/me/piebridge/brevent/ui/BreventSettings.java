@@ -200,15 +200,18 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             BreventApplication application = (BreventApplication) getApplication();
             String installer = application.getInstaller();
             String mode = application.getMode();
-            Answers.getInstance().logAddToCart(new AddToCartEvent()
-                    .putItemPrice(BigDecimal.ONE)
-                    .putCurrency(Currency.getInstance("USD"))
-                    .putItemName("Donate")
-                    .putItemType(type)
-                    .putItemId("donate-" + mode + "-" + type)
-                    .putCustomAttribute("mode", mode)
-                    .putCustomAttribute("installer", installer));
-            UILog.i("logAddToCart");
+            try {
+                Answers.getInstance().logAddToCart(new AddToCartEvent()
+                        .putItemPrice(BigDecimal.ONE)
+                        .putCurrency(Currency.getInstance("USD"))
+                        .putItemName("Donate")
+                        .putItemType(type)
+                        .putItemId("donate-" + mode + "-" + type)
+                        .putCustomAttribute("mode", mode)
+                        .putCustomAttribute("installer", installer));
+            } catch (IllegalStateException e) { // NOSONAR
+                // do nothing
+            }
         }
     }
 

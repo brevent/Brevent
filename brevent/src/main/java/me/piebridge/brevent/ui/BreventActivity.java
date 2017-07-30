@@ -785,12 +785,15 @@ public class BreventActivity extends Activity
         startActivity(new Intent(this, BreventGuide.class));
         if (BuildConfig.RELEASE) {
             String installer = ((BreventApplication) getApplication()).getInstaller();
-            Answers.getInstance().logContentView(new ContentViewEvent()
-                    .putContentName("Guide")
-                    .putContentType(type)
-                    .putContentId("guide-" + type)
-                    .putCustomAttribute("installer", installer));
-            UILog.i("logContentView");
+            try {
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("Guide")
+                        .putContentType(type)
+                        .putContentId("guide-" + type)
+                        .putCustomAttribute("installer", installer));
+            } catch (IllegalStateException e) { // NOSONAR
+                // do nothing
+            }
         }
     }
 
