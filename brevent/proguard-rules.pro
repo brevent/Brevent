@@ -18,8 +18,8 @@
 
 -keepattributes SourceFile,LineNumberTable,EnclosingMethod
 
-# -keepnames class android.support.** { *; }
-# -keepnames class me.piebridge.** { *; }
+# for brevent-server
+-keepnames class android.support.v4.util.** { *; }
 
 -keep class com.android.vending.billing.**
 
