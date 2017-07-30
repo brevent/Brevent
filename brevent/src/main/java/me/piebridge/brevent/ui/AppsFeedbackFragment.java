@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -17,21 +18,13 @@ import me.piebridge.brevent.R;
  */
 public class AppsFeedbackFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    private Dialog mDialog;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (mDialog == null) {
-            mDialog = createDialog();
-        }
-        return mDialog;
-    }
-
-    private Dialog createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Activity activity = getActivity();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.menu_feedback);
-        boolean hasEmailClient = BreventActivity.hasEmailClient(getActivity());
+        boolean hasEmailClient = BreventActivity.hasEmailClient(activity);
         builder.setMessage(getString(R.string.feedback_message,
                 hasEmailClient ? getString(R.string.feedback_message_email) : ""));
         builder.setPositiveButton(R.string.feedback_github, this);
@@ -42,24 +35,18 @@ public class AppsFeedbackFragment extends DialogFragment implements DialogInterf
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        mDialog = null;
-    }
-
-    @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (DialogInterface.BUTTON_POSITIVE == which) {
-            openFeedback();
-        } else if (DialogInterface.BUTTON_NEGATIVE == which) {
-            BreventActivity.sendEmail(getActivity(), null, Build.FINGERPRINT);
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
         }
-    }
-
-    private void openFeedback() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.FEEDBACK));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        startActivity(intent);
+        if (DialogInterface.BUTTON_POSITIVE == which) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.FEEDBACK));
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            activity.startActivity(intent);
+        } else if (DialogInterface.BUTTON_NEGATIVE == which) {
+            BreventActivity.sendEmail(activity, null, Build.FINGERPRINT);
+        }
     }
 
 }

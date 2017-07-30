@@ -19,8 +19,6 @@ import me.piebridge.donation.DonateActivity;
 public class AppsDonateFragment extends DialogFragment implements DialogInterface.OnClickListener,
         DialogInterface.OnShowListener {
 
-    private Dialog mDialog;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +27,6 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (mDialog == null) {
-            mDialog = createDialog();
-        }
-        return mDialog;
-    }
-
-    private Dialog createDialog() {
         Activity activity = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
@@ -54,17 +45,18 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        mDialog = null;
-    }
-
-    @Override
     public void onClick(DialogInterface dialog, int which) {
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            openAlipay();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.DONATE_ALIPAY));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                    Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            activity.startActivity(intent);
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
-            BreventApplication application = (BreventApplication) getActivity().getApplication();
+            BreventApplication application = (BreventApplication) activity.getApplication();
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setType("message/rfc822");
@@ -72,25 +64,19 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
                     Long.toHexString(application.getId())));
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
-            BreventActivity.sendEmail(getActivity(), intent);
+            BreventActivity.sendEmail(activity, intent);
         } else if (DialogInterface.BUTTON_NEUTRAL == which) {
             dismiss();
         }
     }
 
-    private void openAlipay() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.DONATE_ALIPAY));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startActivity(intent);
-    }
-
     @Override
     public void onShow(DialogInterface dialog) {
-        if (getActivity() == null) {
+        Activity activity = getActivity();
+        if (activity== null) {
             return;
         }
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        BreventApplication application = (BreventApplication) activity.getApplication();
         if (application.isUnsafe() || application.getPackageManager()
                 .getLaunchIntentForPackage(DonateActivity.PACKAGE_ALIPAY) == null) {
             ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);

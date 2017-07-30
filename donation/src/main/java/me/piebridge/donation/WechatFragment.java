@@ -1,5 +1,6 @@
 package me.piebridge.donation;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -27,12 +28,16 @@ public class WechatFragment extends DialogFragment implements DialogInterface.On
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        DonateActivity activity = (DonateActivity) getActivity();
+        if (activity == null) {
+            return;
+        }
         Intent intent = new Intent("com.tencent.mm.action.BIZSHORTCUT");
         intent.setPackage(DonateActivity.PACKAGE_WECHAT);
         intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
                 Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        ((DonateActivity) getActivity()).startDonateActivity(intent, "wechat");
+        activity.startActivity(intent);
     }
 
 }

@@ -437,7 +437,7 @@ public class BreventActivity extends Activity
                 fragment.dismiss();
             }
             fragment = new AppsDisabledFragment();
-            fragment.update(title);
+            fragment.setTitle(title);
             fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
         }
         if (hasResponse) {
@@ -465,7 +465,7 @@ public class BreventActivity extends Activity
                 fragment.dismiss();
             }
             fragment = new ProgressFragment();
-            fragment.updateMessage(message);
+            fragment.setMessage(message);
             fragment.show(getFragmentManager(), FRAGMENT_PROGRESS);
         }
     }
@@ -484,7 +484,7 @@ public class BreventActivity extends Activity
             fragment.dismiss();
         }
         fragment = new ProgressFragment();
-        fragment.updateMessage(R.string.process_checking);
+        fragment.setMessage(R.string.process_checking);
         fragment.show(getFragmentManager(), FRAGMENT_PROGRESS2);
     }
 

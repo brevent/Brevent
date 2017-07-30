@@ -18,8 +18,6 @@ public class ProgressFragment extends DialogFragment {
 
     private static final String MESSAGE = "message";
 
-    private TextView mMessage;
-
     public ProgressFragment() {
         setArguments(new Bundle());
     }
@@ -35,25 +33,13 @@ public class ProgressFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container);
-        mMessage = view.findViewById(R.id.message);
-        mMessage.setText(getArguments().getInt(MESSAGE));
+        TextView messageView = view.findViewById(R.id.message);
+        messageView.setText(getArguments().getInt(MESSAGE));
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mMessage = null;
-    }
-
-    public void updateMessage(int message) {
-        Bundle arguments = getArguments();
-        if (message != arguments.getInt(MESSAGE)) {
-            arguments.putInt(MESSAGE, message);
-            if (mMessage != null) {
-                mMessage.setText(getArguments().getInt(MESSAGE));
-            }
-        }
+    public void setMessage(int message) {
+        getArguments().putInt(MESSAGE, message);
     }
 
     public int getMessage() {

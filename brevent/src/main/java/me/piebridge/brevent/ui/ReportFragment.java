@@ -23,10 +23,6 @@ public class ReportFragment extends DialogFragment {
 
     private static final String DETAILS = "details";
 
-    private TextView mMessage;
-
-    private TextView mDetails;
-
     public ReportFragment() {
         setArguments(new Bundle());
     }
@@ -42,24 +38,17 @@ public class ReportFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_report, container);
         Bundle arguments = getArguments();
-        mMessage = view.findViewById(R.id.message);
-        mMessage.setText(arguments.getInt(MESSAGE));
-        mDetails = view.findViewById(R.id.details);
+        TextView messageView = view.findViewById(R.id.message);
+        messageView.setText(arguments.getInt(MESSAGE));
+        TextView detailsView = view.findViewById(R.id.details);
         String details = arguments.getString(DETAILS);
         if (TextUtils.isEmpty(details)) {
-            mDetails.setVisibility(View.GONE);
+            detailsView.setVisibility(View.GONE);
         } else {
-            mDetails.setVisibility(View.VISIBLE);
-            mDetails.setText(details);
+            detailsView.setVisibility(View.VISIBLE);
+            detailsView.setText(details);
         }
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mMessage = null;
-        mDetails = null;
     }
 
     public void setDetails(int message, String details) {
@@ -73,8 +62,6 @@ public class ReportFragment extends DialogFragment {
         Activity activity = getActivity();
         if (activity != null) {
             activity.finish();
-        } else {
-            super.onCancel(dialog);
         }
     }
 

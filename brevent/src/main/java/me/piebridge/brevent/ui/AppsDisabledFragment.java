@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -30,8 +31,6 @@ public class AppsDisabledFragment extends DialogFragment
 
     private static final int DEFAULT_TITLE = R.string.brevent_service_start;
 
-    private Dialog mDialog;
-
     private int repeat;
 
     public AppsDisabledFragment() {
@@ -46,17 +45,6 @@ public class AppsDisabledFragment extends DialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (mDialog == null) {
-            mDialog = createDialog();
-        }
-        return mDialog;
-    }
-
-    static boolean isEmulator() {
-        return "1".equals(SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN));
-    }
-
-    private Dialog createDialog() {
         BreventActivity activity = (BreventActivity) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
@@ -69,7 +57,7 @@ public class AppsDisabledFragment extends DialogFragment
         Intent intent = activity.registerReceiver(null, filter);
         boolean usb = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
         arguments.putBoolean(USB_CONNECTED, usb);
-        String commandLine = getBootstrapCommandLine();
+        String commandLine = getBootstrapCommandLine(activity, usb);
         String usbStatus = usb ? getString(R.string.brevent_service_usb_connected) : "";
         builder.setMessage(getString(R.string.brevent_service_guide,
                 adbStatus, usbStatus, commandLine));
@@ -78,7 +66,7 @@ public class AppsDisabledFragment extends DialogFragment
         } else {
             builder.setNeutralButton(R.string.menu_guide, this);
         }
-        if (allowRoot()) {
+        if (allowRoot(activity)) {
             builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
         } else {
             if (usb) {
@@ -91,32 +79,22 @@ public class AppsDisabledFragment extends DialogFragment
         return builder.create();
     }
 
-    private boolean allowRoot() {
-        return ((BreventApplication) getActivity().getApplication()).allowRoot();
+    static boolean isEmulator() {
+        return "1".equals(SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN));
     }
 
-    public void update(int title) {
-        Bundle arguments = getArguments();
-        arguments.putInt(TITLE, title);
-        if (mDialog != null) {
-            mDialog.setTitle(title);
-        }
+    private static boolean allowRoot(BreventActivity activity) {
+        return ((BreventApplication) activity.getApplication()).allowRoot();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mDialog = null;
-    }
-
-    private String getBootstrapCommandLine() {
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
+    private static String getBootstrapCommandLine(BreventActivity activity, boolean usb) {
+        BreventApplication application = (BreventApplication) activity.getApplication();
         String path = application.copyBrevent();
         if (path != null) {
             StringBuilder sb = new StringBuilder();
             if (isEmulator()) {
                 sb.append("adb -e shell ");
-            } else if (isConnected()) {
+            } else if (usb) {
                 sb.append("adb -d shell ");
             } else {
                 sb.append("adb shell ");
@@ -125,22 +103,27 @@ public class AppsDisabledFragment extends DialogFragment
             sb.append(path);
             return sb.toString();
         } else {
-            return getString(R.string.unsupported_path);
+            return activity.getString(R.string.unsupported_path);
         }
+    }
+
+    public void setTitle(int title) {
+        getArguments().putInt(TITLE, title);
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
         if (activity == null) {
-            // do nothing
-        } else if (which == DialogInterface.BUTTON_POSITIVE) {
+            return;
+        }
+        if (which == DialogInterface.BUTTON_POSITIVE) {
             IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
-            Intent intent = getActivity().registerReceiver(null, filter);
+            Intent intent = activity.registerReceiver(null, filter);
             boolean usb = intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED,
                     false);
             if (usb) {
-                String commandLine = getBootstrapCommandLine();
+                String commandLine = getBootstrapCommandLine(activity, true);
                 activity.copy(commandLine);
                 String message = getString(R.string.brevent_service_command_copied, commandLine);
                 Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
@@ -151,7 +134,7 @@ public class AppsDisabledFragment extends DialogFragment
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 try {
                     startActivity(intent);
-                    getActivity().finish();
+                    activity.finish();
                 } catch (ActivityNotFoundException e) {
                     UILog.d("Can't find settings", e);
                 }
@@ -172,10 +155,13 @@ public class AppsDisabledFragment extends DialogFragment
 
     @Override
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+        BreventActivity activity = (BreventActivity) getActivity();
+        if (activity == null) {
+            return false;
+        }
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN
                 && ++repeat == 0x7) {
-            BreventActivity activity = (BreventActivity) getActivity();
             ((BreventApplication) activity.getApplication()).toggleAllowRoot();
             activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
         }

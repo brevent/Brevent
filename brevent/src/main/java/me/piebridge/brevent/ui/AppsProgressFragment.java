@@ -20,7 +20,6 @@ public class AppsProgressFragment extends DialogFragment {
     private static final String PROGRESS = "progress";
     private static final String SIZE = "size";
 
-    private View mView;
     private ProgressBar mProgress;
     private TextView mPercent;
     private TextView mNumber;
@@ -34,23 +33,20 @@ public class AppsProgressFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
-        if (mView == null) {
-            mView = inflater.inflate(R.layout.fragment_progress_apps, container);
-            mProgress = mView.findViewById(R.id.progress);
-            mPercent = mView.findViewById(R.id.progress_percent);
-            mNumber = mView.findViewById(R.id.progress_number);
-        }
+        View view = inflater.inflate(R.layout.fragment_progress_apps, container);
+        mProgress = view.findViewById(R.id.progress);
+        mPercent = view.findViewById(R.id.progress_percent);
+        mNumber = view.findViewById(R.id.progress_number);
         updateProgress();
-        return mView;
+        return view;
     }
 
     @Override
-    public void onStop() {
-        mView = null;
+    public void onDestroyView() {
         mProgress = null;
         mPercent = null;
         mNumber = null;
-        super.onStop();
+        super.onDestroyView();
     }
 
     private void updateProgress() {

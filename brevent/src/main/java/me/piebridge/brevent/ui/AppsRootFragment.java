@@ -13,17 +13,8 @@ import me.piebridge.brevent.R;
  */
 public class AppsRootFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    private Dialog mDialog;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (mDialog == null) {
-            mDialog = createDialog();
-        }
-        return mDialog;
-    }
-
-    private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.app_name);
@@ -31,12 +22,6 @@ public class AppsRootFragment extends DialogFragment implements DialogInterface.
         builder.setPositiveButton(android.R.string.ok, this);
         builder.setNeutralButton(R.string.root_donate_later, this);
         return builder.create();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mDialog = null;
     }
 
     @Override
