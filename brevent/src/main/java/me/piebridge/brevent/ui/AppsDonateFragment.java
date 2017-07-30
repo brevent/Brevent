@@ -30,7 +30,7 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
         Activity activity = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(R.string.app_name);
+        builder.setTitle(R.string.brevent);
         if (((BreventApplication) activity.getApplication()).isPlay()) {
             builder.setMessage(R.string.root_donate_required);
         } else {

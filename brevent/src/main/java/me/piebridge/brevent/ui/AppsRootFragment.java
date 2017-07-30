@@ -17,7 +17,7 @@ public class AppsRootFragment extends DialogFragment implements DialogInterface.
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(R.string.app_name);
+        builder.setTitle(R.string.brevent);
         builder.setMessage(R.string.unsupported_disable_root);
         builder.setPositiveButton(android.R.string.ok, this);
         builder.setNeutralButton(R.string.root_donate_later, this);

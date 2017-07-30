@@ -30,7 +30,7 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
     private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
+        builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
         builder.setMessage(getString(getArguments().getInt(MESSAGE)));
         builder.setOnKeyListener(this);
         return builder.create();

@@ -957,7 +957,7 @@ public class BreventActivity extends Activity
             }
             mToolbar.setTitle(String.valueOf(count));
         } else {
-            mToolbar.setTitle(R.string.app_name);
+            mToolbar.setTitle(R.string.brevent);
         }
     }
 
@@ -1587,7 +1587,7 @@ public class BreventActivity extends Activity
     }
 
     private static String getSubject(Context context) {
-        return context.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME +
+        return context.getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME +
                 "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE + ")";
     }
 
