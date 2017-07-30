@@ -50,7 +50,7 @@ project.ext.minSdkVersion = 21
 
 project.ext.targetSdkVersion = 26
 
-project.ext.versionCode = 77
+project.ext.versionCode = 78
 
 if (rootProject.file('.git').exists()) {
     project.ext.simpleVersionName = getBreventVersion()
