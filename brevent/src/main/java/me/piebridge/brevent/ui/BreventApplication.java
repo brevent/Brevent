@@ -142,8 +142,6 @@ public class BreventApplication extends Application {
                     OutputStream os = new FileOutputStream(output);
                     PrintWriter pw = new PrintWriter(os)
             ) {
-                pw.println("#!/system/bin/sh");
-                pw.println();
                 pw.println("path=" + brevent);
                 pw.println("abi64=" + brevent.getPath().contains("64"));
                 pw.println();

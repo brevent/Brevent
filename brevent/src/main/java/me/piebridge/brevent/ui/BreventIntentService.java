@@ -74,8 +74,8 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path != null) {
-            UILog.d("startBrevent: sh " + path);
-            List<String> results = Shell.SU.run("sh " + path);
+            UILog.d("startBrevent: " + path);
+            List<String> results = Shell.SU.run(path);
             if (results != null) {
                 for (String result : results) {
                     UILog.d(result);
