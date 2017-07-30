@@ -2,7 +2,7 @@
 <resources>
 
     <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要支付 4 美元</string>
-    <string name="root_donate_required">“允许 ROOT 启动”需要支付 4 美元。</string>
-    <string name="root_donate_required_rmb">“允许 ROOT 启动”需要支付 4 美元或 20 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>
+    <string name="root_donate_required">「允許 ROOT 執行」需要支付 4 美元。</string>
+    <string name="root_donate_required_rmb">「允許 ROOT 執行」需要支付 4 美元或 20 人民幣（推薦支付寶）。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
 
 </resources>
