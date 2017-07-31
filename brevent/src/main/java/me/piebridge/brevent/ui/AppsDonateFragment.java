@@ -31,13 +31,9 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(R.string.brevent);
-        if (((BreventApplication) activity.getApplication()).isPlay()) {
-            builder.setMessage(R.string.root_donate_required);
-        } else {
-            builder.setMessage(R.string.root_donate_required_rmb);
-            builder.setPositiveButton(R.string.root_donate_alipay, this);
-            builder.setNegativeButton(R.string.root_donate_email, this);
-        }
+        builder.setMessage(R.string.root_donate_required);
+        builder.setPositiveButton(R.string.root_donate_alipay, this);
+        builder.setNegativeButton(R.string.root_donate_email, this);
         builder.setNeutralButton(android.R.string.ok, this);
         AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(this);
@@ -73,7 +69,7 @@ public class AppsDonateFragment extends DialogFragment implements DialogInterfac
     @Override
     public void onShow(DialogInterface dialog) {
         Activity activity = getActivity();
-        if (activity== null) {
+        if (activity == null) {
             return;
         }
         BreventApplication application = (BreventApplication) activity.getApplication();

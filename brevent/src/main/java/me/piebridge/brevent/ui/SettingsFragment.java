@@ -285,6 +285,7 @@ public class SettingsFragment extends PreferenceFragment
             if (++repeat == 0x7) {
                 getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
                 breventExperimental.addPreference(preferenceAllowRoot);
+                showDonate();
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();
