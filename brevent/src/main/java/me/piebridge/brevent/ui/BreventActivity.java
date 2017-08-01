@@ -848,7 +848,7 @@ public class BreventActivity extends Activity
         }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
 
-        if (BuildConfig.RELEASE && "root".equals(application.getMode()) && !configuration.allowRoot) {
+        if ("root".equals(application.getMode()) && !configuration.allowRoot) {
             showRoot();
         }
     }
