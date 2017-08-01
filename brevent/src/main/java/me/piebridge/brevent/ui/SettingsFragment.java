@@ -53,6 +53,7 @@ public class SettingsFragment extends PreferenceFragment
     private Preference preferenceStandbyTimeout;
 
     private int repeat = 0;
+    private int mCount;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -235,6 +236,7 @@ public class SettingsFragment extends PreferenceFragment
         if (donation > 0) {
             count += (int) (donation / 5);
         }
+        mCount = count;
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
         } else if (count < BreventSettings.donateAmount()) {
@@ -285,7 +287,13 @@ public class SettingsFragment extends PreferenceFragment
             if (++repeat == 0x7) {
                 getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
                 breventExperimental.addPreference(preferenceAllowRoot);
-                showDonate();
+                BreventApplication application = (BreventApplication) getActivity().getApplication();
+                if (!application.isPlay()) {
+                    int count = mCount == 0 ? (int) application.getDonation() / 0x5 : mCount;
+                    if (count < BreventSettings.donateAmount()) {
+                        showDonate();
+                    }
+                }
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();
