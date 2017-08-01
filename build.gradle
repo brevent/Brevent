@@ -40,6 +40,23 @@ def getBreventVersion = { ->
     }
 }
 
+def isIde = { ->
+    def ide = false
+    def taskRequests = project.gradle.startParameter.taskRequests
+    if (taskRequests?.empty) {
+        ide = true
+    } else {
+        taskRequests[0].args.any {
+            println it
+            if (it.endsWith('generateDebugSources')) {
+                ide = true
+                return true
+            }
+        }
+        return ide
+    }
+}
+
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
 project.ext.supportLibraryVersion = '26.0.0'
@@ -71,4 +88,5 @@ if (rootProject.file('ant.properties').exists()) {
     }
 }
 
+project.ext.isIde = isIde()
 project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))

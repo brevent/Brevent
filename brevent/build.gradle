@@ -48,11 +48,10 @@ android {
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW'
-            if (!project.gradle.startParameter.taskRequests?.empty
-                && project.gradle.startParameter.taskRequests[0].args[0].endsWith('aR')) {
-                resValue "string", "brevent", "@string/app_name"
-            } else {
+            if (rootProject.isIde) {
                 resValue "string", "brevent", "Brevent"
+            } else {
+                resValue "string", "brevent", "@string/app_name"
             }
             multiDexEnabled true
         }
@@ -105,11 +104,10 @@ android {
             buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
-            if (!project.gradle.startParameter.taskRequests?.empty
-                && project.gradle.startParameter.taskRequests[0].args[0].endsWith('aR')) {
-                resValue "string", "brevent", "@string/app_name_debug"
-            } else {
+            if (rootProject.isIde) {
                 resValue "string", "brevent", "Brevent"
+            } else {
+                resValue "string", "brevent", "@string/app_name_debug"
             }
         }
     }
@@ -117,7 +115,7 @@ android {
     sourceSets {
         main {
             jni.srcDirs = []
-            if (!project.gradle.startParameter.taskRequests?.empty) {
+            if (!rootProject.isIde) {
                 jniLibs.srcDirs = ['src/main/libs']
             }
         }
@@ -128,7 +126,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-    if (project.gradle.startParameter.taskRequests?.empty) {
+    if (rootProject.isIde) {
         // for ide
         externalNativeBuild {
             ndkBuild {
@@ -201,7 +199,7 @@ if (rootProject.file('brevent-server').exists()) {
     }
 }
 
-if (project.gradle.startParameter.taskRequests?.empty) {
+if (rootProject.isIde) {
     // for ide
     dependencies {
         compile project(':hidden-api')
