@@ -201,6 +201,7 @@
     <string name="brevent_status_stopped">黑域服務沒有開啟</string>
 
     <string name="root_donate_required">「允許 ROOT 執行」需要支付 3 美元或 15 人民幣（推薦支付寶）。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
+    <string name="root_donate_verify">支付確認 10 人民幣後，非 Play 版可以在 Play 商店升級。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
     <string name="root_donate_alipay">打開「支付寶」</string>
     <string name="root_donate_email">郵件</string>
     <string name="root_donate_later">先看看</string>

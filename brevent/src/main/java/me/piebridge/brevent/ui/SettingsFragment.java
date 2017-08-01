@@ -121,14 +121,14 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
                 if ("root".equals(application.getMode())) {
-                    showDonate();
+                    showDonate(true);
                 }
             }
         }
         onUpdateBreventMethod();
     }
 
-    public void showDonate() {
+    public void showDonate(boolean root) {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_DONATE);
         }
@@ -138,6 +138,7 @@ public class SettingsFragment extends PreferenceFragment
             fragment.dismiss();
         }
         fragment = new AppsDonateFragment();
+        fragment.setRoot(root);
         fragment.show(getFragmentManager(), FRAGMENT_DONATE);
     }
 
@@ -245,7 +246,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             if ("root".equals(application.getMode())) {
-                showDonate();
+                showDonate(true);
             }
         } else {
             preferenceOptimizeVpn.setEnabled(true);
@@ -291,7 +292,7 @@ public class SettingsFragment extends PreferenceFragment
                 if (!application.isPlay()) {
                     int count = mCount == 0 ? (int) application.getDonation() / 0x5 : mCount;
                     if (count < BreventSettings.donateAmount()) {
-                        showDonate();
+                        showDonate(false);
                     }
                 }
             }
