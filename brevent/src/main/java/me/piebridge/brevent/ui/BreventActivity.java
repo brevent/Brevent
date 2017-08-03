@@ -1006,9 +1006,11 @@ public class BreventActivity extends Activity
 
     private void dispatchResponse(@NonNull BreventProtocol response) {
         int action = response.getAction();
+        if (action != BreventProtocol.STATUS_NO_EVENT) {
+            collapsePanels();
+        }
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
-                collapsePanels();
                 uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
                 BreventApplication application = (BreventApplication) getApplication();
                 application.resetEvent();
