@@ -1742,16 +1742,14 @@ public class BreventActivity extends Activity
     @Override
     public boolean onClose() {
         showHome(false);
+        updateQuery(null);
         return false;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        mQuery = query;
-        if (mAdapter != null) {
-            mAdapter.setExpired();
-        }
         mSearchView.clearFocus();
+        updateQuery(query);
         return true;
     }
 
@@ -1760,13 +1758,17 @@ public class BreventActivity extends Activity
         return false;
     }
 
+    private void updateQuery(String query) {
+        mQuery = query;
+        if (mAdapter != null) {
+            mAdapter.setExpired();
+        }
+    }
+
     private boolean resetSearchView() {
         if (mSearchView != null && !mSearchView.isIconified()) {
             if (mQuery != null) {
-                mQuery = null;
-                if (mAdapter != null) {
-                    mAdapter.setExpired();
-                }
+                updateQuery(null);
             }
             mSearchView.setIconified(true);
             showHome(false);
