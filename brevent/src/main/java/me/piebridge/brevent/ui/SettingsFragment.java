@@ -292,7 +292,7 @@ public class SettingsFragment extends PreferenceFragment
                 getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
                 breventExperimental.addPreference(preferenceAllowRoot);
                 BreventApplication application = (BreventApplication) getActivity().getApplication();
-                if (!application.isPlay()) {
+                if (BuildConfig.RELEASE && !application.isPlay()) {
                     int count = mCount == 0 ? (int) application.getDonation() / 0x5 : mCount;
                     if (count < BreventSettings.donateAmount()) {
                         showDonate(false);
