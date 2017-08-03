@@ -227,6 +227,8 @@ public class BreventActivity extends Activity
 
     private boolean sortByTime;
 
+    private boolean confirmed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -352,7 +354,6 @@ public class BreventActivity extends Activity
         }
         fragment = new AppsRootFragment();
         fragment.show(getFragmentManager(), FRAGMENT_ROOT);
-        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 
     private boolean verifySignature() {
@@ -874,10 +875,6 @@ public class BreventActivity extends Activity
             configuration.androidId = application.getId();
         }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
-
-        if ("root".equals(application.getMode()) && !configuration.allowRoot) {
-            showRoot();
-        }
     }
 
     public void openSettings() {
@@ -1115,6 +1112,9 @@ public class BreventActivity extends Activity
     private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
+        if (!confirmed) {
+            confirmed = !"root".equals(application.getMode());
+        }
 
         synchronized (updateLock) {
             mProcesses.clear();
@@ -1778,6 +1778,19 @@ public class BreventActivity extends Activity
             sortByTime = !sortByTime;
             mAdapter.setExpired();
         }
+    }
+
+    public boolean isConfirmed() {
+        if (!confirmed) {
+            confirmed = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+        }
+        return confirmed;
+    }
+
+    public void confirm() {
+        confirmed = true;
+        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

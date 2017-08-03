@@ -26,9 +26,11 @@ public class AppsRootFragment extends DialogFragment implements DialogInterface.
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        BreventActivity activity = (BreventActivity) getActivity();
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            ((BreventActivity) getActivity()).openSettings();
+            activity.openSettings();
         } else if (DialogInterface.BUTTON_NEUTRAL == which) {
+            activity.confirm();
             dismiss();
         }
     }
