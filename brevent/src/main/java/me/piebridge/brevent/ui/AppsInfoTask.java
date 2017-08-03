@@ -1,7 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -60,7 +58,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
                 if (query == null
                         || label.contains(query)
                         || (query.length() > 0x3 && appInfo.packageName.contains(query))) {
-                    mAdapter.addPackage(appInfo.packageName, label);
+                    mAdapter.addPackage(appInfo.packageName, label, packageInfo.lastUpdateTime);
                     size++;
                 }
             }

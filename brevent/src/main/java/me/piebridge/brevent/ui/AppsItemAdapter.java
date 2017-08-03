@@ -347,7 +347,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         for (int i = 0; i < size; ++i) {
             mNext.add(new AppsInfo(counter.keyAt(i), String.valueOf(counter.valueAt(i))));
         }
-        Collections.sort(mNext);
+        Collections.sort(mNext, activity.isSortByTime() ? new AppsInfo.SortByTime()
+                : new AppsInfo.SortByName());
         if (mAppsInfo.isEmpty()) {
             mAppsInfo.addAll(mNext);
             notifyItemRangeInserted(0, mNext.size());
@@ -396,9 +397,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         return mSelected.size();
     }
 
-    public void addPackage(String packageName, String label) {
+    public void addPackage(String packageName, String label, long lastUpdateTime) {
         mPackages.add(packageName);
-        mNext.add(new AppsInfo(packageName, label));
+        AppsInfo appsInfo = new AppsInfo(packageName, label);
+        appsInfo.lastUpdateTime = lastUpdateTime;
+        mNext.add(appsInfo);
     }
 
     public boolean accept(PackageManager pm, PackageInfo packageInfo, boolean showAllApps) {

@@ -225,6 +225,8 @@ public class BreventActivity extends Activity
     private SearchView mSearchView;
     private String mQuery;
 
+    private boolean sortByTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -738,6 +740,15 @@ public class BreventActivity extends Activity
                 mSearchView.setIconified(false);
                 mSearchView.clearFocus();
             }
+            MenuItem sortItem = menu.findItem(R.id.action_sort);
+            if (sortByTime) {
+                sortItem.setIcon(R.drawable.ic_sort_by_alpha_black_24dp);
+                sortItem.setTitle(R.string.menu_sort_by_name);
+            } else {
+                sortItem.setIcon(R.drawable.ic_sort_black_24dp);
+                sortItem.setTitle(R.string.menu_sort_by_time);
+            }
+            sortItem.getIcon().setTint(mColorControlNormal);
         }
         return true;
     }
@@ -779,6 +790,9 @@ public class BreventActivity extends Activity
                 break;
             case R.id.action_settings:
                 openSettings();
+                break;
+            case R.id.action_sort:
+                sort();
                 break;
             default:
                 return super.onOptionsItemSelected(menuItem);
@@ -1709,6 +1723,10 @@ public class BreventActivity extends Activity
         return mQuery;
     }
 
+    public boolean isSortByTime() {
+        return sortByTime;
+    }
+
     @Override
     public void onClick(View v) {
         if (v instanceof SearchView) {
@@ -1751,6 +1769,14 @@ public class BreventActivity extends Activity
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void sort() {
+        if (mAdapter != null) {
+            invalidateOptionsMenu();
+            sortByTime = !sortByTime;
+            mAdapter.setExpired();
         }
     }
 

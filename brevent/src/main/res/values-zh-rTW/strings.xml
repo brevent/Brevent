@@ -97,6 +97,8 @@
     <string name="important_wallpaper">%s（桌布）</string>
 
     <string name="menu_search">搜尋</string>
+    <string name="menu_sort_by_time">按更新時間排序</string>
+    <string name="menu_sort_by_name">按名稱排序</string>
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
     <string name="menu_guide">指引</string>

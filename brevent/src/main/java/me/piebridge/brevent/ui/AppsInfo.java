@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.text.Collator;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
  * Created by thom on 2017/1/25.
  */
-class AppsInfo implements Comparable<AppsInfo> {
+class AppsInfo {
 
     private static final int PRIME_HASH = 59;
 
@@ -25,7 +26,7 @@ class AppsInfo implements Comparable<AppsInfo> {
 
     static final int STATUS_STOPPED = 2;
 
-    String packageName = EMPTY;
+    final String packageName;
 
     String label = EMPTY;
 
@@ -33,18 +34,24 @@ class AppsInfo implements Comparable<AppsInfo> {
 
     boolean updated = false;
 
+    final boolean hasName;
+
+    long lastUpdateTime;
+
     AppsInfo(String packageName, String label) {
         this.packageName = packageName;
         this.label = label;
+        this.hasName = label != null && !label.startsWith(packageName);
     }
 
     AppsInfo(Integer status, String label) {
         this.status = status;
         this.label = label;
+        this.packageName = EMPTY;
+        this.hasName = false;
     }
 
-    @Override
-    public int compareTo(@NonNull AppsInfo another) {
+    int compareTo(@NonNull AppsInfo another) {
         if (status < another.status) {
             return -1;
         } else if (status > another.status) {
@@ -54,7 +61,7 @@ class AppsInfo implements Comparable<AppsInfo> {
         } else if (TextUtils.isEmpty(another.packageName)) {
             return 1;
         } else {
-            return Collator.getInstance().compare(label, another.label);
+            return 0;
         }
     }
 
@@ -83,5 +90,37 @@ class AppsInfo implements Comparable<AppsInfo> {
     public boolean isPackage() {
         return !EMPTY.equals(packageName);
     }
+
+    public static class SortByTime implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                return Long.compare(o2.lastUpdateTime, o1.lastUpdateTime);
+            } else {
+                return result;
+            }
+        }
+
+    }
+
+    public static class SortByName implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                result = Boolean.compare(o2.hasName, o1.hasName);
+            }
+            if (result == 0) {
+                return Collator.getInstance().compare(o1.label, o2.label);
+            } else {
+                return result;
+            }
+        }
+
+    }
+
 
 }

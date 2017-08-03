@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
