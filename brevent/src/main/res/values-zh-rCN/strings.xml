@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务，甚至开机直接启动黑域服务。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮，或者进入“设置”后点击 7 次“版本”显示并启用实验性功能。ROOT 模式可能无法正常启动黑域服务。</string>
+    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务，甚至开机直接启动黑域服务。如需启用，请在“启动黑域服务”时点击 7 次“返回”按钮。ROOT 模式可能无法正常启动黑域服务。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要调试模式启动黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>

@@ -287,12 +287,10 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        if ("brevent_about_version".equals(key)) {
+        if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
-                getArguments().putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
-                breventExperimental.addPreference(preferenceAllowRoot);
                 BreventApplication application = (BreventApplication) getActivity().getApplication();
-                if (BuildConfig.RELEASE && !application.isPlay()) {
+                if (!application.isPlay()) {
                     int count = mCount == 0 ? (int) application.getDonation() / 0x5 : mCount;
                     if (count < BreventSettings.donateAmount()) {
                         showDonate(false);
