@@ -31,31 +31,38 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... args) {
-        Context context = mAdapter.getActivity();
-        if (context == null) {
+        BreventActivity activity = mAdapter.getActivity();
+        if (activity == null) {
             return false;
         }
 
-        PackageManager packageManager = context.getPackageManager();
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
-                SettingsFragment.DEFAULT_SHOW_ALL_APPS);
+        PackageManager packageManager = activity.getPackageManager();
+        boolean showAllApps = PreferenceManager.getDefaultSharedPreferences(activity)
+                .getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
-        AppsLabelLoader labelLoader = new AppsLabelLoader(context);
+        AppsLabelLoader labelLoader = new AppsLabelLoader(activity);
         List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
         int max = installedPackages.size();
         int progress = 0;
         int size = 0;
+        String query = activity.getQuery();
+        if (query != null) {
+            query = AppsLabelLoader.trim(query).toString();
+        }
         for (PackageInfo packageInfo : installedPackages) {
-            BreventActivity activity = mAdapter.getActivity();
+            activity = mAdapter.getActivity();
             if (activity == null || activity.isStopped()) {
                 return false;
             }
             ApplicationInfo appInfo = packageInfo.applicationInfo;
             if (appInfo.enabled && mAdapter.accept(packageManager, packageInfo, showAllApps)) {
                 String label = labelLoader.loadLabel(packageManager, packageInfo);
-                mAdapter.addPackage(appInfo.packageName, label);
-                size++;
+                if (query == null
+                        || label.contains(query)
+                        || (query.length() > 0x3 && appInfo.packageName.contains(query))) {
+                    mAdapter.addPackage(appInfo.packageName, label);
+                    size++;
+                }
             }
             publishProgress(++progress, max, size);
         }

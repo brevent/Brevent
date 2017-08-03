@@ -96,6 +96,7 @@
     <string name="important_gms">%s（GMS，不建议黑域）</string>
     <string name="important_wallpaper">%s（壁纸）</string>
 
+    <string name="menu_search">搜索</string>
     <string name="menu_feedback">反馈</string>
     <string name="menu_settings">设置</string>
     <string name="menu_guide">向导</string>

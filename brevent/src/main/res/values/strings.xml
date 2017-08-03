@@ -98,6 +98,7 @@
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Wallpaper)</string>
 
+    <string name="menu_search">Search</string>
     <string name="menu_feedback">Feedback</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_logs">Logs</string>

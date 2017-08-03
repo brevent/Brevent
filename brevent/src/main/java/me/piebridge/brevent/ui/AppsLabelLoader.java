@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 
 import java.util.Locale;
 
@@ -58,6 +59,9 @@ public class AppsLabelLoader {
                 label = packageManager.resolveActivity(launchIntent, 0).activityInfo
                         .loadLabel(packageManager);
             }
+            if (label == null) {
+                label = packageName;
+            }
             String name = trim(label).toString();
             if (!label.equals(mPreferences.getString(packageName, null))) {
                 mPreferences.edit().putString(packageName, name).apply();
@@ -84,20 +88,19 @@ public class AppsLabelLoader {
         return false;
     }
 
-    private static CharSequence trim(CharSequence cs) {
-        if (cs != null) {
-            int last = cs.length() - 1;
-            int start = 0;
-            int end = last;
-            while (start <= end && isWhiteSpace(cs.charAt(start))) {
-                start++;
-            }
-            while (end >= start && isWhiteSpace(cs.charAt(end))) {
-                --end;
-            }
-            if (start != 0 || end != last) {
-                return cs.subSequence(start, end + 1);
-            }
+    @NonNull
+    static CharSequence trim(@NonNull CharSequence cs) {
+        int last = cs.length() - 1;
+        int start = 0;
+        int end = last;
+        while (start <= end && isWhiteSpace(cs.charAt(start))) {
+            start++;
+        }
+        while (end >= start && isWhiteSpace(cs.charAt(end))) {
+            --end;
+        }
+        if (start != 0 || end != last) {
+            return cs.subSequence(start, end + 1);
         }
         return cs;
     }

@@ -51,10 +51,12 @@ import android.telecom.TelecomManager;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.SearchView;
 import android.widget.Toolbar;
 
 import com.android.internal.statusbar.IStatusBarService;
@@ -93,7 +95,8 @@ import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
 public class BreventActivity extends Activity
-        implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
+        implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener,
+        View.OnClickListener, SearchView.OnCloseListener, SearchView.OnQueryTextListener {
 
     private static final int DELAY = 1000;
 
@@ -218,6 +221,9 @@ public class BreventActivity extends Activity
     private final Object updateLock = new Object();
 
     private boolean notificationEventMade;
+
+    private SearchView mSearchView;
+    private String mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -702,34 +708,38 @@ public class BreventActivity extends Activity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
-        if (!mSelectMode) {
-            if (BuildConfig.RELEASE) {
-                menu.add(Menu.NONE, R.string.menu_feedback, Menu.NONE, R.string.menu_feedback);
-                if (canFetchLogs()) {
-                    menu.add(Menu.NONE, R.string.menu_logs, Menu.NONE, R.string.menu_logs);
-                }
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        if (mSelectMode) {
+            inflater.inflate(R.menu.menu_brevent, menu);
+            menu.findItem(R.id.action_restore).getIcon().setTint(mColorControlNormal);
+            menu.findItem(R.id.action_brevent).getIcon().setTint(mColorControlNormal);
+            if (mSearchView != null) {
+                mSearchView.clearFocus();
+                mSearchView = null;
             }
-            menu.add(Menu.NONE, R.string.menu_guide, Menu.NONE, R.string.menu_guide);
-            menu.add(Menu.NONE, R.string.menu_settings, Menu.NONE, R.string.menu_settings);
         } else {
-            MenuItem remove = menu.add(Menu.NONE, R.string.action_restore, Menu.NONE,
-                    R.string.action_restore).setIcon(R.drawable.ic_panorama_fish_eye_black_24dp);
-            remove.getIcon().setTint(mColorControlNormal);
-            remove.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-            MenuItem brevent = menu.add(Menu.NONE, R.string.action_brevent, Menu.NONE,
-                    R.string.action_brevent).setIcon(R.drawable.ic_block_black_24dp);
-            brevent.getIcon().setTint(mColorControlNormal);
-            brevent.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-            menu.add(Menu.NONE, R.string.action_select_important, Menu.NONE,
-                    R.string.action_select_important);
-            menu.add(Menu.NONE, R.string.action_select_inverse, Menu.NONE,
-                    R.string.action_select_inverse);
+            inflater.inflate(R.menu.menu_default, menu);
+            if (!BuildConfig.RELEASE) {
+                menu.removeItem(R.id.action_feedback);
+                menu.removeItem(R.id.action_logs);
+            } else if (!canFetchLogs()) {
+                menu.removeItem(R.id.action_logs);
+            }
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            searchItem.getIcon().setTint(mColorControlNormal);
+            mSearchView = (SearchView) searchItem.getActionView();
+            mSearchView.setOnSearchClickListener(this);
+            mSearchView.setOnCloseListener(this);
+            mSearchView.setOnQueryTextListener(this);
+            mSearchView.setMaxWidth(Integer.MAX_VALUE);
+            if (mQuery != null) {
+                mSearchView.setQuery(mQuery, false);
+                mSearchView.setIconified(false);
+                mSearchView.clearFocus();
+            }
         }
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     public boolean canFetchLogs() {
@@ -744,30 +754,30 @@ public class BreventActivity extends Activity
             case android.R.id.home:
                 onClickHome();
                 break;
-            case R.string.action_restore:
+            case R.id.action_restore:
                 updateBrevent(false);
                 break;
-            case R.string.action_brevent:
+            case R.id.action_brevent:
                 updateBrevent(true);
                 break;
-            case R.string.action_select_important:
+            case R.id.action_select_important:
                 selectImportant();
                 break;
-            case R.string.action_select_inverse:
+            case R.id.action_select_inverse:
                 selectInverse();
                 break;
-            case R.string.menu_feedback:
+            case R.id.action_feedback:
                 if (BuildConfig.RELEASE) {
                     openFeedback();
                 }
                 break;
-            case R.string.menu_guide:
+            case R.id.action_guide:
                 openGuide("menu");
                 break;
-            case R.string.menu_logs:
+            case R.id.action_logs:
                 fetchLogs();
                 break;
-            case R.string.menu_settings:
+            case R.id.action_settings:
                 openSettings();
                 break;
             default:
@@ -819,6 +829,9 @@ public class BreventActivity extends Activity
 
     @Override
     public void onBackPressed() {
+        if (resetSearchView()) {
+            return;
+        }
         if (mAdapter != null) {
             AppsFragment fragment = getFragment();
             if (fragment != null && fragment.getSelectedSize() > 0) {
@@ -929,8 +942,19 @@ public class BreventActivity extends Activity
         return mAdapter.getFragment(mPager.getCurrentItem());
     }
 
+    private void showHome(boolean show) {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(show);
+        }
+    }
+
     private boolean onClickHome() {
-        clearSelected();
+        if (mSelectMode) {
+            clearSelected();
+        } else if (resetSearchView()) {
+            invalidateOptionsMenu();
+        }
         return true;
     }
 
@@ -944,10 +968,7 @@ public class BreventActivity extends Activity
         boolean selectMode = count > 0;
         if (mSelectMode != selectMode) {
             invalidateOptionsMenu();
-            ActionBar actionBar = getActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(selectMode);
-            }
+            showHome(selectMode);
         }
         mSelectMode = selectMode;
         if (mSelectMode) {
@@ -1682,6 +1703,55 @@ public class BreventActivity extends Activity
         fragment.show(getFragmentManager(), FRAGMENT_REPORT);
         mHandler.removeCallbacksAndMessages(null);
         uiHandler.removeCallbacksAndMessages(null);
+    }
+
+    public String getQuery() {
+        return mQuery;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v instanceof SearchView) {
+            showHome(true);
+        }
+    }
+
+    @Override
+    public boolean onClose() {
+        showHome(false);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mQuery = query;
+        if (mAdapter != null) {
+            mAdapter.setExpired();
+        }
+        mSearchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    private boolean resetSearchView() {
+        if (mSearchView != null && !mSearchView.isIconified()) {
+            if (mQuery != null) {
+                mQuery = null;
+                if (mAdapter != null) {
+                    mAdapter.setExpired();
+                }
+            }
+            mSearchView.setIconified(true);
+            showHome(false);
+            invalidateOptionsMenu();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

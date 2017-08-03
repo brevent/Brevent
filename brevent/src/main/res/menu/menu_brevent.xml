@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_restore"
+        android:icon="@drawable/ic_panorama_fish_eye_black_24dp"
+        android:showAsAction="collapseActionView|always"
+        android:title="@string/action_restore" />
+
+    <item
+        android:id="@+id/action_brevent"
+        android:icon="@drawable/ic_block_black_24dp"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_brevent" />
+
+    <item
+        android:id="@+id/action_select_important"
+        android:title="@string/action_select_important" />
+
+    <item
+        android:id="@+id/action_select_inverse"
+        android:title="@string/action_select_inverse" />
+
+</menu>
