@@ -1631,8 +1631,13 @@ public class BreventActivity extends Activity
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setType("message/rfc822");
         if (path != null) {
-            intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context,
-                    BuildConfig.APPLICATION_ID + ".fileprovider", path));
+            try {
+                Uri uri = FileProvider.getUriForFile(context,
+                        BuildConfig.APPLICATION_ID + ".fileprovider", path);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+            } catch (IllegalArgumentException e) {
+                UILog.w("Cannot get uri for " + path);
+            }
         }
         intent.putExtra(Intent.EXTRA_SUBJECT, getSubject(context));
         intent.putExtra(Intent.EXTRA_TEXT, content);

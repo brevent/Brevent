@@ -14,11 +14,16 @@ import android.os.Bundle;
  */
 public class WechatFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        if (super.getDialog() == null) {
+            super.setShowsDialog(false);
+        }
+        super.onActivityCreated(savedInstanceState);
     }
 
-    private Dialog createDialog() {
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.donation_wechat_guide));
         builder.setPositiveButton(R.string.donation_wechat_scan, this);

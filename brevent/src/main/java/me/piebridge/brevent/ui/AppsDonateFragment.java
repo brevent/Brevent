@@ -16,8 +16,8 @@ import me.piebridge.donation.DonateActivity;
 /**
  * Created by thom on 2017/2/5.
  */
-public class AppsDonateFragment extends DialogFragment implements DialogInterface.OnClickListener,
-        DialogInterface.OnShowListener {
+public class AppsDonateFragment extends AbstractDialogFragment
+        implements DialogInterface.OnClickListener, DialogInterface.OnShowListener {
 
     private static final String MESSAGE = "MESSAGE";
 

@@ -16,7 +16,8 @@ import me.piebridge.brevent.R;
 /**
  * Created by thom on 2017/2/5.
  */
-public class AppsFeedbackFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class AppsFeedbackFragment extends AbstractDialogFragment
+        implements DialogInterface.OnClickListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

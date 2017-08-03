@@ -131,6 +131,10 @@ public class SettingsFragment extends PreferenceFragment
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_DONATE);
         }
+        DonateActivity activity = (DonateActivity) getActivity();
+        if (activity == null || activity.isStopped()) {
+            return;
+        }
         AppsDonateFragment fragment = (AppsDonateFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_DONATE);
         if (fragment != null) {

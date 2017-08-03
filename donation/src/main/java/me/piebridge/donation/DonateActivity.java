@@ -121,6 +121,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         super.onStop();
     }
 
+    public boolean isStopped() {
+        return stopped;
+    }
+
     public final void updateDonations() {
         if (acceptDonation()) {
             activatePlay();

@@ -14,7 +14,8 @@ import me.piebridge.brevent.R;
 /**
  * Created by thom on 2017/4/7.
  */
-public class UnsupportedFragment extends DialogFragment implements DialogInterface.OnKeyListener {
+public class UnsupportedFragment extends AbstractDialogFragment
+        implements DialogInterface.OnKeyListener {
 
     private static final String MESSAGE = "MESSAGE";
 
@@ -23,11 +24,8 @@ public class UnsupportedFragment extends DialogFragment implements DialogInterfa
         setStyle(STYLE_NO_TITLE, 0);
     }
 
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog();
-    }
-
-    private Dialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);

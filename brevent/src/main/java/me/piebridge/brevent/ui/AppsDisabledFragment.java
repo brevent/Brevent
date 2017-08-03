@@ -21,7 +21,7 @@ import me.piebridge.brevent.override.HideApiOverride;
 /**
  * Created by thom on 2017/2/5.
  */
-public class AppsDisabledFragment extends DialogFragment
+public class AppsDisabledFragment extends AbstractDialogFragment
         implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
 
     private static final String TITLE = "title";
