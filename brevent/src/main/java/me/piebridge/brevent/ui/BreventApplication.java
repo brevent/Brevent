@@ -284,7 +284,7 @@ public class BreventApplication extends Application {
     private static long getId(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        if ("9774d56d682e549c".equals(androidId)) {
+        if (TextUtils.isEmpty(androidId) || "9774d56d682e549c".equals(androidId)) {
             androidId = PreferenceManager.getDefaultSharedPreferences(context)
                     .getString(Settings.Secure.ANDROID_ID, "0");
         }
