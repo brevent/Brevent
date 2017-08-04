@@ -425,11 +425,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     }
 
     public void addPackage(String packageName, String label, long lastUpdateTime) {
-        mPackages.add(packageName);
-        AppsInfo appsInfo = new AppsInfo(packageName, label);
-        appsInfo.lastUpdateTime = lastUpdateTime;
-        appsInfo.stats = getActivity().getStats(packageName);
-        mNext.add(appsInfo);
+        if (mPackages.add(packageName)) {
+            AppsInfo appsInfo = new AppsInfo(packageName, label);
+            appsInfo.lastUpdateTime = lastUpdateTime;
+            appsInfo.stats = getActivity().getStats(packageName);
+            mNext.add(appsInfo);
+        }
     }
 
     public boolean accept(PackageManager pm, PackageInfo packageInfo, boolean showAllApps) {
