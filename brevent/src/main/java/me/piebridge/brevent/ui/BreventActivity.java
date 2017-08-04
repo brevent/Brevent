@@ -742,13 +742,6 @@ public class BreventActivity extends Activity
                 mSearchView.clearFocus();
             }
             MenuItem sortItem = menu.findItem(R.id.action_sort);
-            if (sortByTime) {
-                sortItem.setIcon(R.drawable.ic_sort_by_alpha_black_24dp);
-                sortItem.setTitle(R.string.menu_sort_by_name);
-            } else {
-                sortItem.setIcon(R.drawable.ic_sort_black_24dp);
-                sortItem.setTitle(R.string.menu_sort_by_time);
-            }
             sortItem.getIcon().setTint(mColorControlNormal);
         }
         return true;
