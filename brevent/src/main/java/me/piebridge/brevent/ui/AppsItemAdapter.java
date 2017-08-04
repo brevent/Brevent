@@ -211,7 +211,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         String description = activity.getDescription(viewHolder.packageName);
         if (description != null) {
             viewHolder.descriptionView.setText(description);
-        } else if (((BreventApplication) activity.getApplication()).supportStats()) {
+        } else if (activity.hasStats()) {
             UsageStats stats = activity.getStats(viewHolder.packageName);
             if (stats == null || stats.getLastTimeUsed() == 0) {
                 viewHolder.descriptionView.setText(R.string.process_no_stats);

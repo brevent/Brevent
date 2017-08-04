@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.Manifest;
+import android.app.AppOpsManager;
 import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -84,8 +85,6 @@ public class BreventApplication extends Application {
 
     private BigInteger modulus;
 
-    private Boolean hasStats;
-
     public void toggleAllowRoot() {
         allowRoot = !allowRoot;
     }
@@ -103,14 +102,6 @@ public class BreventApplication extends Application {
         if (mSupportStopped != supportStopped) {
             mSupportStopped = supportStopped;
         }
-    }
-
-    public boolean supportStats() {
-        if (hasStats == null) {
-            hasStats = getPackageManager().checkPermission(Manifest.permission.PACKAGE_USAGE_STATS,
-                    BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
-        }
-        return hasStats;
     }
 
     public boolean supportStopped() {

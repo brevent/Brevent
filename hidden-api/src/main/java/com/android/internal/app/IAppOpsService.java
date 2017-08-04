@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IAppOpsService {
 
+    int checkOperation(int code, int uid, String packageName) throws RemoteException;
+
     void setMode(int code, int uid, String packageName, int mode) throws RemoteException;
 
     List getPackagesForOps(int[] ops) throws RemoteException;

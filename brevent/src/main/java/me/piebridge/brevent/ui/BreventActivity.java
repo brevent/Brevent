@@ -1838,6 +1838,10 @@ public class BreventActivity extends Activity
         return mStats.get(packageName);
     }
 
+    public boolean hasStats() {
+        return !mStats.isEmpty();
+    }
+
     public void updateSort() {
         if (mAdapter != null) {
             mAdapter.setExpired();

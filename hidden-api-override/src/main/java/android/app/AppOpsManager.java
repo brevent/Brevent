@@ -12,6 +12,9 @@ public class AppOpsManager {
      */
     public static int OP_NONE = -1;
 
+    /** @hide Retrieve current usage stats via {@link UsageStatsManager}. */
+    public static int OP_GET_USAGE_STATS = 43;
+
     /**
      * @hide Activate a VPN connection without user intervention.
      */

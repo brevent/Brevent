@@ -143,7 +143,7 @@ static void report(time_t now) {
     printf("please report bug to " PROJECT " with log below\n"
                    "--- crash start ---\n");
     fflush(stdout);
-    sprintf(command, "logcat -b crash -t '%s' -d", time);
+    sprintf(command, "/system/bin/logcat -b crash -t '%s' -d", time);
     printf(">>> %s\n", command);
     fflush(stdout);
     system(command);
@@ -151,7 +151,7 @@ static void report(time_t now) {
     printf("--- crash end ---\n");
     printf("--- brevent start ---\n");
     fflush(stdout);
-    sprintf(command, "logcat -b main -t '%s' -d -s BreventLoader BreventServer", time);
+    sprintf(command, "/system/bin/logcat -b main -t '%s' -d -s BreventLoader BreventServer", time);
     printf(">>> %s\n", command);
     fflush(stdout);
     system(command);

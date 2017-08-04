@@ -24,6 +24,7 @@ public class HideApiOverride {
     public static final int USER_OWNER = getUserOwner();
 
     public static final int OP_NONE = getOpNone();
+    public static final int OP_GET_USAGE_STATS = getOpGetUsageStats();
     public static final int OP_ACTIVATE_VPN = getOpActivateVpn();
 
     public static final String ACTION_USB_STATE = getActionUsbState();
@@ -180,6 +181,15 @@ public class HideApiOverride {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find AppOpsManager.OP_ACTIVATE_VPN");
             return 47;
+        }
+    }
+
+    private static int getOpGetUsageStats() {
+        try {
+            return AppOpsManager.OP_GET_USAGE_STATS;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager.OP_GET_USAGE_STATS");
+            return 43;
         }
     }
 

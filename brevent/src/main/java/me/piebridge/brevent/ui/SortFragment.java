@@ -22,12 +22,12 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Activity activity = getActivity();
+        BreventActivity activity = (BreventActivity) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.menu_sort);
         int itemsId;
         int checked = getChecked(activity);
-        if (((BreventApplication) activity.getApplication()).supportStats()) {
+        if (activity.hasStats()) {
             itemsId = R.array.sort_method;
         } else {
             itemsId = R.array.sort_method_no_stats;
