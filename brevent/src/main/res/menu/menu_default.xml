@@ -12,7 +12,7 @@
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_black_24dp"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_sort_by_time" />
+        android:title="@string/menu_sort" />
 
     <item
         android:id="@+id/action_feedback"

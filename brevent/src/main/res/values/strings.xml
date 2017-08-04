@@ -52,6 +52,8 @@
     <string name="process_status_standby">Standby</string>
     <string name="process_status_stopped">Stopped</string>
     <string name="process_not_running">(not running)</string>
+    <string name="process_no_stats">(never run)</string>
+    <string name="process_stats">(last: %1$s, total: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
@@ -99,8 +101,11 @@
     <string name="important_wallpaper">%s (Wallpaper)</string>
 
     <string name="menu_search">Search</string>
-    <string name="menu_sort_by_time">Sort by update time</string>
-    <string name="menu_sort_by_name">Sort by name</string>
+    <string name="menu_sort">Sort method</string>
+    <string name="menu_sort_by_name">Name</string>
+    <string name="menu_sort_by_update_time">Update time</string>
+    <string name="menu_sort_by_last_time">Last time used</string>
+    <string name="menu_sort_by_usage_time">Total usage time</string>
     <string name="menu_feedback">Feedback</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_logs">Logs</string>
