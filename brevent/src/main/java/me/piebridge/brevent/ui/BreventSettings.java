@@ -166,10 +166,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         List<String> skus = new ArrayList<>();
         BreventApplication application = (BreventApplication) getApplication();
         boolean root = "root".equals(application.getMode());
-        if (!root) {
-            root = settingsFragment.getArguments()
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-        }
         int amount = root ? donateAmount() : 0x2;
         amount -= mTotal;
         if (amount > 0) {
