@@ -104,7 +104,7 @@ public class BreventActivity extends Activity
 
     private static final int DELAY5 = 5000;
 
-    private static final long BEGIN = 1415750400_000L;
+    public static final long BEGIN = 1415750400_000L;
 
     private static final String GMS = "com.google.android.gms";
 

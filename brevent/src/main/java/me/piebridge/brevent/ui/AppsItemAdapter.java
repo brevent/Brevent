@@ -213,12 +213,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             viewHolder.descriptionView.setText(description);
         } else if (activity.hasStats()) {
             UsageStats stats = activity.getStats(viewHolder.packageName);
-            if (stats == null || stats.getLastTimeUsed() == 0) {
+            if (stats == null || stats.getLastTimeUsed() <= BreventActivity.BEGIN) {
                 viewHolder.descriptionView.setText(R.string.process_no_stats);
             } else {
                 viewHolder.descriptionView.setText(activity.getString(R.string.process_stats,
                         DateUtils.formatSameDayTime(stats.getLastTimeUsed(),
-                                System.currentTimeMillis(), DateFormat.MEDIUM, DateFormat.MEDIUM),
+                                System.currentTimeMillis(), DateFormat.SHORT, DateFormat.SHORT),
                         DateUtils.formatElapsedTime(stats.getTotalTimeInForeground() / 1000)));
             }
         } else {
