@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.usage.UsageStats;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -21,9 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -206,10 +209,20 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     private void updateDescription(BreventActivity activity, AppsItemViewHolder viewHolder) {
         String description = activity.getDescription(viewHolder.packageName);
-        if (description == null) {
-            viewHolder.descriptionView.setText(R.string.process_not_running);
-        } else {
+        if (description != null) {
             viewHolder.descriptionView.setText(description);
+        } else if (((BreventApplication) activity.getApplication()).supportStats()) {
+            UsageStats stats = activity.getStats(viewHolder.packageName);
+            if (stats == null || stats.getLastTimeUsed() == 0) {
+                viewHolder.descriptionView.setText(R.string.process_no_stats);
+            } else {
+                viewHolder.descriptionView.setText(activity.getString(R.string.process_stats,
+                        DateUtils.formatSameDayTime(stats.getLastTimeUsed(),
+                                System.currentTimeMillis(), DateFormat.MEDIUM, DateFormat.MEDIUM),
+                        DateUtils.formatElapsedTime(stats.getTotalTimeInForeground() / 1000)));
+            }
+        } else {
+            viewHolder.descriptionView.setText(R.string.process_not_running);
         }
     }
 
@@ -347,8 +360,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         for (int i = 0; i < size; ++i) {
             mNext.add(new AppsInfo(counter.keyAt(i), String.valueOf(counter.valueAt(i))));
         }
-        Collections.sort(mNext, activity.isSortByTime() ? new AppsInfo.SortByTime()
-                : new AppsInfo.SortByName());
+        Collections.sort(mNext, getSortMethod());
         if (mAppsInfo.isEmpty()) {
             mAppsInfo.addAll(mNext);
             notifyItemRangeInserted(0, mNext.size());
@@ -359,6 +371,21 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             result.dispatchUpdatesTo(this);
         }
         return true;
+    }
+
+    private Comparator<? super AppsInfo> getSortMethod() {
+        int checked = SortFragment.getChecked(getActivity());
+        switch (checked) {
+            case 1:
+                return new AppsInfo.SortByUpdateTime();
+            case 2:
+                return new AppsInfo.SortByLastTime();
+            case 3:
+                return new AppsInfo.SortByUsageTime();
+            case 0:
+            default:
+                return new AppsInfo.SortByName();
+        }
     }
 
     public Collection<String> getSelected() {
@@ -401,6 +428,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         mPackages.add(packageName);
         AppsInfo appsInfo = new AppsInfo(packageName, label);
         appsInfo.lastUpdateTime = lastUpdateTime;
+        appsInfo.stats = getActivity().getStats(packageName);
         mNext.add(appsInfo);
     }
 

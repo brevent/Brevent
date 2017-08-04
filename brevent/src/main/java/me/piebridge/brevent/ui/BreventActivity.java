@@ -9,6 +9,8 @@ import android.app.DialogFragment;
 import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -102,6 +104,8 @@ public class BreventActivity extends Activity
 
     private static final int DELAY5 = 5000;
 
+    private static final long BEGIN = 1415750400_000L;
+
     private static final String GMS = "com.google.android.gms";
 
     private static final String GMS_VALID = "gms-valid";
@@ -170,6 +174,8 @@ public class BreventActivity extends Activity
     private static final String FRAGMENT_REPORT = "report";
     private static final String FRAGMENT_PROGRESS2 = "progress2";
     private static final String FRAGMENT_ROOT = "root";
+    private static final String FRAGMENT_SORT = "sort";
+
 
     private static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -186,6 +192,7 @@ public class BreventActivity extends Activity
     private Set<String> mPriority = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
+    private SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
 
     private boolean mSelectMode;
@@ -354,6 +361,19 @@ public class BreventActivity extends Activity
         }
         fragment = new AppsRootFragment();
         fragment.show(getFragmentManager(), FRAGMENT_ROOT);
+    }
+
+    public void showSort() {
+        if (isStopped()) {
+            return;
+        }
+        SortFragment fragment = (SortFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_SORT);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new SortFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_SORT);
     }
 
     private boolean verifySignature() {
@@ -786,7 +806,7 @@ public class BreventActivity extends Activity
                 openSettings();
                 break;
             case R.id.action_sort:
-                sort();
+                showSort();
                 break;
             default:
                 return super.onOptionsItemSelected(menuItem);
@@ -1162,6 +1182,7 @@ public class BreventActivity extends Activity
         if (!hasResponse) {
             updateConfiguration();
             unregisterReceiver();
+            retrieveStats();
             hasResponse = true;
         }
 
@@ -1169,6 +1190,32 @@ public class BreventActivity extends Activity
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
+    }
+
+    private void retrieveStats() {
+        UsageStatsManager manager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+        List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST,
+                BEGIN, System.currentTimeMillis());
+        if (stats == null) {
+            UILog.d("no stats");
+            return;
+        }
+        for (UsageStats stat : stats) {
+            String packageName = stat.getPackageName();
+            UILog.d("packageName: " + packageName + ", stat: " + stat);
+            int key = mStats.indexOfKey(packageName);
+            if (key >= 0) {
+                mStats.valueAt(key).add(stat);
+            } else {
+                mStats.put(packageName, new UsageStats(stat));
+            }
+        }
+        int size = mStats.size();
+        for (int i = 0; i < size; ++i) {
+            UsageStats usageStats = mStats.valueAt(i);
+            UILog.d("mStats: " + mStats.keyAt(i) + ", total: " +
+                    usageStats.getTotalTimeInForeground());
+        }
     }
 
     private void unbreventImportant() {
@@ -1774,14 +1821,6 @@ public class BreventActivity extends Activity
         }
     }
 
-    private void sort() {
-        if (mAdapter != null) {
-            invalidateOptionsMenu();
-            sortByTime = !sortByTime;
-            mAdapter.setExpired();
-        }
-    }
-
     public boolean isConfirmed() {
         if (!confirmed) {
             confirmed = PreferenceManager.getDefaultSharedPreferences(this)
@@ -1793,6 +1832,16 @@ public class BreventActivity extends Activity
     public void confirm() {
         confirmed = true;
         mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+    }
+
+    public UsageStats getStats(String packageName) {
+        return mStats.get(packageName);
+    }
+
+    public void updateSort() {
+        if (mAdapter != null) {
+            mAdapter.setExpired();
+        }
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.app.usage.UsageStats;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -37,6 +38,8 @@ class AppsInfo {
     final boolean hasName;
 
     long lastUpdateTime;
+
+    UsageStats stats;
 
     AppsInfo(String packageName, String label) {
         this.packageName = packageName;
@@ -91,7 +94,7 @@ class AppsInfo {
         return !EMPTY.equals(packageName);
     }
 
-    public static class SortByTime implements Comparator<AppsInfo> {
+    public static class SortByUpdateTime implements Comparator<AppsInfo> {
 
         @Override
         public int compare(AppsInfo o1, AppsInfo o2) {
@@ -122,5 +125,36 @@ class AppsInfo {
 
     }
 
+    public static class SortByLastTime implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                long t1 = o1.stats == null ? 0 : o1.stats.getLastTimeUsed();
+                long t2 = o2.stats == null ? 0 : o2.stats.getLastTimeUsed();
+                return Long.compare(t2, t1);
+            } else {
+                return result;
+            }
+        }
+
+    }
+
+    public static class SortByUsageTime implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                long t1 = o1.stats == null ? 0 : o1.stats.getTotalTimeInForeground();
+                long t2 = o2.stats == null ? 0 : o2.stats.getTotalTimeInForeground();
+                return Long.compare(t2, t1);
+            } else {
+                return result;
+            }
+        }
+
+    }
 
 }
