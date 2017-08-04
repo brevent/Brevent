@@ -11,8 +11,12 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.system.ErrnoException;
+import android.system.Os;
 import android.view.KeyEvent;
 import android.widget.Toast;
+
+import java.io.File;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -70,6 +74,8 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         } else {
             if (usb) {
                 builder.setPositiveButton(R.string.brevent_service_copy_path, this);
+            } else if (hasRoot()) {
+                builder.setNegativeButton(R.string.brevent_service_run_as_root, this);
             } else {
                 builder.setPositiveButton(R.string.brevent_service_open_development, this);
             }
@@ -173,6 +179,22 @@ public class AppsDisabledFragment extends AbstractDialogFragment
 
     public boolean isConnected() {
         return getArguments().getBoolean(USB_CONNECTED, false);
+    }
+
+    public boolean hasRoot() {
+        for (String path : System.getenv("PATH").split(":")) {
+            File su = new File(path, "su");
+            try {
+                if (Os.access(su.getPath(), 1)) {
+                    UILog.d("has su: " + su);
+                    return true;
+                }
+            } catch (ErrnoException e) {
+                UILog.d("Cannot access " + su, e);
+            }
+        }
+        UILog.d("has no su");
+        return false;
     }
 
 }
