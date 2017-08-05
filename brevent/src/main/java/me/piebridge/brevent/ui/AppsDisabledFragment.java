@@ -4,15 +4,16 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.system.ErrnoException;
 import android.system.Os;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,12 +21,13 @@ import java.io.File;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 
 /**
  * Created by thom on 2017/2/5.
  */
 public class AppsDisabledFragment extends AbstractDialogFragment
-        implements DialogInterface.OnClickListener, DialogInterface.OnKeyListener {
+        implements DialogInterface.OnClickListener {
 
     private static final String TITLE = "title";
 
@@ -79,7 +81,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                 builder.setPositiveButton(R.string.brevent_service_open_development, this);
             }
         }
-        builder.setOnKeyListener(this);
         return builder.create();
     }
 
@@ -87,8 +88,9 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         return "1".equals(SystemProperties.get("ro.kernel.qemu", Build.UNKNOWN));
     }
 
-    private static boolean allowRoot(BreventActivity activity) {
-        return ((BreventApplication) activity.getApplication()).allowRoot();
+    private static boolean allowRoot(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
     }
 
     private static String getBootstrapCommandLine(BreventActivity activity, boolean usb) {
@@ -155,21 +157,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
             activity.runAsRoot();
             dismiss();
         }
-    }
-
-    @Override
-    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        BreventActivity activity = (BreventActivity) getActivity();
-        if (activity == null) {
-            return false;
-        }
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN
-                && ++repeat == 0x7) {
-            ((BreventApplication) activity.getApplication()).toggleAllowRoot();
-            activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
-        }
-        return false;
     }
 
     public int getTitle() {

@@ -46,7 +46,6 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
 
@@ -54,8 +53,6 @@ import me.piebridge.donation.DonateActivity;
  * Created by thom on 2017/2/7.
  */
 public class BreventApplication extends Application {
-
-    private boolean allowRoot;
 
     private boolean mSupportStopped = true;
 
@@ -71,8 +68,6 @@ public class BreventApplication extends Application {
 
     public static final boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
-    private boolean fetched;
-
     private WeakReference<Handler> handlerReference;
 
     private boolean eventMade;
@@ -82,19 +77,6 @@ public class BreventApplication extends Application {
     private Boolean play;
 
     private BigInteger modulus;
-
-    public void toggleAllowRoot() {
-        allowRoot = !allowRoot;
-    }
-
-    public synchronized boolean allowRoot() {
-        if (!fetched) {
-            fetched = true;
-            allowRoot = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-        }
-        return allowRoot;
-    }
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
