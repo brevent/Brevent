@@ -1459,7 +1459,7 @@ public class BreventActivity extends Activity
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
                 SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
-        return adapter.setShowAllApps(showAllApps) || adapter.setShowFramework(showFramework);
+        return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {
