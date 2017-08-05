@@ -1459,7 +1459,7 @@ public class BreventActivity extends Activity
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
                 SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
-        return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
+        return adapter.setShowAllApps(showAllApps) || adapter.setShowFramework(showFramework);
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {
@@ -1561,14 +1561,6 @@ public class BreventActivity extends Activity
         mSnackBar = Snackbar.make(mCoordinator, R.string.brevent_service_success,
                 Snackbar.LENGTH_INDEFINITE);
         mSnackBar.show();
-    }
-
-    public void unbrevent(String packageName) {
-        UILog.i("will unbrevent: " + packageName);
-        BreventPackages breventPackages = new BreventPackages(false, Collections.singleton
-                (packageName));
-        breventPackages.undoable = false;
-        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
     }
 
     public static Signature[] getSignatures(PackageManager packageManager, String packageName) {

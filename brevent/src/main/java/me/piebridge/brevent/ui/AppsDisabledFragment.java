@@ -35,8 +35,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
 
     private static final int DEFAULT_TITLE = R.string.brevent_service_start;
 
-    private int repeat;
-
     public AppsDisabledFragment() {
         setArguments(new Bundle());
     }

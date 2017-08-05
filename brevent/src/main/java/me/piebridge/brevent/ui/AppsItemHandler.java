@@ -123,7 +123,8 @@ public class AppsItemHandler extends Handler {
                 if (viewHolder != null) {
                     viewHolder.inactive = inactive;
                     if (inactive > 0) {
-                        viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(now - inactive));
+                        long diff = now - inactive;
+                        viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(diff));
                     } else {
                         viewHolder.inactiveView.setText(null);
                     }
