@@ -192,7 +192,7 @@ public class BreventActivity extends Activity
     private Set<String> mPriority = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
-    private SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
+    private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
 
     private boolean mSelectMode;
@@ -1138,8 +1138,13 @@ public class BreventActivity extends Activity
             confirmed = !"root".equals(application.getMode());
         }
 
-        if (!hasResponse) {
-            retrieveStats();
+        if (mStats == null) {
+            synchronized (updateLock) {
+                if (mStats == null) {
+                    mStats = new SimpleArrayMap<>();
+                    retrieveStats();
+                }
+            }
         }
 
         synchronized (updateLock) {
@@ -1841,11 +1846,11 @@ public class BreventActivity extends Activity
     }
 
     public UsageStats getStats(String packageName) {
-        return mStats.get(packageName);
+        return mStats == null ? null : mStats.get(packageName);
     }
 
     public boolean hasStats() {
-        return !mStats.isEmpty();
+        return mStats != null && !mStats.isEmpty();
     }
 
     public void updateSort() {
