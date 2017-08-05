@@ -1131,6 +1131,10 @@ public class BreventActivity extends Activity
             confirmed = !"root".equals(application.getMode());
         }
 
+        if (!hasResponse) {
+            retrieveStats();
+        }
+
         synchronized (updateLock) {
             mProcesses.clear();
             mProcesses.putAll(status.mProcesses);
@@ -1182,7 +1186,6 @@ public class BreventActivity extends Activity
         if (!hasResponse) {
             updateConfiguration();
             unregisterReceiver();
-            retrieveStats();
             hasResponse = true;
         }
 

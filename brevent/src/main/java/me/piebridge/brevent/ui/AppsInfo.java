@@ -100,10 +100,12 @@ class AppsInfo {
         public int compare(AppsInfo o1, AppsInfo o2) {
             int result = o1.compareTo(o2);
             if (result == 0) {
-                return Long.compare(o2.lastUpdateTime, o1.lastUpdateTime);
-            } else {
-                return result;
+                result = Long.compare(o2.lastUpdateTime, o1.lastUpdateTime);
             }
+            if (result == 0) {
+                result = Collator.getInstance().compare(o1.label, o2.label);
+            }
+            return result;
         }
 
     }
@@ -117,10 +119,9 @@ class AppsInfo {
                 result = Boolean.compare(o2.hasName, o1.hasName);
             }
             if (result == 0) {
-                return Collator.getInstance().compare(o1.label, o2.label);
-            } else {
-                return result;
+                result = Collator.getInstance().compare(o1.label, o2.label);
             }
+            return result;
         }
 
     }
@@ -131,12 +132,14 @@ class AppsInfo {
         public int compare(AppsInfo o1, AppsInfo o2) {
             int result = o1.compareTo(o2);
             if (result == 0) {
-                long t1 = o1.stats == null ? 0 : o1.stats.getLastTimeUsed();
-                long t2 = o2.stats == null ? 0 : o2.stats.getLastTimeUsed();
-                return Long.compare(t2, t1);
-            } else {
-                return result;
+                long t1 = o1.stats == null ? -1 : o1.stats.getLastTimeUsed();
+                long t2 = o2.stats == null ? -1 : o2.stats.getLastTimeUsed();
+                result = Long.compare(t2, t1);
             }
+            if (result == 0) {
+                result = Collator.getInstance().compare(o1.label, o2.label);
+            }
+            return result;
         }
 
     }
@@ -147,12 +150,14 @@ class AppsInfo {
         public int compare(AppsInfo o1, AppsInfo o2) {
             int result = o1.compareTo(o2);
             if (result == 0) {
-                long t1 = o1.stats == null ? 0 : o1.stats.getTotalTimeInForeground();
-                long t2 = o2.stats == null ? 0 : o2.stats.getTotalTimeInForeground();
-                return Long.compare(t2, t1);
-            } else {
-                return result;
+                long t1 = o1.stats == null ? -1 : o1.stats.getTotalTimeInForeground();
+                long t2 = o2.stats == null ? -1 : o2.stats.getTotalTimeInForeground();
+                result = Long.compare(t2, t1);
             }
+            if (result == 0) {
+                result = Collator.getInstance().compare(o1.label, o2.label);
+            }
+            return result;
         }
 
     }
