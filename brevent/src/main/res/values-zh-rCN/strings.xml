@@ -51,8 +51,8 @@
     <string name="process_status_standby">已经待机</string>
     <string name="process_status_stopped">没有运行</string>
     <string name="process_not_running">（没有运行）</string>
-    <string name="process_no_stats">（从未运行）</string>
-    <string name="process_stats">（最近：%1$s，总计：%2$s）</string>
+    <string name="process_no_stats">（从未打开）</string>
+    <string name="process_stats">（至 %1$s 共 %2$s）</string>
     <string name="process_all_top">%d 个前台</string>
     <string name="process_all_service">%d 个服务</string>
     <string name="process_all_cached">%d 个缓存</string>

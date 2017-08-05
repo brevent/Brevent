@@ -44,7 +44,7 @@
     <string name="process_retrieving">Retrieving processes status, just a moment. . .</string>
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
     <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
-    <string name="process_waiting">Waiting events, please open then close notification to make events. . .</string>
+    <string name="process_waiting">Waiting events, please expand then collapse notification to make events. . .</string>
     <string name="process_starting">Starting Brevent server, just a moment. . .</string>
     <string name="process_checking">Checking Brevent server, just a moment. . .</string>
 
@@ -52,7 +52,7 @@
     <string name="process_status_standby">Standby</string>
     <string name="process_status_stopped">Stopped</string>
     <string name="process_not_running">(not running)</string>
-    <string name="process_no_stats">(never run)</string>
+    <string name="process_no_stats">(never launched)</string>
     <string name="process_stats">(last: %1$s, total: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
@@ -77,7 +77,7 @@
     <string name="context_menu_select">Select / Unselect</string>
     <string name="context_menu_package_name">Copy package name</string>
     <string name="context_menu_app_info">Application Info</string>
-    <string name="context_menu_open">Open</string>
+    <string name="context_menu_open">Launch</string>
     <string name="context_menu_brevent_server_info">Brevent server Info</string>
     <string name="context_menu_set_priority">Allow sync</string>
     <string name="context_menu_unset_priority">Disallow sync</string>
@@ -147,7 +147,7 @@
     <string name="show_framework_apps">Show framework apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
     <string name="show_all_apps">Show all apps</string>
-    <string name="show_all_apps_label">Including system and framework apps which cannot be open\n\nBe careful when breventing system and framework apps which cannot be open</string>
+    <string name="show_all_apps_label">Including system and framework apps which cannot be launched\n\nBe careful when breventing system and framework apps which cannot be launched</string>
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
@@ -210,9 +210,9 @@
     <string name="brevent_status_starting">Starting Brevent server</string>
     <string name="brevent_status_stopped">Brevent server is not started</string>
 
-    <string name="root_donate_required">Please pay total 3 USD or 15 RMB (prefer Alipay) to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
-    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
-    <string name="root_donate_alipay">open Alipay</string>
+    <string name="root_donate_required">Please pay total 3 USD or 15 RMB (prefer Alipay) to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>
     <string name="root_donate_email_subject">Payment verify (%s)</string>
