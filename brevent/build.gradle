@@ -48,7 +48,7 @@ android {
             buildConfigField 'byte[]', 'ADB_P', properties['build.adb.p']
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
-            resConfigs 'en', 'zh-rCN', 'zh-rTW'
+            resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es'
             if (rootProject.isIde) {
                 resValue "string", "brevent", "Brevent"
             } else {
