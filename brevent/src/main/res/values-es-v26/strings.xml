@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB"\n\nRequiere donar un total de 4 USD</string>
+    <string name="root_donate_required">Por favor pague un total de 4 USD para usar \"Allow run as ROOT\".\n\nIf Usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nIf Si no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
+
+</resources>

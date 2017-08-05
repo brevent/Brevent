@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="donation">Siéntete libre de pagar si te gusta.</string>
+    <string name="donation_wechat_guide">1. Abrir Wechat, ir a  \"Escanear código QR\"\n\n2. Click en menú \n\n3. Click \"Elegir código QR de Album\" \n\n4. Elegir código QR Brevent</string>
+    <string name="donation_wechat_scan">Abrir \"Wechat Escanear código QR\"</string>
+    <string name="donation_wechat_permission">Pagar vía Wechat requiere permisos de almacenamiento para guardar código QR en álbum</string>
+    <string name="donation_unsupported">Por favor, instale Alipay</string>
+    <string name="donation_unsupported_wechat">Por favor, instale Alipay o WeChat.</string>
+    <string name="donation_unsupported_unsafe">Pago inseguro. </string>
+    <string name="donation_play_unavailable">La función de facturación integrada en la aplicación no está disponible. </string>
+    <string name="donation_play_checking">Comprobando desde aplicación de facturación integrada …</string>
+
+</resources>
