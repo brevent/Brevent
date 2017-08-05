@@ -1,7 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.Manifest;
-import android.app.AppOpsManager;
 import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -432,6 +430,23 @@ public class BreventApplication extends Application {
             preferences.edit().remove("alipay2").apply();
         }
         return donate1 + donate2;
+    }
+
+    public static void dumpsys(String serviceName, String[] args, File file) throws IOException {
+        String clazzServer = String.valueOf(BuildConfig.SERVER);
+        try {
+            ClassLoader classLoader = BreventApplication.class.getClassLoader();
+            byte[] results = (byte[]) classLoader.loadClass(clazzServer)
+                    .getMethod(String.valueOf('c'), String.class, String[].class)
+                    .invoke(null, serviceName, args);
+            if (results != null) {
+                try (FileOutputStream os = new FileOutputStream(file)) {
+                    os.write(results);
+                }
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) { // NOSONAR
+            // do nothing
+        }
     }
 
 }

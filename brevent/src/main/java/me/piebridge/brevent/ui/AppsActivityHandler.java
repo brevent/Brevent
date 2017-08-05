@@ -1,8 +1,11 @@
 package me.piebridge.brevent.ui;
 
+import android.Manifest;
 import android.accounts.NetworkErrorException;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -43,6 +46,10 @@ public class AppsActivityHandler extends Handler {
             {"system.txt", "-b system"},
             {"events.txt", "-b events am_pss:s"},
             {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI"}
+    };
+
+    private static final String[][] DUMPS = new String[][] {
+            {"battery.txt", "batterystats", null},
     };
 
     private static final long DELAY = 15000;
@@ -95,7 +102,7 @@ public class AppsActivityHandler extends Handler {
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
-                requestStatus(false, activity.isConfirmed());
+                requestStatus(false, activity != null && activity.isConfirmed());
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
                 UILog.d("retry request status");
@@ -129,26 +136,7 @@ public class AppsActivityHandler extends Handler {
                 }
                 break;
             case BreventActivity.MESSAGE_LOGS:
-                File path = null;
-                File dir;
-                if (activity != null && (dir = activity.getExternalFilesDir("logs")) != null) {
-                    DateFormat df = new SimpleDateFormat("yyyyMMdd.HHmm", Locale.US);
-                    String date = df.format(Calendar.getInstance().getTime());
-                    File cacheDir = activity.getCacheDir();
-                    try {
-                        for (String[] log : LOGS) {
-                            File file = new File(cacheDir, date + "." + log[0]);
-                            String command = "/system/bin/logcat -d -v threadtime -f "
-                                    + file.getPath() + " " + log[1];
-                            UILog.d("logcat for " + log[0]);
-                            Runtime.getRuntime().exec(command).waitFor();
-                        }
-                        Runtime.getRuntime().exec("sync").waitFor();
-                        path = zipLog(activity, dir, date);
-                    } catch (IOException | InterruptedException e) {
-                        UILog.w("Can't get logs", e);
-                    }
-                }
+                File path = fetchLogs(activity);
                 uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_LOGS, path).sendToTarget();
                 break;
             case BreventActivity.MESSAGE_REMOVE_ADB:
@@ -158,6 +146,40 @@ public class AppsActivityHandler extends Handler {
             default:
                 break;
         }
+    }
+
+    private File fetchLogs(Activity activity) {
+        File path = null;
+        File dir;
+        if (activity != null && (dir = activity.getExternalFilesDir("logs")) != null) {
+            DateFormat df = new SimpleDateFormat("yyyyMMdd.HHmm", Locale.US);
+            String date = df.format(Calendar.getInstance().getTime());
+            File cacheDir = activity.getCacheDir();
+            try {
+                for (String[] log : LOGS) {
+                    File file = new File(cacheDir, date + "." + log[0]);
+                    String command = "/system/bin/logcat -d -v threadtime -f "
+                            + file.getPath() + " " + log[1];
+                    UILog.d("logcat for " + log[0]);
+                    Runtime.getRuntime().exec(command).waitFor();
+                }
+                if (activity.getPackageManager().checkPermission(Manifest.permission.DUMP,
+                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED) {
+                    for (String[] dump : DUMPS) {
+                        File file = new File(cacheDir, date + "." + dump[0]);
+                        String[] args = dump[2] == null ? null : dump[2].split(" ");
+                        BreventApplication.dumpsys(dump[1], args, file);
+                    }
+                } else {
+                    UILog.d("skip for dump");
+                }
+                Runtime.getRuntime().exec("sync").waitFor();
+                path = zipLog(activity, dir, date);
+            } catch (IOException | InterruptedException e) {
+                UILog.w("Can't get logs", e);
+            }
+        }
+        return path;
     }
 
     private boolean checkPort() throws NetworkErrorException {
@@ -213,19 +235,10 @@ public class AppsActivityHandler extends Handler {
                     ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(path))
             ) {
                 for (String[] log : LOGS) {
-                    File file = new File(context.getCacheDir(), date + "." + log[0]);
-                    zos.putNextEntry(new ZipEntry(file.getName()));
-                    try (
-                            InputStream is = new FileInputStream(file)
-                    ) {
-                        int length;
-                        byte[] buffer = new byte[0x1000];
-                        while ((length = is.read(buffer)) > 0) {
-                            zos.write(buffer, 0, length);
-                        }
-                    }
-                    zos.closeEntry();
-                    file.delete();
+                    zipLog(context, zos, date, log[0]);
+                }
+                for (String[] dump : DUMPS) {
+                    zipLog(context, zos, date, dump[0]);
                 }
             }
             return path;
@@ -233,6 +246,27 @@ public class AppsActivityHandler extends Handler {
             UILog.e("cannot report bug", e);
             return null;
         }
+    }
+
+    private void zipLog(Context context, ZipOutputStream zos, String date, String path)
+            throws IOException {
+        File file = new File(context.getCacheDir(), date + "." + path);
+        if (!file.exists()) {
+            UILog.w("Cannot find " + file.getPath());
+            return;
+        }
+        zos.putNextEntry(new ZipEntry(file.getName()));
+        try (
+                InputStream is = new FileInputStream(file)
+        ) {
+            int length;
+            byte[] buffer = new byte[0x1000];
+            while ((length = is.read(buffer)) > 0) {
+                zos.write(buffer, 0, length);
+            }
+        }
+        zos.closeEntry();
+        file.delete();
     }
 
     private void requestStatus(boolean retry, boolean confirmed) {
