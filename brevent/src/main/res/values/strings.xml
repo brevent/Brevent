@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode, just press Back 7 times on \"Please start Brevent server\" page to \"Run as Root\". Brevent server may not work well in ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode. Brevent server may not work well in ROOT mode.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after Brevent server is started successfully.</string>

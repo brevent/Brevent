@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，甚至直接開啟黑域服務。如需啟用，請在「開啟黑域服務」時點擊 7 次「返回」。ROOT 模式可能無法正常開啟黑域服務。</string>
+    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，甚至直接開啟黑域服務。ROOT 模式可能無法正常開啟黑域服務。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在開啟黑域服務後，如無特殊需要，請您關閉偵錯模式。</string>
