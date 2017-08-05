@@ -2,6 +2,6 @@
 <resources>
 
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 4 USD</string>
-    <string name="root_donate_required">Please pay total 4 USD or 20 RMB (prefer Alipay) to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_required">Please pay total 4 USD to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, open Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
 
 </resources>
