@@ -232,8 +232,6 @@ public class BreventActivity extends Activity
     private SearchView mSearchView;
     private String mQuery;
 
-    private boolean sortByTime;
-
     private boolean confirmed;
 
     @Override
@@ -640,7 +638,10 @@ public class BreventActivity extends Activity
     }
 
     public int getStatus(String packageName) {
-        SparseIntArray status = mProcesses.get(packageName);
+        SparseIntArray status;
+        synchronized (updateLock) {
+            status = mProcesses.get(packageName);
+        }
         if (status == null) {
             return AppsInfo.STATUS_STOPPED;
         } else if (BreventResponse.isStandby(status)) {
@@ -651,7 +652,10 @@ public class BreventActivity extends Activity
     }
 
     public String getDescription(String packageName) {
-        SparseIntArray status = mProcesses.get(packageName);
+        SparseIntArray status;
+        synchronized (updateLock) {
+            status = mProcesses.get(packageName);
+        }
         if (status == null) {
             return null;
         }
@@ -706,7 +710,10 @@ public class BreventActivity extends Activity
         if (!mBrevent.contains(packageName)) {
             return 0;
         }
-        SparseIntArray status = mProcesses.get(packageName);
+        SparseIntArray status;
+        synchronized (updateLock) {
+            status = mProcesses.get(packageName);
+        }
         if (isFavorite(packageName)) {
             return R.drawable.ic_favorite_border_black_24dp;
         } else if (status != null && BreventResponse.isSafe(status)) {
@@ -1771,10 +1778,6 @@ public class BreventActivity extends Activity
 
     public String getQuery() {
         return mQuery;
-    }
-
-    public boolean isSortByTime() {
-        return sortByTime;
     }
 
     @Override
