@@ -1217,19 +1217,12 @@ public class BreventActivity extends Activity
         }
         for (UsageStats stat : stats) {
             String packageName = stat.getPackageName();
-            UILog.d("packageName: " + packageName + ", stat: " + stat);
             int key = mStats.indexOfKey(packageName);
             if (key >= 0) {
                 mStats.valueAt(key).add(stat);
             } else {
                 mStats.put(packageName, new UsageStats(stat));
             }
-        }
-        int size = mStats.size();
-        for (int i = 0; i < size; ++i) {
-            UsageStats usageStats = mStats.valueAt(i);
-            UILog.d("mStats: " + mStats.keyAt(i) + ", total: " +
-                    usageStats.getTotalTimeInForeground());
         }
     }
 

@@ -213,7 +213,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             viewHolder.descriptionView.setText(description);
         } else if (activity.hasStats()) {
             UsageStats stats = activity.getStats(viewHolder.packageName);
-            if (stats == null || stats.getLastTimeUsed() <= BreventActivity.BEGIN) {
+            if (stats == null) {
                 viewHolder.descriptionView.setText(R.string.process_no_stats);
             } else {
                 viewHolder.descriptionView.setText(activity.getString(R.string.process_stats,

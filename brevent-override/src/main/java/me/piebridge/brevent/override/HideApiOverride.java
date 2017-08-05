@@ -2,6 +2,7 @@ package me.piebridge.brevent.override;
 
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
+import android.app.usage.UsageStats;
 import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
@@ -413,6 +414,14 @@ public class HideApiOverride {
 
     public static AssetManager newAssetManager() {
         return new AssetManager();
+    }
+
+    public static long getLaunchCount(UsageStats stats) {
+        return stats.mLaunchCount;
+    }
+
+    public static long getLastEvent(UsageStats stats) {
+        return stats.mLastEvent;
     }
 
 }
