@@ -5,31 +5,32 @@
     <string name="app_name_debug">Brevent Comunidad</string>
 
     <string name="fragment_guide_welcome">Bienvenido!</string>
-    <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones? \n Pulsar \'volver\' siempre significa que ha finalizado sú trabajo y desea salir .\n Pulsar \'Inicio\' irá al lanzador y dejará ésta aplicación en segundo plano.</string>
-    <string name="fragment_guide_welcome_message2">Nos encanta como está diseñado Android, pero a algunas aplicaciones no. Se quedan en segundo plano y drenan la batería, algunas incluso crean notificaciones inútiles para atraer su atención. \n\n Brevent va a proteger su teléfono de estas aplicaciones. \n Elimine la aplicación desplazandola en \'Recientes\' o presionando \'Volver\' y se forzará detener. \n Pulsando \'Inicio\' se mantendrán en segundo plano para completar sus tareas. Una vez que el período de tiempo que establezca esté activado, las aplicaciones se forzará su detención. \n\n Para aplicaciones en segundo plano, Brevent mostrará el tiempo de inactividad de forma dinámica.</string>
+    <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones?\nPulsar botón \"Volver\" siempre significa que ha finalizado sú trabajo y desea salir.\nPulsar botón \"Inicio\" irá a la pantalla principal y dejará ésta aplicación en segundo plano.</string>
+    <string name="fragment_guide_welcome_message2">Nos encanta como está diseñado Android, pero a algunas aplicaciones no. Se quedan en segundo plano y drenan la batería, algunas incluso crean notificaciones inútiles para atraer su atención.\n\nBrevent va a proteger su teléfono de estas aplicaciones. Elimine la aplicación desplazandola, botón \"Recientes\" o presionando \"Volver\" y se forzará detener (Normalmente).\n Pulsando el botón \"Inicio\" se mantendrán en segundo plano para completar sus tareas.\nUna vez que el período de tiempo que establezca esté activado, las aplicaciones se forzarán a parar.\n\nPara las aplicaciones en segundo plano, Brevent mostrará el tiempo de inactividad de forma dinámica.</string>
 
     <string name="fragment_guide_permission">Permisos</string>
-    <string name="fragment_guide_permission_message">¿Qué es lo que hay que hacer? \n Simplemente un sencillo comando desde el PC.</string>
-    <string name="fragment_guide_permission_message2">Algunas aplicaciones similares requieren el acceso ROOT o modificar su dispositivo desbloqueado. El modo de depuración no requiere el acceso ROOT ni desbloqueo, por lo que es mucho más seguro de usar. \n\n Hay un modo experimental ROOT, que le permite evitar activar el modo de depuración. El servidor de Brevent puede no funcionar bien en modo ROOT.</string>
+    <string name="fragment_guide_permission_message">¿Qué es lo que hay que hacer?\nSimplemente un sencillo comando desde el PC.</string>
+    <string name="fragment_guide_permission_message2">Algunas aplicaciones similares requieren el acceso ROOT o modificar su dispositivo desbloqueado.\nEl modo de depuración no requiere el acceso ROOT ni desbloqueo, por lo que es mucho más seguro de usar.\n\nHay un modo experimental ROOT, que le permite evitar activar el modo de depuración. El servidor de Brevent puede no funcionar bien en modo ROOT.</string>
 
     <string name="fragment_guide_security">Seguridad</string>
     <string name="fragment_guide_security_message">Necesitamos el modo de depuración para lanzar nuestro Brevent, sin necesidad de tener Root en el dispositivo. Sin embargo, el modo de depuración no es lo suficientemente seguro, le recomendamos que lo apague después que el servicio de Brevent se haya iniciado correctamente.
 </string>
-    <string name="fragment_guide_security_message2">Brevent utiliza un montón de APIs ocultos de Android. Algunas ROM personalizadas pueden modificar estas API, por lo que pueden existir algunos problemas al utilizar.</string>
+    <string name="fragment_guide_security_message2">Brevent utiliza un montón de APIs ocultos de Android. Algunas ROM personalizadas pueden modificar estas API, por lo que pueden existir algunos problemas en su uso.</string>
 
     <string name="fragment_guide_enjoy">Disfruta!</string>
     <string name="fragment_guide_enjoy_message">Disfrute Brevent, y no dude en enviar comentarios.</string>
-    <string name="fragment_guide_enjoy_message2">El método Brevent predeterminado es \"En espera\"(Desde Android 6.0). Si encuentra alguna aplicación todavía en ejecución, utilice Brevent u otras herramientas para comprobar su estado.\n\nPara aumentar el rendimiento de la batería, el servicio Brevent retrasa los procesos de 3 a 60 segundos de acuerdo con el nivel del evento. Cuando elimina aplicaciones desde \'recientes\', Android matará los procesos y Brevent forzará a detenerlos lo antes posible.</string>
+    <string name="fragment_guide_enjoy_message2">El método Brevent predeterminado es \"En espera\" (Desde Android 6.0). Si encuentra alguna aplicación todavía en ejecución, utilice Brevent u otras herramientas para comprobar su estado.\n\nPara aumentar el rendimiento de la batería, el servicio Brevent retrasa los procesos de 3 a 60 segundos de acuerdo con el nivel del evento.\nCuando elimina aplicaciones desde \"Recientes\", Android matará los procesos y Brevent forzará a detenerlos lo antes posible.</string>
 
-    <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) Es una herramienta de línea de comandos que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí: https://developer.android.com/studio/releases/platform-tools.html (Mantenga presionado, después seleccione y copie).</string>
-    <string name="fragment_guide_adb_message2">1. Descomprima platform-tools-latest-&lt;platform&gt;.zip\n\n2. Vaya al directorio platform-tools \n\n3. (para Windows) Mantener pulsada la tecla Mayúsculas, luego haga clic con el botón derecho, seleccionar \"Abrir ventana de comandos aquí\", Usted puede iniciar \".\\adb\" ahora \n\n3. (para Mac OS X) Navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\" (por favor eliminar duplicado \"adb\"cuando pegue la línea de comandos)</string>
+    <string name="fragment_guide_adb">Adb (Fin)</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n https://developer.android.com/studio/releases/platform-tools.html \n
+(Mantenga presionado, después seleccione contenido, mantenga presionado y copiar)</string>
+    <string name="fragment_guide_adb_message2">1. Descomprima "platform-tools-latest-&lt;platform&gt;.zip" \n\n2. Vaya al directorio: "platform-tools" \n\n3. En Windows, mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, seleccionar \"Abrir ventana de comandos aquí\", usted puede iniciar \".\\adb\" ahora.\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\" (por favor eliminar duplicado \"adb\"cuando pegue la línea de comandos)</string>
 
     <string name="start_brevent">Inicie Brevent</string>
 
     <string name="brevent_service_start">Por favor inicie servidor Brevent (%s)</string>
     <string name="brevent_service_no_response">El servidor Brevent no responde (%s)</string>
-    <string name="brevent_service_guide">1.Activar \"Opciones de desarrollo\", habilitar \"Depuración por USB\" %1$s\n\n2. Conectar al PC vía USB %2$s\n\n3. Ejecutar en línea de comandos en el PC \"adb devices\", Asegúrese que el PC pueda encontrar el dispositivo (Leer \"Guía - ADB\")\n\n4. Ejecutar en línea de comandos en el PC \"%3$s\"</string>
+    <string name="brevent_service_guide">1.Activar \"Opciones de desarrollo\", habilitar \"Depuración por USB\", actualmente:%1$s\n\n2. Conectar al PC vía USB. %2$s\n\n3. Ejecutar en línea de comandos en el PC \"adb devices\", Asegúrese que el PC pueda encontrar el dispositivo (Leer \"Guía - ADB\")\n\n4. Ejecutar en línea de comandos del PC \"%3$s\"</string>
     <string name="brevent_service_open_development">Opciones de desarrollo</string>
     <string name="brevent_service_copy_path">Copiar comando</string>
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
@@ -38,9 +39,9 @@
     <string name="brevent_service_run_as_root">Iniciar como ROOT</string>
     <string name="brevent_service_success">Servidor Brevent iniciado correctamente. Por favor, haga clic en los iconos de la aplicación para añadir Brevent a la aplicación.</string>
 
-    <string name="fragment_apps_user">Aplicaciones de usuario</string>
-    <string name="fragment_apps_system">Aplicaciones de sistema</string>
-    <string name="fragment_apps_framework">Aplicaciones Framework</string>
+    <string name="fragment_apps_user">Apps de usuario</string>
+    <string name="fragment_apps_system">Apps de sistema</string>
+    <string name="fragment_apps_framework">Apps Framework</string>
 
     <string name="process_retrieving">Recuperando el estado de los procesos, espere un momento. . .</string>
     <string name="process_retrieving_apps">Recuperando aplicaciones, espere un momento. . .</string>
@@ -49,21 +50,21 @@
     <string name="process_starting">Iniciando servicio Brevent, espere un momento. . .</string>
     <string name="process_checking">Comprobando servicio Brevent, espere un momento. . .</string>
 
-    <string name="process_status_running">Funcionando</string>
-    <string name="process_status_standby">En reposo</string>
-    <string name="process_status_stopped">Parado</string>
-    <string name="process_not_running">(no iniciado)</string>
-    <string name="process_no_stats">(nunca abrir)</string>
-    <string name="process_stats">(último: %1$s, uso: %2$s)</string>
-    <string name="process_all_top" tools:ignore="PluralsCandidate">%d arriba</string>
-    <string name="process_all_service" tools:ignore="PluralsCandidate">%d servicio</string>
-    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cacheado</string>
+    <string name="process_status_running">En uso:</string>
+    <string name="process_status_standby">En espera (segundo plano):</string>
+    <string name="process_status_stopped">Detenidas:</string>
+    <string name="process_not_running">(No iniciado)</string>
+    <string name="process_no_stats">(Sin ejecución)</string>
+    <string name="process_stats">(última vez: %1$s, uso: %2$s)</string>
+    <string name="process_all_top" tools:ignore="PluralsCandidate">%d principal</string>
+    <string name="process_all_service" tools:ignore="PluralsCandidate">%d en uso</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d en caché</string>
     <string name="process_all_total">%d</string>
-    <string name="process_service" tools:ignore="PluralsCandidate">%d servicio</string>
+    <string name="process_service" tools:ignore="PluralsCandidate">%d en servicio.</string>
     <string name="process_total">total %d</string>
     <plurals name="process_process">
-        <item quantity="one">&#160;proceso</item>
-        <item quantity="other">&#160;procesos</item>
+        <item quantity="one">&#160; en proceso</item>
+        <item quantity="other">&#160; procesos</item>
     </plurals>
 
     <string name="action_brevent">Brevent</string>
@@ -96,13 +97,13 @@
     <string name="important_accessibility">%s (Accesibilidad)</string>
     <string name="important_device_admin">%s (Administrador del dispositivo)</string>
     <string name="important_gcm">%s (FCM)</string>
-    <string name="important_battery">%s (Sin reposo, Batería no optimizada)</string>
+    <string name="important_battery">%s (Sin segundo plano, batería no optimizada)</string>
     <string name="important_trust_agent">%s (Agente de confianza)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Fondo de pantalla)</string>
 
     <string name="menu_search">Buscar</string>
-    <string name="menu_sort">Ordenar por</string>
+    <string name="menu_sort">Ordenar por:</string>
     <string name="menu_sort_by_name">Aplicación</string>
     <string name="menu_sort_by_update_time">Actualización</string>
     <string name="menu_sort_by_last_time">Último uso</string>
@@ -117,18 +118,18 @@
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
 
-    <string name="brevent_list">Lista Brevent</string>
+    <string name="brevent_list">General:</string>
     <string name="brevent_auto">Auto Brevent</string>
-    <string name="brevent_auto_label">Actualizar la lista de Brevent cuando las aplicaciones se instalen o desinstalen</string>
+    <string name="brevent_auto_label">Actualizar la lista de Brevent cuando las aplicaciones se instalen o desinstalen.</string>
     <string name="brevent_method">Método Brevent</string>
-    <string name="brevent_method_standby_forcestop">Standby, después detención forzada</string>
-    <string name="brevent_method_standby_only">Sólo Standby, no forzar parada</string>
-    <string name="brevent_method_forcestop_only">Sólo forzar parada, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Esperar al salir de las aplicaciones (pulsando \"Volver\"), o finalizar aplicación por tiempo de espera; Detener la aplicación por tiempo de espera o eliminarlos de la lista de elementos recientes \n\nSiempre detener la apertura de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones (pulsando \"Volver\"), o aplicaciones de fondo agotadas \n\nSiempre detener la activación de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_forcestop_only_label">Forzar parada cuando salga de las aplicaciones (pulsando \"Volver\"), o esperar tiempo de espera en segundo plano, o limpiar lista de \'Recientes\' \n\nBrevent siempre detendrá las aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_standby_forcestop">Standby, después detención forzada.</string>
+    <string name="brevent_method_standby_only">Sólo Standby, no forzar parada.</string>
+    <string name="brevent_method_forcestop_only">Sólo forzar parada, no Standby.</string>
+    <string name="brevent_method_standby_forcestop_label">Esperar al salir de las aplicaciones pulsando \"Volver\", o finalizar aplicación por tiempo de espera. \nDetener la aplicación por tiempo de espera o eliminarlos de la lista de elementos recientes.\nSiempre detener la apertura de aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones pulsando \"Volver\", o aplicaciones de fondo finalizadas.\nSiempre detener la activación de aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_forcestop_only_label">Forzar parada cuando salga de las aplicaciones pulsando \"Volver\", esperar tiempo de espera en segundo plano o limpiar lista de \"Recientes\".\nBrevent siempre detendrá las aplicaciones que no tienen actividad.</string>
     <string name="brevent_timeout">Tiempo de espera de las aplicaciones en segundo plano.</string>
-    <string name="brevent_timeout_label">Las aplicaciones  en segundo plano serán detenidas por Brevent. %s\n\nBrevent muestra el tiempo inactivo para las aplicaciones en segundo plano dinámicamente.</string>
+    <string name="brevent_timeout_label">Las aplicaciones en segundo plano serán detenidas por Brevent. Actualmente:  %s\n\nBrevent muestra el tiempo inactivo para las aplicaciones en segundo plano dinámicamente.</string>
     <string name="brevent_timeout_1min">1 minuto</string>
     <string name="brevent_timeout_5min">5 minutos</string>
     <string name="brevent_timeout_15min">15 minutos</string>
@@ -137,12 +138,12 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_999999">11.5 días</string>
-    <string name="brevent_standby_timeout">Tiempo de espera de Standby</string>
-    <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera %1$s</string>
+    <string name="brevent_standby_timeout">Tiempo de espera de Standby.</string>
+    <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 
-    <string name="brevent_advanced">Características avanzadas</string>
-    <string name="brevent_check_notification">Comprobar notificaciones</string>
-    <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquear o ver la notificación</string>
+    <string name="brevent_advanced">Características avanzadas:</string>
+    <string name="brevent_check_notification">Comprobar notificaciones.</string>
+    <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquear o ver la notificación.</string>
     <string name="brevent_aggressive">Modo agresivo</string>
     <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nTenga cuidado
 </string>
@@ -151,15 +152,15 @@
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
 
-    <string name="brevent_experimental">Características experimentales</string>
+    <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
     <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
     <string name="brevent_optimize_vpn_label_debug">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.</string>
     <string name="brevent_abnormal_back">Reconocer un irregular \'Volver\'</string>
-    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \'Volver\'\n\nnRequiere donar un total de 2 USD para la versión de Play Store.</string>
+    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \'Volver\'.\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
     <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \'Volver\'.</string>
     <string name="brevent_allow_root">Permitir ejecutar como ROOT</string>
-    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB"\n\nRequiere donar un total de 3 USD</string>
+    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB".\n\nRequiere donar un total de 3 USD.</string>
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB"</string>
 
     <string name="brevent_about">Acerca de:</string>
@@ -193,9 +194,9 @@
     <string name="unsupported_path">(Error: No puede encontrar la dirección de brevent.sh)</string>
     <string name="unsupported_permission">No hay permiso para acceder al servidor de Brevent.</string>
     <string name="unsupported_no_event">No hay eventos Log. Inténtalo más tarde o reinicia.</string>
-    <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando...</string>
+    <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando ...</string>
     <string name="unsupported_logs">No se pueden guardar registros. Por favor inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT. Por favor habilite \"Permitir ejecutar como ROOT\" en configuración auto-actualizar servidor Brevent en el arranque.</string>
+    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\nPor favor habilite \"Permitir ejecutar como ROOT\", en Ajustes/Características experimentales.\nPara iniciar el servidor Brevent en el arranque.</string>
     <string name="unsupported_root">No se puede iniciar ROOT en el servidor Brevent.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local.</string>
@@ -204,7 +205,7 @@
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
-    <string name="toast_alipay">Gracias por pagar %2$s RMB via Alipay en %1$d mes</string>
+    <string name="toast_alipay">Gracias por pagar %2$s RMB vía Alipay en %1$d mes</string>
     <string name="toast_donate">Gracias por pagar %1$s RMB</string>
 
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros.)</string>
@@ -217,7 +218,7 @@
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">No ahora</string>
-    <string name="root_donate_email_subject">Pago verificado (%s)</string>
+    <string name="root_donate_email_subject">Pago verificado: (%s)</string>
     <string name="root_donate_email_text">(Por favor añada capturas o detalles del pago.)</string>
 
 </resources>
