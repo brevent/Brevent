@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +16,7 @@ import me.piebridge.brevent.R;
  * for progress
  * Created by thom on 2017/2/11.
  */
-public class ReportFragment extends DialogFragment {
+public class ReportFragment extends AbstractDialogFragment {
 
     private static final String MESSAGE = "message";
 

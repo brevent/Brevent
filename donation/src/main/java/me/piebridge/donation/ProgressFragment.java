@@ -20,6 +20,14 @@ public class ProgressFragment extends DialogFragment {
         setStyle(STYLE_NO_TITLE, 0);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        if (super.getDialog() == null) {
+            super.setShowsDialog(false);
+        }
+        super.onActivityCreated(savedInstanceState);
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_donation_progress, container);

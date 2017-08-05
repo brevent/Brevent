@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import me.piebridge.brevent.R;
  * for progress
  * Created by thom on 2017/2/11.
  */
-public class ProgressFragment extends DialogFragment {
+public class ProgressFragment extends AbstractDialogFragment {
 
     private static final String MESSAGE = "message";
 
