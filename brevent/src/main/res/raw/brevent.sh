@@ -12,13 +12,13 @@ if [ -f $brevent ]; then
     rm -rf $brevent
 fi
 if [ -f $brevent ]; then
-    echo "WARNING: /data/local/tmp is not writalbe" >&2
+    echo "WARNING: /data/local/tmp is not writable" >&2
 else
     cp $path $brevent
     if [ -f $brevent ]; then
         chmod 0755 $brevent
     else
-        echo "WARNING: /data/local/tmp is not writalbe" >&2
+        echo "WARNING: /data/local/tmp is not writable" >&2
     fi
 fi
 
