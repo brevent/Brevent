@@ -89,6 +89,7 @@ import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideM;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
+import me.piebridge.brevent.protocol.BreventDisableRoot;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventNoEvent;
 import me.piebridge.brevent.protocol.BreventPackages;
@@ -1046,6 +1047,7 @@ public class BreventActivity extends Activity
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
             case BreventProtocol.SHOW_ROOT:
+                ((BreventApplication) getApplication()).updateStatus((BreventDisableRoot) response);
                 showRoot();
                 break;
             default:

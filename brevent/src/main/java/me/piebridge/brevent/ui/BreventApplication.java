@@ -46,6 +46,7 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
+import me.piebridge.brevent.protocol.BreventDisableRoot;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
 
@@ -169,6 +170,13 @@ public class BreventApplication extends Application {
     public String getMode() {
         return HideApiOverride.isShell(mUid) ? "shell" :
                 (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
+    }
+
+    public void updateStatus(BreventDisableRoot response) {
+        mUid = HideApiOverride.ROOT_UID;
+        mDaemonTime = response.mDaemonTime;
+        mServerTime = response.mServerTime;
+        setSupportStandby(response.mSupportStandby);
     }
 
     public void updateStatus(BreventResponse breventResponse) {

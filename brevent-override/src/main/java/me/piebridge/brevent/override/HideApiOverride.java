@@ -33,8 +33,8 @@ public class HideApiOverride {
 
     public static final String SMS_DEFAULT_APPLICATION = getSmsDefaultApplication();
 
-    private static final int ROOT_UID = getRootUid();
-    private static final int SHELL_UID = getShellUid();
+    public static final int ROOT_UID = getRootUid();
+    public static final int SHELL_UID = getShellUid();
 
     private static final int FLAG_PERSISTENT = getFlagPersistent();
     private static final int PROCESS_STATE_CACHED_ACTIVITY = getProcessStateCachedActivity();
