@@ -21,7 +21,7 @@
     <string name="fragment_guide_enjoy_message">Disfrute Brevent, y no dude en enviar comentarios.</string>
     <string name="fragment_guide_enjoy_message2">El método Brevent predeterminado es \"En espera\" (Desde Android 6.0). Si encuentra alguna aplicación todavía en ejecución, utilice Brevent u otras herramientas para comprobar su estado.\n\nPara aumentar el rendimiento de la batería, el servicio Brevent retrasa los procesos de 3 a 60 segundos de acuerdo con el nivel del evento.\nCuando elimina aplicaciones desde \"Recientes\", Android matará los procesos y Brevent forzará a detenerlos lo antes posible.</string>
 
-    <string name="fragment_guide_adb">Adb (Fin)</string>
+    <string name="fragment_guide_adb">Adb</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n https://developer.android.com/studio/releases/platform-tools.html \n
 (Mantenga presionado, después seleccione contenido, mantenga presionado y copiar)</string>
     <string name="fragment_guide_adb_message2">1. Descomprima "platform-tools-latest-&lt;platform&gt;.zip" \n\n2. Vaya al directorio: "platform-tools" \n\n3. En Windows, mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, seleccionar \"Abrir ventana de comandos aquí\", usted puede iniciar \".\\adb\" ahora.\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\" (por favor eliminar duplicado \"adb\"cuando pegue la línea de comandos)</string>
@@ -43,11 +43,11 @@
     <string name="fragment_apps_system">Apps de sistema</string>
     <string name="fragment_apps_framework">Apps Framework</string>
 
-    <string name="process_retrieving">Recuperando el estado de los procesos, espere un momento. . .</string>
-    <string name="process_retrieving_apps">Recuperando aplicaciones, espere un momento. . .</string>
-    <string name="process_retrieving_logs">Recuperando Logs, espere un momento. . .</string>
+    <string name="process_retrieving">Recuperando el estado de los procesos, espere un momento . . .</string>
+    <string name="process_retrieving_apps">Recuperando aplicaciones, espere un momento . . .</string>
+    <string name="process_retrieving_logs">Recuperando Logs, espere un momento . . .</string>
     <string name="process_waiting">Esperando eventos, abra y cierre la notificación para crear nuevos eventos ...</string>
-    <string name="process_starting">Iniciando servicio Brevent, espere un momento. . .</string>
+    <string name="process_starting">Iniciando servicio Brevent, espere un momento . . .</string>
     <string name="process_checking">Comprobando servicio Brevent, espere un momento. . .</string>
 
     <string name="process_status_running">En uso:</string>
@@ -113,7 +113,7 @@
     <string name="menu_logs">Logs</string>
     <string name="menu_guide">Guía</string>
 
-    <string name="feedback_message">Siéntase libre de enviar comentarios.\n\nSi tiene una cuenta GitHub, cree un caso; También puede ver los problemas abiertos.%s</string>
+    <string name="feedback_message">Siéntase libre de enviar comentarios.\n\nSi tiene una cuenta GitHub, cree un caso. También puede ver los problemas abiertos.%s</string>
     <string name="feedback_message_email">\n\nPara mensajes privados, escríbame.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
@@ -145,8 +145,7 @@
     <string name="brevent_check_notification">Comprobar notificaciones.</string>
     <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquear o ver la notificación.</string>
     <string name="brevent_aggressive">Modo agresivo</string>
-    <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nTenga cuidado
-</string>
+    <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nTenga cuidado.</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
@@ -166,12 +165,12 @@
     <string name="brevent_about">Acerca de:</string>
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_play">Gracias por pagar %d USD en Play Store</string>
-    <string name="show_donation_rmb">Gracias por pagar %s RMB</string>
+    <string name="show_donation_rmb">Thanks for paying %s RMB</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
-    <string name="show_donation_play_and_rmb">Gracias por pagar %1$d USD en Play Store, %2$s RMB</string>
-    <string name="show_donation_play_and_contributor">Gracias por pagar %d USD en Play Store, y por su valiosa contribución a Brevent.</string>
-    <string name="show_donation_rmb_and_contributor">Gracias por pagar %s RMB, y por su valiosa contribución a Brevent.</string>
-    <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$d USD en Play Store, %2$s RMB, y por su valiosa contribución a Brevent.</string>
+    <string name="show_donation_play_and_rmb">Thanks for paying %1$d USD in Play Store, %2$s RMB</string>
+    <string name="show_donation_play_and_contributor">Gracias por pagar %d USD en Play Store y por su valiosa contribución a Brevent.</string>
+    <string name="show_donation_rmb_and_contributor">Thanks for paying %s RMB, and priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$d USD in Play Store, %2$s RMB, and priceless contribution on Brevent</string>
     <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
@@ -184,19 +183,19 @@
     <string name="brevent_about_developer">Opciones de desarrollador</string>
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>
-    <string name="brevent_about_translator">SAMUEL</string>
+    <string name="brevent_about_translator">Samuel</string>
     <string name="brevent_about_licenses">Licencias</string>
 
-    <string name="unsupported_owner">Brevent sólo está disponible para el propietario.</string>
+    <string name="unsupported_owner">Brevent sólo está disponible para su propietario.</string>
     <string name="unsupported_clone">Brevent no está disponible en el clon de aplicación.</string>
     <string name="unsupported_signature">Brevent está hackeado.</string>
     <string name="unsupported_xposed">Brevent sólo está disponible sin Xposed.</string>
     <string name="unsupported_path">(Error: No puede encontrar la dirección de brevent.sh)</string>
     <string name="unsupported_permission">No hay permiso para acceder al servidor de Brevent.</string>
-    <string name="unsupported_no_event">No hay eventos Log. Inténtalo más tarde o reinicia.</string>
+    <string name="unsupported_no_event">No hay eventos Log. Inténtelo más tarde o reinicie.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando ...</string>
-    <string name="unsupported_logs">No se pueden guardar registros. Por favor inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\nPor favor habilite \"Permitir ejecutar como ROOT\", en Ajustes/Características experimentales.\nPara iniciar el servidor Brevent en el arranque.</string>
+    <string name="unsupported_logs">No se pueden guardar registros Log. Por favor inténtelo de nuevo más tarde.</string>
+    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\nPor favor habilite \"Permitir ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
     <string name="unsupported_root">No se puede iniciar ROOT en el servidor Brevent.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local.</string>
@@ -205,16 +204,16 @@
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
-    <string name="toast_alipay">Gracias por pagar %2$s RMB vía Alipay en %1$d mes</string>
-    <string name="toast_donate">Gracias por pagar %1$s RMB</string>
+    <string name="toast_alipay">Thanks for paying %2$s RMB via Alipay in %1$d month</string>
+    <string name="toast_donate">Thanks for paying %1$s RMB</string>
 
-    <string name="logs_description">%1$s\n(Proporcione una descripción de los registros.)</string>
+    <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
 
     <string name="brevent_status_starting">Iniciando servidor Brevent ...</string>
     <string name="brevent_status_stopped">Servidor Brevent no se ha iniciado.</string>
 
-    <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Allow run as ROOT\".\n\nIf Usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nIf Si no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
-    <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nIf Si ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nIf Si no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
+    <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Allow run as ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
+    <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">No ahora</string>
