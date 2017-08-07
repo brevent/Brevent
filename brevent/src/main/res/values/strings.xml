@@ -203,7 +203,9 @@
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Thanks for paying %2$s RMB via Alipay in %1$d month</string>
+    <string name="toast_alipay2">Restarting Brevent Server, please try later</string>
     <string name="toast_donate">Thanks for paying %1$s RMB</string>
+    <string name="toast_donate2">Cannot recognize, please try later</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
 

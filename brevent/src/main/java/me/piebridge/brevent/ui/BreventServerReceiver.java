@@ -53,7 +53,13 @@ public class BreventServerReceiver extends BroadcastReceiver {
                 PreferenceManager.getDefaultSharedPreferences(context)
                         .edit().putString("alipay1", sum).apply();
             }
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            if (donation != 0.0d) { // NOSONAR
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(context, R.string.toast_donate2, Toast.LENGTH_LONG).show();
+            }
+        } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
+            Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
         }
     }
 

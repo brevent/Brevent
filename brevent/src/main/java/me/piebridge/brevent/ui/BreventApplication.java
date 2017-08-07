@@ -356,7 +356,7 @@ public class BreventApplication extends Application {
         buffer.flip();
         buffer.get();
         long breventId = buffer.getLong();
-        if (breventId != getId()) {
+        if (breventId != 0 && breventId != getId()) {
             UILog.d("id: " + Long.toHexString(breventId) + " != " + Long.toHexString(getId()));
             return 0d;
         } else {
@@ -419,7 +419,7 @@ public class BreventApplication extends Application {
             donate2 = 0;
             preferences.edit().remove("alipay2").apply();
         }
-        return donate1 + donate2;
+        return Math.max(donate1, donate2);
     }
 
     public static void dumpsys(String serviceName, String[] args, File file) throws IOException {

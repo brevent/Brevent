@@ -9,6 +9,7 @@ public final class BreventIntent {
     public static final String ACTION_ADD_PACKAGE = "me.piebridge.brevent.intent.action.ADD_PACKAGE";
     public static final String ACTION_RUN_AS_ROOT = "me.piebridge.brevent.intent.action.RUN_AS_ROOT";
     public static final String ACTION_ALIPAY = "me.piebridge.brevent.intent.action.ALIPAY";
+    public static final String ACTION_ALIPAY2 = "me.piebridge.brevent.intent.action.ALIPAY2";
 
     public static final String PERMISSION_MANAGER = "me.piebridge.brevent.permission.MANAGER";
 
