@@ -14,7 +14,11 @@ public abstract class AbstractDialogFragment extends DialogFragment {
         if (super.getDialog() == null) {
             super.setShowsDialog(false);
         }
-        super.onActivityCreated(savedInstanceState);
+        try {
+            super.onActivityCreated(savedInstanceState);
+        } catch (NullPointerException e) { // NOSONAR
+            // do nothing
+        }
     }
 
 }
