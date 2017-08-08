@@ -37,15 +37,15 @@
     <string name="brevent_service_adb_running">(Habilitado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
     <string name="brevent_service_run_as_root">Iniciar como ROOT</string>
-    <string name="brevent_service_success">Servidor Brevent iniciado correctamente. Por favor, haga clic en los iconos de la aplicación para añadir Brevent a la aplicación.</string>
+    <string name="brevent_service_success">Brevent funcionando. Por favor, haga clic en los iconos de la aplicación para gestionar Brevent.</string>
 
     <string name="fragment_apps_user">Apps de usuario</string>
     <string name="fragment_apps_system">Apps de sistema</string>
     <string name="fragment_apps_framework">Apps Framework</string>
 
-    <string name="process_retrieving">Recuperando el estado de los procesos, espere un momento . . .</string>
-    <string name="process_retrieving_apps">Recuperando aplicaciones, espere un momento . . .</string>
-    <string name="process_retrieving_logs">Recuperando Logs, espere un momento . . .</string>
+    <string name="process_retrieving">Leyendo estado de los procesos, espere un momento . . .</string>
+    <string name="process_retrieving_apps">Leyendo aplicaciones, espere un momento . . .</string>
+    <string name="process_retrieving_logs">Generando Logs, espere un momento . . .</string>
     <string name="process_waiting">Esperando eventos, abra y cierre la notificación para crear nuevos eventos ...</string>
     <string name="process_starting">Iniciando servicio Brevent, espere un momento . . .</string>
     <string name="process_checking">Comprobando servicio Brevent, espere un momento. . .</string>
@@ -122,12 +122,12 @@
     <string name="brevent_auto">Auto Brevent</string>
     <string name="brevent_auto_label">Actualizar la lista de Brevent cuando las aplicaciones se instalen o desinstalen.</string>
     <string name="brevent_method">Método Brevent</string>
-    <string name="brevent_method_standby_forcestop">Standby, después detención forzada.</string>
-    <string name="brevent_method_standby_only">Sólo Standby, no forzar parada.</string>
+    <string name="brevent_method_standby_forcestop">Standby y después forzar detener.</string>
+    <string name="brevent_method_standby_only">Standby, no fuerza detener.</string>
     <string name="brevent_method_forcestop_only">Sólo forzar parada, no Standby.</string>
-    <string name="brevent_method_standby_forcestop_label">Esperar al salir de las aplicaciones pulsando \"Volver\", o finalizar aplicación por tiempo de espera. \nDetener la aplicación por tiempo de espera o eliminarlos de la lista de elementos recientes.\nSiempre detener la apertura de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones pulsando \"Volver\", o aplicaciones de fondo finalizadas.\nSiempre detener la activación de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_forcestop_only_label">Forzar parada cuando salga de las aplicaciones pulsando \"Volver\", esperar tiempo de espera en segundo plano o limpiar lista de \"Recientes\".\nBrevent siempre detendrá las aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_standby_forcestop_label">Standby al salir de las aplicaciones pulsando \"Volver\", o finalizar aplicación en segundo plano por tiempo de espera. \n\nDetiene la aplicación por tiempo de espera o al ser eliminada manualmente en recientes.\n\nSiempre detiene la apertura de aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones pulsando \"Volver\", o aplicaciones en segundo plano finalizadas.\n\nSiempre detiene la activación de aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_forcestop_only_label">Fuerza detener al salir de las aplicaciones pulsando \"Volver\", por tiempo de espera de Apps en segundo plano o cuando se borre de \"Recientes\".\n\nBrevent siempre detendrá las aplicaciones que no tienen actividad.</string>
     <string name="brevent_timeout">Tiempo de espera de las aplicaciones en segundo plano.</string>
     <string name="brevent_timeout_label">Las aplicaciones en segundo plano serán detenidas por Brevent. Actualmente:  %s\n\nBrevent muestra el tiempo inactivo para las aplicaciones en segundo plano dinámicamente.</string>
     <string name="brevent_timeout_1min">1 minuto</string>
@@ -138,12 +138,12 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_999999">11.5 días</string>
-    <string name="brevent_standby_timeout">Tiempo de espera de Standby.</string>
+    <string name="brevent_standby_timeout">Tiempo de espera en Standby.</string>
     <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 
     <string name="brevent_advanced">Características avanzadas:</string>
     <string name="brevent_check_notification">Comprobar notificaciones.</string>
-    <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquear o ver la notificación.</string>
+    <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquearlo o al ver la notificación.</string>
     <string name="brevent_aggressive">Modo agresivo</string>
     <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nTenga cuidado.</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
@@ -155,12 +155,12 @@
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
     <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
     <string name="brevent_optimize_vpn_label_debug">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.</string>
-    <string name="brevent_abnormal_back">Reconocer un irregular \'Volver\'</string>
-    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \'Volver\'.\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
-    <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \'Volver\'.</string>
+    <string name="brevent_abnormal_back">Reconocer un irregular \"Volver\"</string>
+    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
+    <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".</string>
     <string name="brevent_allow_root">Permitir ejecutar como ROOT</string>
     <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 USD.</string>
-    <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\"</string>
+    <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
 
     <string name="brevent_about">Acerca de:</string>
     <string name="show_donation">Mostrar pago</string>
@@ -174,7 +174,7 @@
     <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
-    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDemonio: %4$s\nServidor: %5$s</string>
+    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nResidente: %4$s\nServidor: %5$s</string>
     <string name="brevent_about_version_summary_debug">%1$s (Edición de comunidad)</string>
     <string name="brevent_about_version_play">Play Store</string>
     <string name="brevent_about_version_meizu">Meizu</string>
@@ -195,7 +195,7 @@
     <string name="unsupported_no_event">No hay eventos Log. Inténtelo más tarde o reinicie.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\nPor favor habilite \"Permitir ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
+    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\n\nPor favor habilite \"Permitir ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
     <string name="unsupported_root">No se puede iniciar ROOT en el servidor Brevent.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local.</string>
@@ -214,7 +214,7 @@
     <string name="brevent_status_starting">Iniciando servidor Brevent ...</string>
     <string name="brevent_status_stopped">Servidor Brevent no se ha iniciado.</string>
 
-    <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Allow run as ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
+    <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
