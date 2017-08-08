@@ -165,7 +165,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         return getArguments().getBoolean(USB_CONNECTED, false);
     }
 
-    public boolean hasRoot() {
+    public static boolean hasRoot() {
         for (String path : System.getenv("PATH").split(":")) {
             File su = new File(path, "su");
             try {

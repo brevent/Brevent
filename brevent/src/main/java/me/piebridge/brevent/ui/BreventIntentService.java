@@ -74,8 +74,12 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path != null) {
-            UILog.d("startBrevent: " + path);
-            List<String> results = Shell.SU.run(path);
+            UILog.d("startBrevent: $SHELL " + path);
+            List<String> results = Shell.SU.run("$SHELL " + path);
+            if (results == null) {
+                UILog.d("startBrevent: " + path);
+                results = Shell.SU.run(path);
+            }
             if (results != null) {
                 for (String result : results) {
                     UILog.d(result);
@@ -135,16 +139,7 @@ public class BreventIntentService extends IntentService {
     }
 
     public static void startBrevent(Context context, String action) {
-        boolean allowRoot;
-        try {
-            allowRoot = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext())
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-            UILog.d("action: " + action + ", allowRoot: " + allowRoot);
-        } catch (IllegalStateException e) {
-            allowRoot = true;
-            UILog.d("action: " + action + ", allowRoot: (assume true)", e);
-        }
-        if ((BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot)) {
+        if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(context, action)) {
             Intent intent = new Intent(context, BreventIntentService.class);
             intent.setAction(action);
             if (shouldForeground()) {
@@ -157,6 +152,19 @@ public class BreventIntentService extends IntentService {
         } else {
             showStopped(context);
         }
+    }
+
+    private static boolean allowRoot(Context context, String action) {
+        boolean allowRoot;
+        try {
+            allowRoot = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext())
+                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+            UILog.d("action: " + action + ", allowRoot: " + allowRoot);
+        } catch (IllegalStateException e) {
+            allowRoot = true;
+            UILog.d("action: " + action + ", allowRoot: (assume true)", e);
+        }
+        return allowRoot && AppsDisabledFragment.hasRoot();
     }
 
     private static boolean shouldForeground() {
