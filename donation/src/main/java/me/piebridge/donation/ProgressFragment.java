@@ -1,35 +1,24 @@
 package me.piebridge.donation;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.piebridge.brevent.ui.AbstractDialogFragment;
+
 /**
  * donation progress
  * <p>
  * Created by thom on 2017/2/13.
  */
-public class ProgressFragment extends DialogFragment {
+public class ProgressFragment extends AbstractDialogFragment {
 
     public ProgressFragment() {
         super();
         setCancelable(false);
         setStyle(STYLE_NO_TITLE, 0);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        if (super.getDialog() == null) {
-            super.setShowsDialog(false);
-        }
-        try {
-            super.onActivityCreated(savedInstanceState);
-        } catch (NullPointerException e) { // NOSONAR
-            // do nothing
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

@@ -7,24 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import me.piebridge.brevent.ui.AbstractDialogFragment;
+
 /**
  * wechat donation guide
  * <p>
  * Created by thom on 2017/2/13.
  */
-public class WechatFragment extends DialogFragment implements DialogInterface.OnClickListener {
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        if (super.getDialog() == null) {
-            super.setShowsDialog(false);
-        }
-        try {
-            super.onActivityCreated(savedInstanceState);
-        } catch (NullPointerException e) { // NOSONAR
-            // do nothing
-        }
-    }
+public class WechatFragment extends AbstractDialogFragment implements DialogInterface.OnClickListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
