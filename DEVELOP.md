@@ -22,5 +22,12 @@ unzip /path/to/brevent.apk classes2.dex
 
 ```
 jar uf /path/to/builded.apk classes2.dex
-jarsigner ...
 ```
+
+4. apksigner
+
+```
+apksigner sign --key testkey.pk8 --cert testkey.x509.pem community.apk
+```
+
+You can find `testkey.pk8` and `testkey.x509.pem` [here](https://github.com/android/platform_build/blob/master/target/product/security/).

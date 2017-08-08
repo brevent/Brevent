@@ -12,6 +12,18 @@ android {
     }
 }
 
+if (rootProject.isIde) {
+    // for ide
+    dependencies {
+        compile project(':hidden-api')
+    }
+} else {
+    // for gradle
+    dependencies {
+        provided rootProject.hiddenApi
+    }
+}
+
 dependencies {
     if (rootProject.file('support-compat-nores').exists()) {
         compile project(':support-compat-nores')
@@ -20,4 +32,9 @@ dependencies {
     }
     compile "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
     compile project(':brevent-override')
+    compile project(':brevent-override-m')
+}
+
+tasks.withType(JavaCompile) { compileTask ->
+    compileTask.dependsOn ':hidden-api:bundleRelease'
 }

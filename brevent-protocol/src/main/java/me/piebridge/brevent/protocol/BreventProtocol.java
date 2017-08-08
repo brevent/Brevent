@@ -1,6 +1,10 @@
 package me.piebridge.brevent.protocol;
 
 import android.accounts.NetworkErrorException;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
+import android.content.pm.Signature;
+import android.os.Build;
 import android.os.Parcel;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -15,6 +19,8 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -24,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
+import me.piebridge.brevent.override.HideApiOverrideM;
 
 /**
  * brevent protocol, request via socket, response via broadcast
@@ -258,6 +266,40 @@ public abstract class BreventProtocol {
             if (!future.isDone()) {
                 future.cancel(true);
             }
+        }
+    }
+
+    public static byte[] sha1(byte[] bytes) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(bytes);
+            return md.digest();
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
+    public static byte[] getFingerprint(String sourceDir) {
+        Signature[] signatures = getSignatures(sourceDir);
+        if (signatures == null || signatures.length != 0x1) {
+            return null;
+        }
+        return sha1(signatures[0].toByteArray());
+    }
+
+    public static Signature[] getSignatures(String sourceDir) {
+        try {
+            PackageParser.Package pkg = new PackageParser.Package(sourceDir);
+            pkg.baseCodePath = sourceDir;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                PackageParser.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            } else {
+                HideApiOverrideM.collectCertificates(pkg, PackageManager.GET_SIGNATURES);
+            }
+            return pkg.mSignatures;
+        } catch (PackageParser.PackageParserException e) {
+            // do nothing
+            return null;
         }
     }
 

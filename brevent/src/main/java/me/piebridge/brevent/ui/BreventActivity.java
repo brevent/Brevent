@@ -69,8 +69,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -379,9 +377,14 @@ public class BreventActivity extends Activity
         if (!BuildConfig.RELEASE) {
             return true;
         }
-        Signature[] signatures = getSignatures(getPackageManager(), BuildConfig.APPLICATION_ID);
-        return signatures != null && signatures.length == 0x1 &&
-                Arrays.equals(BuildConfig.SIGNATURE, sha1(signatures[0].toByteArray()));
+        try {
+            String sourceDir = getPackageManager()
+                    .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
+            return Arrays.equals(BuildConfig.SIGNATURE, BreventProtocol.getFingerprint(sourceDir));
+        } catch (PackageManager.NameNotFoundException e) { // NOSONAR
+            UILog.d("Cannot find " + BuildConfig.APPLICATION_ID);
+            return false;
+        }
     }
 
     public boolean hasGms() {
@@ -392,7 +395,7 @@ public class BreventActivity extends Activity
             if (!packageInfo.applicationInfo.enabled) {
                 return false;
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) { // NOSONAR
             // do nothing
             return false;
         }
@@ -412,28 +415,13 @@ public class BreventActivity extends Activity
     }
 
     private boolean checkGms(String sourceDir) {
-        Signature[] signatures = getSignatures(sourceDir);
-        if (signatures == null || signatures.length != 0x1) {
-            return false;
-        }
-        byte[] sha1 = sha1(signatures[0].toByteArray());
+        byte[] sha1 = BreventProtocol.getFingerprint(sourceDir);
         for (byte[] bytes : GMS_SIGNATURES) {
             if (Arrays.equals(sha1, bytes)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public static byte[] sha1(byte[] bytes) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            md.update(bytes);
-            return md.digest();
-        } catch (NoSuchAlgorithmException e) {
-            UILog.w("NoSuchAlgorithmException", e);
-            return null;
-        }
     }
 
     public void showDisabled() {
