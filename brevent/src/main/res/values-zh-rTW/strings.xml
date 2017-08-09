@@ -200,7 +200,7 @@
 
     <string name="toast_home_tid">已確認真正的「首頁鍵」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
-    <string name="toast_alipay">感謝您 %1$d 個月透過支付寶支付 %2$s 元</string>
+    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 元</string>
     <string name="toast_alipay2">正在重啟黑域服務，請稍候再試</string>
     <string name="toast_donate">感謝您支付 %1$s 元</string>
     <string name="toast_donate2">無法識別支付，請稍候再試</string>

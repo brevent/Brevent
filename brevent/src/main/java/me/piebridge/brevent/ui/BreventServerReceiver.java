@@ -43,12 +43,11 @@ public class BreventServerReceiver extends BroadcastReceiver {
             if (application.isUnsafe()) {
                 return;
             }
-            int count = intent.getIntExtra(BreventIntent.EXTRA_ALIPAY_COUNT, 0);
             String sum = intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM);
             double donation = application.decode(sum, true);
             DecimalFormat df = new DecimalFormat("#.##");
             String message = context.getResources().getString(R.string.toast_alipay,
-                    count, df.format(donation));
+                    df.format(donation));
             if (donation > 0) {
                 PreferenceManager.getDefaultSharedPreferences(context)
                         .edit().putString("alipay1", sum).apply();
