@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">For ease of use, Brevent has an experimental ROOT mode, allowing you to skip using PC, and will auto start Brevent server on boot. ROOT mode compared with the normal mode no more features or better work results, for some devices ROOT mode can not even start Brevent server.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
+    <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using. Therefore, it is not recommended to use Brevent directly on office equipment.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
@@ -35,7 +35,7 @@
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
     <string name="brevent_service_run_as_root">Run as ROOT</string>
-    <string name="brevent_service_success">Brevent server started successfully. Please click app icons to choose then brevent them</string>
+    <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose then brevent them</string>
 
     <string name="fragment_apps_user">User Apps</string>
     <string name="fragment_apps_system">System Apps</string>
@@ -212,8 +212,8 @@
     <string name="brevent_status_starting">Starting Brevent server</string>
     <string name="brevent_status_stopped">Brevent server is not started</string>
 
-    <string name="root_donate_required">Please pay total 3 USD to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
-    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, click Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_required">Please pay total 3 USD to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>

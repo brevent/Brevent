@@ -5,20 +5,20 @@
     <string name="app_name_debug">黑域 社區版</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過三個按鈕\n\n1. 返回鍵結束應用程式回到上一層畫面\n\n2. 點擊首頁鍵回到首頁\n\n3. 透過 最近使用的應用程式鍵 把應用程式放到背景；同時，允許應用程式使用長期執行的服務。當然，您也可以直接從清單內拉掉某個應用程式。\n\n黑域透過這種方式辨識您是否開啟或已經結束，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
-    <string name="fragment_guide_welcome_message2">當您按返回鍵結束應用程式時，應用程式及所包含的服務將不再執行；當您按「首頁鍵」或者「最近使用的應用程式鍵」或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。\n\n對於背景應用程式，黑域動態顯示空閒時間。</string>
+    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過好幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」按鈕或者「總覽」（Overview，最近使用的應用程式鍵）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別您是否打開或已經退出，阻斷黑域清單裡的應用程式在沒有使用的時候長期執行。對於被惡意喚醒的應用程式，一律強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務將不再執行；當您按「首頁」按鈕或者「總覽」按鈕或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">其它類似軟體需要 ROOT 權限，或解鎖變更系統檔案以擁有這些權限。黑域所需的偵錯模式不需要 ROOT，也不需要解鎖，您可放心使用。\n\n目前也有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，甚至直接開啟黑域服務。ROOT 模式可能無法正常開啟黑域服務。</string>
+    <string name="fragment_guide_permission_message2">為了方便，黑域有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，並會開機後自動啟動黑域服務。但 ROOT 模式與正常啟動服務相比沒有更多功能或更好的工作效果，對於部分裝置 ROOT 模式甚至無法啟動黑域服務。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑域需要偵錯模式開啟黑域服務。但是偵錯模式比較危險，在開啟黑域服務後，如無特殊需要，請您關閉偵錯模式。</string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 的隱藏 API，可能無法支援您的裝置。同時有些第三方系統可能改變這些隱藏 API 行為，對裝置造成未知影響。</string>
+    <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系統檔案，卸載後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 的隱藏 API，可能無法完整支援您的裝置。同時有些第三方系統可能改變這些隱藏 API 行為，對裝置造成未知影響。因此，不建議直接在工作裝置上使用黑域。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設使用「待機」（App Standby）黑域應用程式，您可在設定中變更。如果您發現黑域處理後的應用程式還在執行，請使用黑域或者其它類似工具檢視是否處於「待機」狀態，或者「開發人員選項」的「未啟用的應用程式」中是否為「未啟用」。 \n\n此外，為了降低自身耗電，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設先使用「待機」（App Standby）處理應用程式，應用程式待機後將不能聯網及執行任務。您可在設定中變更黑域方法。\n\n為了降低系統整體耗電，黑域預設不強行停止無服務進程的安全應用程式，也不自動黑域沒有服務組件的新安裝應用程式。為了降低自身耗電，黑域預設集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -34,7 +34,7 @@
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
     <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
-    <string name="brevent_service_success">黑域服務已成功開啟。請點擊圖示，選擇一些應用程式，然後黑域它們</string>
+    <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>
     <string name="fragment_apps_system">系統</string>
@@ -116,7 +116,7 @@
 
     <string name="brevent_list">黑域清單</string>
     <string name="brevent_auto">自動更新</string>
-    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單</string>
+    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單（部分 ROM 不支持）</string>
     <string name="brevent_method">黑域方法</string>
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
@@ -188,13 +188,13 @@
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
     <string name="unsupported_permission">沒有權限存取黑域服務。</string>
-    <string name="unsupported_no_event">黑域服務已經開啟，但是沒有事件日誌。請稍候重試，或者重啟手機。</string>
+    <string name="unsupported_no_event">黑域服務已開啟，但是沒有事件日誌。\n\n請不要關閉「USB偵錯」，並適當調整「開發人員選項」中的「紀錄器緩衝區空間」，或其它類似選項。部分設備需要至工程模式開啟日誌。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
-    <string name="unsupported_disable_root">成功使用 ROOT 啟動黑域服務，請在設定中啟用「允許 ROOT 執行」以自動更新黑域服務及開機啟動。</string>
+    <string name="unsupported_disable_root">成功使用 ROOT 啟動黑域服務，請在設定中啟用「允許 ROOT 執行」以自動更新及開機自啟黑域服務。</string>
     <string name="unsupported_root">無法使用 ROOT 開啟黑域服務。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
-    <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆或網路設定。</string>
+    <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆或網路設定。部分 ROM 需要關閉省電模式。</string>
     <string name="unsupported_dumpsys">無法執行 dumpsys，請禁用 SELinux，然后再試。</string>
     <string name="unsupported_network">無法驗證黑域服務，請禁用 SELinux，然后再試。</string>
 
