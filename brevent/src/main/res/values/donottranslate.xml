@@ -7,7 +7,7 @@
         <item>900</item>
         <item>1800</item>
         <item>3600</item>
-        <item>999999</item>
+        <item>9999999</item>
     </string-array>
 
     <string-array name="brevent_timeout_entries">
@@ -16,7 +16,7 @@
         <item>@string/brevent_timeout_15min</item>
         <item>@string/brevent_timeout_30min</item>
         <item>@string/brevent_timeout_1hour</item>
-        <item>@string/brevent_timeout_999999</item>
+        <item>@string/brevent_timeout_long</item>
     </string-array>
 
     <string-array name="brevent_standby_timeout_values">

@@ -163,7 +163,7 @@ public class BreventConfiguration extends BreventProtocol {
                 autoUpdate = Boolean.parseBoolean(value);
                 break;
             case BREVENT_TIMEOUT:
-                if (isDigit(value, 0x7)) {
+                if (isDigit(value, 0x8)) {
                     timeout = Integer.parseInt(value);
                 }
                 if (timeout < MIN_BREVENT_TIMEOUT) {
@@ -180,7 +180,7 @@ public class BreventConfiguration extends BreventProtocol {
                 optimizeVpn = Boolean.parseBoolean(value);
                 break;
             case BREVENT_STANDBY_TIMEOUT:
-                if (isDigit(value, 0x7)) {
+                if (isDigit(value, 0x6)) {
                     standbyTimeout = Integer.parseInt(value);
                 }
                 if (standbyTimeout < MIN_BREVENT_STANDBY_TIMEOUT) {

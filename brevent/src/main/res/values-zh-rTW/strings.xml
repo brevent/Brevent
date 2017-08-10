@@ -133,7 +133,7 @@
     <string name="brevent_timeout_1hour">1 小時</string>
     <string name="brevent_timeout_3hour">3 小時</string>
     <string name="brevent_timeout_6hour">6 小時</string>
-    <string name="brevent_timeout_999999">11.5 天</string>
+    <string name="brevent_timeout_long">115 天</string>
     <string name="brevent_standby_timeout">待機逾時</string>
     <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
 
