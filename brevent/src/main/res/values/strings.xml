@@ -6,15 +6,15 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and wanted to quit.\nPressing Home will start the launcher and kick this app into background.</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.\n\nFor background apps, Brevent shows the idle time dynamically.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">Some similar apps require ROOT access or modifying your unlocked device. Debugging mode doesn\'t require ROOT access nor unlocking, so it\'s much safer to use. \n\nThere is an experimental ROOT mode, allowing you to skip turning on debugging mode. Brevent server may not work well in ROOT mode.</string>
+    <string name="fragment_guide_permission_message2">For ease of use, Brevent has an experimental ROOT mode, allowing you to skip using PC, and will auto start Brevent server on boot. ROOT mode compared with the normal mode no more features or better work results, for some devices ROOT mode can not even start Brevent server.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">We need debugging mode to launch our Brevent without rooting your device. However, debugging mode is not safe enough, we strongly recommend you turn it off after Brevent server is started successfully.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.</string>
+    <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using. Therefore, it is not recommended to use Brevent directly on office equipment.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
