@@ -188,10 +188,10 @@
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。请不要关闭“开发者选项”中的“日志记录器缓冲区大小”。\n\n部分 ROM 需要网络搜索“ROM名称+日志”找到打开日志方法。</string>
+    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
-    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新黑域服务及开机后自动启动黑域服务。</string>
+    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新及开机自启黑域服务。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。部分 ROM 需要关闭省电模式。</string>
