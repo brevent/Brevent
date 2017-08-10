@@ -177,6 +177,7 @@ public class BreventApplication extends Application {
         mDaemonTime = response.mDaemonTime;
         mServerTime = response.mServerTime;
         setSupportStandby(response.mSupportStandby);
+        setSupportStopped(response.mSupportStopped);
     }
 
     public void updateStatus(BreventResponse breventResponse) {
