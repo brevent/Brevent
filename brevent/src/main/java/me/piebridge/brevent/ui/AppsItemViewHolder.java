@@ -80,7 +80,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
         }
         String important = activity.getLabel("", packageName);
         if (!TextUtils.isEmpty(important)) {
-            menu.add(important);
+            menu.add(AppsLabelLoader.trim(important));
         }
     }
 
