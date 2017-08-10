@@ -5,20 +5,20 @@
     <string name="app_name_debug">黑域 社区版</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
-    <string name="fragment_guide_welcome_message2">当您点击“返回”按钮退出应用时，应用及所包含的服务不再运行；当您点击“主页”按钮或者“总览”按钮或者其它方式把应用放到后台时，后台应用及所包含的服务可以继续运行；当您从最近列表划掉时，黑域将强行停止它。\n\n对于后台应用，黑域动态显示空闲时间。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过多种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”（Overview）按钮把应用放到后台。\n\n黑域据此识别您是否打开或已经退出应用，防止应用在您不知道的情况下长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用的服务不再运行；当您点按“主页”按钮、“总览”按钮或通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从最近列表划掉应用时，黑域将强行停止它。</string>
 
     <string name="fragment_guide_permission">权限</string>
-    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">其它类似应用需要 ROOT 设备，或变更系统文件以拥有这些权限。黑域所需的调试模式不需要 ROOT，也不需要解锁，您可放心使用。\n\n当前也有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务，甚至开机直接启动黑域服务。ROOT 模式可能无法正常启动黑域服务。</string>
+    <string name="fragment_guide_permission_message">黑域需要您每次开机后，以调试模式执行一个命令以启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
+    <string name="fragment_guide_permission_message2">为了方便，黑域有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务，并会开机后自动启动黑域服务。但 ROOT 模式与正常启动服务相比没有更多功能或更好的工作效果，对于部分设备 ROOT 模式甚至无法启动黑域服务。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑域需要调试模式启动黑域服务。但是调试模式比较危险，在启动黑域服务后，如无特殊需要，请您关闭调试模式。</string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，可能无法支持您的设备。同时有些厂商可能改变这些隐藏 API 行为，对设备造成未知影响。</string>
+    <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系统文件，卸载后没有残留。黑域不破坏其它应用的完整性，也不处理未被黑域的应用。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，可能无法完整支持您的设备。同时部分厂商可能改变这些隐藏 API 的行为，对设备造成未知影响。因此，不建议直接在工作设备上使用黑域。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认使用“待机”（App Standby）黑域应用，您可在设置中更改。如果您发现黑域处理后的应用还在运行，请使用黑域或者其它类似工具查看是否已经“待机”，或者在“开发者选项”的“未启用的应用”中查看是否处于“未启用”状态。\n\n此外，为了降低自身耗电，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby）处理应用，应用待机后将不能联网及执行任务。您可在设置中更改黑域方法。\n\n为了降低系统整体耗电，黑域默认不强行停止无服务进程的安全应用，也不自动黑域没有服务组件的新安装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -34,7 +34,7 @@
     <string name="brevent_service_adb_running">（已启用）</string>
     <string name="brevent_service_usb_connected">（已连接）</string>
     <string name="brevent_service_run_as_root">使用 ROOT 启动</string>
-    <string name="brevent_service_success">黑域服务已成功启动。请点击图标，选择一些应用，然后黑域它们</string>
+    <string name="brevent_service_success">黑域服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑域它们</string>
 
     <string name="fragment_apps_user">用户应用</string>
     <string name="fragment_apps_system">系统应用</string>
@@ -93,7 +93,7 @@
     <string name="important_accessibility">%s（无障碍应用）</string>
     <string name="important_device_admin">%s（设备管理器）</string>
     <string name="important_gcm">%s（FCM）</string>
-    <string name="important_battery">%s（电池未优化，不建议黑域）</string>
+    <string name="important_battery">%s（电池未优化，不会被待机）</string>
     <string name="important_trust_agent">%s（可信代理）</string>
     <string name="important_gms">%s（GMS，不建议黑域）</string>
     <string name="important_wallpaper">%s（壁纸）</string>
@@ -109,7 +109,7 @@
     <string name="menu_guide">向导</string>
     <string name="menu_logs">日志</string>
 
-    <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
+    <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请打开一个 Issue；您也可以搜索所有的 Issue。%s</string>
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">邮件</string>
@@ -121,9 +121,9 @@
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点击“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_standby_only_label">退出应用（如点击“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点击“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
@@ -141,7 +141,7 @@
     <string name="brevent_check_notification">检查通知</string>
     <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
     <string name="brevent_aggressive">激进模式</string>
-    <string name="brevent_aggressive_label">立即黑域，自动黑域没有服务应用，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
+    <string name="brevent_aggressive_label">立即黑域，自动黑域无服务新应用，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
@@ -149,11 +149,11 @@
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
-    <string name="brevent_optimize_vpn_label">启用之后，不处理已连接的 VPN 应用\n\nPlay 版需要支付 2 美元，其它版请随意</string>
-    <string name="brevent_optimize_vpn_label_debug">启用之后，不处理已连接的 VPN 应用</string>
+    <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版需要支付 2 美元，其它版请随意</string>
+    <string name="brevent_optimize_vpn_label_debug">不处理已连接的 VPN 应用</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
-    <string name="brevent_abnormal_back_label_debug">有些应用按“返回”时放到后台而不退出</string>
     <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要支付 2 美元，其它版请随意</string>
+    <string name="brevent_abnormal_back_label_debug">有些应用按“返回”时放到后台而不退出</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label_debug">启用之后，允许 ROOT 过的设备直接启动黑域服务</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要支付 3 美元</string>
@@ -188,13 +188,13 @@
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域服务已经启动，但是没有事件日志。请稍候重试，或者重启手机。</string>
+    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。请不要关闭“开发者选项”中的“日志记录器缓冲区大小”。\n\n部分 ROM 需要网络搜索“ROM名称+日志”找到日志设置项位置。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
-    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新黑域服务及开机自启。</string>
+    <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新黑域服务及开机后自动启动黑域服务。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
-    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。</string>
+    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。部分 ROM 需要关闭省电模式。</string>
     <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
 
