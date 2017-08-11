@@ -1729,7 +1729,9 @@ public class BreventActivity extends Activity
         }
         String details = sw.toString();
         int message;
-        if (details.contains("brevent dumpsys dead")) {
+        if (!details.contains("apk")) {
+            message = R.string.unsupported_exec;
+        } else if (details.contains("brevent dumpsys dead")) {
             message = R.string.unsupported_dumpsys;
         } else if (details.contains("brevent network error")) {
             message = R.string.unsupported_network;

@@ -54,14 +54,18 @@ static int worker() {
                    "me.piebridge.brevent.server.BreventServer", STR(SIGUSR1), NULL};
     file = popen("pm path me.piebridge.brevent", "r");
     if (file != NULL) {
+        memset(line, 0, PATH_MAX);
         fgets(line, sizeof(line), file);
+        LOGD("line: %s\n", line);
         rstrip(line);
         pclose(file);
     } else {
+        LOGE("can't exec pm path");
         return -1;
     }
     path = strchr(line, ':');
     if (path == NULL) {
+        LOGE("can't get path");
         return -1;
     }
     path++;
@@ -143,8 +147,13 @@ static void report(time_t now) {
     printf("please report bug to " PROJECT " with log below\n"
                    "--- crash start ---\n");
     fflush(stdout);
+    sprintf(command, "pm path me.piebridge.brevent");
+    printf("[command] %s\n", command);
+    fflush(stdout);
+    system(command);
+    fflush(stdout);
     sprintf(command, "/system/bin/logcat -b crash -t '%s' -d", time);
-    printf(">>> %s\n", command);
+    printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
     fflush(stdout);
@@ -152,7 +161,7 @@ static void report(time_t now) {
     printf("--- brevent start ---\n");
     fflush(stdout);
     sprintf(command, "/system/bin/logcat -b main -t '%s' -d -s BreventLoader BreventServer", time);
-    printf(">>> %s\n", command);
+    printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
     fflush(stdout);

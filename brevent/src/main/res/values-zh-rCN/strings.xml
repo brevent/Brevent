@@ -197,6 +197,7 @@
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。部分 ROM 需要关闭省电模式。</string>
     <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
+    <string name="unsupported_exec">无法执行指令，请换个 SU。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

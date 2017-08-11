@@ -199,6 +199,7 @@
     <string name="unsupported_no_local_network">Brevent can\'t access local network.</string>
     <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux and try again.</string>
     <string name="unsupported_network">Can\'t verify brevent server, please disable SELinux and try again.</string>
+    <string name="unsupported_exec">Can\'t execute command, please switch to another SU.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
