@@ -59,6 +59,8 @@ public class BreventApplication extends Application {
 
     private boolean mSupportStandby = false;
 
+    private boolean mSupportUpgrade = true;
+
     private boolean copied;
 
     long mDaemonTime;
@@ -158,6 +160,16 @@ public class BreventApplication extends Application {
         return mSupportStandby;
     }
 
+    private void setSupportUpgrade(boolean supportUpgrade) {
+        if (mSupportUpgrade != supportUpgrade) {
+            mSupportUpgrade = supportUpgrade;
+        }
+    }
+
+    public boolean supportUpgrade() {
+        return mSupportUpgrade;
+    }
+
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -177,7 +189,7 @@ public class BreventApplication extends Application {
         mDaemonTime = response.mDaemonTime;
         mServerTime = response.mServerTime;
         setSupportStandby(response.mSupportStandby);
-        setSupportStopped(response.mSupportStopped);
+        setSupportStopped(response.mSupportUpgrade);
     }
 
     public void updateStatus(BreventResponse breventResponse) {
@@ -188,6 +200,7 @@ public class BreventApplication extends Application {
         mUid = breventResponse.mUid;
         setSupportStandby(breventResponse.mSupportStandby);
         setSupportStopped(breventResponse.mSupportStopped);
+        setSupportUpgrade(breventResponse.mSupportUpgrade);
         if (BuildConfig.RELEASE && shouldUpdated) {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);

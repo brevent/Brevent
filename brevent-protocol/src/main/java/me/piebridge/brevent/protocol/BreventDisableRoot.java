@@ -14,15 +14,15 @@ public class BreventDisableRoot extends BreventProtocol {
 
     public final boolean mSupportStandby;
 
-    public final boolean mSupportStopped;
+    public final boolean mSupportUpgrade;
 
     public BreventDisableRoot(long daemonTime, long serverTime, boolean supportStandby,
-                              boolean supportStopped) {
+                              boolean supportUpgrade) {
         super(BreventProtocol.SHOW_ROOT);
         mDaemonTime = daemonTime;
         mServerTime = serverTime;
         mSupportStandby = supportStandby;
-        mSupportStopped = supportStopped;
+        mSupportUpgrade = supportUpgrade;
     }
 
     BreventDisableRoot(Parcel parcel) {
@@ -30,7 +30,7 @@ public class BreventDisableRoot extends BreventProtocol {
         mDaemonTime = parcel.readLong();
         mServerTime = parcel.readLong();
         mSupportStandby = parcel.readInt() != 0;
-        mSupportStopped = parcel.readInt() != 0;
+        mSupportUpgrade = parcel.readInt() != 0;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BreventDisableRoot extends BreventProtocol {
         dest.writeLong(mDaemonTime);
         dest.writeLong(mServerTime);
         dest.writeInt(mSupportStandby ? 1 : 0);
-        dest.writeInt(mSupportStopped ? 1 : 0);
+        dest.writeInt(mSupportUpgrade ? 1 : 0);
     }
 
 }

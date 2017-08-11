@@ -85,8 +85,7 @@ public class SettingsFragment extends PreferenceFragment
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_list"))
                     .removePreference(preferenceStandbyTimeout);
         }
-        // TODO
-        if (false) {
+        if (!application.supportUpgrade()) {
             SwitchPreference preferenceAutoUpdate = (SwitchPreference) preferenceScreen
                     .findPreference(BreventConfiguration.BREVENT_AUTO_UPDATE);
             preferenceAutoUpdate.setChecked(false);
