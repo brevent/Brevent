@@ -196,6 +196,7 @@
     <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_exec">无法执行指令，请换个 SU。</string>
+    <string name="unsupported_tasks">无法获取最近任务，请考虑换个 ROM。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

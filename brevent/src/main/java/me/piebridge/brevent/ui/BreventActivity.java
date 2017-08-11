@@ -1735,6 +1735,8 @@ public class BreventActivity extends Activity
             message = R.string.unsupported_dumpsys;
         } else if (details.contains("brevent network error")) {
             message = R.string.unsupported_network;
+        } else if (details.contains("brevent no recent tasks")) {
+            message = R.string.unsupported_tasks;
         } else {
             message = R.string.unsupported_root;
         }
