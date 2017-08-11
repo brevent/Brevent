@@ -180,6 +180,11 @@ public class BreventActivity extends Activity
 
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
 
+    private static final int STATUS_BREVENT = 0x1;
+    private static final int STATUS_UNBREVENT = 0x2;
+    private static final int STATUS_IMPORTANT = 0x4;
+    private static final int STATUS_MASK = 0x1 | 0x2;
+
     private ViewPager mPager;
 
     private AppsPagerAdapter mAdapter;
@@ -194,7 +199,7 @@ public class BreventActivity extends Activity
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
 
-    private boolean mSelectMode;
+    private int mSelectStatus;
 
     private CoordinatorLayout mCoordinator;
     private Toolbar mToolbar;
@@ -729,10 +734,18 @@ public class BreventActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        if (mSelectMode) {
+        if (mSelectStatus != 0) {
             inflater.inflate(R.menu.menu_brevent, menu);
-            menu.findItem(R.id.action_restore).getIcon().setTint(mColorControlNormal);
-            menu.findItem(R.id.action_brevent).getIcon().setTint(mColorControlNormal);
+            if ((mSelectStatus & STATUS_BREVENT) != 0) {
+                menu.findItem(R.id.action_restore).getIcon().setTint(mColorControlNormal);
+            } else {
+                menu.removeItem(R.id.action_restore);
+            }
+            if ((mSelectStatus & STATUS_UNBREVENT) != 0) {
+                menu.findItem(R.id.action_brevent).getIcon().setTint(mColorControlNormal);
+            } else {
+                menu.removeItem(R.id.action_brevent);
+            }
             if (mSearchView != null) {
                 mSearchView.clearFocus();
                 mSearchView = null;
@@ -970,7 +983,7 @@ public class BreventActivity extends Activity
     }
 
     private boolean onClickHome() {
-        if (mSelectMode) {
+        if (mSelectStatus != 0) {
             clearSelected();
         } else if (resetSearchView()) {
             invalidateOptionsMenu();
@@ -984,14 +997,31 @@ public class BreventActivity extends Activity
         setSelectCount(0);
     }
 
-    public void setSelectCount(int count) {
-        boolean selectMode = count > 0;
-        if (mSelectMode != selectMode) {
-            invalidateOptionsMenu();
-            showHome(selectMode);
+    private int getSelectStatus() {
+        int status = 0;
+        for (String packageName : getFragment().getSelected()) {
+            if (mBrevent.contains(packageName)) {
+                status |= STATUS_BREVENT;
+            } else if (mImportant.containsKey(packageName)) {
+                status |= STATUS_IMPORTANT;
+            } else {
+                status |= STATUS_UNBREVENT;
+            }
+            if ((status & STATUS_MASK) == STATUS_MASK) {
+                break;
+            }
         }
-        mSelectMode = selectMode;
-        if (mSelectMode) {
+        return status;
+    }
+
+    public void setSelectCount(int count) {
+        int selectStatus = getSelectStatus();
+        if (mSelectStatus != selectStatus) {
+            invalidateOptionsMenu();
+            showHome(selectStatus != 0);
+            mSelectStatus = selectStatus;
+        }
+        if (selectStatus != 0) {
             if (mSnackBar != null && mSnackBar.isShown()) {
                 mSnackBar.dismiss();
                 mSnackBar = null;
@@ -1191,7 +1221,7 @@ public class BreventActivity extends Activity
             hasResponse = true;
         }
 
-        if (!mSelectMode && mBrevent.isEmpty()) {
+        if (mSelectStatus == 0 && mBrevent.isEmpty()) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
