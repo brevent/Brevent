@@ -33,15 +33,11 @@ task clean(type: Delete) {
 }
 
 def getBreventVersion = { ->
-    def tag = 'git describe --tags --always'.execute().text.trim()
+    def tag = 'git describe --tags --always --dirty'.execute().text.trim()
     if (tag.startsWith('v')) {
         tag = tag.substring(1)
     }
-    if ('git diff --no-ext-diff --quiet HEAD'.execute().waitFor() == 0) {
-        return tag
-    } else {
-        return tag + '-dirty'
-    }
+    return tag
 }
 
 def isIde = { ->
