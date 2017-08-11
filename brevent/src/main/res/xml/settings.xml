@@ -41,12 +41,6 @@
         android:title="@string/brevent_advanced">
 
         <SwitchPreference
-            android:key="brevent_check_notification"
-            android:defaultValue="true"
-            android:summary="@string/brevent_check_notification_label"
-            android:title="@string/brevent_check_notification" />
-
-        <SwitchPreference
             android:defaultValue="false"
             android:key="brevent_aggressive"
             android:summary="@string/brevent_aggressive_label"

@@ -140,8 +140,6 @@
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s</string>
 
     <string name="brevent_advanced">Advanced Features</string>
-    <string name="brevent_check_notification">Check notifications</string>
-    <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
     <string name="brevent_aggressive">Aggressive mode</string>
     <string name="brevent_aggressive_label">Brevent immediately, auto-brevent non-service apps, force-stop safe apps.\n\nBe careful</string>
     <string name="show_framework_apps">Show framework apps</string>

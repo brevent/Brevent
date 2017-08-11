@@ -138,8 +138,6 @@
     <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
 
     <string name="brevent_advanced">進階功能</string>
-    <string name="brevent_check_notification">檢查通知</string>
-    <string name="brevent_check_notification_label">僅在您的裝置上進行解鎖及檢視通知時有延遲現象，才需要關閉</string>
     <string name="brevent_aggressive">激進模式</string>
     <string name="brevent_aggressive_label">立即黑域，自動黑域沒有服務應用程式，強制停止安全應用程式\n\n強迫症必備，請謹慎啟用</string>
     <string name="show_all_apps">顯示所有應用程式</string>

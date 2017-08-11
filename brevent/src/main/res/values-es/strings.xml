@@ -142,8 +142,6 @@
     <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 
     <string name="brevent_advanced">Características avanzadas:</string>
-    <string name="brevent_check_notification">Comprobar notificaciones.</string>
-    <string name="brevent_check_notification_label">Solamente desactive si el dispositivo se bloquea al desbloquearlo o al ver la notificación.</string>
     <string name="brevent_aggressive">Modo agresivo</string>
     <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nTenga cuidado.</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
