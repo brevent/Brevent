@@ -6,11 +6,16 @@
 #include <stdlib.h>
 #include <android/log.h>
 #include <time.h>
+#include <sys/stat.h>
 #include "log.h"
 
 #define TAG "BreventServer"
 #define LOGW(...) (__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
 #define LOGI(...) (__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
+
+#ifndef AID_SYSTEM
+#define AID_SYSTEM 1000
+#endif
 
 #define ANDROID_UTIL_EVENT_LOG_EVENT "android/util/EventLog$Event"
 
@@ -27,10 +32,19 @@ static int get_pid() {
         int id;
         FILE *fp;
         char buf[PATH_MAX];
+        struct stat status;
 
         if (!(id = atoi(entry->d_name))) {
             continue;
         }
+
+        sprintf(buf, "/proc/%u", id);
+        memset(&status, 0, sizeof(struct stat));
+        stat(buf, &status);
+        if (status.st_uid != AID_SYSTEM) {
+            continue;
+        }
+
         sprintf(buf, "/proc/%u/cmdline", id);
         fp = fopen(buf, "r");
         if (fp != NULL) {
