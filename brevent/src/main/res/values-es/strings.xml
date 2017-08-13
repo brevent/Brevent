@@ -149,7 +149,7 @@
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
     <string name="brevent_checking">Diagnosis</string>
-    <string name="brevent_checking_label">Checking Brevent server every 15 minutes, gather logs if necessary\n\nTurn on if Brevent stop unreasonably, and make Brevent battery not optimized</string>
+    <string name="brevent_checking_label">Checking Brevent server every 15 minutes, gather logs if necessary\n\nTurn on if Brevent stops unreasonably, and make Brevent battery not optimized</string>
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
