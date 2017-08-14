@@ -137,7 +137,7 @@
     <string name="brevent_timeout_1hour">1 hora</string>
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
-    <string name="brevent_timeout_long">115 días</string>
+    <string name="brevent_timeout_long">very long</string>
     <string name="brevent_standby_timeout">Tiempo de espera en Standby.</string>
     <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 

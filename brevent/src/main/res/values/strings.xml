@@ -135,7 +135,7 @@
     <string name="brevent_timeout_1hour">1 hour</string>
     <string name="brevent_timeout_3hour">3 hours</string>
     <string name="brevent_timeout_6hour">6 hours</string>
-    <string name="brevent_timeout_long">115 days</string>
+    <string name="brevent_timeout_long">very long</string>
     <string name="brevent_standby_timeout">Standby timeout</string>
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s</string>
 

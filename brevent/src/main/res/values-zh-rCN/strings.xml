@@ -133,7 +133,7 @@
     <string name="brevent_timeout_1hour">1 小时</string>
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
-    <string name="brevent_timeout_long">115 天</string>
+    <string name="brevent_timeout_long">很久</string>
     <string name="brevent_standby_timeout">待机超时</string>
     <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
 
