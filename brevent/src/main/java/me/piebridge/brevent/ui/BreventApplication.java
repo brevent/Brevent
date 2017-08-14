@@ -40,6 +40,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -447,20 +448,25 @@ public class BreventApplication extends Application {
         return Math.max(donate1, donate2);
     }
 
-    public static void dumpsys(String serviceName, String[] args, File file) throws IOException {
+    public static byte[] dumpsys(String serviceName, String[] args) {
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         try {
             ClassLoader classLoader = BreventApplication.class.getClassLoader();
-            byte[] results = (byte[]) classLoader.loadClass(clazzServer)
+            return (byte[]) classLoader.loadClass(clazzServer)
                     .getMethod(String.valueOf('c'), String.class, String[].class)
                     .invoke(null, serviceName, args);
-            if (results != null) {
-                try (FileOutputStream os = new FileOutputStream(file)) {
-                    os.write(results);
-                }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            UILog.w("Can't dumpsys " + serviceName + " " + Arrays.toString(args), e);
+            return null;
+        }
+    }
+
+    public static void dumpsys(String serviceName, String[] args, File file) throws IOException {
+        byte[] results = dumpsys(serviceName, args);
+        if (results != null && file != null) {
+            try (FileOutputStream os = new FileOutputStream(file)) {
+                os.write(results);
             }
-        } catch (ReflectiveOperationException | RuntimeException e) { // NOSONAR
-            // do nothing
         }
     }
 

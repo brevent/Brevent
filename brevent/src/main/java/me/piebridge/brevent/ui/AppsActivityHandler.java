@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accounts.NetworkErrorException;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -101,12 +102,16 @@ public class AppsActivityHandler extends Handler {
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
-                requestStatus(false, activity != null && activity.isConfirmed());
+                if (activity != null) {
+                    requestStatus(false, activity.isConfirmed(), activity.isCheck());
+                }
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
                 UILog.d("retry request status");
                 hasResponse = false;
-                requestStatus(true, activity.isConfirmed());
+                if (activity != null) {
+                    requestStatus(true, activity.isConfirmed(), activity.isCheck());
+                }
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
                 if (!hasResponse) {
@@ -256,8 +261,8 @@ public class AppsActivityHandler extends Handler {
         file.delete();
     }
 
-    private void requestStatus(boolean retry, boolean confirmed) {
-        BreventRequest request = new BreventRequest(confirmed);
+    private void requestStatus(boolean retry, boolean confirmed, boolean check) {
+        BreventRequest request = new BreventRequest(confirmed, check);
         request.retry = retry;
         send(request);
     }

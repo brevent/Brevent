@@ -148,6 +148,8 @@
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
+    <string name="brevent_checking">Checking Brevent</string>
+    <string name="brevent_checking_label">Put Brevent into doze whitelist, checking Brevent every 15 minutes, notify if Brevent is stopped\n\nTurn on if Brevent stop unreasonably</string>
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>

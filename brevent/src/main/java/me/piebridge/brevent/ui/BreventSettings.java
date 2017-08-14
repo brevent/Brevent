@@ -36,8 +36,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     static final int CONTRIBUTOR = 5;
 
-    private BreventConfiguration mConfiguration;
-
     private SettingsFragment settingsFragment;
 
     private boolean mPlay;
@@ -67,9 +65,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         getFragmentManager().beginTransaction()
                 .replace(R.id.content, settingsFragment)
                 .commit();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mConfiguration = new BreventConfiguration(preferences);
     }
 
     @Override
@@ -90,16 +85,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected boolean acceptDonation() {
         return BuildConfig.RELEASE;
-    }
-
-    @Override
-    public void finish() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        BreventConfiguration configuration = new BreventConfiguration(preferences);
-        Intent data = new Intent();
-        data.putExtra(Intent.ACTION_CONFIGURATION_CHANGED, mConfiguration.update(configuration));
-        setResult(RESULT_OK, data);
-        super.finish();
     }
 
     @Override

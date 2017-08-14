@@ -183,7 +183,7 @@ public class BreventIntentService extends IntentService {
                 showNoBrevent(context, true);
             }
         } catch (NetworkErrorException e) {
-            showNoBrevent(context, false);
+            UILog.w("brevent checking timeout");
         }
     }
 
