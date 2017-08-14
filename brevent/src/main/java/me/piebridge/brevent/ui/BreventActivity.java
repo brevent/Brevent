@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
@@ -35,6 +36,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -577,6 +579,35 @@ public class BreventActivity extends Activity
         if (BuildConfig.RELEASE) {
             ((BreventApplication) getApplication()).decodeFromClipboard();
         }
+        if (BreventIntent.ACTION_FEEDBACK.equals(getIntent().getAction())) {
+            String path = getIntent().getStringExtra(BreventIntent.EXTRA_PATH);
+            UILog.d("path: " + path);
+            if (hasEmailClient(this)) {
+                String content = Build.FINGERPRINT + "\n" +
+                        getString(R.string.brevent_status_stopped);
+                sendEmail(this, new File(path), content);
+            }
+        }
+    }
+
+    public static PendingIntent getAlarmPendingIntent(Context context) {
+        Intent intent = new Intent(context, BreventReceiver.class);
+        intent.setAction(BreventIntent.ACTION_ALARM);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
+    }
+
+    public static void setAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                getAlarmPendingIntent(context));
+        UILog.d("setAlarm");
+    }
+
+    public static void cancelAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(getAlarmPendingIntent(context));
+        UILog.d("cancelAlarm");
     }
 
     @Override
@@ -1225,6 +1256,7 @@ public class BreventActivity extends Activity
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
+        setAlarm(this);
     }
 
     private void retrieveStats() {

@@ -1,6 +1,5 @@
 package me.piebridge.brevent.protocol;
 
-import android.accounts.NetworkErrorException;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.content.pm.Signature;
@@ -16,18 +15,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -58,8 +49,6 @@ public abstract class BreventProtocol {
     private int mAction;
 
     public boolean retry;
-
-    private static ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
     public BreventProtocol(int action) {
         this.mVersion = VERSION;
@@ -208,25 +197,6 @@ public abstract class BreventProtocol {
         return "version: " + mVersion + ", action: " + getActionName(mAction);
     }
 
-    private static void d(String tag, String msg, Throwable t) {
-        Log.d(tag, msg);
-        if (Log.isLoggable(tag, Log.VERBOSE)) {
-            Log.v(tag, msg, t);
-        }
-    }
-
-    private static void v(String tag, String msg) {
-        Log.v(tag, msg);
-    }
-
-    private static void v(String tag, String msg, Throwable t) {
-        if (Log.isLoggable(tag, Log.VERBOSE)) {
-            Log.v(tag, msg, t);
-        } else {
-            Log.v(tag, msg);
-        }
-    }
-
     @WorkerThread
     public static void checkPortSync() throws IOException {
         try (
@@ -237,35 +207,6 @@ public abstract class BreventProtocol {
             os.writeShort(0);
             os.flush();
             BreventProtocol.readFrom(is);
-        }
-    }
-
-    public static boolean checkPort(final String tag) throws NetworkErrorException {
-        Future<Boolean> future = executor.submit(new Callable<Boolean>() {
-            @Override
-            public Boolean call() {
-                try {
-                    checkPortSync();
-                    v(tag, "connected to localhost: " + BreventProtocol.PORT);
-                    return true;
-                } catch (ConnectException e) {
-                    v(tag, "cannot connect to localhost:" + BreventProtocol.PORT, e);
-                    return false;
-                } catch (IOException e) {
-                    v(tag, "io error to localhost:" + BreventProtocol.PORT, e);
-                    return false;
-                }
-            }
-        });
-        try {
-            return future.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            d(tag, "Can't check port: " + e.getMessage(), e);
-            throw new NetworkErrorException(e);
-        } finally {
-            if (!future.isDone()) {
-                future.cancel(true);
-            }
         }
     }
 

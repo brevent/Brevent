@@ -11,18 +11,21 @@ import android.content.Intent;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
-import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
 
     public static final int ID = 59526;
+
+    public static final int ID2 = 59527;
 
     private static final String CHANNEL_ID = "root";
 
@@ -32,7 +35,7 @@ public class BreventIntentService extends IntentService {
 
     private boolean checkPort() {
         try {
-            return BreventProtocol.checkPort(UILog.TAG);
+            return ((BreventApplication) getApplication()).checkPort();
         } catch (NetworkErrorException e) {
             return false;
         }
@@ -130,7 +133,7 @@ public class BreventIntentService extends IntentService {
         builder.setAutoCancel(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         builder.setSmallIcon(R.drawable.ic_brevent_server);
-        builder.setContentTitle(context.getString(R.string.brevent_status_stopped));
+        builder.setContentTitle(context.getString(R.string.brevent_status_not_started));
         builder.setContentIntent(PendingIntent.getActivity(context, 0,
                 new Intent(context, BreventActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = builder.build();
@@ -169,6 +172,44 @@ public class BreventIntentService extends IntentService {
 
     private static boolean shouldForeground() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
+    public static void checkBrevent(Context context) {
+        BreventApplication application = (BreventApplication) context.getApplicationContext();
+        try {
+            if (application.checkPort()) {
+                UILog.d("brevent worked");
+            } else {
+                showNoBrevent(context, true);
+            }
+        } catch (NetworkErrorException e) {
+            showNoBrevent(context, false);
+        }
+    }
+
+    private static void showNoBrevent(Context context, boolean exit) {
+        UILog.d("no brevent, exit: " + exit);
+        Notification.Builder builder = buildNotification(context);
+        builder.setAutoCancel(true);
+        builder.setVisibility(Notification.VISIBILITY_PUBLIC);
+        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        int title = exit ? R.string.brevent_status_stopped : R.string.brevent_status_unknown;
+        builder.setContentTitle(context.getString(title));
+        File file = AppsActivityHandler.fetchLogs(context);
+        if (BuildConfig.RELEASE && file != null) {
+            builder.setContentText(context.getString(R.string.brevent_status_report));
+            Intent intent = new Intent(context, BreventActivity.class);
+            intent.setAction(BreventIntent.ACTION_FEEDBACK);
+            intent.putExtra(BreventIntent.EXTRA_PATH, file.getPath());
+            builder.setContentIntent(PendingIntent.getActivity(context, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+        Notification notification = builder.build();
+        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
+                .notify(ID2, notification);
+        if (exit) {
+            BreventActivity.cancelAlarm(context);
+        }
     }
 
 }

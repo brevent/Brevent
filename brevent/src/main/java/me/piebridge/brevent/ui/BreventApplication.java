@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.accounts.NetworkErrorException;
 import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -31,6 +32,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
 import java.math.BigInteger;
+import java.net.ConnectException;
 import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
@@ -39,7 +41,13 @@ import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import dalvik.system.PathClassLoader;
 import me.piebridge.brevent.BuildConfig;
@@ -47,6 +55,7 @@ import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventDisableRoot;
+import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
 
@@ -80,6 +89,8 @@ public class BreventApplication extends Application {
     private Boolean play;
 
     private BigInteger modulus;
+
+    private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -450,6 +461,35 @@ public class BreventApplication extends Application {
             }
         } catch (ReflectiveOperationException | RuntimeException e) { // NOSONAR
             // do nothing
+        }
+    }
+
+    public boolean checkPort() throws NetworkErrorException {
+        Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() {
+                try {
+                    BreventProtocol.checkPortSync();
+                    UILog.v("connected to localhost: " + BreventProtocol.PORT);
+                    return true;
+                } catch (ConnectException e) {
+                    UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+                    return false;
+                } catch (IOException e) {
+                    UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
+                    return false;
+                }
+            }
+        });
+        try {
+            return future.get(5, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            UILog.d("Can't check port: " + e.getMessage(), e);
+            throw new NetworkErrorException(e);
+        } finally {
+            if (!future.isDone()) {
+                future.cancel(true);
+            }
         }
     }
 
