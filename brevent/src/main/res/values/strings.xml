@@ -5,7 +5,7 @@
     <string name="app_name_debug">Brevent Community</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and wanted to quit.\nPressing Home will start the launcher and kick this app into background.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and want to quit.\nPressing Home will start the launcher and kick this app into background.</string>
     <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwiping away from Recent Screen or pressing Back and they will be force-stopped.\nPressing Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
@@ -17,12 +17,12 @@
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using. Therefore, it is not recommended to use Brevent directly on office equipment.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
-    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and feel free to feedback.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). If you find some apps still running, please use Brevent or other tools to check its status.\n\nAnd to increase battery performance, Brevent server delay the processes by 3 to 60 seconds according to the event level.\n\nWhen you swipe apps away from recent screen, Android will kill the processes and Brevent would force-stop them ASAP.</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). When an app is standby, it can\'t connect to the Internet or carry on it\'s tasks. You can change the Brevent method in the settings.\n\nTo decrease the system\'s battery consumption, Brevent will not force-stop apps which have no service processes, nor will it auto brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets you communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use the \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use the \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets an PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
 
     <string name="start_brevent">Start Brevent</string>
 
@@ -188,9 +188,9 @@
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.</string>
-    <string name="unsupported_no_event">No event log. Please try later or reboot.</string>
-    <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try later.</string>
-    <string name="unsupported_logs">Cannot get logs. Please try later.</string>
+    <string name="unsupported_no_event">No event log. Please try again later or reboot.</string>
+    <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
+    <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Allow run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
