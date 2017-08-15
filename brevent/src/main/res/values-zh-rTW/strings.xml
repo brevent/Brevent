@@ -145,7 +145,7 @@
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
     <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">加进低电耗白名单，每 15 分钟检查黑域服务，发现停止就通知\n\n只有当黑域不正常停止时，才需要开启</string>
+    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，会对黑域电池未优化</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
