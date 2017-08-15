@@ -111,6 +111,13 @@ android {
                 resValue "string", "brevent", "@string/app_name_debug"
             }
         }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                if (variant.buildType.name == 'release') {
+                    output.outputFile = rootProject.file('ce.apk')
+                }
+            }
+        }
     }
 
     sourceSets {

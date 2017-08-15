@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
@@ -35,6 +36,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
@@ -176,9 +178,14 @@ public class BreventActivity extends Activity
     private static final String FRAGMENT_SORT = "sort";
 
 
-    private static final int REQUEST_CODE_SETTINGS = 1;
+    static final int REQUEST_CODE_SETTINGS = 1;
 
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
+
+    private static final int STATUS_BREVENT = 0x1;
+    private static final int STATUS_UNBREVENT = 0x2;
+    private static final int STATUS_IMPORTANT = 0x4;
+    private static final int STATUS_MASK = 0x1 | 0x2;
 
     private ViewPager mPager;
 
@@ -194,7 +201,7 @@ public class BreventActivity extends Activity
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
 
-    private boolean mSelectMode;
+    private int mSelectStatus;
 
     private CoordinatorLayout mCoordinator;
     private Toolbar mToolbar;
@@ -232,6 +239,9 @@ public class BreventActivity extends Activity
     private String mQuery;
 
     private boolean confirmed;
+    private Boolean check;
+    private BreventConfiguration mConfiguration;
+    private boolean shouldUpdateConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -312,6 +322,8 @@ public class BreventActivity extends Activity
                     android.R.attr.colorControlHighlight);
 
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+
+            updateCheck();
         }
     }
 
@@ -572,6 +584,38 @@ public class BreventActivity extends Activity
         if (BuildConfig.RELEASE) {
             ((BreventApplication) getApplication()).decodeFromClipboard();
         }
+        if (BreventIntent.ACTION_FEEDBACK.equals(getIntent().getAction())) {
+            String path = getIntent().getStringExtra(BreventIntent.EXTRA_PATH);
+            UILog.d("path: " + path);
+            if (hasEmailClient(this)) {
+                String content = Build.FINGERPRINT + "\n" +
+                        getString(R.string.brevent_status_stopped);
+                sendEmail(this, new File(path), content);
+            }
+        }
+        if (shouldUpdateConfiguration) {
+            updateConfiguration(true);
+        }
+    }
+
+    public static PendingIntent getAlarmPendingIntent(Context context) {
+        Intent intent = new Intent(context, BreventReceiver.class);
+        intent.setAction(BreventIntent.ACTION_ALARM);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
+    }
+
+    public static void setAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmPendingIntent(context));
+        UILog.d("setAlarm");
+    }
+
+    public static void cancelAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(getAlarmPendingIntent(context));
+        UILog.d("cancelAlarm");
     }
 
     @Override
@@ -729,10 +773,18 @@ public class BreventActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        if (mSelectMode) {
+        if (mSelectStatus != 0) {
             inflater.inflate(R.menu.menu_brevent, menu);
-            menu.findItem(R.id.action_restore).getIcon().setTint(mColorControlNormal);
-            menu.findItem(R.id.action_brevent).getIcon().setTint(mColorControlNormal);
+            if ((mSelectStatus & STATUS_BREVENT) != 0) {
+                menu.findItem(R.id.action_restore).getIcon().setTint(mColorControlNormal);
+            } else {
+                menu.removeItem(R.id.action_restore);
+            }
+            if ((mSelectStatus & STATUS_UNBREVENT) != 0) {
+                menu.findItem(R.id.action_brevent).getIcon().setTint(mColorControlNormal);
+            } else {
+                menu.removeItem(R.id.action_brevent);
+            }
             if (mSearchView != null) {
                 mSearchView.clearFocus();
                 mSearchView = null;
@@ -839,15 +891,28 @@ public class BreventActivity extends Activity
     @CallSuper
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS) {
-            if (mAdapter != null && updateAdapter(mAdapter)) {
-                mAdapter.refreshFragment();
-            }
-            if (resultCode == Activity.RESULT_OK &&
-                    data.getBooleanExtra(Intent.ACTION_CONFIGURATION_CHANGED, false)) {
-                updateConfiguration();
+            UILog.d("onActivityResult");
+            if (stopped) {
+                shouldUpdateConfiguration = true;
+            } else {
+                updateConfiguration(false);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void updateConfiguration(boolean inResume) {
+        shouldUpdateConfiguration = false;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
+            doUpdateConfiguration();
+        }
+        if (updateCheck() && !inResume) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+        }
+        if (mAdapter != null && updateAdapter(mAdapter)) {
+            mAdapter.refreshFragment();
         }
     }
 
@@ -871,7 +936,7 @@ public class BreventActivity extends Activity
         super.finishAndRemoveTask();
     }
 
-    private void updateConfiguration() {
+    private void doUpdateConfiguration() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
         if (!"forcestop_only".equals(preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))
@@ -970,7 +1035,7 @@ public class BreventActivity extends Activity
     }
 
     private boolean onClickHome() {
-        if (mSelectMode) {
+        if (mSelectStatus != 0) {
             clearSelected();
         } else if (resetSearchView()) {
             invalidateOptionsMenu();
@@ -984,14 +1049,31 @@ public class BreventActivity extends Activity
         setSelectCount(0);
     }
 
-    public void setSelectCount(int count) {
-        boolean selectMode = count > 0;
-        if (mSelectMode != selectMode) {
-            invalidateOptionsMenu();
-            showHome(selectMode);
+    private int getSelectStatus() {
+        int status = 0;
+        for (String packageName : getFragment().getSelected()) {
+            if (mBrevent.contains(packageName)) {
+                status |= STATUS_BREVENT;
+            } else if (mImportant.containsKey(packageName)) {
+                status |= STATUS_IMPORTANT;
+            } else {
+                status |= STATUS_UNBREVENT;
+            }
+            if ((status & STATUS_MASK) == STATUS_MASK) {
+                break;
+            }
         }
-        mSelectMode = selectMode;
-        if (mSelectMode) {
+        return status;
+    }
+
+    public void setSelectCount(int count) {
+        int selectStatus = getSelectStatus();
+        if (mSelectStatus != selectStatus) {
+            invalidateOptionsMenu();
+            showHome(selectStatus != 0);
+            mSelectStatus = selectStatus;
+        }
+        if (selectStatus != 0) {
             if (mSnackBar != null && mSnackBar.isShown()) {
                 mSnackBar.dismiss();
                 mSnackBar = null;
@@ -1186,15 +1268,20 @@ public class BreventActivity extends Activity
         uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_PAGER);
 
         if (!hasResponse) {
-            updateConfiguration();
+            doUpdateConfiguration();
             unregisterReceiver();
             hasResponse = true;
         }
 
-        if (!mSelectMode && mBrevent.isEmpty()) {
+        if (mSelectStatus == 0 && mBrevent.isEmpty()) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
+        if (isCheck()) {
+            setAlarm(this);
+        } else {
+            cancelAlarm(this);
+        }
     }
 
     private void retrieveStats() {
@@ -1817,6 +1904,27 @@ public class BreventActivity extends Activity
                     .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         }
         return confirmed;
+    }
+
+    private boolean updateCheck() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (mConfiguration == null) {
+            mConfiguration = new BreventConfiguration(preferences);
+        }
+        boolean checking = preferences.getBoolean("brevent_checking", false);
+        if (check == null || check != checking) {
+            check = checking;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isCheck() {
+        if (check == null) {
+            updateCheck();
+        }
+        return check;
     }
 
     public void confirm() {

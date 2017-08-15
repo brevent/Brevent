@@ -93,7 +93,7 @@ public class AppsActivityHandler extends Handler {
             case BreventActivity.MESSAGE_RETRIEVE:
                 if (BuildConfig.RELEASE && !adbChecked && activity != null) {
                     try {
-                        if (!checkPort()) {
+                        if (!((BreventApplication) activity.getApplication()).checkPort()) {
                             checkAdb(activity);
                         }
                     } catch (NetworkErrorException e) {
@@ -102,12 +102,16 @@ public class AppsActivityHandler extends Handler {
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
-                requestStatus(false, activity != null && activity.isConfirmed());
+                if (activity != null) {
+                    requestStatus(false, activity.isConfirmed(), activity.isCheck());
+                }
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
                 UILog.d("retry request status");
                 hasResponse = false;
-                requestStatus(true, activity.isConfirmed());
+                if (activity != null) {
+                    requestStatus(true, activity.isConfirmed(), activity.isCheck());
+                }
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
                 if (!hasResponse) {
@@ -148,13 +152,13 @@ public class AppsActivityHandler extends Handler {
         }
     }
 
-    private File fetchLogs(Activity activity) {
+    public static File fetchLogs(Context context) {
         File path = null;
         File dir;
-        if (activity != null && (dir = activity.getExternalFilesDir("logs")) != null) {
+        if (context != null && (dir = context.getExternalFilesDir("logs")) != null) {
             DateFormat df = new SimpleDateFormat("yyyyMMdd.HHmm", Locale.US);
             String date = df.format(Calendar.getInstance().getTime());
-            File cacheDir = activity.getCacheDir();
+            File cacheDir = context.getCacheDir();
             try {
                 for (String[] log : LOGS) {
                     File file = new File(cacheDir, date + "." + log[0]);
@@ -163,7 +167,7 @@ public class AppsActivityHandler extends Handler {
                     UILog.d("logcat for " + log[0]);
                     Runtime.getRuntime().exec(command).waitFor();
                 }
-                if (activity.getPackageManager().checkPermission(Manifest.permission.DUMP,
+                if (context.getPackageManager().checkPermission(Manifest.permission.DUMP,
                         BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED) {
                     for (String[] dump : DUMPS) {
                         File file = new File(cacheDir, date + "." + dump[0]);
@@ -174,24 +178,12 @@ public class AppsActivityHandler extends Handler {
                     UILog.d("skip for dump");
                 }
                 Runtime.getRuntime().exec("sync").waitFor();
-                path = zipLog(activity, dir, date);
+                path = zipLog(context, dir, date);
             } catch (IOException | InterruptedException e) {
                 UILog.w("Can't get logs", e);
             }
         }
         return path;
-    }
-
-    private boolean checkPort() throws NetworkErrorException {
-        uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
-        try {
-            return BreventProtocol.checkPort(UILog.TAG);
-        } catch (NetworkErrorException e) {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
-            throw e;
-        } finally {
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_CHECKED_BREVENT);
-        }
     }
 
     private boolean checkAdb(BreventActivity activity) {
@@ -228,7 +220,7 @@ public class AppsActivityHandler extends Handler {
         return false;
     }
 
-    private File zipLog(Context context, File dir, String date) {
+    private static File zipLog(Context context, File dir, String date) {
         try {
             File path = new File(dir, "logs-v" + BuildConfig.VERSION_NAME + "-" + date + ".zip");
             try (
@@ -248,7 +240,7 @@ public class AppsActivityHandler extends Handler {
         }
     }
 
-    private void zipLog(Context context, ZipOutputStream zos, String date, String path)
+    private static void zipLog(Context context, ZipOutputStream zos, String date, String path)
             throws IOException {
         File file = new File(context.getCacheDir(), date + "." + path);
         if (!file.exists()) {
@@ -269,8 +261,8 @@ public class AppsActivityHandler extends Handler {
         file.delete();
     }
 
-    private void requestStatus(boolean retry, boolean confirmed) {
-        BreventRequest request = new BreventRequest(confirmed);
+    private void requestStatus(boolean retry, boolean confirmed, boolean check) {
+        BreventRequest request = new BreventRequest(confirmed, check);
         request.retry = retry;
         send(request);
     }
@@ -291,7 +283,7 @@ public class AppsActivityHandler extends Handler {
             return false;
         }
         try {
-            checkPort();
+            ((BreventApplication) (activity.getApplication())).checkPort();
         } catch (NetworkErrorException e) {
             return false;
         }

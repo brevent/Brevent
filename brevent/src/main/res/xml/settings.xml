@@ -58,6 +58,12 @@
             android:summary="@string/show_all_apps_label"
             android:title="@string/show_all_apps" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_checking"
+            android:summary="@string/brevent_checking_label"
+            android:title="@string/brevent_checking" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

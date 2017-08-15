@@ -135,7 +135,7 @@
     <string name="brevent_timeout_1hour">1 hour</string>
     <string name="brevent_timeout_3hour">3 hours</string>
     <string name="brevent_timeout_6hour">6 hours</string>
-    <string name="brevent_timeout_long">115 days</string>
+    <string name="brevent_timeout_long">very long</string>
     <string name="brevent_standby_timeout">Standby timeout</string>
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s</string>
 
@@ -146,6 +146,8 @@
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
     <string name="show_all_apps">Show all apps</string>
     <string name="show_all_apps_label">Including system and framework apps which cannot be launched\n\nBe careful when breventing system and framework apps which cannot be launched</string>
+    <string name="brevent_checking">Checking Brevent</string>
+    <string name="brevent_checking_label">Put Brevent into doze whitelist, checking Brevent every 15 minutes, notify if Brevent is stopped\n\nTurn on if Brevent stop unreasonably</string>
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
@@ -210,7 +212,10 @@
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
 
     <string name="brevent_status_starting">Starting Brevent server</string>
-    <string name="brevent_status_stopped">Brevent server is not started</string>
+    <string name="brevent_status_not_started">Brevent server is not started</string>
+    <string name="brevent_status_stopped">Brevent server is stopped</string>
+    <string name="brevent_status_unknown">Brevent server maybe stopped</string>
+    <string name="brevent_status_report">Tap here to feedback, and give a detail description</string>
 
     <string name="root_donate_required">Please pay total 3 USD to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>

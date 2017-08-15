@@ -133,7 +133,7 @@
     <string name="brevent_timeout_1hour">1 小时</string>
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
-    <string name="brevent_timeout_long">115 天</string>
+    <string name="brevent_timeout_long">很久</string>
     <string name="brevent_standby_timeout">待机超时</string>
     <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
 
@@ -144,6 +144,8 @@
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
+    <string name="brevent_checking">自我诊断</string>
+    <string name="brevent_checking_label">加进低电耗白名单，每 15 分钟检查黑域服务，发现停止就通知\n\n只有当黑域不正常停止时，才需要开启</string>
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
@@ -208,7 +210,10 @@
     <string name="logs_description">%1$s\n（请描述与日志相关的问题。）</string>
 
     <string name="brevent_status_starting">正在启动黑域服务</string>
-    <string name="brevent_status_stopped">黑域服务没有启动</string>
+    <string name="brevent_status_not_started">黑域服务没有启动</string>
+    <string name="brevent_status_stopped">黑域服务已经停止</string>
+    <string name="brevent_status_unknown">黑域服务可能已经停止</string>
+    <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
     <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>
     <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>

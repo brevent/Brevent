@@ -137,7 +137,7 @@
     <string name="brevent_timeout_1hour">1 hora</string>
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
-    <string name="brevent_timeout_long">115 días</string>
+    <string name="brevent_timeout_long">very long</string>
     <string name="brevent_standby_timeout">Tiempo de espera en Standby.</string>
     <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 
@@ -148,6 +148,8 @@
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
+    <string name="brevent_checking">Checking Brevent</string>
+    <string name="brevent_checking_label">Put Brevent into doze whitelist, checking Brevent every 15 minutes, notify if Brevent is stopped\n\nTurn on if Brevent stop unreasonably</string>
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
@@ -212,7 +214,10 @@
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
 
     <string name="brevent_status_starting">Iniciando servidor Brevent ...</string>
-    <string name="brevent_status_stopped">Servidor Brevent no se ha iniciado.</string>
+    <string name="brevent_status_not_started">Servidor Brevent no se ha iniciado.</string>
+    <string name="brevent_status_stopped">Brevent server is stopped</string>
+    <string name="brevent_status_unknown">Brevent server maybe stopped</string>
+    <string name="brevent_status_report">Tap here to feedback, and give a detail description</string>
 
     <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
