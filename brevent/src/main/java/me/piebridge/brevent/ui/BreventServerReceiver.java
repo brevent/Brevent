@@ -39,26 +39,29 @@ public class BreventServerReceiver extends BroadcastReceiver {
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         } else if (BreventIntent.ACTION_ALIPAY.equals(action) && BuildConfig.RELEASE) {
-            BreventApplication application = (BreventApplication) context.getApplicationContext();
-            if (application.isUnsafe()) {
-                return;
-            }
-            String sum = intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM);
-            double donation = application.decode(sum, true);
-            DecimalFormat df = new DecimalFormat("#.##");
-            String message = context.getResources().getString(R.string.toast_alipay,
-                    df.format(donation));
-            if (donation > 0) {
-                PreferenceManager.getDefaultSharedPreferences(context)
-                        .edit().putString("alipay1", sum).apply();
-            }
-            if (donation != 0.0d) { // NOSONAR
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(context, R.string.toast_donate2, Toast.LENGTH_LONG).show();
-            }
+            showAlipay(context, intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM));
         } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
             Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void showAlipay(Context context, String sum) {
+        BreventApplication application = (BreventApplication) context.getApplicationContext();
+        if (application.isUnsafe()) {
+            return;
+        }
+        double donation = application.decode(sum, true);
+        DecimalFormat df = new DecimalFormat("#.##");
+        String message = context.getResources().getString(R.string.toast_alipay,
+                df.format(donation));
+        if (donation > 0) {
+            PreferenceManager.getDefaultSharedPreferences(context)
+                    .edit().putString("alipay1", sum).apply();
+        }
+        if (donation != 0.0d) { // NOSONAR
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, R.string.toast_donate2, Toast.LENGTH_LONG).show();
         }
     }
 

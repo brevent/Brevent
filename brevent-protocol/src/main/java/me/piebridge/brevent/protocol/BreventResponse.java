@@ -49,12 +49,15 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<String> mFullPowerList;
 
+    public final String mAlipaySum;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
                            boolean supportStandby, long daemonTime, long serverTime, int uid,
                            Collection<String> androidProcesses,
-                           Collection<String> fullPowerList, boolean supportUpgrade) {
+                           Collection<String> fullPowerList, boolean supportUpgrade,
+                           String alipaySum) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -68,6 +71,7 @@ public class BreventResponse extends BreventProtocol {
         mAndroidProcesses = androidProcesses;
         mFullPowerList = fullPowerList;
         mSupportUpgrade = supportUpgrade;
+        mAlipaySum = alipaySum;
     }
 
     BreventResponse(Parcel in) {
@@ -84,6 +88,7 @@ public class BreventResponse extends BreventProtocol {
         mAndroidProcesses = ParcelUtils.readCollection(in);
         mFullPowerList = ParcelUtils.readCollection(in);
         mSupportUpgrade = in.readInt() != 0;
+        mAlipaySum = in.readString();
     }
 
     @Override
@@ -101,6 +106,7 @@ public class BreventResponse extends BreventProtocol {
         ParcelUtils.writeCollection(dest, mAndroidProcesses);
         ParcelUtils.writeCollection(dest, mFullPowerList);
         dest.writeInt(mSupportUpgrade ? 1 : 0);
+        dest.writeString(mAlipaySum);
     }
 
     public static boolean isStandby(SparseIntArray status) {

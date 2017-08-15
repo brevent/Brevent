@@ -7,7 +7,6 @@ import android.os.Parcel;
  */
 public class BreventDisableRoot extends BreventProtocol {
 
-
     public final long mDaemonTime;
 
     public final long mServerTime;
@@ -16,13 +15,16 @@ public class BreventDisableRoot extends BreventProtocol {
 
     public final boolean mSupportUpgrade;
 
+    public final String mAlipaySum;
+
     public BreventDisableRoot(long daemonTime, long serverTime, boolean supportStandby,
-                              boolean supportUpgrade) {
+                              boolean supportUpgrade, String alipaySum) {
         super(BreventProtocol.SHOW_ROOT);
         mDaemonTime = daemonTime;
         mServerTime = serverTime;
         mSupportStandby = supportStandby;
         mSupportUpgrade = supportUpgrade;
+        mAlipaySum = alipaySum;
     }
 
     BreventDisableRoot(Parcel parcel) {
@@ -31,6 +33,7 @@ public class BreventDisableRoot extends BreventProtocol {
         mServerTime = parcel.readLong();
         mSupportStandby = parcel.readInt() != 0;
         mSupportUpgrade = parcel.readInt() != 0;
+        mAlipaySum = parcel.readString();
     }
 
     @Override
@@ -40,6 +43,7 @@ public class BreventDisableRoot extends BreventProtocol {
         dest.writeLong(mServerTime);
         dest.writeInt(mSupportStandby ? 1 : 0);
         dest.writeInt(mSupportUpgrade ? 1 : 0);
+        dest.writeString(mAlipaySum);
     }
 
 }

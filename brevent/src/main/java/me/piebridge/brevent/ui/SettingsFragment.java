@@ -297,10 +297,7 @@ public class SettingsFragment extends PreferenceFragment
             if (++repeat == 0x7) {
                 BreventApplication application = (BreventApplication) getActivity().getApplication();
                 if (!application.isPlay()) {
-                    int count = mCount == 0 ? (int) application.getDonation() / 0x5 : mCount;
-                    if (count < BreventSettings.donateAmount()) {
-                        showDonate(false);
-                    }
+                    showDonate(false);
                 }
             }
         } else if ("brevent_about_developer".equals(key)) {

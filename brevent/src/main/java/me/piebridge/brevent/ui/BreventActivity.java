@@ -1118,6 +1118,7 @@ public class BreventActivity extends Activity
                 break;
             case BreventProtocol.SHOW_ROOT:
                 ((BreventApplication) getApplication()).updateStatus((BreventDisableRoot) response);
+                showAlipay(((BreventDisableRoot) response).mAlipaySum);
                 showRoot();
                 break;
             default:
@@ -1209,6 +1210,7 @@ public class BreventActivity extends Activity
         if (!confirmed) {
             confirmed = !"root".equals(application.getMode());
         }
+        showAlipay(status.mAlipaySum);
 
         if (mStats == null) {
             synchronized (updateLock) {
@@ -1281,6 +1283,13 @@ public class BreventActivity extends Activity
             setAlarm(this);
         } else {
             cancelAlarm(this);
+        }
+    }
+
+    private void showAlipay(String alipaySum) {
+        if (alipaySum != null) {
+            BreventServerReceiver.showAlipay(this, alipaySum);
+            doUpdateConfiguration();
         }
     }
 
