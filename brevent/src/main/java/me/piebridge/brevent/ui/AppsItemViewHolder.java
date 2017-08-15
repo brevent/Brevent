@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
@@ -57,12 +58,11 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 R.string.context_menu_package_name);
         menu.add(Menu.NONE, R.string.context_menu_app_info, Menu.NONE,
                 R.string.context_menu_app_info);
+        PackageManager packageManager = mFragment.getActivity().getPackageManager();
         if (BuildConfig.APPLICATION_ID.equals(packageName)) {
             menu.add(Menu.NONE, R.string.context_menu_brevent_server_info, Menu.NONE,
                     R.string.context_menu_brevent_server_info);
-        } else if (
-                mFragment.getActivity().getPackageManager().getLaunchIntentForPackage(packageName) !=
-                        null) {
+        } else if (packageManager.getLaunchIntentForPackage(packageName) != null) {
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE, R.string.context_menu_open);
         }
         BreventActivity activity = (BreventActivity) mFragment.getActivity();

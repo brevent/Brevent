@@ -65,6 +65,10 @@ public interface IPackageManager {
     ParceledListSlice queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId)
             throws RemoteException;
 
+
+    ParceledListSlice queryIntentActivities(Intent intent, String resolvedType, int flags, int userId)
+            throws RemoteException;
+
     /**
      * @deprecated since api-23
      */

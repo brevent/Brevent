@@ -11,4 +11,6 @@ public interface IPackageManager {
 
     List queryIntentReceivers(Intent intent, String resolvedType, int flags, int userId);
 
+    List queryIntentActivities(Intent intent, String resolvedType, int flags, int userId);
+
 }
