@@ -1818,7 +1818,7 @@ public class BreventActivity extends Activity
         int message;
         if (!details.contains("apk")) {
             message = R.string.unsupported_exec;
-        } else if (details.contains("brevent dumpsys dead")) {
+        } else if (details.contains("brevent dumpsys")) {
             message = R.string.unsupported_dumpsys;
         } else if (details.contains("brevent network error")) {
             message = R.string.unsupported_network;
