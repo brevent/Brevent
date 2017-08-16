@@ -58,7 +58,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
                 String label = labelLoader.loadLabel(packageManager, packageInfo);
                 if (query == null || acceptLabel(label, query)
                         || acceptPackageName(appInfo.packageName, query)) {
-                    mAdapter.addPackage(appInfo.packageName, label, packageInfo.lastUpdateTime);
+                    mAdapter.addPackage(activity, packageInfo, label);
                     size++;
                 }
             }

@@ -424,11 +424,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         return mSelected.size();
     }
 
-    public void addPackage(String packageName, String label, long lastUpdateTime) {
-        if (mPackages.add(packageName)) {
-            AppsInfo appsInfo = new AppsInfo(packageName, label);
-            appsInfo.lastUpdateTime = lastUpdateTime;
-            appsInfo.stats = getActivity().getStats(packageName);
+    public void addPackage(BreventActivity activity, PackageInfo packageInfo, String label) {
+        if (mPackages.add(packageInfo.packageName)) {
+            AppsInfo appsInfo = new AppsInfo(packageInfo.packageName, label);
+            appsInfo.lastUpdateTime = packageInfo.lastUpdateTime;
+            appsInfo.stats = activity.getStats(packageInfo.packageName);
             mNext.add(appsInfo);
         }
     }
