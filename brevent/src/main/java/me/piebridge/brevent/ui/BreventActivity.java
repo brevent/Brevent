@@ -242,6 +242,7 @@ public class BreventActivity extends Activity
     private Boolean check;
     private BreventConfiguration mConfiguration;
     private boolean shouldUpdateConfiguration;
+    private boolean shouldOpenSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1211,6 +1212,11 @@ public class BreventActivity extends Activity
             confirmed = !"root".equals(application.getMode());
         }
         showAlipay(status.mAlipaySum);
+        if (shouldOpenSettings) {
+            shouldOpenSettings = false;
+            openSettings();
+            return;
+        }
 
         if (mStats == null) {
             synchronized (updateLock) {
@@ -1938,6 +1944,12 @@ public class BreventActivity extends Activity
 
     public void confirm() {
         confirmed = true;
+        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+    }
+
+    public void confirmSettings() {
+        confirmed = true;
+        shouldOpenSettings = true;
         mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 

@@ -34,7 +34,7 @@ public class AppsRootFragment extends AbstractDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            activity.openSettings();
+            activity.confirmSettings();
         } else if (DialogInterface.BUTTON_NEUTRAL == which) {
             activity.confirm();
             dismiss();
