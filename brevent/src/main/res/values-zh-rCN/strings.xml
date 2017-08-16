@@ -57,7 +57,7 @@
     <string name="process_all_service">%d 个服务</string>
     <string name="process_all_cached">%d 个缓存</string>
     <string name="process_all_total">%d 个</string>
-    <string name="process_service">%d 服务</string>
+    <string name="process_service">%d 个服务</string>
     <string name="process_total">共 %d 个</string>
     <plurals name="process_process">
         <item quantity="other">进程</item>
@@ -145,7 +145,7 @@
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
     <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，会对黑域电池未优化</string>
+    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，会关闭对黑域的电池优化</string>
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
