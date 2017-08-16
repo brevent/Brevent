@@ -161,7 +161,7 @@ public class BreventIntentService extends IntentService {
         boolean allowRoot;
         try {
             allowRoot = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext())
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
             UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         } catch (IllegalStateException e) {
             allowRoot = true;
