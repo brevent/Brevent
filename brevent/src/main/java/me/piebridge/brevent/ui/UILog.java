@@ -40,29 +40,16 @@ class UILog {
         Log.i(TAG, msg);
     }
 
-    static void i(String msg, Throwable t) {
-        Log.i(TAG, msg);
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            Log.v(TAG, msg, t);
-        }
-    }
-
     static void w(String msg) {
         Log.w(TAG, msg);
     }
 
     static void w(String msg, Throwable t) {
-        Log.w(TAG, msg);
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            Log.v(TAG, msg, t);
-        }
+        Log.w(TAG, msg, t);
     }
 
     static void e(String msg, Throwable t) {
-        Log.e(TAG, msg);
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            Log.v(TAG, msg, t);
-        }
+        Log.e(TAG, msg, t);
     }
 
     static void e(String msg) {

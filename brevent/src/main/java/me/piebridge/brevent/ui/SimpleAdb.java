@@ -188,9 +188,11 @@ public class SimpleAdb {
         BigInteger b = a.modPow(new BigInteger(BuildConfig.ADB_D), new BigInteger(BuildConfig.ADB_M));
         byte[] c = b.toByteArray();
         if (c.length > bytes.length) {
-            System.arraycopy(c, 1, bytes, 0, bytes.length);
+            int offset = c.length - bytes.length;
+            System.arraycopy(c, offset, bytes, 0, bytes.length);
         } else {
-            System.arraycopy(c, 0, bytes, 0, bytes.length);
+            int offset = bytes.length - c.length;
+            System.arraycopy(c, 0, bytes, offset, c.length);
         }
         return bytes;
     }

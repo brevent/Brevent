@@ -201,7 +201,7 @@ public class AppsActivityHandler extends Handler {
                         try {
                             adb = new SimpleAdb(p).run();
                         } catch (IOException e) {
-                            UILog.d("Can't adb", e);
+                            UILog.e("Can't adb", e);
                         } finally {
                             adbing = false;
                             if (!hasResponse) {
