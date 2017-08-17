@@ -1119,7 +1119,6 @@ public class BreventActivity extends Activity
                 break;
             case BreventProtocol.SHOW_ROOT:
                 ((BreventApplication) getApplication()).updateStatus((BreventDisableRoot) response);
-                showAlipay(((BreventDisableRoot) response).mAlipaySum);
                 showRoot();
                 break;
             default:
