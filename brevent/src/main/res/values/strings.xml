@@ -222,7 +222,7 @@
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>
-    <string name="root_donate_email_subject">Payment verify (%s)</string>
-    <string name="root_donate_email_text">(Please attach screenshots of payment details.)</string>
+    <string name="root_donate_email_subject">Payment verify %1$s (%2$s)</string>
+    <string name="root_donate_email_text">%s\n(Please attach screenshots of payment details.)</string>
 
 </resources>

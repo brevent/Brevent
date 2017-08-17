@@ -224,7 +224,7 @@
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">No ahora</string>
-    <string name="root_donate_email_subject">Pago verificado: (%s)</string>
-    <string name="root_donate_email_text">(Por favor añada capturas o detalles del pago.)</string>
+    <string name="root_donate_email_subject">Pago verificado %1$s (%2$s)</string>
+    <string name="root_donate_email_text">%s\n(Por favor añada capturas o detalles del pago.)</string>
 
 </resources>

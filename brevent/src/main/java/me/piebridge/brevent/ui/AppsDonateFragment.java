@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import me.piebridge.brevent.BuildConfig;
@@ -62,8 +63,9 @@ public class AppsDonateFragment extends AbstractDialogFragment
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setType("message/rfc822");
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.root_donate_email_subject,
-                    Long.toHexString(application.getId())));
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text));
+                    BuildConfig.VERSION_NAME, Long.toHexString(application.getId())));
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text,
+                    Build.FINGERPRINT));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
             BreventActivity.sendEmail(activity, intent);
         } else if (DialogInterface.BUTTON_NEUTRAL == which) {
@@ -88,8 +90,8 @@ public class AppsDonateFragment extends AbstractDialogFragment
     }
 
     public void setRoot(boolean root) {
-        getArguments().putInt(MESSAGE,
-                root ? R.string.root_donate_required : R.string.root_donate_verify);
+        int message = root ? R.string.root_donate_required : R.string.root_donate_verify;
+        getArguments().putInt(MESSAGE, message);
     }
 
 }
