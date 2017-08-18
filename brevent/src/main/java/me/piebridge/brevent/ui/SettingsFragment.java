@@ -52,7 +52,6 @@ public class SettingsFragment extends PreferenceFragment
     private Preference preferenceStandbyTimeout;
 
     private int repeat = 0;
-    private int mCount;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -104,13 +103,14 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!"root".equals(application.getMode())
-                && !sharedPreferences.getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)) {
+        if (!"root".equals(application.getMode())) {
             breventExperimental.removePreference(preferenceAllowRoot);
-            preferenceScreen.findPreference("brevent_about_version")
-                    .setOnPreferenceClickListener(this);
         }
         if (BuildConfig.RELEASE) {
+            if (!getArguments().getBoolean(IS_PLAY, false)) {
+                preferenceScreen.findPreference("brevent_about_version")
+                        .setOnPreferenceClickListener(this);
+            }
             double donation = application.getDonation();
             if (donation > 0) {
                 preferenceDonation.setSummary(getString(R.string.show_donation_rmb,
@@ -246,7 +246,6 @@ public class SettingsFragment extends PreferenceFragment
         if (donation > 0) {
             count += (int) (donation / 5);
         }
-        mCount = count;
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
         } else if (count < BreventSettings.donateAmount()) {
@@ -296,9 +295,10 @@ public class SettingsFragment extends PreferenceFragment
         if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
                 BreventApplication application = (BreventApplication) getActivity().getApplication();
-                if (!application.isPlay()) {
-                    showDonate(false);
+                if (!getArguments().getBoolean(IS_PLAY, false)) {
+                    showDonate("root".equals(application.getMode()));
                 }
+                repeat = 0;
             }
         } else if ("brevent_about_developer".equals(key)) {
             Intent intent = new Intent();

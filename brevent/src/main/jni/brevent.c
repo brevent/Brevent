@@ -144,13 +144,13 @@ static void report(time_t now) {
     char time[BUFSIZ];
     struct tm *tm = localtime(&now);
     strftime(time, sizeof(time), "%m-%d %H:%M:%S.000", tm);
-    printf("please report bug to " PROJECT " with log below\n"
-                   "--- crash start ---\n");
-    fflush(stdout);
     sprintf(command, "pm path me.piebridge.brevent");
     printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
+    fflush(stdout);
+    printf("please report bug to " PROJECT " with log below\n"
+                   "```\n--- crash start ---\n");
     fflush(stdout);
     sprintf(command, "logcat -b crash -t '%s' -d", time);
     printf("[command] %s\n", command);
@@ -166,7 +166,7 @@ static void report(time_t now) {
     system(command);
     fflush(stdout);
     printf("--- brevent end ---\n");
-    printf("please report bug to " PROJECT " with log above\n");
+    printf("```\nplease report bug to " PROJECT " with log above\n");
     fflush(stdout);
 }
 

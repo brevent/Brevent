@@ -215,8 +215,8 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>
-    <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>
+    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。一般早晚 8 点前后回复。</string>
+    <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。一般早晚 8 点前后回复。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">先看看</string>
