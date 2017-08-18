@@ -1830,7 +1830,9 @@ public class BreventActivity extends Activity
         }
         String details = sw.toString();
         int message;
-        if (!details.contains("apk")) {
+        if (!details.contains("[command]")) {
+            message = R.string.unsupported_root;
+        } else if (!details.contains("apk")) {
             message = R.string.unsupported_exec;
         } else if (details.contains("brevent dumpsys")) {
             message = R.string.unsupported_dumpsys;

@@ -490,7 +490,6 @@ public class BreventApplication extends Application {
         try {
             return future.get(5, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            UILog.d("Can't check port: " + e.getMessage(), e);
             throw new NetworkErrorException(e);
         } finally {
             if (!future.isDone()) {

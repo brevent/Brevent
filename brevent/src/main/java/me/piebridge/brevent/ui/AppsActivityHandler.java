@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accounts.NetworkErrorException;
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -92,12 +91,11 @@ public class AppsActivityHandler extends Handler {
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
                 if (BuildConfig.RELEASE && !adbChecked && activity != null) {
-                    try {
-                        if (!((BreventApplication) activity.getApplication()).checkPort()) {
-                            checkAdb(activity);
-                        }
-                    } catch (NetworkErrorException e) {
+                    Boolean checked = checkPort(activity);
+                    if (checked == null) {
                         break;
+                    } else if (!checked) {
+                        checkAdb(activity);
                     }
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
@@ -275,6 +273,19 @@ public class AppsActivityHandler extends Handler {
         }
     }
 
+    private Boolean checkPort(BreventActivity activity) {
+        uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
+        try {
+            return ((BreventApplication) (activity.getApplication())).checkPort();
+        } catch (NetworkErrorException e) {
+            UILog.d("Can't check port: " + e.getMessage(), e);
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
+            return null;
+        } finally {
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_CHECKED_BREVENT);
+        }
+    }
+
     @WorkerThread
     private boolean send(BreventProtocol message) {
         BreventActivity activity = mReference.get();
@@ -282,9 +293,7 @@ public class AppsActivityHandler extends Handler {
             UILog.w("Can't send request now");
             return false;
         }
-        try {
-            ((BreventApplication) (activity.getApplication())).checkPort();
-        } catch (NetworkErrorException e) {
+        if (checkPort(activity) == null) {
             return false;
         }
         boolean timeout = false;

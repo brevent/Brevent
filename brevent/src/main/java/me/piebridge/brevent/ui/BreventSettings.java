@@ -3,10 +3,8 @@ package me.piebridge.brevent.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -25,7 +23,6 @@ import java.util.List;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.donation.DonateActivity;
 
 /**
