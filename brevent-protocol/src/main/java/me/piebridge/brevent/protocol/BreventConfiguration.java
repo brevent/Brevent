@@ -42,6 +42,9 @@ public class BreventConfiguration extends BreventProtocol {
     public static final String BREVENT_ABNORMAL_BACK = "brevent_abnormal_back";
     public static final boolean DEFAULT_BREVENT_ABNORMAL_BACK = false;
 
+    public static final String BREVENT_OPTIMIZE_AUDIO = "brevent_optimize_audio";
+    public static final boolean DEFAULT_BREVENT_OPTIMIZE_AUDIO = false;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
@@ -59,6 +62,8 @@ public class BreventConfiguration extends BreventProtocol {
     public boolean abnormalBack = DEFAULT_BREVENT_ABNORMAL_BACK;
 
     public long androidId;
+
+    public boolean optimizeAudio = DEFAULT_BREVENT_OPTIMIZE_AUDIO;
 
     public BreventConfiguration() {
         super(CONFIGURATION);
@@ -79,6 +84,8 @@ public class BreventConfiguration extends BreventProtocol {
                 DEFAULT_BREVENT_AGGRESSIVE);
         abnormalBack = sharedPreferences.getBoolean(BREVENT_ABNORMAL_BACK,
                 DEFAULT_BREVENT_ABNORMAL_BACK);
+        optimizeAudio = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_AUDIO,
+                DEFAULT_BREVENT_OPTIMIZE_AUDIO);
     }
 
     private int convertMethod(String string) {
@@ -108,6 +115,7 @@ public class BreventConfiguration extends BreventProtocol {
         aggressive = in.readInt() != 0;
         abnormalBack = in.readInt() != 0;
         androidId = in.readLong();
+        optimizeAudio = in.readInt() != 0;
     }
 
     @Override
@@ -122,6 +130,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(aggressive ? 1 : 0);
         dest.writeInt(abnormalBack ? 1 : 0);
         dest.writeLong(androidId);
+        dest.writeInt(optimizeAudio ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -133,6 +142,7 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_AGGRESSIVE, aggressive);
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
+        write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -183,6 +193,9 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_ABNORMAL_BACK:
                 abnormalBack = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_OPTIMIZE_AUDIO:
+                optimizeAudio = Boolean.parseBoolean(value);
+                break;
             default:
                 break;
         }
@@ -225,6 +238,10 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.abnormalBack != request.abnormalBack) {
             this.abnormalBack = request.abnormalBack;
+            updated = true;
+        }
+        if (this.optimizeAudio != request.optimizeAudio) {
+            this.optimizeAudio = request.optimizeAudio;
             updated = true;
         }
         return updated;

@@ -84,6 +84,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="brevent_optimize_audio"
+            android:summary="@string/brevent_optimize_audio_label"
+            android:title="@string/brevent_optimize_audio" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="brevent_allow_root"
             android:summary="@string/brevent_allow_root_label"
             android:title="@string/brevent_allow_root" />

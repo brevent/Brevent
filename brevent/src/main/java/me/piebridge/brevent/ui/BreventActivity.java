@@ -200,6 +200,7 @@ public class BreventActivity extends Activity
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
+    private Set<String> mAudio = new ArraySet<>();
 
     private int mSelectStatus;
 
@@ -744,6 +745,9 @@ public class BreventActivity extends Activity
         if (!mBrevent.contains(packageName)) {
             return 0;
         }
+        if (mAudio.contains(packageName)) {
+            return R.drawable.ic_audiotrack_black_24dp;
+        }
         SparseIntArray status;
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
@@ -1250,9 +1254,13 @@ public class BreventActivity extends Activity
         for (String packageName : status.mFullPowerList) {
             mFavorite.put(packageName, IMPORTANT_BATTERY);
         }
+        mAudio.clear();
+        mAudio.addAll(status.mAudio);
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("favorite: " + mFavorite);
+            UILog.d("audio: " + mAudio);
         }
+
         if (hasGms()) {
             mFavorite.put(GMS, IMPORTANT_GMS);
             if (((BreventApplication) getApplication()).supportStopped()) {

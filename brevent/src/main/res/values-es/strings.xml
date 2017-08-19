@@ -158,6 +158,9 @@
     <string name="brevent_abnormal_back">Reconocer un irregular \"Volver\"</string>
     <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
     <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".</string>
+    <string name="brevent_optimize_audio">Optimize Audio Player</string>
+    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires play total 2 USD</string>
+    <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Permitir ejecutar como ROOT</string>
     <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 USD.</string>
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
