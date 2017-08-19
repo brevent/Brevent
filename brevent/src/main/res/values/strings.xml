@@ -157,7 +157,7 @@
     <string name="brevent_abnormal_back_label">Some apps move background instead of exiting when pressing Back\n\nRequires pay total 2 USD for Play version</string>
     <string name="brevent_abnormal_back_label_debug">Some apps move background instead of exiting when pressing Back</string>
     <string name="brevent_optimize_audio">Optimize Audio Player</string>
-    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires play total 2 USD</string>
+    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires pay total 2 USD</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Allow run as ROOT</string>
     <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 3 USD</string>
