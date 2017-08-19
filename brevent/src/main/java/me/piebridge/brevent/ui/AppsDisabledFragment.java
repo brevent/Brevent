@@ -39,6 +39,8 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         setArguments(new Bundle());
     }
 
+    private static Boolean root;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,17 +168,22 @@ public class AppsDisabledFragment extends AbstractDialogFragment
     }
 
     public static boolean hasRoot() {
+        if (root != null) {
+            return root;
+        }
         for (String path : System.getenv("PATH").split(":")) {
             File su = new File(path, "su");
             try {
                 if (Os.access(su.getPath(), 1)) {
                     UILog.d("has su: " + su);
+                    root = true;
                     return true;
                 }
             } catch (ErrnoException e) {
                 UILog.d("Cannot access " + su, e);
             }
         }
+        root = false;
         UILog.d("has no su");
         return false;
     }

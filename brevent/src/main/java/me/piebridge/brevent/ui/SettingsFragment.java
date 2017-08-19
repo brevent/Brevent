@@ -91,7 +91,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAutoUpdate.setEnabled(false);
         }
 
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         if (BuildConfig.RELEASE) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
@@ -103,7 +102,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!"root".equals(application.getMode())) {
+        if (!"root".equals(application.getMode()) && !AppsDisabledFragment.hasRoot()) {
             breventExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
