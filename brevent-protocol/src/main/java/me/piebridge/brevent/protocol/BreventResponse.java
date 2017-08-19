@@ -53,13 +53,15 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<String> mAudio;
 
+    public final String mVpn;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
                            boolean supportStandby, long daemonTime, long serverTime, int uid,
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
-                           String alipaySum, Collection<String> audio) {
+                           String alipaySum, Collection<String> audio, String vpn) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -75,6 +77,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportUpgrade = supportUpgrade;
         mAlipaySum = alipaySum;
         mAudio = audio;
+        mVpn = vpn;
     }
 
     BreventResponse(Parcel in) {
@@ -93,6 +96,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportUpgrade = in.readInt() != 0;
         mAlipaySum = in.readString();
         mAudio = ParcelUtils.readCollection(in);
+        mVpn = in.readString();
     }
 
     @Override
@@ -112,6 +116,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mSupportUpgrade ? 1 : 0);
         dest.writeString(mAlipaySum);
         ParcelUtils.writeCollection(dest, mAudio);
+        dest.writeString(mVpn);
     }
 
     public static boolean isStandby(SparseIntArray status) {

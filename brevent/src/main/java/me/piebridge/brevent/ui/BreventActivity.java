@@ -78,6 +78,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
@@ -201,6 +202,7 @@ public class BreventActivity extends Activity
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
     private Set<String> mAudio = new ArraySet<>();
+    private String mVpn;
 
     private int mSelectStatus;
 
@@ -748,6 +750,9 @@ public class BreventActivity extends Activity
         if (mAudio.contains(packageName)) {
             return R.drawable.ic_audiotrack_black_24dp;
         }
+        if (Objects.equals(packageName, mVpn)) {
+            return R.drawable.ic_vpn_key_black_24dp;
+        }
         SparseIntArray status;
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
@@ -1256,9 +1261,11 @@ public class BreventActivity extends Activity
         }
         mAudio.clear();
         mAudio.addAll(status.mAudio);
+        mVpn = status.mVpn;
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("favorite: " + mFavorite);
             UILog.d("audio: " + mAudio);
+            UILog.d("vpn: " + mVpn);
         }
 
         if (hasGms()) {
