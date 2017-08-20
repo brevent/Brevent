@@ -187,17 +187,17 @@
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>
     <string name="unsupported_clone">黑域不支持“应用分身”。</string>
-    <string name="unsupported_signature">请勿破解黑域。</string>
+    <string name="unsupported_signature">no zuo no die</string>
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。</string>
+    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
     <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新及开机自启黑域服务。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
-    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整防火墙或网络设置。部分 ROM 需要关闭省电模式。</string>
+    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整网络设置、省电模式与强制低电耗（doze）等。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_exec">无法执行指令，请换个 SU。</string>
