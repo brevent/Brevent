@@ -755,7 +755,7 @@ public class BreventActivity extends Activity
         }
         if (BreventResponse.isAudio(status)) {
             return R.drawable.ic_audiotrack_black_24dp;
-        } else if (BreventResponse.isAudioPaused(status)) {
+        } else if (BreventResponse.isRunning(status) && BreventResponse.isAudioPaused(status)) {
             return R.drawable.ic_pause_circle_outline_black_24dp;
         } else if (isFavorite(packageName)) {
             return R.drawable.ic_favorite_border_black_24dp;
