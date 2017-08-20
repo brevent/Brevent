@@ -154,9 +154,9 @@
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label_debug">有些应用按“返回”时放到后台而不退出</string>
     <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要累计支付 2 美元，其它版请随意</string>
-    <string name="brevent_optimize_audio">优化音乐播放器</string>
-    <string name="brevent_optimize_audio_label">不处理正在播放的音乐类应用\n\n需要累计支付 2 美元</string>
-    <string name="brevent_optimize_audio_label_debug">不处理正在播放的音乐类应用</string>
+    <string name="brevent_optimize_audio">优化音乐类应用</string>
+    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n需要累计支付 2 美元（非 Play 版暂不强制）</string>
+    <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label_debug">启用之后，允许 ROOT 过的设备直接启动黑域服务</string>
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n需要累计支付 3 美元</string>

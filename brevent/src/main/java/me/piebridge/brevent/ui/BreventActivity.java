@@ -754,7 +754,7 @@ public class BreventActivity extends Activity
             status = mProcesses.get(packageName);
         }
         if (BreventResponse.isAudio(status)) {
-            return R.drawable.ic_audiotrack_black_24dp;
+            return R.drawable.ic_play_circle_outline_black_24dp;
         } else if (BreventResponse.isRunning(status) && BreventResponse.isAudioPaused(status)) {
             return R.drawable.ic_pause_circle_outline_black_24dp;
         } else if (isFavorite(packageName)) {

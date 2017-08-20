@@ -149,17 +149,17 @@
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">啟用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要累计支付 2 美元</string>
-    <string name="brevent_optimize_vpn_label_debug">啟用之後，不處理已連線的 VPN 應用程式</string>
+    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版需要累计支付 2 美元</string>
+    <string name="brevent_optimize_vpn_label_debug">不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要累计支付 2 美元</string>
     <string name="brevent_abnormal_back_label_debug">有些應用按「返回」時放到背景而不結束</string>
-    <string name="brevent_optimize_audio">优化音乐播放器</string>
-    <string name="brevent_optimize_audio_label">不处理正在播放的音乐类应用\n\n需要累计支付 2 美元</string>
-    <string name="brevent_optimize_audio_label_debug">不处理正在播放的音乐类应用</string>
+    <string name="brevent_optimize_audio">优化音乐类应用</string>
+    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n需要累计支付 2 美元</string>
+    <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累计支付 3 美元</string>
-    <string name="brevent_allow_root_label_debug">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務</string>
+    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累计支付 3 美元</string>
+    <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
