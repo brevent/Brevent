@@ -27,6 +27,8 @@ public class BreventResponse extends BreventProtocol {
 
     public static final int PROCESS_STATE_AUDIO = -5;
 
+    public static final int PROCESS_STATE_AUDIO_PAUSED = -6;
+
     public final Collection<String> mBrevent;
 
     public final Collection<String> mPriority;
@@ -122,6 +124,10 @@ public class BreventResponse extends BreventProtocol {
 
     public static boolean isAudio(SparseIntArray status) {
         return status != null && status.get(PROCESS_STATE_AUDIO, 0) != 0;
+    }
+
+    public static boolean isAudioPaused(SparseIntArray status) {
+        return status != null && status.get(PROCESS_STATE_AUDIO_PAUSED, 0) != 0;
     }
 
     public static boolean isRunning(SparseIntArray status) {
