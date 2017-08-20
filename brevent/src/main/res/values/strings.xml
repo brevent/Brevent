@@ -184,7 +184,7 @@
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">DKOUT, aviraxp, liyufan</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, liyufan</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>

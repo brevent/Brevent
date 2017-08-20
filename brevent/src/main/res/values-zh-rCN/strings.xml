@@ -10,15 +10,15 @@
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">为了方便，黑域有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务，并会开机后自动启动黑域服务。但 ROOT 模式与正常启动服务相比没有更多功能或更好的工作效果，对于部分设备 ROOT 模式甚至无法启动黑域服务。</string>
+    <string name="fragment_guide_permission_message2">为了方便，黑域有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务。ROOT 模式与普通模式相比没有更多功能也没有更好效果，在某些设备上 ROOT 模式甚至无法启动黑域服务。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系统文件，卸载后没有残留。黑域不破坏其它应用的完整性，也不处理未被黑域的应用。</string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，部分厂商可能改变这些 API 行为，可能对设备造成未知影响。\n\n不要在工作设备上使用黑域，也不要黑域工作应用、常用应用和即时通讯应用。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，部分厂商可能改变这些 API 行为，使用黑域可能会对应用甚至设备造成不良影响。\n\n不要在工作设备上使用黑域，也不要黑域工作应用、常用应用和重要应用。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby）处理应用，应用待机后将不能联网及执行任务。您可在设置中更改黑域方法。\n\n为了降低系统整体耗电，黑域默认不强行停止无服务进程的安全应用，也不自动黑域没有服务组件的新安装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby，Android 6.0 引入，不是每个设备都支持）处理应用，应用待机后将不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用，也不自动黑域没有服务组件的新装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -182,7 +182,7 @@
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_translation">翻译</string>
-    <string name="brevent_about_translator">子非</string>
+    <string name="brevent_about_translator">南宫</string>
     <string name="brevent_about_licenses">软件许可</string>
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>
