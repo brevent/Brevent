@@ -46,9 +46,11 @@ public class AppsItemHandler extends Handler {
                 @SuppressWarnings("unchecked")
                 Set<Integer> positions = (Set<Integer>) msg.obj;
                 if (positions == null) {
-                    positions = getInactivePositions();
+                    positions = getUpdatePositions();
+                    updatePositions(positions, true);
+                } else {
+                    updatePositions(positions, false);
                 }
-                updateInactive(positions);
                 break;
             case MSG_RETRIEVE_PACKAGES:
                 mFragment.retrievePackages();
@@ -63,21 +65,26 @@ public class AppsItemHandler extends Handler {
         }
     }
 
-    private void updateInactive(Set<Integer> positions) {
+    private void updatePositions(Set<Integer> positions, boolean force) {
         removeMessages(MSG_UPDATE_TIME);
-        if (!positions.isEmpty() && updateInactiveTime(positions)) {
+        if (!positions.isEmpty() && doUpdatePositions(positions, force)) {
             Message message = obtainMessage(MSG_UPDATE_TIME, positions);
             sendMessageDelayed(message, TIME_UPDATE_DELAY);
         }
     }
 
-    private boolean updateInactiveTime(Set<Integer> positions) {
+    private boolean doUpdatePositions(Set<Integer> positions, boolean force) {
         final int now = BreventResponse.now();
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
         for (int position : positions) {
             AppsItemViewHolder viewHolder = getViewHolder(position);
             if (viewHolder != null) {
-                int elapsed = now - viewHolder.inactive;
-                viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
+                if (force && activity != null) {
+                    AppsItemAdapter.updateViewHolder(activity, viewHolder);
+                } else if (viewHolder.inactive > 0) {
+                    int elapsed = now - viewHolder.inactive;
+                    viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
+                }
             }
         }
         return true;
@@ -93,7 +100,7 @@ public class AppsItemHandler extends Handler {
 
     }
 
-    private Set<Integer> getInactivePositions() {
+    private Set<Integer> getUpdatePositions() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         AppsItemAdapter adapter = (AppsItemAdapter) mRecyclerView.getAdapter();
         if (adapter == null || layoutManager == null) {
@@ -115,10 +122,8 @@ public class AppsItemHandler extends Handler {
         for (int i = first; i <= last; ++i) {
             AppsInfo info = appsInfoList.get(i);
             if (info.isPackage()) {
+                positions.add(i);
                 int inactive = activity.getInactive(info.packageName);
-                if (inactive > 0) {
-                    positions.add(i);
-                }
                 AppsItemViewHolder viewHolder = getViewHolder(i);
                 if (viewHolder != null) {
                     viewHolder.inactive = inactive;

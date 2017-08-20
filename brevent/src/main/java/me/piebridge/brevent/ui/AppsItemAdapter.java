@@ -134,9 +134,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         updateIcon(viewHolder);
         BreventActivity activity = getActivity();
         if (activity != null) {
-            updateInactive(activity, viewHolder);
-            updateStatus(activity, viewHolder);
-            updateDescription(activity, viewHolder);
+            updateViewHolder(activity, viewHolder);
         }
     }
 
@@ -169,7 +167,13 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateInactive(BreventActivity activity, AppsItemViewHolder viewHolder) {
+    static void updateViewHolder(BreventActivity activity, AppsItemViewHolder viewHolder) {
+        updateInactive(activity, viewHolder);
+        updateStatus(activity, viewHolder);
+        updateDescription(activity, viewHolder);
+    }
+
+    static void updateInactive(BreventActivity activity, AppsItemViewHolder viewHolder) {
         int inactive = activity.getInactive(viewHolder.packageName);
         if (viewHolder.inactive != inactive) {
             viewHolder.inactive = inactive;
@@ -183,7 +187,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateStatus(BreventActivity activity, AppsItemViewHolder viewHolder) {
+    static void updateStatus(BreventActivity activity, AppsItemViewHolder viewHolder) {
         String packageName = viewHolder.packageName;
         int statusIcon = activity.getStatusIcon(packageName);
         if (viewHolder.statusIconRes != statusIcon) {
@@ -207,7 +211,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    private void updateDescription(BreventActivity activity, AppsItemViewHolder viewHolder) {
+    static void updateDescription(BreventActivity activity, AppsItemViewHolder viewHolder) {
         String description = activity.getDescription(viewHolder.packageName);
         if (description != null) {
             viewHolder.descriptionView.setText(description);
