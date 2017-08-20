@@ -14,7 +14,7 @@
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系统文件，卸载后没有残留。黑域不破坏其它应用的完整性，也不处理未被黑域的应用。</string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，可能无法完整支持您的设备。同时部分厂商可能改变这些隐藏 API 的行为，对设备造成未知影响。因此，不建议直接在工作设备上使用黑域。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，部分厂商可能改变这些 API 行为，可能对设备造成未知影响。\n\n不要在工作设备上使用黑域，也不要黑域工作应用、常用应用和即时通讯应用。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
