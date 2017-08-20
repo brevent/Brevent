@@ -55,9 +55,9 @@
     <string name="process_stats">（至 %1$s 共 %2$s）</string>
     <string name="process_all_top">%d 个前台</string>
     <string name="process_all_service">%d 个服务</string>
-    <string name="process_all_cached">%d 个缓存</string>
+    <string name="process_all_cached">%d 个缓存（安全）</string>
     <string name="process_all_total">%d 个</string>
-    <string name="process_service">%d 服务</string>
+    <string name="process_service">%d 个服务</string>
     <string name="process_total">共 %d 个</string>
     <plurals name="process_process">
         <item quantity="other">进程</item>
@@ -145,7 +145,7 @@
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
     <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，会对黑域电池未优化</string>
+    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，不会对黑域电池优化</string>
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
@@ -218,8 +218,8 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。一般早晚 8 点前后回复。</string>
-    <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。一般早晚 8 点前后回复。</string>
+    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">先看看</string>
