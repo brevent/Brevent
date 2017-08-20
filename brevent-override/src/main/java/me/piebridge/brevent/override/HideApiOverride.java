@@ -71,6 +71,10 @@ public class HideApiOverride {
         return Process.myPpid();
     }
 
+    public static int[] getPidsForCommands(String[] cmds) {
+        return Process.getPidsForCommands(cmds);
+    }
+
     public static boolean isRoot(int uid) {
         return uid == ROOT_UID;
     }

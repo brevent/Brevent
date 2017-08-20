@@ -201,7 +201,6 @@ public class BreventActivity extends Activity
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
-    private Set<String> mAudio = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -747,9 +746,6 @@ public class BreventActivity extends Activity
         if (!mBrevent.contains(packageName)) {
             return 0;
         }
-        if (mAudio.contains(packageName)) {
-            return R.drawable.ic_audiotrack_black_24dp;
-        }
         if (Objects.equals(packageName, mVpn)) {
             return R.drawable.ic_vpn_key_black_24dp;
         }
@@ -757,7 +753,9 @@ public class BreventActivity extends Activity
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
         }
-        if (isFavorite(packageName)) {
+        if (BreventResponse.isAudio(status)) {
+            return R.drawable.ic_audiotrack_black_24dp;
+        } else if (isFavorite(packageName)) {
             return R.drawable.ic_favorite_border_black_24dp;
         } else if (status != null && BreventResponse.isSafe(status)) {
             return R.drawable.ic_panorama_fish_eye_black_24dp;
@@ -1259,12 +1257,9 @@ public class BreventActivity extends Activity
         for (String packageName : status.mFullPowerList) {
             mFavorite.put(packageName, IMPORTANT_BATTERY);
         }
-        mAudio.clear();
-        mAudio.addAll(status.mAudio);
         mVpn = status.mVpn;
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("favorite: " + mFavorite);
-            UILog.d("audio: " + mAudio);
             UILog.d("vpn: " + mVpn);
         }
 

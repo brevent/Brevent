@@ -28,4 +28,9 @@ public class Process {
         throw new UnsupportedOperationException();
     }
 
+    /** @hide */
+    public static int[] getPidsForCommands(String[] cmds) {
+        throw new UnsupportedOperationException();
+    }
+
 }
