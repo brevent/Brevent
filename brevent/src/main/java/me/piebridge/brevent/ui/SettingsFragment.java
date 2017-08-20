@@ -121,7 +121,7 @@ public class SettingsFragment extends PreferenceFragment
                         new DecimalFormat("#.##").format(donation)));
                 preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
-                preferenceDonation.setEnabled(true);
+                preferenceOptimizeAudio.setEnabled(true);
             }
             if (donation >= BreventSettings.donateAmount() * 5) {
                 preferenceAllowRoot.setEnabled(true);
