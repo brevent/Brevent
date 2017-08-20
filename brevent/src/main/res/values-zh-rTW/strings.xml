@@ -144,22 +144,22 @@
     <string name="show_all_apps_label">包括無法開啟的系統應用程式和框架應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
-    <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启；开启之后，会对黑域电池未优化</string>
+    <string name="brevent_checking">自我診斷</string>
+    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務，必要時收集日誌\n\n只有偶然不正常停止時，才需要開啟；開啟之後，會對黑域電池未最佳化</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">啟用之後，不處理已連線的 VPN 應用程式\n\nPlay 版需要累计支付 2 美元</string>
+    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版需要累計支付 2 美元</string>
     <string name="brevent_optimize_vpn_label_debug">啟用之後，不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">有些應用按「返回」時放到背景而不結束\n\nPlay 版需要累计支付 2 美元</string>
-    <string name="brevent_abnormal_back_label_debug">有些應用按「返回」時放到背景而不結束</string>
-    <string name="brevent_optimize_audio">优化音乐播放器</string>
-    <string name="brevent_optimize_audio_label">不处理正在播放的音乐类应用\n\n需要累计支付 2 美元</string>
-    <string name="brevent_optimize_audio_label_debug">不处理正在播放的音乐类应用</string>
+    <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版需要累計支付 2 美元</string>
+    <string name="brevent_abnormal_back_label_debug">有些應用程式按「返回」時放到背景而不結束</string>
+    <string name="brevent_optimize_audio">優化音樂播放器</string>
+    <string name="brevent_optimize_audio_label">不處理正在播放的音樂應用程式\n\n需要累計支付 2 美元</string>
+    <string name="brevent_optimize_audio_label_debug">不處理正在播放的音樂應用程式</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累计支付 3 美元</string>
-    <string name="brevent_allow_root_label_debug">啟用之後，允許 ROOT 過的裝置直接開啟黑域服務</string>
+    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累計支付 3 美元</string>
+    <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
@@ -200,8 +200,8 @@
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆或網路設定。部分 ROM 需要關閉省電模式。</string>
     <string name="unsupported_dumpsys">無法執行 dumpsys，請禁用 SELinux，然后再試。</string>
     <string name="unsupported_network">無法驗證黑域服務，請禁用 SELinux，然后再試。</string>
-    <string name="unsupported_exec">無法執行指令，請換個 SU。</string>
-    <string name="unsupported_tasks">無法取得最近任務，請考慮換個 ROM。</string>
+    <string name="unsupported_exec">無法執行指令，請試著更換 SU。</string>
+    <string name="unsupported_tasks">無法取得最近任務，請考慮更換 ROM。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
