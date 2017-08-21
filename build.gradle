@@ -58,7 +58,7 @@ def isIde = { ->
 
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
-project.ext.supportLibraryVersion = '26.0.0'
+project.ext.supportLibraryVersion = '26.0.1'
 
 project.ext.buildToolsVersion = '26.0.1'
 
