@@ -7,9 +7,9 @@
     <string name="fragment_guide_welcome">Bienvenido!</string>
     <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones?\nPulsar botón \"Volver\" siempre significa que ha finalizado sú trabajo y desea salir.\nPulsar botón \"Inicio\" irá a la pantalla principal y dejará ésta aplicación en segundo plano.</string>
     <string name="fragment_guide_welcome_message2">Nos encanta como está diseñado Android, pero a algunas aplicaciones no. Se quedan en segundo plano y drenan la batería, algunas incluso crean notificaciones inútiles para atraer su atención.\n\nBrevent va a proteger su teléfono de estas aplicaciones. Elimine la aplicación desplazandola, botón \"Recientes\" o presionando \"Volver\" y se forzará detener (Normalmente).\n Pulsando el botón \"Inicio\" se mantendrán en segundo plano hasta completar sus tareas.\nUna vez que el período de tiempo que establezca finalice, las aplicaciones se forzarán detener.</string>
-
+    
     <string name="fragment_guide_permission">Permisos</string>
-    <string name="fragment_guide_permission_message">¿Qué necesitas hacer?\nSimplemente un sencillo comando desde el PC.</string>
+    <string name="fragment_guide_permission_message">¿Qué necesita hacer?\nSimplemente un sencillo comando desde el PC.</string>
     <string name="fragment_guide_permission_message2">Para una mayor facilidad de uso, Brevent tiene un modo experimental ROOT que le permite evitar el uso del PC, iniciará automáticamente el servidor de Brevent en el arranque. El modo ROOT comparado con el modo normal, no tiene más características o mejores resultados de trabajo. En algunos dispositivos con ROOT, ni siquiera es posible iniciar el servidor de Brevent.</string>
 
     <string name="fragment_guide_security">Seguridad</string>
@@ -22,9 +22,9 @@
 
     <string name="fragment_guide_adb">Adb</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos en PC, que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n https://developer.android.com/studio/releases/platform-tools.html \n
-(Mantenga presionado, después seleccione contenido, mantenga presionado y copiar)</string>
+(Mantenga presionado, después seleccione contenido, mantenga presionado y copiar).</string>
     <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3 (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", usted puede usar \".\\adb\" para reemplazar a \"adb\" (Por favor eliminar duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\" (por favor eliminar duplicado \"adb\"cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
-
+    
     <string name="start_brevent">Inicie Brevent</string>
 
     <string name="brevent_service_start">Por favor inicie servidor Brevent (%s)</string>
@@ -209,17 +209,17 @@
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Gracias por pagar, total %1$s RMB via Alipay</string>
-    <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde</string>
+    <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde.</string>
     <string name="toast_donate">Gracias por pagar %1$s RMB</string>
-    <string name="toast_donate2">No se puede reconocer, inténtelo de nuevo más tarde</string>
+    <string name="toast_donate2">No se puede reconocer, inténtelo de nuevo más tarde.</string>
 
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
 
     <string name="brevent_status_starting">Iniciando servidor Brevent ...</string>
     <string name="brevent_status_not_started">Servidor Brevent no se ha iniciado.</string>
-    <string name="brevent_status_stopped">Servidor Brevent se ha detenido</string>
-    <string name="brevent_status_unknown">Servidor Brevent tal vez detenido</string>
-    <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada</string>
+    <string name="brevent_status_stopped">Servidor Brevent se ha detenido.</string>
+    <string name="brevent_status_unknown">Servidor Brevent tal vez detenido.</string>
+    <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada.</string>
 
     <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
