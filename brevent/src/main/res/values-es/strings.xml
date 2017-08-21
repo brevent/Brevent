@@ -2,14 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Brevent</string>
-    <string name="app_name_debug">Brevent Comunidad</string>
+    <string name="app_name_debug">Comunidad Brevent</string>
 
     <string name="fragment_guide_welcome">Bienvenido!</string>
     <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones?\nPulsar botón \"Volver\" siempre significa que ha finalizado sú trabajo y desea salir.\nPulsar botón \"Inicio\" irá a la pantalla principal y dejará ésta aplicación en segundo plano.</string>
     <string name="fragment_guide_welcome_message2">Nos encanta como está diseñado Android, pero a algunas aplicaciones no. Se quedan en segundo plano y drenan la batería, algunas incluso crean notificaciones inútiles para atraer su atención.\n\nBrevent va a proteger su teléfono de estas aplicaciones. Elimine la aplicación desplazandola, botón \"Recientes\" o presionando \"Volver\" y se forzará detener (Normalmente).\n Pulsando el botón \"Inicio\" se mantendrán en segundo plano hasta completar sus tareas.\nUna vez que el período de tiempo que establezca finalice, las aplicaciones se forzarán detener.</string>
-
     <string name="fragment_guide_permission">Permisos</string>
     <string name="fragment_guide_permission_message">¿Qué necesitas hacer?\nSimplemente un sencillo comando desde el PC.</string>
+
     <string name="fragment_guide_permission_message2">Para una mayor facilidad de uso, Brevent tiene un modo experimental ROOT que le permite evitar el uso del PC, iniciará automáticamente el servidor de Brevent en el arranque. El modo ROOT comparado con el modo normal, no tiene más características o mejores resultados de trabajo. En algunos dispositivos con ROOT, ni siquiera es posible iniciar el servidor de Brevent.</string>
 
     <string name="fragment_guide_security">Seguridad</string>
@@ -24,7 +24,6 @@
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos en PC, que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n https://developer.android.com/studio/releases/platform-tools.html \n
 (Mantenga presionado, después seleccione contenido, mantenga presionado y copiar)</string>
     <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3 (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", usted puede usar \".\\adb\" para reemplazar a \"adb\" (Por favor eliminar duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\" (por favor eliminar duplicado \"adb\"cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
-
     <string name="start_brevent">Inicie Brevent</string>
 
     <string name="brevent_service_start">Por favor inicie servidor Brevent (%s)</string>
