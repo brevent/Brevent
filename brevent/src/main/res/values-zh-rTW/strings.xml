@@ -51,7 +51,7 @@
     <string name="process_status_standby">已經待機</string>
     <string name="process_status_stopped">沒有執行</string>
     <string name="process_not_running">（沒有執行）</string>
-    <string name="process_no_stats">（从未開啟）</string>
+    <string name="process_no_stats">（從未開啟）</string>
     <string name="process_stats">（至 %1$s 共 %2$s）</string>
     <string name="process_all_top">%d 個前景</string>
     <string name="process_all_service">%d 個服務</string>
@@ -145,7 +145,7 @@
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
     <string name="brevent_checking">自我診斷</string>
-    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務，必要時收集日誌\n\n只有偶然不正常停止時，才需要開啟；開啟之後，會對黑域電池未最佳化</string>
+    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務，必要時收集日誌\n\n只有偶然不正常停止時，才需要開啟；開啟之後，將把黑域加入電池優化豁免白名單</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>

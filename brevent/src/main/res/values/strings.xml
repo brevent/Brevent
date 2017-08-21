@@ -147,7 +147,7 @@
     <string name="show_all_apps">Show all apps</string>
     <string name="show_all_apps_label">Including system and framework apps which cannot be launched\n\nBe careful when breventing system and framework apps which cannot be launched</string>
     <string name="brevent_checking">Diagnosis</string>
-    <string name="brevent_checking_label">Checking Brevent server every 15 minutes, gather logs if necessary\n\nTurn on if Brevent stops unreasonably, and make Brevent battery not optimized</string>
+    <string name="brevent_checking_label">Checking Brevent server every 15 minutes, gather logs if necessary\n\nTurn on if Brevent stops unreasonably. It will make Brevent on the Battery Optimizations exceptions whitelist</string>
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
