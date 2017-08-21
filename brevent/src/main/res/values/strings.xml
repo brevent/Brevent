@@ -14,7 +14,7 @@
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these API, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, IM apps.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
