@@ -14,11 +14,11 @@
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系統檔案，卸載後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
-    <string name="fragment_guide_security_message2">黑域使用大量 Android 的隱藏 API，可能無法完整支援您的裝置。同時有些第三方系統可能改變這些隱藏 API 行為，對裝置造成未知影響。因此，不建議直接在工作裝置上使用黑域。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑域可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑域，也不要黑域工作應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題或有任何建議，敬請發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">黑域預設先使用「待機」（App Standby）處理應用程式，應用程式待機後將不能聯網及執行任務。您可在設定中變更黑域方法。\n\n為了降低系統整體耗電，黑域預設不強行停止無服務進程的安全應用程式，也不自動黑域沒有服務組件的新安裝應用程式。為了降低自身耗電，黑域預設集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域預設先使用「待機」（App Standby，Android 6.0 引入，部分 ROM 不支持）處理應用程式，應用程式待機後將不能聯網、執行任務（Job，Android 5.0 引入）與同步。\n\n黑域默認不強行停止安全的快取應用程式，也不自動黑域沒有服務組件的新裝應用程式。為了降低自身耗電，黑域預設集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -145,7 +145,7 @@
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
     <string name="brevent_checking">自我診斷</string>
-    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務，必要時收集日誌\n\n只有偶然不正常停止時，才需要開啟；開啟之後，將把黑域加入電池優化豁免白名單</string>
+    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務，必要時收集日誌\n\n只有偶然不正常停止時，才需要開啟；開啟之後，將把黑域加入電池最佳化豁免白名單</string>
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
@@ -154,9 +154,9 @@
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版需要累計支付 2 美元</string>
     <string name="brevent_abnormal_back_label_debug">有些應用程式按「返回」時放到背景而不結束</string>
-    <string name="brevent_optimize_audio">優化音樂播放器</string>
-    <string name="brevent_optimize_audio_label">不處理正在播放的音樂應用程式\n\n需要累計支付 2 美元</string>
-    <string name="brevent_optimize_audio_label_debug">不處理正在播放的音樂應用程式</string>
+    <string name="brevent_optimize_audio">優化音樂應用程式</string>
+    <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\n需要累計支付 2 美元</string>
+    <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
     <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累計支付 3 美元</string>
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
