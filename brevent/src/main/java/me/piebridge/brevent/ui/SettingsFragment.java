@@ -46,6 +46,7 @@ public class SettingsFragment extends PreferenceFragment
 
     private SwitchPreference preferenceOptimizeVpn;
     private SwitchPreference preferenceAbnormalBack;
+    private SwitchPreference preferenceOptimizeAudio;
     private SwitchPreference preferenceAllowRoot;
     private SwitchPreference preferenceDonation;
 
@@ -72,6 +73,8 @@ public class SettingsFragment extends PreferenceFragment
                 .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_VPN);
         preferenceAbnormalBack = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_ABNORMAL_BACK);
+        preferenceOptimizeAudio = (SwitchPreference) preferenceScreen
+                .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_AUDIO);
         preferenceAllowRoot = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_ALLOW_ROOT);
 
@@ -94,12 +97,14 @@ public class SettingsFragment extends PreferenceFragment
         if (BuildConfig.RELEASE) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceAbnormalBack.setEnabled(false);
+            preferenceOptimizeAudio.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
         } else {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
                     .removePreference(preferenceDonation);
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
+            preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
         if (!"root".equals(application.getMode()) && !AppsDisabledFragment.hasRoot()) {
@@ -116,10 +121,9 @@ public class SettingsFragment extends PreferenceFragment
                         new DecimalFormat("#.##").format(donation)));
                 preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
+                preferenceOptimizeAudio.setEnabled(true);
             }
             if (donation >= BreventSettings.donateAmount() * 5) {
-                preferenceOptimizeVpn.setEnabled(true);
-                preferenceAbnormalBack.setEnabled(true);
                 preferenceAllowRoot.setEnabled(true);
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
@@ -250,6 +254,7 @@ public class SettingsFragment extends PreferenceFragment
         } else if (count < BreventSettings.donateAmount()) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
             if ("root".equals(application.getMode())) {
@@ -258,6 +263,7 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
         }
     }
@@ -268,22 +274,28 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeVpn.setChecked(false);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);
+            preferenceOptimizeAudio.setEnabled(false);
+            preferenceOptimizeAudio.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
         } else if (total == 0x1) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);
+            preferenceOptimizeAudio.setEnabled(false);
+            preferenceOptimizeAudio.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
         } else if (total < BreventSettings.donateAmount()) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(true);
         }
     }
@@ -317,6 +329,7 @@ public class SettingsFragment extends PreferenceFragment
         if (!getArguments().getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
         }
     }
 

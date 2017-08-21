@@ -25,6 +25,10 @@ public class BreventResponse extends BreventProtocol {
 
     public static final int PROCESS_STATE_PERSISTENT = -4;
 
+    public static final int PROCESS_STATE_AUDIO = -5;
+
+    public static final int PROCESS_STATE_AUDIO_PAUSED = -6;
+
     public final Collection<String> mBrevent;
 
     public final Collection<String> mPriority;
@@ -51,8 +55,6 @@ public class BreventResponse extends BreventProtocol {
 
     public final String mAlipaySum;
 
-    public final Collection<String> mAudio;
-
     public final String mVpn;
 
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
@@ -61,7 +63,7 @@ public class BreventResponse extends BreventProtocol {
                            boolean supportStandby, long daemonTime, long serverTime, int uid,
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
-                           String alipaySum, Collection<String> audio, String vpn) {
+                           String alipaySum, String vpn) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -76,7 +78,6 @@ public class BreventResponse extends BreventProtocol {
         mFullPowerList = fullPowerList;
         mSupportUpgrade = supportUpgrade;
         mAlipaySum = alipaySum;
-        mAudio = audio;
         mVpn = vpn;
     }
 
@@ -95,7 +96,6 @@ public class BreventResponse extends BreventProtocol {
         mFullPowerList = ParcelUtils.readCollection(in);
         mSupportUpgrade = in.readInt() != 0;
         mAlipaySum = in.readString();
-        mAudio = ParcelUtils.readCollection(in);
         mVpn = in.readString();
     }
 
@@ -115,12 +115,19 @@ public class BreventResponse extends BreventProtocol {
         ParcelUtils.writeCollection(dest, mFullPowerList);
         dest.writeInt(mSupportUpgrade ? 1 : 0);
         dest.writeString(mAlipaySum);
-        ParcelUtils.writeCollection(dest, mAudio);
         dest.writeString(mVpn);
     }
 
     public static boolean isStandby(SparseIntArray status) {
         return status != null && status.get(PROCESS_STATE_IDLE, 0) != 0;
+    }
+
+    public static boolean isAudio(SparseIntArray status) {
+        return status != null && status.get(PROCESS_STATE_AUDIO, 0) != 0;
+    }
+
+    public static boolean isAudioPaused(SparseIntArray status) {
+        return status != null && status.get(PROCESS_STATE_AUDIO_PAUSED, 0) != 0;
     }
 
     public static boolean isRunning(SparseIntArray status) {

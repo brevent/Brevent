@@ -150,14 +150,14 @@
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
     <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版需要累計支付 2 美元</string>
-    <string name="brevent_optimize_vpn_label_debug">啟用之後，不處理已連線的 VPN 應用程式</string>
+    <string name="brevent_optimize_vpn_label_debug">不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版需要累計支付 2 美元</string>
     <string name="brevent_abnormal_back_label_debug">有些應用程式按「返回」時放到背景而不結束</string>
     <string name="brevent_optimize_audio">優化音樂播放器</string>
     <string name="brevent_optimize_audio_label">不處理正在播放的音樂應用程式\n\n需要累計支付 2 美元</string>
     <string name="brevent_optimize_audio_label_debug">不處理正在播放的音樂應用程式</string>
-    <string name="brevent_allow_root">允許 ROOT 執行</string>
+    <string name="brevent_allow_root">允許 ROOT 執行<</string>
     <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累計支付 3 美元</string>
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 

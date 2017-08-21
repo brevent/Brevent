@@ -14,7 +14,7 @@
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using. Therefore, it is not recommended to use Brevent directly on office devices.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
@@ -159,9 +159,9 @@
     <string name="brevent_optimize_audio">Optimize Audio Player</string>
     <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires pay total 2 USD</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
-    <string name="brevent_allow_root">Allow run as ROOT</string>
-    <string name="brevent_allow_root_label">When checked, allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 3 USD</string>
-    <string name="brevent_allow_root_label_debug">When checked, allow ROOT to start Brevent server without \"USB Debugging\"</string>
+    <string name="brevent_allow_root">Run as ROOT</string>
+    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 3 USD</string>
+    <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show payment</string>
@@ -184,7 +184,7 @@
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">DKOUT, aviraxp, liyufan</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, liyufan</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
@@ -196,7 +196,7 @@
     <string name="unsupported_no_event">No event log. Please try again later or reboot.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
-    <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Allow run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
+    <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network.</string>
@@ -220,7 +220,7 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detail description</string>
 
-    <string name="root_donate_required">Please pay total 3 USD to use \"Allow run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
