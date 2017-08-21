@@ -471,6 +471,10 @@ public class BreventApplication extends Application {
     }
 
     public boolean checkPort() throws NetworkErrorException {
+        return checkPort(false);
+    }
+
+    public boolean checkPort(final boolean io) throws NetworkErrorException {
         Future<Boolean> future = executor.submit(new Callable<Boolean>() {
             @Override
             public Boolean call() {
@@ -483,7 +487,7 @@ public class BreventApplication extends Application {
                     return false;
                 } catch (IOException e) {
                     UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
-                    return false;
+                    return io;
                 }
             }
         });

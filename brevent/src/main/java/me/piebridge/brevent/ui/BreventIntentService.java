@@ -177,7 +177,7 @@ public class BreventIntentService extends IntentService {
     public static void checkBrevent(Context context) {
         BreventApplication application = (BreventApplication) context.getApplicationContext();
         try {
-            if (application.checkPort()) {
+            if (application.checkPort(true)) {
                 UILog.d("brevent worked");
             } else {
                 showNoBrevent(context, true);
