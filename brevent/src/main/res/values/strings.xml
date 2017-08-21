@@ -199,7 +199,7 @@
     <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
-    <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when neccssary.</string>
+    <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary.</string>
     <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux and try again.</string>
     <string name="unsupported_network">Can\'t verify brevent server, please disable SELinux and try again.</string>
     <string name="unsupported_exec">Can\'t execute command, please switch to another SU.</string>
