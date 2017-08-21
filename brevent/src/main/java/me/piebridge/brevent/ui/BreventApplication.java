@@ -197,7 +197,6 @@ public class BreventApplication extends Application {
     }
 
     public void updateStatus(BreventDisableRoot response) {
-        mUid = HideApiOverride.ROOT_UID;
         mDaemonTime = response.mDaemonTime;
         mServerTime = response.mServerTime;
         setSupportStandby(response.mSupportStandby);
