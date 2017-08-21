@@ -18,13 +18,13 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\"(since Android 6.0). When an app is standby, it can\'t connect to the Internet or carry on it\'s tasks. You can change the Brevent method in the settings.\n\nTo decrease the system\'s battery consumption, Brevent will not force-stop apps which have no service processes, nor will it auto-brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0). When an app is standby, it can\'t connect to the Internet or carry on it\'s tasks. You can change the Brevent method in settings.\n\nTo decrease the system\'s battery consumption, Brevent will not force-stop cached apps , nor will it auto-brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally by default and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
     <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
 
-    <string name="start_brevent">Start Brevent</string>
+    <string name="start_brevent">Launch Brevent</string>
 
     <string name="brevent_service_start">Please start Brevent server (%s)</string>
     <string name="brevent_service_no_response">Brevent server no response (%s)</string>
@@ -44,7 +44,7 @@
     <string name="process_retrieving">Retrieving processes status, just a moment. . .</string>
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
     <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
-    <string name="process_waiting">Waiting events, please expand then collapse notification to make events. . .</string>
+    <string name="process_waiting">Waiting events, please expand then collapse notification to trigger events. . .</string>
     <string name="process_starting">Starting Brevent server, just a moment. . .</string>
     <string name="process_checking">Checking Brevent server, just a moment. . .</string>
 
@@ -118,7 +118,7 @@
 
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>
-    <string name="brevent_auto_label">Update Brevent list when apps installed or uninstalled</string>
+    <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled</string>
     <string name="brevent_method">Brevent method</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
@@ -137,7 +137,7 @@
     <string name="brevent_timeout_6hour">6 hours</string>
     <string name="brevent_timeout_long">very long</string>
     <string name="brevent_standby_timeout">Standby timeout</string>
-    <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s\n\nBrevent doesn\'t show standby time</string>
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_aggressive">Aggressive mode</string>
@@ -193,13 +193,13 @@
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
     <string name="unsupported_path">(Error: cannot create brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.</string>
-    <string name="unsupported_no_event">No event log. Please try again later or reboot.</string>
+    <string name="unsupported_no_event">No event log. Please do not disable \"USB debugging\", and modify the \"Logger buffer sizes\" in \"Developer options\" accordingly.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
-    <string name="unsupported_no_local_network">Brevent can\'t access local network.</string>
+    <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when neccssary.</string>
     <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux and try again.</string>
     <string name="unsupported_network">Can\'t verify brevent server, please disable SELinux and try again.</string>
     <string name="unsupported_exec">Can\'t execute command, please switch to another SU.</string>
@@ -218,10 +218,10 @@
     <string name="brevent_status_not_started">Brevent server is not started</string>
     <string name="brevent_status_stopped">Brevent server is stopped</string>
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
-    <string name="brevent_status_report">Tap here to feedback, and give a detail description</string>
+    <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
-    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
+    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>
