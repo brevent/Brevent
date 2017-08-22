@@ -145,15 +145,15 @@
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
     <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启。开启之后，将把黑域加入电池优化白名单</string>
+    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启。开启之后，将自动把黑域加入电池优化白名单</string>
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
     <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版需要累计支付 2 美元，其它版请随意</string>
     <string name="brevent_optimize_vpn_label_debug">启用之后，不处理已连接的 VPN 应用</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
-    <string name="brevent_abnormal_back_label_debug">有些应用按“返回”时放到后台而不退出</string>
-    <string name="brevent_abnormal_back_label">有些应用按“返回”时放到后台而不退出\n\nPlay 版需要累计支付 2 美元，其它版请随意</string>
+    <string name="brevent_abnormal_back_label_debug">应用使用非“主页”方式（如“返回”）回到桌面时，立即黑域</string>
+    <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域\n\nPlay 版需要累计支付 2 美元，其它版请随意</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n需要累计支付 2 美元（非 Play 版暂不强制）</string>
     <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
@@ -218,8 +218,8 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或 16 人民币（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
-    <string name="root_donate_verify">支付确认 10 人民币以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="root_donate_required">“允许 ROOT 启动”需要支付 3 美元或人民币 16 元（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="root_donate_verify">支付确认人民币 10 元以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">先看看</string>
