@@ -1127,7 +1127,6 @@ public class BreventActivity extends Activity
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
             case BreventProtocol.SHOW_ROOT:
-                ((BreventApplication) getApplication()).updateStatus((BreventDisableRoot) response);
                 showRoot();
                 break;
             default:

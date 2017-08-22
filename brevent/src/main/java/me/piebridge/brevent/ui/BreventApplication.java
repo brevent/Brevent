@@ -196,13 +196,6 @@ public class BreventApplication extends Application {
                 (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
     }
 
-    public void updateStatus(BreventDisableRoot response) {
-        mDaemonTime = response.mDaemonTime;
-        mServerTime = response.mServerTime;
-        setSupportStandby(response.mSupportStandby);
-        setSupportStopped(response.mSupportUpgrade);
-    }
-
     public void updateStatus(BreventResponse breventResponse) {
         boolean shouldUpdated = breventResponse.mDaemonTime != 0
                 && mDaemonTime != breventResponse.mDaemonTime;
