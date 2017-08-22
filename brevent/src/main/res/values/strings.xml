@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Brevent</string>
-    <string name="app_name_debug">Brevent Community</string>
+    <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and want to quit.\nPressing Home will start the launcher and kick this app into background.</string>
@@ -172,7 +172,6 @@
     <string name="show_donation_play_and_contributor">Thanks for paying %d USD in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_rmb_and_contributor">Thanks for paying %s RMB, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$d USD in Play Store, %2$s RMB, and priceless contribution on Brevent</string>
-    <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>

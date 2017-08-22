@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Brevent</string>
-    <string name="app_name_debug">Brevent Comunidad</string>
+    <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Bienvenido!</string>
     <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones?\nPulsar botón \"Volver\" siempre significa que ha finalizado sú trabajo y desea salir.\nPulsar botón \"Inicio\" irá a la pantalla principal y dejará ésta aplicación en segundo plano.</string>
@@ -173,7 +173,6 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %d USD en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s RMB, y por su valiosa contribución a Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$d USD en Play Store, %2$s RMB, y por su valiosa contribución a Brevent</string>
-    <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nResidente: %4$s\nServidor: %5$s</string>

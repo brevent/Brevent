@@ -420,6 +420,10 @@ public class HideApiOverride {
         return new AssetManager();
     }
 
+    public static int addAssetPath(AssetManager assetManager, String path) {
+        return assetManager.addAssetPath(path);
+    }
+
     public static long getLaunchCount(UsageStats stats) {
         return stats.mLaunchCount;
     }

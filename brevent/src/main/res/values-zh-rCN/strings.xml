@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">黑域</string>
-    <string name="app_name_debug">黑域 社区版</string>
+    <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
     <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
@@ -170,7 +170,6 @@
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %d 美元，以及为黑域所作的特别贡献</string>
     <string name="show_donation_rmb_and_contributor">感谢您支付人民币 %s 元，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$d 美元，人民币 %2$s 元，以及为黑域所作的特别贡献</string>
-    <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次启动：%4$s\n本次启动：%5$s</string>
