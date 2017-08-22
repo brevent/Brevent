@@ -45,18 +45,12 @@ public class BreventIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Notification notification = postNotification(getApplicationContext());
         UILog.d("show notification");
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                .notify(ID, notification);
-        if (shouldForeground()) {
-            startForeground(ID, notification);
-        }
+        startForeground(ID, notification);
         if (!checkPort()) {
             startBrevent(intent.getAction());
         }
         UILog.d("hide notification");
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                .cancel(ID);
-        stopSelf();
+        stopForeground(true);
         String action = intent.getAction();
         if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !checkPort()) {
             showStopped(getApplicationContext());
