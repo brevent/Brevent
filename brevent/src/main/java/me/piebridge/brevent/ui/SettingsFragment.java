@@ -16,6 +16,8 @@ import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
 import java.text.DecimalFormat;
 
 import me.piebridge.brevent.BuildConfig;
@@ -53,6 +55,8 @@ public class SettingsFragment extends PreferenceFragment
     private Preference preferenceStandbyTimeout;
 
     private int repeat = 0;
+
+    private String fingerprint;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -134,6 +138,7 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         onUpdateBreventMethod();
+        fingerprint = getFingerPrint(BuildConfig.ADB_K);
     }
 
     public void showDonate(boolean root) {
@@ -161,11 +166,15 @@ public class SettingsFragment extends PreferenceFragment
         onShowDonationChanged();
         boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
+        StringBuilder sb = new StringBuilder();
         if (adbRunning) {
-            preference.setSummary(R.string.brevent_about_developer_adb);
-        } else {
-            preference.setSummary(null);
+            sb.append(getString(R.string.brevent_about_developer_adb));
         }
+        if (!TextUtils.isEmpty(fingerprint)) {
+            sb.append("\n");
+            sb.append(fingerprint);
+        }
+        preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
     }
 
@@ -331,6 +340,34 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
         }
+    }
+
+    private static String getFingerPrint(byte[] key) {
+        if (key == null) {
+            return null;
+        }
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (GeneralSecurityException e) {
+            UILog.e("md5", e);
+            return null;
+        }
+        byte[] digest = md5.digest(key);
+        StringBuilder sb = new StringBuilder();
+        String hex = "0123456789ABCDEF";
+        int i = 0;
+        int length = digest.length;
+        while (true) {
+            sb.append(hex.charAt((digest[i] >> 4) & 0xf));
+            sb.append(hex.charAt(digest[i] & 0xf));
+            if (++i < length) {
+                sb.append(":");
+            } else {
+                break;
+            }
+        }
+        return sb.toString();
     }
 
 }

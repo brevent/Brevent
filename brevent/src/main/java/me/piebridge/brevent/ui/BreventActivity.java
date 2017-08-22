@@ -90,7 +90,6 @@ import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideM;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
-import me.piebridge.brevent.protocol.BreventDisableRoot;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventNoEvent;
 import me.piebridge.brevent.protocol.BreventPackages;

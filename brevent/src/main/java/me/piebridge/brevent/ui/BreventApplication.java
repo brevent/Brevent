@@ -55,7 +55,6 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
-import me.piebridge.brevent.protocol.BreventDisableRoot;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;

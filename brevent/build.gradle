@@ -172,6 +172,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile project(':donation')
     compile project(':brevent-protocol')
+    compile project(':brevent-override')
+    compile project(':brevent-override-m')
     compile project(':log-reader')
     compile 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
