@@ -171,7 +171,9 @@ public class SettingsFragment extends PreferenceFragment
             sb.append(getString(R.string.brevent_about_developer_adb));
         }
         if (!TextUtils.isEmpty(fingerprint)) {
-            sb.append("\n");
+            if (sb.length() > 0) {
+                sb.append("\n");
+            }
             sb.append(fingerprint);
         }
         preference.setSummary(sb.toString());
