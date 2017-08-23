@@ -12,14 +12,23 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
+import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
 
@@ -28,6 +37,14 @@ public class BreventIntentService extends IntentService {
     public static final int ID2 = 59527;
 
     private static final String CHANNEL_ID = "root";
+
+    private static final int TIMEOUT = 15;
+
+    private static final int CHECK_TIMEOUT_MS = 15_000;
+
+    private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
+
+    private Future<List<String>> future;
 
     public BreventIntentService() {
         super("BreventIntentService");
@@ -67,7 +84,58 @@ public class BreventIntentService extends IntentService {
         }
     }
 
+    private void sleep(int s) {
+        try {
+            Thread.sleep(1000 * s);
+        } catch (InterruptedException e) { // NOSONAR
+            // do nothing
+        }
+    }
+
     private List<String> startBrevent() {
+        if (future != null) {
+            future.cancel(true);
+        }
+        future = executor.submit(new Callable<List<String>>() {
+            @Override
+            public List<String> call() throws Exception {
+                return startBreventSync();
+            }
+        });
+        long timeout = System.currentTimeMillis() + CHECK_TIMEOUT_MS;
+        do {
+            sleep(1);
+            try {
+                if (BreventProtocol.checkPortSync()) {
+                    UILog.d("checked");
+                    if (!future.isDone()) {
+                        future.cancel(false);
+                    }
+                    sleep(3);
+                    return Collections.singletonList("(Brevent server started)");
+                }
+            } catch (IOException e) {
+                // do nothing
+            }
+        } while (System.currentTimeMillis() < timeout);
+        try {
+            return future.get(1, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException e) {
+            String msg = "(Cannot start Brevent)";
+            UILog.d(msg, e);
+            return Collections.singletonList(msg);
+        } catch (TimeoutException e) {
+            String msg = "(Cannot start Brevent in " + TIMEOUT + " seconds)";
+            UILog.d(msg, e);
+            return Collections.singletonList(msg);
+        } finally {
+            if (!future.isDone()) {
+                future.cancel(false);
+            }
+        }
+    }
+
+    private List<String> startBreventSync() {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path != null) {

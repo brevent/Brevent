@@ -42,6 +42,7 @@ public abstract class BreventProtocol {
     public static final int UPDATE_PRIORITY = 4;
     public static final int STATUS_NO_EVENT = 5;
     public static final int SHOW_ROOT = 6;
+    public static final int STATUS_OK = 7;
 
     private int mVersion;
 
@@ -93,6 +94,8 @@ public abstract class BreventProtocol {
         int size = is.readUnsignedShort();
         if (size == 0) {
             return null;
+        } else if (size == 1) {
+            return BreventOK.INSTANCE;
         }
 
         byte[] bytes = new byte[size];
@@ -197,7 +200,7 @@ public abstract class BreventProtocol {
     }
 
     @WorkerThread
-    public static void checkPortSync() throws IOException {
+    public static boolean checkPortSync() throws IOException {
         try (
                 Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
                 DataOutputStream os = new DataOutputStream(socket.getOutputStream());
@@ -205,7 +208,7 @@ public abstract class BreventProtocol {
         ) {
             os.writeShort(0);
             os.flush();
-            BreventProtocol.readFrom(is);
+            return BreventProtocol.readFrom(is) == BreventOK.INSTANCE;
         }
     }
 

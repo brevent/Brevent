@@ -470,9 +470,9 @@ public class BreventApplication extends Application {
             @Override
             public Boolean call() {
                 try {
-                    BreventProtocol.checkPortSync();
-                    UILog.v("connected to localhost: " + BreventProtocol.PORT);
-                    return true;
+                    boolean started = BreventProtocol.checkPortSync();
+                    UILog.v("connected, started: " + started);
+                    return started;
                 } catch (ConnectException e) {
                     UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
                     return false;
