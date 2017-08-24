@@ -20,7 +20,7 @@ android {
         Properties properties = new Properties()
         properties.load(new FileInputStream(rootProject.file('ant.properties')))
 
-        if (rootProject.file('brevent-server').exists()) {
+        if (!rootProject.isIde && rootProject.file('brevent-server').exists()) {
             dexOptions {
                 additionalParameters += '--main-dex-list=build/maindexlist.txt'
                 additionalParameters += '--minimal-main-dex'
@@ -84,6 +84,7 @@ android {
         }
     } else {
         defaultConfig {
+            applicationId "me.piebridge.nrevent"
             versionCode rootProject.versionCode
             versionName rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
@@ -200,7 +201,7 @@ if (rootProject.file('brevent-server').exists()) {
     }
 
     tasks.whenTaskAdded { task ->
-        if (task.name == 'transformClassesWithDexForRelease') {
+        if (!rootProject.isIde && task.name == 'transformClassesWithDexForRelease') {
             task.dependsOn genMainDexList
         } else if (task.name == 'crashlyticsUploadDeobsRelease') {
             task.enabled = false

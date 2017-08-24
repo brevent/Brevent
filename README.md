@@ -12,7 +12,13 @@ Brevent, black prevent, can app-standby (Since Android 6.0) or force-stop apps w
 
 See [DEVELOP.md](DEVELOP.md). According WTFPL, you're free to modify codes.
 
-However, please change name if you modify codes. Since 2.1.5, you cannot name app as Brevent, nor Βrevent or so.
+However, please change name if you modify codes.
+
+Since 2.1.5, you cannot name app as Brevent, nor Βrevent or so.
+
+Since 2.1.6, you cannot use Brevent's package name.
+
+Currently, default name and package name is `Nrevent`, means `Not Brevent`.
 
 # 中文
 
@@ -28,4 +34,6 @@ However, please change name if you modify codes. Since 2.1.5, you cannot name ap
 
 请参见[DEVELOP.md](DEVELOP.md)。根据 WTFPL 协议，您可自由修改黑域代码。
 
-但是，如果您改动代码，请换个名字，当然也不能叫黒域。
+但是，如果您改动代码，请换个名字，当然也不能叫黒域；同时，2.1.6 以后，包名也须修改。
+
+当前，默认名字为“白域”，包名为“nrevent”（参见英文）。

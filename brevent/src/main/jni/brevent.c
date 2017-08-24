@@ -14,7 +14,11 @@
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
 #define LOGE(...) (__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
 
-#define PROJECT "https://github.com/brevent/Brevent/issues"
+#if __has_include("brevent.h")
+#include "brevent.h"
+#else
+#define BREVENT "me.piebridge.nrevent"
+#endif
 
 sig_atomic_t update;
 sig_atomic_t quited;
@@ -51,8 +55,8 @@ static int worker() {
     char line[PATH_MAX];
     char classpath[PATH_MAX];
     char *arg[] = {"app_process", "/system/bin", "--nice-name=brevent_server",
-                   "me.piebridge.brevent.server.BreventServer", STR(SIGUSR1), NULL};
-    file = popen("pm path me.piebridge.brevent", "r");
+                   "me.piebridge.brevent.server.BreventServer", STR(SIGUSR1), BREVENT, NULL};
+    file = popen("pm path " BREVENT, "r");
     if (file != NULL) {
         memset(line, 0, PATH_MAX);
         fgets(line, sizeof(line), file);
@@ -132,41 +136,37 @@ static int server(size_t length, char *arg) {
     return 0;
 }
 
-static void feedback() {
-    printf("if you find any issues, please report bug to " PROJECT " with log\n"
-                   "for crash log: logcat -b crash -d\n"
-                   "for brevent log: logcat -b main -d -s BreventLoader BreventServer\n");
-    fflush(stdout);
-}
-
 static void report(time_t now) {
     char command[BUFSIZ];
     char time[BUFSIZ];
     struct tm *tm = localtime(&now);
     strftime(time, sizeof(time), "%m-%d %H:%M:%S.000", tm);
-    sprintf(command, "pm path me.piebridge.brevent");
+    sprintf(command, "pm path " BREVENT);
     printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
     fflush(stdout);
-    printf("please report bug to " PROJECT " with log below\n"
-                   "```\n--- crash start ---\n");
-    fflush(stdout);
+#ifdef LOGBELOW
+    printf(LOGBELOW);
+#endif
+    printf("--- crash start ---\n");
     sprintf(command, "logcat -b crash -t '%s' -d", time);
     printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
     fflush(stdout);
     printf("--- crash end ---\n");
-    printf("--- brevent start ---\n");
     fflush(stdout);
+    printf("--- brevent start ---\n");
     sprintf(command, "logcat -b main -t '%s' -d -s BreventLoader BreventServer", time);
     printf("[command] %s\n", command);
     fflush(stdout);
     system(command);
     fflush(stdout);
     printf("--- brevent end ---\n");
-    printf("```\nplease report bug to " PROJECT " with log above\n");
+#ifdef LOGABOVE
+    printf(LOGABOVE);
+#endif
     fflush(stdout);
 }
 
@@ -238,8 +238,10 @@ static int check(time_t now) {
         } else {
             printf("timeout\n\n");
         }
+#ifdef FEEDBACK
+        printf(FEEDBACK);
+#endif
         fflush(stdout);
-        feedback();
         return EXIT_SUCCESS;
     } else {
         printf("fail\n");
