@@ -26,47 +26,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
             android:id="@+id/alipay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:drawableTop="@null"
-            android:gravity="center_horizontal"
-            android:text="@null"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="gone"
-            tools:text="支付宝"
-            tools:visibility="visible" />
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
 
-        <TextView
+        <ImageView
             android:id="@+id/wechat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:drawableTop="@null"
-            android:gravity="center_horizontal"
-            android:text="@null"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="gone"
-            tools:text="微信"
-            tools:visibility="visible" />
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
 
-        <TextView
+        <ImageView
             android:id="@+id/play"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:drawableTop="@null"
-            android:gravity="center_horizontal"
-            android:text="@null"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="gone"
-            tools:text="Play"
-            tools:visibility="visible" />
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
 
     </LinearLayout>
 

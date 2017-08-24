@@ -3,12 +3,9 @@ package me.piebridge.donation;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 
@@ -32,19 +29,11 @@ class DonateTask extends AsyncTask<DonateActivity.DonateItem, DonateActivity.Don
     protected Void doInBackground(DonateActivity.DonateItem... params) {
         Context context = mReference.get();
         if (context != null) {
-            Resources resources = context.getResources();
             PackageManager packageManager = context.getPackageManager();
-            int size = resources.getDimensionPixelSize(android.R.dimen.app_icon_size);
             for (DonateActivity.DonateItem item : params) {
                 ActivityInfo ai = packageManager.resolveActivity(item.intent, 0).activityInfo;
                 item.label = ai.loadLabel(packageManager);
-                Drawable drawable = ai.loadIcon(packageManager);
-                BitmapDrawable bitmap = DonateActivity.bitmap(drawable);
-                if (bitmap != null) {
-                    item.icon = DonateActivity.cropDrawable(resources, bitmap, size);
-                } else {
-                    item.icon = drawable;
-                }
+                item.icon = ai.loadIcon(packageManager);
                 this.publishProgress(item);
             }
         }
@@ -55,10 +44,9 @@ class DonateTask extends AsyncTask<DonateActivity.DonateItem, DonateActivity.Don
     protected void onProgressUpdate(DonateActivity.DonateItem... values) {
         if (mReference.get() != null) {
             DonateActivity.DonateItem item = values[0];
-            TextView donate = item.textView;
-            donate.setText(item.label);
+            ImageView donate = item.imageView;
             donate.setContentDescription(item.label);
-            donate.setCompoundDrawablesWithIntrinsicBounds(null, item.icon, null, null);
+            donate.setImageDrawable(item.icon);
             donate.setClickable(true);
             donate.setVisibility(View.VISIBLE);
         }

@@ -9,10 +9,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.AdaptiveIconDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +27,7 @@ import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -401,8 +398,8 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         if (intent != null) {
             DonateItem item = new DonateItem();
             item.intent = intent;
-            item.textView = findViewById(resId);
-            item.textView.setOnClickListener(this);
+            item.imageView = findViewById(resId);
+            item.imageView.setOnClickListener(this);
             if (items != null) {
                 items.add(item);
             }
@@ -515,15 +512,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         }
     }
 
-    static BitmapDrawable cropDrawable(Resources resources, BitmapDrawable icon, int width) {
-        if (icon.getMinimumWidth() > width) {
-            @SuppressWarnings("SuspiciousNameCombination")
-            Bitmap bitmap = Bitmap.createScaledBitmap(icon.getBitmap(), width, width, false);
-            return new BitmapDrawable(resources, bitmap);
-        }
-        return icon;
-    }
-
     @CallSuper
     public void showPlay(@Nullable Collection<String> purchased) {
         if (purchased == null) {
@@ -622,18 +610,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Intent intent;
         Drawable icon;
         CharSequence label;
-        TextView textView;
-    }
-
-    static BitmapDrawable bitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return (BitmapDrawable) drawable;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                && drawable instanceof AdaptiveIconDrawable) {
-            return bitmap(((AdaptiveIconDrawable) drawable).getForeground());
-        } else {
-            return null;
-        }
+        ImageView imageView;
     }
 
 }

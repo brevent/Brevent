@@ -2,12 +2,14 @@ package me.piebridge.donation;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.ArrayMap;
 
@@ -46,18 +48,28 @@ class WechatTask extends AsyncTask<String, Void, Boolean>
         File path = new File(params[1]);
 
         PackageManager packageManager = donateActivity.getPackageManager();
-        Intent launcher = packageManager.getLaunchIntentForPackage(donateActivity.getApplicationId());
-        BitmapDrawable drawable = DonateActivity.bitmap(packageManager.resolveActivity(launcher, 0)
-                .activityInfo.loadIcon(packageManager));
-        if (drawable == null) {
-            return false;
-        }
-        Resources resources = donateActivity.getResources();
-        drawable = DonateActivity.cropDrawable(resources, drawable,
-                resources.getDimensionPixelSize(android.R.dimen.app_icon_size));
+        String applicationId = donateActivity.getApplicationId();
+        Intent launcher = packageManager.getLaunchIntentForPackage(applicationId);
+        ActivityInfo activityInfo = packageManager.resolveActivity(launcher, 0).activityInfo;
+        Drawable drawable = activityInfo.loadIcon(packageManager);
+
         Bitmap bitmap;
+        if (drawable instanceof BitmapDrawable) {
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        } else {
+            Resources resources = donateActivity.getResources();
+            int unit = (int) resources.getDisplayMetrics().density * 2;
+            int left = unit;
+            int right = 26 * unit;
+            int width = 27 * unit;
+            bitmap = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+            final Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(left, left, right, right);
+            drawable.draw(canvas);
+        }
+
         try {
-            bitmap = createCode(link, drawable.getBitmap());
+            bitmap = createCode(link, bitmap);
         } catch (WriterException e) {
             // do nothing
             return false;
@@ -129,4 +141,5 @@ class WechatTask extends AsyncTask<String, Void, Boolean>
     public void onCancel(DialogInterface dialog) {
         cancel(false);
     }
+
 }
