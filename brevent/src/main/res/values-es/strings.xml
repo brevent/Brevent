@@ -96,7 +96,7 @@
     <string name="important_accessibility">%s (Accesibilidad)</string>
     <string name="important_device_admin">%s (Administrador del dispositivo)</string>
     <string name="important_gcm">%s (FCM)</string>
-    <string name="important_battery">%s (Sin segundo plano, batería no optimizada)</string>
+    <string name="important_battery">%s (Sin Standby, batería no optimizada)</string>
     <string name="important_trust_agent">%s (Agente de confianza)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Fondo de pantalla)</string>
@@ -121,7 +121,7 @@
     <string name="brevent_auto">Auto Brevent</string>
     <string name="brevent_auto_label">Actualizar la lista de Brevent cuando las aplicaciones se instalen o desinstalen.</string>
     <string name="brevent_method">Método Brevent</string>
-    <string name="brevent_method_standby_forcestop">Standby, después forzar detener</string>
+    <string name="brevent_method_standby_forcestop">Standby,después forzar detener</string>
     <string name="brevent_method_standby_only">Standby, no fuerza detener</string>
     <string name="brevent_method_forcestop_only">Sólo forzar parada, no Standby</string>
     <string name="brevent_method_standby_forcestop_label">Standby al salir de las aplicaciones pulsando \"Volver\", o finalizar aplicación en segundo plano por tiempo de espera. \n\nDetiene la aplicación por tiempo de espera o al ser eliminada manualmente en recientes.\n\nSiempre detiene la apertura de aplicaciones que no tienen actividad.</string>
