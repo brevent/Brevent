@@ -127,7 +127,7 @@
     <string name="brevent_method_standby_forcestop_label">Standby al salir de las aplicaciones pulsando \"Volver\", o finalizar aplicación en segundo plano por tiempo de espera. \n\nDetiene la aplicación por tiempo de espera o al ser eliminada manualmente en recientes.\n\nSiempre detiene la apertura de aplicaciones que no tienen actividad.</string>
     <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones pulsando \"Volver\", o aplicaciones en segundo plano finalizadas.\n\nSiempre detiene la activación de aplicaciones que no tienen actividad.</string>
     <string name="brevent_method_forcestop_only_label">Fuerza detener al salir de las aplicaciones pulsando \"Volver\", por tiempo de espera de Apps en segundo plano o cuando se borre de \"Recientes\".\n\nSiempre detendrá las aplicaciones que no tienen actividad.</string>
-    <string name="brevent_timeout">Tiempo de espera de las aplicaciones en 2° plano.</string>
+    <string name="brevent_timeout">Tiempo de espera de las aplicaciones en 2° plano</string>
     <string name="brevent_timeout_label">Las aplicaciones en segundo plano serán detenidas por Brevent. Actualmente:  %s\n\nBrevent muestra el tiempo inactivo para las aplicaciones en segundo plano dinámicamente.</string>
     <string name="brevent_timeout_1min">1 minuto</string>
     <string name="brevent_timeout_5min">5 minutos</string>
@@ -137,8 +137,8 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_long">Mucho tiempo</string>
-    <string name="brevent_standby_timeout">Tiempo de espera en Standby.</string>
-    <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
+    <string name="brevent_standby_timeout">Tiempo de espera en Standby</string>
+    <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s</string>
 
     <string name="brevent_advanced">Características avanzadas:</string>
     <string name="brevent_aggressive">Modo agresivo</string>
@@ -148,7 +148,7 @@
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
     <string name="brevent_checking">Diagnóstico</string>
-    <string name="brevent_checking_label">Comprobar servidor Brevent cada 15 minutos, generar Logs si es necesario.\n\nInicie Brevent si se detiene y añada no optimizar la batería en app Brevent (Optimización de bateria).</string>
+    <string name="brevent_checking_label">Comprobar servidor Brevent cada 15 minutos, generará Logs si fuera necesario.\n\nInicie Brevent si se detiene y añada App Brevent para no optimizar bateren \"Batería\Optimización de batería\"</string>
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
@@ -158,7 +158,7 @@
     <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
     <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".</string>
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
-    <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener. \n\nRequiere pago total de 2 USD.</string>
+    <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener. \n\nRequiere donar un total de 2 USD.</string>
     <string name="brevent_optimize_audio_label_debug">Las aplicaciones de reproducción de música no se mantienen en espera o fuerza detener.</string>
     <string name="brevent_allow_root">Permitir ejecutar como ROOT</string>
     <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 USD.</string>
