@@ -32,7 +32,7 @@ android {
             versionName rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
-            targetSdkVersion rootProject.targetSdkVersion
+            targetSdkVersion 25
             buildConfigField 'boolean', 'RELEASE', properties['build.release']
             buildConfigField 'String', 'DONATE_ALIPAY', properties['build.alipay']
             buildConfigField 'String', 'DONATE_WECHAT', properties['build.wechat']
@@ -89,7 +89,7 @@ android {
             versionName rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
-            targetSdkVersion rootProject.targetSdkVersion
+            targetSdkVersion 25
             buildConfigField 'boolean', 'RELEASE', 'false'
             buildConfigField 'String', 'DONATE_ALIPAY', 'null'
             buildConfigField 'String', 'DONATE_WECHAT', 'null'
