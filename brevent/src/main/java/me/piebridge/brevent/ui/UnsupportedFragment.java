@@ -26,7 +26,7 @@ public class UnsupportedFragment extends AbstractDialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(BuildConfig.ICON);
         builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
         builder.setMessage(getString(getArguments().getInt(MESSAGE)));
         builder.setOnKeyListener(this);

@@ -51,7 +51,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         BreventActivity activity = (BreventActivity) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(BuildConfig.ICON);
         Bundle arguments = getArguments();
         builder.setTitle(getString(arguments.getInt(TITLE, DEFAULT_TITLE),
                 BuildConfig.VERSION_NAME));

@@ -185,7 +185,7 @@ public class BreventIntentService extends IntentService {
         builder.setAutoCancel(false);
         builder.setOngoing(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        builder.setSmallIcon(BuildConfig.IC_STAT);
         builder.setContentTitle(context.getString(R.string.brevent_status_starting));
         return builder.build();
     }
@@ -194,7 +194,7 @@ public class BreventIntentService extends IntentService {
         Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        builder.setSmallIcon(BuildConfig.IC_STAT);
         builder.setContentTitle(context.getString(R.string.brevent_status_not_started));
         builder.setContentIntent(PendingIntent.getActivity(context, 0,
                 new Intent(context, BreventActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
@@ -254,7 +254,7 @@ public class BreventIntentService extends IntentService {
         Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        builder.setSmallIcon(R.drawable.ic_brevent_server);
+        builder.setSmallIcon(BuildConfig.IC_STAT);
         int title = exit ? R.string.brevent_status_stopped : R.string.brevent_status_unknown;
         builder.setContentTitle(context.getString(title));
         File file = AppsActivityHandler.fetchLogs(context);

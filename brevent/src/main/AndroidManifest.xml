@@ -28,7 +28,7 @@
     <application
         android:name=".ui.BreventApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/${icon}"
         android:label="@string/brevent"
         android:theme="@style/theme">
         <activity

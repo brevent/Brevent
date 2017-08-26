@@ -28,11 +28,13 @@ android {
         }
 
         defaultConfig {
+            manifestPlaceholders = [icon:'ic_brevent']
+            applicationId 'me.piebridge.brevent'
             versionCode rootProject.versionCode
             versionName rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
-            targetSdkVersion 25
+            targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', properties['build.release']
             buildConfigField 'String', 'DONATE_ALIPAY', properties['build.alipay']
             buildConfigField 'String', 'DONATE_WECHAT', properties['build.wechat']
@@ -54,6 +56,8 @@ android {
             } else {
                 resValue "string", "brevent", "@string/app_name"
             }
+            buildConfigField 'int', 'ICON', 'me.piebridge.brevent.R.mipmap.ic_brevent'
+            buildConfigField 'int', 'IC_STAT', 'me.piebridge.brevent.R.drawable.ic_stat_brevent'
             multiDexEnabled true
         }
 
@@ -84,12 +88,13 @@ android {
         }
     } else {
         defaultConfig {
-            applicationId "me.piebridge.nrevent"
+            manifestPlaceholders = [icon:'ic_nrevent']
+            applicationId 'me.piebridge.nrevent'
             versionCode rootProject.versionCode
             versionName rootProject.versionName
             minSdkVersion rootProject.minSdkVersion
             maxSdkVersion rootProject.targetSdkVersion
-            targetSdkVersion 25
+            targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', 'false'
             buildConfigField 'String', 'DONATE_ALIPAY', 'null'
             buildConfigField 'String', 'DONATE_WECHAT', 'null'
@@ -111,6 +116,8 @@ android {
             } else {
                 resValue "string", "brevent", "@string/app_name_debug"
             }
+            buildConfigField 'int', 'ICON', 'me.piebridge.brevent.R.mipmap.ic_nrevent'
+            buildConfigField 'int', 'IC_STAT', 'me.piebridge.brevent.R.drawable.ic_stat_nrevent'
         }
         applicationVariants.all { variant ->
             variant.outputs.each { output ->

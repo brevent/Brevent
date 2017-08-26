@@ -35,7 +35,7 @@ public class AppsDonateFragment extends AbstractDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity activity = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
         builder.setMessage(getArguments().getInt(MESSAGE));
         builder.setPositiveButton(R.string.root_donate_alipay, this);

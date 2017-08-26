@@ -22,7 +22,7 @@ public class AppsFeedbackFragment extends AbstractDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity activity = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.menu_feedback);
         boolean hasEmailClient = BreventActivity.hasEmailClient(activity);
         builder.setMessage(getString(R.string.feedback_message,

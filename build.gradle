@@ -66,15 +66,12 @@ project.ext.minSdkVersion = 21
 
 project.ext.targetSdkVersion = 26
 
-project.ext.versionCode = 90
+project.ext.versionCode = 92
 
 if (rootProject.file('.git').exists()) {
     project.ext.simpleVersionName = getBreventVersion()
-    if (!rootProject.file('ant.properties').exists()) {
-        project.ext.simpleVersionName = project.ext.simpleVersionName.split('-')[0] + '-ce'
-    }
 } else {
-    project.ext.simpleVersionName = 'brevent'
+    project.ext.simpleVersionName = rootProject.file('brevent-server.txt').text.trim().substring(1)
 }
 
 project.ext.versionName = project.ext.simpleVersionName

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
 /**
@@ -22,7 +23,7 @@ public class AppsRootFragment extends AbstractDialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
         builder.setMessage(R.string.unsupported_disable_root);
         builder.setPositiveButton(android.R.string.ok, this);
