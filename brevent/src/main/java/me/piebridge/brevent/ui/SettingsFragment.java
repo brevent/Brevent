@@ -115,7 +115,9 @@ public class SettingsFragment extends PreferenceFragment
             breventExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
-            if (!getArguments().getBoolean(IS_PLAY, false)) {
+            String installer = application.getInstaller();
+            if (!getArguments().getBoolean(IS_PLAY, false)
+                    || !DonateActivity.PACKAGE_PLAY.equals(installer)) {
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
@@ -317,7 +319,9 @@ public class SettingsFragment extends PreferenceFragment
         if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
                 BreventApplication application = (BreventApplication) getActivity().getApplication();
-                if (!getArguments().getBoolean(IS_PLAY, false)) {
+                String installer = application.getInstaller();
+                if (!getArguments().getBoolean(IS_PLAY, false)
+                        || !DonateActivity.PACKAGE_PLAY.equals(installer)) {
                     showDonate("root".equals(application.getMode()));
                 }
                 repeat = 0;

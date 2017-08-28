@@ -177,7 +177,8 @@
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nResidente: %4$s\nServidor: %5$s</string>
     <string name="brevent_about_version_summary_debug">%1$s (Edición de comunidad)</string>
-    <string name="brevent_about_version_play">Play Store</string>
+    <string name="brevent_about_version_play">Play</string>
+    <string name="brevent_about_version_like_play">like Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_other">Desconocido</string>

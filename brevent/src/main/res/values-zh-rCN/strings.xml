@@ -175,6 +175,7 @@
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次启动：%4$s\n本次启动：%5$s</string>
     <string name="brevent_about_version_summary_debug">%1$s（社区版）</string>
     <string name="brevent_about_version_play">Play 版</string>
+    <string name="brevent_about_version_like_play">同 Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
     <string name="brevent_about_version_smartisan">十八爷</string>
     <string name="brevent_about_version_other">其它版</string>

@@ -125,7 +125,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     public final void updateDonations() {
         if (acceptDonation()) {
             activatePlay();
-            if (!isPlay()) {
+            if (!isPlay() || !isPlayInstaller()) {
                 activateDonations();
             }
         } else {
@@ -424,9 +424,13 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return getPackageName();
     }
 
-    protected boolean isPlay() {
+    protected final boolean isPlayInstaller() {
         return hasPlay() && PACKAGE_PLAY.equals(getPackageManager()
                 .getInstallerPackageName(getApplicationId()));
+    }
+
+    protected boolean isPlay() {
+        return isPlayInstaller();
     }
 
     private Uri getQrCodeUri() {
