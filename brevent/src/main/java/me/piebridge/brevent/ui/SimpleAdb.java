@@ -55,7 +55,7 @@ public class SimpleAdb {
     private int auth = TRIED_NONE;
 
     public SimpleAdb(int port) throws IOException {
-        socket = new Socket(InetAddress.getLoopbackAddress(), port);
+        socket = new Socket(InetAddress.getByAddress("localhost", new byte[] {127, 0, 0, 1}), port);
         os = new BufferedOutputStream(socket.getOutputStream());
         is = new BufferedInputStream(socket.getInputStream());
     }
