@@ -5,12 +5,12 @@
     <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and want to quit.\nPressing Home will start the launcher and kick this app into background.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and want to quit.\nPressing Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed app by this way, preventing apps which are in the Brevent list from running in long time. Apps which are wakened maliciously will always be force-stopped.</string>
     <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwipe away from Recent Screen or press Back and they will be force-stopped.\nPress Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
-    <string name="fragment_guide_permission_message2">For ease of use, Brevent has an experimental ROOT mode, allowing you to skip using PC, and will auto start Brevent server on boot. ROOT mode compared with the normal mode no more features or better work results, for some devices ROOT mode can not even start Brevent server.</string>
+    <string name="fragment_guide_permission_message2">For ease of use, Brevent has an experimental ROOT mode, allowing you to start Brevent server as ROOT directly. ROOT mode compared with the normal mode no more features or better work results, on some devices you cannot even start Brevent server as ROOT.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
@@ -18,11 +18,11 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0). When an app is standby, it can\'t connect to the Internet or carry on it\'s tasks. You can change the Brevent method in settings.\n\nTo decrease the system\'s battery consumption, Brevent will not force-stop cached apps , nor will it auto-brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally by default and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop cached apps , nor will it auto-brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally by default and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" instead of \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path instead of \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
 
     <string name="start_brevent">Launch Brevent</string>
 
@@ -118,7 +118,7 @@
 
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>
-    <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled</string>
+    <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled(not supported on some ROMs)</string>
     <string name="brevent_method">Brevent method</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
@@ -141,7 +141,7 @@
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_aggressive">Aggressive mode</string>
-    <string name="brevent_aggressive_label">Brevent immediately, auto-brevent non-service apps, force-stop safe apps.\n\nBe careful</string>
+    <string name="brevent_aggressive_label">Brevent immediately, auto-brevent non-service apps, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
     <string name="show_framework_apps">Show framework apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
     <string name="show_all_apps">Show all apps</string>
@@ -154,8 +154,8 @@
     <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires pay total 2 USD for Play version</string>
     <string name="brevent_optimize_vpn_label_debug">When checked, apps which have connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
-    <string name="brevent_abnormal_back_label">Some apps move background instead of exiting when pressing Back\n\nRequires pay total 2 USD for Play version</string>
-    <string name="brevent_abnormal_back_label_debug">Some apps move background instead of exiting when pressing Back</string>
+    <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires pay total 2 USD for Play version</string>
+    <string name="brevent_abnormal_back_label_debug">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize Audio Player</string>
     <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires pay total 2 USD</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
@@ -198,7 +198,7 @@
     <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
     <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
-    <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary.</string>
+    <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
     <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux and try again.</string>
     <string name="unsupported_network">Can\'t verify brevent server, please disable SELinux and try again.</string>
     <string name="unsupported_exec">Can\'t execute command, please switch to another SU.</string>
@@ -219,8 +219,8 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
-    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
+    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if you can.</string>
+    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if you can.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>
