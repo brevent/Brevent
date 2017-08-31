@@ -124,12 +124,12 @@ public class SettingsFragment extends PreferenceFragment
             double donation = application.getDonation();
             if (donation > 0) {
                 preferenceDonation.setSummary(getString(R.string.show_donation_rmb,
-                        new DecimalFormat("#.##").format(donation)));
+                        new DecimalFormat("#.#").format(donation)));
                 preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceOptimizeAudio.setEnabled(true);
             }
-            if (donation >= BreventSettings.donateAmount() * 5) {
+            if (donation >= BreventSettings.donateAmount()) {
                 preferenceAllowRoot.setEnabled(true);
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
@@ -213,7 +213,7 @@ public class SettingsFragment extends PreferenceFragment
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
-    public void updatePlayDonation(int total, boolean contributor) {
+    public void updatePlayDonation(double total, boolean contributor) {
         Activity activity = getActivity();
         if (activity == null) {
             return;
@@ -221,15 +221,16 @@ public class SettingsFragment extends PreferenceFragment
         BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
         double donation = application.getDonation();
-        String rmb = donation > 0 ? new DecimalFormat("#.##").format(donation) : "";
+        String play = total > 0 ? new DecimalFormat("#.#").format(total) : "";
+        String rmb = donation > 0 ? new DecimalFormat("#.#").format(donation) : "";
         boolean hasAlipay = !TextUtils.isEmpty(rmb);
         if (contributor) {
             if (total > 0) {
                 if (hasAlipay) {
                     summary = getString(R.string.show_donation_play_and_rmb_and_contributor,
-                            total, rmb);
+                            play, rmb);
                 } else {
-                    summary = getString(R.string.show_donation_play_and_contributor, total);
+                    summary = getString(R.string.show_donation_play_and_contributor, play);
                 }
             } else {
                 if (hasAlipay) {
@@ -243,9 +244,9 @@ public class SettingsFragment extends PreferenceFragment
             if (total > 0) {
                 if (hasAlipay) {
                     summary = getString(R.string.show_donation_play_and_rmb,
-                            total, rmb);
+                            play, rmb);
                 } else {
-                    summary = getString(R.string.show_donation_play, total);
+                    summary = getString(R.string.show_donation_play, play);
                 }
             } else {
                 if (hasAlipay) {
@@ -258,9 +259,9 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
-        int count = total + (contributor ? BreventSettings.CONTRIBUTOR : 0);
+        double count = total + (contributor ? BreventSettings.CONTRIBUTOR : 0);
         if (donation > 0) {
-            count += (int) (donation / 5);
+            count += donation;
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
@@ -281,7 +282,7 @@ public class SettingsFragment extends PreferenceFragment
         }
     }
 
-    private void updatePlayVersion(int total) {
+    private void updatePlayVersion(double total) {
         if (total <= 0x0) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceOptimizeVpn.setChecked(false);
@@ -291,7 +292,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-        } else if (total == 0x1) {
+        } else if (total < 0x2) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(false);
             preferenceAbnormalBack.setChecked(false);

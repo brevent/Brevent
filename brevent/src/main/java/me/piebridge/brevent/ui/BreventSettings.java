@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +18,9 @@ import com.crashlytics.android.answers.Answers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Currency;
 import java.util.List;
 
@@ -95,7 +98,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    public void showPlay(@Nullable Collection<String> purchased) {
+    public void showPlay(@Nullable SimpleArrayMap<String, Boolean> purchased) {
         mTotal = 0;
         if (purchased == null) {
             settingsFragment.updatePlayDonation(0, false);
@@ -110,10 +113,13 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         settingsFragment.onShowDonate();
     }
 
-    private void updatePlayDonation(Collection<String> purchased) {
-        int total = 0;
+    private void updatePlayDonation(@NonNull SimpleArrayMap<String, Boolean> purchased) {
+        double total = 0;
         boolean contributor = false;
-        for (String p : purchased) {
+        int size = purchased.size();
+        for (int k = 0; k < size; ++k) {
+            String p = purchased.keyAt(k);
+            boolean promotion = purchased.valueAt(k);
             if (p.startsWith("contributor_")) {
                 contributor = true;
             } else {
@@ -121,12 +127,17 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
                 if (i > 0) {
                     String t = p.substring(i + 1);
                     if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
-                        total += Integer.parseInt(t);
+                        int v = Integer.parseInt(t);
+                        if (promotion) {
+                            total += v * 0.9;
+                        } else {
+                            total += v;
+                        }
                     }
                 }
             }
         }
-        mTotal += total;
+        mTotal += BigDecimal.valueOf(total).setScale(0, RoundingMode.DOWN).intValue();
         if (contributor) {
             mTotal += CONTRIBUTOR;
         }
@@ -200,6 +211,11 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         if (!((BreventApplication) getApplication()).isUnsafe()) {
             super.activateDonations();
         }
+    }
+
+    @Override
+    protected String getTag() {
+        return UILog.TAG;
     }
 
 }

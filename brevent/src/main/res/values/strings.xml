@@ -151,27 +151,27 @@
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
-    <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires pay total 2 USD for Play version</string>
+    <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_vpn_label_debug">When checked, apps which have connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
-    <string name="brevent_abnormal_back_label">Some apps move background instead of exiting when pressing Back\n\nRequires pay total 2 USD for Play version</string>
+    <string name="brevent_abnormal_back_label">Some apps move background instead of exiting when pressing Back\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_abnormal_back_label_debug">Some apps move background instead of exiting when pressing Back</string>
     <string name="brevent_optimize_audio">Optimize Audio Player</string>
-    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires pay total 2 USD</string>
+    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires pay total 3 USD</string>
+    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total</string>
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="brevent_about">About</string>
     <string name="show_donation">Show payment</string>
-    <string name="show_donation_play">Thanks for paying %d USD in Play Store</string>
-    <string name="show_donation_rmb">Thanks for paying %s RMB</string>
+    <string name="show_donation_play">Thanks for paying %s Brefoil in Play Store</string>
+    <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_rmb">Thanks for paying %1$d USD in Play Store, %2$s RMB</string>
-    <string name="show_donation_play_and_contributor">Thanks for paying %d USD in Play Store, and priceless contribution on Brevent</string>
-    <string name="show_donation_rmb_and_contributor">Thanks for paying %s RMB, and priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$d USD in Play Store, %2$s RMB, and priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_rmb">Thanks for paying %1$s Brefoil in Play Store, %2$s Brefoil via non Play Store</string>
+    <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil in Play Store, and priceless contribution on Brevent</string>
+    <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil in Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>
@@ -207,9 +207,9 @@
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
-    <string name="toast_alipay">Thanks for paying total %1$s RMB via Alipay</string>
+    <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
-    <string name="toast_donate">Thanks for paying %1$s RMB</string>
+    <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
     <string name="toast_donate2">Cannot recognize, please try again later</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
@@ -220,7 +220,7 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_required">Please pay total 3 USD to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
+    <string name="root_donate_required">Please pay total 3 Brefoil to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
     <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if possible.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>

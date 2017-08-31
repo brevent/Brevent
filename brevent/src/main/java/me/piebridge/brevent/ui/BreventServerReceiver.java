@@ -51,7 +51,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
             return;
         }
         double donation = application.decode(sum, true);
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.#");
         String message = context.getResources().getString(R.string.toast_alipay,
                 df.format(donation));
         if (donation > 0) {

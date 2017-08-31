@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -23,8 +24,6 @@ import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -50,8 +49,6 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     static final String ACTION_BIND = "com.android.vending.billing.InAppBillingService.BIND";
 
-    private static final String TAG = "Donate";
-
     private final WeakReference<DonateActivity> mReference;
 
     private final String mPackageName;
@@ -66,9 +63,12 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private final String mSku;
 
+    private final String mTag;
+
     public PlayServiceConnection(int type, Looper looper, DonateActivity donateActivity) {
         super(looper);
         mType = type;
+        mTag = donateActivity.getTag();
         mReference = new WeakReference<>(donateActivity);
         mPackageName = donateActivity.getApplicationId();
         uiHandler = new UiHandler(donateActivity);
@@ -118,13 +118,13 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
                 uiHandler.obtainMessage(MESSAGE_DONATE, intent.getIntentSender()).sendToTarget();
             }
         } catch (RemoteException e) {
-            Log.d(TAG, "Can't getBuyIntent", e);
+            Log.d(mTag, "Can't getBuyIntent", e);
         }
     }
 
     private void doActivate() {
         try {
-            Collection<String> purchased = null;
+            SimpleArrayMap<String, Boolean> purchased = null;
             uiHandler.sendEmptyMessageDelayed(MESSAGE_CHECK, DELAY);
             synchronized (lock) {
                 if (mInApp != null && mInApp.isBillingSupported(VERSION, mPackageName, TYPE) == 0) {
@@ -135,16 +135,16 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             uiHandler.removeMessages(MESSAGE_CHECK);
             uiHandler.obtainMessage(MESSAGE_ACTIVATE, purchased).sendToTarget();
         } catch (RemoteException e) {
-            Log.d(TAG, "Can't check Play", e);
+            Log.d(mTag, "Can't check Play", e);
         }
     }
 
-    private static boolean isEmpty(Collection<String> collection) {
+    private static boolean isEmpty(List<String> collection) {
         return collection == null || collection.isEmpty();
     }
 
-    private Collection<String> checkPurchased(Bundle bundle) {
-        Collection<String> purchased = new ArrayList<>();
+    private SimpleArrayMap<String, Boolean> checkPurchased(Bundle bundle) {
+        SimpleArrayMap<String, Boolean> purchased = new SimpleArrayMap<>();
 
         List<String> dataList = bundle.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
         List<String> signatureList = bundle.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
@@ -162,30 +162,30 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
         BigInteger modulus = donateActivity.getPlayModulus();
         for (int i = 0; i < size; ++i) {
             String s = dataList.get(i);
-            if (verify(modulus, s, signatureList.get(i))) {
-                String productId = checkProductId(s);
-                if (productId != null) {
-                    purchased.add(productId);
-                }
+            if (verify(mTag, modulus, s, signatureList.get(i))) {
+                checkProductId(purchased, s);
             }
         }
         return purchased;
     }
 
-    private String checkProductId(String s) {
+    private void checkProductId(SimpleArrayMap<String, Boolean> purchased, String s) {
         try {
             JSONObject json = new JSONObject(s);
             if (mPackageName.equals(json.optString("packageName")) &&
                     json.optInt("purchaseState", -1) == 0) {
-                return json.optString("productId");
+                String productId = json.optString("productId");
+                boolean promotion = TextUtils.isEmpty(json.optString("orderId"));
+                if (!TextUtils.isEmpty(productId)) {
+                    purchased.put(productId, promotion);
+                }
             }
         } catch (JSONException e) {
-            Log.d(TAG, "Can't check productId from " + s);
+            Log.d(mTag, "Can't check productId from " + s);
         }
-        return null;
     }
 
-    static boolean verify(BigInteger modulus, String data, String signature) {
+    static boolean verify(String tag, BigInteger modulus, String data, String signature) {
         if (TextUtils.isEmpty(data) || TextUtils.isEmpty(signature)) {
             return false;
         }
@@ -209,7 +209,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             }
             return true;
         } catch (IllegalArgumentException | GeneralSecurityException e) {
-            Log.d(TAG, "Can't verify");
+            Log.d(tag, "Can't verify");
         }
         return false;
     }
@@ -229,9 +229,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             if (donateActivity != null) {
                 switch (message.what) {
                     case MESSAGE_ACTIVATE:
-                        @SuppressWarnings("unchecked")
-                        Collection<String> purchased = (Collection<String>) message.obj;
-                        donateActivity.showPlay(purchased);
+                        donateActivity.showPlay((SimpleArrayMap<String, Boolean>) message.obj);
                         break;
                     case MESSAGE_DONATE:
                         IntentSender sender = (IntentSender) message.obj;
