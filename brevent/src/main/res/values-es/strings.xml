@@ -211,7 +211,6 @@
     <string name="toast_alipay">Gracias por pagar, total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde.</string>
     <string name="toast_donate">Gracias por pagar %1$s Brefoil</string>
-    <string name="toast_donate2">No se puede reconocer, inténtelo de nuevo más tarde.</string>
 
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
 

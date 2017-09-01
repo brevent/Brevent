@@ -208,7 +208,6 @@
     <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
     <string name="toast_alipay2">正在重啟黑域服務，請稍候再試</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
-    <string name="toast_donate2">無法識別支付，請稍候再試</string>
 
     <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
 

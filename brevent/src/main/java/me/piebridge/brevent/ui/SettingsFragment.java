@@ -18,7 +18,6 @@ import android.util.Log;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
-import java.text.DecimalFormat;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -122,14 +121,14 @@ public class SettingsFragment extends PreferenceFragment
                         .setOnPreferenceClickListener(this);
             }
             double donation = application.getDonation();
-            if (donation > 0) {
-                preferenceDonation.setSummary(getString(R.string.show_donation_rmb,
-                        new DecimalFormat("#.#").format(donation)));
+            if (DecimalUtils.isPositive(donation)) {
+                String format = DecimalUtils.format(donation);
+                preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
                 preferenceOptimizeVpn.setEnabled(true);
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceOptimizeAudio.setEnabled(true);
             }
-            if (donation >= BreventSettings.donateAmount()) {
+            if (DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
                 preferenceAllowRoot.setEnabled(true);
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
@@ -221,19 +220,18 @@ public class SettingsFragment extends PreferenceFragment
         BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
         double donation = application.getDonation();
-        String play = total > 0 ? new DecimalFormat("#.#").format(total) : "";
-        String rmb = donation > 0 ? new DecimalFormat("#.#").format(donation) : "";
-        boolean hasAlipay = !TextUtils.isEmpty(rmb);
+        String play = DecimalUtils.format(total);
+        String rmb = DecimalUtils.format(donation);
         if (contributor) {
-            if (total > 0) {
-                if (hasAlipay) {
+            if (DecimalUtils.isPositive(total)) {
+                if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb_and_contributor,
                             play, rmb);
                 } else {
                     summary = getString(R.string.show_donation_play_and_contributor, play);
                 }
             } else {
-                if (hasAlipay) {
+                if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb_and_contributor, rmb);
                 } else {
                     summary = getString(R.string.show_donation_contributor);
@@ -241,15 +239,15 @@ public class SettingsFragment extends PreferenceFragment
             }
 
         } else {
-            if (total > 0) {
-                if (hasAlipay) {
+            if (DecimalUtils.isPositive(total)) {
+                if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb,
                             play, rmb);
                 } else {
                     summary = getString(R.string.show_donation_play, play);
                 }
             } else {
-                if (hasAlipay) {
+                if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
                 } else {
                     summary = null;
@@ -259,9 +257,9 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
-        double count = total + (contributor ? BreventSettings.CONTRIBUTOR : 0);
-        if (donation > 0) {
-            count += donation;
+        int count = DecimalUtils.add(total, donation);
+        if (contributor) {
+            count += BreventSettings.CONTRIBUTOR;
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
@@ -282,7 +280,7 @@ public class SettingsFragment extends PreferenceFragment
         }
     }
 
-    private void updatePlayVersion(double total) {
+    private void updatePlayVersion(int total) {
         if (total <= 0x0) {
             preferenceOptimizeVpn.setEnabled(false);
             preferenceOptimizeVpn.setChecked(false);

@@ -39,7 +39,6 @@ import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -414,11 +413,11 @@ public class BreventApplication extends Application {
             if (text != null && text.toString().startsWith("br")) {
                 String alipay2 = text.subSequence(2, text.length()).toString().trim();
                 donate2 = decode(alipay2, false);
-                if (donate2 > 0) {
+                if (DecimalUtils.isPositive(donate2)) {
                     PreferenceManager.getDefaultSharedPreferences(this)
                             .edit().putString("alipay2", alipay2).apply();
-                    DecimalFormat df = new DecimalFormat("#.#");
-                    String message = getString(R.string.toast_donate, df.format(donate2));
+                    String format = DecimalUtils.format(donate2);
+                    String message = getString(R.string.toast_donate, format);
                     clipboard.setText(message);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                 }
