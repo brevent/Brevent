@@ -305,7 +305,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
-            preferenceAllowRoot.setChecked(false);
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);

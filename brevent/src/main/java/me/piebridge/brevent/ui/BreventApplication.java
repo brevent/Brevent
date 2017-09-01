@@ -331,9 +331,9 @@ public class BreventApplication extends Application {
         }
         try {
             if (auto) {
-                return decode(message, auto, new BigInteger(1, BuildConfig.DONATE_M));
+                return decode(message, new BigInteger(1, BuildConfig.DONATE_M));
             } else {
-                return decode(message, auto, getSignature());
+                return decode(message, getSignature());
             }
         } catch (NumberFormatException e) {
             UILog.d("cannot decode, auto: " + auto, e);
@@ -362,7 +362,7 @@ public class BreventApplication extends Application {
         return modulus;
     }
 
-    private double decode(String message, boolean auto, BigInteger module) {
+    private double decode(String message, BigInteger module) {
         if (module == null) {
             return 0d;
         }
@@ -378,10 +378,10 @@ public class BreventApplication extends Application {
             return 0d;
         } else {
             double d = Double.longBitsToDouble(buffer.getLong());
-            if (v == 1 && !auto) {
+            if (v == 1) {
                 return d / 5;
             } else {
-                return d / 6.7;
+                return d / 6.85;
             }
         }
     }
