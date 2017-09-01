@@ -14,6 +14,7 @@ import java.util.Locale;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.donation.DonateActivity;
 
 /**
  * Created by thom on 2017/3/2.
@@ -50,11 +51,16 @@ public class VersionPreference extends Preference {
     }
 
     private String getVersion(Context context) {
-        if (((BreventSettings) context).isPlay()) {
-            return context.getString(R.string.brevent_about_version_play);
-        }
         PackageManager packageManager = context.getPackageManager();
         String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
+        if (((BreventSettings) context).isPlay()) {
+            if (DonateActivity.PACKAGE_PLAY.equals(installer)) {
+                return context.getString(R.string.brevent_about_version_play);
+            } else {
+                return context.getString(R.string.brevent_about_version_like_play);
+            }
+        }
+
         if (!TextUtils.isEmpty(installer)
                 && packageManager.getLaunchIntentForPackage(installer) != null) {
             if ("com.meizu.mstore".equals(installer)) {

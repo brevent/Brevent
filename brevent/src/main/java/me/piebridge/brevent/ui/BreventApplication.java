@@ -331,9 +331,9 @@ public class BreventApplication extends Application {
         }
         try {
             if (auto) {
-                return decode(message, new BigInteger(1, BuildConfig.DONATE_M));
+                return decode(message, auto, new BigInteger(1, BuildConfig.DONATE_M));
             } else {
-                return decode(message, getSignature());
+                return decode(message, auto, getSignature());
             }
         } catch (NumberFormatException e) {
             UILog.d("cannot decode, auto: " + auto, e);
@@ -362,7 +362,7 @@ public class BreventApplication extends Application {
         return modulus;
     }
 
-    private double decode(String message, BigInteger module) {
+    private double decode(String message, boolean auto, BigInteger module) {
         if (module == null) {
             return 0d;
         }
@@ -371,13 +371,18 @@ public class BreventApplication extends Application {
         ByteBuffer buffer = ByteBuffer.allocate(25);
         buffer.put(bytes, bytes.length == 25 ? 0 : 1, 25);
         buffer.flip();
-        buffer.get();
+        byte v = buffer.get();
         long breventId = buffer.getLong();
         if (breventId != 0 && breventId != getId()) {
             UILog.d("id: " + Long.toHexString(breventId) + " != " + Long.toHexString(getId()));
             return 0d;
         } else {
-            return Double.longBitsToDouble(buffer.getLong());
+            double d = Double.longBitsToDouble(buffer.getLong());
+            if (v == 1 && !auto) {
+                return d / 5;
+            } else {
+                return d / 6.7;
+            }
         }
     }
 
@@ -412,7 +417,7 @@ public class BreventApplication extends Application {
                 if (donate2 > 0) {
                     PreferenceManager.getDefaultSharedPreferences(this)
                             .edit().putString("alipay2", alipay2).apply();
-                    DecimalFormat df = new DecimalFormat("#.##");
+                    DecimalFormat df = new DecimalFormat("#.#");
                     String message = getString(R.string.toast_donate, df.format(donate2));
                     clipboard.setText(message);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();

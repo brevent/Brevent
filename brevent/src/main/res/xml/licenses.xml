@@ -55,6 +55,22 @@
                 android:data="https://fabric.io/terms" />
         </PreferenceScreen>
 
+        <PreferenceScreen
+            android:summary="Eclipse Public License v1.0"
+            android:title="logback-android">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/tony19/logback-android" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:summary="Massachusetts Institute of Technology License"
+            android:title="SLF4J">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.slf4j.org/license.html" />
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

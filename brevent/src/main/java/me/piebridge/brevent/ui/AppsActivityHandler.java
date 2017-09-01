@@ -44,6 +44,7 @@ public class AppsActivityHandler extends Handler {
     private static final String[][] LOGS = new String[][] {
             {"system.txt", "-b system"},
             {"events.txt", "-b events am_pss:s"},
+            {"crash.txt", "-b crash"},
             {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI"}
     };
 
@@ -230,6 +231,16 @@ public class AppsActivityHandler extends Handler {
                 for (String[] dump : DUMPS) {
                     zipLog(context, zos, date, dump[0]);
                 }
+                File parent = context.getExternalFilesDir(null).getParentFile();
+                File[] files = parent.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        String name = file.getName();
+                        if (name.startsWith("server.") && name.endsWith(".txt")) {
+                            zipLog(zos, file);
+                        }
+                    }
+                }
             }
             return path;
         } catch (IOException e) {
@@ -245,6 +256,11 @@ public class AppsActivityHandler extends Handler {
             UILog.w("Cannot find " + file.getPath());
             return;
         }
+        zipLog(zos, file);
+        file.delete();
+    }
+
+    private static void zipLog(ZipOutputStream zos, File file) throws IOException {
         zos.putNextEntry(new ZipEntry(file.getName()));
         try (
                 InputStream is = new FileInputStream(file)
@@ -256,7 +272,6 @@ public class AppsActivityHandler extends Handler {
             }
         }
         zos.closeEntry();
-        file.delete();
     }
 
     private void requestStatus(boolean retry, boolean confirmed, boolean check) {

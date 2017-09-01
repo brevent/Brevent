@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
+import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -71,8 +72,6 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     private static final String FRAGMENT_DONATION_PROGRESS = "fragment_donation_progress";
 
     private static final int IAB_MAX_DONATE = 20;
-
-    private static final String TAG = "Donate";
 
     private View mDonation;
     private TextView mDonationTip;
@@ -125,7 +124,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     public final void updateDonations() {
         if (acceptDonation()) {
             activatePlay();
-            if (!isPlay()) {
+            if (!isPlay() || !isPlayInstaller()) {
                 activateDonations();
             }
         } else {
@@ -157,7 +156,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                     unbindService(activateConnection);
                 }
             } catch (IllegalArgumentException e) {
-                Log.d(TAG, "cannot bind activateConnection", e);
+                Log.d(getTag(), "cannot bind activateConnection", e);
             } finally {
                 activateConnection = null;
             }
@@ -172,7 +171,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 try {
                     unbindService(activateConnection);
                 } catch (IllegalArgumentException e) {
-                    Log.d(TAG, "cannot unbind activateConnection", e);
+                    Log.d(getTag(), "cannot unbind activateConnection", e);
                 }
             }
             activateConnection = null;
@@ -185,7 +184,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 try {
                     unbindService(donateConnection);
                 } catch (IllegalArgumentException e) {
-                    Log.d(TAG, "cannot unbind donateConnection", e);
+                    Log.d(getTag(), "cannot unbind donateConnection", e);
                 }
             }
             donateConnection = null;
@@ -288,9 +287,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
                 hideWechat();
             }
         } else if (requestCode == REQUEST_PLAY_DONATE && data != null) {
+            String tag = getTag();
             String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
             String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
-            if (PlayServiceConnection.verify(getPlayModulus(), purchaseData, dataSignature)) {
+            if (PlayServiceConnection.verify(tag, getPlayModulus(), purchaseData, dataSignature)) {
                 activatePlay();
             }
         } else {
@@ -424,9 +424,13 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return getPackageName();
     }
 
-    protected boolean isPlay() {
+    protected final boolean isPlayInstaller() {
         return hasPlay() && PACKAGE_PLAY.equals(getPackageManager()
                 .getInstallerPackageName(getApplicationId()));
+    }
+
+    protected boolean isPlay() {
+        return isPlayInstaller();
     }
 
     private Uri getQrCodeUri() {
@@ -513,7 +517,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
     }
 
     @CallSuper
-    public void showPlay(@Nullable Collection<String> purchased) {
+    public void showPlay(@Nullable SimpleArrayMap<String, Boolean> purchased) {
         if (purchased == null) {
             if (isPlay()) {
                 mDonationTip.setText(R.string.donation_play_unavailable);
@@ -541,6 +545,10 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     }
 
+    protected String getTag() {
+        return "Donate";
+    }
+
     @CallSuper
     public void showPlayCheck() {
         if (isPlay()) {
@@ -565,7 +573,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         return mSkus;
     }
 
-    protected boolean canDonatePlay(Collection<String> purchased) {
+    protected boolean canDonatePlay(SimpleArrayMap<String, Boolean> purchased) {
         if (purchased.size() >= IAB_MAX_DONATE) {
             return false;
         }
@@ -575,7 +583,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         Iterator<String> iterator = mSkus.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
-            if (purchased.contains(next)) {
+            if (purchased.containsKey(next)) {
                 iterator.remove();
             }
         }
@@ -591,7 +599,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
         try {
             startIntentSenderForResult(sender, REQUEST_PLAY_DONATE, new Intent(), 0, 0, 0);
         } catch (IntentSender.SendIntentException e) {
-            Log.d(TAG, "Can't donate");
+            Log.d(getTag(), "Can't donate");
         }
         unbindService();
     }

@@ -149,32 +149,33 @@
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版需要累計支付 2 美元</string>
+    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_vpn_label_debug">不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版需要累計支付 2 美元</string>
+    <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_abnormal_back_label_debug">有些應用程式按「返回」時放到背景而不結束</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
-    <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\n需要累計支付 2 美元</string>
+    <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\n總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n需要累計支付 3 美元</string>
+    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔</string>
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
-    <string name="show_donation_play">感謝您透過 Play 商店支付 %d 美元</string>
-    <string name="show_donation_rmb">感謝您支付人民幣 %s 元</string>
+    <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
+    <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$d 美元，人民幣 %2$s 元</string>
-    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %d 美元，以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_rmb_and_contributor">感謝您支付人民幣 %s 元，以及為黑域所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$d 美元，人民幣 %2$s 元，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
+    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次開啟：%4$s\n本次開啟：%5$s</string>
     <string name="brevent_about_version_summary_debug">%1$s（社區版）</string>
     <string name="brevent_about_version_play">Play 版</string>
+    <string name="brevent_about_version_like_play">同 Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
     <string name="brevent_about_version_smartisan">錘子版</string>
     <string name="brevent_about_version_other">其它版</string>
@@ -204,9 +205,9 @@
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
-    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 元</string>
+    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
     <string name="toast_alipay2">正在重啟黑域服務，請稍候再試</string>
-    <string name="toast_donate">感謝您支付 %1$s 元</string>
+    <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
     <string name="toast_donate2">無法識別支付，請稍候再試</string>
 
     <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
@@ -217,8 +218,8 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="root_donate_required">「允許 ROOT 執行」需要支付 3 美元或 16 人民幣（推薦支付寶）。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
-    <string name="root_donate_verify">支付確認 10 人民幣後，非 Play 版可以在 Play 商店升級。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
+    <string name="root_donate_required">「允許 ROOT 執行」需要累計支付 3 二向箔（推薦支付寶）。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
+    <string name="root_donate_verify">支付確認後，非 Play 版可以在 Play 商店升級。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
     <string name="root_donate_alipay">打開「支付寶」</string>
     <string name="root_donate_email">郵件</string>
     <string name="root_donate_later">先看看</string>

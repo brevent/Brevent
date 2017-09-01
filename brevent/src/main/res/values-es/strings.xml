@@ -152,32 +152,33 @@
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
-    <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
+    <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 2 Brefoil para la versión de Play Store.</string>
     <string name="brevent_optimize_vpn_label_debug">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.</string>
     <string name="brevent_abnormal_back">Reconocer un irregular \"Volver\"</string>
-    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".\n\nRequiere donar un total de 2 USD para la versión de Play Store.</string>
+    <string name="brevent_abnormal_back_label">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".\n\nRequiere donar un total de 2 Brefoil para la versión de Play Store.</string>
     <string name="brevent_abnormal_back_label_debug">Algunas aplicaciones se quedan en segundo plano en lugar de salir al pulsar \"Volver\".</string>
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
-    <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener. \n\nRequiere pago total de 2 USD.</string>
+    <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener. \n\nRequiere pago total de 2 Brefoil.</string>
     <string name="brevent_optimize_audio_label_debug">Las aplicaciones de reproducción de música no se mantienen en espera o fuerza detener.</string>
     <string name="brevent_allow_root">Permitir ejecutar como ROOT</string>
-    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 USD.</string>
+    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 Brefoil.</string>
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
 
     <string name="brevent_about">Acerca de:</string>
     <string name="show_donation">Mostrar pago</string>
-    <string name="show_donation_play">Gracias por pagar %d USD en Play Store</string>
-    <string name="show_donation_rmb">Gracias por pagar %s RMB</string>
+    <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store</string>
+    <string name="show_donation_rmb">Gracias por pagar %s Brefoil</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
-    <string name="show_donation_play_and_rmb">Gracias por pagar %1$d USD en Play Store, %2$s RMB</string>
-    <string name="show_donation_play_and_contributor">Gracias por pagar %d USD en Play Store y por su valiosa contribución a Brevent.</string>
-    <string name="show_donation_rmb_and_contributor">Gracias por pagar %s RMB, y por su valiosa contribución a Brevent</string>
-    <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$d USD en Play Store, %2$s RMB, y por su valiosa contribución a Brevent</string>
+    <string name="show_donation_play_and_rmb">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil</string>
+    <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
+    <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nResidente: %4$s\nServidor: %5$s</string>
     <string name="brevent_about_version_summary_debug">%1$s (Edición de comunidad)</string>
-    <string name="brevent_about_version_play">Play Store</string>
+    <string name="brevent_about_version_play">Play</string>
+    <string name="brevent_about_version_like_play">like Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_other">Desconocido</string>
@@ -207,9 +208,9 @@
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
-    <string name="toast_alipay">Gracias por pagar, total %1$s RMB via Alipay</string>
+    <string name="toast_alipay">Gracias por pagar, total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde.</string>
-    <string name="toast_donate">Gracias por pagar %1$s RMB</string>
+    <string name="toast_donate">Gracias por pagar %1$s Brefoil</string>
     <string name="toast_donate2">No se puede reconocer, inténtelo de nuevo más tarde.</string>
 
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
@@ -220,7 +221,7 @@
     <string name="brevent_status_unknown">Servidor Brevent tal vez detenido.</string>
     <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada.</string>
 
-    <string name="root_donate_required">Por favor pague un total de 3 USD para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
+    <string name="root_donate_required">Por favor pague un total de 3 Brefoil para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
