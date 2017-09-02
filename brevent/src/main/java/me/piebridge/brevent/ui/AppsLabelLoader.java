@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.Locale;
@@ -29,17 +32,30 @@ public class AppsLabelLoader {
     private static long lastSync;
 
     public AppsLabelLoader(Context context) {
-        mPreferences = context.getSharedPreferences("label-" + Locale.getDefault(),
+        mPreferences = context.getSharedPreferences("label-" + getSystemLocale(),
                 Context.MODE_PRIVATE);
         lastSync = mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
     }
 
     public static long getLastSync(Context context) {
         if (lastSync == 0) {
-            lastSync = context.getSharedPreferences("label-" + Locale.getDefault(),
+            lastSync = context.getSharedPreferences("label-" + getSystemLocale(),
                     Context.MODE_PRIVATE).getLong(KEY_LAST_SYNC, 0);
         }
         return lastSync;
+    }
+
+    private static Locale getSystemLocale() {
+        Configuration configuration = Resources.getSystem().getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return configuration.getLocales().get(0);
+        } else {
+            return getLocaleDeprecated(configuration);
+        }
+    }
+
+    private static Locale getLocaleDeprecated(Configuration configuration) {
+        return configuration.locale;
     }
 
     public String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {
