@@ -186,6 +186,7 @@
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>
     <string name="brevent_about_translator">Samuel</string>
+    <string name="brevent_about_language_auto">Automático</string>
     <string name="brevent_about_licenses">Licencias</string>
 
     <string name="unsupported_owner">Brevent sólo está disponible para su propietario.</string>

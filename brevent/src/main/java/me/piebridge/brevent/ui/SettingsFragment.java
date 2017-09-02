@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -15,6 +16,10 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -29,7 +34,7 @@ import me.piebridge.donation.DonateActivity;
  */
 public class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener,
-        Preference.OnPreferenceClickListener {
+        Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
 
     public static final String SHOW_DONATION = "show_donation";
 
@@ -56,6 +61,8 @@ public class SettingsFragment extends PreferenceFragment
     private int repeat = 0;
 
     private String fingerprint;
+
+    private ListView mList;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -85,6 +92,10 @@ public class SettingsFragment extends PreferenceFragment
 
         preferenceStandbyTimeout = preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+
+        preferenceScreen.findPreference("brevent_about_translator")
+                .setOnPreferenceChangeListener(this);
+
         BreventApplication application = (BreventApplication) getActivity().getApplication();
         if (!application.supportStandby()) {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_list"))
@@ -142,6 +153,14 @@ public class SettingsFragment extends PreferenceFragment
         fingerprint = getFingerPrint(BuildConfig.ADB_K);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        mList = view.findViewById(android.R.id.list);
+        return view;
+    }
+
     public void showDonate(boolean root) {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_DONATE);
@@ -165,7 +184,7 @@ public class SettingsFragment extends PreferenceFragment
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
-        boolean adbRunning = SystemProperties.get("init.svc.adbd", Build.UNKNOWN).equals("running");
+        boolean adbRunning = "running".equals(SystemProperties.get("init.svc.adbd", Build.UNKNOWN));
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
         StringBuilder sb = new StringBuilder();
         if (adbRunning) {
@@ -179,6 +198,13 @@ public class SettingsFragment extends PreferenceFragment
         }
         preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
+        if (mList != null) {
+            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
+            if (position > 0 && position < mList.getCount()) {
+                UILog.d("count: " + mList.getCount() + ", position: " + position);
+                mList.smoothScrollToPosition(position);
+            }
+        }
     }
 
     @Override
@@ -372,6 +398,22 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         return sb.toString();
+    }
+
+    int getPosition() {
+        return mList != null ? mList.getLastVisiblePosition() : 0;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if ("brevent_about_translator".equals(preference.getKey())) {
+            Activity activity = getActivity();
+            if (LocaleUtils.setOverrideLanguage(activity, String.valueOf(newValue))) {
+                UILog.d("list: " + getPosition());
+                activity.recreate();
+            }
+        }
+        return true;
     }
 
 }

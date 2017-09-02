@@ -497,4 +497,9 @@ public class BreventApplication extends Application {
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleUtils.updateResources(base));
+    }
+
 }

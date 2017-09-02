@@ -19,7 +19,6 @@ import com.crashlytics.android.answers.Answers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -33,6 +32,8 @@ import me.piebridge.donation.DonateActivity;
  * Created by thom on 2017/2/8.
  */
 public class BreventSettings extends DonateActivity implements View.OnClickListener {
+
+    static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 
     static final int CONTRIBUTOR = 5;
 
@@ -60,11 +61,20 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         settingsFragment = new SettingsFragment();
         Bundle arguments = settingsFragment.getArguments();
         arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay);
+        if (savedInstanceState != null) {
+            arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(R.id.content, settingsFragment)
                 .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.menu_settings);
     }
 
     @Override
@@ -216,6 +226,11 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected String getTag() {
         return UILog.TAG;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SETTINGS_POSITION, settingsFragment.getPosition());
     }
 
 }

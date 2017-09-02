@@ -18,7 +18,7 @@ import android.widget.Toolbar;
 
 import me.piebridge.brevent.R;
 
-public class BreventGuide extends Activity {
+public class BreventGuide extends AbstractActivity {
 
     public static final String GUIDE = "guide";
 
@@ -39,6 +39,12 @@ public class BreventGuide extends Activity {
         ViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(new GuidePagerAdapter(getFragmentManager(), titles, titleShowButton,
                 messages, messages2));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.menu_guide);
     }
 
     final void startBrevent() {

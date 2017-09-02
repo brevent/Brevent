@@ -32,30 +32,17 @@ public class AppsLabelLoader {
     private static long lastSync;
 
     public AppsLabelLoader(Context context) {
-        mPreferences = context.getSharedPreferences("label-" + getSystemLocale(),
+        mPreferences = context.getSharedPreferences("label-" + LocaleUtils.getSystemLocale(),
                 Context.MODE_PRIVATE);
         lastSync = mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
     }
 
     public static long getLastSync(Context context) {
         if (lastSync == 0) {
-            lastSync = context.getSharedPreferences("label-" + getSystemLocale(),
+            lastSync = context.getSharedPreferences("label-" + LocaleUtils.getSystemLocale(),
                     Context.MODE_PRIVATE).getLong(KEY_LAST_SYNC, 0);
         }
         return lastSync;
-    }
-
-    private static Locale getSystemLocale() {
-        Configuration configuration = Resources.getSystem().getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return configuration.getLocales().get(0);
-        } else {
-            return getLocaleDeprecated(configuration);
-        }
-    }
-
-    private static Locale getLocaleDeprecated(Configuration configuration) {
-        return configuration.locale;
     }
 
     public String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {

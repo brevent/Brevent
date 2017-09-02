@@ -183,6 +183,7 @@
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_translation">翻译</string>
     <string name="brevent_about_translator">南宫雪珊</string>
+    <string name="brevent_about_language_auto">跟随系统</string>
     <string name="brevent_about_licenses">软件许可</string>
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>

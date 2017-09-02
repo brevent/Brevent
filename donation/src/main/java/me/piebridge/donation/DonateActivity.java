@@ -43,12 +43,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import me.piebridge.brevent.ui.AbstractActivity;
+
 /**
  * Donate activity, support alipay, wechat, play store
  * <p>
  * Created by thom on 2017/2/9.
  */
-public abstract class DonateActivity extends Activity implements View.OnClickListener {
+public abstract class DonateActivity extends AbstractActivity implements View.OnClickListener {
 
     public static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
 
@@ -193,7 +195,7 @@ public abstract class DonateActivity extends Activity implements View.OnClickLis
 
     @CallSuper
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         try {
             deleteQrCodeIfNeeded();

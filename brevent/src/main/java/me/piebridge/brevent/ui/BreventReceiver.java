@@ -9,9 +9,10 @@ import me.piebridge.brevent.protocol.BreventIntent;
 public class BreventReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context c, Intent intent) {
         String action = intent.getAction();
         UILog.d("received: " + action);
+        Context context = LocaleUtils.updateResources(c);
         if (Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_BOOT_COMPLETED.equals(action)) {
             BreventIntentService.startBrevent(context, action);

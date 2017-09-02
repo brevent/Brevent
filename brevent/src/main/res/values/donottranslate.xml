@@ -105,6 +105,22 @@
         <item>@string/menu_sort_by_update_time</item>
     </string-array>
 
+    <string-array name="brevent_language_values">
+        <item />
+        <item>en</item>
+        <item>es</item>
+        <item>zh_CN</item>
+        <item>zh_TW</item>
+    </string-array>
+
+    <string-array name="brevent_language_entries">
+        <item>@string/brevent_about_language_auto</item>
+        <item>English</item>
+        <item>Español</item>
+        <item>简体中文</item>
+        <item>繁體中文（臺灣）</item>
+    </string-array>
+
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>

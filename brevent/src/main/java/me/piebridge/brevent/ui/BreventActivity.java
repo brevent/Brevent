@@ -97,7 +97,7 @@ import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
-public class BreventActivity extends Activity
+public class BreventActivity extends AbstractActivity
         implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener,
         View.OnClickListener, SearchView.OnCloseListener, SearchView.OnQueryTextListener {
 
@@ -574,6 +574,12 @@ public class BreventActivity extends Activity
         }
         unregisterReceiver();
         super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.brevent);
     }
 
     @Override
@@ -1771,7 +1777,8 @@ public class BreventActivity extends Activity
 
     private static String getSubject(Context context) {
         return context.getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME +
-                "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE + ")";
+                "(Android " + LocaleUtils.getOverrideLocale(context)
+                + "-" + Build.VERSION.RELEASE + ")";
     }
 
     public static void sendEmail(Context context, File path, String content) {
