@@ -144,7 +144,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 try {
                     startActivity(intent);
-                    activity.finish();
                 } catch (ActivityNotFoundException e) {
                     UILog.d("Can't find settings", e);
                 }

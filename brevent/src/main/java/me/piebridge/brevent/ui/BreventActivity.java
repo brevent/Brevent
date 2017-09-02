@@ -244,6 +244,7 @@ public class BreventActivity extends Activity
     private BreventConfiguration mConfiguration;
     private boolean shouldUpdateConfiguration;
     private boolean shouldOpenSettings;
+    private boolean force;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -444,7 +445,10 @@ public class BreventActivity extends Activity
     }
 
     public void showDisabled(int title) {
-        showDisabled(title, false);
+        showDisabled(title, force);
+        if (force) {
+            force = false;
+        }
     }
 
     public void showDisabled(int title, boolean force) {
@@ -576,6 +580,7 @@ public class BreventActivity extends Activity
     protected void onPostResume() {
         super.onPostResume();
         stopped = false;
+        force = true;
         if (mHandler != null) {
             if (((BreventApplication) getApplication()).isRunningAsRoot()) {
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
