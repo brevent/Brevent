@@ -6,7 +6,7 @@
 ## English
 - `DKOUT`: Limber Law
 - `Aviraxp`: Wang Han
-- `liyufan`: liyufan
+- `liyufan`: Li Yufan
 
 ## Spanish (es)
 - `Samuel` (via Email)
