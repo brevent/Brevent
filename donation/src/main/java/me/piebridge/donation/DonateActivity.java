@@ -18,7 +18,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
-import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import me.piebridge.brevent.ui.AbstractActivity;
+import me.piebridge.brevent.ui.PreferencesUtils;
 
 /**
  * Donate activity, support alipay, wechat, play store
@@ -282,7 +282,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                 getContentResolver().takePersistableUriPermission(uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                PreferencesUtils.getPreferences(getApplicationContext())
                         .edit().putString(KEY_WECHAT_DONATE_SDA, uri.toString()).apply();
                 donateViaWechat();
             } else {
@@ -333,7 +333,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     private void deleteQrCodeIfNeeded() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         String wechatDonateUri = preferences.getString(KEY_WECHAT_DONATE_URI, null);
         if (wechatDonateUri != null) {
             Uri qrCode = Uri.parse(wechatDonateUri);
@@ -438,7 +438,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     private Uri getQrCodeUri() {
         String name = getApplicationId() + ".donate.wechat.png";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
             DocumentFile file = null;
             if (cachedUri != null) {
@@ -508,7 +508,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
                 outputStream.write(bytes, 0, length);
             }
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
             preferences.edit().putString(KEY_WECHAT_DONATE_URI, uri.toString()).apply();
             return uri;
         } catch (IOException e) {

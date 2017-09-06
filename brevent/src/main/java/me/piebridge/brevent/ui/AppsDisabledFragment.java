@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
-import android.preference.PreferenceManager;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.widget.Toast;
@@ -92,7 +91,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
     }
 
     private static boolean allowRoot(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+        return PreferencesUtils.getPreferences(context)
                 .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
     }
 

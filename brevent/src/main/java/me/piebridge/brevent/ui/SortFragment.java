@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import me.piebridge.brevent.R;
 
@@ -39,7 +38,7 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
         if (getChecked(activity) != which) {
-            PreferenceManager.getDefaultSharedPreferences(activity)
+            PreferencesUtils.getPreferences(activity)
                     .edit().putInt(SORT_METHOD, which).apply();
             activity.updateSort();
         }
@@ -48,7 +47,7 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
 
     public static int getChecked(Context context) {
         try {
-            return PreferenceManager.getDefaultSharedPreferences(context).getInt(SORT_METHOD, 0);
+            return PreferencesUtils.getPreferences(context).getInt(SORT_METHOD, 0);
         } catch (ClassCastException e) { // NOSONAR
             // do nothing
             return 0;

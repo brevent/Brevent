@@ -3,7 +3,6 @@ package me.piebridge.brevent.ui;
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
@@ -37,7 +36,6 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -77,7 +75,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -287,7 +284,7 @@ public class BreventActivity extends AbstractActivity
             showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
-        } else if (PreferenceManager.getDefaultSharedPreferences(this)
+        } else if (PreferencesUtils.getPreferences(this)
                 .getBoolean(BreventGuide.GUIDE, true)) {
             openGuide("first");
             super.finish();
@@ -924,7 +921,7 @@ public class BreventActivity extends AbstractActivity
 
     private void updateConfiguration(boolean inResume) {
         shouldUpdateConfiguration = false;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
             doUpdateConfiguration();
         }
@@ -957,7 +954,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void doUpdateConfiguration() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
         if (!"forcestop_only".equals(preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))
                 && !application.supportStandby()) {
@@ -1566,7 +1563,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private boolean updateAdapter(AppsPagerAdapter adapter) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferencesUtils.getPreferences(this);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
@@ -1938,14 +1935,14 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isConfirmed() {
         if (!confirmed) {
-            confirmed = PreferenceManager.getDefaultSharedPreferences(this)
+            confirmed = PreferencesUtils.getPreferences(this)
                     .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         }
         return confirmed;
     }
 
     private boolean updateCheck() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(preferences);
         }

@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -291,7 +290,7 @@ public class BreventApplication extends Application {
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         if (TextUtils.isEmpty(androidId) || "9774d56d682e549c".equals(androidId)) {
-            androidId = PreferenceManager.getDefaultSharedPreferences(context)
+            androidId = PreferencesUtils.getPreferences(context)
                     .getString(Settings.Secure.ANDROID_ID, "0");
         }
         long breventId;
@@ -303,7 +302,7 @@ public class BreventApplication extends Application {
         }
         if (breventId == 0) {
             breventId = 0xdeadbeef00000000L | new SecureRandom().nextInt();
-            PreferenceManager.getDefaultSharedPreferences(context).edit()
+            PreferencesUtils.getPreferences(context).edit()
                     .putString(Settings.Secure.ANDROID_ID, Long.toHexString(breventId)).apply();
         }
         return breventId;
@@ -414,7 +413,7 @@ public class BreventApplication extends Application {
                 String alipay2 = text.subSequence(2, text.length()).toString().trim();
                 donate2 = decode(alipay2, false);
                 if (DecimalUtils.isPositive(donate2)) {
-                    PreferenceManager.getDefaultSharedPreferences(this)
+                    PreferencesUtils.getPreferences(this)
                             .edit().putString("alipay2", alipay2).apply();
                     String format = DecimalUtils.format(donate2);
                     String message = getString(R.string.toast_donate, format);
@@ -427,7 +426,7 @@ public class BreventApplication extends Application {
     }
 
     public double getDonation() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         String alipay1 = preferences.getString("alipay1", "");
         double donate1 = decode(alipay1, true);
         if (donate1 < 0) {
