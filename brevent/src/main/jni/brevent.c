@@ -315,7 +315,7 @@ int main(int argc, char **argv) {
 
     uid = getuid();
     if (uid == 0) {
-        printf("WARNING: running as root is experimental!!!\n");
+        printf("WARNING: run as root is experimental!!!\n");
     } else if (uid != 2000) {
         pw = getpwuid(uid);
         if (pw != NULL) {

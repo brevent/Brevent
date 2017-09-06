@@ -184,14 +184,14 @@
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, liyufan</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
     <string name="unsupported_clone">Brevent is unavailable in App clone.</string>
     <string name="unsupported_signature">Brevent is cracked.</string>
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
-    <string name="unsupported_path">(Error: cannot create brevent.sh)</string>
+    <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.</string>
     <string name="unsupported_no_event">No event log. Please do not disable \"USB debugging\", and modify the \"Logger buffer sizes\" in \"Developer options\" accordingly.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>

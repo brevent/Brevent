@@ -1,6 +1,6 @@
 # path, abi64 should have been defined
 if [ ! -f $path -o -z $abi64 ]; then
-    echo "ERROR: please open Brevent to create a new brevent.sh" >&2
+    echo "ERROR: please open Brevent to make a new brevent.sh" >&2
     exit 1
 fi
 
