@@ -233,4 +233,10 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         outState.putInt(SETTINGS_POSITION, settingsFragment.getPosition());
     }
 
+    @Override
+    protected boolean usePlayCache() {
+        return !PreferencesUtils.getPreferences(this)
+                .getBoolean(SettingsFragment.SHOW_DONATION, true);
+    }
+
 }
