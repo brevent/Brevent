@@ -163,6 +163,7 @@
 
     <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
+    <string name="show_donation_summary" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>

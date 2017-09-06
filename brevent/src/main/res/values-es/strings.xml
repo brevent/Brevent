@@ -166,6 +166,7 @@
 
     <string name="brevent_about">Acerca de:</string>
     <string name="show_donation">Mostrar pago</string>
+    <string name="show_donation_summary" />
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
