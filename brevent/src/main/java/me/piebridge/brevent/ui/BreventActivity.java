@@ -921,6 +921,7 @@ public class BreventActivity extends AbstractActivity
 
     private void updateConfiguration(boolean inResume) {
         shouldUpdateConfiguration = false;
+        BreventApplication.allowRoot(this);
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
             doUpdateConfiguration();
@@ -963,7 +964,7 @@ public class BreventActivity extends AbstractActivity
         }
         BreventConfiguration configuration = new BreventConfiguration(preferences);
         if (BuildConfig.RELEASE) {
-            configuration.androidId = application.getId();
+            configuration.androidId = BreventApplication.getId(application);
         }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
     }
@@ -1935,8 +1936,11 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isConfirmed() {
         if (!confirmed) {
-            confirmed = PreferencesUtils.getPreferences(this)
+            boolean allowRoot = PreferencesUtils.getPreferences(this)
                     .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+            if (allowRoot) {
+                confirmed = BreventApplication.allowRoot(this);
+            }
         }
         return confirmed;
     }

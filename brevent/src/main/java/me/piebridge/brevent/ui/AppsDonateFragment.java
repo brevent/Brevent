@@ -63,7 +63,7 @@ public class AppsDonateFragment extends AbstractDialogFragment
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setType("message/rfc822");
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.root_donate_email_subject,
-                    BuildConfig.VERSION_NAME, Long.toHexString(application.getId())));
+                    BuildConfig.VERSION_NAME, Long.toHexString(BreventApplication.getId(application))));
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text,
                     Build.FINGERPRINT));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});

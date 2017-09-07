@@ -92,7 +92,8 @@ public class AppsDisabledFragment extends AbstractDialogFragment
 
     private static boolean allowRoot(Context context) {
         return PreferencesUtils.getPreferences(context)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)
+                && BreventApplication.allowRoot(context);
     }
 
     private static String getBootstrapCommandLine(BreventActivity activity, boolean usb) {

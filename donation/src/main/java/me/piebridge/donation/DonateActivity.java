@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -157,41 +156,49 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
     }
 
-    private void removePlayCache() {
-        PreferencesUtils.getPreferences(this).edit().remove("play").apply();
+    private static void removePlayCache(Context context) {
+        PreferencesUtils.getPreferences(context).edit().remove("play").apply();
     }
 
-    private boolean activatePlayIfNeeded() {
-        String play = PreferencesUtils.getPreferences(this).getString("play", null);
+    @Nullable
+    public static Collection<String> getPurchased(Context context, String tag, BigInteger modulus) {
+        String play = PreferencesUtils.getPreferences(context).getString("play", null);
         if (TextUtils.isEmpty(play)) {
-            return false;
+            return null;
         }
         JSONArray jsonArray;
         try {
             jsonArray = new JSONArray(play);
         } catch (JSONException e) {
-            Log.d(getTag(), "Can't parse " + play);
-            removePlayCache();
-            return false;
+            Log.d(tag, "Can't parse " + play);
+            removePlayCache(context);
+            return null;
         }
         List<String> data = convert(jsonArray.optJSONArray(0));
         List<String> sigs = convert(jsonArray.optJSONArray(1));
         if (data.isEmpty() || sigs.isEmpty()) {
-            removePlayCache();
+            removePlayCache(context);
+            return Collections.emptyList();
+        }
+        return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs);
+    }
+
+    private boolean activatePlayIfNeeded() {
+        Collection<String> purchased = getPurchased(this, getTag(), getPlayModulus());
+        if (purchased == null) {
             return false;
-        }
-        SimpleArrayMap<String, Boolean> purchased = PlayServiceConnection
-                .checkPurchased(getTag(), getPlayModulus(), data, sigs);
-        if (purchased.isEmpty()) {
-            PreferencesUtils.getPreferences(this).edit().remove("play").apply();
         } else {
-            showPlay(purchased);
+            if (purchased.isEmpty()) {
+                PreferencesUtils.getPreferences(this).edit().remove("play").apply();
+            } else {
+                showPlay(purchased);
+            }
+            return true;
         }
-        return true;
     }
 
     @NonNull
-    private List<String> convert(JSONArray jsonArray) {
+    private static List<String> convert(JSONArray jsonArray) {
         if (jsonArray == null) {
             return Collections.emptyList();
         }
@@ -573,7 +580,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     @CallSuper
-    public void showPlay(@Nullable SimpleArrayMap<String, Boolean> purchased) {
+    public void showPlay(@Nullable Collection<String> purchased) {
         unbindActivateService();
         if (purchased == null) {
             if (isPlay()) {
@@ -630,7 +637,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         return mSkus;
     }
 
-    protected boolean canDonatePlay(SimpleArrayMap<String, Boolean> purchased) {
+    protected boolean canDonatePlay(Collection<String> purchased) {
         if (purchased.size() >= IAB_MAX_DONATE) {
             return false;
         }
@@ -640,7 +647,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         Iterator<String> iterator = mSkus.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
-            if (purchased.containsKey(next)) {
+            if (purchased.contains(next)) {
                 iterator.remove();
             }
         }

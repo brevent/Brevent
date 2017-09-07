@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
-import android.support.v4.util.SimpleArrayMap;
+import android.support.v4.util.ArraySet;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -25,6 +25,8 @@ import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import me.piebridge.brevent.ui.PreferencesUtils;
@@ -126,7 +128,7 @@ public abstract class PlayServiceConnection extends Handler implements ServiceCo
 
     private void doActivate() {
         try {
-            SimpleArrayMap<String, Boolean> purchased = null;
+            Collection<String> purchased = null;
             uiHandler.sendEmptyMessageDelayed(MESSAGE_CHECK, DELAY);
             synchronized (lock) {
                 if (mInApp != null && mInApp.isBillingSupported(VERSION, mPackageName, TYPE) == 0) {
@@ -145,12 +147,12 @@ public abstract class PlayServiceConnection extends Handler implements ServiceCo
         return collection == null || collection.isEmpty();
     }
 
-    private SimpleArrayMap<String, Boolean> checkPurchased(Bundle bundle) {
+    private Collection<String> checkPurchased(Bundle bundle) {
         List<String> data = bundle.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
         List<String> sigs = bundle.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
         DonateActivity donateActivity = mReference.get();
         if (donateActivity == null) {
-            return new SimpleArrayMap<>();
+            return Collections.emptyList();
         }
         JSONArray json = new JSONArray();
         json.put(new JSONArray(data));
@@ -160,9 +162,9 @@ public abstract class PlayServiceConnection extends Handler implements ServiceCo
         return checkPurchased(mTag, donateActivity.getPlayModulus(), data, sigs);
     }
 
-    static SimpleArrayMap<String, Boolean> checkPurchased(String tag, BigInteger modulus,
-                                                          List<String> data, List<String> sigs) {
-        SimpleArrayMap<String, Boolean> purchased = new SimpleArrayMap<>();
+    static Collection<String> checkPurchased(String tag, BigInteger modulus,
+                                             List<String> data, List<String> sigs) {
+        Collection<String> purchased = new ArraySet<>();
         if (isEmpty(data) || isEmpty(sigs)) {
             return purchased;
         }
@@ -181,13 +183,13 @@ public abstract class PlayServiceConnection extends Handler implements ServiceCo
         return purchased;
     }
 
-    static void checkProductId(SimpleArrayMap<String, Boolean> purchased, String tag, String datum) {
+    static void checkProductId(Collection<String> purchased, String tag, String datum) {
         try {
             JSONObject json = new JSONObject(datum);
             if (json.optInt("purchaseState", -1) == 0) {
                 String productId = json.optString("productId");
                 if (!TextUtils.isEmpty(productId)) {
-                    purchased.put(productId, false);
+                    purchased.add(productId);
                 }
             }
         } catch (JSONException e) {
@@ -239,7 +241,7 @@ public abstract class PlayServiceConnection extends Handler implements ServiceCo
             if (donateActivity != null) {
                 switch (message.what) {
                     case MESSAGE_ACTIVATE:
-                        donateActivity.showPlay((SimpleArrayMap<String, Boolean>) message.obj);
+                        donateActivity.showPlay((Collection<String>) message.obj);
                         break;
                     case MESSAGE_DONATE:
                         IntentSender sender = (IntentSender) message.obj;

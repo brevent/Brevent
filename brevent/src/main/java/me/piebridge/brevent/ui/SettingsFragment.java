@@ -134,7 +134,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
-            double donation = application.getDonation();
+            double donation = BreventApplication.getDonation(application);
             if (DecimalUtils.isPositive(donation)) {
                 String format = DecimalUtils.format(donation);
                 preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
@@ -241,18 +241,18 @@ public class SettingsFragment extends PreferenceFragment
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
-    public void updatePlayDonation(double total, boolean contributor) {
+    public void updatePlayDonation(int total, boolean contributor) {
         Activity activity = getActivity();
         if (activity == null) {
             return;
         }
         BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
-        double donation = application.getDonation();
-        String play = DecimalUtils.format(total);
+        double donation = BreventApplication.getDonation(application);
+        String play = Integer.toString(total);
         String rmb = DecimalUtils.format(donation);
         if (contributor) {
-            if (DecimalUtils.isPositive(total)) {
+            if (total > 0) {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb_and_contributor,
                             play, rmb);
@@ -268,7 +268,7 @@ public class SettingsFragment extends PreferenceFragment
             }
 
         } else {
-            if (DecimalUtils.isPositive(total)) {
+            if (total > 0) {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb,
                             play, rmb);
@@ -286,7 +286,7 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
-        int count = DecimalUtils.add(total, donation);
+        int count = total + DecimalUtils.intValue(donation);
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
         }

@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +17,8 @@ import com.crashlytics.android.answers.Answers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.List;
 
@@ -108,7 +107,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    public void showPlay(@Nullable SimpleArrayMap<String, Boolean> purchased) {
+    public void showPlay(@Nullable Collection<String> purchased) {
         mTotal = 0;
         if (purchased == null) {
             settingsFragment.updatePlayDonation(0, false);
@@ -123,31 +122,48 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         settingsFragment.onShowDonate();
     }
 
-    private void updatePlayDonation(@NonNull SimpleArrayMap<String, Boolean> purchased) {
-        double total = 0;
+    public static int getPlayDonation(@Nullable Collection<String> purchased) {
+        if (purchased == null || purchased.isEmpty()) {
+            return 0;
+        }
+        int total = 0;
         boolean contributor = false;
-        int size = purchased.size();
-        for (int k = 0; k < size; ++k) {
-            String p = purchased.keyAt(k);
-            boolean promotion = purchased.valueAt(k);
+        for (String p : purchased) {
             if (p.startsWith("contributor_")) {
                 contributor = true;
             } else {
-                int i = p.indexOf('_');
-                if (i > 0) {
-                    String t = p.substring(i + 1);
-                    if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
-                        int v = Integer.parseInt(t);
-                        if (promotion) {
-                            total += v * 0.9;
-                        } else {
-                            total += v;
-                        }
-                    }
-                }
+                total += parse(p);
             }
         }
-        mTotal += BigDecimal.valueOf(total).setScale(0, RoundingMode.DOWN).intValue();
+        if (contributor) {
+            return total + CONTRIBUTOR;
+        } else {
+            return total;
+        }
+    }
+
+    private static int parse(String p) {
+        int i = p.indexOf('_');
+        if (i > 0) {
+            String t = p.substring(i + 1);
+            if (t.length() > 0 && TextUtils.isDigitsOnly(t)) {
+                return Integer.parseInt(t);
+            }
+        }
+        return 0;
+    }
+
+    private void updatePlayDonation(@NonNull Collection<String> purchased) {
+        int total = 0;
+        boolean contributor = false;
+        for (String p : purchased) {
+            if (p.startsWith("contributor_")) {
+                contributor = true;
+            } else {
+                total += parse(p);
+            }
+        }
+        mTotal += total;
         if (contributor) {
             mTotal += CONTRIBUTOR;
         }

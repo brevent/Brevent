@@ -219,15 +219,12 @@ public class BreventIntentService extends IntentService {
     }
 
     private static boolean allowRoot(Context context, String action) {
-        boolean allowRoot;
-        try {
-            allowRoot = PreferencesUtils.getDevicePreferences(context.getApplicationContext())
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
-            UILog.d("action: " + action + ", allowRoot: " + allowRoot);
-        } catch (IllegalStateException e) {
-            allowRoot = true;
-            UILog.d("action: " + action + ", allowRoot: (assume true)", e);
+        boolean allowRoot = PreferencesUtils.getDevicePreferences(context.getApplicationContext())
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
+        if (allowRoot) {
+            allowRoot = BreventApplication.allowRoot(context);
         }
+        UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         return allowRoot && AppsDisabledFragment.hasRoot();
     }
 
