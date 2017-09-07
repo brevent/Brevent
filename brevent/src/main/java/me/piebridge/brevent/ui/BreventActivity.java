@@ -21,6 +21,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
@@ -1813,7 +1814,10 @@ public class BreventActivity extends AbstractActivity
             ComponentName componentName = new ComponentName(activityInfo.packageName,
                     activityInfo.name);
             if (emails.contains(componentName)) {
-                intents.add(new Intent(intent).setComponent(componentName));
+                Intent original = new Intent(intent).setComponent(componentName);
+                Intent labeled = new LabeledIntent(original, activityInfo.packageName,
+                        resolveInfo.loadLabel(packageManager), resolveInfo.icon);
+                intents.add(labeled);
             }
         }
         CharSequence title = context.getText(R.string.feedback_email);
