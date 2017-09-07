@@ -142,7 +142,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceAbnormalBack.setEnabled(true);
                 preferenceOptimizeAudio.setEnabled(true);
             }
-            if (DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
+            if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
                 preferenceAllowRoot.setEnabled(true);
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
@@ -154,6 +154,10 @@ public class SettingsFragment extends PreferenceFragment
         }
         onUpdateBreventMethod();
         fingerprint = getFingerPrint(BuildConfig.ADB_K);
+    }
+
+    private boolean isDeprecated() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
     }
 
     @Override
@@ -290,6 +294,9 @@ public class SettingsFragment extends PreferenceFragment
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
         }
+        if (isDeprecated()) {
+            count += BreventSettings.donateAmount();
+        }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
         } else if (count < BreventSettings.donateAmount()) {
@@ -368,7 +375,7 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void onShowDonate() {
-        if (!getArguments().getBoolean(IS_PLAY, false)) {
+        if (isDeprecated() || !getArguments().getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
