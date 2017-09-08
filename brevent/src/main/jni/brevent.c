@@ -23,6 +23,7 @@
 sig_atomic_t update;
 sig_atomic_t quited;
 sig_atomic_t looped;
+char start[11];
 
 #if defined(__aarch64__)
 #define ABI "arm64"
@@ -55,12 +56,13 @@ static int worker() {
     char line[PATH_MAX];
     char classpath[PATH_MAX];
     char *arg[] = {"app_process", "/system/bin", "--nice-name=brevent_server",
-                   "me.piebridge.brevent.server.BreventServer", STR(SIGUSR1), BREVENT, NULL};
+                   "me.piebridge.brevent.server.BreventServer",
+                   STR(SIGUSR1), BREVENT, start, NULL};
     file = popen("pm path " BREVENT, "r");
     if (file != NULL) {
         memset(line, 0, PATH_MAX);
         fgets(line, sizeof(line), file);
-        LOGD("line: %s\n", line);
+        LOGD("line: %s", line);
         rstrip(line);
         pclose(file);
     } else {
@@ -91,6 +93,7 @@ static int worker() {
     memset(classpath, 0, PATH_MAX);
     sprintf(classpath, "CLASSPATH=%s", path);
     putenv(classpath);
+    LOGD("start: %s", start);
     return execvp(arg[0], arg);
 }
 
@@ -311,7 +314,7 @@ int main(int argc, char **argv) {
     int fd;
     uid_t uid;
     struct passwd *pw;
-    struct timeval tv;
+    struct timespec ts;
 
     uid = getuid();
     if (uid == 0) {
@@ -331,7 +334,8 @@ int main(int argc, char **argv) {
     signal(SIGCHLD, signal_handler);
     signal(SIGUSR1, signal_handler);
 
-    gettimeofday(&tv, NULL);
+    clock_gettime(CLOCK_REALTIME, &ts);
+    snprintf(start, sizeof(start), "%ld", ts.tv_sec);
     switch (fork()) {
         case -1:
             perror("cannot fork");
@@ -339,7 +343,7 @@ int main(int argc, char **argv) {
         case 0:
             break;
         default:
-            _exit(check(tv.tv_sec));
+            _exit(check(ts.tv_sec));
     }
 
     if (setsid() == -1) {
