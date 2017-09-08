@@ -161,9 +161,8 @@
     <string name="brevent_allow_root_label_debug">允许 ROOT 过的设备直接启动黑域服务</string>
     <string name="brevent_allow_root_label">允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 3 二向箔</string>
 
-    <string name="brevent_about">关于</string>
     <string name="show_donation">显示支付</string>
-    <string name="show_donation_summary">1 二向箔折合人民币 6.85 元</string>
+    <string name="show_donation_summary">1 二向箔折合人民币 6.85 元\n\n推荐使用支付宝自动确认。如您已经支付，请点击 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.85 元）</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
@@ -171,6 +170,11 @@
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
+    <string name="brevent_network_adb">网络调试</string>
+    <string name="brevent_language">界面语言</string>
+    <string name="brevent_language_auto">跟随系统</string>
+
+    <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
@@ -185,7 +189,6 @@
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_translation">翻译</string>
     <string name="brevent_about_translator">南宫雪珊</string>
-    <string name="brevent_about_language_auto">跟随系统</string>
     <string name="brevent_about_licenses">软件许可</string>
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>
@@ -220,8 +223,7 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="root_donate_required">“允许 ROOT 启动”需要 3 二向箔（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
-    <string name="root_donate_verify">支付确认以后，非 Play 版可以在 Play 商店升级。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。\n\n邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="root_donate_verify">如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">先看看</string>

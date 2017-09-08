@@ -255,4 +255,14 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
                 .getBoolean(SettingsFragment.SHOW_DONATION, true);
     }
 
+    @Override
+    protected boolean supportWechat() {
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.isPlay() || AppsDisabledFragment.hasRoot()) {
+            return false;
+        } else {
+            return super.supportWechat();
+        }
+    }
+
 }

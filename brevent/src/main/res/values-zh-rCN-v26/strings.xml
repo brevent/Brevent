@@ -2,6 +2,5 @@
 <resources>
 
     <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 4 二向箔</string>
-    <string name="root_donate_required">“允许 ROOT 启动”需要 4 二向箔（推荐支付宝）。\n\n如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果无法自动识别，或者其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。</string>
 
 </resources>

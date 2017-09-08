@@ -164,7 +164,6 @@
     <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".\n\nRequiere donar un total de 3 Brefoil.</string>
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
 
-    <string name="brevent_about">Acerca de:</string>
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_summary" />
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store</string>
@@ -174,6 +173,11 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent</string>
+    <string name="brevent_network_adb">Network ADB</string>
+    <string name="brevent_language">Language</string>
+    <string name="brevent_language_auto">Automático</string>
+
+    <string name="brevent_about">Acerca de:</string>
     <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
@@ -188,7 +192,6 @@
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>
     <string name="brevent_about_translator">Samuel</string>
-    <string name="brevent_about_language_auto">Automático</string>
     <string name="brevent_about_licenses">Licencias</string>
 
     <string name="unsupported_owner">Brevent sólo está disponible para su propietario.</string>
@@ -223,8 +226,7 @@
     <string name="brevent_status_unknown">Servidor Brevent tal vez detenido.</string>
     <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada.</string>
 
-    <string name="root_donate_required">Por favor pague un total de 3 Brefoil para usar \"Permitir ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago.</string>
-    <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
+    <string name="root_donate_verify">Si ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor envíenos un email con capturas de los detalles del pago.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">No ahora</string>

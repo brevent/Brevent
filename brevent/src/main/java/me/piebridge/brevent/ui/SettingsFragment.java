@@ -13,7 +13,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +58,6 @@ public class SettingsFragment extends PreferenceFragment
 
     private int repeat = 0;
 
-    private String fingerprint;
-
     private ListView mList;
 
     public SettingsFragment() {
@@ -96,7 +93,7 @@ public class SettingsFragment extends PreferenceFragment
         preferenceStandbyTimeout = preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
 
-        preferenceScreen.findPreference("brevent_about_translator")
+        preferenceScreen.findPreference("brevent_language")
                 .setOnPreferenceChangeListener(this);
 
         BreventApplication application = (BreventApplication) getActivity().getApplication();
@@ -116,15 +113,21 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(false);
             preferenceOptimizeAudio.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
+            SwitchPreference networkAdb = (SwitchPreference) preferenceScreen
+                    .findPreference("network_adb");
+            networkAdb.setSummary(getFingerPrint(BuildConfig.ADB_K));
+            if (!AppsDisabledFragment.hasRoot()) {
+                networkAdb.setEnabled(false);
+                networkAdb.setChecked(true);
+            }
         } else {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
-                    .removePreference(preferenceDonation);
+            preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!"root".equals(application.getMode()) && !AppsDisabledFragment.hasRoot()) {
+        if (!AppsDisabledFragment.hasRoot()) {
             breventExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
@@ -147,13 +150,9 @@ public class SettingsFragment extends PreferenceFragment
             } else if (!application.hasPlay()) {
                 preferenceAllowRoot.setEnabled(false);
                 preferenceAllowRoot.setChecked(false);
-                if ("root".equals(application.getMode())) {
-                    showDonate(true);
-                }
             }
         }
         onUpdateBreventMethod();
-        fingerprint = getFingerPrint(BuildConfig.ADB_K);
     }
 
     private boolean isDeprecated() {
@@ -196,12 +195,6 @@ public class SettingsFragment extends PreferenceFragment
         StringBuilder sb = new StringBuilder();
         if (adbRunning) {
             sb.append(getString(R.string.brevent_about_developer_adb));
-        }
-        if (!TextUtils.isEmpty(fingerprint)) {
-            if (sb.length() > 0) {
-                sb.append("\n");
-            }
-            sb.append(fingerprint);
         }
         preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
@@ -416,9 +409,13 @@ public class SettingsFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if ("brevent_about_translator".equals(preference.getKey())) {
+        if ("brevent_language".equals(preference.getKey())) {
             Activity activity = getActivity();
-            if (LocaleUtils.setOverrideLanguage(activity, String.valueOf(newValue))) {
+            String language = String.valueOf(newValue);
+            if ("auto".equals(language)) {
+                language = "";
+            }
+            if (LocaleUtils.setOverrideLanguage(activity, language)) {
                 UILog.d("list: " + getPosition());
                 activity.recreate();
             }

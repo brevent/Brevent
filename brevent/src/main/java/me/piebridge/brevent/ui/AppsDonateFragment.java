@@ -90,8 +90,7 @@ public class AppsDonateFragment extends AbstractDialogFragment
     }
 
     public void setRoot(boolean root) {
-        int message = root ? R.string.root_donate_required : R.string.root_donate_verify;
-        getArguments().putInt(MESSAGE, message);
+        getArguments().putInt(MESSAGE, R.string.root_donate_verify);
     }
 
 }

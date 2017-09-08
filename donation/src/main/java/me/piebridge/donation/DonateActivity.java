@@ -441,7 +441,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);
         }
-        boolean canSupportWechat = mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean canSupportWechat = supportWechat();
         if (canSupportWechat && !TextUtils.isEmpty(getWechatLink())) {
             checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
         }
@@ -454,6 +454,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             showDonate();
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
+    }
+
+    protected boolean supportWechat() {
+        return mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void checkPackage(Collection<DonateItem> items, int resId, String packageName) {
