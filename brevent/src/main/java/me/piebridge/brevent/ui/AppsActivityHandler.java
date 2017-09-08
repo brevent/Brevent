@@ -186,15 +186,8 @@ public class AppsActivityHandler extends Handler {
     }
 
     private boolean checkAdb(BreventActivity activity) {
-        boolean networkAdb = PreferencesUtils.getPreferences(activity)
-                .getBoolean("network_adb", true);
-        String port;
-        if (AppsDisabledFragment.hasRoot() && !networkAdb) {
-            port = null;
-        } else {
-            port = SystemProperties.get("service.adb.tcp.port", "");
-            UILog.d("service.adb.tcp.port: " + port);
-        }
+        String port = SystemProperties.get("service.adb.tcp.port", "");
+        UILog.d("service.adb.tcp.port: " + port);
         if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
             final int p = Integer.parseInt(port);
             if (p > 0 && p <= 0xffff) {

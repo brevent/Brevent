@@ -102,6 +102,12 @@
 
         <SwitchPreference
             android:defaultValue="true"
+            android:key="show_donation"
+            android:summary="@string/show_donation_summary"
+            android:title="@string/show_donation" />
+
+        <Preference
+            android:defaultValue="true"
             android:key="network_adb"
             android:title="@string/brevent_network_adb" />
 
@@ -112,12 +118,6 @@
             android:key="brevent_language"
             android:summary="%s"
             android:title="@string/brevent_language" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="show_donation"
-            android:summary="@string/show_donation_summary"
-            android:title="@string/show_donation" />
 
     </PreferenceCategory>
 

@@ -183,7 +183,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs);
     }
 
-    private boolean activatePlayIfNeeded() {
+    public boolean activatePlayIfNeeded() {
         Collection<String> purchased = getPurchased(this, getTag(), getPlayModulus());
         if (purchased == null) {
             return false;

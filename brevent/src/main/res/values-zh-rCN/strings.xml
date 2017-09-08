@@ -155,7 +155,7 @@
     <string name="brevent_abnormal_back_label_debug">应用使用非“主页”方式（如“返回”）回到桌面时，立即黑域</string>
     <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域\n\nPlay 版总共需要 2 二向箔</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
-    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n总共需要 2 二向箔</string>
+    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\nPlay 版总共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label_debug">允许 ROOT 过的设备直接启动黑域服务</string>
@@ -178,7 +178,7 @@
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
-    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次启动：%4$s\n本次启动：%5$s</string>
+    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s</string>
     <string name="brevent_about_version_summary_debug">%1$s（社区版）</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_like_play">同 Play 版</string>

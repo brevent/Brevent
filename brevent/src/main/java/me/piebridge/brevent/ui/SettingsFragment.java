@@ -113,13 +113,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(false);
             preferenceOptimizeAudio.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
-            SwitchPreference networkAdb = (SwitchPreference) preferenceScreen
-                    .findPreference("network_adb");
-            networkAdb.setSummary(getFingerPrint(BuildConfig.ADB_K));
-            if (!AppsDisabledFragment.hasRoot()) {
-                networkAdb.setEnabled(false);
-                networkAdb.setChecked(true);
-            }
+            preferenceScreen.findPreference("network_adb")
+                    .setSummary(getFingerPrint(BuildConfig.ADB_K));
         } else {
             preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
@@ -137,22 +132,27 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
-            double donation = BreventApplication.getDonation(application);
-            if (DecimalUtils.isPositive(donation)) {
-                String format = DecimalUtils.format(donation);
-                preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
-                preferenceOptimizeVpn.setEnabled(true);
-                preferenceAbnormalBack.setEnabled(true);
-                preferenceOptimizeAudio.setEnabled(true);
-            }
-            if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
-                preferenceAllowRoot.setEnabled(true);
-            } else if (!application.hasPlay()) {
-                preferenceAllowRoot.setEnabled(false);
-                preferenceAllowRoot.setChecked(false);
-            }
+            updateDonation();
         }
         onUpdateBreventMethod();
+    }
+
+    private void updateDonation() {
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        double donation = BreventApplication.getDonation(application);
+        if (DecimalUtils.isPositive(donation)) {
+            String format = DecimalUtils.format(donation);
+            preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
+        }
+        if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
+            preferenceAllowRoot.setEnabled(true);
+        } else if (!application.hasPlay()) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+        }
     }
 
     private boolean isDeprecated() {
@@ -204,6 +204,10 @@ public class SettingsFragment extends PreferenceFragment
                 UILog.d("count: " + mList.getCount() + ", position: " + position);
                 mList.smoothScrollToPosition(position);
             }
+        }
+        if (BuildConfig.RELEASE) {
+            updateDonation();
+            ((BreventSettings) getActivity()).activatePlayIfNeeded();
         }
     }
 
