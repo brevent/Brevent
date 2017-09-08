@@ -171,6 +171,7 @@
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
+    <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
     <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次启动：%4$s\n本次启动：%5$s</string>

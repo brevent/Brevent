@@ -108,7 +108,7 @@
 
         <me.piebridge.brevent.ui.VersionPreference
             android:key="brevent_about_version"
-            android:title="@string/brevent" />
+            android:title="@string/brevent_about_version" />
 
         <Preference
             android:key="brevent_about_developer"

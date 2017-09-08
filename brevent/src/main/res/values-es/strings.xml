@@ -174,6 +174,7 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent</string>
+    <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_mode_normal">Modo normal</string>
     <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
     <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nResidente: %4$s\nServidor: %5$s</string>
