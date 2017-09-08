@@ -183,6 +183,7 @@
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_translation">翻譯</string>
     <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
+    <string name="brevent_about_language_auto">與系統同步</string>
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
@@ -208,7 +209,6 @@
     <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
     <string name="toast_alipay2">正在重啟黑域服務，請稍候再試</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
-    <string name="toast_donate2">無法識別支付，請稍候再試</string>
 
     <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
 

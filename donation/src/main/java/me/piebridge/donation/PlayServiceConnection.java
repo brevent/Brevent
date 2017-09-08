@@ -175,9 +175,8 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             if (mPackageName.equals(json.optString("packageName")) &&
                     json.optInt("purchaseState", -1) == 0) {
                 String productId = json.optString("productId");
-                boolean promotion = TextUtils.isEmpty(json.optString("orderId"));
                 if (!TextUtils.isEmpty(productId)) {
-                    purchased.put(productId, promotion);
+                    purchased.put(productId, false);
                 }
             }
         } catch (JSONException e) {

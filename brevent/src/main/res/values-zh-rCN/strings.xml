@@ -183,6 +183,7 @@
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
     <string name="brevent_about_translation">翻译</string>
     <string name="brevent_about_translator">南宫雪珊</string>
+    <string name="brevent_about_language_auto">跟随系统</string>
     <string name="brevent_about_licenses">软件许可</string>
 
     <string name="unsupported_owner">只有机主可以使用黑域。</string>
@@ -208,7 +209,6 @@
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
     <string name="toast_alipay2">正在重启黑域服务，请稍候再试</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
-    <string name="toast_donate2">无法识别支付，请稍候再试</string>
 
     <string name="logs_description">%1$s\n（请描述与日志相关的问题。）</string>
 

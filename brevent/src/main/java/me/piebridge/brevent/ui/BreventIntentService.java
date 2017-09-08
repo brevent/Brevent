@@ -161,11 +161,11 @@ public class BreventIntentService extends IntentService {
             NotificationManager nm = (NotificationManager) context.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
-            if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_MAX) {
+            if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_LOW) {
                 nm.deleteNotificationChannel(CHANNEL_ID);
             }
             channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.brevent),
-                    NotificationManager.IMPORTANCE_MAX);
+                    NotificationManager.IMPORTANCE_LOW);
             nm.createNotificationChannel(channel);
             return new Notification.Builder(context, CHANNEL_ID);
         } else {

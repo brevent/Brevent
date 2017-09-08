@@ -9,8 +9,6 @@ import android.content.pm.ResolveInfo;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
-
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventIntent;
@@ -21,8 +19,9 @@ import me.piebridge.brevent.protocol.BreventIntent;
 public class BreventServerReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context c, Intent intent) {
         String action = intent.getAction();
+        Context context = LocaleUtils.updateResources(c);
         if (BreventIntent.ACTION_HOME_TID.equals(action)) {
             int homeTid = intent.getIntExtra(BreventIntent.EXTRA_HOME_TID, 0);
             if (homeTid > 0) {
@@ -51,18 +50,13 @@ public class BreventServerReceiver extends BroadcastReceiver {
             return;
         }
         double donation = application.decode(sum, true);
-        DecimalFormat df = new DecimalFormat("#.#");
-        String message = context.getResources().getString(R.string.toast_alipay,
-                df.format(donation));
-        if (donation > 0) {
+        if (DecimalUtils.isPositive(donation)) {
             PreferenceManager.getDefaultSharedPreferences(context)
                     .edit().putString("alipay1", sum).apply();
         }
-        if (donation != 0.0d) { // NOSONAR
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, R.string.toast_donate2, Toast.LENGTH_LONG).show();
-        }
+        String format = DecimalUtils.format(donation);
+        String message = context.getResources().getString(R.string.toast_alipay, format);
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     private CharSequence getLabel(Context context, String packageName) {

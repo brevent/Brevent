@@ -29,7 +29,7 @@
     <string name="brevent_service_start">Please start Brevent server (%s)</string>
     <string name="brevent_service_no_response">Brevent server no response (%s)</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can recognize device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
-    <string name="brevent_service_open_development">Developer options</string>
+    <string name="brevent_service_open_development">Developer</string>
     <string name="brevent_service_copy_path">Copy command</string>
     <string name="brevent_service_command_copied">Command copied: %s</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
@@ -185,6 +185,7 @@
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan</string>
+    <string name="brevent_about_language_auto">Auto</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
@@ -210,7 +211,6 @@
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
-    <string name="toast_donate2">Cannot recognize, please try again later</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
 

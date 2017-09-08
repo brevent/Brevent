@@ -39,7 +39,6 @@ import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -331,9 +330,9 @@ public class BreventApplication extends Application {
         }
         try {
             if (auto) {
-                return decode(message, auto, new BigInteger(1, BuildConfig.DONATE_M));
+                return decode(message, new BigInteger(1, BuildConfig.DONATE_M));
             } else {
-                return decode(message, auto, getSignature());
+                return decode(message, getSignature());
             }
         } catch (NumberFormatException e) {
             UILog.d("cannot decode, auto: " + auto, e);
@@ -362,7 +361,7 @@ public class BreventApplication extends Application {
         return modulus;
     }
 
-    private double decode(String message, boolean auto, BigInteger module) {
+    private double decode(String message, BigInteger module) {
         if (module == null) {
             return 0d;
         }
@@ -378,10 +377,10 @@ public class BreventApplication extends Application {
             return 0d;
         } else {
             double d = Double.longBitsToDouble(buffer.getLong());
-            if (v == 1 && !auto) {
+            if (v == 1) {
                 return d / 5;
             } else {
-                return d / 6.7;
+                return d / 6.85;
             }
         }
     }
@@ -414,11 +413,11 @@ public class BreventApplication extends Application {
             if (text != null && text.toString().startsWith("br")) {
                 String alipay2 = text.subSequence(2, text.length()).toString().trim();
                 donate2 = decode(alipay2, false);
-                if (donate2 > 0) {
+                if (DecimalUtils.isPositive(donate2)) {
                     PreferenceManager.getDefaultSharedPreferences(this)
                             .edit().putString("alipay2", alipay2).apply();
-                    DecimalFormat df = new DecimalFormat("#.#");
-                    String message = getString(R.string.toast_donate, df.format(donate2));
+                    String format = DecimalUtils.format(donate2);
+                    String message = getString(R.string.toast_donate, format);
                     clipboard.setText(message);
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                 }
@@ -496,6 +495,11 @@ public class BreventApplication extends Application {
                 future.cancel(true);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleUtils.updateResources(base));
     }
 
 }

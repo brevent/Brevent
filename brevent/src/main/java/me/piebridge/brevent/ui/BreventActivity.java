@@ -97,7 +97,7 @@ import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 
-public class BreventActivity extends Activity
+public class BreventActivity extends AbstractActivity
         implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener,
         View.OnClickListener, SearchView.OnCloseListener, SearchView.OnQueryTextListener {
 
@@ -244,6 +244,7 @@ public class BreventActivity extends Activity
     private BreventConfiguration mConfiguration;
     private boolean shouldUpdateConfiguration;
     private boolean shouldOpenSettings;
+    private boolean force;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -444,7 +445,10 @@ public class BreventActivity extends Activity
     }
 
     public void showDisabled(int title) {
-        showDisabled(title, false);
+        showDisabled(title, force);
+        if (force) {
+            force = false;
+        }
     }
 
     public void showDisabled(int title, boolean force) {
@@ -573,9 +577,16 @@ public class BreventActivity extends Activity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.brevent);
+    }
+
+    @Override
     protected void onPostResume() {
         super.onPostResume();
         stopped = false;
+        force = true;
         if (mHandler != null) {
             if (((BreventApplication) getApplication()).isRunningAsRoot()) {
                 mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
@@ -1766,7 +1777,8 @@ public class BreventActivity extends Activity
 
     private static String getSubject(Context context) {
         return context.getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME +
-                "(Android " + Locale.getDefault().toString() + "-" + Build.VERSION.RELEASE + ")";
+                "(Android " + LocaleUtils.getOverrideLocale(context)
+                + "-" + Build.VERSION.RELEASE + ")";
     }
 
     public static void sendEmail(Context context, File path, String content) {

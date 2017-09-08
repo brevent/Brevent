@@ -77,8 +77,8 @@
             android:title="@string/brevent_optimize_vpn" />
 
         <SwitchPreference
-            android:key="brevent_abnormal_back"
             android:defaultValue="false"
+            android:key="brevent_abnormal_back"
             android:summary="@string/brevent_abnormal_back_label"
             android:title="@string/brevent_abnormal_back" />
 
@@ -114,7 +114,9 @@
             android:summary="@string/brevent_about_developer_adb"
             android:title="@string/brevent_about_developer" />
 
-        <Preference
+        <ListPreference
+            android:entries="@array/brevent_language_entries"
+            android:entryValues="@array/brevent_language_values"
             android:key="brevent_about_translator"
             android:summary="@string/brevent_about_translator"
             android:title="@string/brevent_about_translation" />

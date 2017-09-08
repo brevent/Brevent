@@ -30,7 +30,7 @@
     <string name="brevent_service_start">Por favor inicie servidor Brevent (%s)</string>
     <string name="brevent_service_no_response">El servidor Brevent no responde (%s)</string>
     <string name="brevent_service_guide">1.Activar \"Opciones de desarrollo\", habilitar \"Depuración por USB\", actualmente:%1$s\n\n2. Conectar al PC vía USB. %2$s\n\n3. Ejecutar en línea de comandos en el PC \"adb devices\", Asegúrese que el PC pueda reconocer el dispositivo (Leer \"Guía - ADB\")\n\n4. Ejecutar en línea de comandos del PC \"%3$s\"</string>
-    <string name="brevent_service_open_development">Opciones de desarrollo</string>
+    <string name="brevent_service_open_development">Desarrollo</string>
     <string name="brevent_service_copy_path">Copiar comando</string>
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Habilitado)</string>
@@ -186,6 +186,7 @@
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>
     <string name="brevent_about_translator">Samuel</string>
+    <string name="brevent_about_language_auto">Automático</string>
     <string name="brevent_about_licenses">Licencias</string>
 
     <string name="unsupported_owner">Brevent sólo está disponible para su propietario.</string>
@@ -211,7 +212,6 @@
     <string name="toast_alipay">Gracias por pagar, total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde.</string>
     <string name="toast_donate">Gracias por pagar %1$s Brefoil</string>
-    <string name="toast_donate2">No se puede reconocer, inténtelo de nuevo más tarde.</string>
 
     <string name="logs_description">%1$s\n(Proporcione una descripción de los registros Log.)</string>
 

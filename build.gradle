@@ -58,7 +58,7 @@ def isIde = { ->
 
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
-project.ext.supportLibraryVersion = '26.0.1'
+project.ext.supportLibraryVersion = '26.0.2'
 
 project.ext.buildToolsVersion = '26.0.1'
 
@@ -66,7 +66,7 @@ project.ext.minSdkVersion = 21
 
 project.ext.targetSdkVersion = 26
 
-project.ext.versionCode = 92
+project.ext.versionCode = 93
 
 if (rootProject.file('.git').exists()) {
     project.ext.simpleVersionName = getBreventVersion()
