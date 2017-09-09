@@ -173,7 +173,6 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent.</string>
-    
     <string name="brevent_network_adb">Network ADB</string>
     <string name="brevent_language">Language</string>
     <string name="brevent_language_auto">Automático</string>
