@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+import java.util.Objects;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -59,6 +60,8 @@ public class SettingsFragment extends PreferenceFragment
     private int repeat = 0;
 
     private ListView mList;
+
+    private String mAmount;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -132,7 +135,6 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
-            updateDonation();
         }
         onUpdateBreventMethod();
     }
@@ -198,16 +200,16 @@ public class SettingsFragment extends PreferenceFragment
         }
         preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
-        if (mList != null) {
-            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
-            if (position > 0 && position < mList.getCount()) {
-                UILog.d("count: " + mList.getCount() + ", position: " + position);
-                mList.smoothScrollToPosition(position);
-            }
-        }
         if (BuildConfig.RELEASE) {
-            updateDonation();
-            ((BreventSettings) getActivity()).activatePlayIfNeeded();
+            Activity activity = getActivity();
+            double donation = BreventApplication.getDonation(activity);
+            int playDonation = BreventApplication.getPlayDonation(activity);
+            String amount = DecimalUtils.format(donation + playDonation);
+            if (mAmount == null) {
+                mAmount = amount;
+            } else if (!Objects.equals(mAmount, amount)) {
+                activity.recreate();
+            }
         }
     }
 
@@ -411,6 +413,19 @@ public class SettingsFragment extends PreferenceFragment
         return mList != null ? mList.getLastVisiblePosition() : 0;
     }
 
+    void updatePosition() {
+        if (mList != null) {
+            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
+            if (position > 0 && position < mList.getCount()) {
+                UILog.d("count: " + mList.getCount() + ", position: " + position);
+                mList.smoothScrollToPosition(position);
+            }
+        }
+        if (BuildConfig.RELEASE) {
+            updateDonation();
+        }
+    }
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if ("brevent_language".equals(preference.getKey())) {
@@ -420,7 +435,6 @@ public class SettingsFragment extends PreferenceFragment
                 language = "";
             }
             if (LocaleUtils.setOverrideLanguage(activity, language)) {
-                UILog.d("list: " + getPosition());
                 activity.recreate();
             }
         }

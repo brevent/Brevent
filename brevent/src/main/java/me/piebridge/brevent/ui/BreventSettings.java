@@ -77,6 +77,12 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        settingsFragment.updatePosition();
+    }
+
+    @Override
     protected String getAlipayLink() {
         return BuildConfig.DONATE_ALIPAY;
     }
@@ -247,6 +253,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(SETTINGS_POSITION, settingsFragment.getPosition());
+        super.onSaveInstanceState(outState);
     }
 
     @Override
