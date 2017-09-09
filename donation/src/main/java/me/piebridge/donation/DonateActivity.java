@@ -587,7 +587,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     public void showPlay(@Nullable Collection<String> purchased) {
         unbindActivateService();
         if (purchased == null) {
-            if (isPlay()) {
+            if (isPlay() && isPlayInstaller()) {
                 mDonationTip.setText(R.string.donation_play_unavailable);
                 mDonation.setVisibility(View.GONE);
             }
