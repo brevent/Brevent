@@ -47,8 +47,6 @@ public class SettingsFragment extends PreferenceFragment
 
     private static final String FRAGMENT_DONATE = "donate";
 
-    private PreferenceCategory breventExperimental;
-
     private SwitchPreference preferenceOptimizeVpn;
     private SwitchPreference preferenceAbnormalBack;
     private SwitchPreference preferenceOptimizeAudio;
@@ -78,9 +76,6 @@ public class SettingsFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.settings);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-
-        breventExperimental = (PreferenceCategory) preferenceScreen
-                .findPreference("brevent_experimental");
 
         preferenceOptimizeVpn = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_VPN);
@@ -126,7 +121,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
         if (!AppsDisabledFragment.hasRoot()) {
-            breventExperimental.removePreference(preferenceAllowRoot);
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_experimental"))
+                    .removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
             String installer = application.getInstaller();
@@ -135,6 +131,7 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
+            updateDonation();
         }
         onUpdateBreventMethod();
     }
@@ -420,9 +417,6 @@ public class SettingsFragment extends PreferenceFragment
                 UILog.d("count: " + mList.getCount() + ", position: " + position);
                 mList.smoothScrollToPosition(position);
             }
-        }
-        if (BuildConfig.RELEASE) {
-            updateDonation();
         }
     }
 
