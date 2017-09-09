@@ -160,7 +160,7 @@
     <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total (4 Brefoil for O+)</string>
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="show_donation">Show payment</string>
