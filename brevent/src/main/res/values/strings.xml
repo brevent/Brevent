@@ -115,6 +115,7 @@
     <string name="feedback_message_email">\n\nFor private messages, mail me.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
+    <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>

@@ -1801,7 +1801,7 @@ public class BreventActivity extends AbstractActivity
 
     public static void sendEmail(Context context, Intent intent) {
         Intent email = getEmailIntent();
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = LocaleUtils.getSystemContext(context).getPackageManager();
         Set<ComponentName> emails = new ArraySet<>();
         for (ResolveInfo resolveInfo : packageManager.queryIntentActivities(email, 0)) {
             ActivityInfo activityInfo = resolveInfo.activityInfo;
@@ -1815,8 +1815,16 @@ public class BreventActivity extends AbstractActivity
                     activityInfo.name);
             if (emails.contains(componentName)) {
                 Intent original = new Intent(intent).setComponent(componentName);
+                CharSequence activityLabel = resolveInfo.loadLabel(packageManager);
+                CharSequence appLabel = activityInfo.applicationInfo.loadLabel(packageManager);
+                CharSequence label;
+                if (Objects.equals(activityLabel, appLabel)) {
+                    label = activityLabel;
+                } else {
+                    label = context.getString(R.string.email_label, activityLabel, appLabel);
+                }
                 Intent labeled = new LabeledIntent(original, activityInfo.packageName,
-                        resolveInfo.loadLabel(packageManager), resolveInfo.icon);
+                        label, resolveInfo.icon);
                 intents.add(labeled);
             }
         }

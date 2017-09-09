@@ -61,6 +61,10 @@ public class LocaleUtils {
         }
     }
 
+    public static Context getSystemContext(Context context) {
+        return updateResources(context, getSystemLocale());
+    }
+
     private static Locale getLocaleDeprecated(Configuration configuration) {
         return configuration.locale;
     }

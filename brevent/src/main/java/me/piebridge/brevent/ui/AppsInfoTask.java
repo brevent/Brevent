@@ -34,7 +34,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
             return false;
         }
 
-        PackageManager packageManager = activity.getPackageManager();
+        PackageManager packageManager = LocaleUtils.getSystemContext(activity).getPackageManager();
         boolean showAllApps = PreferencesUtils.getPreferences(activity)
                 .getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 

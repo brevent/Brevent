@@ -113,6 +113,7 @@
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">邮件</string>
+    <string name="email_label">%1$s（%2$s）</string>
 
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
