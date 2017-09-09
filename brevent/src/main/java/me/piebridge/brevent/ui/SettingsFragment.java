@@ -8,13 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +21,7 @@ import android.widget.ListView;
 
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+import java.util.Objects;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -48,8 +47,6 @@ public class SettingsFragment extends PreferenceFragment
 
     private static final String FRAGMENT_DONATE = "donate";
 
-    private PreferenceCategory breventExperimental;
-
     private SwitchPreference preferenceOptimizeVpn;
     private SwitchPreference preferenceAbnormalBack;
     private SwitchPreference preferenceOptimizeAudio;
@@ -60,9 +57,9 @@ public class SettingsFragment extends PreferenceFragment
 
     private int repeat = 0;
 
-    private String fingerprint;
-
     private ListView mList;
+
+    private String mAmount;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -71,13 +68,14 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getPreferenceManager().setStorageDeviceProtected();
+        }
+
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-
-        breventExperimental = (PreferenceCategory) preferenceScreen
-                .findPreference("brevent_experimental");
 
         preferenceOptimizeVpn = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_VPN);
@@ -93,7 +91,7 @@ public class SettingsFragment extends PreferenceFragment
         preferenceStandbyTimeout = preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
 
-        preferenceScreen.findPreference("brevent_about_translator")
+        preferenceScreen.findPreference("brevent_language")
                 .setOnPreferenceChangeListener(this);
 
         BreventApplication application = (BreventApplication) getActivity().getApplication();
@@ -113,16 +111,18 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(false);
             preferenceOptimizeAudio.setEnabled(false);
             preferenceAllowRoot.setEnabled(false);
+            preferenceScreen.findPreference("network_adb")
+                    .setSummary(getFingerPrint(BuildConfig.ADB_K));
         } else {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_about"))
-                    .removePreference(preferenceDonation);
+            preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!"root".equals(application.getMode()) && !AppsDisabledFragment.hasRoot()) {
-            breventExperimental.removePreference(preferenceAllowRoot);
+        if (!AppsDisabledFragment.hasRoot()) {
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_experimental"))
+                    .removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
             String installer = application.getInstaller();
@@ -131,26 +131,31 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
-            double donation = application.getDonation();
-            if (DecimalUtils.isPositive(donation)) {
-                String format = DecimalUtils.format(donation);
-                preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
-                preferenceOptimizeVpn.setEnabled(true);
-                preferenceAbnormalBack.setEnabled(true);
-                preferenceOptimizeAudio.setEnabled(true);
-            }
-            if (DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
-                preferenceAllowRoot.setEnabled(true);
-            } else if (!application.hasPlay()) {
-                preferenceAllowRoot.setEnabled(false);
-                preferenceAllowRoot.setChecked(false);
-                if ("root".equals(application.getMode())) {
-                    showDonate(true);
-                }
-            }
+            updateDonation();
         }
         onUpdateBreventMethod();
-        fingerprint = getFingerPrint(BuildConfig.ADB_K);
+    }
+
+    private void updateDonation() {
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        double donation = BreventApplication.getDonation(application);
+        if (DecimalUtils.isPositive(donation)) {
+            String format = DecimalUtils.format(donation);
+            preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
+            preferenceOptimizeVpn.setEnabled(true);
+            preferenceAbnormalBack.setEnabled(true);
+            preferenceOptimizeAudio.setEnabled(true);
+        }
+        if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
+            preferenceAllowRoot.setEnabled(true);
+        } else if (!application.hasPlay()) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
+        }
+    }
+
+    private boolean isDeprecated() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
     }
 
     @Override
@@ -190,19 +195,17 @@ public class SettingsFragment extends PreferenceFragment
         if (adbRunning) {
             sb.append(getString(R.string.brevent_about_developer_adb));
         }
-        if (!TextUtils.isEmpty(fingerprint)) {
-            if (sb.length() > 0) {
-                sb.append("\n");
-            }
-            sb.append(fingerprint);
-        }
         preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
-        if (mList != null) {
-            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
-            if (position > 0 && position < mList.getCount()) {
-                UILog.d("count: " + mList.getCount() + ", position: " + position);
-                mList.smoothScrollToPosition(position);
+        if (BuildConfig.RELEASE) {
+            Activity activity = getActivity();
+            double donation = BreventApplication.getDonation(activity);
+            int playDonation = BreventApplication.getPlayDonation(activity);
+            String amount = DecimalUtils.format(donation + playDonation);
+            if (mAmount == null) {
+                mAmount = amount;
+            } else if (!Objects.equals(mAmount, amount)) {
+                activity.recreate();
             }
         }
     }
@@ -238,18 +241,18 @@ public class SettingsFragment extends PreferenceFragment
         ((DonateActivity) getActivity()).showDonation(showDonation);
     }
 
-    public void updatePlayDonation(double total, boolean contributor) {
+    public void updatePlayDonation(int total, boolean contributor) {
         Activity activity = getActivity();
         if (activity == null) {
             return;
         }
         BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
-        double donation = application.getDonation();
-        String play = DecimalUtils.format(total);
+        double donation = BreventApplication.getDonation(application);
+        String play = Integer.toString(total);
         String rmb = DecimalUtils.format(donation);
         if (contributor) {
-            if (DecimalUtils.isPositive(total)) {
+            if (total > 0) {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb_and_contributor,
                             play, rmb);
@@ -265,7 +268,7 @@ public class SettingsFragment extends PreferenceFragment
             }
 
         } else {
-            if (DecimalUtils.isPositive(total)) {
+            if (total > 0) {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb,
                             play, rmb);
@@ -283,9 +286,12 @@ public class SettingsFragment extends PreferenceFragment
         if (summary != null) {
             preferenceDonation.setSummary(summary);
         }
-        int count = DecimalUtils.add(total, donation);
+        int count = total + DecimalUtils.intValue(donation);
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
+        }
+        if (isDeprecated()) {
+            count += BreventSettings.donateAmount();
         }
         if (getArguments().getBoolean(IS_PLAY, false)) {
             updatePlayVersion(count);
@@ -365,7 +371,7 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void onShowDonate() {
-        if (!getArguments().getBoolean(IS_PLAY, false)) {
+        if (isDeprecated() || !getArguments().getBoolean(IS_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
@@ -404,12 +410,25 @@ public class SettingsFragment extends PreferenceFragment
         return mList != null ? mList.getLastVisiblePosition() : 0;
     }
 
+    void updatePosition() {
+        if (mList != null) {
+            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
+            if (position > 0 && position < mList.getCount()) {
+                UILog.d("count: " + mList.getCount() + ", position: " + position);
+                mList.smoothScrollToPosition(position);
+            }
+        }
+    }
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if ("brevent_about_translator".equals(preference.getKey())) {
+        if ("brevent_language".equals(preference.getKey())) {
             Activity activity = getActivity();
-            if (LocaleUtils.setOverrideLanguage(activity, String.valueOf(newValue))) {
-                UILog.d("list: " + getPosition());
+            String language = String.valueOf(newValue);
+            if ("auto".equals(language)) {
+                language = "";
+            }
+            if (LocaleUtils.setOverrideLanguage(activity, language)) {
                 activity.recreate();
             }
         }

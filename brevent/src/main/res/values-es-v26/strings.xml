@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_allow_root_label">Permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB"\n\nRequiere donar un total de 4 Brefoil.</string>
     <string name="root_donate_required">Por favor pague un total de 4 Brefoil para usar \"Ejecutar como ROOT\".\n\nSi usted ha pagado, deshabilite Xposed, abra Alipay, haga click en registros, debe reconocerse automáticamente.\n\nSi no puede ser reconocido o no ha pagado a través Alipay, por favor envíenos un correo electrónico con capturas de pantalla de los detalles del pago. Los emails serán respondidos normalmente en 24 horas, por favor, verifique el pago por sí mismo si puede.</string>
 
 </resources>

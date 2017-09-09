@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import me.piebridge.brevent.BuildConfig;
@@ -49,9 +48,9 @@ public class BreventServerReceiver extends BroadcastReceiver {
         if (application.isUnsafe()) {
             return;
         }
-        double donation = application.decode(sum, true);
+        double donation = application.decode(context, sum, true);
         if (DecimalUtils.isPositive(donation)) {
-            PreferenceManager.getDefaultSharedPreferences(context)
+            PreferencesUtils.getPreferences(context)
                     .edit().putString("alipay1", sum).apply();
         }
         String format = DecimalUtils.format(donation);

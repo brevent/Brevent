@@ -115,6 +115,7 @@
     <string name="feedback_message_email">\n\nFor private messages, mail me.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
+    <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>
@@ -157,14 +158,14 @@
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_abnormal_back_label_debug">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize Audio Player</string>
-    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total</string>
+    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total (4 Brefoil for O+)</string>
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
-    <string name="brevent_about">About</string>
     <string name="show_donation">Show payment</string>
+    <string name="show_donation_summary" />
     <string name="show_donation_play">Thanks for paying %s Brefoil in Play Store</string>
     <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
@@ -172,9 +173,15 @@
     <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil in Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
+    <string name="brevent_network_adb">Network ADB</string>
+    <string name="brevent_language">Language</string>
+    <string name="brevent_language_auto">Auto</string>
+
+    <string name="brevent_about">About</string>
+    <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_mode_normal">Normal mode</string>
     <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
-    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s\nDaemon: %4$s\nServer: %5$s</string>
+    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s</string>
     <string name="brevent_about_version_summary_debug">%1$s (Community Edition)</string>
     <string name="brevent_about_version_play">Play</string>
     <string name="brevent_about_version_like_play">like Play</string>
@@ -185,7 +192,6 @@
     <string name="brevent_about_developer_adb">USB debugging is on</string>
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan</string>
-    <string name="brevent_about_language_auto">Auto</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
@@ -220,8 +226,7 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_required">Please pay total 3 Brefoil to use \"Run as ROOT\".\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if you can.</string>
-    <string name="root_donate_verify">If payment verified, non-Play version can get upgrade in Play Store.\n\nIf you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf it cannot be recognized, or paid via non Alipay, please send Email with screenshots of payment details.\n\nEmails will be replied in 24 hours normally, please verify payment by yourself if you can.</string>
+    <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send Email with screenshots of payment details.</string>
     <string name="root_donate_alipay">launch Alipay</string>
     <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>

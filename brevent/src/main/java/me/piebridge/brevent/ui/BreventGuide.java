@@ -1,13 +1,11 @@
 package me.piebridge.brevent.ui;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -48,7 +46,7 @@ public class BreventGuide extends AbstractActivity {
     }
 
     final void startBrevent() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getBoolean(GUIDE, true)) {
             preferences.edit().putBoolean(GUIDE, false).apply();
             startActivity(new Intent(this, BreventActivity.class));

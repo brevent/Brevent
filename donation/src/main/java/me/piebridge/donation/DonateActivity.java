@@ -18,19 +18,20 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
-import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.SimpleArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,10 +41,12 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import me.piebridge.brevent.ui.AbstractActivity;
+import me.piebridge.brevent.ui.PreferencesUtils;
 
 /**
  * Donate activity, support alipay, wechat, play store
@@ -116,6 +119,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     @Override
     protected void onStop() {
         stopped = true;
+        unbindService();
         super.onStop();
     }
 
@@ -125,7 +129,9 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     public final void updateDonations() {
         if (acceptDonation()) {
-            activatePlay();
+            if (!usePlayCache() || !activatePlayIfNeeded()) {
+                activatePlay();
+            }
             if (!isPlay() || !isPlayInstaller()) {
                 activateDonations();
             }
@@ -134,7 +140,14 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         }
     }
 
+    protected boolean usePlayCache() {
+        return true;
+    }
+
     public final void showDonation(boolean showDonation) {
+        if (!mShowDonation && showDonation) {
+            activatePlay();
+        }
         mShowDonation = showDonation;
         showDonation();
     }
@@ -143,14 +156,68 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
     }
 
+    private static void removePlayCache(Context context) {
+        PreferencesUtils.getPreferences(context).edit().remove("play").apply();
+    }
+
+    @Nullable
+    public static Collection<String> getPurchased(Context context, String tag, BigInteger modulus) {
+        String play = PreferencesUtils.getPreferences(context).getString("play", null);
+        if (TextUtils.isEmpty(play)) {
+            return null;
+        }
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(play);
+        } catch (JSONException e) {
+            Log.d(tag, "Can't parse " + play);
+            removePlayCache(context);
+            return null;
+        }
+        List<String> data = convert(jsonArray.optJSONArray(0));
+        List<String> sigs = convert(jsonArray.optJSONArray(1));
+        if (data.isEmpty() || sigs.isEmpty()) {
+            removePlayCache(context);
+            return Collections.emptyList();
+        }
+        return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs);
+    }
+
+    public boolean activatePlayIfNeeded() {
+        Collection<String> purchased = getPurchased(this, getTag(), getPlayModulus());
+        if (purchased == null) {
+            return false;
+        } else {
+            if (purchased.isEmpty()) {
+                PreferencesUtils.getPreferences(this).edit().remove("play").apply();
+            } else {
+                showPlay(purchased);
+            }
+            return true;
+        }
+    }
+
+    @NonNull
+    private static List<String> convert(JSONArray jsonArray) {
+        if (jsonArray == null) {
+            return Collections.emptyList();
+        }
+        int size = jsonArray.length();
+        List<String> list = new ArrayList<>(size);
+        for (int i = 0; i < size; ++i) {
+            list.add(jsonArray.optString(i));
+        }
+        return list;
+    }
+
     private synchronized void activatePlay() {
+        Log.d(getTag(), "activatePlay");
         if (hasPlay()) {
             showPlayCheck();
             HandlerThread thread = new HandlerThread("DonateService");
             thread.start();
             unbindActivateService();
-            activateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_ACTIVATE,
-                    thread.getLooper(), this);
+            activateConnection = new ActivatePlayServiceConnection(thread.getLooper(), this);
             Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
             serviceIntent.setPackage(PACKAGE_PLAY);
             try {
@@ -159,8 +226,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                 }
             } catch (IllegalArgumentException e) {
                 Log.d(getTag(), "cannot bind activateConnection", e);
-            } finally {
-                activateConnection = null;
             }
         } else if (isPlay()) {
             showPlay(null);
@@ -169,12 +234,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     private void unbindActivateService() {
         if (activateConnection != null) {
-            if (activateConnection.isConnected()) {
-                try {
-                    unbindService(activateConnection);
-                } catch (IllegalArgumentException e) {
-                    Log.d(getTag(), "cannot unbind activateConnection", e);
-                }
+            Log.d(getTag(), "unbindActivateService");
+            try {
+                unbindService(activateConnection);
+            } catch (IllegalArgumentException e) {
+                Log.d(getTag(), "cannot unbind activateConnection", e);
             }
             activateConnection = null;
         }
@@ -182,12 +246,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     private void unbindDonateService() {
         if (donateConnection != null) {
-            if (donateConnection.isConnected()) {
-                try {
-                    unbindService(donateConnection);
-                } catch (IllegalArgumentException e) {
-                    Log.d(getTag(), "cannot unbind donateConnection", e);
-                }
+            Log.d(getTag(), "unbindDonateService");
+            try {
+                unbindService(donateConnection);
+            } catch (IllegalArgumentException e) {
+                Log.d(getTag(), "cannot unbind donateConnection", e);
             }
             donateConnection = null;
         }
@@ -221,13 +284,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         HandlerThread thread = new HandlerThread("DonateService");
         thread.start();
         unbindDonateService();
-        donateConnection = new PlayServiceConnection(PlayServiceConnection.MESSAGE_DONATE,
-                thread.getLooper(), this);
+        donateConnection = new DonatePlayServiceConnection(thread.getLooper(), this);
         Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
         serviceIntent.setPackage(PACKAGE_PLAY);
         if (!bindService(serviceIntent, donateConnection, Context.BIND_AUTO_CREATE)) {
             unbindService(donateConnection);
-            donateConnection = null;
         }
     }
 
@@ -282,7 +343,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                 getContentResolver().takePersistableUriPermission(uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                PreferencesUtils.getPreferences(getApplicationContext())
                         .edit().putString(KEY_WECHAT_DONATE_SDA, uri.toString()).apply();
                 donateViaWechat();
             } else {
@@ -333,7 +394,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     private void deleteQrCodeIfNeeded() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         String wechatDonateUri = preferences.getString(KEY_WECHAT_DONATE_URI, null);
         if (wechatDonateUri != null) {
             Uri qrCode = Uri.parse(wechatDonateUri);
@@ -380,7 +441,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);
         }
-        boolean canSupportWechat = mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean canSupportWechat = supportWechat();
         if (canSupportWechat && !TextUtils.isEmpty(getWechatLink())) {
             checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
         }
@@ -393,6 +454,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             showDonate();
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
+    }
+
+    protected boolean supportWechat() {
+        return mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void checkPackage(Collection<DonateItem> items, int resId, String packageName) {
@@ -438,7 +503,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     private Uri getQrCodeUri() {
         String name = getApplicationId() + ".donate.wechat.png";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
             String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
             DocumentFile file = null;
             if (cachedUri != null) {
@@ -508,7 +573,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
                 outputStream.write(bytes, 0, length);
             }
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
             preferences.edit().putString(KEY_WECHAT_DONATE_URI, uri.toString()).apply();
             return uri;
         } catch (IOException e) {
@@ -519,9 +584,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     @CallSuper
-    public void showPlay(@Nullable SimpleArrayMap<String, Boolean> purchased) {
+    public void showPlay(@Nullable Collection<String> purchased) {
+        unbindActivateService();
         if (purchased == null) {
-            if (isPlay()) {
+            if (isPlay() && isPlayInstaller()) {
                 mDonationTip.setText(R.string.donation_play_unavailable);
                 mDonation.setVisibility(View.GONE);
             }
@@ -575,7 +641,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         return mSkus;
     }
 
-    protected boolean canDonatePlay(SimpleArrayMap<String, Boolean> purchased) {
+    protected boolean canDonatePlay(Collection<String> purchased) {
         if (purchased.size() >= IAB_MAX_DONATE) {
             return false;
         }
@@ -585,7 +651,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         Iterator<String> iterator = mSkus.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
-            if (purchased.containsKey(next)) {
+            if (purchased.contains(next)) {
                 iterator.remove();
             }
         }
@@ -603,7 +669,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         } catch (IntentSender.SendIntentException e) {
             Log.d(getTag(), "Can't donate");
         }
-        unbindService();
     }
 
     public String getSku() {

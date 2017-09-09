@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -40,6 +39,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -54,6 +54,7 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
@@ -83,11 +84,13 @@ public class BreventApplication extends Application {
 
     private boolean eventMade;
 
-    private long id;
+    private static long id;
+
+    private static final Object LOCK = new Object();
 
     private Boolean play;
 
-    private BigInteger modulus;
+    private static BigInteger modulus;
 
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
@@ -276,22 +279,22 @@ public class BreventApplication extends Application {
         }
     }
 
-    public long getId() {
+    public static long getId(Context context) {
         if (id == 0) {
-            synchronized (this) {
+            synchronized (LOCK) {
                 if (id == 0) {
-                    id = getId(this);
+                    id = doGetId(context);
                 }
             }
         }
         return id;
     }
 
-    private static long getId(Context context) {
+    private static long doGetId(Context context) {
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         if (TextUtils.isEmpty(androidId) || "9774d56d682e549c".equals(androidId)) {
-            androidId = PreferenceManager.getDefaultSharedPreferences(context)
+            androidId = PreferencesUtils.getPreferences(context)
                     .getString(Settings.Secure.ANDROID_ID, "0");
         }
         long breventId;
@@ -303,7 +306,7 @@ public class BreventApplication extends Application {
         }
         if (breventId == 0) {
             breventId = 0xdeadbeef00000000L | new SecureRandom().nextInt();
-            PreferenceManager.getDefaultSharedPreferences(context).edit()
+            PreferencesUtils.getPreferences(context).edit()
                     .putString(Settings.Secure.ANDROID_ID, Long.toHexString(breventId)).apply();
         }
         return breventId;
@@ -324,15 +327,15 @@ public class BreventApplication extends Application {
         }
     }
 
-    public double decode(String message, boolean auto) {
+    public static double decode(Context context, String message, boolean auto) {
         if (TextUtils.isEmpty(message)) {
             return 0d;
         }
         try {
             if (auto) {
-                return decode(message, new BigInteger(1, BuildConfig.DONATE_M));
+                return decode(context, message, new BigInteger(1, BuildConfig.DONATE_M));
             } else {
-                return decode(message, getSignature());
+                return decode(context, message, getSignature(context));
             }
         } catch (NumberFormatException e) {
             UILog.d("cannot decode, auto: " + auto, e);
@@ -340,11 +343,11 @@ public class BreventApplication extends Application {
         }
     }
 
-    public BigInteger getSignature() {
+    public static BigInteger getSignature(Context context) {
         if (modulus != null) {
             return modulus;
         }
-        Signature[] signatures = BreventActivity.getSignatures(getPackageManager(),
+        Signature[] signatures = BreventActivity.getSignatures(context.getPackageManager(),
                 BuildConfig.APPLICATION_ID);
         if (signatures == null || signatures.length != 1) {
             return null;
@@ -361,7 +364,7 @@ public class BreventApplication extends Application {
         return modulus;
     }
 
-    private double decode(String message, BigInteger module) {
+    private static double decode(Context context, String message, BigInteger module) {
         if (module == null) {
             return 0d;
         }
@@ -372,8 +375,8 @@ public class BreventApplication extends Application {
         buffer.flip();
         byte v = buffer.get();
         long breventId = buffer.getLong();
-        if (breventId != 0 && breventId != getId()) {
-            UILog.d("id: " + Long.toHexString(breventId) + " != " + Long.toHexString(getId()));
+        if (breventId != 0 && breventId != getId(context)) {
+            UILog.d("id: " + Long.toHexString(breventId) + " != " + Long.toHexString(getId(context)));
             return 0d;
         } else {
             double d = Double.longBitsToDouble(buffer.getLong());
@@ -412,9 +415,9 @@ public class BreventApplication extends Application {
             CharSequence text = clip.getItemAt(0).getText();
             if (text != null && text.toString().startsWith("br")) {
                 String alipay2 = text.subSequence(2, text.length()).toString().trim();
-                donate2 = decode(alipay2, false);
+                donate2 = decode(this, alipay2, false);
                 if (DecimalUtils.isPositive(donate2)) {
-                    PreferenceManager.getDefaultSharedPreferences(this)
+                    PreferencesUtils.getPreferences(this)
                             .edit().putString("alipay2", alipay2).apply();
                     String format = DecimalUtils.format(donate2);
                     String message = getString(R.string.toast_donate, format);
@@ -426,16 +429,34 @@ public class BreventApplication extends Application {
         return donate2;
     }
 
-    public double getDonation() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    public static boolean allowRoot(Context context) {
+        if (BuildConfig.RELEASE) {
+            int count = getPlayDonation(context) + DecimalUtils.intValue(getDonation(context));
+            if (count < BreventSettings.donateAmount()) {
+                PreferencesUtils.getPreferences(context).edit()
+                        .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false).apply();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int getPlayDonation(Context context) {
+        BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
+        Collection<String> purchased = DonateActivity.getPurchased(context, UILog.TAG, modulus);
+        return BreventSettings.getPlayDonation(purchased);
+    }
+
+    public static double getDonation(Context context) {
+        SharedPreferences preferences = PreferencesUtils.getPreferences(context);
         String alipay1 = preferences.getString("alipay1", "");
-        double donate1 = decode(alipay1, true);
+        double donate1 = decode(context, alipay1, true);
         if (donate1 < 0) {
             donate1 = 0;
             preferences.edit().remove("alipay1").apply();
         }
         String alipay2 = preferences.getString("alipay2", "");
-        double donate2 = decode(alipay2, false);
+        double donate2 = decode(context, alipay2, false);
         if (donate2 < 0) {
             donate2 = 0;
             preferences.edit().remove("alipay2").apply();

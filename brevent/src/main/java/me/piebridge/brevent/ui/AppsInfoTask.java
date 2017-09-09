@@ -4,7 +4,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,8 +34,8 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
             return false;
         }
 
-        PackageManager packageManager = activity.getPackageManager();
-        boolean showAllApps = PreferenceManager.getDefaultSharedPreferences(activity)
+        PackageManager packageManager = LocaleUtils.getSystemContext(activity).getPackageManager();
+        boolean showAllApps = PreferencesUtils.getPreferences(activity)
                 .getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(activity);

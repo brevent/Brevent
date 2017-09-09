@@ -113,6 +113,7 @@
     <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">郵件</string>
+    <string name="email_label">%1$s（%2$s）</string>
 
     <string name="brevent_list">黑域清單</string>
     <string name="brevent_auto">自動更新</string>
@@ -155,14 +156,14 @@
     <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_abnormal_back_label_debug">有些應用程式按「返回」時放到背景而不結束</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
-    <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\n總共需要 2 二向箔</string>
+    <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔</string>
+    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔（O 及以上需要 4 二向箔）</string>
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
-    <string name="brevent_about">關於</string>
     <string name="show_donation">顯示支付</string>
+    <string name="show_donation_summary" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
@@ -170,9 +171,15 @@
     <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="brevent_network_adb">网络调试</string>
+    <string name="brevent_language">界面语言</string>
+    <string name="brevent_language_auto">與系統同步</string>
+
+    <string name="brevent_about">關於</string>
+    <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
     <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
-    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s\n首次開啟：%4$s\n本次開啟：%5$s</string>
+    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s</string>
     <string name="brevent_about_version_summary_debug">%1$s（社區版）</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_like_play">同 Play 版</string>
@@ -183,7 +190,6 @@
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_translation">翻譯</string>
     <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
-    <string name="brevent_about_language_auto">與系統同步</string>
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
@@ -218,8 +224,7 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="root_donate_required">「允許 ROOT 執行」需要累計支付 3 二向箔（推薦支付寶）。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
-    <string name="root_donate_verify">支付確認後，非 Play 版可以在 Play 商店升級。\n\n如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\ n\ n如果無法自動識別，或者其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
+    <string name="root_donate_verify">如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。</string>
     <string name="root_donate_alipay">打開「支付寶」</string>
     <string name="root_donate_email">郵件</string>
     <string name="root_donate_later">先看看</string>

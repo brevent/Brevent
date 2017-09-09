@@ -10,13 +10,14 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
-import android.support.v4.util.SimpleArrayMap;
+import android.support.v4.util.ArraySet;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,13 +25,16 @@ import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import me.piebridge.brevent.ui.PreferencesUtils;
 
 /**
  * Created by thom on 2017/2/17.
  */
-
-public class PlayServiceConnection extends Handler implements ServiceConnection {
+public abstract class PlayServiceConnection extends Handler implements ServiceConnection {
 
     private static final byte[] SHA_EXPECTED = {-23, -73, -17, -27, 64, -2, -89, 121, 97, -67,
             59, -119, 71, 50, -47, -2, 119, 72, -48, 80};
@@ -65,7 +69,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private final String mTag;
 
-    public PlayServiceConnection(int type, Looper looper, DonateActivity donateActivity) {
+    PlayServiceConnection(int type, Looper looper, DonateActivity donateActivity) {
         super(looper);
         mType = type;
         mTag = donateActivity.getTag();
@@ -124,7 +128,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
 
     private void doActivate() {
         try {
-            SimpleArrayMap<String, Boolean> purchased = null;
+            Collection<String> purchased = null;
             uiHandler.sendEmptyMessageDelayed(MESSAGE_CHECK, DELAY);
             synchronized (lock) {
                 if (mInApp != null && mInApp.isBillingSupported(VERSION, mPackageName, TYPE) == 0) {
@@ -143,44 +147,53 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
         return collection == null || collection.isEmpty();
     }
 
-    private SimpleArrayMap<String, Boolean> checkPurchased(Bundle bundle) {
-        SimpleArrayMap<String, Boolean> purchased = new SimpleArrayMap<>();
-
-        List<String> dataList = bundle.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
-        List<String> signatureList = bundle.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
-
+    private Collection<String> checkPurchased(Bundle bundle) {
+        List<String> data = bundle.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+        List<String> sigs = bundle.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
         DonateActivity donateActivity = mReference.get();
-        if (isEmpty(dataList) || isEmpty(signatureList) || donateActivity == null) {
+        if (donateActivity == null) {
+            return Collections.emptyList();
+        }
+        JSONArray json = new JSONArray();
+        json.put(new JSONArray(data));
+        json.put(new JSONArray(sigs));
+        PreferencesUtils.getPreferences(donateActivity)
+                .edit().putString("play", json.toString()).apply();
+        return checkPurchased(mTag, donateActivity.getPlayModulus(), data, sigs);
+    }
+
+    static Collection<String> checkPurchased(String tag, BigInteger modulus,
+                                             List<String> data, List<String> sigs) {
+        Collection<String> purchased = new ArraySet<>();
+        if (isEmpty(data) || isEmpty(sigs)) {
             return purchased;
         }
 
-        int size = dataList.size();
-        if (size > signatureList.size()) {
-            size = signatureList.size();
+        int size = data.size();
+        if (size > sigs.size()) {
+            size = sigs.size();
         }
 
-        BigInteger modulus = donateActivity.getPlayModulus();
         for (int i = 0; i < size; ++i) {
-            String s = dataList.get(i);
-            if (verify(mTag, modulus, s, signatureList.get(i))) {
-                checkProductId(purchased, s);
+            String datum = data.get(i);
+            if (verify(tag, modulus, datum, sigs.get(i))) {
+                checkProductId(purchased, tag, datum);
             }
         }
         return purchased;
     }
 
-    private void checkProductId(SimpleArrayMap<String, Boolean> purchased, String s) {
+    static void checkProductId(Collection<String> purchased, String tag, String datum) {
         try {
-            JSONObject json = new JSONObject(s);
-            if (mPackageName.equals(json.optString("packageName")) &&
-                    json.optInt("purchaseState", -1) == 0) {
+            JSONObject json = new JSONObject(datum);
+            if (json.optInt("purchaseState", -1) == 0) {
                 String productId = json.optString("productId");
                 if (!TextUtils.isEmpty(productId)) {
-                    purchased.put(productId, false);
+                    purchased.add(productId);
                 }
             }
         } catch (JSONException e) {
-            Log.d(mTag, "Can't check productId from " + s);
+            Log.d(tag, "Can't check productId from " + datum);
         }
     }
 
@@ -228,7 +241,7 @@ public class PlayServiceConnection extends Handler implements ServiceConnection 
             if (donateActivity != null) {
                 switch (message.what) {
                     case MESSAGE_ACTIVATE:
-                        donateActivity.showPlay((SimpleArrayMap<String, Boolean>) message.obj);
+                        donateActivity.showPlay((Collection<String>) message.obj);
                         break;
                     case MESSAGE_DONATE:
                         IntentSender sender = (IntentSender) message.obj;

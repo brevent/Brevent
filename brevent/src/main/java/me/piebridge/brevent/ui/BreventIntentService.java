@@ -9,7 +9,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -220,15 +219,12 @@ public class BreventIntentService extends IntentService {
     }
 
     private static boolean allowRoot(Context context, String action) {
-        boolean allowRoot;
-        try {
-            allowRoot = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext())
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
-            UILog.d("action: " + action + ", allowRoot: " + allowRoot);
-        } catch (IllegalStateException e) {
-            allowRoot = true;
-            UILog.d("action: " + action + ", allowRoot: (assume true)", e);
+        boolean allowRoot = PreferencesUtils.getDevicePreferences(context.getApplicationContext())
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
+        if (allowRoot) {
+            allowRoot = BreventApplication.allowRoot(context);
         }
+        UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         return allowRoot && AppsDisabledFragment.hasRoot();
     }
 

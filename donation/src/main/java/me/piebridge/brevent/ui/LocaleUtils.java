@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import java.util.Locale;
@@ -26,7 +25,7 @@ public class LocaleUtils {
     }
 
     public static Locale getOverrideLocale(Context context) {
-        String language = PreferenceManager.getDefaultSharedPreferences(context)
+        String language = PreferencesUtils.getDevicePreferences(context)
                 .getString(OVERRIDE_LANGUAGE, "");
         return getLocale(language);
     }
@@ -48,7 +47,7 @@ public class LocaleUtils {
         try {
             return isChanged(getLocale(language), context);
         } finally {
-            PreferenceManager.getDefaultSharedPreferences(context)
+            PreferencesUtils.getPreferences(context)
                     .edit().putString(OVERRIDE_LANGUAGE, language).apply();
         }
     }
@@ -60,6 +59,10 @@ public class LocaleUtils {
         } else {
             return getLocaleDeprecated(configuration);
         }
+    }
+
+    public static Context getSystemContext(Context context) {
+        return updateResources(context, getSystemLocale());
     }
 
     private static Locale getLocaleDeprecated(Configuration configuration) {

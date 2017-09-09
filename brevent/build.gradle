@@ -20,7 +20,7 @@ android {
         Properties properties = new Properties()
         properties.load(new FileInputStream(rootProject.file('ant.properties')))
 
-        if (!rootProject.isIde && rootProject.file('build/maindexlist.txt').exists()) {
+        if (!rootProject.isIde && rootProject.file('brevent-server').exists()) {
             dexOptions {
                 additionalParameters += '--main-dex-list=build/maindexlist.txt'
                 additionalParameters += '--minimal-main-dex'

@@ -97,26 +97,44 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="brevent_about"
-        android:title="@string/brevent_about">
+        android:key="brevent"
+        android:title="@string/brevent">
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
+            android:summary="@string/show_donation_summary"
             android:title="@string/show_donation" />
+
+        <Preference
+            android:defaultValue="true"
+            android:key="network_adb"
+            android:title="@string/brevent_network_adb" />
+
+        <ListPreference
+            android:defaultValue="auto"
+            android:entries="@array/brevent_language_entries"
+            android:entryValues="@array/brevent_language_values"
+            android:key="brevent_language"
+            android:summary="%s"
+            android:title="@string/brevent_language" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="brevent_about"
+        android:title="@string/brevent_about">
 
         <me.piebridge.brevent.ui.VersionPreference
             android:key="brevent_about_version"
-            android:title="@string/brevent" />
+            android:title="@string/brevent_about_version" />
 
         <Preference
             android:key="brevent_about_developer"
             android:summary="@string/brevent_about_developer_adb"
             android:title="@string/brevent_about_developer" />
 
-        <ListPreference
-            android:entries="@array/brevent_language_entries"
-            android:entryValues="@array/brevent_language_values"
+        <Preference
             android:key="brevent_about_translator"
             android:summary="@string/brevent_about_translator"
             android:title="@string/brevent_about_translation" />

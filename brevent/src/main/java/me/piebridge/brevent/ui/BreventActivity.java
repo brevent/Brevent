@@ -3,7 +3,6 @@ package me.piebridge.brevent.ui;
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
@@ -22,6 +21,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
@@ -37,7 +37,6 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -77,7 +76,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -287,7 +285,7 @@ public class BreventActivity extends AbstractActivity
             showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
-        } else if (PreferenceManager.getDefaultSharedPreferences(this)
+        } else if (PreferencesUtils.getPreferences(this)
                 .getBoolean(BreventGuide.GUIDE, true)) {
             openGuide("first");
             super.finish();
@@ -924,7 +922,8 @@ public class BreventActivity extends AbstractActivity
 
     private void updateConfiguration(boolean inResume) {
         shouldUpdateConfiguration = false;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        BreventApplication.allowRoot(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
             doUpdateConfiguration();
         }
@@ -957,7 +956,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void doUpdateConfiguration() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         BreventApplication application = (BreventApplication) getApplication();
         if (!"forcestop_only".equals(preferences.getString(BreventConfiguration.BREVENT_METHOD, ""))
                 && !application.supportStandby()) {
@@ -966,7 +965,7 @@ public class BreventActivity extends AbstractActivity
         }
         BreventConfiguration configuration = new BreventConfiguration(preferences);
         if (BuildConfig.RELEASE) {
-            configuration.androidId = application.getId();
+            configuration.androidId = BreventApplication.getId(application);
         }
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
     }
@@ -1566,7 +1565,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private boolean updateAdapter(AppsPagerAdapter adapter) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferencesUtils.getPreferences(this);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
@@ -1802,7 +1801,7 @@ public class BreventActivity extends AbstractActivity
 
     public static void sendEmail(Context context, Intent intent) {
         Intent email = getEmailIntent();
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = LocaleUtils.getSystemContext(context).getPackageManager();
         Set<ComponentName> emails = new ArraySet<>();
         for (ResolveInfo resolveInfo : packageManager.queryIntentActivities(email, 0)) {
             ActivityInfo activityInfo = resolveInfo.activityInfo;
@@ -1815,7 +1814,18 @@ public class BreventActivity extends AbstractActivity
             ComponentName componentName = new ComponentName(activityInfo.packageName,
                     activityInfo.name);
             if (emails.contains(componentName)) {
-                intents.add(new Intent(intent).setComponent(componentName));
+                Intent original = new Intent(intent).setComponent(componentName);
+                CharSequence activityLabel = resolveInfo.loadLabel(packageManager);
+                CharSequence appLabel = activityInfo.applicationInfo.loadLabel(packageManager);
+                CharSequence label;
+                if (Objects.equals(activityLabel, appLabel)) {
+                    label = activityLabel;
+                } else {
+                    label = context.getString(R.string.email_label, activityLabel, appLabel);
+                }
+                Intent labeled = new LabeledIntent(original, activityInfo.packageName,
+                        label, resolveInfo.icon);
+                intents.add(labeled);
             }
         }
         CharSequence title = context.getText(R.string.feedback_email);
@@ -1938,14 +1948,17 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isConfirmed() {
         if (!confirmed) {
-            confirmed = PreferenceManager.getDefaultSharedPreferences(this)
+            boolean allowRoot = PreferencesUtils.getPreferences(this)
                     .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
+            if (allowRoot) {
+                confirmed = BreventApplication.allowRoot(this);
+            }
         }
         return confirmed;
     }
 
     private boolean updateCheck() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(preferences);
         }
