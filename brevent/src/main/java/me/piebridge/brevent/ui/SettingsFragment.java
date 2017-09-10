@@ -301,9 +301,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            if ("root".equals(application.getMode())) {
-                showDonate(true);
-            }
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
