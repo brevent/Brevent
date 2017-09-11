@@ -278,14 +278,14 @@ public class SettingsFragment extends PreferenceFragment
             } else {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
-                } else {
+                } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = null;
+                } else {
+                    summary = getString(R.string.show_donation_summary);
                 }
             }
         }
-        if (summary != null) {
-            preferenceDonation.setSummary(summary);
-        }
+        preferenceDonation.setSummary(summary);
         int count = total + DecimalUtils.intValue(donation);
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
