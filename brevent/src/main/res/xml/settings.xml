@@ -103,7 +103,6 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
-            android:summary="@string/show_donation_summary"
             android:title="@string/show_donation" />
 
         <Preference

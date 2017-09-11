@@ -145,6 +145,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
+        } else if (!getArguments().getBoolean(IS_PLAY, false)) {
+            preferenceDonation.setSummary(R.string.show_donation_summary);
         }
         if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
             preferenceAllowRoot.setEnabled(true);
