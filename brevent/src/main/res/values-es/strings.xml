@@ -165,7 +165,7 @@
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
 
     <string name="show_donation">Mostrar pago</string>
-    <string name="show_donation_summary" />
+    <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store.</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil.</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>

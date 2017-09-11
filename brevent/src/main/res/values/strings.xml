@@ -165,7 +165,7 @@
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="show_donation">Show payment</string>
-    <string name="show_donation_summary" />
+    <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Thanks for paying %s Brefoil in Play Store</string>
     <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>

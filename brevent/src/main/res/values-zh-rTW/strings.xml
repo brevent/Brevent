@@ -163,7 +163,7 @@
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="show_donation">顯示支付</string>
-    <string name="show_donation_summary" />
+    <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>

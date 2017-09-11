@@ -59,7 +59,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
         settingsFragment = new SettingsFragment();
         Bundle arguments = settingsFragment.getArguments();
-        arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay);
+        arguments.putBoolean(SettingsFragment.LIKE_PLAY, mPlay);
+        arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay && isPlayInstaller());
         if (savedInstanceState != null) {
             arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
         }
