@@ -9,14 +9,14 @@
 - `liyufan`: Li Yufan
 
 ## Spanish (es)
-- `Samuel` (via Email)
+- `Samuel` (via email)
 
 ## Simplified Chinese (zh-rCN)
-- WanderMax (Only punctuation)
+- WanderMax (only punctuation)
 - `南宫雪珊`: vvb2060
 
 ## Traditional Chinese (zh-rTW)
-- `孟武．尼德霍格．龍` (via Email)
+- `孟武．尼德霍格．龍` (via email)
 - `david082321`:  david082321
 
 # Code

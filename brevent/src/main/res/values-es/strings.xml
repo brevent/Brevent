@@ -22,7 +22,7 @@
 
     <string name="fragment_guide_adb">Adb</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos en PC, que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n\n https://developer.android.com/studio/releases/platform-tools.html \n\n(Mantenga presionada la dirección URL, después seleccione todo el contenido, mantenga presionado y copie).</string>
-    <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3. (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", por favor use \".\\adb\" en lugar de \"adb\" (Por favor, elimine duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\", por favor use \"adb\" con ruta completa en lugar de \"adb\" cuando pegue la línea de comandos. (Por favor, eliminar duplicado \"adb\" cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
+    <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3. (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", por favor use \".\\adb\" en lugar de \"adb\" (Por favor, elimine duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En macOS, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\", por favor use \"adb\" con ruta completa en lugar de \"adb\" cuando pegue la línea de comandos. (Por favor, eliminar duplicado \"adb\" cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
     
     <string name="start_brevent">Inicie Brevent</string>
 
@@ -114,7 +114,7 @@
     <string name="feedback_message">Siéntase libre de enviar comentarios.\n\nSi tiene una cuenta GitHub, cree un caso. También puede ver los problemas abiertos. %s</string>
     <string name="feedback_message_email">\n\nPara mensajes privados, escríbame.</string>
     <string name="feedback_github">GitHub</string>
-    <string name="feedback_email">Email</string>
+    <string name="feedback_email">email</string>
     <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">General:</string>
@@ -228,7 +228,7 @@
 
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor, envíenos un email con capturas de los detalles del pago. Los email serán contestados normalmente en 24 horas, por favor, compruebe su pago si usted puede.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
-    <string name="root_donate_email">Email</string>
+    <string name="root_donate_email">email</string>
     <string name="root_donate_later">No ahora</string>
     <string name="root_donate_email_subject">Pago verificado %1$s (%2$s)</string>
     <string name="root_donate_email_text">%s\n(Por favor, añada capturas o detalles del pago.)</string>

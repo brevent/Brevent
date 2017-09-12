@@ -5,8 +5,8 @@
     <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nPressing Back always means that you have finished your work and want to quit.\nPressing Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed apps by this way, preventing apps which are in the Brevent list from running in long time. Apps which are wakened maliciously will always be force-stopped.</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwipe away from Recent Screen or press Back and they will be force-stopped.\nPress Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nTap Back always means that you have finished your work and want to quit.\nTap Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed apps by this way, preventing apps which are in the Brevent list from running in long time. Apps which are wakened maliciously will always be force-stopped.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwipe away from recents screen or tap Back and they will be force-stopped.\nTap Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
@@ -21,8 +21,8 @@
     <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop cached apps , nor will it auto-brevent new-installed apps without service components. And to increase battery performance, Brevent server deals with apps centrally by default and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Long press, then select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for Mac OS X) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (Touch &amp; hold, then select and copy).</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
 
     <string name="start_brevent">Launch Brevent</string>
 
@@ -114,7 +114,7 @@
     <string name="feedback_message">Feel free to feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
     <string name="feedback_message_email">\n\nFor private messages, mail me.</string>
     <string name="feedback_github">GitHub</string>
-    <string name="feedback_email">Email</string>
+    <string name="feedback_email">email</string>
     <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">Brevent List</string>
@@ -124,9 +124,9 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from Recent Tasks list\n\nAlways force-stop awaken apps which have no activity</string>
-    <string name="brevent_method_standby_only_label">Standby when you exit apps (by pressing \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (by pressing \"Back\"), or background apps timed out, or clear apps from Recent Task list\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from recent screen\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (tap \"Back\"), or background apps timed out, or clear apps from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
@@ -226,9 +226,9 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send Email with screenshots of payment details.</string>
+    <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
     <string name="root_donate_alipay">launch Alipay</string>
-    <string name="root_donate_email">Email</string>
+    <string name="root_donate_email">email</string>
     <string name="root_donate_later">Not now</string>
     <string name="root_donate_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="root_donate_email_text">%s\n(Please attach screenshots of payment details.)</string>
