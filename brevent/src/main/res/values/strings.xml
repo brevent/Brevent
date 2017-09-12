@@ -114,7 +114,7 @@
     <string name="feedback_message">Feel free to feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
     <string name="feedback_message_email">\n\nFor private messages, mail me.</string>
     <string name="feedback_github">GitHub</string>
-    <string name="feedback_email">email</string>
+    <string name="feedback_email">Email</string>
     <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">Brevent List</string>
@@ -227,8 +227,8 @@
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
     <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
-    <string name="root_donate_alipay">launch Alipay</string>
-    <string name="root_donate_email">email</string>
+    <string name="root_donate_alipay">Launch Alipay</string>
+    <string name="root_donate_email">Email</string>
     <string name="root_donate_later">Not now</string>
     <string name="root_donate_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="root_donate_email_text">%s\n(Please attach screenshots of payment details.)</string>
