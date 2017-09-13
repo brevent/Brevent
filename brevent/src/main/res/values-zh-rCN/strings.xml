@@ -163,7 +163,7 @@
     <string name="brevent_allow_root_label">允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 3 二向箔（O 及以上需要 4 二向箔）</string>
 
     <string name="show_donation">显示支付</string>
-    <string name="show_donation_summary_not_play">1 二向箔折合人民币 6.85 元\n\n推荐使用支付宝自动确认。如您已经支付，请点击 7 次版本号查看确认方法</string>
+    <string name="show_donation_summary_not_play">1 二向箔折合人民币 6.85 元\n\n推荐使用支付宝自动确认。如您已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.85 元）</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
