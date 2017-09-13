@@ -5,7 +5,7 @@
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“总览”(Overview)按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
     <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用的服务不再运行；当您点按“主页”按钮、“总览”按钮或通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从最近列表划掉应用时，黑域将强行停止它。</string>
 
     <string name="fragment_guide_permission">权限</string>
@@ -18,21 +18,21 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby，Android 6.0 引入，部分设备不支持）处理应用，应用待机后将不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用，也不自动黑域没有服务组件的新装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”(App Standby，Android 6.0 引入，部分设备不支持)处理应用，应用待机后将不能联网、执行任务(Job，Android 5.0 引入)与同步。\n\n黑域默认不强行停止安全的缓存应用，也不自动黑域没有服务组件的新装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用“.\\adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n3.（macOS）打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，把“adb”拖到“终端”里，请使用这个带全路径的“adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge)是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载(长按进入复制模式)。</string>
+    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3. (Windows)按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用 \".\\adb\" 代替提示的 \"adb\" (使用“复制指令”时，请删除重复的 \"adb\")\n\n3. (macOS)打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，把 \"adb\" 拖到“终端”里，请使用这个带全路径的 \"adb\" 代替提示的 \"adb\" (使用“复制指令”时，请删除重复的 \"adb\")\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机。</string>
 
-    <string name="brevent_service_start">请启动黑域服务（%s）</string>
-    <string name="brevent_service_no_response">黑域服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
+    <string name="brevent_service_start">请启动黑域服务(%s)</string>
+    <string name="brevent_service_no_response">黑域服务没有响应(%s)</string>
+    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑 %2$s\n\n3. 在电脑命令行中执行 \"adb devices\"，确认可以找到手机(\"adb\" 可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档)\n\n4. 在命令行中执行 \"%3$s\"</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
-    <string name="brevent_service_command_copied">指令已复制：%s</string>
-    <string name="brevent_service_adb_running">（已启用）</string>
-    <string name="brevent_service_usb_connected">（已连接）</string>
+    <string name="brevent_service_command_copied">指令已复制: %s</string>
+    <string name="brevent_service_adb_running">(已启用)</string>
+    <string name="brevent_service_usb_connected">(已连接)</string>
     <string name="brevent_service_run_as_root">使用 ROOT 启动</string>
     <string name="brevent_service_success">黑域服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑域它们</string>
 
@@ -40,22 +40,22 @@
     <string name="fragment_apps_system">系统应用</string>
     <string name="fragment_apps_framework">框架应用</string>
 
-    <string name="process_retrieving">正在获取进程状态，请稍候……</string>
-    <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
-    <string name="process_retrieving_logs">正在获取日志，请稍候……</string>
-    <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
-    <string name="process_starting">正在启动黑域服务，请稍候……</string>
-    <string name="process_checking">正在检查黑域服务，请稍候……</string>
+    <string name="process_retrieving">正在获取进程状态，请稍候…</string>
+    <string name="process_retrieving_apps">正在获取应用信息，请稍候…</string>
+    <string name="process_retrieving_logs">正在获取日志，请稍候…</string>
+    <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件…</string>
+    <string name="process_starting">正在启动黑域服务，请稍候…</string>
+    <string name="process_checking">正在检查黑域服务，请稍候…</string>
 
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>
     <string name="process_status_stopped">没有运行</string>
-    <string name="process_not_running">（没有运行）</string>
-    <string name="process_no_stats">（从未打开）</string>
-    <string name="process_stats">（至 %1$s 共 %2$s）</string>
+    <string name="process_not_running">(没有运行)</string>
+    <string name="process_no_stats">(从未打开)</string>
+    <string name="process_stats">(至 %1$s 共 %2$s)</string>
     <string name="process_all_top">%d 个前台</string>
     <string name="process_all_service">%d 个服务</string>
-    <string name="process_all_cached">%d 个缓存（安全）</string>
+    <string name="process_all_cached">%d 个缓存(安全)</string>
     <string name="process_all_total">%d 个</string>
     <string name="process_service">%d 个服务</string>
     <string name="process_total">共 %d 个</string>
@@ -72,31 +72,31 @@
     <string name="action_message_undo">撤消</string>
     <string name="action_message_undone">已撤消</string>
 
-    <string name="context_menu_select">选择 / 取消选择</string>
+    <string name="context_menu_select">选择/取消选择</string>
     <string name="context_menu_package_name">复制包名</string>
     <string name="context_menu_app_info">应用信息</string>
     <string name="context_menu_open">打开</string>
     <string name="context_menu_brevent_server_info">黑域服务信息</string>
     <string name="context_menu_set_priority">允许同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_message_copied">包名已复制：%s</string>
+    <string name="context_menu_message_copied">包名已复制: %s</string>
 
-    <string name="important_input">%s（输入法）</string>
-    <string name="important_alarm">%s（闹钟应用）</string>
-    <string name="important_sms">%s（短信应用）</string>
-    <string name="important_home">%s（主屏幕应用）</string>
-    <string name="important_persistent">%s（永久进程）</string>
-    <string name="important_android">%s（Android 进程）</string>
-    <string name="important_dialer">%s（电话应用）</string>
-    <string name="important_assistant">%s（辅助应用）</string>
-    <string name="important_webview">%s（Webview 实现）</string>
-    <string name="important_accessibility">%s（无障碍应用）</string>
-    <string name="important_device_admin">%s（设备管理器）</string>
-    <string name="important_gcm">%s（FCM）</string>
-    <string name="important_battery">%s（电池未优化，不建议黑域）</string>
-    <string name="important_trust_agent">%s（可信代理）</string>
-    <string name="important_gms">%s（GMS，不建议黑域）</string>
-    <string name="important_wallpaper">%s（壁纸）</string>
+    <string name="important_input">%s (输入法)</string>
+    <string name="important_alarm">%s (闹钟应用)</string>
+    <string name="important_sms">%s (短信应用)</string>
+    <string name="important_home">%s (主屏幕应用)</string>
+    <string name="important_persistent">%s (永久进程)</string>
+    <string name="important_android">%s (Android 进程)</string>
+    <string name="important_dialer">%s (电话应用)</string>
+    <string name="important_assistant">%s (辅助应用)</string>
+    <string name="important_webview">%s (Webview 实现)</string>
+    <string name="important_accessibility">%s (无障碍应用)</string>
+    <string name="important_device_admin">%s (设备管理器)</string>
+    <string name="important_gcm">%s (FCM)</string>
+    <string name="important_battery">%s (电池未优化，不建议黑域)</string>
+    <string name="important_trust_agent">%s (可信代理)</string>
+    <string name="important_gms">%s (GMS，不建议黑域)</string>
+    <string name="important_wallpaper">%s (壁纸)</string>
 
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序方式</string>
@@ -113,18 +113,18 @@
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">邮件</string>
-    <string name="email_label">%1$s（%2$s）</string>
+    <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">黑域清单</string>
     <string name="brevent_auto">自动更新</string>
-    <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单（部分 ROM 不支持）</string>
+    <string name="brevent_auto_label">应用安装或卸载之后，更新黑域清单(部分 ROM 不支持)</string>
     <string name="brevent_method">黑域方法</string>
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用(如点按“返回”按钮)，或者后台应用超时后先待机；待机超时或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_only_label">退出应用(如点按“返回”按钮)，或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">退出应用(如点按“返回”按钮)，或者后台应用超时，或者从最近列表划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
@@ -153,19 +153,19 @@
     <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版总共需要 2 二向箔</string>
     <string name="brevent_optimize_vpn_label_debug">启用之后，不处理已连接的 VPN 应用</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
-    <string name="brevent_abnormal_back_label_debug">应用使用非“主页”方式（如“返回”）回到桌面时，立即黑域</string>
-    <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域\n\nPlay 版总共需要 2 二向箔</string>
+    <string name="brevent_abnormal_back_label_debug">应用使用非“主页”方式(如“返回”)回到桌面时，立即黑域</string>
+    <string name="brevent_abnormal_back_label">应用使用非“主页”(如“返回”)方式回到桌面时，立即黑域\n\nPlay 版总共需要 2 二向箔</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\nPlay 版总共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
     <string name="brevent_allow_root">允许 ROOT 运行</string>
     <string name="brevent_allow_root_label_debug">允许 ROOT 过的设备直接启动黑域服务</string>
-    <string name="brevent_allow_root_label">允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 3 二向箔（O 及以上需要 4 二向箔）</string>
+    <string name="brevent_allow_root_label">允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 3 二向箔(O 及以上需要 4 二向箔)</string>
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_not_play">1 二向箔折合人民币 6.85 元\n\n推荐使用支付宝自动确认。如您已经支付，请点击 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
-    <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.85 元）</string>
+    <string name="show_donation_rmb">感谢您支付 %s 二向箔(1 二向箔折合人民币 6.85 元)</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑域所作的特别贡献</string>
@@ -178,9 +178,9 @@
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_mode_normal">普通模式</string>
-    <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
-    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s（社区版）</string>
+    <string name="brevent_about_version_mode_root">ROOT 模式(实验性)</string>
+    <string name="brevent_about_version_summary">%1$s (%2$s)，%3$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s (社区版)</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_like_play">同 Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
@@ -196,7 +196,7 @@
     <string name="unsupported_clone">黑域不支持“应用分身”。</string>
     <string name="unsupported_signature">no zuo no die</string>
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
-    <string name="unsupported_path">（错误：无法生成指令文件）</string>
+    <string name="unsupported_path">(错误：无法生成指令文件)</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
     <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
@@ -204,19 +204,19 @@
     <string name="unsupported_disable_root">成功使用 ROOT 启动黑域服务，请在设置中启用“允许 ROOT 运行”以自动更新及开机自启黑域服务。</string>
     <string name="unsupported_root">无法使用 ROOT 启动黑域服务。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
-    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整网络设置、省电模式与强制低电耗（doze）等。\n\n必要时，带日志反馈，或者直接卸载。</string>
+    <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整网络设置、省电模式与强制低电耗(doze)等。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_dumpsys">无法执行 dumpsys，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_network">无法验证黑域服务，请禁用 SELinux，然后再试。</string>
     <string name="unsupported_exec">无法执行指令，请尝试更换 SU。</string>
     <string name="unsupported_tasks">无法获取最近任务，请考虑更换 ROM。</string>
 
-    <string name="toast_home_tid">已确认真正的“主页”：%d</string>
+    <string name="toast_home_tid">已确认真正的“主页”: %d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
     <string name="toast_alipay2">正在重启黑域服务，请稍候再试</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
 
-    <string name="logs_description">%1$s\n（请描述与日志相关的问题。）</string>
+    <string name="logs_description">%1$s\n(请描述与日志相关的问题。)</string>
 
     <string name="brevent_status_starting">正在启动黑域服务</string>
     <string name="brevent_status_not_started">黑域服务没有启动</string>
@@ -224,11 +224,11 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="root_donate_verify">如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别（如果账单过期，将无法自动识别）。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="root_donate_verify">如您已经支付，请打开“支付宝”(需要临时禁用 Xposed)，点开“转账记录”(不是“账单详情”)，将会自动识别(如果账单过期，将无法自动识别)。\n\n如果其它方式支付，请发送邮件(需要安装邮件客户端)，附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="root_donate_alipay">打开“支付宝”</string>
     <string name="root_donate_email">邮件</string>
     <string name="root_donate_later">先看看</string>
-    <string name="root_donate_email_subject">支付确认 %1$s（%2$s）</string>
-    <string name="root_donate_email_text">%s\n（请附上支付订单截图。）</string>
+    <string name="root_donate_email_subject">支付确认 %1$s (%2$s)</string>
+    <string name="root_donate_email_text">%s\n(请附上支付订单截图。)</string>
 
 </resources>
