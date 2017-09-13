@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 4 二向箔（O 以下只需 3 二向箔）</string>
+    <string name="brevent_allow_root_label">启用之后，允许 ROOT 过的设备直接启动黑域服务\n\n总共需要 4 二向箔(O 以下只需 3 二向箔)</string>
 
 </resources>
