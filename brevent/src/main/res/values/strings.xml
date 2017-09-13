@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nTap Back always means that you have finished your work and want to quit.\nTap Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed apps by this way, preventing apps which are in the Brevent list from running in long time. Apps which are wakened maliciously will always be force-stopped.</string>
-    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwipe away from recents screen or tap Back and they will be force-stopped.\nTap Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
+    <string name="fragment_guide_welcome_message2">We love this design of Android, but some apps do not. They keep them in background and drain your battery, some even push useless notifications to draw your attention.\n\nAnd Brevent is going to protect your phone from these apps.\nSwipe away from recents screen (also referred to as the Overview screen, recent task list, or recent apps) or tap Back and they will be force-stopped.\nTap Home and they will be kept in the background to complete their tasks. Once the time period you set is out, they will be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command with your PC.</string>
@@ -124,7 +124,7 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from recent screen\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (tap \"Back\"), or background apps timed out, or clear apps from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
