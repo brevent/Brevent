@@ -16,7 +16,7 @@ public class PreferencesUtils {
 
     private static SharedPreferences getPreferences(Context context, boolean migrate) {
         Context deviceContext;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !context.isDeviceProtectedStorage()) {
             deviceContext = context.createDeviceProtectedStorageContext();
             if (migrate) {
                 deviceContext.moveSharedPreferencesFrom(context,
