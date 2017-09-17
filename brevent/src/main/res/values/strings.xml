@@ -157,9 +157,9 @@
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_abnormal_back_label_debug">Brevent immediately when apps return to home via non Home(such as Back)</string>
-    <string name="brevent_optimize_audio">Optimize Audio Player</string>
-    <string name="brevent_optimize_audio_label">Playing audio apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
-    <string name="brevent_optimize_audio_label_debug">Playing audio apps won\'t be standby nor force-stopped</string>
+    <string name="brevent_optimize_audio">Optimize Music Player</string>
+    <string name="brevent_optimize_audio_label">Playing music apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
+    <string name="brevent_optimize_audio_label_debug">Playing music apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Run as ROOT</string>
     <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total</string>
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
