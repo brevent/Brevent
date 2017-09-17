@@ -343,7 +343,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                 getContentResolver().takePersistableUriPermission(uri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                PreferencesUtils.getPreferences(getApplicationContext())
+                PreferencesUtils.getPreferences(getApplication())
                         .edit().putString(KEY_WECHAT_DONATE_SDA, uri.toString()).apply();
                 donateViaWechat();
             } else {

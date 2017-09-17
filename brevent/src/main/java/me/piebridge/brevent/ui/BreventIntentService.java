@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.accounts.NetworkErrorException;
+import android.app.Application;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -59,7 +60,7 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Notification notification = postNotification(getApplicationContext());
+        Notification notification = postNotification(getApplication());
         UILog.d("show notification");
         startForeground(ID, notification);
         if (!checkPort()) {
@@ -69,7 +70,7 @@ public class BreventIntentService extends IntentService {
         stopForeground(true);
         String action = intent.getAction();
         if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !checkPort()) {
-            showStopped(getApplicationContext());
+            showStopped(getApplication());
         }
     }
 
@@ -202,27 +203,27 @@ public class BreventIntentService extends IntentService {
                 .notify(ID, notification);
     }
 
-    public static void startBrevent(Context context, String action) {
-        if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(context, action)) {
-            Intent intent = new Intent(context, BreventIntentService.class);
+    public static void startBrevent(Application application, String action) {
+        if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(application, action)) {
+            Intent intent = new Intent(application, BreventIntentService.class);
             intent.setAction(action);
             if (shouldForeground()) {
                 UILog.d("will startForegroundService");
-                context.startForegroundService(intent);
+                application.startForegroundService(intent);
             } else {
                 UILog.d("will startService");
-                context.startService(intent);
+                application.startService(intent);
             }
         } else {
-            showStopped(context);
+            showStopped(application);
         }
     }
 
-    private static boolean allowRoot(Context context, String action) {
-        boolean allowRoot = PreferencesUtils.getDevicePreferences(context.getApplicationContext())
+    private static boolean allowRoot(Application application, String action) {
+        boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
                 .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
         if (allowRoot) {
-            allowRoot = BreventApplication.allowRoot(context);
+            allowRoot = BreventApplication.allowRoot(application);
         }
         UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         return allowRoot && AppsDisabledFragment.hasRoot();
@@ -232,13 +233,12 @@ public class BreventIntentService extends IntentService {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
-    public static void checkBrevent(Context context) {
-        BreventApplication application = (BreventApplication) context.getApplicationContext();
+    public static void checkBrevent(BreventApplication application) {
         try {
             if (application.checkPort(true)) {
                 UILog.d("brevent worked");
             } else {
-                showNoBrevent(context, true);
+                showNoBrevent(application, true);
             }
         } catch (NetworkErrorException e) {
             UILog.w("brevent checking timeout");

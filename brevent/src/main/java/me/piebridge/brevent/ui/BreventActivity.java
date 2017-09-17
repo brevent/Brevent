@@ -248,7 +248,7 @@ public class BreventActivity extends AbstractActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.RELEASE) {
-            Fabric.with(getApplicationContext(), new Answers());
+            Fabric.with(getApplication(), new Answers());
         }
         boolean disabledXposed = !BuildConfig.RELEASE;
         if (BuildConfig.SERVER != null) {
@@ -1313,7 +1313,7 @@ public class BreventActivity extends AbstractActivity
 
     private void showAlipay(String alipaySum) {
         if (alipaySum != null) {
-            BreventServerReceiver.showAlipay(this, alipaySum);
+            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()), alipaySum);
             doUpdateConfiguration();
         }
     }
@@ -1656,7 +1656,7 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         application.setHandler(mHandler);
         showProgress(R.string.process_starting);
-        BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
+        BreventIntentService.startBrevent(getApplication(), BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
