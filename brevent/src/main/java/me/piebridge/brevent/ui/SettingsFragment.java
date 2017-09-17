@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -121,7 +122,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!AppsDisabledFragment.hasRoot()) {
+        if (!AppsDisabledFragment.hasRoot() || shouldHideRoot(application)) {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_experimental"))
                     .removePreference(preferenceAllowRoot);
         }
@@ -133,6 +134,11 @@ public class SettingsFragment extends PreferenceFragment
             updateDonation();
         }
         onUpdateBreventMethod();
+    }
+
+    private boolean shouldHideRoot(Context context) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && !BreventApplication.allowRoot(context);
     }
 
     private void updateDonation() {

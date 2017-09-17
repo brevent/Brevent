@@ -66,7 +66,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         if (activity.canFetchLogs()) {
             builder.setNegativeButton(R.string.menu_logs, this);
         }
-        if (hasRoot() && (!usbConnected || allowRoot(activity))) {
+        if (hasRoot() && (!shouldHideRoot(usbConnected) || allowRoot(activity))) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
         } else if (usbConnected && adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_copy_path, this);
@@ -74,6 +74,10 @@ public class AppsDisabledFragment extends AbstractDialogFragment
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
         return builder.create();
+    }
+
+    private boolean shouldHideRoot(boolean usbConnected) {
+        return usbConnected || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     static boolean isEmulator() {

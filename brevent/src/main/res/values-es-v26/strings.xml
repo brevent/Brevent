@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="brevent_allow_root_label">Permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de "Depuración por USB"\n\nRequiere donar un total de 4 Brefoil.</string>
-
-</resources>
