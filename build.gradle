@@ -47,7 +47,7 @@ def isIde = { ->
         ide = true
     } else {
         taskRequests[0].args.any {
-            if (it.endsWith('generateDebugSources') || it.endsWith('sonarqube')) {
+            if (it.endsWith('generateDebugSources') || it.endsWith('sonarqube') || it.endsWith('assembleDebug')) {
                 ide = true
                 return true
             }
@@ -58,7 +58,7 @@ def isIde = { ->
 
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
-project.ext.supportLibraryVersion = '26.0.2'
+project.ext.supportLibraryVersion = '26.1.0'
 
 project.ext.buildToolsVersion = '26.0.1'
 
