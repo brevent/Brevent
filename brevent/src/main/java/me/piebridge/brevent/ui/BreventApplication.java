@@ -313,6 +313,9 @@ public class BreventApplication extends Application {
     }
 
     public boolean isUnsafe() {
+        if (AppsDisabledFragment.isEmulator()) {
+            return true;
+        }
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
