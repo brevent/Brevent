@@ -220,6 +220,15 @@ public class AppsActivityHandler extends Handler {
     }
 
     private static File zipLog(Context context, File dir, String date) {
+        String[] names = dir.list();
+        if (names != null) {
+            for (String name : names) {
+                File file = new File(dir, name);
+                if (name.startsWith("logs-v") && file.isFile() && file.delete()) {
+                    UILog.d("delete file " + file.getName());
+                }
+            }
+        }
         try {
             File path = new File(dir, "logs-v" + BuildConfig.VERSION_NAME + "-" + date + ".zip");
             try (
