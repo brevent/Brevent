@@ -385,8 +385,10 @@ public class BreventApplication extends Application {
             double d = Double.longBitsToDouble(buffer.getLong());
             if (v == 1) {
                 return d / 5;
-            } else {
+            } else if (v == 2) {
                 return d / 6.85;
+            } else {
+                return d / 6.5;
             }
         }
     }
