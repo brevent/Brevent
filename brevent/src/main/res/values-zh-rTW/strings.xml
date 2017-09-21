@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
+    <string name="brevent_service_run_as_root">ROOT 開啟 ADB</string>
     <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>
@@ -202,13 +202,8 @@
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_disable_root">成功使用 ROOT 啟動黑域服務，請在設定中啟用「允許 ROOT 執行」以自動更新及開機自啟黑域服務。</string>
-    <string name="unsupported_root">無法使用 ROOT 開啟黑域服務。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆或網路設定。部分 ROM 需要關閉省電模式。</string>
-    <string name="unsupported_dumpsys">無法執行 dumpsys，請禁用 SELinux，然后再試。</string>
-    <string name="unsupported_network">無法驗證黑域服務，請禁用 SELinux，然后再試。</string>
-    <string name="unsupported_exec">無法執行指令，請試著更換 SU。</string>
-    <string name="unsupported_tasks">無法取得最近任務，請考慮更換 ROM。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>

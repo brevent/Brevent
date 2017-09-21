@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Habilitado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_run_as_root">Iniciar como ROOT</string>
+    <string name="brevent_service_run_as_root">ADB via ROOT</string>
     <string name="brevent_service_success">Brevent funcionando! Por favor, haga clic en los iconos de las App para hacer Brevent.</string>
 
     <string name="fragment_apps_user">Apps de usuario</string>
@@ -204,13 +204,8 @@
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\n\nPor favor, habilite \"Ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
-    <string name="unsupported_root">No se puede iniciar ROOT en el servidor Brevent.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
-    <string name="unsupported_dumpsys">No se puede ejecutar DUMPSYS. Por favor, deshabilite SELinux e inténtelo de nuevo.</string>
-    <string name="unsupported_network">No se puede verificar servidor Brevent. Por favor, deshabilite SELinux e inténtelo de nuevo.</string>
-    <string name="unsupported_exec">No se puede ejecutar comando. Por favor, cambie a otro SU.</string>
-    <string name="unsupported_tasks">No se pueden obtener tareas recientes, póngase en contacto con el proveedor de su ROM.</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

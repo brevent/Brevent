@@ -481,6 +481,10 @@ public class BreventActivity extends AbstractActivity
         dismissDialog(FRAGMENT_DISABLED, false);
     }
 
+    public void hideReport() {
+        dismissDialog(FRAGMENT_REPORT, false);
+    }
+
     public void showProgress(int message) {
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_PROGRESS + ", " + message + ": " + message
@@ -1297,6 +1301,7 @@ public class BreventActivity extends AbstractActivity
         if (!hasResponse) {
             doUpdateConfiguration();
             unregisterReceiver();
+            hideReport();
             hasResponse = true;
         }
 
@@ -1656,6 +1661,8 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         application.setHandler(mHandler);
         showProgress(R.string.process_starting);
+        mHandler.removeMessages(MESSAGE_RETRIEVE2);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY5);
         BreventIntentService.startBrevent(getApplication(), BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
@@ -1855,31 +1862,18 @@ public class BreventActivity extends AbstractActivity
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         pw.println(Build.FINGERPRINT);
-        pw.println("SELinux: " + Shell.SU.isSELinuxEnforcing());
         pw.println();
         for (String s : output) {
             pw.println(s);
         }
         String details = sw.toString();
-        int message;
-        if (!details.contains("[command]")) {
-            message = R.string.unsupported_root;
-        } else if (!details.contains("apk")) {
-            message = R.string.unsupported_exec;
-        } else if (details.contains("brevent dumpsys")) {
-            message = R.string.unsupported_dumpsys;
-        } else if (details.contains("brevent network error")) {
-            message = R.string.unsupported_network;
-        } else if (details.contains("brevent no recent tasks")) {
-            message = R.string.unsupported_tasks;
-        } else {
-            message = R.string.unsupported_root;
-        }
         ReportFragment fragment = new ReportFragment();
-        fragment.setDetails(message, details);
+        fragment.setDetails(R.string.unsupported_shell, details);
         fragment.show(getFragmentManager(), FRAGMENT_REPORT);
-        mHandler.removeCallbacksAndMessages(null);
-        uiHandler.removeCallbacksAndMessages(null);
+        if (!output.isEmpty()) {
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     public void showShellCompleted(String message) {

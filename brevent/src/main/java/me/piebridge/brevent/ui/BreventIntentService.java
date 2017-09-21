@@ -10,9 +10,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.SystemProperties;
+import android.text.TextUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -41,6 +46,14 @@ public class BreventIntentService extends IntentService {
     private static final int TIMEOUT = 15;
 
     private static final int CHECK_TIMEOUT_MS = 15_000;
+
+    private static final String FIXO = "pbd=`pidof brevent_daemon`; " +
+            "pbs=`pidof brevent_server`; " +
+            "pin=`pidof installd`; " +
+            "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
+            "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
+            "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
+            "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs";
 
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
@@ -77,10 +90,11 @@ public class BreventIntentService extends IntentService {
     private void startBrevent(String action) {
         UILog.d("startBrevent, action: " + action);
         boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
-        List<String> output = startBrevent();
         if (runAsRoot) {
             BreventApplication application = (BreventApplication) getApplication();
-            application.notifyRootCompleted(output);
+            application.notifyRootCompleted(startBreventSync());
+        } else {
+            startBrevent();
         }
     }
 
@@ -108,11 +122,14 @@ public class BreventIntentService extends IntentService {
             try {
                 if (BreventProtocol.checkPortSync()) {
                     UILog.d("checked");
-                    if (!future.isDone()) {
-                        future.cancel(false);
+                    for (int i = 0; i < TIMEOUT; ++i) {
+                        if (future.isDone()) {
+                            return Collections.emptyList();
+                        }
+                        sleep(1);
                     }
-                    sleep(3);
-                    return Collections.singletonList("(Brevent server started)");
+                    future.cancel(false);
+                    return Collections.emptyList();
                 }
             } catch (IOException e) {
                 // do nothing
@@ -138,22 +155,47 @@ public class BreventIntentService extends IntentService {
     private List<String> startBreventSync() {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
-        if (path != null) {
-            UILog.d("startBrevent: $SHELL " + path);
-            List<String> results = Shell.SU.run("$SHELL " + path);
-            if (results == null) {
-                UILog.d("startBrevent: " + path);
-                results = Shell.SU.run(path);
-            }
-            if (results != null) {
-                for (String result : results) {
-                    UILog.d(result);
-                }
-                return results;
-            }
-            UILog.w("(no output)");
+        if (path == null) {
+            return Collections.singletonList("(Cannot make brevent)");
         }
-        return Collections.emptyList();
+        boolean needClose = false;
+        boolean needStop = false;
+        String port = SystemProperties.get("service.adb.tcp.port", "");
+        UILog.d("service.adb.tcp.port: " + port);
+        if (TextUtils.isEmpty(port) || !TextUtils.isDigitsOnly(port)) {
+            needClose = true;
+            needStop = !AppsDisabledFragment.isAdbRunning();
+            Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port 5555",
+                    "setprop ctl.restart adbd"));
+            port = SystemProperties.get("service.adb.tcp.port", "");
+            if (!"5555".equals(port)) {
+                return Collections.singletonList("(Cannot network adb)");
+            }
+            sleep(1);
+        }
+        UILog.d("adb port: " + port);
+        String message = "(unknown error)";
+        for (int i = 0; i < TIMEOUT; ++i) {
+            try {
+                message = new SimpleAdb(Integer.parseInt(port)).run();
+                break;
+            } catch (IOException e) {
+                UILog.w("cannot adb(" + e.getMessage() + ")", e);
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                message = sw.toString();
+            }
+            sleep(1);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Shell.SU.run(FIXO);
+        }
+        if (needClose) {
+            String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
+            Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port -1", command));
+        }
+        return Collections.singletonList(message);
     }
 
     private static Notification.Builder buildNotification(Context context) {

@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Command copied: %s</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
-    <string name="brevent_service_run_as_root">Run as ROOT</string>
+    <string name="brevent_service_run_as_root">ADB via ROOT</string>
     <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose then brevent them</string>
 
     <string name="fragment_apps_user">User Apps</string>
@@ -161,7 +161,7 @@
     <string name="brevent_optimize_audio_label">Playing music apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio_label_debug">Playing music apps won\'t be standby nor force-stopped</string>
     <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server\n\nRequires 3 Brefoil in total</string>
     <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
 
     <string name="show_donation">Show payment</string>
@@ -204,13 +204,8 @@
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
-    <string name="unsupported_root">Fail to start Brevent server as ROOT.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
-    <string name="unsupported_dumpsys">Can\'t execute dumpsys, please disable SELinux and try again.</string>
-    <string name="unsupported_network">Can\'t verify brevent server, please disable SELinux and try again.</string>
-    <string name="unsupported_exec">Can\'t execute command, please switch to another SU.</string>
-    <string name="unsupported_tasks">Can\'t get recent tasks, please contact ROM provider.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

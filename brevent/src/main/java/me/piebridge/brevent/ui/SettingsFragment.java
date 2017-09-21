@@ -122,7 +122,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!AppsDisabledFragment.hasRoot() || shouldHideRoot(application)) {
+        if (!AppsDisabledFragment.hasRoot()) {
             ((PreferenceCategory) preferenceScreen.findPreference("brevent_experimental"))
                     .removePreference(preferenceAllowRoot);
         }
@@ -134,11 +134,6 @@ public class SettingsFragment extends PreferenceFragment
             updateDonation();
         }
         onUpdateBreventMethod();
-    }
-
-    private boolean shouldHideRoot(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                && !BreventApplication.allowRoot(context);
     }
 
     private void updateDonation() {

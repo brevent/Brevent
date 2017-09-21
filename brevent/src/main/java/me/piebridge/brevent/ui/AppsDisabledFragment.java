@@ -66,7 +66,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         if (activity.canFetchLogs()) {
             builder.setNegativeButton(R.string.menu_logs, this);
         }
-        if (hasRoot() && (!shouldHideRoot(usbConnected) || allowRoot(activity))) {
+        if (hasRoot()) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
         } else if (usbConnected && adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_copy_path, this);
@@ -74,10 +74,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
             builder.setPositiveButton(R.string.brevent_service_open_development, this);
         }
         return builder.create();
-    }
-
-    private boolean shouldHideRoot(boolean usbConnected) {
-        return usbConnected || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     static boolean isEmulator() {
@@ -92,12 +88,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = context.registerReceiver(null, filter);
         return intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
-    }
-
-    private static boolean allowRoot(Context context) {
-        return PreferencesUtils.getPreferences(context)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)
-                && BreventApplication.allowRoot(context);
     }
 
     private static String getBootstrapCommandLine(BreventActivity activity, boolean usb) {
@@ -132,7 +122,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean usbConnected = isUsbConnected(activity);
-            if (hasRoot() && (!usbConnected || allowRoot(activity))) {
+            if (hasRoot()) {
                 activity.runAsRoot();
                 dismiss();
             } else if (usbConnected && isAdbRunning()) {
