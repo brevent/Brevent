@@ -10,8 +10,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Environment;
 import android.os.SystemProperties;
 import android.text.TextUtils;
+import android.util.Base64;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +56,10 @@ public class BreventIntentService extends IntentService {
             "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
             "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
             "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs";
+
+    private static final String ADB_DIRECTORY = "misc/adb";
+
+    private static final String ADB_KEYS_FILE = "adb_keys";
 
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
@@ -174,6 +180,7 @@ public class BreventIntentService extends IntentService {
             sleep(1);
         }
         UILog.d("adb port: " + port);
+        makeSureKeys();
         String message = "(unknown error)";
         for (int i = 0; i < TIMEOUT; ++i) {
             try {
@@ -196,6 +203,23 @@ public class BreventIntentService extends IntentService {
             Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port -1", command));
         }
         return Collections.singletonList(message);
+    }
+
+    private boolean makeSureKeys() {
+        File keyFile = getUserKeyFile();
+        if (keyFile == null) {
+            return false;
+        }
+        String keys = Base64.encodeToString(BuildConfig.ADB_K, Base64.NO_WRAP);
+        String command = "file=" + keyFile.getAbsolutePath() + "; " +
+                "keys=" + keys + "; " +
+                "if [ ! -f $file ]; then " +
+                "echo $keys >> $file; chown 1000:2000 $file; chmod 0640 $file; " +
+                "else " +
+                "grep -q $keys $file || echo $keys >> $file; " +
+                "fi";
+        Shell.SU.run(command);
+        return true;
     }
 
     private static Notification.Builder buildNotification(Context context) {
@@ -262,6 +286,9 @@ public class BreventIntentService extends IntentService {
     }
 
     private static boolean allowRoot(Application application, String action) {
+        if (BuildConfig.ADB_K == null) {
+            return false;
+        }
         boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
                 .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
         if (allowRoot) {
@@ -284,6 +311,15 @@ public class BreventIntentService extends IntentService {
             }
         } catch (NetworkErrorException e) {
             UILog.w("brevent checking timeout");
+        }
+    }
+
+    private File getUserKeyFile() {
+        File adbDir = new File(Environment.getDataDirectory(), ADB_DIRECTORY);
+        if (adbDir.exists()) {
+            return new File(adbDir, ADB_KEYS_FILE);
+        } else {
+            return null;
         }
     }
 

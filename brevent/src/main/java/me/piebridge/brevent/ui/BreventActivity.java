@@ -103,6 +103,8 @@ public class BreventActivity extends AbstractActivity
 
     private static final int DELAY5 = 5000;
 
+    private static final int DELAY15 = 15000;
+
     public static final long BEGIN = 1415750400_000L;
 
     private static final String GMS = "com.google.android.gms";
@@ -1663,6 +1665,7 @@ public class BreventActivity extends AbstractActivity
         showProgress(R.string.process_starting);
         mHandler.removeMessages(MESSAGE_RETRIEVE2);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY5);
+        uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_NO_BREVENT, DELAY15);
         BreventIntentService.startBrevent(getApplication(), BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
