@@ -20,7 +20,6 @@ import java.io.File;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 
 /**
  * Created by thom on 2017/2/5.

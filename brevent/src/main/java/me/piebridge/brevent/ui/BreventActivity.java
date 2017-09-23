@@ -80,7 +80,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
-import eu.chainfire.libsuperuser.Shell;
 import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;

@@ -3,7 +3,6 @@ package me.piebridge.brevent.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +34,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 
     static final int CONTRIBUTOR = 5;
+
+    static final int DONATE_AMOUNT = 3;
 
     private SettingsFragment settingsFragment;
 
@@ -190,9 +191,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
-        BreventApplication application = (BreventApplication) getApplication();
-        boolean root = "root".equals(application.getMode());
-        int amount = root ? donateAmount() : 0x2;
+        int amount = AppsDisabledFragment.hasRoot() ? BreventSettings.DONATE_AMOUNT : 0x2;
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -201,10 +200,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             }
         }
         return skus;
-    }
-
-    static int donateAmount() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 0x4 : 0x3;
     }
 
     @Override
@@ -223,7 +218,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         if (BuildConfig.RELEASE) {
             BreventApplication application = (BreventApplication) getApplication();
             String installer = application.getInstaller();
-            String mode = application.getMode();
+            String mode = AppsDisabledFragment.hasRoot() ? "root" : "shell";
             try {
                 Answers.getInstance().logAddToCart(new AddToCartEvent()
                         .putItemPrice(BigDecimal.ONE)
