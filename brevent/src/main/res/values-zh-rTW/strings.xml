@@ -9,8 +9,8 @@
     <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務將不再執行；當您按「首頁」按鈕或者「總覽」按鈕或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。</string>
 
     <string name="fragment_guide_permission">權限</string>
-    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">為了方便，黑域有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，並會開機後自動啟動黑域服務。但 ROOT 模式與正常啟動服務相比沒有更多功能或更好的工作效果，對於部分裝置 ROOT 模式甚至無法啟動黑域服務。</string>
+    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「偵錯模式」執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
+    <string name="fragment_guide_permission_message2">「偵錯模式」權限很高，Android O 以下裝置重啟就失效；在 Android O 及以上則更嚴格，關閉「USB 偵錯」或切換「USB 模式」就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系統檔案，卸載後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>

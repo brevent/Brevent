@@ -9,8 +9,8 @@
     <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用的服务不再运行；当您点按“主页”按钮、“概览”按钮或通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen，也称为最新动态屏幕、最近任务列表或最近使用的应用）划掉应用时，黑域将强行停止它。</string>
 
     <string name="fragment_guide_permission">权限</string>
-    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以调试模式执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">为了方便，黑域有一个实验性的 ROOT 模式，可以直接“使用 ROOT 启动”黑域服务。ROOT 模式与普通模式相比没有更多功能也没有更好效果，在某些设备上 ROOT 模式甚至无法启动黑域服务。</string>
+    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以“调试模式”执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
+    <string name="fragment_guide_permission_message2">“调试模式”权限很高，Android O 以下设备重启就失效；在 Android O 及以上则更严格，关闭“USB 调试”或切换“USB 模式”就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系统文件，卸载后没有残留。黑域不破坏其它应用的完整性，也不处理未被黑域的应用。</string>
