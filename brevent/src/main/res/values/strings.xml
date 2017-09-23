@@ -190,7 +190,7 @@
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_other">Unknown</string>
     <string name="brevent_about_developer">Developer Options</string>
-    <string name="brevent_about_developer_adb">USB debugging is on</string>
+    <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan</string>
     <string name="brevent_about_licenses">Licenses</string>

@@ -194,13 +194,12 @@ public class SettingsFragment extends PreferenceFragment
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
-        boolean adbRunning = "running".equals(SystemProperties.get("init.svc.adbd", Build.UNKNOWN));
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
-        StringBuilder sb = new StringBuilder();
-        if (adbRunning) {
-            sb.append(getString(R.string.brevent_about_developer_adb));
+        if (!AppsDisabledFragment.hasRoot() && AppsDisabledFragment.isAdbRunning()) {
+            preference.setSummary(R.string.brevent_about_developer_adb);
+        } else {
+            preference.setSummary(null);
         }
-        preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
         if (BuildConfig.RELEASE) {
             Activity activity = getActivity();
