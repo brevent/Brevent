@@ -179,10 +179,11 @@
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_version">Version</string>
-    <string name="brevent_about_version_mode_normal">Normal mode</string>
-    <string name="brevent_about_version_mode_root">ROOT mode (experimental)</string>
-    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s (Community Edition)</string>
+    <string name="brevent_about_version_summary">%1$s, %2$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s, Community Edition</string>
+    <string name="brevent_about_version_extra">\nStandby: %1$s\nStopped state：%2$s</string>
+    <string name="brevent_about_version_supported">supported</string>
+    <string name="brevent_about_version_unsupported">unsupported</string>
     <string name="brevent_about_version_play">Play</string>
     <string name="brevent_about_version_like_play">like Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>

@@ -177,10 +177,11 @@
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
-    <string name="brevent_about_version_mode_normal">普通模式</string>
-    <string name="brevent_about_version_mode_root">ROOT 模式（实验性）</string>
-    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s（社区版）</string>
+    <string name="brevent_about_version_summary">%1$s，%2$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s，社区版</string>
+    <string name="brevent_about_version_extra">\n待机：%1$s\n停止状态：%2$s</string>
+    <string name="brevent_about_version_supported">支持</string>
+    <string name="brevent_about_version_unsupported">不支持</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_like_play">同 Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>

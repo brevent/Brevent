@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.donation.DonateActivity;
 
 /**
@@ -25,18 +24,18 @@ public class VersionPreference extends Preference {
     public CharSequence getSummary() {
         Context context = getContext();
         Resources resources = context.getResources();
+        String supported = resources.getString(R.string.brevent_about_version_supported);
+        String unsupported = resources.getString(R.string.brevent_about_version_unsupported);
         BreventApplication application = (BreventApplication) context.getApplicationContext();
+        String extra = resources.getString(R.string.brevent_about_version_extra,
+                application.supportStandby() ? supported : unsupported,
+                application.supportStopped() ? supported : unsupported);
         if (!BuildConfig.RELEASE) {
             return resources.getString(R.string.brevent_about_version_summary_debug,
-                    BuildConfig.VERSION_NAME);
+                    BuildConfig.VERSION_NAME) + extra;
         } else {
-            String normal = resources.getString(R.string.brevent_about_version_mode_normal);
-            String root = resources.getString(R.string.brevent_about_version_mode_root);
-            String mode = HideApiOverride.isShell(application.mUid) ? normal :
-                    (HideApiOverride.isRoot(application.mUid) ? root :
-                            resources.getString(android.R.string.unknownName));
             return resources.getString(R.string.brevent_about_version_summary,
-                    BuildConfig.VERSION_NAME, getVersion(context), mode);
+                    BuildConfig.VERSION_NAME, getVersion(context)) + extra;
         }
     }
 
