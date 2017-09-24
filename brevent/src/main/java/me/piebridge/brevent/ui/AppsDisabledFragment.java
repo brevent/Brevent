@@ -121,7 +121,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean usbConnected = isUsbConnected(activity);
-            if (hasRoot()) {
+            if (hasRoot() && BuildConfig.ADB_K != null) {
                 activity.runAsRoot();
                 dismiss();
             } else if (usbConnected && isAdbRunning()) {
