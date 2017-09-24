@@ -142,7 +142,7 @@
             android:title="@string/brevent_about_licenses">
             <intent
                 android:targetClass="me.piebridge.brevent.ui.BreventLicenses"
-                android:targetPackage="me.piebridge.brevent" />
+                android:targetPackage="@string/appId" />
 
         </PreferenceScreen>
 

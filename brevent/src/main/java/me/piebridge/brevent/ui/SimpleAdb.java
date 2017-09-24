@@ -50,7 +50,8 @@ public class SimpleAdb {
 
     private final InputStream is;
 
-    private static final String X_BREVENT = "shell:sh /data/data/me.piebridge.brevent/brevent.sh";
+    private static final String X_BREVENT = "shell:sh /data/data/"
+            + BuildConfig.APPLICATION_ID + "/brevent.sh";
 
     private int auth = TRIED_NONE;
 

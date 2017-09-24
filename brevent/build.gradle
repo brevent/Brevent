@@ -51,10 +51,11 @@ android {
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es'
+            resValue 'string', 'appId', 'me.piebridge.brevent'
             if (rootProject.isIde) {
-                resValue "string", "brevent", "Brevent"
+                resValue 'string', 'brevent', 'Brevent'
             } else {
-                resValue "string", "brevent", "@string/app_name"
+                resValue 'string', 'brevent', '@string/app_name'
             }
             buildConfigField 'int', 'ICON', 'me.piebridge.brevent.R.mipmap.ic_brevent'
             buildConfigField 'int', 'IC_STAT', 'me.piebridge.brevent.R.drawable.ic_stat_brevent'
@@ -111,10 +112,11 @@ android {
             buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
+            resValue 'string', 'appId', 'me.piebridge.nrevent'
             if (rootProject.isIde) {
-                resValue "string", "brevent", "Brevent"
+                resValue 'string', 'brevent', 'Brevent'
             } else {
-                resValue "string", "brevent", "@string/app_name_debug"
+                resValue 'string', 'brevent', '@string/app_name_debug'
             }
             buildConfigField 'int', 'ICON', 'me.piebridge.brevent.R.mipmap.ic_nrevent'
             buildConfigField 'int', 'IC_STAT', 'me.piebridge.brevent.R.drawable.ic_stat_nrevent'

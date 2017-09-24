@@ -4,7 +4,6 @@ if [ ! -f $path -o -z $abi64 ]; then
     exit 1
 fi
 
-package=me.piebridge.brevent
 brevent=/data/local/tmp/brevent
 
 # some os cannot execute $path directly
