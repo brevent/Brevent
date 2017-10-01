@@ -293,8 +293,11 @@ public class AppsActivityHandler extends Handler {
     private void hideNotification() {
         BreventActivity activity = mReference.get();
         if (activity != null) {
-            ((NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE))
-                    .cancel(BreventIntentService.ID);
+            NotificationManager nm = (NotificationManager) activity.getSystemService(
+                    Context.NOTIFICATION_SERVICE);
+            nm.cancel(BreventIntentService.ID);
+            nm.cancel(BreventIntentService.ID2);
+            nm.cancel(BreventIntentService.ID3);
         }
     }
 

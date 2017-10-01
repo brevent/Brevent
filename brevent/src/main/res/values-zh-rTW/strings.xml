@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_run_as_root">ROOT 開啟 ADB</string>
+    <string name="brevent_service_run_as_root">ROOT</string>
     <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>

@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Habilitado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_run_as_root">ADB via ROOT</string>
+    <string name="brevent_service_run_as_root">ROOT</string>
     <string name="brevent_service_success">Brevent funcionando! Por favor, haga clic en los iconos de las App para hacer Brevent.</string>
 
     <string name="fragment_apps_user">Apps de usuario</string>

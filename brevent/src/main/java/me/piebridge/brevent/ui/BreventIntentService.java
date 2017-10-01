@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -43,9 +44,13 @@ public class BreventIntentService extends IntentService {
 
     public static final int ID2 = 59527;
 
+    public static final int ID3 = 59528;
+
     private static final String CHANNEL_ID = "root";
 
     private static final int TIMEOUT = 15;
+
+    private static final int ADB_TIMEOUT = 6;
 
     private static final int CHECK_TIMEOUT_MS = 15_000;
 
@@ -128,7 +133,7 @@ public class BreventIntentService extends IntentService {
             try {
                 if (BreventProtocol.checkPortSync()) {
                     UILog.d("checked");
-                    for (int i = 0; i < TIMEOUT; ++i) {
+                    for (int i = 0; i < ADB_TIMEOUT; ++i) {
                         if (future.isDone()) {
                             return Collections.emptyList();
                         }
@@ -163,9 +168,17 @@ public class BreventIntentService extends IntentService {
         String path = application.copyBrevent();
         if (path == null) {
             return Collections.singletonList("(Cannot make brevent)");
+        } else if (BuildConfig.ADB_K != null) {
+            return startBreventAdb(path);
+        } else {
+            return startBreventRoot(path);
         }
+    }
+
+    private List<String> startBreventAdb(String path) {
         boolean needClose = false;
         boolean needStop = false;
+        boolean success = false;
         String port = SystemProperties.get("service.adb.tcp.port", "");
         UILog.d("service.adb.tcp.port: " + port);
         if (TextUtils.isEmpty(port) || !TextUtils.isDigitsOnly(port)) {
@@ -181,10 +194,11 @@ public class BreventIntentService extends IntentService {
         }
         UILog.d("adb port: " + port);
         makeSureKeys();
-        String message = "(unknown error)";
-        for (int i = 0; i < TIMEOUT; ++i) {
+        String message = "(cannot adb)";
+        for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
                 message = new SimpleAdb(Integer.parseInt(port)).run();
+                success = true;
                 break;
             } catch (IOException e) {
                 UILog.w("cannot adb(" + e.getMessage() + ")", e);
@@ -195,14 +209,22 @@ public class BreventIntentService extends IntentService {
             }
             sleep(1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (success && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Shell.SU.run(FIXO);
         }
         if (needClose) {
             String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
             Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port -1", command));
         }
-        return Collections.singletonList(message);
+        if (success) {
+            return Collections.singletonList(message);
+        } else {
+            List<String> messages = new ArrayList<>();
+            messages.add(message);
+            messages.add(System.lineSeparator());
+            messages.addAll(startBreventRoot(path));
+            return messages;
+        }
     }
 
     private boolean makeSureKeys() {
@@ -220,6 +242,22 @@ public class BreventIntentService extends IntentService {
                 "fi";
         Shell.SU.run(command);
         return true;
+    }
+
+    private List<String> startBreventRoot(String path) {
+        UILog.d("startBrevent: $SHELL " + path);
+        List<String> results = Shell.SU.run("$SHELL " + path);
+        if (results == null) {
+            UILog.d("startBrevent: " + path);
+            results = Shell.SU.run(path);
+        }
+        if (results == null) {
+            results = Collections.singletonList("(cannot root)");
+        }
+        for (String result : results) {
+            UILog.d(result);
+        }
+        return results;
     }
 
     private static Notification.Builder buildNotification(Context context) {
@@ -266,7 +304,7 @@ public class BreventIntentService extends IntentService {
                 new Intent(context, BreventActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = builder.build();
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                .notify(ID, notification);
+                .notify(ID3, notification);
     }
 
     public static void startBrevent(Application application, String action) {
