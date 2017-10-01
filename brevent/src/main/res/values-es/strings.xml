@@ -95,7 +95,7 @@
     <string name="important_accessibility">%s (Accesibilidad)</string>
     <string name="important_device_admin">%s (Administrador del dispositivo)</string>
     <string name="important_gcm">%s (FCM)</string>
-    <string name="important_battery">%s (Sin Standby, sin gestión Doze)</string>
+    <string name="important_battery">%s (Sin Standby)</string>
     <string name="important_trust_agent">%s (Agente de confianza)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Fondo de pantalla)</string>

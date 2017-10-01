@@ -93,7 +93,7 @@
     <string name="important_accessibility">%s（無障礙設定）</string>
     <string name="important_device_admin">%s（裝置管理員）</string>
     <string name="important_gcm">%s（FCM）</string>
-    <string name="important_battery">%s（無法待機，電池未最佳化）</string>
+    <string name="important_battery">%s（無法待機）</string>
     <string name="important_trust_agent">%s（信任的代理程式）</string>
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（桌布）</string>

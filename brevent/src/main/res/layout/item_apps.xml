@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="0dp">
 
@@ -24,20 +25,22 @@
             android:contentDescription="@null"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_check_circle_black_44dp" />
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/marginItemEnd"
             android:layout_marginStart="@dimen/marginItemStart"
             android:ellipsize="marquee"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textAlignment="viewStart"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-            app:layout_constraintLeft_toRightOf="@+id/icon"
+            app:layout_constraintEnd_toStartOf="@+id/inactive"
+            app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/app_name" />
 
@@ -48,7 +51,7 @@
             android:layout_marginEnd="0dp"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="29:18" />
 
@@ -61,8 +64,8 @@
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/icon"
-            tools:text="(not running)" />
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            tools:text="@string/process_not_running" />
 
         <ImageView
             android:id="@+id/status"
@@ -73,7 +76,7 @@
             android:scaleType="centerInside"
             android:tint="?android:attr/textColorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:src="@drawable/ic_alarm_black_24dp" />
 
         <ImageView
@@ -87,7 +90,7 @@
             android:tint="?android:attr/textColorSecondary"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/status"
+            app:layout_constraintEnd_toStartOf="@+id/status"
             tools:visibility="visible" />
 
     </android.support.constraint.ConstraintLayout>
