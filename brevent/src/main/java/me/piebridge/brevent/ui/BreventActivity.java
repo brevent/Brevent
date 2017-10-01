@@ -932,7 +932,7 @@ public class BreventActivity extends AbstractActivity
 
     private void updateConfiguration(boolean inResume) {
         shouldUpdateConfiguration = false;
-        BreventApplication.allowRoot(this);
+        BreventApplication.allowRoot(getApplication());
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
             doUpdateConfiguration();
@@ -1952,7 +1952,7 @@ public class BreventActivity extends AbstractActivity
             boolean allowRoot = PreferencesUtils.getPreferences(this)
                     .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
             if (allowRoot) {
-                confirmed = BreventApplication.allowRoot(this);
+                confirmed = BreventApplication.allowRoot(getApplication());
             }
         }
         return confirmed;

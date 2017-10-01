@@ -1,8 +1,8 @@
 package me.piebridge.brevent.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -45,9 +45,9 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
         dismiss();
     }
 
-    public static int getChecked(Context context) {
+    public static int getChecked(Activity activity) {
         try {
-            return PreferencesUtils.getPreferences(context).getInt(SORT_METHOD, 0);
+            return PreferencesUtils.getPreferences(activity).getInt(SORT_METHOD, 0);
         } catch (ClassCastException e) { // NOSONAR
             // do nothing
             return 0;

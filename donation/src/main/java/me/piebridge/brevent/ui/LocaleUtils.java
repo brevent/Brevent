@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -43,11 +44,11 @@ public class LocaleUtils {
     }
 
     @SuppressLint("ApplySharedPref")
-    public static boolean setOverrideLanguage(Context context, String language) {
+    public static boolean setOverrideLanguage(Activity activity, String language) {
         try {
-            return isChanged(getLocale(language), context);
+            return isChanged(getLocale(language), activity);
         } finally {
-            PreferencesUtils.getPreferences(context)
+            PreferencesUtils.getPreferences(activity)
                     .edit().putString(OVERRIDE_LANGUAGE, language).apply();
         }
     }

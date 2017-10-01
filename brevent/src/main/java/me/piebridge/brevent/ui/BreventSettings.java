@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -254,8 +255,15 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
 
     @Override
     protected boolean usePlayCache() {
-        return !PreferencesUtils.getPreferences(this)
-                .getBoolean(SettingsFragment.SHOW_DONATION, true);
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
+        long daemonTime = preferences.getLong("daemonTime", 0);
+        BreventApplication application = (BreventApplication) getApplication();
+        if (daemonTime != application.mDaemonTime) {
+            preferences.edit().putLong("daemonTime", application.mDaemonTime).apply();
+            return false;
+        } else {
+            return !preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
+        }
     }
 
     @Override

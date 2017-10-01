@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -202,8 +203,9 @@ public class SettingsFragment extends PreferenceFragment
         preference.setOnPreferenceClickListener(this);
         if (BuildConfig.RELEASE) {
             Activity activity = getActivity();
-            double donation = BreventApplication.getDonation(activity);
-            int playDonation = BreventApplication.getPlayDonation(activity);
+            Application application = activity.getApplication();
+            double donation = BreventApplication.getDonation(application);
+            int playDonation = BreventApplication.getPlayDonation(application);
             String amount = DecimalUtils.format(donation + playDonation);
             if (mAmount == null) {
                 mAmount = amount;

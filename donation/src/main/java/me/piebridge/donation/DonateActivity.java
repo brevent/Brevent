@@ -2,6 +2,7 @@ package me.piebridge.donation;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Application;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -156,13 +157,14 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
     }
 
-    private static void removePlayCache(Context context) {
-        PreferencesUtils.getPreferences(context).edit().remove("play").apply();
+    private static void removePlayCache(Application application) {
+        PreferencesUtils.getPreferences(application).edit().remove("play").apply();
     }
 
     @Nullable
-    public static Collection<String> getPurchased(Context context, String tag, BigInteger modulus) {
-        String play = PreferencesUtils.getPreferences(context).getString("play", null);
+    public static Collection<String> getPurchased(Application application, String tag,
+                                                  BigInteger modulus) {
+        String play = PreferencesUtils.getPreferences(application).getString("play", null);
         if (TextUtils.isEmpty(play)) {
             return null;
         }
@@ -171,20 +173,20 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             jsonArray = new JSONArray(play);
         } catch (JSONException e) {
             Log.d(tag, "Can't parse " + play);
-            removePlayCache(context);
+            removePlayCache(application);
             return null;
         }
         List<String> data = convert(jsonArray.optJSONArray(0));
         List<String> sigs = convert(jsonArray.optJSONArray(1));
         if (data.isEmpty() || sigs.isEmpty()) {
-            removePlayCache(context);
+            removePlayCache(application);
             return Collections.emptyList();
         }
         return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs);
     }
 
     public boolean activatePlayIfNeeded() {
-        Collection<String> purchased = getPurchased(this, getTag(), getPlayModulus());
+        Collection<String> purchased = getPurchased(getApplication(), getTag(), getPlayModulus());
         if (purchased == null) {
             return false;
         } else {
