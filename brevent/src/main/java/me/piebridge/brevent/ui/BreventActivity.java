@@ -286,8 +286,7 @@ public class BreventActivity extends AbstractActivity
             showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
-        } else if (PreferencesUtils.getPreferences(this)
-                .getBoolean(BreventGuide.GUIDE, true)) {
+        } else if (shouldShowGuide()) {
             openGuide("first");
             super.finish();
         } else {
@@ -327,6 +326,12 @@ public class BreventActivity extends AbstractActivity
 
             updateCheck();
         }
+    }
+
+    private boolean shouldShowGuide() {
+        Intent intent = getIntent();
+        return intent != null && Intent.ACTION_MAIN.equals(intent.getAction())
+                && PreferencesUtils.getPreferences(this).getBoolean(BreventGuide.GUIDE, true);
     }
 
     @Override
