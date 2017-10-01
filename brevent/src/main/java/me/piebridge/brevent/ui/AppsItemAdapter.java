@@ -449,11 +449,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!mFragment.accept(pm, packageInfo)) {
             return false;
         }
-        if (showAllApps || mFragment.supportAllApps()) {
-            // always for all apps
-            return true;
-        }
         if (activity != null) {
+            if (activity.isOverlay(packageName)) {
+                // always hide overlay
+                return false;
+            }
             if (activity.isLauncher(packageName)) {
                 // always show launcher
                 return true;
@@ -466,6 +466,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 // always for brevented apps
                 return true;
             }
+        }
+        if (showAllApps || mFragment.supportAllApps()) {
+            // always for all apps
+            return true;
         }
         if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
             UILog.v("checking launcher for " + packageName);

@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
@@ -43,6 +44,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
@@ -245,6 +247,8 @@ public class BreventActivity extends AbstractActivity
     private boolean shouldOpenSettings;
     private boolean force;
 
+    private Set<String> mOverlays = new ArraySet<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -261,7 +265,7 @@ public class BreventActivity extends AbstractActivity
                 PathClassLoader classLoader = new PathClassLoader(sourceDir, systemClassLoader);
                 classLoader.loadClass(clazzServer).getMethod(String.valueOf('b')).invoke(null);
                 disabledXposed = true;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 if (t instanceof InvocationTargetException) {
                     Throwable throwable = ((InvocationTargetException) t).getTargetException();
                     if (throwable instanceof NoClassDefFoundError) {
@@ -1202,11 +1206,11 @@ public class BreventActivity extends AbstractActivity
             if (response.undoable) {
                 String message = getString(response.brevent ? R.string.action_brevent_results :
                         R.string.action_restore_results, response.packageNames.size());
-                snackbar = Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(mCoordinator, message, BaseTransientBottomBar.LENGTH_LONG);
                 snackbar.setAction(R.string.action_message_undo, callback);
             } else {
                 String message = getString(R.string.action_message_undone);
-                snackbar = Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(mCoordinator, message, BaseTransientBottomBar.LENGTH_LONG);
             }
             snackbar.addCallback(callback);
             snackbar.show();
@@ -1267,6 +1271,8 @@ public class BreventActivity extends AbstractActivity
         mImportant.clear();
         mFavorite.clear();
         mGcm.clear();
+        mOverlays.clear();
+        mOverlays.addAll(status.mOverlays);
         resolveImportantPackages(status.mProcesses);
         for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
@@ -1612,7 +1618,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void showMessage(String message) {
-        Snackbar.make(mCoordinator, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mCoordinator, message, BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     public String getLabel(String label, String packageName) {
@@ -1684,7 +1690,7 @@ public class BreventActivity extends AbstractActivity
 
     public void showSuccess() {
         mSnackBar = Snackbar.make(mCoordinator, R.string.brevent_service_success,
-                Snackbar.LENGTH_INDEFINITE);
+                BaseTransientBottomBar.LENGTH_INDEFINITE);
         mSnackBar.show();
     }
 
@@ -1744,6 +1750,7 @@ public class BreventActivity extends AbstractActivity
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
+    @SuppressLint("WrongConstant")
     public void makeEvent() {
         ((BreventApplication) getApplication()).makeEvent();
         UILog.d("make event by restart");
@@ -2002,6 +2009,10 @@ public class BreventActivity extends AbstractActivity
         if (mAdapter != null) {
             mAdapter.setExpired();
         }
+    }
+
+    public boolean isOverlay(String packageName) {
+        return mOverlays != null && mOverlays.contains(packageName);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
