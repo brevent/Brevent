@@ -55,6 +55,9 @@ public class BreventServerReceiver extends BroadcastReceiver {
         if (DecimalUtils.isPositive(donation)) {
             PreferencesUtils.getPreferences(application)
                     .edit().putString("alipay1", sum).apply();
+        } else {
+            PreferencesUtils.getPreferences(application)
+                    .edit().remove("alipay1").apply();
         }
         String format = DecimalUtils.format(donation);
         String message = application.getResources().getString(R.string.toast_alipay, format);
