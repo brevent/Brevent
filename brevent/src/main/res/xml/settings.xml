@@ -103,7 +103,6 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="show_donation"
-            android:summary="@string/show_donation_summary"
             android:title="@string/show_donation" />
 
         <Preference
@@ -143,7 +142,7 @@
             android:title="@string/brevent_about_licenses">
             <intent
                 android:targetClass="me.piebridge.brevent.ui.BreventLicenses"
-                android:targetPackage="me.piebridge.brevent" />
+                android:targetPackage="@string/appId" />
 
         </PreferenceScreen>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server without \"USB Debugging\"\n\nRequires 4 Brefoil in total (3 Brefoil for O-)</string>
+    <string name="brevent_about_developer_adb">Don\'t turn off \"USB debugging\", don\'t switch \"USB mode\"</string>
 
 </resources>

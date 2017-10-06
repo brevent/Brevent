@@ -33,17 +33,11 @@
     public *;
 }
 
--keep class me.piebridge.brevent.server.BreventServer {
-    public <methods>;
-}
-
 -keep class me.piebridge.EventHandler { *; }
 
 -keep class me.piebridge.LogReader { *; }
 
 -dontnote eu.chainfire.libsuperuser.Shell*
-
--dontnote me.piebridge.brevent.server.BreventServer
 
 -dontwarn me.piebridge.brevent.override.HideApiOverride*
 

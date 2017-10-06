@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -43,6 +42,7 @@ public class SettingsFragment extends PreferenceFragment
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
+    public static final String LIKE_PLAY = "like_play";
     public static final String IS_PLAY = "is_play";
 
     private static final String FRAGMENT_DONATE = "donate";
@@ -107,10 +107,12 @@ public class SettingsFragment extends PreferenceFragment
         }
 
         if (BuildConfig.RELEASE) {
-            preferenceOptimizeVpn.setEnabled(false);
-            preferenceAbnormalBack.setEnabled(false);
-            preferenceOptimizeAudio.setEnabled(false);
-            preferenceAllowRoot.setEnabled(false);
+            if (!isDeprecated()) {
+                preferenceOptimizeVpn.setEnabled(false);
+                preferenceAbnormalBack.setEnabled(false);
+                preferenceOptimizeAudio.setEnabled(false);
+                preferenceAllowRoot.setEnabled(false);
+            }
             preferenceScreen.findPreference("network_adb")
                     .setSummary(getFingerPrint(BuildConfig.ADB_K));
         } else {
@@ -125,9 +127,7 @@ public class SettingsFragment extends PreferenceFragment
                     .removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
-            String installer = application.getInstaller();
-            if (!getArguments().getBoolean(IS_PLAY, false)
-                    || !DonateActivity.PACKAGE_PLAY.equals(installer)) {
+            if (!getArguments().getBoolean(IS_PLAY, false)) {
                 preferenceScreen.findPreference("brevent_about_version")
                         .setOnPreferenceClickListener(this);
             }
@@ -145,8 +145,12 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
+        } else if (getArguments().getBoolean(IS_PLAY, false)) {
+            preferenceDonation.setSummary(null);
+        } else {
+            preferenceDonation.setSummary(R.string.show_donation_summary_not_play);
         }
-        if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.donateAmount()) {
+        if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.DONATE_AMOUNT) {
             preferenceAllowRoot.setEnabled(true);
         } else if (!application.hasPlay()) {
             preferenceAllowRoot.setEnabled(false);
@@ -154,7 +158,7 @@ public class SettingsFragment extends PreferenceFragment
         }
     }
 
-    private boolean isDeprecated() {
+    static boolean isDeprecated() {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
     }
 
@@ -189,13 +193,12 @@ public class SettingsFragment extends PreferenceFragment
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
-        boolean adbRunning = "running".equals(SystemProperties.get("init.svc.adbd", Build.UNKNOWN));
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
-        StringBuilder sb = new StringBuilder();
-        if (adbRunning) {
-            sb.append(getString(R.string.brevent_about_developer_adb));
+        if (!AppsDisabledFragment.hasRoot() && AppsDisabledFragment.isAdbRunning()) {
+            preference.setSummary(R.string.brevent_about_developer_adb);
+        } else {
+            preference.setSummary(null);
         }
-        preference.setSummary(sb.toString());
         preference.setOnPreferenceClickListener(this);
         if (BuildConfig.RELEASE) {
             Activity activity = getActivity();
@@ -278,32 +281,29 @@ public class SettingsFragment extends PreferenceFragment
             } else {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
-                } else {
+                } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = null;
+                } else {
+                    summary = getString(R.string.show_donation_summary_not_play);
                 }
             }
         }
-        if (summary != null) {
-            preferenceDonation.setSummary(summary);
-        }
+        preferenceDonation.setSummary(summary);
         int count = total + DecimalUtils.intValue(donation);
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
         }
         if (isDeprecated()) {
-            count += BreventSettings.donateAmount();
+            count += BreventSettings.DONATE_AMOUNT;
         }
-        if (getArguments().getBoolean(IS_PLAY, false)) {
+        if (getArguments().getBoolean(LIKE_PLAY, false)) {
             updatePlayVersion(count);
-        } else if (count < BreventSettings.donateAmount()) {
+        } else if (count < BreventSettings.DONATE_AMOUNT) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-            if ("root".equals(application.getMode())) {
-                showDonate(true);
-            }
         } else {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
@@ -330,7 +330,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setChecked(false);
             preferenceAllowRoot.setEnabled(false);
             preferenceAllowRoot.setChecked(false);
-        } else if (total < BreventSettings.donateAmount()) {
+        } else if (total < BreventSettings.DONATE_AMOUNT) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
@@ -348,11 +348,8 @@ public class SettingsFragment extends PreferenceFragment
         String key = preference.getKey();
         if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
-                BreventApplication application = (BreventApplication) getActivity().getApplication();
-                String installer = application.getInstaller();
-                if (!getArguments().getBoolean(IS_PLAY, false)
-                        || !DonateActivity.PACKAGE_PLAY.equals(installer)) {
-                    showDonate("root".equals(application.getMode()));
+                if (!getArguments().getBoolean(IS_PLAY, false)) {
+                    showDonate(AppsDisabledFragment.hasRoot());
                 }
                 repeat = 0;
             }
@@ -371,7 +368,7 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void onShowDonate() {
-        if (isDeprecated() || !getArguments().getBoolean(IS_PLAY, false)) {
+        if (!getArguments().getBoolean(LIKE_PLAY, false)) {
             preferenceOptimizeVpn.setEnabled(true);
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);

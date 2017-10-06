@@ -106,6 +106,7 @@ public class AppsActivityHandler extends Handler {
                 }
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 UILog.d("retry request status");
                 hasResponse = false;
                 if (activity != null) {
@@ -187,7 +188,7 @@ public class AppsActivityHandler extends Handler {
 
     private boolean checkAdb(BreventActivity activity) {
         String port = SystemProperties.get("service.adb.tcp.port", "");
-        UILog.d("service.adb.tcp.port: " + port);
+        UILog.d("checkAdb service.adb.tcp.port: " + port);
         if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
             final int p = Integer.parseInt(port);
             if (p > 0 && p <= 0xffff) {
@@ -220,6 +221,15 @@ public class AppsActivityHandler extends Handler {
     }
 
     private static File zipLog(Context context, File dir, String date) {
+        String[] names = dir.list();
+        if (names != null) {
+            for (String name : names) {
+                File file = new File(dir, name);
+                if (name.startsWith("logs-v") && file.isFile() && file.delete()) {
+                    UILog.d("delete file " + file.getName());
+                }
+            }
+        }
         try {
             File path = new File(dir, "logs-v" + BuildConfig.VERSION_NAME + "-" + date + ".zip");
             try (
@@ -308,11 +318,16 @@ public class AppsActivityHandler extends Handler {
             UILog.w("Can't send request now");
             return false;
         }
-        if (checkPort(activity) == null) {
-            return false;
-        }
         boolean timeout = false;
         int action = message.getAction();
+        Boolean checked = checkPort(activity);
+        if (checked == null) {
+            return false;
+        } else if (!checked) {
+            onConnectError(activity);
+            onFinal(action, false);
+            return false;
+        }
         try (
                 Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
         ) {
@@ -340,18 +355,9 @@ public class AppsActivityHandler extends Handler {
             }
             return true;
         } catch (ConnectException e) {
-            hasResponse = false;
+            // shouldn't happen
             UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
-            UILog.d("adbing: " + adbing);
-            if (!adbing) {
-                if (adb != null) {
-                    uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_SHELL_COMPLETED, adb)
-                            .sendToTarget();
-                    adb = null;
-                } else if (!((BreventApplication) activity.getApplication()).isRunningAsRoot()) {
-                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
-                }
-            }
+            onConnectError(activity);
         } catch (SocketTimeoutException e) {
             timeout = true;
             hasResponse = false;
@@ -361,11 +367,28 @@ public class AppsActivityHandler extends Handler {
             UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
+        onFinal(action, timeout);
+        return false;
+    }
+
+    private void onConnectError(BreventActivity activity) {
+        hasResponse = false;
+        if (!adbing) {
+            if (adb != null) {
+                uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_SHELL_COMPLETED, adb)
+                        .sendToTarget();
+                adb = null;
+            } else if (!((BreventApplication) activity.getApplication()).isRunningAsRoot()) {
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_BREVENT);
+            }
+        }
+    }
+
+    private void onFinal(int action, boolean timeout) {
         if (action == BreventProtocol.STATUS_REQUEST) {
             sendEmptyMessageDelayed(BreventActivity.MESSAGE_RETRIEVE2,
                     (!timeout && AppsDisabledFragment.isEmulator()) ? TIMEOUT : RETRY);
         }
-        return false;
     }
 
 }

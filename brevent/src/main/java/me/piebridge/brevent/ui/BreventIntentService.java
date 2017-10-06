@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.accounts.NetworkErrorException;
+import android.app.Application;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,9 +10,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Environment;
+import android.os.SystemProperties;
+import android.text.TextUtils;
+import android.util.Base64;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -41,6 +49,18 @@ public class BreventIntentService extends IntentService {
 
     private static final int CHECK_TIMEOUT_MS = 15_000;
 
+    private static final String FIXO = "pbd=`pidof brevent_daemon`; " +
+            "pbs=`pidof brevent_server`; " +
+            "pin=`pidof installd`; " +
+            "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
+            "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
+            "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
+            "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs";
+
+    private static final String ADB_DIRECTORY = "misc/adb";
+
+    private static final String ADB_KEYS_FILE = "adb_keys";
+
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
     private Future<List<String>> future;
@@ -59,7 +79,7 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Notification notification = postNotification(getApplicationContext());
+        Notification notification = postNotification(getApplication());
         UILog.d("show notification");
         startForeground(ID, notification);
         if (!checkPort()) {
@@ -69,17 +89,18 @@ public class BreventIntentService extends IntentService {
         stopForeground(true);
         String action = intent.getAction();
         if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !checkPort()) {
-            showStopped(getApplicationContext());
+            showStopped(getApplication());
         }
     }
 
     private void startBrevent(String action) {
         UILog.d("startBrevent, action: " + action);
         boolean runAsRoot = BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action);
-        List<String> output = startBrevent();
         if (runAsRoot) {
             BreventApplication application = (BreventApplication) getApplication();
-            application.notifyRootCompleted(output);
+            application.notifyRootCompleted(startBreventSync());
+        } else {
+            startBrevent();
         }
     }
 
@@ -107,11 +128,14 @@ public class BreventIntentService extends IntentService {
             try {
                 if (BreventProtocol.checkPortSync()) {
                     UILog.d("checked");
-                    if (!future.isDone()) {
-                        future.cancel(false);
+                    for (int i = 0; i < TIMEOUT; ++i) {
+                        if (future.isDone()) {
+                            return Collections.emptyList();
+                        }
+                        sleep(1);
                     }
-                    sleep(3);
-                    return Collections.singletonList("(Brevent server started)");
+                    future.cancel(false);
+                    return Collections.emptyList();
                 }
             } catch (IOException e) {
                 // do nothing
@@ -137,22 +161,65 @@ public class BreventIntentService extends IntentService {
     private List<String> startBreventSync() {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
-        if (path != null) {
-            UILog.d("startBrevent: $SHELL " + path);
-            List<String> results = Shell.SU.run("$SHELL " + path);
-            if (results == null) {
-                UILog.d("startBrevent: " + path);
-                results = Shell.SU.run(path);
-            }
-            if (results != null) {
-                for (String result : results) {
-                    UILog.d(result);
-                }
-                return results;
-            }
-            UILog.w("(no output)");
+        if (path == null) {
+            return Collections.singletonList("(Cannot make brevent)");
         }
-        return Collections.emptyList();
+        boolean needClose = false;
+        boolean needStop = false;
+        String port = SystemProperties.get("service.adb.tcp.port", "");
+        UILog.d("service.adb.tcp.port: " + port);
+        if (TextUtils.isEmpty(port) || !TextUtils.isDigitsOnly(port)) {
+            needClose = true;
+            needStop = !AppsDisabledFragment.isAdbRunning();
+            Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port 5555",
+                    "setprop ctl.restart adbd"));
+            port = SystemProperties.get("service.adb.tcp.port", "");
+            if (!"5555".equals(port)) {
+                return Collections.singletonList("(Cannot network adb)");
+            }
+            sleep(1);
+        }
+        UILog.d("adb port: " + port);
+        makeSureKeys();
+        String message = "(unknown error)";
+        for (int i = 0; i < TIMEOUT; ++i) {
+            try {
+                message = new SimpleAdb(Integer.parseInt(port)).run();
+                break;
+            } catch (IOException e) {
+                UILog.w("cannot adb(" + e.getMessage() + ")", e);
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                message = sw.toString();
+            }
+            sleep(1);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Shell.SU.run(FIXO);
+        }
+        if (needClose) {
+            String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
+            Shell.SU.run(Arrays.asList("setprop service.adb.tcp.port -1", command));
+        }
+        return Collections.singletonList(message);
+    }
+
+    private boolean makeSureKeys() {
+        File keyFile = getUserKeyFile();
+        if (keyFile == null) {
+            return false;
+        }
+        String keys = Base64.encodeToString(BuildConfig.ADB_K, Base64.NO_WRAP);
+        String command = "file=" + keyFile.getAbsolutePath() + "; " +
+                "keys=" + keys + "; " +
+                "if [ ! -f $file ]; then " +
+                "echo $keys >> $file; chown 1000:2000 $file; chmod 0640 $file; " +
+                "else " +
+                "grep -q $keys $file || echo $keys >> $file; " +
+                "fi";
+        Shell.SU.run(command);
+        return true;
     }
 
     private static Notification.Builder buildNotification(Context context) {
@@ -202,27 +269,30 @@ public class BreventIntentService extends IntentService {
                 .notify(ID, notification);
     }
 
-    public static void startBrevent(Context context, String action) {
-        if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(context, action)) {
-            Intent intent = new Intent(context, BreventIntentService.class);
+    public static void startBrevent(Application application, String action) {
+        if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(application, action)) {
+            Intent intent = new Intent(application, BreventIntentService.class);
             intent.setAction(action);
             if (shouldForeground()) {
                 UILog.d("will startForegroundService");
-                context.startForegroundService(intent);
+                application.startForegroundService(intent);
             } else {
                 UILog.d("will startService");
-                context.startService(intent);
+                application.startService(intent);
             }
         } else {
-            showStopped(context);
+            showStopped(application);
         }
     }
 
-    private static boolean allowRoot(Context context, String action) {
-        boolean allowRoot = PreferencesUtils.getDevicePreferences(context.getApplicationContext())
+    private static boolean allowRoot(Application application, String action) {
+        if (BuildConfig.ADB_K == null) {
+            return false;
+        }
+        boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
                 .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
         if (allowRoot) {
-            allowRoot = BreventApplication.allowRoot(context);
+            allowRoot = BreventApplication.allowRoot(application);
         }
         UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         return allowRoot && AppsDisabledFragment.hasRoot();
@@ -232,16 +302,24 @@ public class BreventIntentService extends IntentService {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
-    public static void checkBrevent(Context context) {
-        BreventApplication application = (BreventApplication) context.getApplicationContext();
+    public static void checkBrevent(BreventApplication application) {
         try {
             if (application.checkPort(true)) {
                 UILog.d("brevent worked");
             } else {
-                showNoBrevent(context, true);
+                showNoBrevent(application, true);
             }
         } catch (NetworkErrorException e) {
             UILog.w("brevent checking timeout");
+        }
+    }
+
+    private File getUserKeyFile() {
+        File adbDir = new File(Environment.getDataDirectory(), ADB_DIRECTORY);
+        if (adbDir.exists()) {
+            return new File(adbDir, ADB_KEYS_FILE);
+        } else {
+            return null;
         }
     }
 

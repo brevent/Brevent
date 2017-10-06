@@ -8,9 +8,9 @@
     <string name="fragment_guide_welcome_message">¿Cómo salir de las aplicaciones?\nPulsar botón \"Volver\" siempre significa que ha finalizado sú trabajo y desea salir.\nPulsar botón \"Inicio\" irá a la pantalla principal y dejará ésta aplicación en segundo plano.\n\nBrevent reconoce si ha abierto o cerrado la aplicación de esta manera, impidiendo que las aplicaciones que están en la lista de Brevent se ejecuten en el tiempo asignado. Las aplicaciones que se despierten maliciosamente siempre se detendrán.</string>
     <string name="fragment_guide_welcome_message2">Nos encanta como está diseñado Android, pero a algunas aplicaciones no. Se quedan en segundo plano y drenan la batería, algunas incluso crean notificaciones inútiles para atraer su atención.\n\nBrevent va a proteger su teléfono de estas aplicaciones. Elimine la aplicación desplazandola, botón \"Recientes\" o presionando \"Volver\" y se forzará detener (Normalmente).\n Pulsando el botón \"Inicio\" se mantendrán en segundo plano hasta completar sus tareas.\nUna vez que el período de tiempo que establezca finalice, las aplicaciones se forzarán detener.</string>
     
-	<string name="fragment_guide_permission">Permisos</string>
+    <string name="fragment_guide_permission">Permisos</string>
     <string name="fragment_guide_permission_message">¿Qué necesita hacer?\nSimplemente un sencillo comando desde el PC.</string>
-    <string name="fragment_guide_permission_message2">Para facilitar su uso, Brevent tiene un modo experimental ROOT, éste le permite iniciar el servidor de Brevent como ROOT directamente. El modo ROOT comparado con el modo normal no tiene más características o mejores resultados de trabajo. En algunos dispositivos no es posible iniciar el servidor de Brevent como ROOT.</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or switch \"USB mode\".</string>
 
     <string name="fragment_guide_security">Seguridad</string>
     <string name="fragment_guide_security_message">Brevent no necesita ROOT ni modificar los archivos del sistema, por lo que no hay residuos después de la desinstalación. Brevent no destruye la integridad de otras aplicaciones, ni tampoco trata con aplicaciones que no estén en la lista de Brevent.</string>
@@ -22,7 +22,7 @@
 
     <string name="fragment_guide_adb">Adb</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge). Es una herramienta de línea de comandos en PC, que le permite comunicarse con un dispositivo Android. Es parte de la plataforma de herramientas, se puede descargar desde aquí:\n\n https://developer.android.com/studio/releases/platform-tools.html \n\n(Mantenga presionada la dirección URL, después seleccione todo el contenido, mantenga presionado y copie).</string>
-    <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3. (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", por favor use \".\\adb\" en lugar de \"adb\" (Por favor, elimine duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En Mac OS X, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\", por favor use \"adb\" con ruta completa en lugar de \"adb\" cuando pegue la línea de comandos. (Por favor, eliminar duplicado \"adb\" cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
+    <string name="fragment_guide_adb_message2">1. Descomprima \"platform-tools-latest-&lt;platform&gt;.zip\" \n\n2. Vaya al directorio: \"platform-tools\" \n\n3. (En Windows). Mantener pulsada la tecla mayúsculas, luego haga clic con el botón derecho, pinchar en \"Abrir ventana de comandos aquí\", por favor use \".\\adb\" en lugar de \"adb\" (Por favor, elimine duplicado \"adb\" cuando pegue en línea de commandos)\n\n3. En macOS, navegar a \"Buscador\", \"Aplicaciones\", \"Utilidades\", abrir \"Terminal\", luego arrastrar \"adb\" hacia \"Terminal\", por favor use \"adb\" con ruta completa en lugar de \"adb\" cuando pegue la línea de comandos. (Por favor, eliminar duplicado \"adb\" cuando pegue la línea de comandos).\n\n4. Necesita usar ADB cada vez que encienda el dispositivo, evite reiniciar o apagar el dispositivo tanto como le sea posible.</string>
     
     <string name="start_brevent">Inicie Brevent</string>
 
@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Habilitado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_run_as_root">Iniciar como ROOT</string>
+    <string name="brevent_service_run_as_root">ADB via ROOT</string>
     <string name="brevent_service_success">Brevent funcionando! Por favor, haga clic en los iconos de las App para hacer Brevent.</string>
 
     <string name="fragment_apps_user">Apps de usuario</string>
@@ -165,7 +165,7 @@
     <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
 
     <string name="show_donation">Mostrar pago</string>
-    <string name="show_donation_summary" />
+    <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store.</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil.</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
@@ -174,17 +174,22 @@
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent.</string>
     <string name="brevent_network_adb">Red ADB</string>
+<<<<<<< HEAD
     <string name="brevent_language">Lenguaje</string>
+=======
+    <string name="brevent_language">Seleccionar lenguaje</string>
+>>>>>>> 7b4b31a5aa0e190fc465d2ec615ab618aaf646d9
     <string name="brevent_language_auto">Automático</string>
 
     <string name="brevent_about">Acerca de:</string>
     <string name="brevent_about_version">Versión</string>
-    <string name="brevent_about_version_mode_normal">Modo normal</string>
-    <string name="brevent_about_version_mode_root">Modo ROOT (experimental)</string>
-    <string name="brevent_about_version_summary">%1$s (%2$s), %3$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s (Edición de comunidad)</string>
-    <string name="brevent_about_version_play">Play</string>
-    <string name="brevent_about_version_like_play">Como Play</string>
+    <string name="brevent_about_version_summary">%1$s, %2$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s, Edición de comunidad</string>
+    <string name="brevent_about_version_extra">\nStandby: %1$s\nForzar detener: %2$s</string>
+    <string name="brevent_about_version_supported">suportado</string>
+    <string name="brevent_about_version_unsupported">no soportado</string>
+    <string name="brevent_about_version_play">Play Store</string>
+    <string name="brevent_about_version_like_play">Igual que Play Store</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_other">Desconocido</string>
@@ -204,13 +209,8 @@
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\n\nPor favor, habilite \"Ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
-    <string name="unsupported_root">No se puede iniciar ROOT en el servidor Brevent.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
-    <string name="unsupported_dumpsys">No se puede ejecutar DUMPSYS. Por favor, deshabilite SELinux e inténtelo de nuevo.</string>
-    <string name="unsupported_network">No se puede verificar servidor Brevent. Por favor, deshabilite SELinux e inténtelo de nuevo.</string>
-    <string name="unsupported_exec">No se puede ejecutar comando. Por favor, cambie a otro SU.</string>
-    <string name="unsupported_tasks">No se pueden obtener tareas recientes, póngase en contacto con el proveedor de su ROM.</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

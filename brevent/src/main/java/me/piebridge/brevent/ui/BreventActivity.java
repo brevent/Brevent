@@ -80,7 +80,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
-import eu.chainfire.libsuperuser.Shell;
 import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -102,6 +101,8 @@ public class BreventActivity extends AbstractActivity
     private static final int DELAY = 1000;
 
     private static final int DELAY5 = 5000;
+
+    private static final int DELAY15 = 15000;
 
     public static final long BEGIN = 1415750400_000L;
 
@@ -248,7 +249,7 @@ public class BreventActivity extends AbstractActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.RELEASE) {
-            Fabric.with(getApplicationContext(), new Answers());
+            Fabric.with(getApplication(), new Answers());
         }
         boolean disabledXposed = !BuildConfig.RELEASE;
         if (BuildConfig.SERVER != null) {
@@ -479,6 +480,10 @@ public class BreventActivity extends AbstractActivity
 
     public void hideDisabled() {
         dismissDialog(FRAGMENT_DISABLED, false);
+    }
+
+    public void hideReport() {
+        dismissDialog(FRAGMENT_REPORT, false);
     }
 
     public void showProgress(int message) {
@@ -1297,6 +1302,7 @@ public class BreventActivity extends AbstractActivity
         if (!hasResponse) {
             doUpdateConfiguration();
             unregisterReceiver();
+            hideReport();
             hasResponse = true;
         }
 
@@ -1313,7 +1319,7 @@ public class BreventActivity extends AbstractActivity
 
     private void showAlipay(String alipaySum) {
         if (alipaySum != null) {
-            BreventServerReceiver.showAlipay(this, alipaySum);
+            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()), alipaySum);
             doUpdateConfiguration();
         }
     }
@@ -1656,7 +1662,10 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         application.setHandler(mHandler);
         showProgress(R.string.process_starting);
-        BreventIntentService.startBrevent(this, BreventIntent.ACTION_RUN_AS_ROOT);
+        mHandler.removeMessages(MESSAGE_RETRIEVE2);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY5);
+        uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_NO_BREVENT, DELAY15);
+        BreventIntentService.startBrevent(getApplication(), BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
@@ -1855,31 +1864,18 @@ public class BreventActivity extends AbstractActivity
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         pw.println(Build.FINGERPRINT);
-        pw.println("SELinux: " + Shell.SU.isSELinuxEnforcing());
         pw.println();
         for (String s : output) {
             pw.println(s);
         }
         String details = sw.toString();
-        int message;
-        if (!details.contains("[command]")) {
-            message = R.string.unsupported_root;
-        } else if (!details.contains("apk")) {
-            message = R.string.unsupported_exec;
-        } else if (details.contains("brevent dumpsys")) {
-            message = R.string.unsupported_dumpsys;
-        } else if (details.contains("brevent network error")) {
-            message = R.string.unsupported_network;
-        } else if (details.contains("brevent no recent tasks")) {
-            message = R.string.unsupported_tasks;
-        } else {
-            message = R.string.unsupported_root;
-        }
         ReportFragment fragment = new ReportFragment();
-        fragment.setDetails(message, details);
+        fragment.setDetails(R.string.unsupported_shell, details);
         fragment.show(getFragmentManager(), FRAGMENT_REPORT);
-        mHandler.removeCallbacksAndMessages(null);
-        uiHandler.removeCallbacksAndMessages(null);
+        if (!output.isEmpty()) {
+            mHandler.removeCallbacksAndMessages(null);
+            uiHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     public void showShellCompleted(String message) {

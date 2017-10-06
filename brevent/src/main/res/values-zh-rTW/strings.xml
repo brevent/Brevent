@@ -9,8 +9,8 @@
     <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務將不再執行；當您按「首頁」按鈕或者「總覽」按鈕或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從最近清單拉掉時，黑域將強制停止它。</string>
 
     <string name="fragment_guide_permission">權限</string>
-    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以偵錯模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">為了方便，黑域有一個實驗性的 ROOT 模式，可以直接「使用 ROOT 開啟」黑域服務，並會開機後自動啟動黑域服務。但 ROOT 模式與正常啟動服務相比沒有更多功能或更好的工作效果，對於部分裝置 ROOT 模式甚至無法啟動黑域服務。</string>
+    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「偵錯模式」執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
+    <string name="fragment_guide_permission_message2">「偵錯模式」權限很高，Android O 以下裝置重啟就失效；在 Android O 及以上則更嚴格，關閉「USB 偵錯」或切換「USB 模式」就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系統檔案，卸載後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
@@ -23,7 +23,7 @@
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「.\\adb」\n\n3.（Mac OS X）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，即可執行「.\\adb」\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="brevent_service_start">請開啟黑域服務（%s）</string>
     <string name="brevent_service_no_response">黑域服務沒有響應（%s）</string>
@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_run_as_root">使用 ROOT 開啟</string>
+    <string name="brevent_service_run_as_root">ROOT 開啟 ADB</string>
     <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>
@@ -159,11 +159,11 @@
     <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
     <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔（O 及以上需要 4 二向箔）</string>
+    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔</string>
     <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
 
     <string name="show_donation">顯示支付</string>
-    <string name="show_donation_summary" />
+    <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
@@ -177,10 +177,11 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
-    <string name="brevent_about_version_mode_normal">普通模式</string>
-    <string name="brevent_about_version_mode_root">ROOT 模式（實驗性）</string>
-    <string name="brevent_about_version_summary">%1$s（%2$s），%3$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s（社區版）</string>
+    <string name="brevent_about_version_summary">%1$s，%2$s</string>
+    <string name="brevent_about_version_summary_debug">%1$s，社區版</string>
+    <string name="brevent_about_version_extra">\n待機：%1$s\n停止狀態：%2$s</string>
+    <string name="brevent_about_version_supported">支持</string>
+    <string name="brevent_about_version_unsupported">不支持</string>
     <string name="brevent_about_version_play">Play 版</string>
     <string name="brevent_about_version_like_play">同 Play 版</string>
     <string name="brevent_about_version_meizu">魅族版</string>
@@ -202,13 +203,8 @@
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_disable_root">成功使用 ROOT 啟動黑域服務，請在設定中啟用「允許 ROOT 執行」以自動更新及開機自啟黑域服務。</string>
-    <string name="unsupported_root">無法使用 ROOT 開啟黑域服務。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆或網路設定。部分 ROM 需要關閉省電模式。</string>
-    <string name="unsupported_dumpsys">無法執行 dumpsys，請禁用 SELinux，然后再試。</string>
-    <string name="unsupported_network">無法驗證黑域服務，請禁用 SELinux，然后再試。</string>
-    <string name="unsupported_exec">無法執行指令，請試著更換 SU。</string>
-    <string name="unsupported_tasks">無法取得最近任務，請考慮更換 ROM。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>

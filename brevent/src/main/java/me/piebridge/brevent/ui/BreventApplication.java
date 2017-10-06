@@ -212,7 +212,7 @@ public class BreventApplication extends Application {
             String mode = getMode();
             UILog.d("days: " + days + ", living: " + living);
             try {
-                if ("root".equals(mode)) {
+                if (AppsDisabledFragment.hasRoot()) {
                     Answers.getInstance().logInvite(new InviteEvent()
                             .putMethod(mode)
                             .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
@@ -313,6 +313,9 @@ public class BreventApplication extends Application {
     }
 
     public boolean isUnsafe() {
+        if (AppsDisabledFragment.isEmulator()) {
+            return true;
+        }
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
@@ -382,8 +385,10 @@ public class BreventApplication extends Application {
             double d = Double.longBitsToDouble(buffer.getLong());
             if (v == 1) {
                 return d / 5;
-            } else {
+            } else if (v == 2) {
                 return d / 6.85;
+            } else {
+                return d / 6.5;
             }
         }
     }
@@ -430,9 +435,9 @@ public class BreventApplication extends Application {
     }
 
     public static boolean allowRoot(Context context) {
-        if (BuildConfig.RELEASE) {
+        if (BuildConfig.RELEASE && !SettingsFragment.isDeprecated()) {
             int count = getPlayDonation(context) + DecimalUtils.intValue(getDonation(context));
-            if (count < BreventSettings.donateAmount()) {
+            if (count < BreventSettings.DONATE_AMOUNT) {
                 PreferencesUtils.getPreferences(context).edit()
                         .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false).apply();
                 return false;

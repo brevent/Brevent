@@ -20,7 +20,6 @@ import java.io.File;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 
 /**
  * Created by thom on 2017/2/5.
@@ -66,7 +65,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         if (activity.canFetchLogs()) {
             builder.setNegativeButton(R.string.menu_logs, this);
         }
-        if (hasRoot() && (!usbConnected || allowRoot(activity))) {
+        if (hasRoot() && BuildConfig.ADB_K != null) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
         } else if (usbConnected && adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_copy_path, this);
@@ -88,12 +87,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         IntentFilter filter = new IntentFilter(HideApiOverride.ACTION_USB_STATE);
         Intent intent = context.registerReceiver(null, filter);
         return intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
-    }
-
-    private static boolean allowRoot(Context context) {
-        return PreferencesUtils.getPreferences(context)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false)
-                && BreventApplication.allowRoot(context);
     }
 
     private static String getBootstrapCommandLine(BreventActivity activity, boolean usb) {
@@ -128,7 +121,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean usbConnected = isUsbConnected(activity);
-            if (hasRoot() && (!usbConnected || allowRoot(activity))) {
+            if (hasRoot() && BuildConfig.ADB_K != null) {
                 activity.runAsRoot();
                 dismiss();
             } else if (usbConnected && isAdbRunning()) {
