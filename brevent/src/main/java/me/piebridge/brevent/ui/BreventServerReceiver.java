@@ -60,8 +60,10 @@ public class BreventServerReceiver extends BroadcastReceiver {
                     .edit().remove("alipay1").apply();
         }
         String format = DecimalUtils.format(donation);
-        String message = application.getResources().getString(R.string.toast_alipay, format);
-        Toast.makeText(application, message, Toast.LENGTH_LONG).show();
+        if (!"0".equals(format)) {
+            String message = application.getResources().getString(R.string.toast_alipay, format);
+            Toast.makeText(application, message, Toast.LENGTH_LONG).show();
+        }
     }
 
     private CharSequence getLabel(Context context, String packageName) {
