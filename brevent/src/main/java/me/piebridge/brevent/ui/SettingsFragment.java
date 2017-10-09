@@ -135,8 +135,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
         if (!AppsDisabledFragment.hasRoot()) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_experimental"))
-                    .removePreference(preferenceAllowRoot);
+            preferenceCategoryExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {
             if (!getArguments().getBoolean(IS_PLAY, false)) {
