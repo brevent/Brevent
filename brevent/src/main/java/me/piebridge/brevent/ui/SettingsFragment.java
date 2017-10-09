@@ -37,6 +37,8 @@ public class SettingsFragment extends PreferenceFragment
 
     public static final String SHOW_DONATION = "show_donation";
 
+    public static final String SHOW_EXPERIMENTAL = "show_experimental";
+
     public static final String SHOW_ALL_APPS = "show_all_apps";
     public static final boolean DEFAULT_SHOW_ALL_APPS = false;
 
@@ -53,6 +55,7 @@ public class SettingsFragment extends PreferenceFragment
     private SwitchPreference preferenceOptimizeAudio;
     private SwitchPreference preferenceAllowRoot;
     private SwitchPreference preferenceDonation;
+    private PreferenceCategory preferenceCategoryExperimental;
 
     private Preference preferenceStandbyTimeout;
 
@@ -89,10 +92,15 @@ public class SettingsFragment extends PreferenceFragment
 
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
 
+        preferenceCategoryExperimental = (PreferenceCategory) preferenceScreen
+                .findPreference("brevent_experimental");
+
         preferenceStandbyTimeout = preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
 
         preferenceScreen.findPreference("brevent_language")
+                .setOnPreferenceChangeListener(this);
+        preferenceScreen.findPreference(SHOW_EXPERIMENTAL)
                 .setOnPreferenceChangeListener(this);
 
         BreventApplication application = (BreventApplication) getActivity().getApplication();
@@ -116,6 +124,9 @@ public class SettingsFragment extends PreferenceFragment
             }
             preferenceScreen.findPreference("network_adb")
                     .setSummary(getFingerPrint(BuildConfig.ADB_K));
+            if (!getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_EXPERIMENTAL, false)) {
+                preferenceScreen.removePreference(preferenceCategoryExperimental);
+            }
         } else {
             preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
@@ -429,6 +440,16 @@ public class SettingsFragment extends PreferenceFragment
             }
             if (LocaleUtils.setOverrideLanguage(activity, language)) {
                 activity.recreate();
+            }
+        } else if (SHOW_EXPERIMENTAL.equals(preference.getKey())) {
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            if (Boolean.valueOf(String.valueOf(newValue))) {
+                Preference breventAbout = preferenceScreen.findPreference("brevent_about");
+                preferenceScreen.removePreference(breventAbout);
+                preferenceScreen.addPreference(preferenceCategoryExperimental);
+                preferenceScreen.addPreference(breventAbout);
+            } else {
+                preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
         }
         return true;

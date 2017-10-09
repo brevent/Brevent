@@ -173,6 +173,8 @@
     <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil in Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil in Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
+    <string name="show_experimental">Show experimental features</string>
+    <string name="show_experimental_label">Experimental features are unstable and require payment</string>
     <string name="brevent_network_adb">Network ADB</string>
     <string name="brevent_language">Language</string>
     <string name="brevent_language_auto">Auto</string>
@@ -204,7 +206,7 @@
     <string name="unsupported_no_event">No event log. Please do not disable \"USB debugging\", and modify the \"Logger buffer sizes\" in \"Developer options\" accordingly.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
-    <string name="unsupported_disable_root">Brevent server started as ROOT successfully. Please enable \"Run as ROOT\" in settings to auto-upgrade Brevent server and start on boot.</string>
+    <string name="unsupported_root">Run as ROOT is very experimental, please switch to network adb.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
 
@@ -225,7 +227,6 @@
     <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
     <string name="root_donate_alipay">Launch Alipay</string>
     <string name="root_donate_email">Email</string>
-    <string name="root_donate_later">Not now</string>
     <string name="root_donate_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="root_donate_email_text">%s\n(Please attach screenshots of payment details.)</string>
 

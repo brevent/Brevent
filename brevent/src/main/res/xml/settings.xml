@@ -67,6 +67,36 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="brevent"
+        android:title="@string/brevent">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_donation"
+            android:title="@string/show_donation" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_experimental"
+            android:summary="@string/show_experimental_label"
+            android:title="@string/show_experimental" />
+
+        <Preference
+            android:defaultValue="true"
+            android:key="network_adb"
+            android:title="@string/brevent_network_adb" />
+
+        <ListPreference
+            android:defaultValue="auto"
+            android:entries="@array/brevent_language_entries"
+            android:entryValues="@array/brevent_language_values"
+            android:key="brevent_language"
+            android:summary="%s"
+            android:title="@string/brevent_language" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="brevent_experimental"
         android:title="@string/brevent_experimental">
 
@@ -93,30 +123,6 @@
             android:key="brevent_allow_root"
             android:summary="@string/brevent_allow_root_label"
             android:title="@string/brevent_allow_root" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="brevent"
-        android:title="@string/brevent">
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="show_donation"
-            android:title="@string/show_donation" />
-
-        <Preference
-            android:defaultValue="true"
-            android:key="network_adb"
-            android:title="@string/brevent_network_adb" />
-
-        <ListPreference
-            android:defaultValue="auto"
-            android:entries="@array/brevent_language_entries"
-            android:entryValues="@array/brevent_language_values"
-            android:key="brevent_language"
-            android:summary="%s"
-            android:title="@string/brevent_language" />
 
     </PreferenceCategory>
 

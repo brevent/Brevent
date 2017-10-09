@@ -25,9 +25,8 @@ public class AppsRootFragment extends AbstractDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
-        builder.setMessage(R.string.unsupported_disable_root);
+        builder.setMessage(R.string.unsupported_root);
         builder.setPositiveButton(android.R.string.ok, this);
-        builder.setNeutralButton(R.string.root_donate_later, this);
         return builder.create();
     }
 
@@ -35,8 +34,6 @@ public class AppsRootFragment extends AbstractDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            activity.confirmSettings();
-        } else if (DialogInterface.BUTTON_NEUTRAL == which) {
             activity.confirm();
             dismiss();
         }

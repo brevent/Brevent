@@ -173,6 +173,8 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent.</string>
+    <string name="show_experimental">Show experimental features</string>
+    <string name="show_experimental_label">Experimental features are unstable and require payment</string>
     <string name="brevent_network_adb">Red ADB</string>
     <string name="brevent_language">Seleccionar lenguaje</string>
     <string name="brevent_language_auto">Automático</string>
@@ -204,7 +206,7 @@
     <string name="unsupported_no_event">No hay eventos Log. Inténtelo de nuevo más tarde o reinicie.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_disable_root">Servidor Brevent iniciado correctamente como ROOT.\n\nPor favor, habilite \"Ejecutar como ROOT\", en Ajustes/Características experimentales, para iniciar el servidor Brevent en el arranque.</string>
+    <string name="unsupported_root">Run as ROOT is very experimental, please switch to network adb.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
 
@@ -225,7 +227,6 @@
     <string name="root_donate_verify">Si el pago se ha verificado, la versión que no sea de Play Store puede recibir actualizaciones de Play Store.\n\nSi ha pagado, desactive Xposed, abra Alipay, haga click en registros, debe reconocerlos automáticamente.\n\nSi no puede ser reconocido o no ha pagado por Alipay, por favor, envíenos un email con capturas de los detalles del pago. Los email serán contestados normalmente en 24 horas, por favor, compruebe su pago si usted puede.</string>
     <string name="root_donate_alipay">Abrir Alipay</string>
     <string name="root_donate_email">Email</string>
-    <string name="root_donate_later">No ahora</string>
     <string name="root_donate_email_subject">Pago verificado %1$s (%2$s)</string>
     <string name="root_donate_email_text">%s\n(Por favor, añada capturas o detalles del pago.)</string>
 
