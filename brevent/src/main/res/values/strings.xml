@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
-    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or switch \"USB mode\".</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or switch \"USB Configuration\".</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need ROOT or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
