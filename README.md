@@ -44,9 +44,9 @@ Brevent, black prevent, może umieścić aplikacje w trybie czuwania (od systemu
 
 ## Licencja 
 
-Kod: WTFPL 
-Logo: Komercyjne 
-Interfejs: z Android Studio, Licencja Apache 2.0 
+- Kod: WTFPL 
+- Logo: Komercyjne 
+- Interfejs: z Android Studio, Licencja Apache 2.0 
 
 ## Jak zbudować 
 
