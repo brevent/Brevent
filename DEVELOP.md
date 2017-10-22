@@ -1,5 +1,3 @@
-## English 
-
 There is no source for `brevent-server`.
 
 So, if you build your own `Brevent`, it won't work at all.
