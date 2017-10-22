@@ -40,6 +40,8 @@ import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
 
+    private static boolean safe;
+
     public static final int ID = 59526;
 
     public static final int ID2 = 59527;
@@ -84,6 +86,10 @@ public class BreventIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (!safe) {
+            stopSelf();
+            return;
+        }
         Notification notification = postNotification(getApplication());
         UILog.d("show notification");
         startForeground(ID, notification);
@@ -96,6 +102,7 @@ public class BreventIntentService extends IntentService {
         if (Intent.ACTION_BOOT_COMPLETED.equals(action) && !checkPort()) {
             showStopped(getApplication());
         }
+        safe = false;
     }
 
     private void startBrevent(String action) {
@@ -260,10 +267,13 @@ public class BreventIntentService extends IntentService {
         return results;
     }
 
+    static NotificationManager getNotificationManager(Context context) {
+        return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
     private static Notification.Builder buildNotification(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager nm = (NotificationManager) context.getSystemService(
-                    Context.NOTIFICATION_SERVICE);
+            NotificationManager nm = getNotificationManager(context);
             NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
             if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_LOW) {
                 nm.deleteNotificationChannel(CHANNEL_ID);
@@ -303,11 +313,11 @@ public class BreventIntentService extends IntentService {
         builder.setContentIntent(PendingIntent.getActivity(context, 0,
                 new Intent(context, BreventActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
         Notification notification = builder.build();
-        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                .notify(ID3, notification);
+        getNotificationManager(context).notify(ID3, notification);
     }
 
     public static void startBrevent(Application application, String action) {
+        safe = true;
         if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(application, action)) {
             Intent intent = new Intent(application, BreventIntentService.class);
             intent.setAction(action);
@@ -379,8 +389,7 @@ public class BreventIntentService extends IntentService {
                     PendingIntent.FLAG_UPDATE_CURRENT));
         }
         Notification notification = builder.build();
-        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                .notify(ID2, notification);
+        getNotificationManager(context).notify(ID2, notification);
         if (exit) {
             BreventActivity.cancelAlarm(context);
         }

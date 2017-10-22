@@ -45,4 +45,7 @@ public interface IActivityManager {
     List<ActivityManager.RunningServiceInfo> getServices(int maxNum, int flags)
             throws RemoteException;
 
+    int stopService(IApplicationThread caller, Intent service, String resolvedType, int userId)
+            throws RemoteException;
+
 }
