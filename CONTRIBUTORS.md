@@ -11,6 +11,9 @@
 ## Spanish (es)
 - `Samuel` (via email)
 
+## Polish (pl)
+- `bla-ke`: Daria Szatan
+
 ## Simplified Chinese (zh-rCN)
 - WanderMax (only punctuation)
 - `南宫雪珊`: vvb2060

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="brevent_about_developer_adb">Nie wyłączaj \"Debugowania USB\" oraz nie zmieniaj \"Konfiguracji USB\"</string>
+
+</resources>

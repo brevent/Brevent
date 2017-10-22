@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="donation">Nie wahaj się zapłacić za pełną wersję, jeżeli lubisz Brevent</string>
+    <string name="donation_wechat_guide">1. Otwórz Wechat, przejdź do \"Scan QR Code\"\n\n2. Rozwiń menu\n\n3. Kliknij \"Choose QR Code from Album\"\n\n4. Wybierz Kod QR Brevent</string>
+    <string name="donation_wechat_scan">Otwórz \"Wechat Scan QR Code\"</string>
+    <string name="donation_wechat_permission">Zapłata przez Wechat wymaga uprawnień Pamięci, aby zapisać Kod QR aplikacji do Albumu</string>
+    <string name="donation_unsupported">Proszę zainstalować Aliplay</string>
+    <string name="donation_unsupported_wechat">Proszę zainstalować Aliplay lub Wechat</string>
+    <string name="donation_unsupported_unsafe">Niebezpiecznie, by zapłacić</string>
+    <string name="donation_play_unavailable">Wbudowane fakturowanie Play nie jest dostępne</string>
+    <string name="donation_play_checking">Sprawdzanie wbudowanego fakturowania Play…</string>
+
+</resources>
