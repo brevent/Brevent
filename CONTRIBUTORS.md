@@ -6,13 +6,13 @@
 ## English
 - `DKOUT`: Limber Law
 - `Aviraxp`: Wang Han
-- `liyufan`: Li Yufan 
+- `liyufan`: Li Yufan
 
 ## Spanish (es)
 - `Samuel` (via email)
 
 ## Polish (pl)
-- `bla_ke`: Daria Szatan
+- `bla-ke`: Daria Szatan
 
 ## Simplified Chinese (zh-rCN)
 - WanderMax (only punctuation)
