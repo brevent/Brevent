@@ -160,9 +160,9 @@
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
     <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener.\n\nRequiere donar un total de 2 Brefoil.</string>
     <string name="brevent_optimize_audio_label_debug">Las aplicaciones de reproducción de música no se mantienen en espera o se fuerza detener.</string>
-    <string name="brevent_allow_root">Ejecutar como ROOT</string>
-    <string name="brevent_allow_root_label">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de usar \"Depuración por USB\".\n\nRequiere donar un total de 3 Brefoil.</string>
-    <string name="brevent_allow_root_label_debug">Cuando está marcado, permite que se inicie el servidor de Brevent en modo ROOT sin necesidad de \"Depuración por USB\".</string>
+    <string name="brevent_allow_root">AppOps and SU</string>
+    <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
 
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_summary_not_play" />
@@ -183,7 +183,7 @@
     <string name="brevent_about_version">Versión</string>
     <string name="brevent_about_version_summary">%1$s, %2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s, Edición de comunidad</string>
-    <string name="brevent_about_version_extra">\nStandby: %1$s\nForzar detener: %2$s</string>
+    <string name="brevent_about_version_extra">\nStandby: %1$s\nForzar detener: %2$s\nAppOps: %3$s</string>
     <string name="brevent_about_version_supported">suportado</string>
     <string name="brevent_about_version_unsupported">no soportado</string>
     <string name="brevent_about_version_play">Play Store</string>

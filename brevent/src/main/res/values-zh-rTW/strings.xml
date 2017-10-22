@@ -158,9 +158,9 @@
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
-    <string name="brevent_allow_root">允許 ROOT 執行</string>
-    <string name="brevent_allow_root_label">允許 ROOT 過的裝置直接開啟黑域服務\n\n總共需要 3 二向箔</string>
-    <string name="brevent_allow_root_label_debug">允許 ROOT 過的裝置直接開啟黑域服務</string>
+    <string name="brevent_allow_root">应用权限与 SU</string>
+    <string name="brevent_allow_root_label">非常危险，不要开启\n\n总共需要 3 二向箔</string>
+    <string name="brevent_allow_root_label_debug">非常危险，不要开启</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_not_play" />
@@ -181,7 +181,7 @@
     <string name="brevent_about_version">版本</string>
     <string name="brevent_about_version_summary">%1$s，%2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s，社區版</string>
-    <string name="brevent_about_version_extra">\n待機：%1$s\n停止狀態：%2$s</string>
+    <string name="brevent_about_version_extra">\n待機：%1$s\n停止狀態：%2$s\n應用權限：%3$s</string>
     <string name="brevent_about_version_supported">支持</string>
     <string name="brevent_about_version_unsupported">不支持</string>
     <string name="brevent_about_version_play">Play 版</string>

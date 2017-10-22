@@ -121,6 +121,22 @@
         <item>繁體中文（臺灣）</item>
     </string-array>
 
+    <string-array name="ops_modes">
+        <item>@string/ops_mode_allow</item>
+        <item>@string/ops_mode_ignore</item>
+        <item>@string/ops_mode_deny</item>
+        <item>@string/ops_mode_default</item>
+        <item>@string/ops_mode_ask</item>
+    </string-array>
+
+    <string-array name="ops_sort_method">
+        <item>@string/ops_menu_sort_by_time</item>
+        <item>@string/ops_menu_sort_by_name</item>
+        <item>@string/ops_menu_sort_by_group</item>
+        <item>@string/ops_menu_sort_by_op</item>
+        <item>@string/ops_menu_sort_by_mode</item>
+    </string-array>
+
     <string name="size" translatable="false">%d</string>
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>

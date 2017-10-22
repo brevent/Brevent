@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="group_permission">（%1$s）%2$s</string>
+
+    <string name="ops_mode_allow">允许</string>
+    <string name="ops_mode_ignore">忽略</string>
+    <string name="ops_mode_deny">拒绝</string>
+    <string name="ops_mode_default">默认</string>
+    <string name="ops_mode_ask">询问</string>
+    <string name="ops_mode_unknown">未知</string>
+
+    <string name="context_menu_appops">应用权限</string>
+
+    <string name="ops_time_allow">%s允许</string>
+    <string name="ops_time_reject">%s拒绝</string>
+
+    <string name="ops_menu_allow">@string/ops_mode_allow</string>
+    <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
+    <string name="ops_menu_reset">还原</string>
+    <string name="ops_menu_sort_by_time">时间</string>
+    <string name="ops_menu_sort_by_name">名称</string>
+    <string name="ops_menu_sort_by_group">分组</string>
+    <string name="ops_menu_sort_by_op">代码</string>
+    <string name="ops_menu_sort_by_mode">状态</string>
+
+    <string name="action_select_all">全选</string>
+
+</resources>

@@ -160,9 +160,9 @@
     <string name="brevent_optimize_audio">Optimize Music Player</string>
     <string name="brevent_optimize_audio_label">Playing music apps won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio_label_debug">Playing music apps won\'t be standby nor force-stopped</string>
-    <string name="brevent_allow_root">Run as ROOT</string>
-    <string name="brevent_allow_root_label">Allow ROOT to start Brevent server\n\nRequires 3 Brefoil in total</string>
-    <string name="brevent_allow_root_label_debug">Allow ROOT to start Brevent server without \"USB Debugging\"</string>
+    <string name="brevent_allow_root">AppOps and SU</string>
+    <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
 
     <string name="show_donation">Show payment</string>
     <string name="show_donation_summary_not_play" />
@@ -183,7 +183,7 @@
     <string name="brevent_about_version">Version</string>
     <string name="brevent_about_version_summary">%1$s, %2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s, Community Edition</string>
-    <string name="brevent_about_version_extra">\nStandby: %1$s\nStopped state：%2$s</string>
+    <string name="brevent_about_version_extra">\nStandby: %1$s\nStopped state：%2$s\nAppOps: %3$s</string>
     <string name="brevent_about_version_supported">supported</string>
     <string name="brevent_about_version_unsupported">unsupported</string>
     <string name="brevent_about_version_play">Play</string>
