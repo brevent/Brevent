@@ -37,25 +37,3 @@ Currently, default name and package name is `Nrevent`, means `Not Brevent`.
 但是，如果您改动代码，请换个名字，当然也不能叫黒域；同时，2.1.6 以后，包名也须修改。
 
 当前，默认名字为“白域”，包名为“nrevent”（参见英文）。
-
-# Polski 
-
-Brevent, black prevent, może umieścić aplikacje w trybie czuwania (od systemu Android 6.0) albo wymusić zatrzymanie bez ROOT-a, zapobiegając ich zbyt długiemu działaniu w tle. 
-
-## Licencja 
-
-- Kod: WTFPL 
-- Logo: Komercyjne 
-- Interfejs: z Android Studio, Licencja Apache 2.0 
-
-## Jak zbudować 
-
-Spójrz na [DEVELOP.md](DEVELOP.md). Nawiązując do licencji kodu WTFPL, możesz go swobodnie modyfikować bez żadnych obaw. 
-
-Zmień jednak nazwę pakietu, jeżeli zmodyfikujesz kod. 
-
-Od wersji 2.1.5 nie możesz nazwać zmodyfikowanej aplikacji jako Brevent. 
-
-Od wersji 2.1.6 nie możesz użyć nazwy pakietu zmodyfikowanej aplikacji Brevent. 
-
-Obecnie domyślną nazwą aplikacji i nazwą pakietu jest `Nrevent`, co oznacza `Not Brevent` (Nie Brevent).
