@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or switch \"USB Configuration\".</string>
 
     <string name="fragment_guide_security">Seguridad</string>
-    <string name="fragment_guide_security_message">Brevent no necesita ROOT ni modificar los archivos del sistema, por lo que no hay residuos después de la desinstalación. Brevent no destruye la integridad de otras aplicaciones, ni tampoco trata con aplicaciones que no estén en la lista de Brevent.</string>
+    <string name="fragment_guide_security_message">Brevent no necesita Root ni modificar los archivos del sistema, por lo que no hay residuos después de la desinstalación. Brevent no destruye la integridad de otras aplicaciones, ni tampoco trata con aplicaciones que no estén en la lista de Brevent.</string>
     <string name="fragment_guide_security_message2">Brevent utiliza un montón de APIs ocultos de Android. Algunas ROM personalizadas pueden modificar estas API, por lo que pueden existir algunos problemas en su uso. Por lo tanto, no se recomienda utilizar Brevent directamente en sistemas no personales.</string>
 
     <string name="fragment_guide_enjoy">Disfruta!</string>
@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Habilitado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_run_as_root">ROOT</string>
+    <string name="brevent_service_run_as_root">Root</string>
     <string name="brevent_service_success">Brevent funcionando! Por favor, haga clic en los iconos de las App para hacer Brevent.</string>
 
     <string name="fragment_apps_user">Apps de usuario</string>
@@ -160,7 +160,7 @@
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
     <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener.\n\nRequiere donar un total de 2 Brefoil.</string>
     <string name="brevent_optimize_audio_label_debug">Las aplicaciones de reproducción de música no se mantienen en espera o se fuerza detener.</string>
-    <string name="brevent_allow_root">AppOps and SU</string>
+    <string name="brevent_allow_root">AppOps and Root</string>
     <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
     <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
 
@@ -206,7 +206,7 @@
     <string name="unsupported_no_event">No hay eventos Log. Inténtelo de nuevo más tarde o reinicie.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_root">Run as ROOT is very experimental, please switch to network adb.</string>
+    <string name="unsupported_root">Running as Root is very experimental, please switch to network adb.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
 

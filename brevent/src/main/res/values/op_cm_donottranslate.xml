@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="op_wifi_change" translatable="false">@string/app_ops_summaries_toggle_wifi</string>
+    <string name="op_bluetooth_change" translatable="false">@string/app_ops_summaries_toggle_bluetooth</string>
+    <string name="op_boot_completed" translatable="false">@string/app_ops_summaries_start_at_boot</string>
+    <string name="op_nfc_change" translatable="false">@string/app_ops_summaries_toggle_nfc</string>
+    <string name="op_data_connect_change" translatable="false">@string/app_ops_summaries_toggle_mobile_data</string>
+    <string name="op_su" translatable="false">@string/app_ops_summaries_superuser</string>
+
+</resources>

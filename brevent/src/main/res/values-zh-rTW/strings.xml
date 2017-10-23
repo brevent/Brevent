@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">「偵錯模式」權限很高，Android O 以下裝置重啟就失效；在 Android O 及以上則更嚴格，關閉「USB 偵錯」或切換「USB 設定」就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑域不需要 ROOT 或修改系統檔案，解除安裝後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
+    <string name="fragment_guide_security_message">黑域不需要 Root 或修改系統檔案，解除安裝後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
     <string name="fragment_guide_security_message2">黑域使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑域可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑域，也不要黑域工作應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_run_as_root">ROOT</string>
+    <string name="brevent_service_run_as_root">Root</string>
     <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
 
     <string name="fragment_apps_user">使用者</string>
@@ -158,7 +158,7 @@
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
-    <string name="brevent_allow_root">应用权限与 SU</string>
+    <string name="brevent_allow_root">应用权限与 Root</string>
     <string name="brevent_allow_root_label">非常危险，不要开启\n\n总共需要 3 二向箔</string>
     <string name="brevent_allow_root_label_debug">非常危险，不要开启</string>
 
@@ -204,7 +204,7 @@
     <string name="unsupported_no_event">黑域服務已開啟，但是沒有事件日誌。\n\n請不要關閉「USB偵錯」，並適當調整「開發人員選項」中的「紀錄器緩衝區空間」，或其它類似選項。部分設備需要至工程模式開啟日誌。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
-    <string name="unsupported_root">ROOT 開啟黑域服務非常實驗性，請考慮使用「網路偵錯」。</string>
+    <string name="unsupported_root">Root 開啟黑域服務非常實驗性，請考慮使用「網路偵錯」。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
 
