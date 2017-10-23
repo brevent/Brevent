@@ -111,7 +111,6 @@ public class SettingsFragment extends PreferenceFragment
         if (!application.supportUpgrade()) {
             SwitchPreference preferenceAutoUpdate = (SwitchPreference) preferenceScreen
                     .findPreference(BreventConfiguration.BREVENT_AUTO_UPDATE);
-            preferenceAutoUpdate.setChecked(false);
             preferenceAutoUpdate.setEnabled(false);
         }
 
