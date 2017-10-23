@@ -225,8 +225,6 @@ public class BreventActivity extends AbstractActivity
 
     private String mDialer;
 
-    private volatile boolean stopped;
-
     private volatile boolean hasResponse;
 
     private int mInstalledCount;
@@ -579,7 +577,6 @@ public class BreventActivity extends AbstractActivity
 
     @Override
     protected void onStop() {
-        stopped = true;
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             uiHandler.removeCallbacksAndMessages(null);
@@ -597,7 +594,6 @@ public class BreventActivity extends AbstractActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        stopped = false;
         force = true;
         if (mHandler != null) {
             if (((BreventApplication) getApplication()).isRunningAsRoot()) {
@@ -641,12 +637,6 @@ public class BreventActivity extends AbstractActivity
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(getAlarmPendingIntent(context));
         UILog.d("cancelAlarm");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        stopped = true;
-        super.onSaveInstanceState(outState);
     }
 
     private void dismissDialog(String tag, boolean allowStateLoss) {
@@ -924,7 +914,7 @@ public class BreventActivity extends AbstractActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS) {
             UILog.d("onActivityResult");
-            if (stopped) {
+            if (isStopped()) {
                 shouldUpdateConfiguration = true;
             } else {
                 updateConfiguration(false);
@@ -1719,10 +1709,6 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public boolean isStopped() {
-        return stopped;
-    }
-
     private void unregisterReceiver() {
         if (mConnectedReceiver != null) {
             unregisterReceiver(mConnectedReceiver);
@@ -2003,6 +1989,11 @@ public class BreventActivity extends AbstractActivity
 
     public boolean hasStats() {
         return mStats != null && !mStats.isEmpty();
+    }
+
+    public boolean hasOps() {
+        return getPackageManager().checkPermission("android.permission.GET_APP_OPS_STATS",
+                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void updateSort() {

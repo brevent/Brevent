@@ -75,6 +75,10 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                         R.string.context_menu_set_priority);
             }
         }
+        if (activity.hasOps()) {
+            menu.add(Menu.NONE, R.string.context_menu_appops, Menu.NONE,
+                    R.string.context_menu_appops);
+        }
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
             menu.getItem(i).setOnMenuItemClickListener(this);
@@ -112,6 +116,11 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 break;
             case R.string.context_menu_unset_priority:
                 activity.updatePriority(packageName, false);
+                break;
+            case R.string.context_menu_appops:
+                Intent i = new Intent(activity, BreventOps.class);
+                i.putExtra(Intent.EXTRA_PACKAGE_NAME, packageName);
+                activity.startActivity(i);
                 break;
             default:
                 break;

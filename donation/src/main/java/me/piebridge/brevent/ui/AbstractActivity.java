@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 
 import java.util.Locale;
@@ -12,6 +13,8 @@ import java.util.Locale;
 public abstract class AbstractActivity extends Activity {
 
     private Locale locale;
+
+    private volatile boolean stopped;
 
     @Override
     @CallSuper
@@ -28,5 +31,28 @@ public abstract class AbstractActivity extends Activity {
             recreate();
         }
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        stopped = false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        stopped = true;
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onStop() {
+        stopped = true;
+        super.onStop();
+    }
+
+    public boolean isStopped() {
+        return stopped;
+    }
+
 
 }

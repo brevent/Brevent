@@ -133,7 +133,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
             preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
         }
-        if (!AppsDisabledFragment.hasRoot()) {
+        if (!AppsDisabledFragment.hasRoot() && !application.supportAppops()) {
             preferenceCategoryExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {

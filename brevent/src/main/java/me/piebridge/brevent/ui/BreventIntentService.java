@@ -338,7 +338,7 @@ public class BreventIntentService extends IntentService {
             return false;
         }
         boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, true);
+                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
         if (allowRoot) {
             allowRoot = BreventApplication.allowRoot(application);
         }

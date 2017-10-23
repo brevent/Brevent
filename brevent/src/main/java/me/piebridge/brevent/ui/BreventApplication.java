@@ -70,6 +70,8 @@ public class BreventApplication extends Application {
 
     private boolean mSupportUpgrade = true;
 
+    private boolean mSupportAppops = false;
+
     private boolean copied;
 
     long mDaemonTime;
@@ -183,6 +185,14 @@ public class BreventApplication extends Application {
         return mSupportUpgrade;
     }
 
+    private void setSupportAppops(boolean supportAppops) {
+        mSupportAppops = supportAppops;
+    }
+
+    public boolean supportAppops() {
+        return mSupportAppops;
+    }
+
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -206,6 +216,7 @@ public class BreventApplication extends Application {
         setSupportStandby(breventResponse.mSupportStandby);
         setSupportStopped(breventResponse.mSupportStopped);
         setSupportUpgrade(breventResponse.mSupportUpgrade);
+        setSupportAppops(breventResponse.mSupportAppops);
         if (BuildConfig.RELEASE && shouldUpdated) {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
@@ -235,7 +246,7 @@ public class BreventApplication extends Application {
         }
     }
 
-    private static int getOwner() {
+    public static int getOwner() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                 ? HideApiOverrideN.USER_SYSTEM
                 : HideApiOverride.USER_OWNER;

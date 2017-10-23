@@ -29,7 +29,8 @@ public class VersionPreference extends Preference {
         BreventApplication application = (BreventApplication) context.getApplicationContext();
         String extra = resources.getString(R.string.brevent_about_version_extra,
                 application.supportStandby() ? supported : unsupported,
-                application.supportStopped() ? supported : unsupported);
+                application.supportStopped() ? supported : unsupported,
+                application.supportAppops() ? supported : unsupported);
         if (!BuildConfig.RELEASE) {
             return resources.getString(R.string.brevent_about_version_summary_debug,
                     BuildConfig.VERSION_NAME) + extra;

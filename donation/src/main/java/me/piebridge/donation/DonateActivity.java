@@ -13,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -88,8 +87,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     private List<String> mSkus;
 
-    private boolean stopped;
-
     private volatile boolean mShowDonation = true;
 
     private boolean canDonate;
@@ -107,25 +104,13 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        stopped = false;
         hideDonateDialog();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        stopped = true;
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onStop() {
-        stopped = true;
         unbindService();
         super.onStop();
-    }
-
-    public boolean isStopped() {
-        return stopped;
     }
 
     public final void updateDonations() {
@@ -317,7 +302,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     void copyQrCodeAndDonate() {
         Uri uri = copyQrCode();
-        if (uri != null && !stopped) {
+        if (uri != null && !isStopped()) {
             refreshQrCode(uri);
             new WechatFragment().show(getFragmentManager(), FRAGMENT_DONATION_WECHAT);
         }
@@ -427,13 +412,13 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     void hideDonateDialog() {
         DialogFragment fragment = (DialogFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_DONATION_PROGRESS);
-        if (fragment != null && !stopped) {
+        if (fragment != null && !isStopped()) {
             fragment.dismiss();
         }
     }
 
     private void showDonateDialog() {
-        if (!stopped) {
+        if (!isStopped()) {
             new ProgressFragment().show(getFragmentManager(), FRAGMENT_DONATION_PROGRESS);
         }
     }
