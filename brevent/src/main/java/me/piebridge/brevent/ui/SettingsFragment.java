@@ -126,14 +126,16 @@ public class SettingsFragment extends PreferenceFragment
             if (!getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_EXPERIMENTAL, false)) {
                 preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
+            if (!AppsDisabledFragment.hasRoot() && !application.supportAppops()) {
+                preferenceCategoryExperimental.removePreference(preferenceAllowRoot);
+            }
         } else {
             preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
             preferenceOptimizeVpn.setSummary(R.string.brevent_optimize_vpn_label_debug);
             preferenceAbnormalBack.setSummary(R.string.brevent_abnormal_back_label_debug);
             preferenceOptimizeAudio.setSummary(R.string.brevent_optimize_audio_label_debug);
-            preferenceAllowRoot.setSummary(R.string.brevent_allow_root_label_debug);
-        }
-        if (!AppsDisabledFragment.hasRoot() && !application.supportAppops()) {
+            preferenceAllowRoot.setEnabled(false);
+            preferenceAllowRoot.setChecked(false);
             preferenceCategoryExperimental.removePreference(preferenceAllowRoot);
         }
         if (BuildConfig.RELEASE) {

@@ -160,7 +160,6 @@
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
     <string name="brevent_allow_root">程式權限與 Root</string>
     <string name="brevent_allow_root_label">非常危險，不要開啟\n\n總共需要 3 二向箔</string>
-    <string name="brevent_allow_root_label_debug">非常危險，不要開啟</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_not_play" />
