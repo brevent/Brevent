@@ -160,9 +160,9 @@
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
     <string name="brevent_optimize_audio_label">Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener.\n\nRequiere donar un total de 2 Brefoil.</string>
     <string name="brevent_optimize_audio_label_debug">Las aplicaciones de reproducción de música no se mantienen en espera o se fuerza detener.</string>
-    <string name="brevent_allow_root">AppOps and Root</string>
-    <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
-    <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
+    <string name="brevent_allow_root">AppOps y Root</string>
+    <string name="brevent_allow_root_label">Características peligrosas, no conectado\n\nRequiere 3 Brefoil en total</string>
+    <string name="brevent_allow_root_label_debug">Características peligrosas, no conectado</string>
 
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_summary_not_play" />
@@ -173,8 +173,8 @@
     <string name="show_donation_play_and_contributor">Gracias por pagar %s Brefoil en Play Store y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_rmb_and_contributor">Gracias por pagar %s Brefoil, y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent.</string>
-    <string name="show_experimental">Show experimental features</string>
-    <string name="show_experimental_label">Experimental features are unstable and require payment</string>
+    <string name="show_experimental">Mostrar características experimentales</string>
+    <string name="show_experimental_label">Las características experimentales son inestables y requieren un pago</string>
     <string name="brevent_network_adb">Red ADB</string>
     <string name="brevent_language">Seleccionar lenguaje</string>
     <string name="brevent_language_auto">Automático</string>
@@ -184,7 +184,7 @@
     <string name="brevent_about_version_summary">%1$s, %2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s, Edición de comunidad</string>
     <string name="brevent_about_version_extra">\nStandby: %1$s\nForzar detener: %2$s\nAppOps: %3$s</string>
-    <string name="brevent_about_version_supported">suportado</string>
+    <string name="brevent_about_version_supported">soportado</string>
     <string name="brevent_about_version_unsupported">no soportado</string>
     <string name="brevent_about_version_play">Play Store</string>
     <string name="brevent_about_version_like_play">Igual que Play Store</string>
@@ -206,7 +206,7 @@
     <string name="unsupported_no_event">No hay eventos Log. Inténtelo de nuevo más tarde o reinicie.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
-    <string name="unsupported_root">Running as Root is very experimental, please switch to network adb.</string>
+    <string name="unsupported_root">Ejecutando como Root es muy experimental, por favor, cambie a modo Adb</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
 
