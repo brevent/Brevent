@@ -84,9 +84,9 @@
     <string name="op_get_accounts">"取得帳戶"</string>
     <string name="op_run_in_background">"在背景執行"</string>
     <string name="op_audio_accessibility_volume">"協助工具音量"</string>
-    <string name="op_read_phone_numbers" />
-    <string name="op_request_install_packages" />
-    <string name="op_picture_in_picture" />
-    <string name="op_instant_app_start_foreground" />
-    <string name="op_answer_phone_calls" />
+    <string name="op_read_phone_numbers">"讀取電話號碼"</string>
+    <string name="op_request_install_packages">"要求安裝套件"</string>
+    <string name="op_picture_in_picture">"進入子母畫面模式"</string>
+    <string name="op_instant_app_start_foreground">"免安裝應用程式啟動前景服務"</string>
+    <string name="op_answer_phone_calls">"接聽電話"</string>
 </resources>

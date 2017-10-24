@@ -84,9 +84,9 @@
     <string name="op_get_accounts">"获取帐号"</string>
     <string name="op_run_in_background">"在后台运行"</string>
     <string name="op_audio_accessibility_volume">"无障碍功能音量"</string>
-    <string name="op_read_phone_numbers" />
-    <string name="op_request_install_packages" />
-    <string name="op_picture_in_picture" />
-    <string name="op_instant_app_start_foreground" />
-    <string name="op_answer_phone_calls" />
+    <string name="op_read_phone_numbers">"读取电话号码"</string>
+    <string name="op_request_install_packages">"请求安装文件包"</string>
+    <string name="op_picture_in_picture">"进入画中画模式"</string>
+    <string name="op_instant_app_start_foreground">"免安装应用启动前台服务"</string>
+    <string name="op_answer_phone_calls">"接听来电"</string>
 </resources>
