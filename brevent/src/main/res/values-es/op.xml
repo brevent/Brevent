@@ -40,8 +40,8 @@
     <string name="op_receive_mms">"recibir MMS"</string>
     <string name="op_receive_wap_push">"recibir WAP Push"</string>
     <string name="op_send_sms">"enviar SMS"</string>
-    <string name="op_read_icc_sms">"leer SMS proveedor"</string>
-    <string name="op_write_icc_sms">"escribir SMS proveedor"</string>
+    <string name="op_read_icc_sms">"leer SMS de proveedor"</string>
+    <string name="op_write_icc_sms">"escribir SMS de proveedor"</string>
     <string name="op_write_settings">"modificar la configuración"</string>
     <string name="op_system_alert_window">"dibujar en primer plano"</string>
     <string name="op_access_notifications">"acceso a las notificaciones"</string>
