@@ -446,6 +446,11 @@ public class BreventApplication extends Application {
         return donate2;
     }
 
+    public boolean allowRoot() {
+        return BuildConfig.ADB_K != null && PreferencesUtils.getDevicePreferences(this).getBoolean(
+                BreventConfiguration.BREVENT_ALLOW_ROOT, false) && allowRoot(this);
+    }
+
     public static boolean allowRoot(Application application) {
         if (BuildConfig.RELEASE && !SettingsFragment.isDeprecated()) {
             int count = getPlayDonation(application);
@@ -456,7 +461,7 @@ public class BreventApplication extends Application {
                 return false;
             }
         }
-        return true;
+        return BuildConfig.ADB_K != null;
     }
 
     public static int getPlayDonation(Application application) {

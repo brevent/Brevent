@@ -1666,7 +1666,8 @@ public class BreventActivity extends AbstractActivity
         mHandler.removeMessages(MESSAGE_RETRIEVE2);
         mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY5);
         uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_NO_BREVENT, DELAY15);
-        BreventIntentService.startBrevent(getApplication(), BreventIntent.ACTION_RUN_AS_ROOT);
+        BreventIntentService.startBrevent((BreventApplication) getApplication(),
+                BreventIntent.ACTION_RUN_AS_ROOT);
     }
 
     public void updatePriority(String packageName, boolean priority) {
@@ -1942,11 +1943,7 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isConfirmed() {
         if (!confirmed) {
-            boolean allowRoot = PreferencesUtils.getPreferences(this)
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-            if (allowRoot) {
-                confirmed = BreventApplication.allowRoot(getApplication());
-            }
+            confirmed = ((BreventApplication) getApplication()).allowRoot();
         }
         return confirmed;
     }

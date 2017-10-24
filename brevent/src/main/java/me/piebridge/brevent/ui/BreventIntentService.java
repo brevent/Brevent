@@ -316,7 +316,7 @@ public class BreventIntentService extends IntentService {
         getNotificationManager(context).notify(ID3, notification);
     }
 
-    public static void startBrevent(Application application, String action) {
+    public static void startBrevent(BreventApplication application, String action) {
         safe = true;
         if (BreventIntent.ACTION_RUN_AS_ROOT.equals(action) || allowRoot(application, action)) {
             Intent intent = new Intent(application, BreventIntentService.class);
@@ -333,15 +333,8 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private static boolean allowRoot(Application application, String action) {
-        if (BuildConfig.ADB_K == null) {
-            return false;
-        }
-        boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
-                .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-        if (allowRoot) {
-            allowRoot = BreventApplication.allowRoot(application);
-        }
+    private static boolean allowRoot(BreventApplication application, String action) {
+        boolean allowRoot = application.allowRoot();
         UILog.d("action: " + action + ", allowRoot: " + allowRoot);
         return allowRoot && AppsDisabledFragment.hasRoot();
     }

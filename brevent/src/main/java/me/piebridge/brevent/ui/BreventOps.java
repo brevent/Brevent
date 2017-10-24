@@ -73,12 +73,7 @@ public class BreventOps extends AbstractActivity {
         BreventApplication application = (BreventApplication) getApplication();
         supportAppops = application.supportAppops();
         if (supportAppops) {
-            boolean allowRoot = PreferencesUtils.getDevicePreferences(application)
-                    .getBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false);
-            if (allowRoot) {
-                allowRoot = BreventApplication.allowRoot(application);
-            }
-            if (!allowRoot) {
+            if (!application.allowRoot()) {
                 supportAppops = false;
             }
         }
