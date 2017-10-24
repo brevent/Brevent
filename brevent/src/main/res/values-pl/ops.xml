@@ -3,27 +3,27 @@
 
     <string name="group_permission">(%1$s) %2$s</string>
 
-    <string name="ops_mode_allow">Allow</string>
-    <string name="ops_mode_ignore">Ignore</string>
-    <string name="ops_mode_deny">Deny</string>
-    <string name="ops_mode_default">Default</string>
-    <string name="ops_mode_ask">Ask</string>
-    <string name="ops_mode_unknown">Unknown</string>
+    <string name="ops_mode_allow">Zezwalaj</string>
+    <string name="ops_mode_ignore">Ignoruj</string>
+    <string name="ops_mode_deny">Odmawiaj</string>
+    <string name="ops_mode_default">Domyślnie</string>
+    <string name="ops_mode_ask">Pytaj</string>
+    <string name="ops_mode_unknown">Nieznane</string>
 
     <string name="context_menu_appops">AppOps</string>
 
-    <string name="ops_time_allow">Allowed %s</string>
-    <string name="ops_time_reject">Rejected %s</string>
+    <string name="ops_time_allow">Pozwolono %s</string>
+    <string name="ops_time_reject">Odrzucono %s</string>
 
     <string name="ops_menu_allow">@string/ops_mode_allow</string>
     <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
-    <string name="ops_menu_reset">Reset</string>
-    <string name="ops_menu_sort_by_time">Time</string>
-    <string name="ops_menu_sort_by_name">Name</string>
-    <string name="ops_menu_sort_by_group">Group</string>
-    <string name="ops_menu_sort_by_op">Code</string>
-    <string name="ops_menu_sort_by_mode">Mode</string>
+    <string name="ops_menu_reset">Restartuj</string>
+    <string name="ops_menu_sort_by_time">Czas</string>
+    <string name="ops_menu_sort_by_name">Nazwa</string>
+    <string name="ops_menu_sort_by_group">Grupa</string>
+    <string name="ops_menu_sort_by_op">Kod</string>
+    <string name="ops_menu_sort_by_mode">Tryb</string>
 
-    <string name="action_select_all">All</string>
+    <string name="action_select_all">Wszystko</string>
 
 </resources>
