@@ -52,32 +52,34 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        BreventActivity activity = (BreventActivity) mFragment.getActivity();
         menu.setHeaderTitle(label);
-        menu.add(Menu.NONE, R.string.context_menu_select, Menu.NONE, R.string.context_menu_select);
+        menu.add(Menu.NONE, R.string.context_menu_select, Menu.NONE,
+                activity.getString(R.string.context_menu_select));
         menu.add(Menu.NONE, R.string.context_menu_package_name, Menu.NONE,
-                R.string.context_menu_package_name);
+                activity.getString(R.string.context_menu_package_name));
         menu.add(Menu.NONE, R.string.context_menu_app_info, Menu.NONE,
-                R.string.context_menu_app_info);
+                activity.getString(R.string.context_menu_app_info));
         PackageManager packageManager = mFragment.getActivity().getPackageManager();
         if (BuildConfig.APPLICATION_ID.equals(packageName)) {
             menu.add(Menu.NONE, R.string.context_menu_brevent_server_info, Menu.NONE,
-                    R.string.context_menu_brevent_server_info);
+                    activity.getString(R.string.context_menu_brevent_server_info));
         } else if (packageManager.getLaunchIntentForPackage(packageName) != null) {
-            menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE, R.string.context_menu_open);
+            menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE,
+                    activity.getString(R.string.context_menu_open));
         }
-        BreventActivity activity = (BreventActivity) mFragment.getActivity();
         if (activity.isBrevent(packageName)) {
             if (activity.isPriority(packageName)) {
                 menu.add(Menu.NONE, R.string.context_menu_unset_priority, Menu.NONE,
-                        R.string.context_menu_unset_priority);
+                        activity.getString(R.string.context_menu_unset_priority));
             } else {
                 menu.add(Menu.NONE, R.string.context_menu_set_priority, Menu.NONE,
-                        R.string.context_menu_set_priority);
+                        activity.getString(R.string.context_menu_set_priority));
             }
         }
         if (activity.hasOps()) {
             menu.add(Menu.NONE, R.string.context_menu_appops, Menu.NONE,
-                    R.string.context_menu_appops);
+                    activity.getString(R.string.context_menu_appops));
         }
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
