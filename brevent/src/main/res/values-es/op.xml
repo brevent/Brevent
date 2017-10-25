@@ -19,11 +19,11 @@
 */
  -->
 <resources>
-    <string name="op_coarse_location">"ubicación aproximada"</string>
+    <string name="op_coarse_location">"ubicación común"</string>
     <string name="op_fine_location">"ubicación precisa"</string>
     <string name="op_gps">"GPS"</string>
     <string name="op_vibrate">"vibrar"</string>
-    <string name="op_read_contacts">"leer contactos"</string>
+    <string name="op_read_contacts">"consultar contactos"</string>
     <string name="op_write_contacts">"modificar los contactos"</string>
     <string name="op_read_call_log">"leer el registro de llamadas"</string>
     <string name="op_write_call_log">"modificar el registro de llamadas"</string>
@@ -40,11 +40,11 @@
     <string name="op_receive_mms">"recibir MMS"</string>
     <string name="op_receive_wap_push">"recibir WAP Push"</string>
     <string name="op_send_sms">"enviar SMS"</string>
-    <string name="op_read_icc_sms">"leer SMS de proveedor"</string>
-    <string name="op_write_icc_sms">"escribir SMS de proveedor"</string>
+    <string name="op_read_icc_sms">"leer SMS ICC"</string>
+    <string name="op_write_icc_sms">"escribir SMS ICC"</string>
     <string name="op_write_settings">"modificar la configuración"</string>
-    <string name="op_system_alert_window">"dibujar en primer plano"</string>
-    <string name="op_access_notifications">"acceso a las notificaciones"</string>
+    <string name="op_system_alert_window">"dibujar en parte superior"</string>
+    <string name="op_access_notifications">"acceder a las notificaciones"</string>
     <string name="op_camera">"cámara"</string>
     <string name="op_record_audio">"grabar audio"</string>
     <string name="op_play_audio">"reproducir audio"</string>
@@ -55,13 +55,13 @@
     <string name="op_audio_master_volume">"volumen principal"</string>
     <string name="op_audio_voice_volume">"volumen de la voz"</string>
     <string name="op_audio_ring_volume">"volumen del tono"</string>
-    <string name="op_audio_media_volume">"volumen multimedia"</string>
+    <string name="op_audio_media_volume">"volumen de multimedia"</string>
     <string name="op_audio_alarm_volume">"volumen de la alarma"</string>
     <string name="op_audio_notification_volume">"volumen de las notificaciones"</string>
     <string name="op_audio_bluetooth_volume">"volumen de Bluetooth"</string>
     <string name="op_wake_lock">"mantener activo"</string>
     <string name="op_monitor_location">"controlar ubicación"</string>
-    <string name="op_monitor_high_power_location">"supervisar ubicación de alto consumo"</string>
+    <string name="op_monitor_high_power_location">"supervisar ubicación de alta potencia"</string>
     <string name="op_get_usage_stats">"obtener estadísticas de uso"</string>
     <string name="op_mute_microphone">"silenciar/activar micrófono"</string>
     <string name="op_toast_window">"mostrar notificación emergente"</string>
