@@ -14,11 +14,11 @@
 -->
 <resources>
 
-    <string name="app_ops_summaries_toggle_wifi">Cambiar Wi-Fi</string>
-    <string name="app_ops_summaries_toggle_bluetooth">Cambiar Bluetooth</string>
-    <string name="app_ops_summaries_start_at_boot">Iniciar en el arranque</string>
-    <string name="app_ops_summaries_toggle_nfc">Cambiar NFC</string>
-    <string name="app_ops_summaries_toggle_mobile_data">Cambiar datos móviles</string>
-    <string name="app_ops_summaries_superuser">Acceso Root</string>
+    <string name="app_ops_summaries_toggle_wifi">alternar Wi-Fi</string>
+    <string name="app_ops_summaries_toggle_bluetooth">alternar Bluetooth</string>
+    <string name="app_ops_summaries_start_at_boot">iniciar en el arranque</string>
+    <string name="app_ops_summaries_toggle_nfc">alternar NFC</string>
+    <string name="app_ops_summaries_toggle_mobile_data">conmutar datos móviles</string>
+    <string name="app_ops_summaries_superuser">acceso administrativo</string>
 
 </resources>
