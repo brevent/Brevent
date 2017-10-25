@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accounts.NetworkErrorException;
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;

@@ -20,6 +20,33 @@ public class AppOpsManager {
      */
     public static int OP_ACTIVATE_VPN = 47;
 
+    /** @hide */
+    public static int _NUM_OP = 70;
+
+    /**
+     * Retrieve the op switch that controls the given operation.
+     * @hide
+     */
+    public static int opToSwitch(int op) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Retrieve a non-localized name for the operation, for debugging output.
+     * @hide
+     */
+    public static String opToName(int op) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Retrieve the permission associated with an operation, or null if there is not one.
+     * @hide
+     */
+    public static String opToPermission(int op) {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Class holding all of the operation information associated with an app.
      *

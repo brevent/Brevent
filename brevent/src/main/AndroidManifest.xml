@@ -24,6 +24,7 @@
                      tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.DUMP"
                      tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
 
     <application
         android:name=".ui.BreventApplication"
@@ -48,6 +49,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.BreventGuide"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:label="@string/menu_guide"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.BreventOps"
             android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:label="@string/menu_guide"
             android:windowSoftInputMode="stateHidden" />

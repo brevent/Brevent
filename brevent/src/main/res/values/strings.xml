@@ -22,7 +22,7 @@
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", please use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", open \"Terminal\", then drag \"adb\" into the \"Terminal\", please use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible.</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
 
     <string name="start_brevent">Launch Brevent</string>
 
@@ -39,7 +39,7 @@
 
     <string name="fragment_apps_user">User Apps</string>
     <string name="fragment_apps_system">System Apps</string>
-    <string name="fragment_apps_framework">Framework Apps</string>
+    <string name="fragment_apps_framework">Core Apps</string>
 
     <string name="process_retrieving">Retrieving processes status, just a moment. . .</string>
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
@@ -126,7 +126,7 @@
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
     <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-Stop when you exit apps (tap \"Back\"), or background apps timed out, or clear apps from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or clear apps from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
@@ -143,10 +143,10 @@
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_aggressive">Aggressive mode</string>
     <string name="brevent_aggressive_label">Brevent immediately, auto-brevent non-service apps, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
-    <string name="show_framework_apps">Show framework apps</string>
-    <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing framework apps</string>
+    <string name="show_framework_apps">Show core apps</string>
+    <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing core apps</string>
     <string name="show_all_apps">Show all apps</string>
-    <string name="show_all_apps_label">Including system and framework apps which cannot be launched\n\nBe careful when breventing system and framework apps which cannot be launched</string>
+    <string name="show_all_apps_label">Including system and core apps which cannot be launched\n\nBe careful when breventing system and core apps which cannot be launched</string>
     <string name="brevent_checking">Diagnosis</string>
     <string name="brevent_checking_label">Checking Brevent server every 15 minutes, gather logs if necessary\n\nTurn on if Brevent stops unreasonably. It will make Brevent on the Battery Optimizations exceptions whitelist</string>
 
@@ -162,7 +162,6 @@
     <string name="brevent_optimize_audio_label_debug">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification</string>
     <string name="brevent_allow_root">AppOps and Root</string>
     <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
-    <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
 
     <string name="show_donation">Show payment</string>
     <string name="show_donation_summary_not_play" />

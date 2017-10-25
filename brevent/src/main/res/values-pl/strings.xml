@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Brevent</string>
@@ -160,9 +160,8 @@
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
     <string name="brevent_optimize_audio_label">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie\n\nWymagane 2 Brefoil dla wersji Play</string>
     <string name="brevent_optimize_audio_label_debug">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie</string>
-    <string name="brevent_allow_root">AppOps and Root</string>
-    <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
-    <string name="brevent_allow_root_label_debug">Dangerous features, don\'t turn on</string>
+    <string name="brevent_allow_root">AppOps oraz Root</string>
+    <string name="brevent_allow_root_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_not_play" />
@@ -183,7 +182,7 @@
     <string name="brevent_about_version">Wersja</string>
     <string name="brevent_about_version_summary">%1$s, %2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s, Edycja Społeczności</string>
-    <string name="brevent_about_version_extra">\nCzuwanie: %1$s\nZatrzymanie：%2$s</string>
+    <string name="brevent_about_version_extra">\n\nW trybie czuwania: %1$s\nStatus zatrzymanych：%2$s\nAppOps: %3$s</string>
     <string name="brevent_about_version_supported">wspierane</string>
     <string name="brevent_about_version_unsupported">niewspierane</string>
     <string name="brevent_about_version_play">Play</string>

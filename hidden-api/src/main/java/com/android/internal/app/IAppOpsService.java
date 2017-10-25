@@ -13,6 +13,10 @@ public interface IAppOpsService {
 
     List getPackagesForOps(int[] ops) throws RemoteException;
 
+    List getOpsForPackage(int uid, String packageName, int[] ops) throws RemoteException;
+
+    void resetAllModes(int reqUserId, String reqPackageName) throws RemoteException;
+
     class Stub {
 
         public static IAppOpsService asInterface(IBinder binder) {

@@ -24,6 +24,7 @@ public class HideApiOverride {
      */
     public static final int USER_OWNER = getUserOwner();
 
+    public static final int _NUM_OP = getNumOp();
     public static final int OP_NONE = getOpNone();
     public static final int OP_GET_USAGE_STATS = getOpGetUsageStats();
     public static final int OP_ACTIVATE_VPN = getOpActivateVpn();
@@ -154,6 +155,10 @@ public class HideApiOverride {
         return ((AppOpsManager.PackageOps) packageOps).getPackageName();
     }
 
+    public static int getOpEntryOp(Object opEntry) {
+        return ((AppOpsManager.OpEntry) opEntry).getOp();
+    }
+
     public static int getOpEntryMode(Object opEntry) {
         return ((AppOpsManager.OpEntry) opEntry).getMode();
     }
@@ -162,12 +167,37 @@ public class HideApiOverride {
         return ((AppOpsManager.OpEntry) opEntry).getTime();
     }
 
+    public static long getOpEntryRejectTime(Object opEntry) {
+        return ((AppOpsManager.OpEntry) opEntry).getRejectTime();
+    }
+
+    public static int opToSwitch(int op) {
+        return AppOpsManager.opToSwitch(op);
+    }
+
+    public static String opToName(int op) {
+        return AppOpsManager.opToName(op);
+    }
+
+    public static String opToPermission(int op) {
+        return AppOpsManager.opToPermission(op);
+    }
+
     private static int getUserOwner() {
         try {
             return UserHandle.USER_OWNER;
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find UserHandle.USER_OWNER");
             return 0;
+        }
+    }
+
+    private static int getNumOp() {
+        try {
+            return AppOpsManager._NUM_OP;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager._NUM_OP");
+            return 70;
         }
     }
 
