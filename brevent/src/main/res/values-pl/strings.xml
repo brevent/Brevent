@@ -182,7 +182,7 @@
     <string name="brevent_about_version">Wersja</string>
     <string name="brevent_about_version_summary">%1$s, %2$s</string>
     <string name="brevent_about_version_summary_debug">%1$s, Edycja Społeczności</string>
-    <string name="brevent_about_version_extra">\n\nW trybie czuwania: %1$s\nStatus zatrzymanych：%2$s\nAppOps: %3$s</string>
+    <string name="brevent_about_version_extra">\nW trybie czuwania: %1$s\nStatus zatrzymanych：%2$s\nAppOps: %3$s</string>
     <string name="brevent_about_version_supported">wspierane</string>
     <string name="brevent_about_version_unsupported">niewspierane</string>
     <string name="brevent_about_version_play">Play</string>
