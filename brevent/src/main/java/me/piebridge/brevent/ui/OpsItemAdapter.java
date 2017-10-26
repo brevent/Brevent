@@ -319,19 +319,21 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         return true;
     }
 
-    private static SparseArray<OpsInfo> load(String packageName) {
+    static List getOpsForPackage(String packageName) {
         IBinder service = ServiceManager.getService(Context.APP_OPS_SERVICE);
         IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(service);
         int packageUid = getPackageUid(packageName, BreventApplication.getOwner());
-        List packagesForOps;
         try {
-            packagesForOps = appOpsService.getOpsForPackage(packageUid, packageName, null);
+            return appOpsService.getOpsForPackage(packageUid, packageName, null);
         } catch (RemoteException | RuntimeException e) {
             UILog.d("Can't getOpsForPackage", e);
-            return new SparseArray<>();
+            return null;
         }
+    }
+
+    private static SparseArray<OpsInfo> load(String packageName) {
         SparseArray<OpsInfo> opss = new SparseArray<>();
-        for (Object packageOps : packagesForOps) {
+        for (Object packageOps : getOpsForPackage(packageName)) {
             for (Object opEntry : HideApiOverride.getPackageOpsOps(packageOps)) {
                 int op = HideApiOverride.getOpEntryOp(opEntry);
                 int mode = HideApiOverride.getOpEntryMode(opEntry);

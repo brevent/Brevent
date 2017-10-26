@@ -77,7 +77,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                         activity.getString(R.string.context_menu_set_priority));
             }
         }
-        if (activity.hasOps()) {
+        if (activity.hasOps(packageName)) {
             menu.add(Menu.NONE, R.string.context_menu_appops, Menu.NONE,
                     activity.getString(R.string.context_menu_appops));
         }

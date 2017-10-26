@@ -1988,9 +1988,10 @@ public class BreventActivity extends AbstractActivity
         return mStats != null && !mStats.isEmpty();
     }
 
-    public boolean hasOps() {
+    public boolean hasOps(String packageName) {
         return getPackageManager().checkPermission("android.permission.GET_APP_OPS_STATS",
-                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
+                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED
+                && OpsItemAdapter.getOpsForPackage(packageName) != null;
     }
 
     public void updateSort() {
