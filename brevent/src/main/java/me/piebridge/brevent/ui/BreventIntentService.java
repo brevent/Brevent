@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.accounts.NetworkErrorException;
-import android.app.Application;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -34,7 +33,6 @@ import java.util.concurrent.TimeoutException;
 import eu.chainfire.libsuperuser.Shell;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventProtocol;
 

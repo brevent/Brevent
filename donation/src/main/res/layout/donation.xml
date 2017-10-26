@@ -37,16 +37,6 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/wechat"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            android:visibility="gone" />
-
-        <ImageView
             android:id="@+id/play"
             android:layout_width="@android:dimen/app_icon_size"
             android:layout_height="@android:dimen/app_icon_size"

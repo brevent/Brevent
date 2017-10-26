@@ -12,7 +12,6 @@ android {
 }
 
 dependencies {
-    compile 'com.google.zxing:core:3.3.0'
     compile "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
     if (rootProject.file('support-compat-nores').exists()) {
         compile project(':support-compat-nores')

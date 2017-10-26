@@ -91,11 +91,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     }
 
     @Override
-    protected String getWechatLink() {
-        return BuildConfig.DONATE_WECHAT;
-    }
-
-    @Override
     protected BigInteger getPlayModulus() {
         return new BigInteger(1, BuildConfig.DONATE_PLAY);
     }
@@ -263,16 +258,6 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             return false;
         } else {
             return !preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
-        }
-    }
-
-    @Override
-    protected boolean supportWechat() {
-        BreventApplication application = (BreventApplication) getApplication();
-        if (application.isPlay() || AppsDisabledFragment.hasRoot()) {
-            return false;
-        } else {
-            return super.supportWechat();
         }
     }
 

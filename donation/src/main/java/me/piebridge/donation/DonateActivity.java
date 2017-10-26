@@ -1,43 +1,26 @@
 package me.piebridge.donation;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.Application;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
 import android.os.HandlerThread;
-import android.os.Process;
-import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +32,7 @@ import me.piebridge.brevent.ui.AbstractActivity;
 import me.piebridge.brevent.ui.PreferencesUtils;
 
 /**
- * Donate activity, support alipay, wechat, play store
+ * Donate activity, support alipay, play store
  * <p>
  * Created by thom on 2017/2/9.
  */
@@ -57,22 +40,9 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     public static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
 
-    public static final String PACKAGE_WECHAT = "com.tencent.mm";
-
     public static final String PACKAGE_PLAY = "com.android.vending";
 
-    private static final int REQUEST_WECHAT_DONATE_SDA = 0x4121;
-
     private static final int REQUEST_PLAY_DONATE = 0x4122;
-
-    private static final int PERMISSION_WECHAT_DONATE = 0x4123;
-
-    private static final String KEY_WECHAT_DONATE_SDA = "donation.wechat.sda";
-    private static final String KEY_WECHAT_DONATE_URI = "donation.wechat.uri";
-
-    private static final String WECHAT_DONATE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
-    private static final String FRAGMENT_DONATION_WECHAT = "fragment_donation_wechat";
 
     private static final String FRAGMENT_DONATION_PROGRESS = "fragment_donation_progress";
 
@@ -243,25 +213,12 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         }
     }
 
-    @CallSuper
-    @Override
-    protected void onResume() {
-        super.onResume();
-        try {
-            deleteQrCodeIfNeeded();
-        } catch (SecurityException e) { // NOSONAR
-            // do nothing
-        }
-    }
-
     @Override
     @CallSuper
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.alipay) {
             donateViaAlipay();
-        } else if (id == R.id.wechat) {
-            donateViaWechat();
         } else if (id == R.id.play) {
             donateViaPlay();
         }
@@ -286,57 +243,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         startDonateActivity(intent, "alipay");
     }
 
-    private void donateViaWechat() {
-        File qrCode = getWechatQrCode();
-        if (qrCode != null) {
-            if (qrCode.exists()) {
-                copyQrCodeAndDonate();
-            } else {
-                showDonateDialog();
-                new WechatTask(this).execute(getWechatLink(), qrCode.getAbsolutePath());
-            }
-        } else {
-            hideWechat();
-        }
-    }
-
-    void copyQrCodeAndDonate() {
-        Uri uri = copyQrCode();
-        if (uri != null && !isStopped()) {
-            refreshQrCode(uri);
-            new WechatFragment().show(getFragmentManager(), FRAGMENT_DONATION_WECHAT);
-        }
-    }
-
-    void hideWechat() {
-        findViewById(R.id.wechat).setVisibility(View.GONE);
-    }
-
-    private boolean mayHasPermission(String permission) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M || hasPermission(permission);
-    }
-
-    private boolean hasPermission(String permission) {
-        return checkPermission(permission, Process.myPid(), Process.myUid()) ==
-                PackageManager.PERMISSION_GRANTED;
-    }
-
     @Override
     @CallSuper
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_WECHAT_DONATE_SDA && data != null) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri uri = data.getData();
-                getContentResolver().takePersistableUriPermission(uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                PreferencesUtils.getPreferences(getApplication())
-                        .edit().putString(KEY_WECHAT_DONATE_SDA, uri.toString()).apply();
-                donateViaWechat();
-            } else {
-                hideWechat();
-            }
-        } else if (requestCode == REQUEST_PLAY_DONATE && data != null) {
+        if (requestCode == REQUEST_PLAY_DONATE && data != null) {
             String tag = getTag();
             String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
             String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
@@ -345,58 +255,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    @CallSuper
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (PERMISSION_WECHAT_DONATE == requestCode) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                donateViaWechat();
-            } else {
-                Toast.makeText(this, R.string.donation_wechat_permission, Toast.LENGTH_LONG).show();
-                hideWechat();
-            }
-        }
-    }
-
-    private File getWechatQrCode() {
-        File externalFilesDir = getExternalFilesDir(null);
-        if (externalFilesDir == null) {
-            return null;
-        }
-        return new File(externalFilesDir, "donate_wechat.png");
-    }
-
-    private void refreshQrCode(Uri qrCode) {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(qrCode);
-        sendBroadcast(mediaScanIntent);
-    }
-
-    private boolean isFile(Uri uri) {
-        return uri != null && "file".equals(uri.getScheme());
-    }
-
-    private void deleteQrCodeIfNeeded() {
-        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-        String wechatDonateUri = preferences.getString(KEY_WECHAT_DONATE_URI, null);
-        if (wechatDonateUri != null) {
-            Uri qrCode = Uri.parse(wechatDonateUri);
-            if (isFile(qrCode)) {
-                File path = new File(qrCode.getPath());
-                if (path.exists() && path.delete()) {
-                    refreshQrCode(qrCode);
-                }
-            } else {
-                DocumentFile documentFile = DocumentFile.fromSingleUri(this, qrCode);
-                if (documentFile.exists() && documentFile.delete()) {
-                    refreshQrCode(qrCode);
-                }
-            }
-            preferences.edit().putString(KEY_WECHAT_DONATE_URI, null).apply();
         }
     }
 
@@ -428,23 +286,14 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);
         }
-        boolean canSupportWechat = supportWechat();
-        if (canSupportWechat && !TextUtils.isEmpty(getWechatLink())) {
-            checkPackage(items, R.id.wechat, PACKAGE_WECHAT);
-        }
         if (items.isEmpty()) {
-            mDonationTip.setText(canSupportWechat ? R.string.donation_unsupported_wechat :
-                    R.string.donation_unsupported);
+            mDonationTip.setText(R.string.donation_unsupported);
             mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
         } else {
             mDonationTip.setText(R.string.donation);
             showDonate();
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
-    }
-
-    protected boolean supportWechat() {
-        return mayHasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void checkPackage(Collection<DonateItem> items, int resId, String packageName) {
@@ -461,8 +310,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     protected abstract String getAlipayLink();
-
-    protected abstract String getWechatLink();
 
     protected abstract BigInteger getPlayModulus();
 
@@ -485,89 +332,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     protected boolean isPlay() {
         return isPlayInstaller();
-    }
-
-    private Uri getQrCodeUri() {
-        String name = getApplicationId() + ".donate.wechat.png";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-            String cachedUri = preferences.getString(KEY_WECHAT_DONATE_SDA, null);
-            DocumentFile file = null;
-            if (cachedUri != null) {
-                try {
-                    file = DocumentFile.fromTreeUri(this, Uri.parse(cachedUri))
-                            .createFile("image/png", name);
-                } catch (SecurityException e) { // NOSONAR
-                    // do nothing
-                }
-            }
-            if (file == null) {
-                StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                StorageVolume sv = sm.getPrimaryStorageVolume();
-                Intent intent = sv.createAccessIntent(Environment.DIRECTORY_PICTURES);
-                try {
-                    startActivityForResult(intent, REQUEST_WECHAT_DONATE_SDA);
-                } catch (ActivityNotFoundException e) { // NOSONAR
-                    // do nothing
-                }
-                return Uri.EMPTY;
-            }
-            return file.getUri();
-        } else if (hasPermission(WECHAT_DONATE_PERMISSION)) {
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            if (dir == null) {
-                return null;
-            }
-            if (!dir.exists() && !dir.mkdirs()) {
-                return null;
-            }
-            return Uri.fromFile(new File(dir, name));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(this, new String[] {WECHAT_DONATE_PERMISSION},
-                    PERMISSION_WECHAT_DONATE);
-            return Uri.EMPTY;
-        } else {
-            return null;
-        }
-    }
-
-    private Uri copyQrCode() {
-        File qrCode = getWechatQrCode();
-        if (qrCode == null || !qrCode.isFile()) {
-            hideWechat();
-            return null;
-        }
-
-        final Uri uri = getQrCodeUri();
-        if (uri == null) {
-            hideWechat();
-            return null;
-        } else if (Uri.EMPTY.equals(uri)) {
-            return null;
-        }
-
-        try (
-                OutputStream outputStream = isFile(uri) ? new FileOutputStream(uri.getPath()) :
-                        getContentResolver().openOutputStream(uri);
-                FileInputStream fis = new FileInputStream(qrCode)
-        ) {
-            if (outputStream == null) {
-                hideWechat();
-                return null;
-            }
-            byte[] bytes = new byte[0x2000];
-            int length;
-            while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
-                outputStream.write(bytes, 0, length);
-            }
-            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-            preferences.edit().putString(KEY_WECHAT_DONATE_URI, uri.toString()).apply();
-            return uri;
-        } catch (IOException e) {
-            // IOException
-            hideWechat();
-            return null;
-        }
     }
 
     @CallSuper

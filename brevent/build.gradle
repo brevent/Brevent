@@ -37,7 +37,6 @@ android {
             targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', properties['build.release']
             buildConfigField 'String', 'DONATE_ALIPAY', properties['build.alipay']
-            buildConfigField 'String', 'DONATE_WECHAT', properties['build.wechat']
             buildConfigField 'byte[]', 'DONATE_PLAY', properties['build.play']
             buildConfigField 'String', 'FEEDBACK', properties['build.feedback']
             buildConfigField 'String', 'EMAIL', properties['build.email']
@@ -98,9 +97,7 @@ android {
             targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', 'false'
             buildConfigField 'String', 'DONATE_ALIPAY', 'null'
-            buildConfigField 'String', 'DONATE_WECHAT', 'null'
             buildConfigField 'byte[]', 'DONATE_PLAY', 'null'
-            buildConfigField 'byte[]', 'DONATE_M', 'null'
             buildConfigField 'String', 'FEEDBACK', 'null'
             buildConfigField 'String', 'EMAIL', 'null'
             buildConfigField 'String', 'PROJECT', 'null'

@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
 import me.piebridge.brevent.protocol.BreventOpsUpdate;
