@@ -143,6 +143,11 @@ android {
             }
         }
     }
+
+    packagingOptions {
+        exclude '/fabric/*.properties'
+        exclude '/META-INF/*.version'
+    }
 }
 
 dependencies {
