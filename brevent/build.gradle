@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 if (file('fabric.properties').exists()) {
     apply plugin: 'io.fabric'
 }
-apply plugin: 'org.sonarqube'
 
 android {
     compileSdkVersion rootProject.targetSdkVersion
@@ -28,7 +27,7 @@ android {
         }
 
         defaultConfig {
-            manifestPlaceholders = [icon:'ic_brevent']
+            manifestPlaceholders = [icon: 'ic_brevent']
             applicationId 'me.piebridge.brevent'
             versionCode rootProject.versionCode
             versionName rootProject.versionName
@@ -78,17 +77,10 @@ android {
                 signingConfig signingConfigs.release
             }
         }
-
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                if (variant.buildType.name == 'release') {
-                    output.outputFile = rootProject.file("br-v${rootProject.simpleVersionName}.apk")
-                }
-            }
-        }
+        project.ext.apkName = "br-v${rootProject.simpleVersionName}.apk"
     } else {
         defaultConfig {
-            manifestPlaceholders = [icon:'ic_nrevent']
+            manifestPlaceholders = [icon: 'ic_nrevent']
             applicationId 'me.piebridge.nrevent'
             versionCode rootProject.versionCode
             versionName rootProject.versionName
@@ -118,11 +110,13 @@ android {
             buildConfigField 'int', 'ICON', 'me.piebridge.brevent.R.mipmap.ic_nrevent'
             buildConfigField 'int', 'IC_STAT', 'me.piebridge.brevent.R.drawable.ic_stat_nrevent'
         }
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                if (variant.buildType.name == 'release') {
-                    output.outputFile = rootProject.file('ce.apk')
-                }
+        project.ext.apkName = 'ce.apk'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == 'release') {
+                output.outputFileName = project.ext.apkName
             }
         }
     }
@@ -153,43 +147,46 @@ android {
 
 dependencies {
     if (rootProject.file('support-compat-nores').exists()) {
-        compile project(':support-compat-nores')
+        implementation project(':support-compat-nores')
     } else {
-        compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
+        implementation "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
     }
-    compile("com.android.support:support-core-ui:${rootProject.supportLibraryVersion}") {
+    implementation("com.android.support:support-core-ui:${rootProject.supportLibraryVersion}") {
         exclude group: 'com.android.support', module: 'support-compat'
     }
-    compile("com.android.support:support-v13:${rootProject.supportLibraryVersion}") {
+    implementation("com.android.support:support-core-utils:${rootProject.supportLibraryVersion}") {
+        exclude group: 'com.android.support', module: 'support-compat'
+    }
+    implementation("com.android.support:support-v13:${rootProject.supportLibraryVersion}") {
         exclude group: 'com.android.support', module: 'support-v4'
     }
-    compile "com.android.support:cardview-v7:${rootProject.supportLibraryVersion}"
-    compile("com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}") {
+    implementation "com.android.support:cardview-v7:${rootProject.supportLibraryVersion}"
+    implementation("com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}") {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-core-ui'
     }
     if (rootProject.file('design-snackbar-tablayout').exists()) {
-        compile project(':design-snackbar-tablayout')
+        implementation project(':design-snackbar-tablayout')
     } else {
-        compile project(':appcompat-dummy')
-        compile("com.android.support:design:${rootProject.supportLibraryVersion}") {
+        implementation project(':appcompat-dummy')
+        implementation("com.android.support:design:${rootProject.supportLibraryVersion}") {
             exclude group: 'com.android.support', module: 'appcompat-v7'
         }
     }
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile project(':donation')
-    compile project(':brevent-protocol')
-    compile project(':brevent-override')
-    compile project(':brevent-override-m')
-    compile project(':log-reader')
-    compile 'eu.chainfire:libsuperuser:1.0.0.201704021214'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation project(':donation')
+    implementation project(':brevent-protocol')
+    implementation project(':brevent-override')
+    implementation project(':brevent-override-m')
+    implementation project(':log-reader')
+    implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
-    compile 'com.crashlytics.sdk.android:answers:1.3.13'
+    implementation 'com.crashlytics.sdk.android:answers:1.4.1'
 }
 
 if (rootProject.file('brevent-server').exists()) {
     dependencies {
-        compile project(':brevent-server')
+        implementation project(':brevent-server')
     }
 
     task genMainDexList {
@@ -218,12 +215,12 @@ if (rootProject.file('brevent-server').exists()) {
 if (rootProject.isIde) {
     // for ide
     dependencies {
-        compile project(':hidden-api')
+        api project(':hidden-api')
     }
 } else {
     // for gradle
     dependencies {
-        provided rootProject.hiddenApi
+        compileOnly rootProject.hiddenApi
     }
 }
 
@@ -256,6 +253,7 @@ task buildBootstrap(type: Exec) {
             'NDK_APPLICATION_MK=Application.mk'
 }
 
+buildBootstrap.dependsOn ':hidden-api:bundleRelease'
 buildBootstrap.finalizedBy renameBootstrap
 
 task cleanBootstrap(type: Exec) {
@@ -274,8 +272,18 @@ task deleteNativeBuild(type: Delete) {
 
 tasks.withType(JavaCompile) { compileTask ->
     compileTask.dependsOn buildBootstrap
-    compileTask.dependsOn ':hidden-api:bundleRelease'
 }
 
 clean.dependsOn cleanBootstrap
 clean.dependsOn deleteNativeBuild
+
+task moveReleaseApk {
+    doLast {
+        file("build/outputs/apk/release/${project.ext.apkName}")
+            .renameTo(rootProject.file(project.ext.apkName))
+    }
+}
+
+afterEvaluate {
+    assembleRelease.finalizedBy moveReleaseApk
+}

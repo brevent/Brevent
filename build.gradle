@@ -2,17 +2,18 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'https://maven.fabric.io/public'
+            url 'https://dl.google.com/dl/android/maven2'
         }
         maven {
-            url 'https://plugins.gradle.org/m2'
+            url 'https://maven.fabric.io/public'
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
-        classpath 'io.fabric.tools:gradle:1.23.0'
-        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5'
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        if (file('brevent-server').exists()) {
+            // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
+            classpath 'io.fabric.tools:gradle:1.24.4'
+        }
     }
 }
 
@@ -47,7 +48,7 @@ def isIde = { ->
         ide = true
     } else {
         taskRequests[0].args.any {
-            if (it.endsWith('generateDebugSources') || it.endsWith('sonarqube') || it.endsWith('assembleDebug')) {
+            if (it.endsWith('generateDebugSources') || it.endsWith('assembleDebug')) {
                 ide = true
                 return true
             }
@@ -58,13 +59,13 @@ def isIde = { ->
 
 project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
-project.ext.supportLibraryVersion = '26.1.0'
+project.ext.supportLibraryVersion = '27.0.0'
 
-project.ext.buildToolsVersion = '26.0.1'
+project.ext.buildToolsVersion = '27.0.0'
 
 project.ext.minSdkVersion = 21
 
-project.ext.targetSdkVersion = 26
+project.ext.targetSdkVersion = 27
 
 project.ext.versionCode = 113
 
@@ -85,4 +86,4 @@ if (rootProject.file('ant.properties').exists()) {
 }
 
 project.ext.isIde = isIde()
-project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/default/classes.jar'))
+project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.sonarqube'
 
 android {
     compileSdkVersion rootProject.targetSdkVersion
@@ -12,13 +11,13 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
     if (rootProject.file('support-compat-nores').exists()) {
-        compile project(':support-compat-nores')
+        implementation project(':support-compat-nores')
     } else {
-        compile "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
+        implementation "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
     }
-    compile("com.android.support:support-core-utils:${rootProject.supportLibraryVersion}") {
+    implementation("com.android.support:support-core-utils:${rootProject.supportLibraryVersion}") {
         exclude group: 'com.android.support', module: 'support-compat'
     }
 }

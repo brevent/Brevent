@@ -43,6 +43,8 @@
 
 -dontnote com.google.android.gms.ads.AdView
 
+-dontnote android.widget.SearchView
+
 # -repackageclasses ''
 
 # -allowaccessmodification
