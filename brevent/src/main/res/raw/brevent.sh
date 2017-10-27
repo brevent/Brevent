@@ -7,7 +7,7 @@ fi
 brevent=/data/local/tmp/brevent
 
 # some os cannot execute $path directly
-if [ -x $path ]; then
+if [ -r $path ]; then
     if [ -f $brevent ]; then
         rm -rf $brevent
     fi
