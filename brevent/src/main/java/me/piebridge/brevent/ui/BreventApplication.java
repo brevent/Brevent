@@ -115,6 +115,7 @@ public class BreventApplication extends Application {
             if (file.exists()) {
                 return file;
             }
+            UILog.d("no libbrevent.so");
         } catch (PackageManager.NameNotFoundException e) {
             UILog.d("Can't find " + BuildConfig.APPLICATION_ID, e);
         }
@@ -127,12 +128,20 @@ public class BreventApplication extends Application {
             return null;
         }
         File parent = getFilesDir().getParentFile();
-        String father = parent.getParent();
-        try {
-            father = Os.readlink(father);
-            parent = new File(father, parent.getName());
-        } catch (ErrnoException e) {
-            UILog.d("Can't read link for " + father, e);
+        if (parent.canRead()) {
+            String father = parent.getParent();
+            try {
+                father = Os.readlink(father);
+                parent = new File(father, parent.getName());
+            } catch (ErrnoException e) {
+                UILog.d("Can't read link for " + father, e);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            parent = createDeviceProtectedStorageContext().getFilesDir().getParentFile();
+        }
+        UILog.d("parent: " + parent + ", canRead: " + parent.canRead());
+        if (!parent.canRead()) {
+            return null;
         }
         File output = new File(parent, "brevent.sh");
         String path = output.getAbsolutePath();
@@ -153,7 +162,7 @@ public class BreventApplication extends Application {
                 }
                 copied = true;
             } catch (IOException e) {
-                UILog.d("Can't copy brevent", e);
+                UILog.w("Can't copy brevent", e);
                 return null;
             }
         }
@@ -161,7 +170,7 @@ public class BreventApplication extends Application {
             Os.chmod(parent.getPath(), 00755);
             Os.chmod(path, 00755);
         } catch (ErrnoException e) {
-            UILog.d("Can't chmod brevent", e);
+            UILog.w("Can't chmod brevent", e);
             return null;
         }
         return path;

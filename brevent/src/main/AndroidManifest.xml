@@ -88,8 +88,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ui.BreventIntentService"
-                 android:exported="true" />
+        <service android:name=".ui.BreventIntentService" android:directBootAware="true" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

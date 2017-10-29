@@ -50,15 +50,16 @@ public class SimpleAdb {
 
     private final InputStream is;
 
-    private static final String X_BREVENT = "shell:sh /data/data/"
-            + BuildConfig.APPLICATION_ID + "/brevent.sh";
+    private final String command;
 
     private int auth = TRIED_NONE;
 
-    public SimpleAdb(int port) throws IOException {
+    public SimpleAdb(int port, String path) throws IOException {
         socket = new Socket(InetAddress.getByAddress("localhost", new byte[] {127, 0, 0, 1}), port);
         os = new BufferedOutputStream(socket.getOutputStream());
         is = new BufferedInputStream(socket.getInputStream());
+        command = "shell:sh " + path;
+        UILog.d("command: " + path);
     }
 
     private int sendMessage(Message message) throws IOException {
@@ -156,7 +157,7 @@ public class SimpleAdb {
                 return null;
             }
         }
-        sendMessage(new Message(A_OPEN, 1, 0, formatBytes(X_BREVENT)));
+        sendMessage(new Message(A_OPEN, 1, 0, formatBytes(command)));
         message = readMessage();
         if (message.command == A_OKAY) {
             int remote = message.arg0;

@@ -195,12 +195,12 @@ public class AppsActivityHandler extends Handler {
             if (p > 0 && p <= 0xffff) {
                 adbing = true;
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
-                ((BreventApplication) activity.getApplication()).copyBrevent();
+                final String path = ((BreventApplication) activity.getApplication()).copyBrevent();
                 adbThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            adb = new SimpleAdb(p).run();
+                            adb = new SimpleAdb(p, path).run();
                         } catch (IOException e) {
                             UILog.e("Can't adb", e);
                         } finally {
