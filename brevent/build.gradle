@@ -209,8 +209,8 @@ if (rootProject.file('brevent-server').exists()) {
     }
 
     tasks.whenTaskAdded { task ->
-        if (!rootProject.isIde && task.name == 'transformClassesWithDexForRelease') {
-            task.dependsOn genMainDexList
+        if (!rootProject.isIde && task.name == 'transformClassesAndResourcesWithProguardForRelease') {
+            task.finalizedBy genMainDexList
         } else if (task.name == 'crashlyticsUploadDeobsRelease') {
             task.enabled = false
         }
