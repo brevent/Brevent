@@ -176,7 +176,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                     return true;
                 }
             } catch (ErrnoException e) {
-                UILog.d("Cannot access " + su, e);
+                UILog.d("Can't access " + su, e);
             }
         }
         root = false;

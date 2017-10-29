@@ -152,11 +152,11 @@ public class BreventIntentService extends IntentService {
             future.get(1, TimeUnit.SECONDS);
             return results;
         } catch (InterruptedException | ExecutionException e) {
-            String msg = "(Cannot start Brevent)";
+            String msg = "(Can't start Brevent)";
             UILog.d(msg, e);
             return Collections.singletonList(msg);
         } catch (TimeoutException e) {
-            String msg = "(Cannot start Brevent in " + TIMEOUT + " seconds)";
+            String msg = "(Can't start Brevent in " + TIMEOUT + " seconds)";
             UILog.d(msg, e);
             return Collections.singletonList(msg);
         } finally {
@@ -170,7 +170,7 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path == null) {
-            return Collections.singletonList("(Cannot make brevent)");
+            return Collections.singletonList("(Can't make brevent)");
         } else if (BuildConfig.ADB_K != null) {
             return startBreventAdb(path);
         } else {
@@ -190,20 +190,20 @@ public class BreventIntentService extends IntentService {
             su("setprop service.adb.tcp.port 5555; setprop ctl.restart adbd");
             port = SystemProperties.get("service.adb.tcp.port", "");
             if (!"5555".equals(port)) {
-                return Collections.singletonList("(Cannot network adb)");
+                return Collections.singletonList("(Can't network adb)");
             }
             sleep(1);
         }
         UILog.d("adb port: " + port);
         makeSureKeys();
-        String message = "(cannot adb)";
+        String message = "(Can't adb)";
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
                 message = new SimpleAdb(Integer.parseInt(port), path).run();
                 success = true;
                 break;
             } catch (IOException e) {
-                UILog.w("cannot adb(" + e.getMessage() + ")", e);
+                UILog.w("Can't adb(" + e.getMessage() + ")", e);
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
                 e.printStackTrace(pw);
@@ -267,7 +267,7 @@ public class BreventIntentService extends IntentService {
             results = su(path);
         }
         if (results == null) {
-            results = Collections.singletonList("(cannot root)");
+            results = Collections.singletonList("(Can't root)");
         }
         for (String result : results) {
             UILog.d(result);

@@ -182,7 +182,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                     unbindService(activateConnection);
                 }
             } catch (IllegalArgumentException e) {
-                Log.d(getTag(), "cannot bind activateConnection", e);
+                Log.d(getTag(), "Can't bind activateConnection", e);
             }
         } else if (isPlay()) {
             showPlay(null);
@@ -195,7 +195,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             try {
                 unbindService(activateConnection);
             } catch (IllegalArgumentException e) {
-                Log.d(getTag(), "cannot unbind activateConnection", e);
+                Log.d(getTag(), "Can't unbind activateConnection", e);
             }
             activateConnection = null;
         }
@@ -207,7 +207,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             try {
                 unbindService(donateConnection);
             } catch (IllegalArgumentException e) {
-                Log.d(getTag(), "cannot unbind donateConnection", e);
+                Log.d(getTag(), "Can't unbind donateConnection", e);
             }
             donateConnection = null;
         }

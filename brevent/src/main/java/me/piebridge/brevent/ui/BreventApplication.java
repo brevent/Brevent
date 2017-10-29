@@ -322,7 +322,7 @@ public class BreventApplication extends Application {
             breventId = new BigInteger(androidId, 16).longValue();
         } catch (NumberFormatException e) {
             breventId = 0;
-            UILog.d("cannot parse " + androidId, e);
+            UILog.d("Can't parse " + androidId, e);
         }
         if (breventId == 0) {
             breventId = 0xdeadbeef00000000L | new SecureRandom().nextInt();
@@ -361,7 +361,7 @@ public class BreventApplication extends Application {
                 return decode(application, message, getSignature(application));
             }
         } catch (NumberFormatException e) {
-            UILog.d("cannot decode, auto: " + auto, e);
+            UILog.d("Can't decode, auto: " + auto, e);
             return 0d;
         }
     }
@@ -531,7 +531,7 @@ public class BreventApplication extends Application {
                     UILog.v("connected, started: " + started);
                     return started;
                 } catch (ConnectException e) {
-                    UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+                    UILog.v("Can't connect to localhost:" + BreventProtocol.PORT, e);
                     return false;
                 } catch (IOException e) {
                     UILog.v("io error to localhost:" + BreventProtocol.PORT, e);

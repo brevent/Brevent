@@ -403,7 +403,7 @@ public class BreventActivity extends AbstractActivity
                     .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
             return Arrays.equals(BuildConfig.SIGNATURE, BreventProtocol.getFingerprint(sourceDir));
         } catch (PackageManager.NameNotFoundException e) { // NOSONAR
-            UILog.d("Cannot find " + BuildConfig.APPLICATION_ID);
+            UILog.d("Can't find " + BuildConfig.APPLICATION_ID);
             return false;
         }
     }
@@ -1798,7 +1798,7 @@ public class BreventActivity extends AbstractActivity
                         BuildConfig.APPLICATION_ID + ".fileprovider", path);
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
             } catch (IllegalArgumentException e) {
-                UILog.w("Cannot get uri for " + path);
+                UILog.w("Can't get uri for " + path);
             }
         }
         intent.putExtra(Intent.EXTRA_SUBJECT, getSubject(context));

@@ -255,7 +255,7 @@ public class AppsActivityHandler extends Handler {
             }
             return path;
         } catch (IOException e) {
-            UILog.e("cannot report bug", e);
+            UILog.e("Can't report bug", e);
             return null;
         }
     }
@@ -264,7 +264,7 @@ public class AppsActivityHandler extends Handler {
             throws IOException {
         File file = new File(context.getCacheDir(), date + "." + path);
         if (!file.exists()) {
-            UILog.w("Cannot find " + file.getPath());
+            UILog.w("Can't find " + file.getPath());
             return;
         }
         zipLog(zos, file);
@@ -357,7 +357,7 @@ public class AppsActivityHandler extends Handler {
             return true;
         } catch (ConnectException e) {
             // shouldn't happen
-            UILog.v("cannot connect to localhost:" + BreventProtocol.PORT, e);
+            UILog.v("Can't connect to localhost:" + BreventProtocol.PORT, e);
             onConnectError(activity);
         } catch (SocketTimeoutException e) {
             timeout = true;
