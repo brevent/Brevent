@@ -65,7 +65,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         if (activity.canFetchLogs()) {
             builder.setNegativeButton(R.string.menu_logs, this);
         }
-        if (hasRoot()) {
+        if (BuildConfig.ADB_K != null && hasRoot()) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
         } else if (usbConnected && adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_copy_path, this);
@@ -121,7 +121,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean usbConnected = isUsbConnected(activity);
-            if (hasRoot()) {
+            if (BuildConfig.ADB_K != null && hasRoot()) {
                 activity.runAsRoot();
                 dismiss();
             } else if (usbConnected && isAdbRunning()) {
