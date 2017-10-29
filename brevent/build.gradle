@@ -282,13 +282,11 @@ tasks.withType(JavaCompile) { compileTask ->
 clean.dependsOn cleanBootstrap
 clean.dependsOn deleteNativeBuild
 
-task moveReleaseApk {
-    doLast {
-        file("build/outputs/apk/release/${project.ext.apkName}")
-            .renameTo(rootProject.file(project.ext.apkName))
-    }
+task copyReleaseApk(type: Copy) {
+    from file("build/outputs/apk/release/${project.ext.apkName}")
+    into rootProject.file('.')
 }
 
 afterEvaluate {
-    assembleRelease.finalizedBy moveReleaseApk
+    assembleRelease.finalizedBy copyReleaseApk
 }
