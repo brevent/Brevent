@@ -152,7 +152,7 @@
 
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
-    <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires 2 Brefoil in total for Play version</string>
+    <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires 1 Brefoil in total for Play version</string>
     <string name="brevent_optimize_vpn_label_debug">Connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires 2 Brefoil in total for Play version</string>

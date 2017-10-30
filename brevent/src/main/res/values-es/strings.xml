@@ -152,7 +152,7 @@
 
     <string name="brevent_experimental">Características experimentales:</string>
     <string name="brevent_optimize_vpn">Optimización de VPN</string>
-    <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 2 Brefoil para la versión de Play Store.</string>
+    <string name="brevent_optimize_vpn_label">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.\n\nRequiere donar un total de 1 Brefoil para la versión de Play Store.</string>
     <string name="brevent_optimize_vpn_label_debug">Cuando está marcada, la conexión VPN no estará en espera ni será forzada a interrumpir.</string>
     <string name="brevent_abnormal_back">Reconocer un irregular \"Volver\"</string>
     <string name="brevent_abnormal_back_label">Brevent inmediatamente cuando las aplicaciones vuelven a la pantalla principal sin pulsar HOME (ej. Volver/Atras)\n\nRequiere donar un total de 2 Brefoil para la versión de Play Store.</string>

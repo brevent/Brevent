@@ -63,6 +63,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         Bundle arguments = settingsFragment.getArguments();
         arguments.putBoolean(SettingsFragment.LIKE_PLAY, mPlay);
         arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay && isPlayInstaller());
+        arguments.putBoolean(SettingsFragment.SHOW_EXPERIMENTAL, PreferencesUtils.getPreferences(this)
+                .getBoolean(SettingsFragment.SHOW_EXPERIMENTAL, false));
         if (savedInstanceState != null) {
             arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
         }
@@ -187,7 +189,8 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
     @Override
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
-        int amount = AppsDisabledFragment.hasRoot() ? BreventSettings.DONATE_AMOUNT : 0x2;
+        int amount = settingsFragment.getArguments()
+                .getBoolean(SettingsFragment.SHOW_EXPERIMENTAL) ? DONATE_AMOUNT : 0x1;
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {

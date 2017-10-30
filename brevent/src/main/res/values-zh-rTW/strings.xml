@@ -150,7 +150,7 @@
 
     <string name="brevent_experimental">實驗性功能</string>
     <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版總共需要 2 二向箔</string>
+    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式\n\nPlay 版總共需要 1 二向箔</string>
     <string name="brevent_optimize_vpn_label_debug">不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束\n\nPlay 版總共需要 2 二向箔</string>

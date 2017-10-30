@@ -150,7 +150,7 @@
 
     <string name="brevent_experimental">实验性功能</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
-    <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版总共需要 2 二向箔（约合人民币 13 元）</string>
+    <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版总共需要 1 二向箔（约合人民币 6.5 元）</string>
     <string name="brevent_optimize_vpn_label_debug">启用之后，不处理已连接的 VPN 应用</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label_debug">应用使用非“主页”方式（如“返回”）回到桌面时，立即黑域</string>

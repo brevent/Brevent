@@ -123,7 +123,7 @@ public class SettingsFragment extends PreferenceFragment
             }
             preferenceScreen.findPreference("network_adb")
                     .setSummary(getFingerPrint(BuildConfig.ADB_K));
-            if (!getPreferenceScreen().getSharedPreferences().getBoolean(SHOW_EXPERIMENTAL, false)) {
+            if (!getArguments().getBoolean(SHOW_EXPERIMENTAL)) {
                 preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
             if (!AppsDisabledFragment.hasRoot() && !application.supportAppops()) {
@@ -444,11 +444,13 @@ public class SettingsFragment extends PreferenceFragment
         } else if (SHOW_EXPERIMENTAL.equals(preference.getKey())) {
             PreferenceScreen preferenceScreen = getPreferenceScreen();
             if (Boolean.valueOf(String.valueOf(newValue))) {
+                getArguments().putBoolean(SHOW_EXPERIMENTAL, true);
                 Preference breventAbout = preferenceScreen.findPreference("brevent_about");
                 preferenceScreen.removePreference(breventAbout);
                 preferenceScreen.addPreference(preferenceCategoryExperimental);
                 preferenceScreen.addPreference(breventAbout);
             } else {
+                getArguments().putBoolean(SHOW_EXPERIMENTAL, false);
                 preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
         }

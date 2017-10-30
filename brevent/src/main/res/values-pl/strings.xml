@@ -152,7 +152,7 @@
 
     <string name="brevent_experimental">Funkcje Eksperymentalne</string>
     <string name="brevent_optimize_vpn">Optymalizuj VPN</string>
-    <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie\n\n Wymagane 2 Brefoil dla wersji Play</string>
+    <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie\n\n Wymagane 1 Brefoil dla wersji Play</string>
     <string name="brevent_optimize_vpn_label_debug">Jeżeli zaznaczone, aplikacje, które podłączone zostały do VPN, nie znajdą się w trybie czuwania ani nie zostanie wymuszone ich zatrzymanie</string>
     <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
     <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)\n\nWymagane 2 Brefoil dla wersji Play</string>
