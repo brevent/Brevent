@@ -158,7 +158,7 @@
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\nPlay 版总共需要 2 二向箔（约合人民币 13 元）</string>
     <string name="brevent_optimize_audio_label_debug">播放时不处理，暂停且有通知时不强行停止</string>
-    <string name="brevent_allow_root">应用权限与 Root</string>
+    <string name="brevent_allow_root">应用权限与直接 Root</string>
     <string name="brevent_allow_root_label">非常危险，请勿开启\n\n总共需要 3 二向箔（约合人民币 19.5 元）</string>
 
     <string name="show_donation">显示支付</string>

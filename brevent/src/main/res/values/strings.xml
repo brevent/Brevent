@@ -160,7 +160,7 @@
     <string name="brevent_optimize_audio">Optimize Music Player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio_label_debug">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification</string>
-    <string name="brevent_allow_root">AppOps and Root</string>
+    <string name="brevent_allow_root">AppOps and direct Root</string>
     <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
 
     <string name="show_donation">Show payment</string>

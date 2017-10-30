@@ -158,7 +158,7 @@
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放時不處理，暫停且有通知時不強行停止\n\nPlay 版總共需要 2 二向箔</string>
     <string name="brevent_optimize_audio_label_debug">播放時不處理，暫停且有通知時不強行停止</string>
-    <string name="brevent_allow_root">程式權限與 Root</string>
+    <string name="brevent_allow_root">程式權限與直接 Root</string>
     <string name="brevent_allow_root_label">非常危險，不要開啟\n\n總共需要 3 二向箔</string>
 
     <string name="show_donation">顯示支付</string>

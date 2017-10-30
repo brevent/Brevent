@@ -100,10 +100,10 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         if (BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action)) {
             UILog.d("startBreventSync, action: " + action);
-            application.notifyRootCompleted(startBreventSync());
-        } else if (application.allowRoot()) {
+            application.notifyRootCompleted(startBreventSync(true));
+        } else {
             UILog.d("startBrevent, action: " + action);
-            startBrevent();
+            startBrevent(application.allowRoot());
         }
     }
 
@@ -115,7 +115,7 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private List<String> startBrevent() {
+    private List<String> startBrevent(final boolean force) {
         if (future != null) {
             future.cancel(true);
         }
@@ -123,7 +123,7 @@ public class BreventIntentService extends IntentService {
         future = executor.submit(new Runnable() {
             @Override
             public void run() {
-                results.addAll(startBreventSync());
+                results.addAll(startBreventSync(force));
             }
         });
         long timeout = System.currentTimeMillis() + CHECK_TIMEOUT_MS;
@@ -166,19 +166,21 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private List<String> startBreventSync() {
+    private List<String> startBreventSync(boolean force) {
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path == null) {
             return Collections.singletonList("(Can't make brevent)");
         } else if (BuildConfig.ADB_K != null) {
-            return startBreventAdb(path);
-        } else {
+            return startBreventAdb(path, force);
+        } else if (force) {
             return startBreventRoot(path);
+        } else {
+            return Collections.singletonList("(Can't run as Root)");
         }
     }
 
-    private List<String> startBreventAdb(String path) {
+    private List<String> startBreventAdb(String path, boolean force) {
         boolean needClose = false;
         boolean needStop = false;
         boolean success = false;
@@ -218,7 +220,7 @@ public class BreventIntentService extends IntentService {
             String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
             su("setprop service.adb.tcp.port -1; " + command);
         }
-        if (success) {
+        if (success || !force) {
             return Collections.singletonList(message);
         } else {
             List<String> messages = new ArrayList<>();
@@ -267,7 +269,7 @@ public class BreventIntentService extends IntentService {
             results = su(path);
         }
         if (results == null) {
-            results = Collections.singletonList("(Can't root)");
+            results = Collections.singletonList("(Can't Root)");
         }
         for (String result : results) {
             UILog.d(result);
@@ -338,12 +340,6 @@ public class BreventIntentService extends IntentService {
             UILog.d("will startService");
             application.startService(intent);
         }
-    }
-
-    private static boolean allowRoot(BreventApplication application, String action) {
-        boolean allowRoot = application.allowRoot();
-        UILog.d("action: " + action + ", allowRoot: " + allowRoot);
-        return allowRoot && AppsDisabledFragment.hasRoot();
     }
 
     private static boolean shouldForeground() {
