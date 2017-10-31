@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「偵錯模式」執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">「偵錯模式」權限很高，Android O 以下裝置重啟就失效；在 Android O 及以上則更嚴格，關閉「USB 偵錯」或切換「USB 設定」就失效。</string>
+    <string name="fragment_guide_permission_message2">「偵錯模式」權限很高，Android O 以下裝置重啟就失效；在 Android O 及以上則更嚴格，關閉「USB 偵錯」或更改 USB 選項就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑域不需要 Root 或修改系統檔案，解除安裝後沒有殘留。黑域不破壞其它應用程式的完整性，也不處理未被黑域的應用程式。</string>
