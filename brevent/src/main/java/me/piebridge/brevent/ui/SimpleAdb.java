@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -21,8 +22,9 @@ import me.piebridge.brevent.BuildConfig;
 /**
  * Created by thom on 2017/7/20.
  */
-
 public class SimpleAdb {
+
+    private static final String TAG = "BreventADB";
 
     public static final int A_SYNC = 0x434e5953;
     public static final int A_CNXN = 0x4e584e43;
@@ -59,7 +61,7 @@ public class SimpleAdb {
         os = new BufferedOutputStream(socket.getOutputStream());
         is = new BufferedInputStream(socket.getInputStream());
         command = "shell:sh " + path;
-        UILog.d("command: " + path);
+        d("command: " + path);
     }
 
     private int sendMessage(Message message) throws IOException {
@@ -79,7 +81,7 @@ public class SimpleAdb {
         buffer.putInt(length);
         buffer.putInt(sum);
         buffer.putInt(~message.command);
-        UILog.d("send, command: " + command(message.command) + ", length: " + length);
+        d("send, command: " + command(message.command) + ", length: " + length);
         if (length > 0) {
             buffer.put(message.data);
         }
@@ -91,10 +93,10 @@ public class SimpleAdb {
     private Message readMessage() throws IOException {
         byte[] head = new byte[HEAD_LENGTH];
         if (is.read(head) != head.length) {
-            UILog.e("recv head, length too short");
+            e("recv head, length too short");
             throw new IOException();
         }
-        UILog.d("recv, head: " + Arrays.toString(head));
+        d("recv, head: " + Arrays.toString(head));
         ByteBuffer buffer = ByteBuffer.wrap(head);
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         Message message = new Message();
@@ -104,19 +106,19 @@ public class SimpleAdb {
         message.length = buffer.getInt();
         message.check = buffer.getInt();
         message.magic = buffer.getInt();
-        UILog.d("recv, command: " + command(message.command)
+        d("recv, command: " + command(message.command)
                 + ", arg0: " + message.arg0 + ", arg1: " + message.arg1);
         if (message.length > 0) {
             byte[] body = new byte[message.length];
             if (is.read(body) != body.length) {
-                UILog.e("recv data, length too short");
+                e("recv data, length too short");
                 throw new IOException();
             }
             message.data = body;
             if (message.command == A_AUTH) {
-                UILog.d("recv, data: " + Arrays.toString(body));
+                d("recv, data: " + Arrays.toString(body));
             } else {
-                UILog.d("recv: data: " + new String(body, "UTF-8"));
+                d("recv: data: " + new String(body, "UTF-8"));
             }
         }
         return message;
@@ -166,11 +168,13 @@ public class SimpleAdb {
                 if (message.command == A_CLSE) {
                     sendMessage(new Message(A_CLSE, 1, remote, new byte[0]));
                     break;
-                } else if (message.command == A_WRTE && message.length > 0) {
-                    baos.write(message.data);
+                } else if (message.command == A_WRTE) {
+                    if (message.length > 0) {
+                        baos.write(message.data);
+                    }
+                    sendMessage(new Message(A_OKAY, 1, message.arg0, new byte[0]));
                 }
             }
-
         } else if (message.command == A_CLSE) {
             sendMessage(new Message(A_CLSE, 1, message.arg0, new byte[0]));
         }
@@ -218,6 +222,14 @@ public class SimpleAdb {
             default:
                 return "XXXX";
         }
+    }
+
+    static void d(String msg) {
+        Log.d(TAG, msg);
+    }
+
+    static void e(String msg) {
+        Log.e(TAG, msg);
     }
 
     private static class Message {

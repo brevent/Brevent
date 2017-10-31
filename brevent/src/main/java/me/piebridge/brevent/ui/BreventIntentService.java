@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,8 @@ import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
+
+    private static final String TAG_SU = "BreventSU";
 
     public static final int ID = 59526;
 
@@ -201,8 +204,14 @@ public class BreventIntentService extends IntentService {
         String message = "(Can't adb)";
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
-                message = new SimpleAdb(Integer.parseInt(port), path).run();
-                success = true;
+                String adb = new SimpleAdb(Integer.parseInt(port), path).run();
+                if (adb != null) {
+                    message = adb;
+                }
+                for (String s : message.split(System.lineSeparator())) {
+                    UILog.d(s);
+                }
+                success = checkPort();
                 break;
             } catch (IOException e) {
                 UILog.w("Can't adb(" + e.getMessage() + ")", e);
@@ -213,33 +222,35 @@ public class BreventIntentService extends IntentService {
             }
             sleep(1);
         }
-        if (success && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            su(FIXO);
-        }
-        if (needClose) {
-            String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
-            su("setprop service.adb.tcp.port -1; " + command);
-        }
-        if (success || !force) {
-            return Collections.singletonList(message);
-        } else {
-            List<String> messages = new ArrayList<>();
-            messages.add(message);
-            messages.add(System.lineSeparator());
-            messages.addAll(startBreventRoot(path));
-            return messages;
+        try {
+            if (success || !force) {
+                return Collections.singletonList(message);
+            } else {
+                List<String> messages = new ArrayList<>();
+                messages.add(message);
+                messages.add(System.lineSeparator());
+                messages.addAll(startBreventRoot(path));
+                return messages;
+            }
+        } finally {
+            if (success && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                su(FIXO);
+            }
+            if (needClose) {
+                String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
+                su("setprop service.adb.tcp.port -1; " + command);
+            }
         }
     }
 
     private synchronized List<String> su(String command) {
-        String prefix = "[SU] " + command;
-        UILog.d(prefix);
+        Log.d(TAG_SU, command);
         List<String> result = Shell.SU.run(command);
         if (result == null) {
-            UILog.d(prefix + ": (no output)");
+            Log.d(TAG_SU, "(no output)");
         } else {
             for (String s : result) {
-                UILog.d(prefix + ": " + s);
+                Log.d(TAG_SU, s);
             }
         }
         return result;
