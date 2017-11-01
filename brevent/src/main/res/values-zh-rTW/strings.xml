@@ -171,7 +171,7 @@
     <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_experimental">顯示實驗性功能</string>
-    <string name="show_experimental_label">實驗性功能不穩定，不建議開啟。僅對支付確認用戶開放</string>
+    <string name="show_experimental_label">實驗性功能不穩定，不建議開啟\n僅對「支付確認」用戶開放</string>
     <string name="brevent_network_adb">網路偵錯</string>
     <string name="brevent_language">界面語言</string>
     <string name="brevent_language_auto">與系統同步</string>
