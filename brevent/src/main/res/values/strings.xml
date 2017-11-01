@@ -142,7 +142,7 @@
 
     <string name="brevent_advanced">Advanced Features</string>
     <string name="brevent_aggressive">Aggressive mode</string>
-    <string name="brevent_aggressive_label">Brevent immediately, auto-brevent non-service apps, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
+    <string name="brevent_aggressive_label">Brevent immediately, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
     <string name="show_framework_apps">Show core apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing core apps</string>
     <string name="show_all_apps">Show all apps</string>

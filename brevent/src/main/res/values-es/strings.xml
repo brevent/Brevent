@@ -142,7 +142,7 @@
 
     <string name="brevent_advanced">Características avanzadas:</string>
     <string name="brevent_aggressive">Modo agresivo</string>
-    <string name="brevent_aggressive_label">Brevent de inmediato, auto-Brevent en las aplicaciones sin servicio, detención segura de aplicaciones de seguridad.\n\nEspecialmente para el OCD, tenga cuidado.</string>
+    <string name="brevent_aggressive_label">Brevent de inmediato, detención segura de aplicaciones de seguridad.\n\nEspecialmente para el OCD, tenga cuidado.</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>

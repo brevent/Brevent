@@ -140,7 +140,7 @@
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_aggressive">激进模式</string>
-    <string name="brevent_aggressive_label">立即黑域，自动黑域没有服务应用，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
+    <string name="brevent_aggressive_label">立即黑域，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
@@ -171,7 +171,7 @@
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_experimental">显示实验性功能</string>
-    <string name="show_experimental_label">实验性功能不稳定，不建议开启\n仅对“支付确认”用户开放</string>
+    <string name="show_experimental_label">实验性功能不稳定，不建议开启\n\n仅对“支付确认”用户开放</string>
     <string name="brevent_network_adb">网络调试</string>
     <string name="brevent_language">界面语言</string>
     <string name="brevent_language_auto">跟随系统</string>

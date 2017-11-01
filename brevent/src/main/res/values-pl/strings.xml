@@ -142,7 +142,7 @@
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
     <string name="brevent_aggressive">Tryb agresywny</string>
-    <string name="brevent_aggressive_label">Breventuj natychmiastowo, auto-breventuj nieusługowe aplikacje, wymuś zatrzymanie bezpiecznych aplikacji.\n\nSpecjalnie dla OCD, używaj ostrożnie</string>
+    <string name="brevent_aggressive_label">Breventuj natychmiastowo, wymuś zatrzymanie bezpiecznych aplikacji.\n\nSpecjalnie dla OCD, używaj ostrożnie</string>
     <string name="show_framework_apps">Pokaż frameworki</string>
     <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
     <string name="show_all_apps">Pokaż wszystkie aplikacje</string>
