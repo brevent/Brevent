@@ -119,6 +119,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     @Nullable
     public static Collection<String> getPurchased(Application application, String tag,
                                                   BigInteger modulus) {
+        if (!hasPlay(application)) {
+            removePlayCache(application);
+            return null;
+        }
         String play = PreferencesUtils.getPreferences(application).getString("play", null);
         if (TextUtils.isEmpty(play)) {
             return null;
@@ -141,12 +145,13 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     public boolean activatePlayIfNeeded() {
-        Collection<String> purchased = getPurchased(getApplication(), getTag(), getPlayModulus());
+        Application application = getApplication();
+        Collection<String> purchased = getPurchased(application, getTag(), getPlayModulus());
         if (purchased == null) {
             return false;
         } else {
             if (purchased.isEmpty()) {
-                PreferencesUtils.getPreferences(this).edit().remove("play").apply();
+                removePlayCache(application);
             } else {
                 showPlay(purchased);
             }
@@ -169,6 +174,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     private synchronized void activatePlay() {
         Log.d(getTag(), "activatePlay");
+        removePlayCache(getApplication());
         if (hasPlay()) {
             showPlayCheck();
             HandlerThread thread = new HandlerThread("DonateService");
@@ -318,7 +324,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     protected boolean hasPlay() {
-        return getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
+        return hasPlay(this);
+    }
+
+    static boolean hasPlay(Context context) {
+        return context.getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
     }
 
     protected String getApplicationId() {
