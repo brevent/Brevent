@@ -36,6 +36,9 @@ public class BreventConfiguration extends BreventProtocol {
     public static final int DEFAULT_BREVENT_STANDBY_TIMEOUT = 3600;
     public static final int MIN_BREVENT_STANDBY_TIMEOUT = 300;
 
+    public static final String BREVENT_CHECK_NOTIFICATION = "brevent_check_notification";
+    public static final boolean DEFAULT_BREVENT_CHECK_NOTIFICATION = true;
+
     public static final String BREVENT_AGGRESSIVE = "brevent_aggressive";
     public static final boolean DEFAULT_BREVENT_AGGRESSIVE = false;
 
@@ -56,6 +59,8 @@ public class BreventConfiguration extends BreventProtocol {
     public boolean optimizeVpn = DEFAULT_BREVENT_OPTIMIZE_VPN;
 
     public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
+
+    public boolean checkNotification = DEFAULT_BREVENT_CHECK_NOTIFICATION;
 
     public boolean aggressive = DEFAULT_BREVENT_AGGRESSIVE;
 
@@ -80,6 +85,8 @@ public class BreventConfiguration extends BreventProtocol {
                 DEFAULT_BREVENT_OPTIMIZE_VPN);
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT,
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
+        checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
+                DEFAULT_BREVENT_CHECK_NOTIFICATION);
         aggressive = sharedPreferences.getBoolean(BREVENT_AGGRESSIVE,
                 DEFAULT_BREVENT_AGGRESSIVE);
         abnormalBack = sharedPreferences.getBoolean(BREVENT_ABNORMAL_BACK,
@@ -112,6 +119,7 @@ public class BreventConfiguration extends BreventProtocol {
         method = in.readInt();
         optimizeVpn = in.readInt() != 0;
         standbyTimeout = in.readInt();
+        checkNotification = in.readInt() != 0;
         aggressive = in.readInt() != 0;
         abnormalBack = in.readInt() != 0;
         androidId = in.readLong();
@@ -127,6 +135,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(method);
         dest.writeInt(optimizeVpn ? 1 : 0);
         dest.writeInt(standbyTimeout);
+        dest.writeInt(checkNotification ? 1 : 0);
         dest.writeInt(aggressive ? 1 : 0);
         dest.writeInt(abnormalBack ? 1 : 0);
         dest.writeLong(androidId);
@@ -140,6 +149,7 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_OPTIMIZE_VPN, optimizeVpn);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
+        write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
         write(pw, BREVENT_AGGRESSIVE, aggressive);
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
         write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
@@ -187,6 +197,9 @@ public class BreventConfiguration extends BreventProtocol {
                     standbyTimeout = MIN_BREVENT_STANDBY_TIMEOUT;
                 }
                 break;
+            case BREVENT_CHECK_NOTIFICATION:
+                checkNotification = Boolean.parseBoolean(value);
+                break;
             case BREVENT_AGGRESSIVE:
                 aggressive = Boolean.parseBoolean(value);
                 break;
@@ -230,6 +243,10 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.standbyTimeout != request.standbyTimeout) {
             this.standbyTimeout = request.standbyTimeout;
+            updated = true;
+        }
+        if (this.checkNotification != request.checkNotification) {
+            this.checkNotification = request.checkNotification;
             updated = true;
         }
         if (this.aggressive != request.aggressive) {

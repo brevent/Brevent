@@ -141,6 +141,8 @@
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s\n\nBrevent doesn\'t show standby time</string>
 
     <string name="brevent_advanced">Advanced Features</string>
+    <string name="brevent_check_notification">Check notifications</string>
+    <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
     <string name="brevent_aggressive">Aggressive mode</string>
     <string name="brevent_aggressive_label">Brevent immediately, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
     <string name="show_framework_apps">Show core apps</string>
@@ -174,7 +176,6 @@
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="show_experimental">Show experimental features</string>
     <string name="show_experimental_label">Experimental features are unstable and require payment</string>
-    <string name="brevent_network_adb">Network ADB</string>
     <string name="brevent_language">Language</string>
     <string name="brevent_language_auto">Auto</string>
 

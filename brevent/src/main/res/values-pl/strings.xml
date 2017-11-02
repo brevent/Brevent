@@ -141,14 +141,14 @@
     <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
+    <string name="brevent_check_notification">Check notifications</string>
+    <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
     <string name="brevent_aggressive">Tryb agresywny</string>
     <string name="brevent_aggressive_label">Breventuj natychmiastowo, wymuś zatrzymanie bezpiecznych aplikacji.\n\nSpecjalnie dla OCD, używaj ostrożnie</string>
     <string name="show_framework_apps">Pokaż frameworki</string>
     <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
     <string name="show_all_apps">Pokaż wszystkie aplikacje</string>
     <string name="show_all_apps_label">Włącznie z systemowymi aplikacjami oraz frameworkami, które nie mogą zostać uruchomione.\n\nBądź ostrożny podczas breventowania systemowych aplikacji i frameworków, które nie mogą zostać uruchomione</string>
-    <string name="brevent_checking">Diagnostyka</string>
-    <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut. Zbieraj logi tylko wtedy, gdy jest to potrzebne\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
 
     <string name="brevent_experimental">Funkcje Eksperymentalne</string>
     <string name="brevent_optimize_vpn">Optymalizuj VPN</string>
@@ -172,9 +172,10 @@
     <string name="show_donation_play_and_contributor">Dzięki za kupno %s Brefoil w Sklepie Play i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_rmb_and_contributor">Dzięki za kupno %s Brefoil i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor"> Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
+    <string name="brevent_checking">Diagnostyka</string>
+    <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut. Zbieraj logi tylko wtedy, gdy jest to potrzebne\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
     <string name="show_experimental">Pokaż funkcje eksperymentalne</string>
     <string name="show_experimental_label">Funkcje eksperymentalne nie są stabilne i wymagają wcześniejszego kupna tzw. Brefoil</string>
-    <string name="brevent_network_adb">Network ADB</string>
     <string name="brevent_language">Język</string>
     <string name="brevent_language_auto">Automatyczny</string>
 

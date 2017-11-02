@@ -121,8 +121,6 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceOptimizeAudio.setEnabled(false);
                 preferenceAllowRoot.setEnabled(false);
             }
-            preferenceScreen.findPreference("network_adb")
-                    .setSummary(getFingerPrint(BuildConfig.ADB_K));
             if (!getArguments().getBoolean(SHOW_EXPERIMENTAL)) {
                 preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
@@ -386,34 +384,6 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
         }
-    }
-
-    private static String getFingerPrint(byte[] key) {
-        if (key == null) {
-            return null;
-        }
-        MessageDigest md5;
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (GeneralSecurityException e) {
-            UILog.e("md5", e);
-            return null;
-        }
-        byte[] digest = md5.digest(key);
-        StringBuilder sb = new StringBuilder();
-        String hex = "0123456789ABCDEF";
-        int i = 0;
-        int length = digest.length;
-        while (true) {
-            sb.append(hex.charAt((digest[i] >> 4) & 0xf));
-            sb.append(hex.charAt(digest[i] & 0xf));
-            if (++i < length) {
-                sb.append(":");
-            } else {
-                break;
-            }
-        }
-        return sb.toString();
     }
 
     int getPosition() {

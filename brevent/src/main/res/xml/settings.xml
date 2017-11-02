@@ -41,6 +41,12 @@
         android:title="@string/brevent_advanced">
 
         <SwitchPreference
+            android:key="brevent_check_notification"
+            android:defaultValue="true"
+            android:summary="@string/brevent_check_notification_label"
+            android:title="@string/brevent_check_notification" />
+
+        <SwitchPreference
             android:defaultValue="false"
             android:key="brevent_aggressive"
             android:summary="@string/brevent_aggressive_label"
@@ -57,12 +63,6 @@
             android:key="show_all_apps"
             android:summary="@string/show_all_apps_label"
             android:title="@string/show_all_apps" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="brevent_checking"
-            android:summary="@string/brevent_checking_label"
-            android:title="@string/brevent_checking" />
 
     </PreferenceCategory>
 
@@ -81,10 +81,11 @@
             android:summary="@string/show_experimental_label"
             android:title="@string/show_experimental" />
 
-        <Preference
-            android:defaultValue="true"
-            android:key="network_adb"
-            android:title="@string/brevent_network_adb" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_checking"
+            android:summary="@string/brevent_checking_label"
+            android:title="@string/brevent_checking" />
 
         <ListPreference
             android:defaultValue="auto"
@@ -114,6 +115,7 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:dependency="brevent_check_notification"
             android:key="brevent_optimize_audio"
             android:summary="@string/brevent_optimize_audio_label"
             android:title="@string/brevent_optimize_audio" />
