@@ -422,14 +422,7 @@ public class BreventApplication extends Application {
         if (play != null) {
             return play;
         }
-        try {
-            Bundle bundle = getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID,
-                    PackageManager.GET_META_DATA).metaData;
-            play = bundle != null && bundle.containsKey("com.android.vending.derived.apk.id");
-        } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't get application for " + BuildConfig.APPLICATION_ID, e);
-            play = false;
-        }
+        play = VersionPreference.isPlay(this);
         return play;
     }
 

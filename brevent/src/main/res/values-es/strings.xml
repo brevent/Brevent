@@ -190,7 +190,6 @@
     <string name="brevent_about_version_like_play">Igual que Play Store</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
-    <string name="brevent_about_version_other">Desconocido</string>
     <string name="brevent_about_developer">Opciones de desarrollador</string>
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>

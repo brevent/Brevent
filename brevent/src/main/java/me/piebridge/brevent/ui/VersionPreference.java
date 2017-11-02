@@ -40,16 +40,9 @@ public class VersionPreference extends Preference {
         }
     }
 
-    private String getVersion(Context context) {
+    static String getVersion(Context context) {
         PackageManager packageManager = context.getPackageManager();
         String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
-        if (((BreventSettings) context).isPlay()) {
-            if (DonateActivity.PACKAGE_PLAY.equals(installer)) {
-                return context.getString(R.string.brevent_about_version_play);
-            } else {
-                return context.getString(R.string.brevent_about_version_like_play);
-            }
-        }
 
         if (!TextUtils.isEmpty(installer)
                 && packageManager.getLaunchIntentForPackage(installer) != null) {
@@ -57,9 +50,28 @@ public class VersionPreference extends Preference {
                 return context.getString(R.string.brevent_about_version_meizu);
             } else if ("com.smartisanos.appstore".equals(installer)) {
                 return context.getString(R.string.brevent_about_version_smartisan);
+            } else if (DonateActivity.PACKAGE_PLAY.equals(installer)) {
+                return context.getString(R.string.brevent_about_version_play);
             }
         }
-        return context.getString(R.string.brevent_about_version_other);
+
+        return context.getString(R.string.brevent_about_version_like_play);
+    }
+
+    static boolean isPlay(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
+
+        if (!TextUtils.isEmpty(installer) &&
+                packageManager.getLaunchIntentForPackage(installer) != null) {
+            UILog.d("installer: " + installer);
+            if ("com.meizu.mstore".equals(installer) ||
+                    "com.smartisanos.appstore".equals(installer)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
