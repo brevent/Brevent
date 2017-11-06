@@ -185,8 +185,6 @@ dependencies {
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
     implementation project(':log-reader')
-    // https://bintray.com/chainfire/maven/libsuperuser
-    implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
     implementation 'com.crashlytics.sdk.android:answers:1.4.1'
 }

@@ -2,9 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accounts.NetworkErrorException;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -118,7 +116,7 @@ public class AppsActivityHandler extends Handler {
                 if (!hasResponse) {
                     UILog.d("received response");
                     hasResponse = true;
-                    hideNotification(activity);
+                    ((BreventApplication) activity.getApplication()).onStarted();
                 }
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
@@ -289,14 +287,6 @@ public class AppsActivityHandler extends Handler {
         BreventRequest request = new BreventRequest(confirmed, check);
         request.retry = retry;
         send(request);
-    }
-
-    private void hideNotification(Context context) {
-        context.stopService(new Intent(context, BreventIntentService.class));
-        NotificationManager nm = BreventIntentService.getNotificationManager(context);
-        nm.cancel(BreventIntentService.ID);
-        nm.cancel(BreventIntentService.ID2);
-        nm.cancel(BreventIntentService.ID3);
     }
 
     private Boolean checkPort(BreventActivity activity) {

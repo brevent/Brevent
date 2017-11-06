@@ -25,14 +25,6 @@
 
         <PreferenceScreen
             android:summary="Apache License, Version 2.0"
-            android:title="libsuperuser">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/Chainfire/libsuperuser/" />
-        </PreferenceScreen>
-
-        <PreferenceScreen
-            android:summary="Apache License, Version 2.0"
             android:title="ConstraintLayout library">
             <intent
                 android:action="android.intent.action.VIEW"

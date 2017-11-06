@@ -11,12 +11,9 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
-import android.system.ErrnoException;
-import android.system.Os;
 import android.widget.Toast;
 
-import java.io.File;
-
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -36,8 +33,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
     public AppsDisabledFragment() {
         setArguments(new Bundle());
     }
-
-    private static Boolean root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +60,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         if (activity.canFetchLogs()) {
             builder.setNegativeButton(R.string.menu_logs, this);
         }
-        if (BuildConfig.ADB_K != null && hasRoot()) {
+        if (BuildConfig.ADB_K != null && SimpleSu.hasSu()) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
         } else if (usbConnected && adbRunning) {
             builder.setPositiveButton(R.string.brevent_service_copy_path, this);
@@ -121,7 +116,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             boolean usbConnected = isUsbConnected(activity);
-            if (BuildConfig.ADB_K != null && hasRoot()) {
+            if (BuildConfig.ADB_K != null && SimpleSu.hasSu()) {
                 activity.runAsRoot();
                 dismiss();
             } else if (usbConnected && isAdbRunning()) {
@@ -161,27 +156,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
 
     public boolean isConnected() {
         return getArguments().getBoolean(USB_CONNECTED, false);
-    }
-
-    public static boolean hasRoot() {
-        if (root != null) {
-            return root;
-        }
-        for (String path : System.getenv("PATH").split(":")) {
-            File su = new File(path, "su");
-            try {
-                if (Os.access(su.getPath(), 1)) {
-                    UILog.d("has su: " + su);
-                    root = true;
-                    return true;
-                }
-            } catch (ErrnoException e) {
-                UILog.d("Can't access " + su, e);
-            }
-        }
-        root = false;
-        UILog.d("has no su");
-        return false;
     }
 
 }

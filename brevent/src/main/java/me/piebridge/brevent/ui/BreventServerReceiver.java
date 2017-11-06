@@ -20,6 +20,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context c, Intent intent) {
         String action = intent.getAction();
+        UILog.d("received: " + action);
         Context context = LocaleUtils.updateResources(c);
         if (BreventIntent.ACTION_HOME_TID.equals(action)) {
             int homeTid = intent.getIntExtra(BreventIntent.EXTRA_HOME_TID, 0);
@@ -44,6 +45,11 @@ public class BreventServerReceiver extends BroadcastReceiver {
             }
         } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
             Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
+        } else if (BreventIntent.ACTION_BREVENT.equals(action)) {
+            Context applicationContext = context.getApplicationContext();
+            if (applicationContext instanceof BreventApplication) {
+                ((BreventApplication) applicationContext).onStarted();
+            }
         }
     }
 

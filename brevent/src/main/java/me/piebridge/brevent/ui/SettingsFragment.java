@@ -19,10 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.security.GeneralSecurityException;
-import java.security.MessageDigest;
 import java.util.Objects;
 
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventConfiguration;
@@ -124,7 +123,7 @@ public class SettingsFragment extends PreferenceFragment
             if (!getArguments().getBoolean(SHOW_EXPERIMENTAL)) {
                 preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
-            if (!AppsDisabledFragment.hasRoot() && !application.supportAppops()) {
+            if (!SimpleSu.hasSu() && !application.supportAppops()) {
                 preferenceCategoryExperimental.removePreference(preferenceAllowRoot);
             }
         } else {
@@ -204,7 +203,7 @@ public class SettingsFragment extends PreferenceFragment
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
         Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
-        if (!AppsDisabledFragment.hasRoot() && AppsDisabledFragment.isAdbRunning()) {
+        if (!SimpleSu.hasSu() && AppsDisabledFragment.isAdbRunning()) {
             preference.setSummary(R.string.brevent_about_developer_adb);
         } else {
             preference.setSummary(null);
@@ -360,7 +359,7 @@ public class SettingsFragment extends PreferenceFragment
         if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
                 if (!getArguments().getBoolean(IS_PLAY, false)) {
-                    showDonate(AppsDisabledFragment.hasRoot());
+                    showDonate(SimpleSu.hasSu());
                 }
                 repeat = 0;
             }

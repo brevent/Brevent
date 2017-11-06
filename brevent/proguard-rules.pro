@@ -39,8 +39,6 @@
 
 -keep class me.piebridge.LogReader { *; }
 
--dontnote eu.chainfire.libsuperuser.Shell*
-
 -dontwarn me.piebridge.brevent.override.HideApiOverride*
 
 -dontnote com.google.android.gms.ads.AdView

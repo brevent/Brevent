@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.List;
 
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.donation.DonateActivity;
@@ -217,7 +218,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
         if (BuildConfig.RELEASE) {
             BreventApplication application = (BreventApplication) getApplication();
             String installer = application.getInstaller();
-            String mode = AppsDisabledFragment.hasRoot() ? "root" : "shell";
+            String mode = SimpleSu.hasSu() ? "root" : "shell";
             try {
                 Answers.getInstance().logAddToCart(new AddToCartEvent()
                         .putItemPrice(BigDecimal.ONE)

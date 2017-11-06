@@ -94,7 +94,7 @@ public class SimpleAdb {
         byte[] head = new byte[HEAD_LENGTH];
         if (is.read(head) != head.length) {
             e("recv head, length too short");
-            throw new IOException();
+            throw new AdbException();
         }
         d("recv, head: " + Arrays.toString(head));
         ByteBuffer buffer = ByteBuffer.wrap(head);
@@ -112,7 +112,7 @@ public class SimpleAdb {
             byte[] body = new byte[message.length];
             if (is.read(body) != body.length) {
                 e("recv data, length too short");
-                throw new IOException();
+                throw new AdbException();
             }
             message.data = body;
             if (message.command == A_AUTH) {
@@ -164,7 +164,11 @@ public class SimpleAdb {
         if (message.command == A_OKAY) {
             int remote = message.arg0;
             while (true) {
-                message = readMessage();
+                try {
+                    message = readMessage();
+                } catch (AdbException e) {
+                    break;
+                }
                 if (message.command == A_CLSE) {
                     sendMessage(new Message(A_CLSE, 1, remote, new byte[0]));
                     break;
@@ -253,4 +257,6 @@ public class SimpleAdb {
         }
     }
 
+    private static class AdbException extends IOException {
+    }
 }

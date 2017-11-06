@@ -12,6 +12,7 @@ public final class BreventIntent {
     public static final String ACTION_ALIPAY2 = "me.piebridge.brevent.intent.action.ALIPAY2";
     public static final String ACTION_ALARM = "me.piebridge.brevent.intent.action.ALARM";
     public static final String ACTION_FEEDBACK = "me.piebridge.brevent.intent.action.FEEDBACK";
+    public static final String ACTION_BREVENT = "me.piebridge.brevent.intent.action.BREVENT";
 
     public static final String PERMISSION_MANAGER = "me.piebridge.brevent.permission.MANAGER";
 

@@ -2,16 +2,18 @@ package me.piebridge.brevent.ui;
 
 import android.accounts.NetworkErrorException;
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -50,6 +52,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import dalvik.system.PathClassLoader;
+
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -90,11 +94,18 @@ public class BreventApplication extends Application {
 
     private static final Object LOCK = new Object();
 
+    private final Object lockAdb = new Object();
+
     private Boolean play;
 
     private static BigInteger modulus;
 
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
+
+    private boolean needClose;
+    private boolean needStop;
+    private boolean fixAdb;
+    private boolean started;
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -232,7 +243,7 @@ public class BreventApplication extends Application {
             String mode = getMode();
             UILog.d("days: " + days + ", living: " + living);
             try {
-                if (AppsDisabledFragment.hasRoot()) {
+                if (SimpleSu.hasSu()) {
                     Answers.getInstance().logInvite(new InviteEvent()
                             .putMethod(mode)
                             .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
@@ -546,6 +557,80 @@ public class BreventApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleUtils.updateResources(base));
+    }
+
+    public void setAdb(boolean needClose, boolean needStop) {
+        this.needClose = needClose;
+        this.needStop = needStop;
+        this.fixAdb = true;
+        this.started = false;
+    }
+
+    public void unsetFixAdb() {
+        this.fixAdb = false;
+    }
+
+    public void stopAdbIfNeeded() {
+        synchronized (lockAdb) {
+            stopAdbIfNeededSync();
+        }
+    }
+
+    private void stopAdbIfNeededSync() {
+        if (fixAdb && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            SimpleSu.su("pbd=`pidof brevent_daemon`; " +
+                    "pbs=`pidof brevent_server`; " +
+                    "pin=`pidof installd`; " +
+                    "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
+                    "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
+                    "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
+                    "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs");
+            fixAdb = false;
+        }
+        if (!needClose) {
+            needClose = "1".equals(SystemProperties.get("service.adb.brevent.close", ""));
+        }
+        if (needClose) {
+            needClose = false;
+            String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
+            SimpleSu.su("setprop service.adb.tcp.port -1; " +
+                    "setprop service.adb.brevent.close 0; " + command);
+        }
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void onStarted() {
+        if (!this.started) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    stopAdb();
+                    hideNotification();
+                }
+            }).start();
+        } else {
+            hideNotification();
+        }
+    }
+
+    void stopAdb() {
+        if (!this.started) {
+            this.started = true;
+            if (SimpleSu.hasSu()) {
+                stopAdbIfNeeded();
+            }
+        }
+    }
+
+    void hideNotification() {
+        stopService(new Intent(this, BreventIntentService.class));
+        NotificationManager nm = BreventIntentService.getNotificationManager(this);
+        nm.cancel(BreventIntentService.ID);
+        nm.cancel(BreventIntentService.ID2);
+        nm.cancel(BreventIntentService.ID3);
     }
 
 }

@@ -13,12 +13,12 @@ import android.os.Environment;
 import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,15 +29,13 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import eu.chainfire.libsuperuser.Shell;
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
-
-    private static final String TAG_SU = "BreventSU";
 
     public static final int ID = 59526;
 
@@ -53,13 +51,7 @@ public class BreventIntentService extends IntentService {
 
     private static final int CHECK_TIMEOUT_MS = 15_000;
 
-    private static final String FIXO = "pbd=`pidof brevent_daemon`; " +
-            "pbs=`pidof brevent_server`; " +
-            "pin=`pidof installd`; " +
-            "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
-            "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
-            "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
-            "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs";
+    private static final Object LOCK_BREVENT = new Object();
 
     private static final String ADB_DIRECTORY = "misc/adb";
 
@@ -89,10 +81,14 @@ public class BreventIntentService extends IntentService {
         Notification notification = postNotification(application);
         UILog.d("show notification");
         startForeground(ID, notification);
-        if (AppsDisabledFragment.hasRoot() && !checkPort()) {
-            startBrevent(action);
+        if (SimpleSu.hasSu() && !checkPort()) {
+            synchronized (LOCK_BREVENT) {
+                if (!checkPort()) {
+                    startBrevent(action);
+                }
+            }
         }
-        if (!AppsDisabledFragment.hasRoot() || !checkPort()) {
+        if (!SimpleSu.hasSu() || !checkPort()) {
             showStopped(application);
         }
         UILog.d("hide notification");
@@ -144,7 +140,7 @@ public class BreventIntentService extends IntentService {
                         }
                         sleep(1);
                     }
-                    future.cancel(false);
+                    future.cancel(true);
                     return Collections.emptyList();
                 }
             } catch (IOException e) {
@@ -164,12 +160,15 @@ public class BreventIntentService extends IntentService {
             return Collections.singletonList(msg);
         } finally {
             if (!future.isDone()) {
-                future.cancel(false);
+                future.cancel(true);
             }
         }
     }
 
     private List<String> startBreventSync(boolean force) {
+        if (checkPort()) {
+            return Collections.singletonList("(Started)");
+        }
         BreventApplication application = (BreventApplication) getApplication();
         String path = application.copyBrevent();
         if (path == null) {
@@ -177,14 +176,14 @@ public class BreventIntentService extends IntentService {
         } else if (BuildConfig.ADB_K != null) {
             return startBreventAdb(path, force);
         } else if (force) {
-            return startBreventRoot(path);
+            return Collections.singletonList(startBreventRoot(path));
         } else {
             return Collections.singletonList("(Can't run as Root)");
         }
     }
 
     private List<String> startBreventAdb(String path, boolean force) {
-        boolean needClose = false;
+        boolean needClose = "1".equals(SystemProperties.get("service.adb.brevent.close", ""));
         boolean needStop = false;
         boolean success = false;
         String port = SystemProperties.get("service.adb.tcp.port", "");
@@ -192,7 +191,9 @@ public class BreventIntentService extends IntentService {
         if (TextUtils.isEmpty(port) || !TextUtils.isDigitsOnly(port)) {
             needClose = true;
             needStop = !AppsDisabledFragment.isAdbRunning();
-            su("setprop service.adb.tcp.port 5555; setprop ctl.restart adbd");
+            SimpleSu.su("setprop service.adb.tcp.port 5555; " +
+                    "setprop service.adb.brevent.close 1; " +
+                    "setprop ctl.restart adbd");
             port = SystemProperties.get("service.adb.tcp.port", "");
             if (!"5555".equals(port)) {
                 return Collections.singletonList("(Can't network adb)");
@@ -202,6 +203,8 @@ public class BreventIntentService extends IntentService {
         UILog.d("adb port: " + port);
         makeSureKeys();
         String message = "(Can't adb)";
+        BreventApplication application = (BreventApplication) getApplication();
+        application.setAdb(needClose, needStop);
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
                 String adb = new SimpleAdb(Integer.parseInt(port), path).run();
@@ -211,8 +214,10 @@ public class BreventIntentService extends IntentService {
                 for (String s : message.split(System.lineSeparator())) {
                     UILog.d(s);
                 }
-                success = checkPort();
+                success = application.isStarted() || checkPort();
                 break;
+            } catch (ConnectException e) {
+                UILog.d("Can't adb(Connection refused)", e);
             } catch (IOException e) {
                 UILog.w("Can't adb(" + e.getMessage() + ")", e);
                 StringWriter sw = new StringWriter();
@@ -222,39 +227,22 @@ public class BreventIntentService extends IntentService {
             }
             sleep(1);
         }
-        try {
-            if (success || !force) {
-                return Collections.singletonList(message);
-            } else {
-                List<String> messages = new ArrayList<>();
-                messages.add(message);
-                messages.add(System.lineSeparator());
-                messages.addAll(startBreventRoot(path));
-                return messages;
-            }
-        } finally {
-            if (success && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                su(FIXO);
-            }
-            if (needClose) {
-                String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
-                su("setprop service.adb.tcp.port -1; " + command);
-            }
+        // shouldn't happen if success
+        if (!success) {
+            application.unsetFixAdb();
+        }
+        application.stopAdbIfNeeded();
+        if (success || !force) {
+            return Collections.singletonList(message);
+        } else {
+            List<String> messages = new ArrayList<>();
+            messages.add(message);
+            messages.add(System.lineSeparator());
+            messages.add(startBreventRoot(path));
+            return messages;
         }
     }
 
-    private synchronized List<String> su(String command) {
-        Log.d(TAG_SU, command);
-        List<String> result = Shell.SU.run(command);
-        if (result == null) {
-            Log.d(TAG_SU, "(no output)");
-        } else {
-            for (String s : result) {
-                Log.d(TAG_SU, s);
-            }
-        }
-        return result;
-    }
 
     private boolean makeSureKeys() {
         File keyFile = getUserKeyFile();
@@ -269,23 +257,16 @@ public class BreventIntentService extends IntentService {
                 "else " +
                 "grep -q $keys $file || echo $keys >> $file; " +
                 "fi";
-        su(command);
+        SimpleSu.su(command);
         return true;
     }
 
-    private List<String> startBreventRoot(String path) {
-        UILog.d("startBrevent: $SHELL " + path);
-        List<String> results = su("$SHELL " + path);
-        if (results == null) {
-            results = su(path);
+    private String startBreventRoot(String path) {
+        String result = SimpleSu.su("$SHELL " + path, true);
+        if (!checkPort()) {
+            result = SimpleSu.su(path, true);
         }
-        if (results == null) {
-            results = Collections.singletonList("(Can't Root)");
-        }
-        for (String result : results) {
-            UILog.d(result);
-        }
-        return results;
+        return result;
     }
 
     static NotificationManager getNotificationManager(Context context) {
