@@ -19,7 +19,9 @@
 -keepattributes SourceFile,LineNumberTable,EnclosingMethod
 
 # for brevent-server
--keepnames class android.support.v4.util.** { *; }
+-keep class android.support.v4.util.ArraySet { *; }
+-keep class android.support.v4.util.SimpleArrayMap { *; }
+-keep class org.slf4j.LoggerFactory { *; }
 
 -keep class com.android.vending.billing.**
 
@@ -48,9 +50,3 @@
 # -repackageclasses ''
 
 # -allowaccessmodification
-
-# logback-android
--keep class ch.qos.** { *; }
--keep class org.slf4j.** { *; }
--keepattributes *Annotation*
--dontwarn ch.qos.logback.core.net.*

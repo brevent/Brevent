@@ -215,6 +215,10 @@ if (rootProject.file('brevent-server').exists()) {
             task.enabled = false
         }
     }
+} else {
+    dependencies {
+        implementation 'org.slf4j:slf4j-simple:1.7.25'
+    }
 }
 
 if (rootProject.isIde) {

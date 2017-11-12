@@ -48,15 +48,7 @@
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:summary="Eclipse Public License v1.0"
-            android:title="logback-android">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/tony19/logback-android" />
-        </PreferenceScreen>
-
-        <PreferenceScreen
-            android:summary="Massachusetts Institute of Technology License"
+            android:summary="MIT"
             android:title="SLF4J">
             <intent
                 android:action="android.intent.action.VIEW"
