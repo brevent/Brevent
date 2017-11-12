@@ -24,4 +24,8 @@
         <item name="elevation">?android:attr/elevation</item>
     </style>
 
+    <style name="dialog" parent="@android:style/Theme.Material.Dialog">
+        <item name="android:colorAccent">#ff5e97f6</item>
+    </style>
+
 </resources>

@@ -57,7 +57,7 @@
         <activity
             android:name=".ui.BreventLicenses"
             android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Material.Dialog"
+            android:theme="@style/dialog"
             android:windowSoftInputMode="stateHidden" />
 
         <receiver
