@@ -178,12 +178,14 @@ dependencies {
             exclude group: 'com.android.support', module: 'appcompat-v7'
         }
     }
+    // https://dl.google.com/dl/android/maven2/com/android/support/constraint/constraint-layout/maven-metadata.xml
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':donation')
     implementation project(':brevent-protocol')
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
     implementation project(':log-reader')
+    // https://bintray.com/chainfire/maven/libsuperuser
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
     implementation 'com.crashlytics.sdk.android:answers:1.4.1'
