@@ -45,7 +45,6 @@ android {
             buildConfigField 'char[]', 'FLYME_CLONE', properties['build.flyme.clone']
             buildConfigField 'byte[]', 'ADB_D', properties['build.adb.d']
             buildConfigField 'byte[]', 'ADB_M', properties['build.adb.m']
-            buildConfigField 'byte[]', 'ADB_P', properties['build.adb.p']
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl'
@@ -98,7 +97,6 @@ android {
             buildConfigField 'char[]', 'FLYME_CLONE', 'null'
             buildConfigField 'byte[]', 'ADB_D', 'null'
             buildConfigField 'byte[]', 'ADB_M', 'null'
-            buildConfigField 'byte[]', 'ADB_P', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
             resValue 'string', 'appId', 'me.piebridge.nrevent'

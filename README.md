@@ -4,7 +4,7 @@ Brevent, black prevent, can app-standby (Since Android 6.0) or force-stop apps w
 
 ## License
 
-- Code: WTFPL
+- Code: WTFPL and MIT (SimpleAdb, SimpleSu)
 - Logo: Commercial
 - Drawable: from Android Studio, Apache License Version 2.0
 
@@ -26,7 +26,7 @@ Currently, default name and package name is `Nrevent`, means `Not Brevent`.
 
 ## 许可
 
-- 代码: WTFPL
+- 代码: WTFPL 及 MIT （SimpleAdb, SimpleSu）
 - 图标: 商业许可
 - 其它图片: 来自 Android Studio，Apache License Version 2.0
 

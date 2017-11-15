@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.os.SystemProperties;
 import android.support.annotation.WorkerThread;
-import android.text.TextUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,6 +29,7 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import me.piebridge.SimpleAdb;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventRequest;
@@ -186,37 +185,38 @@ public class AppsActivityHandler extends Handler {
     }
 
     private boolean checkAdb(BreventActivity activity) {
-        String port = SystemProperties.get("service.adb.tcp.port", "");
-        UILog.d("checkAdb service.adb.tcp.port: " + port);
-        if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
-            final int p = Integer.parseInt(port);
-            if (p > 0 && p <= 0xffff) {
-                adbing = true;
-                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
-                final String path = ((BreventApplication) activity.getApplication()).copyBrevent();
-                adbThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            adb = new SimpleAdb(p, path).run();
-                        } catch (IOException e) {
-                            UILog.e("Can't adb", e);
-                        } finally {
-                            adbing = false;
-                            if (!hasResponse) {
-                                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
-                            }
-                        }
-                    }
-                });
-                adbThread.start();
-                sendEmptyMessageDelayed(BreventActivity.MESSAGE_REMOVE_ADB, DELAY);
-                adbChecked = true;
-                return true;
-            }
+        final int port = AdbPortUtils.getAdbPort();
+        final String path = ((BreventApplication) activity.getApplication()).copyBrevent();
+        if (port > 0 && path != null) {
+            adbing = true;
+            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS_ADB);
+            adbThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    doAdb(port, path);
+                }
+            });
+            adbThread.start();
+            sendEmptyMessageDelayed(BreventActivity.MESSAGE_REMOVE_ADB, DELAY);
+            adbChecked = true;
+            return true;
 
         }
         return false;
+    }
+
+    private void doAdb(int port, String path) {
+        SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
+        try {
+            adb = simpleAdb.exec(port, "sh " + path);
+        } catch (IOException e) {
+            UILog.e("Can't adb", e);
+        } finally {
+            adbing = false;
+            if (!hasResponse) {
+                uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+            }
+        }
     }
 
     private static File zipLog(Context context, File dir, String date) {

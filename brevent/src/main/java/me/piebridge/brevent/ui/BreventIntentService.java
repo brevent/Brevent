@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.os.SystemProperties;
-import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.File;
@@ -29,6 +28,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import me.piebridge.SimpleAdb;
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -186,28 +186,27 @@ public class BreventIntentService extends IntentService {
         boolean needClose = "1".equals(SystemProperties.get("service.adb.brevent.close", ""));
         boolean needStop = false;
         boolean success = false;
-        String port = SystemProperties.get("service.adb.tcp.port", "");
-        UILog.d("service.adb.tcp.port: " + port);
-        if (TextUtils.isEmpty(port) || !TextUtils.isDigitsOnly(port)) {
+        int port = AdbPortUtils.getAdbPort();
+        if (port <= 0) {
             needClose = true;
             needStop = !AppsDisabledFragment.isAdbRunning();
             SimpleSu.su("setprop service.adb.tcp.port 5555; " +
                     "setprop service.adb.brevent.close 1; " +
                     "setprop ctl.restart adbd");
-            port = SystemProperties.get("service.adb.tcp.port", "");
-            if (!"5555".equals(port)) {
+            port = AdbPortUtils.getAdbPort();
+            if (port <= 0) {
                 return Collections.singletonList("(Can't network adb)");
             }
-            sleep(1);
         }
-        UILog.d("adb port: " + port);
         makeSureKeys();
         String message = "(Can't adb)";
         BreventApplication application = (BreventApplication) getApplication();
         application.setAdb(needClose, needStop);
+        String command = "sh " + path;
+        SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
-                String adb = new SimpleAdb(Integer.parseInt(port), path).run();
+                String adb = simpleAdb.exec(port, command);
                 if (adb != null) {
                     message = adb;
                 }
@@ -242,7 +241,6 @@ public class BreventIntentService extends IntentService {
             return messages;
         }
     }
-
 
     private boolean makeSureKeys() {
         File keyFile = getUserKeyFile();
