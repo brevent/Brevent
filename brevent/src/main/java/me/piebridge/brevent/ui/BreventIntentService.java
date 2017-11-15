@@ -165,7 +165,7 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private List<String> startBreventSync(boolean force) {
+    List<String> startBreventSync(boolean force) {
         if (checkPort()) {
             return Collections.singletonList("(Started)");
         }

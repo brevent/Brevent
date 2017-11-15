@@ -86,7 +86,7 @@ public class BreventOps extends AbstractActivity {
                 .commit();
     }
 
-    private String getOpsPackage() {
+    String getOpsPackage() {
         Intent intent = getIntent();
         if (intent == null) {
             return null;
@@ -167,16 +167,16 @@ public class BreventOps extends AbstractActivity {
         });
     }
 
-    private void refresh() {
+    void refresh() {
         clearSelected();
         opsFragment.refresh();
     }
 
-    private Collection<Integer> getOps() {
+    Collection<Integer> getOps() {
         return opsFragment.getOps();
     }
 
-    private boolean doRequest(BreventProtocol request) {
+    boolean doRequest(BreventProtocol request) {
         boolean result = false;
         try (
                 Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT)

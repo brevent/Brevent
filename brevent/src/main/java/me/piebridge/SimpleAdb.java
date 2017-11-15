@@ -294,7 +294,7 @@ public class SimpleAdb {
         Log.e(TAG, msg);
     }
 
-    static class Message {
+    private static class Message {
         int command;
         int arg0;
         int arg1;

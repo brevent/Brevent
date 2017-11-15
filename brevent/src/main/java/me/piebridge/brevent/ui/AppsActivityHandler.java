@@ -205,7 +205,7 @@ public class AppsActivityHandler extends Handler {
         return false;
     }
 
-    private void doAdb(int port, String path) {
+    void doAdb(int port, String path) {
         SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
         try {
             adb = simpleAdb.exec(port, "sh " + path);

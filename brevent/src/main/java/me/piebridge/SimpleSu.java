@@ -95,22 +95,22 @@ public class SimpleSu {
         return Holder.SU;
     }
 
-    private static void d(String msg) {
+    static void d(String msg) {
         Log.d(TAG, msg);
     }
 
-    private static void d(String msg, Throwable t) {
+    static void d(String msg, Throwable t) {
         Log.d(TAG, msg, t);
     }
 
-    static class Holder {
+    private static class Holder {
         static final boolean SU = checkSu();
 
         private Holder() {
 
         }
 
-        static boolean checkSu() {
+        private static boolean checkSu() {
             for (String dir : System.getenv("PATH").split(":")) {
                 File path = new File(dir, "su");
                 try {
@@ -127,9 +127,9 @@ public class SimpleSu {
         }
     }
 
-    static class StreamGobbler implements Runnable {
-        final InputStream is;
-        final PrintWriter pw;
+    private static class StreamGobbler implements Runnable {
+        private final InputStream is;
+        private final PrintWriter pw;
 
         StreamGobbler(InputStream is, PrintWriter pw) {
             this.is = new BufferedInputStream(is);
