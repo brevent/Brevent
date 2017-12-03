@@ -43,9 +43,10 @@ public abstract class BreventProtocol {
     public static final int STATUS_NO_EVENT = 5;
     public static final int SHOW_ROOT = 6;
     public static final int STATUS_OK = 7;
-    public static final int STATUS_KO = 8;
+    public static final int OPS_KO = 8;
     public static final int OPS_RESET = 9;
     public static final int OPS_UPDATE = 10;
+    public static final int OPS_OK = 11;
 
     private int mVersion;
 
@@ -133,12 +134,14 @@ public abstract class BreventProtocol {
                 return "show_root";
             case STATUS_OK:
                 return "status_ok";
-            case STATUS_KO:
-                return "status_ko";
+            case OPS_KO:
+                return "ops_ko";
             case OPS_RESET:
                 return "ops_reset";
             case OPS_UPDATE:
                 return "ops_update";
+            case OPS_OK:
+                return "ops_ok";
             default:
                 return "(unknown: " + action + ")";
         }
@@ -168,14 +171,14 @@ public abstract class BreventProtocol {
                     return new BreventNoEvent(parcel);
                 case SHOW_ROOT:
                     return new BreventDisableRoot(parcel);
-                case STATUS_OK:
-                    return BreventOK.INSTANCE;
-                case STATUS_KO:
-                    return BreventKO.INSTANCE;
+                case OPS_KO:
+                    return BreventOpsKO.INSTANCE;
                 case OPS_RESET:
                     return new BreventOpsReset(parcel);
                 case OPS_UPDATE:
                     return new BreventOpsUpdate(parcel);
+                case OPS_OK:
+                    return BreventOpsOK.INSTANCE;
                 default:
                     return null;
             }

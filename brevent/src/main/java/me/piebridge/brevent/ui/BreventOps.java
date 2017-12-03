@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.protocol.BreventOK;
+import me.piebridge.brevent.protocol.BreventOpsOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
 import me.piebridge.brevent.protocol.BreventOpsUpdate;
 import me.piebridge.brevent.protocol.BreventProtocol;
@@ -192,7 +192,7 @@ public class BreventOps extends AbstractActivity {
 
             os.close();
             is.close();
-            result = response != null && response == BreventOK.INSTANCE;
+            result = response == BreventOpsOK.INSTANCE;
             UILog.i("request: " + request + ", response: " + response);
         } catch (IOException e) {
             UILog.w("Can't request " + request, e);

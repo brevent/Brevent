@@ -91,6 +91,7 @@ import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.brevent.protocol.BreventNoEvent;
+import me.piebridge.brevent.protocol.BreventOK;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
@@ -1111,7 +1112,7 @@ public class BreventActivity extends AbstractActivity
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("response: " + response);
         }
-        if (response == null) {
+        if (response == null || response == BreventOK.INSTANCE) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_PERMISSION);
         } else {
             dispatchResponse(response);
