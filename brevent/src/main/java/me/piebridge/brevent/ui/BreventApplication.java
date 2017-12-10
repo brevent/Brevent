@@ -15,14 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemProperties;
 import android.provider.Settings;
+import android.support.v4.util.ArrayMap;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.text.TextUtils;
 import android.widget.Toast;
-
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.InviteEvent;
-import com.crashlytics.android.answers.LoginEvent;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -43,6 +40,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -52,7 +50,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import dalvik.system.PathClassLoader;
-
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -62,6 +59,7 @@ import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
+import me.piebridge.stats.StatsUtils;
 
 /**
  * Created by thom on 2017/2/7.
@@ -242,26 +240,16 @@ public class BreventApplication extends Application {
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             String mode = getMode();
             UILog.d("days: " + days + ", living: " + living);
-            try {
-                if (SimpleSu.hasSu()) {
-                    Answers.getInstance().logInvite(new InviteEvent()
-                            .putMethod(mode)
-                            .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
-                            .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
-                            .putCustomAttribute("days", Long.toString(days))
-                            .putCustomAttribute("living", Long.toString(living))
-                            .putCustomAttribute("installer", getInstaller()));
-                } else {
-                    Answers.getInstance().logLogin(new LoginEvent()
-                            .putMethod(mode).putSuccess(true)
-                            .putCustomAttribute("standby", Boolean.toString(mSupportStandby))
-                            .putCustomAttribute("stopped", Boolean.toString(mSupportStopped))
-                            .putCustomAttribute("days", Long.toString(days))
-                            .putCustomAttribute("living", Long.toString(living))
-                            .putCustomAttribute("installer", getInstaller()));
-                }
-            } catch (IllegalStateException e) { // NOSONAR
-                // do nothing
+            Map<String, String> attributes = new ArrayMap<>();
+            attributes.put("standby", Boolean.toString(mSupportStandby));
+            attributes.put("stopped", Boolean.toString(mSupportStopped));
+            attributes.put("days", Long.toString(days));
+            attributes.put("living", Long.toString(living));
+            attributes.put("installer", getInstaller());
+            if (SimpleSu.hasSu()) {
+                StatsUtils.logInvite(mode, attributes);
+            } else {
+                StatsUtils.logLogin(mode, attributes);
             }
         }
     }

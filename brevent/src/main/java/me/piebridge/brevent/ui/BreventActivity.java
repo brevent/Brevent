@@ -65,8 +65,6 @@ import android.widget.SearchView;
 import android.widget.Toolbar;
 
 import com.android.internal.statusbar.IStatusBarService;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -82,7 +80,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
-import io.fabric.sdk.android.Fabric;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -96,6 +93,7 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
+import me.piebridge.stats.StatsUtils;
 
 public class BreventActivity extends AbstractActivity
         implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener,
@@ -252,7 +250,7 @@ public class BreventActivity extends AbstractActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.RELEASE) {
-            Fabric.with(getApplication(), new Answers());
+            StatsUtils.init(getApplication());
         }
         boolean disabledXposed = !BuildConfig.RELEASE;
         if (BuildConfig.SERVER != null) {
@@ -894,15 +892,7 @@ public class BreventActivity extends AbstractActivity
         startActivity(new Intent(this, BreventGuide.class));
         if (BuildConfig.RELEASE) {
             String installer = ((BreventApplication) getApplication()).getInstaller();
-            try {
-                Answers.getInstance().logContentView(new ContentViewEvent()
-                        .putContentName("Guide")
-                        .putContentType(type)
-                        .putContentId("guide-" + type)
-                        .putCustomAttribute("installer", installer));
-            } catch (IllegalStateException e) { // NOSONAR
-                // do nothing
-            }
+            StatsUtils.logGuide(type, installer);
         }
     }
 

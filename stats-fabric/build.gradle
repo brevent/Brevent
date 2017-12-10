@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+    }
+}
+
+dependencies {
+    // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
+    implementation 'com.crashlytics.sdk.android:answers:1.4.1'
+    implementation "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
+}

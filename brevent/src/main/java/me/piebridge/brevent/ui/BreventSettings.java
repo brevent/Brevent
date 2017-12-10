@@ -12,20 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toolbar;
 
-import com.crashlytics.android.answers.AddToCartEvent;
-import com.crashlytics.android.answers.Answers;
-
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.List;
 
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.donation.DonateActivity;
+import me.piebridge.stats.StatsUtils;
 
 /**
  * Settings
@@ -219,18 +215,7 @@ public class BreventSettings extends DonateActivity implements View.OnClickListe
             BreventApplication application = (BreventApplication) getApplication();
             String installer = application.getInstaller();
             String mode = SimpleSu.hasSu() ? "root" : "shell";
-            try {
-                Answers.getInstance().logAddToCart(new AddToCartEvent()
-                        .putItemPrice(BigDecimal.ONE)
-                        .putCurrency(Currency.getInstance("USD"))
-                        .putItemName("Donate")
-                        .putItemType(type)
-                        .putItemId("donate-" + mode + "-" + type)
-                        .putCustomAttribute("mode", mode)
-                        .putCustomAttribute("installer", installer));
-            } catch (IllegalStateException e) { // NOSONAR
-                // do nothing
-            }
+            StatsUtils.logDonate(type, mode, installer);
         }
     }
 

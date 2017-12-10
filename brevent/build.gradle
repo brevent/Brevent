@@ -183,8 +183,11 @@ dependencies {
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
     implementation project(':log-reader')
-    // https://maven.fabric.io/public/com/crashlytics/sdk/android/answers/maven-metadata.xml
-    implementation 'com.crashlytics.sdk.android:answers:1.4.1'
+    if (file('fabric.properties').exists()) {
+        implementation project(path: ':stats-fabric')
+    } else {
+        implementation project(path: ':stats-dummy')
+    }
 }
 
 if (rootProject.file('brevent-server').exists()) {

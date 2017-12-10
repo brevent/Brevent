@@ -1,4 +1,5 @@
 include ':hidden-api', ':brevent', ':log-reader', ':donation', ':hidden-api-override-m', ':brevent-override-m', ':brevent-override', ':hidden-api-override', ':brevent-protocol'
+include ':stats-fabric', ':stats-dummy'
 if (file('brevent-server').exists()) {
     include ':brevent-server'
 }
