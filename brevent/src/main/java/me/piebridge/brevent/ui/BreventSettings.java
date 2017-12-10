@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toolbar;
 
 import java.math.BigInteger;
@@ -27,7 +26,7 @@ import me.piebridge.stats.StatsUtils;
  * Settings
  * Created by thom on 2017/2/8.
  */
-public class BreventSettings extends DonateActivity implements View.OnClickListener {
+public class BreventSettings extends DonateActivity {
 
     static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 

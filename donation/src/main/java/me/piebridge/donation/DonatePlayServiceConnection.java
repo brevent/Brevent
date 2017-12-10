@@ -5,10 +5,9 @@ import android.os.Looper;
 /**
  * Created by thom on 2017/9/7.
  */
+class DonatePlayServiceConnection extends PlayServiceConnection {
 
-public class DonatePlayServiceConnection extends PlayServiceConnection {
-
-    public DonatePlayServiceConnection(Looper looper, DonateActivity donateActivity) {
+    DonatePlayServiceConnection(Looper looper, DonateActivity donateActivity) {
         super(MESSAGE_DONATE, looper, donateActivity);
     }
 

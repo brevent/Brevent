@@ -54,5 +54,4 @@ public abstract class AbstractActivity extends Activity {
         return stopped;
     }
 
-
 }

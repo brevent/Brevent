@@ -178,16 +178,22 @@ dependencies {
     }
     // https://dl.google.com/dl/android/maven2/com/android/support/constraint/constraint-layout/maven-metadata.xml
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation project(':donation')
+    implementation project(':brevent-ui')
+    Properties properties = new Properties()
+    if (rootProject.file('ant.properties').exists()) {
+        properties.load(new FileInputStream(rootProject.file('ant.properties')))
+    }
+    if (properties['build.release'] == 'true') {
+        implementation project(':donation')
+        implementation project(':stats-fabric')
+    } else {
+        implementation project(':donation-dummy')
+        implementation project(':stats-dummy')
+    }
     implementation project(':brevent-protocol')
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
     implementation project(':log-reader')
-    if (file('fabric.properties').exists()) {
-        implementation project(path: ':stats-fabric')
-    } else {
-        implementation project(path: ':stats-dummy')
-    }
 }
 
 if (rootProject.file('brevent-server').exists()) {

@@ -34,7 +34,7 @@ import me.piebridge.brevent.ui.PreferencesUtils;
 /**
  * Created by thom on 2017/2/17.
  */
-public abstract class PlayServiceConnection extends Handler implements ServiceConnection {
+abstract class PlayServiceConnection extends Handler implements ServiceConnection {
 
     private static final byte[] SHA_EXPECTED = {-23, -73, -17, -27, 64, -2, -89, 121, 97, -67,
             59, -119, 71, 50, -47, -2, 119, 72, -48, 80};
