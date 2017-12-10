@@ -87,6 +87,7 @@ public class SimpleSu {
             return null;
         } catch (InterruptedException e) {
             d("interrupted", e);
+            Thread.currentThread().interrupt();
             return null;
         }
     }
