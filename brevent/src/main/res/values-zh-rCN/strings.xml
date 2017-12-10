@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby，Android 6.0 引入，部分设备不支持）处理应用，应用待机后将不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用，也不自动黑域没有服务组件的新装应用。为了降低自身耗电，黑域默认集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby，Android 6.0 引入，部分设备不支持）处理应用，应用待机后将不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用。为了降低自身耗电，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
