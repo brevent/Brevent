@@ -8,9 +8,17 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventIntent;
+import me.piebridge.brevent.protocol.BreventProtocol;
+import me.piebridge.brevent.protocol.BreventRequest;
 
 /**
  * Created by thom on 2017/4/19.
@@ -49,6 +57,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext instanceof BreventApplication) {
                 ((BreventApplication) applicationContext).onStarted();
+                checkPort(intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN));
             }
         }
     }
@@ -91,6 +100,29 @@ public class BreventServerReceiver extends BroadcastReceiver {
             }
         }
         return label;
+    }
+
+    void checkPort(final String token) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                checkToken(token);
+            }
+        }).start();
+    }
+
+    void checkToken(String token) {
+        try (
+                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                DataInputStream is = new DataInputStream(socket.getInputStream())
+        ) {
+            BreventProtocol.writeTo(new BreventRequest(false, token), os);
+            os.flush();
+            BreventProtocol.readFrom(is);
+        } catch (IOException ignore) {
+            // do nothing
+        }
     }
 
 }
