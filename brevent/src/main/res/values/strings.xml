@@ -205,9 +205,9 @@
     <string name="unsupported_no_event">No event log. Please do not disable \"USB debugging\", and modify the \"Logger buffer sizes\" in \"Developer options\" accordingly.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
-    <string name="unsupported_root">Running as Root is very experimental, please switch to network adb.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
+    <string name="unsupported_payment">Brevent list is restricted to 30, please pay 3 Brefoil to unlock.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

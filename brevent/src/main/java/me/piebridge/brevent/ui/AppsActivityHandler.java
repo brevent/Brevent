@@ -100,7 +100,7 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
                 if (activity != null) {
-                    requestStatus(false, activity.isConfirmed(), activity.isCheck());
+                    requestStatus(false, activity.isCheck());
                 }
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
@@ -108,7 +108,7 @@ public class AppsActivityHandler extends Handler {
                 UILog.d("retry request status");
                 hasResponse = false;
                 if (activity != null) {
-                    requestStatus(true, activity.isConfirmed(), activity.isCheck());
+                    requestStatus(true, activity.isCheck());
                 }
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
@@ -283,8 +283,8 @@ public class AppsActivityHandler extends Handler {
         zos.closeEntry();
     }
 
-    private void requestStatus(boolean retry, boolean confirmed, boolean check) {
-        BreventRequest request = new BreventRequest(confirmed, check);
+    private void requestStatus(boolean retry, boolean check) {
+        BreventRequest request = new BreventRequest(check);
         request.retry = retry;
         send(request);
     }

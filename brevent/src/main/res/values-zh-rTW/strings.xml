@@ -203,9 +203,9 @@
     <string name="unsupported_no_event">黑域服務已開啟，但是沒有事件日誌。\n\n請不要關閉「USB偵錯」，並適當調整「開發人員選項」中的「紀錄器緩衝區空間」，或其它類似選項。部分設備需要至工程模式開啟日誌。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
-    <string name="unsupported_root">Root 開啟黑域服務非常實驗性，請考慮使用「網路偵錯」。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
+    <string name="unsupported_payment">當前黑域清單上限爲 30，請支付 3 二向箔去除限制。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>

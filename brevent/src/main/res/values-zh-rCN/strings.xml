@@ -203,9 +203,9 @@
     <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
-    <string name="unsupported_root">Root 启动黑域服务非常实验性，请考虑使用“网络调试”。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整网络设置、省电模式与强制低电耗（doze）等。\n\n必要时，带日志反馈，或者直接卸载。</string>
+    <string name="unsupported_payment">当前黑域清单上限为 30，请支付 3 二向箔去除限制。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>

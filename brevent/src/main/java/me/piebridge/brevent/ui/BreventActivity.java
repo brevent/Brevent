@@ -80,6 +80,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import dalvik.system.PathClassLoader;
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -174,9 +175,8 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_UNSUPPORTED = "unsupported";
     private static final String FRAGMENT_REPORT = "report";
     private static final String FRAGMENT_PROGRESS2 = "progress2";
-    private static final String FRAGMENT_ROOT = "root";
     private static final String FRAGMENT_SORT = "sort";
-
+    private static final String FRAGMENT_PAYMENT = "payment";
 
     static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -237,7 +237,6 @@ public class BreventActivity extends AbstractActivity
     private SearchView mSearchView;
     private String mQuery;
 
-    private boolean confirmed;
     private Boolean check;
     private BreventConfiguration mConfiguration;
     private boolean shouldUpdateConfiguration;
@@ -362,22 +361,22 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public void showRoot() {
+    public void showPayment() {
         hideDisabled();
         hideProgress();
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("show " + FRAGMENT_ROOT + ", stopped: " + isStopped());
+            UILog.d("show " + FRAGMENT_PAYMENT + ", stopped: " + isStopped());
         }
         if (isStopped()) {
             return;
         }
-        AppsRootFragment fragment = (AppsRootFragment) getFragmentManager()
-                .findFragmentByTag(FRAGMENT_ROOT);
+        AppsPaymentFragment fragment = (AppsPaymentFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_PAYMENT);
         if (fragment != null) {
             fragment.dismiss();
         }
-        fragment = new AppsRootFragment();
-        fragment.show(getFragmentManager(), FRAGMENT_ROOT);
+        fragment = new AppsPaymentFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_PAYMENT);
     }
 
     public void showSort() {
@@ -1130,9 +1129,6 @@ public class BreventActivity extends AbstractActivity
             case BreventProtocol.STATUS_NO_EVENT:
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
-            case BreventProtocol.SHOW_ROOT:
-                showRoot();
-                break;
             default:
                 break;
         }
@@ -1219,9 +1215,6 @@ public class BreventActivity extends AbstractActivity
     private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
-        if (!confirmed) {
-            confirmed = !"root".equals(application.getMode());
-        }
         showAlipay(status.mAlipaySum);
         if (shouldOpenSettings) {
             shouldOpenSettings = false;
@@ -1306,6 +1299,16 @@ public class BreventActivity extends AbstractActivity
             setAlarm(this);
         } else {
             cancelAlarm(this);
+        }
+
+        if (application.isPlay() && (status.mFm || SimpleSu.hasSu())) {
+            checkBreventList(application);
+        }
+    }
+
+    private void checkBreventList(BreventApplication application) {
+        if (!BreventApplication.allowRoot(application) && mBrevent.size() >= 30) {
+            showPayment();
         }
     }
 
@@ -1932,13 +1935,6 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public boolean isConfirmed() {
-        if (!confirmed) {
-            confirmed = ((BreventApplication) getApplication()).allowRoot();
-        }
-        return confirmed;
-    }
-
     private boolean updateCheck() {
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null) {
@@ -1958,17 +1954,6 @@ public class BreventActivity extends AbstractActivity
             updateCheck();
         }
         return check;
-    }
-
-    public void confirm() {
-        confirmed = true;
-        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
-    }
-
-    public void confirmSettings() {
-        confirmed = true;
-        shouldOpenSettings = true;
-        mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
     }
 
     public UsageStats getStats(String packageName) {
