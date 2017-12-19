@@ -72,22 +72,9 @@ public class HideApiOverride {
         return Process.myPpid();
     }
 
-    public static int[] getPidsForCommands(String[] cmds) {
-        return Process.getPidsForCommands(cmds);
-    }
-
-    public static boolean isRoot(int uid) {
-        return uid == ROOT_UID;
-    }
-
-    public static boolean isShell(int uid) {
-        return uid == SHELL_UID;
-    }
-
     public static int getCurrentUser() {
         return ActivityManager.getCurrentUser();
     }
-
 
     public static int getProcessState(ActivityManager.RunningAppProcessInfo process) {
         return process.processState;

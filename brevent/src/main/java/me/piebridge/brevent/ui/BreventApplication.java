@@ -220,11 +220,6 @@ public class BreventApplication extends Application {
         }
     }
 
-    public String getMode() {
-        return HideApiOverride.isShell(mUid) ? "shell" :
-                (HideApiOverride.isRoot(mUid) ? "root" : "unknown");
-    }
-
     public void updateStatus(BreventResponse breventResponse) {
         boolean shouldUpdated = breventResponse.mDaemonTime != 0
                 && mDaemonTime != breventResponse.mDaemonTime;
@@ -238,18 +233,18 @@ public class BreventApplication extends Application {
         if (BuildConfig.RELEASE && shouldUpdated) {
             long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
             long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
-            String mode = getMode();
             UILog.d("days: " + days + ", living: " + living);
             Map<String, String> attributes = new ArrayMap<>();
             attributes.put("standby", Boolean.toString(mSupportStandby));
             attributes.put("stopped", Boolean.toString(mSupportStopped));
+            attributes.put("appops", Boolean.toString(mSupportAppops));
             attributes.put("days", Long.toString(days));
             attributes.put("living", Long.toString(living));
             attributes.put("installer", getInstaller());
             if (SimpleSu.hasSu()) {
-                StatsUtils.logInvite(mode, attributes);
+                StatsUtils.logInvite(attributes);
             } else {
-                StatsUtils.logLogin(mode, attributes);
+                StatsUtils.logLogin(attributes);
             }
         }
     }

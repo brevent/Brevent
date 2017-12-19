@@ -56,9 +56,9 @@ public class StatsUtils {
         }
     }
 
-    public static void logInvite(String mode, Map<String, String> attributes) {
+    public static void logInvite(Map<String, String> attributes) {
         try {
-            InviteEvent inviteEvent = new InviteEvent().putMethod(mode);
+            InviteEvent inviteEvent = new InviteEvent();
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
                 inviteEvent.putCustomAttribute(entry.getKey(), entry.getValue());
             }
@@ -68,9 +68,9 @@ public class StatsUtils {
         }
     }
 
-    public static void logLogin(String mode, Map<String, String> attributes) {
+    public static void logLogin(Map<String, String> attributes) {
         try {
-            LoginEvent loginEvent = new LoginEvent().putMethod(mode).putSuccess(true);
+            LoginEvent loginEvent = new LoginEvent().putSuccess(true);
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
                 loginEvent.putCustomAttribute(entry.getKey(), entry.getValue());
             }
