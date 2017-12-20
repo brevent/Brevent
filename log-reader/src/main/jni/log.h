@@ -1,10 +1,5 @@
-
 #ifndef _LIBS_LOG_LOG_H
-
-#ifndef _LIBS_LOG_LOB_STUB_H
-#define _LIBS_LOG_LOB_STUB_H
-
-#include <stdio.h>
+#define _LIBS_LOG_LOG_H
 
 #ifndef UNUSED
 #if defined(__GNUC__)
@@ -105,5 +100,4 @@ int android_logger_list_read(struct logger_list *logger_list,
 
 void android_logger_list_free(struct logger_list *logger_list);
 
-#endif
 #endif

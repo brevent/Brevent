@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include <jni.h>
 #include <fcntl.h>
 #include <dirent.h>

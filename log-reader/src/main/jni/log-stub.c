@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "log.h"
 
 struct logger_list *android_logger_list_alloc_time(int UNUSED(mode),
