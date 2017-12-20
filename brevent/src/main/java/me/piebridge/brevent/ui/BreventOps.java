@@ -71,10 +71,9 @@ public class BreventOps extends AbstractActivity {
 
         BreventApplication application = (BreventApplication) getApplication();
         supportAppops = application.supportAppops();
-        if (supportAppops) {
-            if (!application.allowRoot()) {
-                supportAppops = false;
-            }
+        if (supportAppops && !PreferencesUtils.getDevicePreferences(application)
+                .getBoolean(SettingsFragment.BREVENT_APPOPS, false)) {
+            supportAppops = false;
         }
 
         opsFragment = new OpsFragment();

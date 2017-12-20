@@ -20,9 +20,6 @@ public class BreventConfiguration extends BreventProtocol {
     public static final int DEFAULT_BREVENT_TIMEOUT = 1800;
     public static final int MIN_BREVENT_TIMEOUT = 60;
 
-    public static final String BREVENT_ALLOW_ROOT = "brevent_allow_root";
-    public static final boolean DEFAULT_BREVENT_ALLOW_ROOT = false;
-
     public static final String BREVENT_OPTIMIZE_VPN = "brevent_optimize_vpn";
     public static final boolean DEFAULT_BREVENT_OPTIMIZE_VPN = false;
 
@@ -52,8 +49,6 @@ public class BreventConfiguration extends BreventProtocol {
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
 
-    public boolean allowRoot = DEFAULT_BREVENT_ALLOW_ROOT;
-
     public int method = DEFAULT_BREVENT_METHOD;
 
     public boolean optimizeVpn = DEFAULT_BREVENT_OPTIMIZE_VPN;
@@ -79,7 +74,6 @@ public class BreventConfiguration extends BreventProtocol {
         autoUpdate = sharedPreferences.getBoolean(BREVENT_AUTO_UPDATE, DEFAULT_BREVENT_AUTO_UPDATE);
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT,
                 "" + DEFAULT_BREVENT_TIMEOUT));
-        allowRoot = sharedPreferences.getBoolean(BREVENT_ALLOW_ROOT, DEFAULT_BREVENT_ALLOW_ROOT);
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
         optimizeVpn = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_VPN,
                 DEFAULT_BREVENT_OPTIMIZE_VPN);
@@ -115,7 +109,6 @@ public class BreventConfiguration extends BreventProtocol {
         super(in);
         autoUpdate = in.readInt() != 0;
         timeout = in.readInt();
-        allowRoot = in.readInt() != 0;
         method = in.readInt();
         optimizeVpn = in.readInt() != 0;
         standbyTimeout = in.readInt();
@@ -131,7 +124,6 @@ public class BreventConfiguration extends BreventProtocol {
         super.writeToParcel(dest, flags);
         dest.writeInt(autoUpdate ? 1 : 0);
         dest.writeInt(timeout);
-        dest.writeInt(allowRoot ? 1 : 0);
         dest.writeInt(method);
         dest.writeInt(optimizeVpn ? 1 : 0);
         dest.writeInt(standbyTimeout);
@@ -145,7 +137,6 @@ public class BreventConfiguration extends BreventProtocol {
     public void write(PrintWriter pw) {
         write(pw, BREVENT_AUTO_UPDATE, autoUpdate);
         write(pw, BREVENT_TIMEOUT, timeout);
-        write(pw, BREVENT_ALLOW_ROOT, allowRoot);
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_OPTIMIZE_VPN, optimizeVpn);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
@@ -179,9 +170,6 @@ public class BreventConfiguration extends BreventProtocol {
                 if (timeout < MIN_BREVENT_TIMEOUT) {
                     timeout = MIN_BREVENT_TIMEOUT;
                 }
-                break;
-            case BREVENT_ALLOW_ROOT:
-                allowRoot = Boolean.parseBoolean(value);
                 break;
             case BREVENT_METHOD:
                 method = convertMethod(value);
@@ -227,10 +215,6 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.timeout != request.timeout) {
             this.timeout = request.timeout;
-            updated = true;
-        }
-        if (this.allowRoot != request.allowRoot) {
-            this.allowRoot = request.allowRoot;
             updated = true;
         }
         if (this.method != request.method) {

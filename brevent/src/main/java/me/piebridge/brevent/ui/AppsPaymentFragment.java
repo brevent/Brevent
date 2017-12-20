@@ -14,9 +14,12 @@ import me.piebridge.brevent.R;
 public class AppsPaymentFragment extends AbstractDialogFragment
         implements DialogInterface.OnClickListener {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    static final String DAYS = "mb_days";
+    static final String SIZE = "mb_size";
+    static final String REQUIRED = "mb_required";
+
+    public AppsPaymentFragment() {
+        setArguments(new Bundle());
         setCancelable(false);
     }
 
@@ -25,7 +28,15 @@ public class AppsPaymentFragment extends AbstractDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
-        builder.setMessage(R.string.unsupported_payment);
+        Bundle arguments = getArguments();
+        int days = arguments.getInt(DAYS);
+        int size = arguments.getInt(SIZE);
+        int required = arguments.getInt(REQUIRED);
+        int index = required - 1;
+        String[] brefoils = getResources().getStringArray(R.array.brefoils);
+        String brefoil = brefoils.length > index ? brefoils[index] : "";
+        builder.setMessage(getString(R.string.make_brevent_better,
+            days, size, required, brefoil));
         builder.setPositiveButton(android.R.string.ok, this);
         builder.setNegativeButton(android.R.string.cancel, this);
         return builder.create();
@@ -40,6 +51,13 @@ public class AppsPaymentFragment extends AbstractDialogFragment
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
             dismiss();
         }
+    }
+
+    public void setMessage(int days, int size, int required) {
+        Bundle arguments = getArguments();
+        arguments.putInt(DAYS, days);
+        arguments.putInt(SIZE, size);
+        arguments.putInt(REQUIRED, required);
     }
 
 }

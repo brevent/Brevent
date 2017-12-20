@@ -30,6 +30,8 @@ public class BreventSettings extends DonateActivity {
 
     static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 
+    static final String DAEMON_TIME = "daemonTime";
+
     static final int CONTRIBUTOR = 5;
 
     static final int DONATE_AMOUNT = 3;
@@ -239,10 +241,10 @@ public class BreventSettings extends DonateActivity {
     @Override
     protected boolean usePlayCache() {
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-        long daemonTime = preferences.getLong("daemonTime", 0);
+        long daemonTime = preferences.getLong(DAEMON_TIME, 0);
         BreventApplication application = (BreventApplication) getApplication();
         if (daemonTime != application.mDaemonTime) {
-            preferences.edit().putLong("daemonTime", application.mDaemonTime).apply();
+            preferences.edit().putLong(DAEMON_TIME, application.mDaemonTime).apply();
             return false;
         } else {
             return !preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);

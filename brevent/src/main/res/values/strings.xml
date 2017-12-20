@@ -155,15 +155,12 @@
     <string name="brevent_experimental">Experimental Features</string>
     <string name="brevent_optimize_vpn">Optimize VPN</string>
     <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped\n\nRequires 1 Brefoil in total for Play version</string>
-    <string name="brevent_optimize_vpn_label_debug">Connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires 2 Brefoil in total for Play version</string>
-    <string name="brevent_abnormal_back_label_debug">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize Music Player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification\n\nRequires 2 Brefoil in total for Play version</string>
-    <string name="brevent_optimize_audio_label_debug">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification</string>
-    <string name="brevent_allow_root">AppOps and direct Root</string>
-    <string name="brevent_allow_root_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
+    <string name="brevent_appops">AppOps</string>
+    <string name="brevent_appops_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
 
     <string name="show_donation">Show payment</string>
     <string name="show_donation_summary_not_play" />
@@ -207,7 +204,6 @@
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
-    <string name="unsupported_payment">Brevent list is restricted to 30, please pay 3 Brefoil to unlock.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
@@ -223,10 +219,13 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="root_donate_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
-    <string name="root_donate_alipay">Launch Alipay</string>
-    <string name="root_donate_email">Email</string>
-    <string name="root_donate_email_subject">Payment verify %1$s (%2$s)</string>
-    <string name="root_donate_email_text">%s\n(Please attach screenshots of payment details.)</string>
+    <string name="pay_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
+    <string name="pay_alipay">Launch Alipay</string>
+    <string name="pay_email">Email</string>
+    <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
+    <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
+
+    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$d Brefoil%4$s to make Brevent better.</string>
+    <string-array name="brefoils" tools:ignore="InconsistentArrays" />
 
 </resources>

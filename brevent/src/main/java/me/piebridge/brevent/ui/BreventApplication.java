@@ -442,24 +442,6 @@ public class BreventApplication extends Application {
         return donate2;
     }
 
-    public boolean allowRoot() {
-        return BuildConfig.ADB_K != null && PreferencesUtils.getDevicePreferences(this).getBoolean(
-                BreventConfiguration.BREVENT_ALLOW_ROOT, false) && allowRoot(this);
-    }
-
-    public static boolean allowRoot(Application application) {
-        if (BuildConfig.RELEASE && !SettingsFragment.isDeprecated()) {
-            int count = getPlayDonation(application);
-            count += DecimalUtils.intValue(getDonation(application));
-            if (count < BreventSettings.DONATE_AMOUNT) {
-                PreferencesUtils.getPreferences(application).edit()
-                        .putBoolean(BreventConfiguration.BREVENT_ALLOW_ROOT, false).apply();
-                return false;
-            }
-        }
-        return BuildConfig.ADB_K != null;
-    }
-
     public static int getPlayDonation(Application application) {
         BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
         Collection<String> purchased = DonateActivity.getPurchased(application, UILog.TAG, modulus);

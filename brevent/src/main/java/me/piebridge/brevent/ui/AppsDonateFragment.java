@@ -19,12 +19,6 @@ import me.piebridge.donation.DonateActivity;
 public class AppsDonateFragment extends AbstractDialogFragment
         implements DialogInterface.OnClickListener, DialogInterface.OnShowListener {
 
-    private static final String MESSAGE = "MESSAGE";
-
-    public AppsDonateFragment() {
-        setArguments(new Bundle());
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +31,9 @@ public class AppsDonateFragment extends AbstractDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
-        builder.setMessage(getArguments().getInt(MESSAGE));
-        builder.setPositiveButton(R.string.root_donate_alipay, this);
-        builder.setNegativeButton(R.string.root_donate_email, this);
+        builder.setMessage(R.string.pay_verify);
+        builder.setPositiveButton(R.string.pay_alipay, this);
+        builder.setNegativeButton(R.string.pay_email, this);
         builder.setNeutralButton(android.R.string.ok, this);
         AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(this);
@@ -62,9 +56,9 @@ public class AppsDonateFragment extends AbstractDialogFragment
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setType("message/rfc822");
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.root_donate_email_subject,
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pay_email_subject,
                     BuildConfig.VERSION_NAME, Long.toHexString(BreventApplication.getId(application))));
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.root_donate_email_text,
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.pay_email_text,
                     Build.FINGERPRINT));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
             BreventActivity.sendEmail(activity, intent);
@@ -87,10 +81,6 @@ public class AppsDonateFragment extends AbstractDialogFragment
         if (!BreventActivity.hasEmailClient(application)) {
             ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
         }
-    }
-
-    public void setRoot(boolean root) {
-        getArguments().putInt(MESSAGE, R.string.root_donate_verify);
     }
 
 }

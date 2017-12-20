@@ -78,9 +78,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import dalvik.system.PathClassLoader;
-import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -361,7 +361,7 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public void showPayment() {
+    public void showPayment(int days, int size, int required) {
         hideDisabled();
         hideProgress();
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
@@ -376,6 +376,7 @@ public class BreventActivity extends AbstractActivity
             fragment.dismiss();
         }
         fragment = new AppsPaymentFragment();
+        fragment.setMessage(days, size, required);
         fragment.show(getFragmentManager(), FRAGMENT_PAYMENT);
     }
 
@@ -916,7 +917,6 @@ public class BreventActivity extends AbstractActivity
 
     private void updateConfiguration(boolean inResume) {
         shouldUpdateConfiguration = false;
-        BreventApplication.allowRoot(getApplication());
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
             doUpdateConfiguration();
@@ -1301,14 +1301,46 @@ public class BreventActivity extends AbstractActivity
             cancelAlarm(this);
         }
 
-        if (application.isPlay() && (status.mFm || SimpleSu.hasSu())) {
-            checkBreventList(application);
+        if (application.isPlay() && BuildConfig.RELEASE) {
+            int days = 0;
+            try {
+                PackageInfo pm = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+                days = (int) TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - pm.firstInstallTime);
+            } catch (PackageManager.NameNotFoundException ignore) {
+                //
+            }
+            if (days > 0x2) {
+                checkBreventList(application, days);
+            }
         }
     }
 
-    private void checkBreventList(BreventApplication application) {
-        if (!BreventApplication.allowRoot(application) && mBrevent.size() >= 30) {
-            showPayment();
+    private void checkBreventList(BreventApplication application, int days) {
+        int donated = BreventApplication.getPlayDonation(application)
+                + DecimalUtils.intValue(BreventApplication.getDonation(application));
+        int size = mBrevent.size();
+        int required;
+        if (size >= 100) {
+            required = BreventSettings.DONATE_AMOUNT;
+        } else if (size >= 60) {
+            required = 0x2;
+        } else if (size >= 30) {
+            required = 0x1;
+        } else {
+            required = 0;
+        }
+
+        if (required > donated) {
+            SharedPreferences sp = PreferencesUtils.getPreferences(this);
+            long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);
+            int mbRequired = sp.getInt(AppsPaymentFragment.REQUIRED, 0);
+            int mbDays = sp.getInt(AppsPaymentFragment.DAYS, 0);
+            if (daemonTime != application.mDaemonTime || mbRequired != required || mbDays != days) {
+                showPayment(days, size, required);
+                sp.edit().putLong(BreventSettings.DAEMON_TIME, application.mDaemonTime)
+                        .putInt(AppsPaymentFragment.DAYS, days)
+                        .putInt(AppsPaymentFragment.REQUIRED, required).apply();
+            }
         }
     }
 

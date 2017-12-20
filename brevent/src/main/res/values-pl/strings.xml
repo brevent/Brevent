@@ -153,15 +153,12 @@
     <string name="brevent_experimental">Funkcje Eksperymentalne</string>
     <string name="brevent_optimize_vpn">Optymalizuj VPN</string>
     <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie\n\n Wymagane 1 Brefoil dla wersji Play</string>
-    <string name="brevent_optimize_vpn_label_debug">Jeżeli zaznaczone, aplikacje, które podłączone zostały do VPN, nie znajdą się w trybie czuwania ani nie zostanie wymuszone ich zatrzymanie</string>
     <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
     <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)\n\nWymagane 2 Brefoil dla wersji Play</string>
-    <string name="brevent_abnormal_back_label_debug">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)</string>
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
     <string name="brevent_optimize_audio_label">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie\n\nWymagane 2 Brefoil dla wersji Play</string>
-    <string name="brevent_optimize_audio_label_debug">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie</string>
-    <string name="brevent_allow_root">AppOps oraz Root</string>
-    <string name="brevent_allow_root_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
+    <string name="brevent_appops">AppOps</string>
+    <string name="brevent_appops_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_not_play" />
@@ -207,7 +204,6 @@
     <string name="unsupported_logs">Nie można uzyskać logów. Proszę spróbować ponownie później.</string>
     <string name="unsupported_shell">Uruchamianie serwera Brevent zakończne niepowodzeniem.</string>
     <string name="unsupported_no_local_network">Brevent nie może uzyskać dostępu do lokalnej sieci - proszę zmodyfikować ustawienia sieci, oszczędzanie baterii oraz wymuszoną drzemkę. Jeżeli jest to konieczne, zamieść informację zwrotną z logami lub odinstaluj bezpośrednio aplikację.</string>
-    <string name="unsupported_payment">Brevent list is restricted to 30, please pay 3 Brefoil to unlock.</string>
 
     <string name="toast_home_tid">Rozpoznany prawdziwy przycisk \"Home\": %d</string>
     <string name="toast_add_package">Zbreventowano \"%1$s\", ogółem %2$d</string>
@@ -223,10 +219,13 @@
     <string name="brevent_status_unknown">Serwer Brevent może być zatrzymany</string>
     <string name="brevent_status_report">Dotknij, aby wysłać informację zwrotną oraz dokładnie ją opisać</string>
 
-    <string name="root_donate_verify">Jeżeli zapłaciłeś, proszę wyłączyć Xposed, uruchomić Alipay, wejść w zakładkę Records – powinno to zostać automatycznie rozpoznane.\n\nJeżeli zapłaciłeś poprzez inny serwis niż Alipay, proszę wysłać wiadomość e-mail ze załączonymi zrzutami ekranu szczegółów płatności.</string>
-    <string name="root_donate_alipay">Uruchom Alipay</string>
-    <string name="root_donate_email">E-mail</string>
-    <string name="root_donate_email_subject">Zapłata zweryfikowana %1$s (%2$s)</string>
-    <string name="root_donate_email_text">%s\n(Proszę załączyć zrzuty ekrany ze szczegółami płatności)</string>
+    <string name="pay_verify">Jeżeli zapłaciłeś, proszę wyłączyć Xposed, uruchomić Alipay, wejść w zakładkę Records – powinno to zostać automatycznie rozpoznane.\n\nJeżeli zapłaciłeś poprzez inny serwis niż Alipay, proszę wysłać wiadomość e-mail ze załączonymi zrzutami ekranu szczegółów płatności.</string>
+    <string name="pay_alipay">Uruchom Alipay</string>
+    <string name="pay_email">E-mail</string>
+    <string name="pay_email_subject">Zapłata zweryfikowana %1$s (%2$s)</string>
+    <string name="pay_email_text">%s\n(Proszę załączyć zrzuty ekrany ze szczegółami płatności)</string>
+
+    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$d Brefoil%4$s to make Brevent better.</string>
+    <string-array name="brefoils" tools:ignore="InconsistentArrays" />
 
 </resources>
