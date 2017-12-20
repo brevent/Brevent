@@ -278,7 +278,6 @@ task cleanBootstrap(type: Exec) {
             'APP_BUILD_SCRIPT=Android.mk',
             'NDK_APPLICATION_MK=Application.mk',
             'clean'
-    ignoreExitValue true
 }
 
 task deleteNativeBuild(type: Delete) {
