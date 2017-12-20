@@ -70,7 +70,7 @@ public class StatsUtils {
 
     public static void logLogin(Map<String, String> attributes) {
         try {
-            LoginEvent loginEvent = new LoginEvent().putSuccess(true);
+            LoginEvent loginEvent = new LoginEvent();
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
                 loginEvent.putCustomAttribute(entry.getKey(), entry.getValue());
             }
