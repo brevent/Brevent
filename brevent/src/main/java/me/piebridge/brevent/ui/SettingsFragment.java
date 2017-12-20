@@ -392,7 +392,7 @@ public class SettingsFragment extends PreferenceFragment
     void updatePosition() {
         if (mList != null) {
             int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
-            if (position > 0 && position < mList.getCount()) {
+            if (position != getPosition() && position > 0 && position < mList.getCount()) {
                 UILog.d("count: " + mList.getCount() + ", position: " + position);
                 mList.smoothScrollToPosition(position);
             }
