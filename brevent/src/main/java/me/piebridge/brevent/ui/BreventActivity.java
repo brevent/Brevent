@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlarmManager;
@@ -1881,11 +1882,6 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void showRootCompleted(List<String> output) {
-        if (hasResponse) {
-            return;
-        }
-        hideDisabled();
-        hideProgress();
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         pw.println(Build.FINGERPRINT);
@@ -1893,19 +1889,17 @@ public class BreventActivity extends AbstractActivity
         for (String s : output) {
             pw.println(s);
         }
-        String details = sw.toString();
-        ReportFragment fragment = new ReportFragment();
-        fragment.setDetails(R.string.unsupported_shell, details);
-        fragment.show(getFragmentManager(), FRAGMENT_REPORT);
-        if (!output.isEmpty()) {
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
-        }
+        showShellCompleted(sw.toString());
     }
 
-    public void showShellCompleted(String message) {
+    public boolean showShellCompleted(String message) {
         if (hasResponse) {
-            return;
+            return true;
+        }
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.isStarted() || checkPort(application)) {
+            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+            return true;
         }
         hideDisabled();
         hideProgress();
@@ -1914,6 +1908,16 @@ public class BreventActivity extends AbstractActivity
         fragment.show(getFragmentManager(), FRAGMENT_REPORT);
         mHandler.removeCallbacksAndMessages(null);
         uiHandler.removeCallbacksAndMessages(null);
+        return false;
+    }
+
+    private boolean checkPort(BreventApplication application) {
+        try {
+            return application.checkPort(false);
+        } catch (NetworkErrorException ignore) { // NOSONAR
+            // do nothing
+            return false;
+        }
     }
 
     public String getQuery() {

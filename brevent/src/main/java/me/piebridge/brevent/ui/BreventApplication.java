@@ -503,7 +503,7 @@ public class BreventApplication extends Application {
                     UILog.v("Can't connect to localhost:" + BreventProtocol.PORT, e);
                     return false;
                 } catch (IOException e) {
-                    UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
+                    UILog.w("io error to localhost:" + BreventProtocol.PORT, e);
                     return io;
                 }
             }
@@ -569,25 +569,17 @@ public class BreventApplication extends Application {
 
     public void onStarted() {
         if (!this.started) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    stopAdb();
-                    hideNotification();
-                }
-            }).start();
-        } else {
-            hideNotification();
-        }
-    }
-
-    void stopAdb() {
-        if (!this.started) {
             this.started = true;
             if (SimpleSu.hasSu()) {
-                stopAdbIfNeeded();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopAdbIfNeeded();
+                    }
+                }).start();
             }
         }
+        hideNotification();
     }
 
     void hideNotification() {
