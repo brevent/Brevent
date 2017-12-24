@@ -201,6 +201,7 @@ public class BreventActivity extends AbstractActivity
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private volatile SimpleArrayMap<String, UsageStats> mStats = null;
     private Set<String> mGcm = new ArraySet<>();
+    Set<String> mPackages = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -243,8 +244,6 @@ public class BreventActivity extends AbstractActivity
     private boolean shouldUpdateConfiguration;
     private boolean shouldOpenSettings;
     private boolean force;
-
-    private Set<String> mOverlays = new ArraySet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1246,8 +1245,6 @@ public class BreventActivity extends AbstractActivity
         mImportant.clear();
         mFavorite.clear();
         mGcm.clear();
-        mOverlays.clear();
-        mOverlays.addAll(status.mOverlays);
         resolveImportantPackages(status.mProcesses);
         for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
@@ -1271,12 +1268,13 @@ public class BreventActivity extends AbstractActivity
             }
         }
 
-        int installedCount = getPackageManager().getInstalledPackages(0).size();
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
-            mInstalledCount = installedCount;
-        } else if (mInstalledCount != installedCount) {
-            mInstalledCount = installedCount;
+            mPackages.clear();
+            mPackages.addAll(status.mPackages);
+        } else if (!Objects.equals(mPackages, status.mPackages)) {
+            mPackages.clear();
+            mPackages.addAll(status.mPackages);
             mAdapter.setExpired();
         }
         if (uiHandler == null) {
@@ -2010,10 +2008,6 @@ public class BreventActivity extends AbstractActivity
         if (mAdapter != null) {
             mAdapter.setExpired();
         }
-    }
-
-    public boolean isOverlay(String packageName) {
-        return mOverlays != null && mOverlays.contains(packageName);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

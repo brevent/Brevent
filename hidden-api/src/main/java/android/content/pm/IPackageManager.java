@@ -27,14 +27,6 @@ public interface IPackageManager {
     int getPackageUid(String packageName, int flags, int userId) throws RemoteException;
 
     /**
-     * This implements getInstalledPackages via a "last returned row"
-     * mechanism that is not exposed in the API. This is to get around the IPC
-     * limit that kicks in when flags are included that bloat up the data
-     * returned.
-     */
-    ParceledListSlice<PackageInfo> getInstalledPackages(int flags, int userId) throws RemoteException;
-
-    /**
      * This implements getInstalledApplications via a "last returned row"
      * mechanism that is not exposed in the API. This is to get around the IPC
      * limit that kicks in when flags are included that bloat up the data

@@ -450,10 +450,6 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             return false;
         }
         if (activity != null) {
-            if (activity.isOverlay(packageName)) {
-                // always hide overlay
-                return false;
-            }
             if (activity.isLauncher(packageName)) {
                 // always show launcher
                 return true;

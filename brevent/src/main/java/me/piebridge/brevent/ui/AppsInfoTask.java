@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -30,7 +30,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(Void... args) {
         BreventActivity activity = mAdapter.getActivity();
-        if (activity == null) {
+        if (activity == null || activity.isStopped()) {
             return false;
         }
 
@@ -39,18 +39,21 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
                 .getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(activity);
-        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
-        int max = installedPackages.size();
+        Collection<String> packageNames = activity.mPackages;
+        int max = packageNames.size();
         int progress = 0;
         int size = 0;
         String query = activity.getQuery();
         if (query != null) {
             query = AppsLabelLoader.trim(query).toString().toLowerCase(Locale.US);
         }
-        for (PackageInfo packageInfo : installedPackages) {
-            activity = mAdapter.getActivity();
-            if (activity == null || activity.isStopped()) {
-                return false;
+        for (String packageName : packageNames) {
+            PackageInfo packageInfo;
+            try {
+                packageInfo = packageManager.getPackageInfo(packageName, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                UILog.d("Can't find package " + packageName, e);
+                continue;
             }
             ApplicationInfo appInfo = packageInfo.applicationInfo;
             if (appInfo.enabled && mAdapter.accept(packageManager, packageInfo, showAllApps)) {

@@ -37,7 +37,7 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<String> mTrustAgents;
 
-    public final Collection<String> mOverlays;
+    public final Collection<String> mPackages;
 
     public final boolean mSupportStopped;
 
@@ -69,7 +69,7 @@ public class BreventResponse extends BreventProtocol {
                            boolean supportStandby, long daemonTime, long serverTime, int uid,
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
-                           String alipaySum, String vpn, Collection<String> overlays,
+                           String alipaySum, String vpn, Collection<String> packages,
                            boolean supportAppops, boolean fm) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
@@ -86,7 +86,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportUpgrade = supportUpgrade;
         mAlipaySum = alipaySum;
         mVpn = vpn;
-        mOverlays = overlays;
+        mPackages = packages;
         mSupportAppops = supportAppops;
         mFm = fm;
     }
@@ -107,7 +107,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportUpgrade = in.readInt() != 0;
         mAlipaySum = in.readString();
         mVpn = in.readString();
-        mOverlays = ParcelUtils.readCollection(in);
+        mPackages = ParcelUtils.readCollection(in);
         mSupportAppops = in.readInt() != 0;
         mFm = in.readInt() != 0;
     }
@@ -129,7 +129,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mSupportUpgrade ? 1 : 0);
         dest.writeString(mAlipaySum);
         dest.writeString(mVpn);
-        ParcelUtils.writeCollection(dest, mOverlays);
+        ParcelUtils.writeCollection(dest, mPackages);
         dest.writeInt(mSupportAppops ? 1: 0);
         dest.writeInt(mFm ? 1: 0);
     }
