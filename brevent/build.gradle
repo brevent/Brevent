@@ -145,6 +145,7 @@ android {
     packagingOptions {
         exclude '/fabric/*.properties'
         exclude '/META-INF/*.version'
+        exclude '/assets/crashlytics-build.properties'
     }
 }
 
