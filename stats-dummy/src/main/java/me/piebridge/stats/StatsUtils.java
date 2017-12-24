@@ -27,11 +27,11 @@ public class StatsUtils {
 
     }
 
-    public static void logInvite(Map<String, String> attributes) {
+    public static void logInvite(Map<String, Object> attributes) {
 
     }
 
-    public static void logLogin(Map<String, String> attributes) {
+    public static void logLogin(Map<String, Object> attributes) {
 
     }
 

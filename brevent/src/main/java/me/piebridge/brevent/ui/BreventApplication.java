@@ -55,7 +55,6 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
-import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
@@ -231,21 +230,20 @@ public class BreventApplication extends Application {
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
         if (BuildConfig.RELEASE && shouldUpdated) {
-            long days = TimeUnit.MILLISECONDS.toDays(mServerTime - mDaemonTime);
-            long living = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
-            UILog.d("days: " + days + ", living: " + living);
-            Map<String, String> attributes = new ArrayMap<>();
+            long daemon = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
+            long server = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mServerTime);
+            UILog.d("daemon: " + daemon + ", server: " + server);
+            Map<String, Object> attributes = new ArrayMap<>();
             attributes.put("standby", Boolean.toString(mSupportStandby));
             attributes.put("stopped", Boolean.toString(mSupportStopped));
             attributes.put("appops", Boolean.toString(mSupportAppops));
-            attributes.put("days", Long.toString(days));
-            attributes.put("living", Long.toString(living));
+            attributes.put("daemon", daemon);
+            attributes.put("server", server);
             attributes.put("installer", getInstaller());
-            if (SimpleSu.hasSu()) {
-                StatsUtils.logInvite(attributes);
-            } else {
-                StatsUtils.logLogin(attributes);
-            }
+            attributes.put("root", SimpleSu.hasSu() ? "true" : "false");
+            attributes.put("paid", getDonated());
+            attributes.put("size", breventResponse.mBrevent.size());
+            StatsUtils.logLogin(attributes);
         }
     }
 
@@ -446,6 +444,10 @@ public class BreventApplication extends Application {
         BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
         Collection<String> purchased = DonateActivity.getPurchased(application, UILog.TAG, modulus);
         return BreventSettings.getPlayDonation(purchased);
+    }
+
+    public int getDonated() {
+        return getPlayDonation(this) + DecimalUtils.intValue(getDonation(this));
     }
 
     public static double getDonation(Application application) {

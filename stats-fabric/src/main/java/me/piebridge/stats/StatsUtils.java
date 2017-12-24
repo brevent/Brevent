@@ -56,11 +56,16 @@ public class StatsUtils {
         }
     }
 
-    public static void logInvite(Map<String, String> attributes) {
+    public static void logInvite(Map<String, Object> attributes) {
         try {
             InviteEvent inviteEvent = new InviteEvent();
-            for (Map.Entry<String, String> entry : attributes.entrySet()) {
-                inviteEvent.putCustomAttribute(entry.getKey(), entry.getValue());
+            for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+                Object value = entry.getValue();
+                if (value instanceof String) {
+                    inviteEvent.putCustomAttribute(entry.getKey(), (String) value);
+                } else if (value instanceof Number) {
+                    inviteEvent.putCustomAttribute(entry.getKey(), (Number) value);
+                }
             }
             Answers.getInstance().logInvite(inviteEvent);
         } catch (IllegalStateException e) { // NOSONAR
@@ -68,11 +73,16 @@ public class StatsUtils {
         }
     }
 
-    public static void logLogin(Map<String, String> attributes) {
+    public static void logLogin(Map<String, Object> attributes) {
         try {
             LoginEvent loginEvent = new LoginEvent();
-            for (Map.Entry<String, String> entry : attributes.entrySet()) {
-                loginEvent.putCustomAttribute(entry.getKey(), entry.getValue());
+            for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+                Object value = entry.getValue();
+                if (value instanceof String) {
+                    loginEvent.putCustomAttribute(entry.getKey(), (String) value);
+                } else if (value instanceof Number) {
+                    loginEvent.putCustomAttribute(entry.getKey(), (Number) value);
+                }
             }
             Answers.getInstance().logLogin(loginEvent);
         } catch (IllegalStateException e) { // NOSONAR

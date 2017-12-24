@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,14 +20,17 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventOpsOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
 import me.piebridge.brevent.protocol.BreventOpsUpdate;
 import me.piebridge.brevent.protocol.BreventProtocol;
+import me.piebridge.stats.StatsUtils;
 
 /**
  * Created by thom on 2017/10/21.
@@ -74,6 +78,13 @@ public class BreventOps extends AbstractActivity {
         if (supportAppops && !PreferencesUtils.getDevicePreferences(application)
                 .getBoolean(SettingsFragment.BREVENT_APPOPS, false)) {
             supportAppops = false;
+        }
+
+        if (BuildConfig.RELEASE) {
+            Map<String, Object> attributes = new ArrayMap<>();
+            attributes.put("appops", supportAppops ? "true" : "false");
+            attributes.put("paid", application.getDonated());
+            StatsUtils.logInvite(attributes);
         }
 
         opsFragment = new OpsFragment();
