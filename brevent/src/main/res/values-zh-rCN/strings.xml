@@ -154,7 +154,7 @@
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域\n\nPlay 版总共需要 2 二向箔（约合人民币 13 元）</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
-    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\nPlay 版总共需要 2 二向箔（约合人民币 13 元）</string>
+    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n依赖“检查通知”。Play 版总共需要 2 二向箔（约合人民币 13 元）</string>
     <string name="brevent_appops">应用权限</string>
     <string name="brevent_appops_label">非常危险，请勿开启\n\n总共需要 3 二向箔（约合人民币 19.5 元）</string>
 

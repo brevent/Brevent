@@ -156,7 +156,7 @@
     <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
     <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)\n\nWymagane 2 Brefoil dla wersji Play</string>
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
-    <string name="brevent_optimize_audio_label">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie\n\nWymagane 2 Brefoil dla wersji Play</string>
+    <string name="brevent_optimize_audio_label">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie\n\nDepends on \"Check notifications\". Wymagane 2 Brefoil dla wersji Play</string>
     <string name="brevent_appops">AppOps</string>
     <string name="brevent_appops_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
 

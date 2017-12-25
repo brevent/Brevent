@@ -158,7 +158,7 @@
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)\n\nRequires 2 Brefoil in total for Play version</string>
     <string name="brevent_optimize_audio">Optimize Music Player</string>
-    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification\n\nRequires 2 Brefoil in total for Play version</string>
+    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification\n\nDepends on \"Check notifications\". Requires 2 Brefoil in total for Play version</string>
     <string name="brevent_appops">AppOps</string>
     <string name="brevent_appops_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
 
