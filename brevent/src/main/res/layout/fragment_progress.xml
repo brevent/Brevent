@@ -11,6 +11,7 @@
     <ProgressBar
         android:id="@+id/progress"
         style="?android:attr/progressBarStyle"
+        android:theme="@style/theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:indeterminate="true" />

@@ -9,12 +9,17 @@
         <item name="android:titleTextAppearance">@style/toolbarTitle</item>
     </style>
 
+    <style name="alertDialog" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">#ff5e97f6</item>
+    </style>
+
     <style name="theme" parent="@android:style/Theme.Material.NoActionBar">
         <item name="android:colorPrimary">#ff2d2d2d</item>
         <item name="android:colorPrimaryDark">#ff242424</item>
         <item name="android:colorAccent">#ff5e97f6</item>
         <item name="android:statusBarColor">?android:attr/colorPrimary</item>
         <item name="android:toolbarStyle">@style/toolbar</item>
+        <item name="android:alertDialogTheme">@style/alertDialog</item>
         <item name="colorPrimary">?android:attr/colorPrimary</item>
         <item name="colorPrimaryDark">?android:attr/colorPrimaryDark</item>
         <item name="colorAccent">?android:attr/colorAccent</item>
