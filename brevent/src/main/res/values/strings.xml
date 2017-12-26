@@ -163,6 +163,7 @@
     <string name="brevent_appops_label">Dangerous features, don\'t turn on\n\nRequires 3 Brefoil in total</string>
 
     <string name="show_donation">Show payment</string>
+    <string name="show_donation_summary_play" />
     <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Thanks for paying %s Brefoil via Play Store</string>
     <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>

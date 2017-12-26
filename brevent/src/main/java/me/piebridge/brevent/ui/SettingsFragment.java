@@ -135,10 +135,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceCategoryExperimental.removePreference(preferenceAppops);
         }
         if (BuildConfig.RELEASE) {
-            if (!getArguments().getBoolean(IS_PLAY, false)) {
-                preferenceScreen.findPreference("brevent_about_version")
-                        .setOnPreferenceClickListener(this);
-            }
+            preferenceScreen.findPreference("brevent_about_version")
+                    .setOnPreferenceClickListener(this);
             updateDonation();
         }
         onUpdateBreventMethod();
@@ -154,7 +152,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAbnormalBack.setEnabled(true);
             preferenceOptimizeAudio.setEnabled(true);
         } else if (getArguments().getBoolean(IS_PLAY, false)) {
-            preferenceDonation.setSummary(null);
+            preferenceDonation.setSummary(R.string.show_donation_summary_play);
         } else {
             preferenceDonation.setSummary(R.string.show_donation_summary_not_play);
         }
@@ -290,7 +288,7 @@ public class SettingsFragment extends PreferenceFragment
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
                 } else if (getArguments().getBoolean(IS_PLAY, false)) {
-                    summary = null;
+                    summary = getString(R.string.show_donation_summary_play);
                 } else {
                     summary = getString(R.string.show_donation_summary_not_play);
                 }
@@ -356,9 +354,7 @@ public class SettingsFragment extends PreferenceFragment
         String key = preference.getKey();
         if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
             if (++repeat == 0x7) {
-                if (!getArguments().getBoolean(IS_PLAY, false)) {
-                    showDonate();
-                }
+                showDonate();
                 repeat = 0;
             }
         } else if ("brevent_about_developer".equals(key)) {

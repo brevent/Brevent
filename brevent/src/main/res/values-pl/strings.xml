@@ -161,6 +161,7 @@
     <string name="brevent_appops_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
 
     <string name="show_donation">Pokaż płatności</string>
+    <string name="show_donation_summary_play" />
     <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Dzięki za kupno %s Brefoil w Sklepie Play</string>
     <string name="show_donation_rmb">Dzięki za kupno %s Brefoil</string>

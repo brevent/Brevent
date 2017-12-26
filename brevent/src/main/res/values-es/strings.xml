@@ -161,6 +161,7 @@
     <string name="brevent_appops_label">Características peligrosas, no conectado\n\nRequiere 3 Brefoil en total</string>
 
     <string name="show_donation">Mostrar pago</string>
+    <string name="show_donation_summary_play" />
     <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store.</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil.</string>

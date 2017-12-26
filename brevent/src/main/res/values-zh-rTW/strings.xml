@@ -159,6 +159,7 @@
     <string name="brevent_appops_label">非常危險，不要開啟\n\n總共需要 3 二向箔</string>
 
     <string name="show_donation">顯示支付</string>
+    <string name="show_donation_summary_play" />
     <string name="show_donation_summary_not_play" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>

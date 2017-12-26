@@ -159,6 +159,7 @@
     <string name="brevent_appops_label">非常危险，请勿开启\n\n总共需要 3 二向箔（约合人民币 19.5 元）</string>
 
     <string name="show_donation">显示支付</string>
+    <string name="show_donation_summary_play">如您已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_summary_not_play">推荐使用支付宝自动确认。如您已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.5 元）</string>
