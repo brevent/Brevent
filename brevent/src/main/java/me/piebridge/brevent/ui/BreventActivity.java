@@ -179,6 +179,10 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_SORT = "sort";
     private static final String FRAGMENT_PAYMENT = "payment";
 
+    private static final String PACKAGE_FRAMEWORK = "android";
+    private Signature[] frameworkSignatures;
+    private boolean fakeFramework;
+
     static final int REQUEST_CODE_SETTINGS = 1;
 
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
@@ -227,8 +231,6 @@ public class BreventActivity extends AbstractActivity
     private String mDialer;
 
     private volatile boolean hasResponse;
-
-    private int mInstalledCount;
 
     private UsbConnectedReceiver mConnectedReceiver;
 
@@ -316,6 +318,8 @@ public class BreventActivity extends AbstractActivity
             mHandler = new AppsActivityHandler(this, uiHandler);
 
             mTitles = getResources().getStringArray(R.array.fragment_apps);
+
+            fakeFramework = isBreventFramework();
 
             mColorControlNormal = ColorUtils.resolveColor(this, android.R.attr.colorControlNormal);
             mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
@@ -1303,8 +1307,9 @@ public class BreventActivity extends AbstractActivity
         if (application.isPlay() && BuildConfig.RELEASE) {
             int days = 0;
             try {
-                PackageInfo pm = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
-                days = (int) TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - pm.firstInstallTime);
+                PackageInfo pi = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+                long duration = System.currentTimeMillis() - pi.firstInstallTime;
+                days = (int) TimeUnit.MILLISECONDS.toDays(duration);
             } catch (PackageManager.NameNotFoundException ignore) {
                 //
             }
@@ -1601,8 +1606,18 @@ public class BreventActivity extends AbstractActivity
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
         boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
-                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS);
+                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS) || breventedFrameworkApps();
         return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
+    }
+
+    private boolean breventedFrameworkApps() {
+        PackageManager packageManager = getPackageManager();
+        for (String packageName : mBrevent) {
+            if (isFrameworkPackage(packageManager, packageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void showFragmentAsync(AppsFragment fragment, long delayMillis) {
@@ -2008,6 +2023,58 @@ public class BreventActivity extends AbstractActivity
         if (mAdapter != null) {
             mAdapter.setExpired();
         }
+    }
+
+    private boolean isBreventFramework() {
+        PackageManager packageManager = getPackageManager();
+        return packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) ==
+                PackageManager.SIGNATURE_MATCH;
+    }
+
+    private boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
+        if (fakeFramework) {
+            try {
+                PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+                return isFrameworkPackage(packageManager, packageInfo);
+            } catch (PackageManager.NameNotFoundException e) {
+                UILog.d("cannot find " + packageName, e);
+                return false;
+            }
+        } else {
+            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
+                    PackageManager.SIGNATURE_MATCH;
+        }
+    }
+
+    boolean isFrameworkPackage(PackageManager packageManager, PackageInfo packageInfo) {
+        String packageName = packageInfo.packageName;
+        if (fakeFramework) {
+            SharedPreferences preferences = getSharedPreferences("signature", Context.MODE_PRIVATE);
+            long lastSync = AppsLabelLoader.getLastSync(this);
+            if (preferences.contains(packageName) && packageInfo.lastUpdateTime <= lastSync) {
+                return preferences.getBoolean(packageName, false);
+            }
+            boolean isFrameworkPackage = isFrameworkPackageSignature(packageManager, packageName);
+            preferences.edit().putBoolean(packageName, isFrameworkPackage).apply();
+            return isFrameworkPackage;
+        } else {
+            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
+                    PackageManager.SIGNATURE_MATCH;
+        }
+    }
+
+    private boolean isFrameworkPackageSignature(PackageManager packageManager, String packageName) {
+        boolean frameworkApp = Arrays.equals(getFrameworkSignatures(packageManager),
+                BreventActivity.getSignatures(packageManager, packageName));
+        UILog.i("checking framework app for " + packageName + ": " + (frameworkApp ? "yes" : "no"));
+        return frameworkApp;
+    }
+
+    private Signature[] getFrameworkSignatures(PackageManager packageManager) {
+        if (frameworkSignatures == null) {
+            frameworkSignatures = BreventActivity.getSignatures(packageManager, PACKAGE_FRAMEWORK);
+        }
+        return frameworkSignatures;
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

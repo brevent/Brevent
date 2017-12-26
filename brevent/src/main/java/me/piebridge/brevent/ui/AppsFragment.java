@@ -1,11 +1,8 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,12 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
 /**
@@ -29,7 +24,7 @@ import me.piebridge.brevent.R;
  */
 public abstract class AppsFragment extends Fragment {
 
-    private static final String PACKAGE_FRAMEWORK = "android";
+    static final String PACKAGE_FRAMEWORK = "android";
 
     private View mView;
 
@@ -46,14 +41,6 @@ public abstract class AppsFragment extends Fragment {
     private boolean mLoaded;
 
     private volatile boolean mExpired;
-
-    private Signature[] frameworkSignatures;
-
-    private static boolean warned;
-
-    private SharedPreferences preferences;
-
-    private long lastSync;
 
     private SwipeRefreshLayout mRefresh;
 
@@ -211,51 +198,8 @@ public abstract class AppsFragment extends Fragment {
 
     protected final boolean isFrameworkPackage(PackageManager packageManager,
                                                PackageInfo packageInfo) {
-        String packageName = packageInfo.packageName;
-        if (packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) !=
-                PackageManager.SIGNATURE_MATCH) {
-            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
-                    PackageManager.SIGNATURE_MATCH;
-        } else {
-            if (preferences == null) {
-                if (!warned) {
-                    warned = true;
-                    UILog.w(BuildConfig.APPLICATION_ID + " shouldn't be framework app");
-                }
-                Context context = getActivity();
-                if (context == null) {
-                    return isFrameworkPackage(packageManager, packageName);
-                } else {
-                    preferences = context.getSharedPreferences("signature", Context.MODE_PRIVATE);
-                    lastSync = AppsLabelLoader.getLastSync(context);
-                }
-            }
-            if (preferences.contains(packageName) && packageInfo.lastUpdateTime <= lastSync) {
-                return preferences.getBoolean(packageName, false);
-            }
-            boolean signature = isFrameworkPackage(packageManager, packageName);
-            preferences.edit().putBoolean(packageName, signature).apply();
-            return signature;
-        }
-    }
-
-    private boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
-        boolean frameworkApp = Arrays.equals(getFrameworkSignatures(packageManager),
-                BreventActivity.getSignatures(packageManager, packageName));
-        UILog.i("checking framework app for " + packageName + ": " + (frameworkApp ? "yes" : "no"));
-        return frameworkApp;
-    }
-
-    private Signature[] getFrameworkSignatures(PackageManager packageManager) {
-        if (frameworkSignatures == null) {
-            synchronized (this) {
-                if (frameworkSignatures == null) {
-                    frameworkSignatures = BreventActivity.getSignatures(packageManager,
-                            PACKAGE_FRAMEWORK);
-                }
-            }
-        }
-        return frameworkSignatures;
+        BreventActivity activity = (BreventActivity) getActivity();
+        return activity != null && activity.isFrameworkPackage(packageManager, packageInfo);
     }
 
     public boolean supportAllApps() {

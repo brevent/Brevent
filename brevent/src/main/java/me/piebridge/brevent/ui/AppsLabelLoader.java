@@ -29,13 +29,12 @@ public class AppsLabelLoader {
     public AppsLabelLoader(Context context) {
         mPreferences = context.getSharedPreferences("label-" + LocaleUtils.getSystemLocale(),
                 Context.MODE_PRIVATE);
-        lastSync = mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
+        mLastSync = mPreferences.getLong(KEY_LAST_SYNC, 0);
     }
 
     public static long getLastSync(Context context) {
         if (lastSync == 0) {
-            lastSync = context.getSharedPreferences("label-" + LocaleUtils.getSystemLocale(),
-                    Context.MODE_PRIVATE).getLong(KEY_LAST_SYNC, 0);
+            lastSync = new AppsLabelLoader(context).mLastSync;
         }
         return lastSync;
     }
