@@ -59,8 +59,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     private volatile boolean mShowDonation = true;
 
-    private boolean canDonate;
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -297,7 +295,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
         } else {
             mDonationTip.setText(R.string.donation);
-            showDonate();
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
     }
@@ -357,21 +354,9 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             checkPackage(items, R.id.play, PACKAGE_PLAY);
             if (!items.isEmpty()) {
                 mDonationTip.setText(R.string.donation);
-                showDonate();
                 new DonateTask(this, true).execute(items.toArray(new DonateItem[items.size()]));
             }
         }
-    }
-
-    private void showDonate() {
-        if (!canDonate) {
-            canDonate = true;
-            onShowDonate();
-        }
-    }
-
-    protected void onShowDonate() {
-
     }
 
     protected String getTag() {

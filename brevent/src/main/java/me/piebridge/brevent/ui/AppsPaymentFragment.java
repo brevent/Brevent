@@ -35,8 +35,7 @@ public class AppsPaymentFragment extends AbstractDialogFragment
         int index = required - 1;
         String[] brefoils = getResources().getStringArray(R.array.brefoils);
         String brefoil = brefoils.length > index ? brefoils[index] : "";
-        builder.setMessage(getString(R.string.make_brevent_better,
-            days, size, required, brefoil));
+        builder.setMessage(getString(R.string.make_brevent_better, days, size, brefoil));
         builder.setPositiveButton(android.R.string.ok, this);
         builder.setNegativeButton(android.R.string.cancel, this);
         return builder.create();

@@ -141,24 +141,24 @@
     <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
-    <string name="brevent_check_notification">Check notifications</string>
-    <string name="brevent_check_notification_label">Only turn off if device freeze when unlocking or viewing notification</string>
     <string name="brevent_aggressive">Tryb agresywny</string>
     <string name="brevent_aggressive_label">Breventuj natychmiastowo, wymuś zatrzymanie bezpiecznych aplikacji.\n\nSpecjalnie dla OCD, używaj ostrożnie</string>
     <string name="show_framework_apps">Pokaż frameworki</string>
     <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
     <string name="show_all_apps">Pokaż wszystkie aplikacje</string>
     <string name="show_all_apps_label">Włącznie z systemowymi aplikacjami oraz frameworkami, które nie mogą zostać uruchomione.\n\nBądź ostrożny podczas breventowania systemowych aplikacji i frameworków, które nie mogą zostać uruchomione</string>
+    <string name="brevent_language">Język</string>
+    <string name="brevent_language_auto">Automatyczny</string>
 
-    <string name="brevent_experimental">Funkcje Eksperymentalne</string>
+    <string name="brevent_optimize">Optimized Features</string>
+    <string name="brevent_check_notification">Check notifications</string>
+    <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or reboot</string>
     <string name="brevent_optimize_vpn">Optymalizuj VPN</string>
-    <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie\n\n Wymagane 1 Brefoil dla wersji Play</string>
+    <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie</string>
     <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
-    <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)\n\nWymagane 2 Brefoil dla wersji Play</string>
+    <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)</string>
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
-    <string name="brevent_optimize_audio_label">Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie\n\nDepends on \"Check notifications\". Wymagane 2 Brefoil dla wersji Play</string>
-    <string name="brevent_appops">AppOps</string>
-    <string name="brevent_appops_label">Funkcje niebezpieczne, nie włączaj\n\nWymagane 3 Brefoil</string>
+    <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_play" />
@@ -169,13 +169,11 @@
     <string name="show_donation_play_and_rmb">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło</string>
     <string name="show_donation_play_and_contributor">Dzięki za kupno %s Brefoil w Sklepie Play i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_rmb_and_contributor">Dzięki za kupno %s Brefoil i bezcenny wkład w rozwój Brevent</string>
-    <string name="show_donation_play_and_rmb_and_contributor"> Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
     <string name="brevent_checking">Diagnostyka</string>
-    <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut. Zbieraj logi tylko wtedy, gdy jest to potrzebne\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
-    <string name="show_experimental">Pokaż funkcje eksperymentalne</string>
-    <string name="show_experimental_label">Funkcje eksperymentalne nie są stabilne i wymagają wcześniejszego kupna tzw. Brefoil</string>
-    <string name="brevent_language">Język</string>
-    <string name="brevent_language_auto">Automatyczny</string>
+    <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
+    <string name="brevent_appops">AppOps (Eksperymentalne)</string>
+    <string name="brevent_appops_label">Currently only simple read and write, still in progress</string>
 
     <string name="brevent_about">O Brevent</string>
     <string name="brevent_about_version">Wersja</string>
@@ -226,7 +224,13 @@
     <string name="pay_email_subject">Zapłata zweryfikowana %1$s (%2$s)</string>
     <string name="pay_email_text">%s\n(Proszę załączyć zrzuty ekrany ze szczegółami płatności)</string>
 
-    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$d Brefoil%4$s to make Brevent better.</string>
-    <string-array name="brefoils" tools:ignore="InconsistentArrays" />
+    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
+    <string name="pay_brevent_recommend">Recommend to pay %s</string>
+    <string name="pay_brevent_require">Require to pay %s</string>
+    <string-array name="brefoils">
+        <item>1 Brefoil</item>
+        <item>2 Brefoil</item>
+        <item>3 Brefoil</item>
+    </string-array>
 
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="me.piebridge.brevent.ui.DonationPreference">
+        <attr name="recommend" />
+        <attr name="require" />
+    </declare-styleable>
+
+</resources>

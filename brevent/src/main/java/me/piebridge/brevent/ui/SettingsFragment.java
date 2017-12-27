@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.Objects;
@@ -36,8 +37,6 @@ public class SettingsFragment extends PreferenceFragment
 
     public static final String SHOW_DONATION = "show_donation";
 
-    public static final String SHOW_EXPERIMENTAL = "show_experimental";
-
     public static final String SHOW_ALL_APPS = "show_all_apps";
     public static final boolean DEFAULT_SHOW_ALL_APPS = false;
 
@@ -48,15 +47,11 @@ public class SettingsFragment extends PreferenceFragment
 
     public static final String LIKE_PLAY = "like_play";
     public static final String IS_PLAY = "is_play";
+    private static final String LOCALE_CHANGED = "LOCALE_CHANGED";
 
     private static final String FRAGMENT_DONATE = "donate";
 
-    private SwitchPreference preferenceOptimizeVpn;
-    private SwitchPreference preferenceAbnormalBack;
-    private SwitchPreference preferenceOptimizeAudio;
-    private SwitchPreference preferenceAppops;
     private SwitchPreference preferenceDonation;
-    private PreferenceCategory preferenceCategoryExperimental;
 
     private Preference preferenceStandbyTimeout;
 
@@ -82,26 +77,12 @@ public class SettingsFragment extends PreferenceFragment
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
 
-        preferenceOptimizeVpn = (SwitchPreference) preferenceScreen
-                .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_VPN);
-        preferenceAbnormalBack = (SwitchPreference) preferenceScreen
-                .findPreference(BreventConfiguration.BREVENT_ABNORMAL_BACK);
-        preferenceOptimizeAudio = (SwitchPreference) preferenceScreen
-                .findPreference(BreventConfiguration.BREVENT_OPTIMIZE_AUDIO);
-        preferenceAppops = (SwitchPreference) preferenceScreen
-                .findPreference(BREVENT_APPOPS);
-
         preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
-
-        preferenceCategoryExperimental = (PreferenceCategory) preferenceScreen
-                .findPreference("brevent_experimental");
 
         preferenceStandbyTimeout = preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
 
         preferenceScreen.findPreference("brevent_language")
-                .setOnPreferenceChangeListener(this);
-        preferenceScreen.findPreference(SHOW_EXPERIMENTAL)
                 .setOnPreferenceChangeListener(this);
 
         BreventApplication application = (BreventApplication) getActivity().getApplication();
@@ -115,24 +96,12 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAutoUpdate.setEnabled(false);
         }
 
-        if (BuildConfig.RELEASE) {
-            if (!isDeprecated()) {
-                preferenceOptimizeVpn.setEnabled(false);
-                preferenceAbnormalBack.setEnabled(false);
-                preferenceOptimizeAudio.setEnabled(false);
-                preferenceAppops.setEnabled(false);
-            }
-            if (!getArguments().getBoolean(SHOW_EXPERIMENTAL)) {
-                preferenceScreen.removePreference(preferenceCategoryExperimental);
-            }
-            if (!SimpleSu.hasSu() && !application.supportAppops()) {
-                preferenceCategoryExperimental.removePreference(preferenceAppops);
-            }
-        } else {
+        if (!BuildConfig.RELEASE) {
             preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
-            preferenceAppops.setEnabled(false);
-            preferenceAppops.setChecked(false);
-            preferenceCategoryExperimental.removePreference(preferenceAppops);
+        }
+        if (!application.supportAppops()) {
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent"))
+                    .removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
         }
         if (BuildConfig.RELEASE) {
             preferenceScreen.findPreference("brevent_about_version")
@@ -148,24 +117,11 @@ public class SettingsFragment extends PreferenceFragment
         if (DecimalUtils.isPositive(donation)) {
             String format = DecimalUtils.format(donation);
             preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
         } else if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceDonation.setSummary(R.string.show_donation_summary_play);
         } else {
             preferenceDonation.setSummary(R.string.show_donation_summary_not_play);
         }
-        if (isDeprecated() || DecimalUtils.intValue(donation) >= BreventSettings.DONATE_AMOUNT) {
-            preferenceAppops.setEnabled(true);
-        } else if (!application.hasPlay()) {
-            preferenceAppops.setEnabled(false);
-            preferenceAppops.setChecked(false);
-        }
-    }
-
-    static boolean isDeprecated() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
     }
 
     @Override
@@ -299,53 +255,13 @@ public class SettingsFragment extends PreferenceFragment
         if (contributor) {
             count += BreventSettings.CONTRIBUTOR;
         }
-        if (isDeprecated()) {
-            count += BreventSettings.DONATE_AMOUNT;
-        }
-        if (getArguments().getBoolean(LIKE_PLAY, false)) {
-            updatePlayVersion(count);
-        } else if (count < BreventSettings.DONATE_AMOUNT) {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
-            preferenceAppops.setEnabled(false);
-            preferenceAppops.setChecked(false);
-        } else {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
-            preferenceAppops.setEnabled(true);
-        }
-    }
-
-    private void updatePlayVersion(int total) {
-        if (total <= 0x0) {
-            preferenceOptimizeVpn.setEnabled(false);
-            preferenceOptimizeVpn.setChecked(false);
-            preferenceAbnormalBack.setEnabled(false);
-            preferenceAbnormalBack.setChecked(false);
-            preferenceOptimizeAudio.setEnabled(false);
-            preferenceOptimizeAudio.setChecked(false);
-            preferenceAppops.setEnabled(false);
-            preferenceAppops.setChecked(false);
-        } else if (total < 0x2) {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(false);
-            preferenceAbnormalBack.setChecked(false);
-            preferenceOptimizeAudio.setEnabled(false);
-            preferenceOptimizeAudio.setChecked(false);
-            preferenceAppops.setEnabled(false);
-            preferenceAppops.setChecked(false);
-        } else if (total < BreventSettings.DONATE_AMOUNT) {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
-            preferenceAppops.setEnabled(false);
-        } else {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
-            preferenceAppops.setEnabled(true);
+        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
+        int size = rootAdapter.getCount();
+        for (int i = 0; i < size; ++i) {
+            Object item = rootAdapter.getItem(i);
+            if (item instanceof DonationPreference) {
+                ((DonationPreference) item).updateDonated(count);
+            }
         }
     }
 
@@ -371,22 +287,20 @@ public class SettingsFragment extends PreferenceFragment
         return false;
     }
 
-    public void onShowDonate() {
-        if (!getArguments().getBoolean(LIKE_PLAY, false)) {
-            preferenceOptimizeVpn.setEnabled(true);
-            preferenceAbnormalBack.setEnabled(true);
-            preferenceOptimizeAudio.setEnabled(true);
-        }
-    }
-
     int getPosition() {
-        return mList != null ? mList.getLastVisiblePosition() : 0;
+        Bundle arguments = getArguments();
+        if (arguments.getBoolean(LOCALE_CHANGED, false)) {
+            arguments.putBoolean(LOCALE_CHANGED, false);
+            return mList != null ? mList.getLastVisiblePosition() : 0;
+        } else {
+            return -1;
+        }
     }
 
     void updatePosition() {
         if (mList != null) {
             int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
-            if (position != getPosition() && position > 0 && position < mList.getCount()) {
+            if (position > 0 && position < mList.getCount()) {
                 UILog.d("count: " + mList.getCount() + ", position: " + position);
                 mList.smoothScrollToPosition(position);
             }
@@ -402,19 +316,8 @@ public class SettingsFragment extends PreferenceFragment
                 language = "";
             }
             if (LocaleUtils.setOverrideLanguage(activity, language)) {
+                getArguments().putBoolean(LOCALE_CHANGED, true);
                 activity.recreate();
-            }
-        } else if (SHOW_EXPERIMENTAL.equals(preference.getKey())) {
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            if (Boolean.valueOf(String.valueOf(newValue))) {
-                getArguments().putBoolean(SHOW_EXPERIMENTAL, true);
-                Preference breventAbout = preferenceScreen.findPreference("brevent_about");
-                preferenceScreen.removePreference(breventAbout);
-                preferenceScreen.addPreference(preferenceCategoryExperimental);
-                preferenceScreen.addPreference(breventAbout);
-            } else {
-                getArguments().putBoolean(SHOW_EXPERIMENTAL, false);
-                preferenceScreen.removePreference(preferenceCategoryExperimental);
             }
         }
         return true;

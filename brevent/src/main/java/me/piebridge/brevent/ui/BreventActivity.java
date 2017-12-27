@@ -970,6 +970,7 @@ public class BreventActivity extends AbstractActivity
 
     public void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
+        intent.putExtra(BreventIntent.EXTRA_BREVENT_SIZE, mBrevent.size());
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
 
@@ -1304,7 +1305,7 @@ public class BreventActivity extends AbstractActivity
             cancelAlarm(this);
         }
 
-        if (application.isPlay() && BuildConfig.RELEASE) {
+        if (application.isPlay() && BuildConfig.RELEASE && !mBrevent.isEmpty()) {
             int days = 0;
             try {
                 PackageInfo pi = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
@@ -1320,20 +1321,9 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void checkBreventList(BreventApplication application, int days) {
-        int donated = BreventApplication.getPlayDonation(application)
-                + DecimalUtils.intValue(BreventApplication.getDonation(application));
+        int donated = application.getDonated();
         int size = mBrevent.size();
-        int required;
-        if (size >= 100) {
-            required = BreventSettings.DONATE_AMOUNT;
-        } else if (size >= 60) {
-            required = 0x2;
-        } else if (size >= 30) {
-            required = 0x1;
-        } else {
-            required = 0;
-        }
-
+        int required = BreventSettings.getRecommend(this, size);
         if (required > donated) {
             SharedPreferences sp = PreferencesUtils.getPreferences(this);
             long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);

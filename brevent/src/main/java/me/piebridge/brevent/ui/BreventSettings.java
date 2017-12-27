@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -9,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import java.util.List;
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventIntent;
 import me.piebridge.donation.DonateActivity;
 import me.piebridge.stats.StatsUtils;
 
@@ -30,7 +31,7 @@ public class BreventSettings extends DonateActivity {
 
     static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 
-    static final String DAEMON_TIME = "daemonTime";
+    static final String DAEMON_TIME = "daemon_time";
 
     static final int CONTRIBUTOR = 5;
 
@@ -42,6 +43,12 @@ public class BreventSettings extends DonateActivity {
 
     private int mTotal;
 
+    private static final int SIZE_1 = 30;
+
+    private static final int SIZE_2 = 60;
+
+    private static final int SIZE_3 = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +56,7 @@ public class BreventSettings extends DonateActivity {
 
         mPlay = ((BreventApplication) getApplication()).isPlay();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setActionBar(toolbar);
+        setActionBar(findViewById(R.id.toolbar));
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -61,8 +67,6 @@ public class BreventSettings extends DonateActivity {
         Bundle arguments = settingsFragment.getArguments();
         arguments.putBoolean(SettingsFragment.LIKE_PLAY, mPlay);
         arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay && isPlayInstaller());
-        arguments.putBoolean(SettingsFragment.SHOW_EXPERIMENTAL, PreferencesUtils.getPreferences(this)
-                .getBoolean(SettingsFragment.SHOW_EXPERIMENTAL, false));
         if (savedInstanceState != null) {
             arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
         }
@@ -119,11 +123,6 @@ public class BreventSettings extends DonateActivity {
             updatePlayDonation(purchased);
         }
         super.showPlay(purchased);
-    }
-
-    @Override
-    protected void onShowDonate() {
-        settingsFragment.onShowDonate();
     }
 
     public static int getPlayDonation(@Nullable Collection<String> purchased) {
@@ -187,8 +186,8 @@ public class BreventSettings extends DonateActivity {
     @Override
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
-        int amount = settingsFragment.getArguments()
-                .getBoolean(SettingsFragment.SHOW_EXPERIMENTAL) ? DONATE_AMOUNT : 0x1;
+        int size = getIntent().getIntExtra(BreventIntent.EXTRA_BREVENT_SIZE, 0);
+        int amount = getRecommend(this, size);
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -249,6 +248,25 @@ public class BreventSettings extends DonateActivity {
         } else {
             return !preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
         }
+    }
+
+    private static int getRecommend(int size) {
+        if (size >= SIZE_3) {
+            return BreventSettings.DONATE_AMOUNT;
+        } else if (size >= SIZE_2) {
+            return 0x2;
+        } else if (size >= SIZE_1) {
+            return 0x1;
+        } else {
+            return 0;
+        }
+    }
+
+    static int getRecommend(Activity activity, int size) {
+        int recommend1 = PreferencesUtils.getPreferences(activity)
+                .getInt(DonationPreference.DONATION_RECOMMEND, 0);
+        int recommend2 = BreventSettings.getRecommend(size);
+        return Math.max(recommend1, recommend2);
     }
 
 }

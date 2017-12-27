@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -63,7 +64,7 @@ import me.piebridge.stats.StatsUtils;
 /**
  * Created by thom on 2017/2/7.
  */
-public class BreventApplication extends Application {
+public class BreventApplication extends Application implements DonationPreference.Donation {
 
     private boolean mSupportStopped = true;
 
@@ -72,6 +73,10 @@ public class BreventApplication extends Application {
     private boolean mSupportUpgrade = true;
 
     private boolean mSupportAppops = false;
+
+    private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
+
+    private int mRecommend;
 
     private boolean copied;
 
@@ -406,10 +411,6 @@ public class BreventApplication extends Application {
         }
     }
 
-    public boolean hasPlay() {
-        return getPackageManager().getLaunchIntentForPackage(DonateActivity.PACKAGE_PLAY) != null;
-    }
-
     public boolean isPlay() {
         if (play != null) {
             return play;
@@ -446,6 +447,39 @@ public class BreventApplication extends Application {
         return BreventSettings.getPlayDonation(purchased);
     }
 
+    @Override
+    public CharSequence getRecommend(Resources resources, int recommend) {
+        String[] brefoils = resources.getStringArray(R.array.brefoils);
+        return resources.getString(R.string.pay_brevent_recommend, brefoils[recommend - 1]);
+    }
+
+    @Override
+    public CharSequence getRequire(Resources resources, int require) {
+        String[] brefoils = resources.getStringArray(R.array.brefoils);
+        return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
+    }
+
+    @Override
+    public void setRecommend(String key, int value, boolean checked) {
+        if (checked) {
+            mRecommendMap.put(key, value);
+        } else {
+            mRecommendMap.put(key, 0);
+        }
+        int recommend = 0;
+        for (int i : mRecommendMap.values()) {
+            if (i > recommend) {
+                recommend = i;
+            }
+        }
+        if (recommend != mRecommend) {
+            mRecommend = recommend;
+            PreferencesUtils.getDevicePreferences(this)
+                    .edit().putInt(DonationPreference.DONATION_RECOMMEND, recommend).apply();
+        }
+    }
+
+    @Override
     public int getDonated() {
         return getPlayDonation(this) + DecimalUtils.intValue(getDonation(this));
     }

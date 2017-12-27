@@ -139,24 +139,24 @@
     <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
 
     <string name="brevent_advanced">高级功能</string>
-    <string name="brevent_check_notification">检查通知</string>
-    <string name="brevent_check_notification_label">只有当您的机器解锁或查看通知卡顿时，才需要关闭“检查通知”</string>
     <string name="brevent_aggressive">激进模式</string>
     <string name="brevent_aggressive_label">立即黑域，强行停止安全应用\n\n强迫症专享，请谨慎启用</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
+    <string name="brevent_language">界面语言</string>
+    <string name="brevent_language_auto">跟随系统</string>
 
-    <string name="brevent_experimental">实验性功能</string>
+    <string name="brevent_optimize">优化功能</string>
+    <string name="brevent_check_notification">检查通知</string>
+    <string name="brevent_check_notification_label">根据通知优化黑域\n\n强烈建议开启，但可能导致设备卡顿甚至重启</string>
     <string name="brevent_optimize_vpn">优化 VPN</string>
-    <string name="brevent_optimize_vpn_label">不处理已连接的 VPN 应用\n\nPlay 版总共需要 1 二向箔（约合人民币 6.5 元）</string>
+    <string name="brevent_optimize_vpn_label">不黑域已连接的 VPN 应用</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
-    <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域\n\nPlay 版总共需要 2 二向箔（约合人民币 13 元）</string>
+    <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
-    <string name="brevent_optimize_audio_label">播放时不处理，暂停且有通知时不强行停止\n\n依赖“检查通知”。Play 版总共需要 2 二向箔（约合人民币 13 元）</string>
-    <string name="brevent_appops">应用权限</string>
-    <string name="brevent_appops_label">非常危险，请勿开启\n\n总共需要 3 二向箔（约合人民币 19.5 元）</string>
+    <string name="brevent_optimize_audio_label">依赖“检查通知”。播放时不黑域，暂停且有通知时不强行停止</string>
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_play">如您已经支付，请点按 7 次版本号查看确认方法</string>
@@ -169,11 +169,9 @@
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑域服务，必要时收集日志\n\n只有偶然不正常停止时，才需要开启。开启之后，将自动把黑域加入电池优化白名单</string>
-    <string name="show_experimental">显示实验性功能</string>
-    <string name="show_experimental_label">实验性功能不稳定，不建议开启\n\n仅对“支付确认”用户开放</string>
-    <string name="brevent_language">界面语言</string>
-    <string name="brevent_language_auto">跟随系统</string>
+    <string name="brevent_checking_label">每 15 分钟检查黑域服务\n\n只有偶然不正常停止时，才需要开启</string>
+    <string name="brevent_appops">应用权限（实验性）</string>
+    <string name="brevent_appops_label">当前仅有简单的读写功能，将根据情况进一步开发</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
@@ -224,11 +222,13 @@
     <string name="pay_email_subject">支付确认 %1$s（%2$s）</string>
     <string name="pay_email_text">%s\n（请附上支付订单截图。）</string>
 
-    <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$d 二向箔（约合人民币 %4$s 元）？\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
-    <string-array name="brefoils" tools:ignore="InconsistentArrays">
-        <item>6.5</item>
-        <item>13</item>
-        <item>19.5</item>
+    <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$s？\n如您已经支付，请根据流程确认支付。\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
+    <string name="pay_brevent_recommend">建议支付 %s</string>
+    <string name="pay_brevent_require">需要支付 %s</string>
+    <string-array name="brefoils">
+        <item>1 二向箔（约合人民币 6.5 元）</item>
+        <item>2 二向箔（约合人民币 13 元）</item>
+        <item>3 二向箔（约合人民币 19.5 元）</item>
     </string-array>
 
 </resources>

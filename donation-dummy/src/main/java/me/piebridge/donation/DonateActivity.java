@@ -44,8 +44,6 @@ public abstract class DonateActivity extends AbstractActivity {
 
     }
 
-    protected abstract void onShowDonate();
-
     protected abstract boolean isPlay();
 
     protected abstract String getApplicationId();
