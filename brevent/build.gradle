@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-if (file('fabric.properties').exists()) {
+if (!rootProject.versionName.contains('-') && file('fabric.properties').exists()) {
     apply plugin: 'io.fabric'
 }
 
