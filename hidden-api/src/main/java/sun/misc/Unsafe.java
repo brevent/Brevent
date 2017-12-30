@@ -6,10 +6,6 @@ package sun.misc;
 
 public class Unsafe {
 
-    public static Unsafe getUnsafe() {
-        throw new UnsupportedOperationException();
-    }
-
     public int getInt(Object obj, long offset) {
         throw new UnsupportedOperationException();
     }

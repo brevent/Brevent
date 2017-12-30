@@ -18,6 +18,10 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility rootProject.javaVersion
+        targetCompatibility rootProject.javaVersion
+    }
 }
 
 task deleteLogStub(type: Delete) {
