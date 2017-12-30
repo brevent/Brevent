@@ -21,7 +21,7 @@
 # for brevent-server
 -keep class android.support.v4.util.ArraySet { *; }
 -keep class android.support.v4.util.SimpleArrayMap { *; }
--keep class org.slf4j.LoggerFactory { *; }
+-keep class org.slf4j.LoggerFactory { public static org.slf4j.Logger getLogger(java.lang.String); }
 
 -keep class com.android.vending.billing.**
 
