@@ -280,7 +280,7 @@ public class BreventActivity extends AbstractActivity
                 }
             }
         }
-        if (!disabledXposed) {
+        if (!disabledXposed && !BuildConfig.DEBUG) {
             showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
             showUnsupported(R.string.unsupported_owner);
