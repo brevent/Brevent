@@ -19,9 +19,17 @@
 -keepattributes SourceFile,LineNumberTable,EnclosingMethod
 
 # for brevent-server
--keep class android.support.v4.util.ArraySet { *; }
--keep class android.support.v4.util.SimpleArrayMap { *; }
--keep class org.slf4j.LoggerFactory { public static org.slf4j.Logger getLogger(java.lang.String); }
+-keep class android.support.v4.util.ArraySet {
+    public *;
+}
+-keep class android.support.v4.util.SimpleArrayMap {
+    public *;
+}
+-keepnames class android.support.v4.util.** { *; }
+-keep class org.slf4j.impl.StaticLoggerBinder {
+    public static <methods>;
+}
+-keepnames class org.slf4j.** { *; }
 
 -keep class com.android.vending.billing.**
 
