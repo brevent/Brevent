@@ -96,8 +96,9 @@ public class LocaleUtils {
         } else {
             changed = false;
         }
-        android.util.Log.d("BreventUI", "current: " + current + ", locale: " + locale
-                + ", changed: " + changed);
+        if (changed) {
+            android.util.Log.d("BreventUI", "current: " + current + ", locale: " + locale);
+        }
         return changed;
     }
 
