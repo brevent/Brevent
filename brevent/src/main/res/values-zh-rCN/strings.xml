@@ -205,6 +205,7 @@
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
+    <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔。如果之前也有支付，请进入“转账记录”确认</string>
     <string name="toast_alipay2">正在重启黑域服务，请稍候再试</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
 

@@ -49,7 +49,8 @@ public class BreventServerReceiver extends BroadcastReceiver {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext instanceof BreventApplication) {
                 BreventApplication application = (BreventApplication) applicationContext;
-                showAlipay(application, intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM));
+                showAlipay(application, intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM),
+                        intent.getBooleanExtra(BreventIntent.EXTRA_ALIPAY_SIN, false));
             }
         } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
             Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
@@ -62,7 +63,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         }
     }
 
-    public static void showAlipay(BreventApplication application, String sum) {
+    public static void showAlipay(BreventApplication application, String sum, boolean sin) {
         if (application.isUnsafe()) {
             return;
         }
@@ -76,7 +77,8 @@ public class BreventServerReceiver extends BroadcastReceiver {
         }
         String format = DecimalUtils.format(donation);
         if (!"0".equals(format)) {
-            String message = application.getResources().getString(R.string.toast_alipay, format);
+            int resId = sin ? R.string.toast_alipay_single : R.string.toast_alipay;
+            String message = application.getResources().getString(resId, format);
             Toast.makeText(application, message, Toast.LENGTH_LONG).show();
         }
     }

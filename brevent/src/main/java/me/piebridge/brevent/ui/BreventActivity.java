@@ -1220,7 +1220,7 @@ public class BreventActivity extends AbstractActivity
     private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
-        showAlipay(status.mAlipaySum);
+        showAlipay(status.mAlipaySum, status.mAlipaySin);
         if (shouldOpenSettings) {
             shouldOpenSettings = false;
             openSettings();
@@ -1338,9 +1338,9 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    private void showAlipay(String alipaySum) {
+    private void showAlipay(String alipaySum, boolean alipaySin) {
         if (alipaySum != null) {
-            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()), alipaySum);
+            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()), alipaySum, alipaySin);
             doUpdateConfiguration();
         }
     }

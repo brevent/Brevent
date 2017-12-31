@@ -207,6 +207,7 @@
     <string name="toast_home_tid">Rozpoznany prawdziwy przycisk \"Home\": %d</string>
     <string name="toast_add_package">Zbreventowano \"%1$s\", ogółem %2$d</string>
     <string name="toast_alipay">Dzięki za zapłacenie w sumie %1$s Brefoil poprzez Alipay</string>
+    <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Ponowne uruchamianie usługi Brevent, proszę spróbować później</string>
     <string name="toast_donate">Dzięki za zapłacenie %1$s Brefoil</string>
 

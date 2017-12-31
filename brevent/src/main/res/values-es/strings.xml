@@ -207,6 +207,7 @@
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Gracias por pagar, total %1$s Brefoil via Alipay.</string>
+    <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Reiniciando el servidor de Brevent, inténtelo de nuevo más tarde.</string>
     <string name="toast_donate">Gracias por pagar %1$s Brefoil.</string>
 
