@@ -88,7 +88,7 @@ public class AppsActivityUIHandler extends Handler {
                     activity.showProcessChecking();
                     break;
                 case BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK:
-                    activity.showUnsupported(R.string.unsupported_no_local_network, true);
+                    activity.showUnsupported(R.string.unsupported_no_local_network);
                     break;
                 case BreventActivity.UI_MESSAGE_CHECKED_BREVENT:
                     removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);

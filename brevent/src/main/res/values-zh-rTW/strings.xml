@@ -201,6 +201,7 @@
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
+    <string name="unsupported_adb">Android 8 起，USB 连接不能传输数据，否则拔线黑域就失效。\n\n请更改 USB 选项，选择“仅充电”或类似选项，并且不要关闭“调试模式”。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
@@ -226,6 +227,7 @@
     <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
+
     <string-array name="brefoils">
         <item>1 二向箔</item>
         <item>2 二向箔</item>

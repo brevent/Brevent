@@ -31,6 +31,7 @@ public class HideApiOverride {
 
     public static final String ACTION_USB_STATE = getActionUsbState();
     public static final String USB_CONNECTED = getUsbConnected();
+    public static final String USB_DATA_UNLOCKED = getUsbDataUnlocked();
 
     public static final String SMS_DEFAULT_APPLICATION = getSmsDefaultApplication();
 
@@ -230,6 +231,15 @@ public class HideApiOverride {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find UsbManager.USB_CONNECTED");
             return "connected";
+        }
+    }
+
+    private static String getUsbDataUnlocked() {
+        try {
+            return UsbManager.USB_DATA_UNLOCKED;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find UsbManager.USB_DATA_UNLOCKED");
+            return "unlocked";
         }
     }
 

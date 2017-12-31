@@ -61,4 +61,8 @@ public class UnsupportedFragment extends AbstractDialogFragment
         getArguments().putInt(MESSAGE, resId);
     }
 
+    public int getMessage() {
+        return getArguments().getInt(MESSAGE);
+    }
+
 }

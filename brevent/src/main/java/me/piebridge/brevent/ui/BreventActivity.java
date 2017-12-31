@@ -39,6 +39,7 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -82,6 +83,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import dalvik.system.PathClassLoader;
+import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -352,16 +354,26 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void showUnsupported(int resId) {
-        showUnsupported(resId, false);
+        showUnsupported(resId, true);
     }
 
     public void showUnsupported(int resId, boolean exit) {
-        UnsupportedFragment fragment = new UnsupportedFragment();
-        fragment.setMessage(resId);
-        fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
-        if (exit) {
-            mHandler.removeCallbacksAndMessages(null);
-            uiHandler.removeCallbacksAndMessages(null);
+        if (isStopped()) {
+            return;
+        }
+        UnsupportedFragment fragment = (UnsupportedFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_UNSUPPORTED);
+        if (fragment == null || fragment.getMessage() != resId) {
+            if (fragment != null) {
+                fragment.dismiss();
+            }
+            fragment = new UnsupportedFragment();
+            fragment.setMessage(resId);
+            fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
+            if (exit) {
+                mHandler.removeCallbacksAndMessages(null);
+                uiHandler.removeCallbacksAndMessages(null);
+            }
         }
     }
 
@@ -485,6 +497,18 @@ public class BreventActivity extends AbstractActivity
         }
         if (hasResponse) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
+        }
+        checkUsbFunctions();
+    }
+
+    private void checkUsbFunctions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !SimpleSu.hasSu()) {
+            if (isUsbDataUnlocked()) {
+                showUnsupported(R.string.unsupported_adb);
+                cancelAlarm(this);
+            } else {
+                dismissDialog(FRAGMENT_UNSUPPORTED, false);
+            }
         }
     }
 
@@ -1141,9 +1165,9 @@ public class BreventActivity extends AbstractActivity
 
     private void onBreventNoEvent(BreventNoEvent response) {
         if (response.versionMismatched()) {
-            showUnsupported(R.string.unsupported_version_mismatched, true);
+            showUnsupported(R.string.unsupported_version_mismatched);
         } else if (response.mExit) {
-            showUnsupported(R.string.unsupported_no_event, true);
+            showUnsupported(R.string.unsupported_no_event);
         } else {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY);
@@ -1576,6 +1600,7 @@ public class BreventActivity extends AbstractActivity
 
     public void showViewPager() {
         dismissDialog(FRAGMENT_UNSUPPORTED, false);
+        checkUsbFunctions();
         mPager.setVisibility(View.VISIBLE);
         updateAdapter(mAdapter);
         if (mPager.getAdapter() == null) {
@@ -1752,6 +1777,8 @@ public class BreventActivity extends AbstractActivity
                 .findFragmentByTag(FRAGMENT_DISABLED);
         if (fragment != null && connected != fragment.isConnected()) {
             showDisabled(fragment.getTitle(), true);
+        } else {
+            checkUsbFunctions();
         }
     }
 
@@ -1794,7 +1821,7 @@ public class BreventActivity extends AbstractActivity
 
     public void onLogsCompleted(File path) {
         if (path == null) {
-            showUnsupported(R.string.unsupported_logs);
+            showUnsupported(R.string.unsupported_logs, false);
         } else {
             sendEmail(this, path, getString(R.string.logs_description, Build.FINGERPRINT));
         }
@@ -2065,6 +2092,11 @@ public class BreventActivity extends AbstractActivity
             frameworkSignatures = BreventActivity.getSignatures(packageManager, PACKAGE_FRAMEWORK);
         }
         return frameworkSignatures;
+    }
+
+    private boolean isUsbDataUnlocked() {
+        Intent intent = registerReceiver(null, new IntentFilter(HideApiOverride.ACTION_USB_STATE));
+        return intent != null && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

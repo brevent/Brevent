@@ -203,6 +203,7 @@
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
+    <string name="unsupported_adb">Since Android 8, USB connection cannot transfer user data, otherwise Brevent server would stop work whenever unplug.\n\nPlease switch USB option to \"Charger Only\" or similar, and don\'t turn off \"USB Debugging\".</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
@@ -228,6 +229,7 @@
     <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
     <string name="pay_brevent_require">Require to pay %s</string>
+
     <string-array name="brefoils">
         <item>1 Brefoil</item>
         <item>2 Brefoil</item>
