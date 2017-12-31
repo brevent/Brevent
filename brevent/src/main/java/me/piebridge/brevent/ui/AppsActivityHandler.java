@@ -270,7 +270,9 @@ public class AppsActivityHandler extends Handler {
     }
 
     private static void zipLog(ZipOutputStream zos, File file) throws IOException {
-        zos.putNextEntry(new ZipEntry(file.getName()));
+        ZipEntry zipEntry = new ZipEntry(file.getName());
+        zipEntry.setTime(file.lastModified());
+        zos.putNextEntry(zipEntry);
         try (
                 InputStream is = new FileInputStream(file)
         ) {
