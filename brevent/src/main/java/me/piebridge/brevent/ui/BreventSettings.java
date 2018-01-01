@@ -263,10 +263,14 @@ public class BreventSettings extends DonateActivity {
     }
 
     static int getRecommend(Activity activity, int size) {
-        int recommend1 = PreferencesUtils.getPreferences(activity)
-                .getInt(DonationPreference.DONATION_RECOMMEND, 0);
-        int recommend2 = BreventSettings.getRecommend(size);
-        return Math.max(recommend1, recommend2);
+        int recommend = BreventSettings.getRecommend(size);
+        if (recommend > 0) {
+            int recommend2 = PreferencesUtils.getPreferences(activity)
+                    .getInt(DonationPreference.DONATION_RECOMMEND, 0);
+            return Math.max(recommend, recommend2);
+        } else {
+            return recommend;
+        }
     }
 
 }
