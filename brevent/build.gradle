@@ -303,7 +303,7 @@ task copyReleaseApk {
     doLast {
         copy {
             from "$buildDir/outputs/apk/release/${project.ext.apkName}"
-            into '.'
+            into rootProject.file('.')
         }
     }
 }
