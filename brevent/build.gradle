@@ -298,11 +298,11 @@ clean.dependsOn deleteNativeBuild
     into rootProject.file('.')
 }*/
 task copyReleaseApk {
-    inputs.file "$buildDir/outputs/apk/release/${project.ext.apkName}"
+    inputs.file "build/outputs/apk/release/${project.ext.apkName}"
     outputs.file '${project.ext.apkName}'
     doLast {
         copy {
-            from "$buildDir/outputs/apk/release/${project.ext.apkName}"
+            from "build/outputs/apk/release/${project.ext.apkName}"
             into rootProject.file('.')
         }
     }
