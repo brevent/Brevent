@@ -348,14 +348,20 @@ public class BreventApplication extends Application implements DonationPreferenc
     }
 
     public static double decode(Application application, String message, boolean auto) {
+        return decode(application, message, auto, false);
+    }
+
+    public static double decode(Application application, String message, boolean auto,
+                                boolean verbose) {
         if (TextUtils.isEmpty(message)) {
             return 0d;
         }
         try {
             if (auto) {
-                return decode(application, message, new BigInteger(1, BuildConfig.DONATE_M));
+                return decode(application, message, new BigInteger(1, BuildConfig.DONATE_M),
+                        verbose);
             } else {
-                return decode(application, message, getSignature(application));
+                return decode(application, message, getSignature(application), verbose);
             }
         } catch (NumberFormatException e) {
             UILog.d("Can't decode, auto: " + auto, e);
@@ -384,7 +390,8 @@ public class BreventApplication extends Application implements DonationPreferenc
         return modulus;
     }
 
-    private static double decode(Application application, String message, BigInteger module) {
+    private static double decode(Application application, String message, BigInteger module,
+                                 boolean verbose) {
         if (module == null) {
             return 0d;
         }
@@ -401,6 +408,9 @@ public class BreventApplication extends Application implements DonationPreferenc
             return 0d;
         } else {
             double d = Double.longBitsToDouble(buffer.getLong());
+            if (verbose) {
+                UILog.d("v: " + v + ", d: " + d);
+            }
             if (v == 1) {
                 return d / 5;
             } else if (v == 2) {

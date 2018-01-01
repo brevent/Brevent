@@ -67,7 +67,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         if (application.isUnsafe()) {
             return;
         }
-        double donation = BreventApplication.decode(application, sum, true);
+        double donation = BreventApplication.decode(application, sum, true, true);
         if (DecimalUtils.isPositive(donation)) {
             PreferencesUtils.getPreferences(application)
                     .edit().putString("alipay1", sum).apply();
