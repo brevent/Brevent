@@ -302,7 +302,7 @@ task copyReleaseApk {
     outputs.file '${project.ext.apkName}'
     doLast {
         copy {
-            from "$buildDir/outputs/apk/release/${project.ext.apkName"
+            from "$buildDir/outputs/apk/release/${project.ext.apkName}"
             into '.'
         }
     }
