@@ -496,7 +496,7 @@ public class BreventActivity extends AbstractActivity
             fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
         }
         if (hasResponse) {
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
+            mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE, DELAY);
         }
         checkUsbFunctions();
     }

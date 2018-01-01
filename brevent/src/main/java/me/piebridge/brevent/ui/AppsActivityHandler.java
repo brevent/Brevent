@@ -89,6 +89,7 @@ public class AppsActivityHandler extends Handler {
         BreventActivity activity = mReference.get();
         switch (message.what) {
             case BreventActivity.MESSAGE_RETRIEVE:
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE);
                 if (BuildConfig.RELEASE && !adbChecked && activity != null) {
                     Boolean checked = checkPort(activity);
                     if (checked == null) {
