@@ -216,7 +216,7 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="pay_verify">如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別（如果賬單過期，將無法自動識別）。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
+    <string name="pay_verify">如您已經支付，請打開「支付寶」（需要臨時禁用 Xposed），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
     <string name="pay_alipay">打開「支付寶」</string>
     <string name="pay_email">郵件</string>
     <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>
