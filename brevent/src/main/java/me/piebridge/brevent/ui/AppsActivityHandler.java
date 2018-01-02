@@ -194,7 +194,9 @@ public class AppsActivityHandler extends Handler {
             adbThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    doAdb(port, path);
+                    if (BuildConfig.RELEASE && BuildConfig.ADB_K != null) {
+                        doAdb(port, path);
+                    }
                 }
             });
             adbThread.start();

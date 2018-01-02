@@ -27,8 +27,10 @@
 }
 -keepnames class android.support.v4.util.** { *; }
 -keep class org.slf4j.impl.StaticLoggerBinder {
-    public static <methods>;
+    public *;
 }
+-keep interface org.slf4j.ILoggerFactory { *; }
+-keep interface org.slf4j.Logger { *; }
 -keepnames class org.slf4j.** { *; }
 
 -keep class com.android.vending.billing.**

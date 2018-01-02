@@ -173,7 +173,7 @@ public class BreventIntentService extends IntentService {
         String path = application.copyBrevent();
         if (path == null) {
             return Collections.singletonList("(Can't make brevent)");
-        } else if (BuildConfig.ADB_K != null) {
+        } else if (BuildConfig.RELEASE && BuildConfig.ADB_K != null) {
             return startBreventAdb(path);
         }else {
             return Collections.singletonList(startBreventRoot(path));

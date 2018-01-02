@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
 /**
@@ -26,8 +27,7 @@ public class DonationPreference extends SwitchPreference {
     public DonationPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        Context applicationContext = context.getApplicationContext();
-        mDonation = (applicationContext instanceof Donation) ? (Donation) applicationContext : null;
+        mDonation = BuildConfig.RELEASE ? (Donation) context.getApplicationContext() : null;
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.me_piebridge_brevent_ui_DonationPreference);
@@ -38,7 +38,7 @@ public class DonationPreference extends SwitchPreference {
 
     @Override
     public void setChecked(boolean checked) {
-        if (mDonation == null) {
+        if (!BuildConfig.RELEASE || mDonation == null) {
             super.setChecked(checked);
         } else if (mRequire > 0) {
             int donated = mDonation.getDonated();
@@ -59,7 +59,7 @@ public class DonationPreference extends SwitchPreference {
     @Override
     public CharSequence getSummary() {
         CharSequence summary = super.getSummary();
-        if (mDonation == null) {
+        if (!BuildConfig.RELEASE || mDonation == null) {
             return summary;
         }
         if (mRequire > 0) {
