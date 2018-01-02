@@ -3,7 +3,9 @@ package me.piebridge.brevent.ui;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
+import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.protocol.BreventIntent;
 
 public class BreventReceiver extends BroadcastReceiver {
@@ -20,6 +22,12 @@ public class BreventReceiver extends BroadcastReceiver {
                 BreventIntentService.startBrevent(application, action);
             } else if (BreventIntent.ACTION_ALARM.equals(action)) {
                 BreventIntentService.checkBrevent(application);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                    && HideApiOverride.ACTION_USB_STATE.equals(action)) {
+                if (BreventActivity.isUsbDataUnlocked(intent)) {
+                    BreventActivity.cancelAlarm(application);
+                }
+                BreventIntentService.checkStopped(application);
             }
         }
     }

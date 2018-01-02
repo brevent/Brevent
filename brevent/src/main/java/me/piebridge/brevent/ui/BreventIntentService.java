@@ -106,7 +106,7 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private void sleep(int s) {
+    private static void sleep(int s) {
         try {
             Thread.sleep(1000 * s);
         } catch (InterruptedException e) { // NOSONAR
@@ -175,7 +175,7 @@ public class BreventIntentService extends IntentService {
             return Collections.singletonList("(Can't make brevent)");
         } else if (BuildConfig.RELEASE && BuildConfig.ADB_K != null) {
             return startBreventAdb(path);
-        }else {
+        } else {
             return Collections.singletonList(startBreventRoot(path));
         }
     }
@@ -334,16 +334,31 @@ public class BreventIntentService extends IntentService {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
-    public static void checkBrevent(BreventApplication application) {
+    public static void checkStopped(BreventApplication application) {
         try {
-            if (application.checkPort(true)) {
-                UILog.d("brevent worked");
-            } else {
-                showNoBrevent(application, true);
+            sleep(0x1);
+            if (!application.checkPort(true)) {
+                showStopped(application);
             }
         } catch (NetworkErrorException e) {
             UILog.w("brevent checking timeout");
         }
+    }
+
+    public static boolean checkBrevent(BreventApplication application) {
+        try {
+            for (int i = 0; i < 0x5; ++i) {
+                if (application.checkPort(true)) {
+                    UILog.d("brevent worked");
+                    return true;
+                }
+                sleep(0x1);
+            }
+            showNoBrevent(application, true);
+        } catch (NetworkErrorException e) {
+            UILog.w("brevent checking timeout");
+        }
+        return false;
     }
 
     private File getUserKeyFile() {

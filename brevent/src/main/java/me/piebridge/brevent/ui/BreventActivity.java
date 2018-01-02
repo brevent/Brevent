@@ -39,7 +39,6 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.os.SystemProperties;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -83,7 +82,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import dalvik.system.PathClassLoader;
-import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
@@ -369,6 +367,7 @@ public class BreventActivity extends AbstractActivity
             }
             fragment = new UnsupportedFragment();
             fragment.setMessage(resId);
+            fragment.setExit(exit);
             fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
             if (exit) {
                 mHandler.removeCallbacksAndMessages(null);
@@ -502,9 +501,9 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void checkUsbFunctions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !SimpleSu.hasSu()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (isUsbDataUnlocked()) {
-                showUnsupported(R.string.unsupported_adb);
+                showUnsupported(R.string.unsupported_adb, false);
                 cancelAlarm(this);
             } else {
                 dismissDialog(FRAGMENT_UNSUPPORTED, false);
@@ -1364,7 +1363,8 @@ public class BreventActivity extends AbstractActivity
 
     private void showAlipay(String alipaySum, boolean alipaySin) {
         if (alipaySum != null) {
-            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()), alipaySum, alipaySin);
+            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()),
+                    alipaySum, alipaySin);
             doUpdateConfiguration();
         }
     }
@@ -2096,9 +2096,15 @@ public class BreventActivity extends AbstractActivity
 
     private boolean isUsbDataUnlocked() {
         Intent intent = registerReceiver(null, new IntentFilter(HideApiOverride.ACTION_USB_STATE));
-        return intent != null
-                && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false)
-                && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
+        return isUsbConnected(intent) && isUsbDataUnlocked(intent);
+    }
+
+    static boolean isUsbConnected(Intent intent) {
+        return intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+    }
+
+    static boolean isUsbDataUnlocked(Intent intent) {
+        return intent != null && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
@@ -2113,8 +2119,7 @@ public class BreventActivity extends AbstractActivity
         public void onReceive(Context content, Intent intent) {
             String action = intent.getAction();
             if (HideApiOverride.ACTION_USB_STATE.equals(action)) {
-                boolean connected = intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
-                mActivity.updateDisabled(connected);
+                mActivity.updateDisabled(isUsbConnected(intent));
             }
         }
     }

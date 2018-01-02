@@ -68,6 +68,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_STATE" />
+            </intent-filter>
         </receiver>
 
         <receiver

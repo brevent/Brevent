@@ -14,9 +14,11 @@ import me.piebridge.brevent.R;
  * Created by thom on 2017/4/7.
  */
 public class UnsupportedFragment extends AbstractDialogFragment
-        implements DialogInterface.OnKeyListener {
+        implements DialogInterface.OnKeyListener, DialogInterface.OnClickListener {
 
     private static final String MESSAGE = "MESSAGE";
+
+    private static final String EXIT = "exit";
 
     public UnsupportedFragment() {
         setArguments(new Bundle());
@@ -28,7 +30,11 @@ public class UnsupportedFragment extends AbstractDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
-        builder.setMessage(getString(getArguments().getInt(MESSAGE)));
+        Bundle arguments = getArguments();
+        builder.setMessage(getString(arguments.getInt(MESSAGE)));
+        if (!arguments.getBoolean(EXIT)) {
+            builder.setPositiveButton(android.R.string.ok, this);
+        }
         builder.setOnKeyListener(this);
         return builder.create();
     }
@@ -39,13 +45,11 @@ public class UnsupportedFragment extends AbstractDialogFragment
     }
 
     private void finishActivity() {
-        int message = getArguments().getInt(MESSAGE);
-        if (message == R.string.unsupported_logs) {
-            return;
-        }
-        Activity activity = getActivity();
-        if (activity != null) {
-            activity.finish();
+        if (getArguments().getBoolean(EXIT)) {
+            Activity activity = getActivity();
+            if (activity != null) {
+                activity.finish();
+            }
         }
     }
 
@@ -61,8 +65,17 @@ public class UnsupportedFragment extends AbstractDialogFragment
         getArguments().putInt(MESSAGE, resId);
     }
 
+    public void setExit(boolean exit) {
+        getArguments().putBoolean(EXIT, exit);
+    }
+
     public int getMessage() {
         return getArguments().getInt(MESSAGE);
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        finishActivity();
     }
 
 }
