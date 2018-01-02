@@ -151,8 +151,6 @@
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_check_notification">檢查通知</string>
     <string name="brevent_check_notification_label">根据通知优化黑域\n\n强烈建议开启，但可能导致设备卡顿甚至重启</string>
-    <string name="brevent_optimize_vpn">優化 VPN</string>
-    <string name="brevent_optimize_vpn_label">不處理已連線的 VPN 應用程式</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>

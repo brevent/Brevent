@@ -153,8 +153,6 @@
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_check_notification">Check notifications</string>
     <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or reboot</string>
-    <string name="brevent_optimize_vpn">Optimize VPN</string>
-    <string name="brevent_optimize_vpn_label">Connected VPN won\'t be standby nor force-stopped</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize Music Player</string>

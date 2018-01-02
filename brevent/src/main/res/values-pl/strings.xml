@@ -153,8 +153,6 @@
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_check_notification">Check notifications</string>
     <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or reboot</string>
-    <string name="brevent_optimize_vpn">Optymalizuj VPN</string>
-    <string name="brevent_optimize_vpn_label">Podłączony VPN ani nie znajdzie się w trybie czuwania, ani nie zostanie wymuszone jego zatrzymanie</string>
     <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
     <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)</string>
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>

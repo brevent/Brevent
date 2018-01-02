@@ -20,9 +20,6 @@ public class BreventConfiguration extends BreventProtocol {
     public static final int DEFAULT_BREVENT_TIMEOUT = 1800;
     public static final int MIN_BREVENT_TIMEOUT = 60;
 
-    public static final String BREVENT_OPTIMIZE_VPN = "brevent_optimize_vpn";
-    public static final boolean DEFAULT_BREVENT_OPTIMIZE_VPN = false;
-
     public static final String BREVENT_METHOD = "brevent_method";
     public static final int BREVENT_METHOD_STANDBY_FORCE_STOP = 1;
     public static final int BREVENT_METHOD_STANDBY_ONLY = 2;
@@ -51,8 +48,6 @@ public class BreventConfiguration extends BreventProtocol {
 
     public int method = DEFAULT_BREVENT_METHOD;
 
-    public boolean optimizeVpn = DEFAULT_BREVENT_OPTIMIZE_VPN;
-
     public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
 
     public boolean checkNotification = DEFAULT_BREVENT_CHECK_NOTIFICATION;
@@ -75,8 +70,6 @@ public class BreventConfiguration extends BreventProtocol {
         setValue(BREVENT_TIMEOUT, sharedPreferences.getString(BREVENT_TIMEOUT,
                 "" + DEFAULT_BREVENT_TIMEOUT));
         method = convertMethod(sharedPreferences.getString(BREVENT_METHOD, ""));
-        optimizeVpn = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_VPN,
-                DEFAULT_BREVENT_OPTIMIZE_VPN);
         setValue(BREVENT_STANDBY_TIMEOUT, sharedPreferences.getString(BREVENT_STANDBY_TIMEOUT,
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
@@ -110,7 +103,6 @@ public class BreventConfiguration extends BreventProtocol {
         autoUpdate = in.readInt() != 0;
         timeout = in.readInt();
         method = in.readInt();
-        optimizeVpn = in.readInt() != 0;
         standbyTimeout = in.readInt();
         checkNotification = in.readInt() != 0;
         aggressive = in.readInt() != 0;
@@ -125,7 +117,6 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(autoUpdate ? 1 : 0);
         dest.writeInt(timeout);
         dest.writeInt(method);
-        dest.writeInt(optimizeVpn ? 1 : 0);
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
         dest.writeInt(aggressive ? 1 : 0);
@@ -138,7 +129,6 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_AUTO_UPDATE, autoUpdate);
         write(pw, BREVENT_TIMEOUT, timeout);
         write(pw, BREVENT_METHOD, method);
-        write(pw, BREVENT_OPTIMIZE_VPN, optimizeVpn);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
         write(pw, BREVENT_AGGRESSIVE, aggressive);
@@ -173,9 +163,6 @@ public class BreventConfiguration extends BreventProtocol {
                 break;
             case BREVENT_METHOD:
                 method = convertMethod(value);
-                break;
-            case BREVENT_OPTIMIZE_VPN:
-                optimizeVpn = Boolean.parseBoolean(value);
                 break;
             case BREVENT_STANDBY_TIMEOUT:
                 if (isDigit(value, 0x6)) {
@@ -219,10 +206,6 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.method != request.method) {
             this.method = request.method;
-            updated = true;
-        }
-        if (this.optimizeVpn != request.optimizeVpn) {
-            this.optimizeVpn = request.optimizeVpn;
             updated = true;
         }
         if (this.standbyTimeout != request.standbyTimeout) {
