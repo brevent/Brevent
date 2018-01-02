@@ -125,7 +125,7 @@
     <string name="brevent_method_standby_only">Tylko tryb czuwania, bez wymuszonego zatrzymania</string>
     <string name="brevent_method_forcestop_only">Tylko wymuszone zatrzymanie, bez trybu czuwania</string>
     <string name="brevent_method_standby_forcestop_label">Tryb czuwania, kiedy opuszczasz aplikacje (dotknij \"Cofnij\") lub przekroczyły limit czasu w tle; wymuś zatrzymanie aplikacji, gdy został przekroczony limit czasu w trybie czuwania lub usunięto je z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
-    <string name="brevent_method_standby_only_label">Tryb czuwania, kiedy opuszczasz aplikacji (dotknij \"Cofnij"\) lub został przekroczony limit czasu w tle.\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
+    <string name="brevent_method_standby_only_label">Tryb czuwania, kiedy opuszczasz aplikacji (dotknij \"Cofnij\") lub został przekroczony limit czasu w tle.\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
     <string name="brevent_method_forcestop_only_label">Wymuś zatrzymanie, kiedy opuszczasz aplikacje (dotknij \"Cofnij\"), został przekroczony limit czasu w tle lub zostały usunięte z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności</string>
     <string name="brevent_timeout">Limit czasu aplikacji w tle</string>
     <string name="brevent_timeout_label">Aplikacje w tle zostaną zbreventowane po %s\n\nBrevent dynamicznie pokazuje czas nieaktywności aplikacji</string>

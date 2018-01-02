@@ -169,7 +169,7 @@
     <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="brevent_checking">Diagnosis</string>
-    <string name="brevent_checking_label">Checking Brevent server every 15 minutes\n\Turn on if Brevent stops unreasonably</string>
+    <string name="brevent_checking_label">Checking Brevent server every 15 minutes\n\nTurn on if Brevent stops unreasonably</string>
     <string name="brevent_appops">AppOps (experimental)</string>
     <string name="brevent_appops_label">Currently only simple read and write, still in progress</string>
 
