@@ -2096,7 +2096,9 @@ public class BreventActivity extends AbstractActivity
 
     private boolean isUsbDataUnlocked() {
         Intent intent = registerReceiver(null, new IntentFilter(HideApiOverride.ACTION_USB_STATE));
-        return intent != null && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
+        return intent != null
+                && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false)
+                && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
