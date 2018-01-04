@@ -90,6 +90,9 @@
                 <action android:name="me.piebridge.brevent.intent.action.ALIPAY2" />
             </intent-filter>
             <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.ALIPAY3" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="me.piebridge.brevent.intent.action.BREVENT" />
             </intent-filter>
         </receiver>

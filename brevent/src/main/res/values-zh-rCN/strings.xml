@@ -157,8 +157,8 @@
     <string name="brevent_optimize_audio_label">依赖“检查通知”。播放时不黑域，暂停且有通知时不强行停止</string>
 
     <string name="show_donation">显示支付</string>
-    <string name="show_donation_summary_play">如您已经支付，请点按 7 次版本号查看确认方法</string>
-    <string name="show_donation_summary_not_play">推荐使用支付宝自动确认。如您已经支付，请点按 7 次版本号查看确认方法</string>
+    <string name="show_donation_summary_play">如果已经支付，请点按 7 次版本号查看确认方法</string>
+    <string name="show_donation_summary_not_play">推荐使用支付宝自动确认。如果已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.5 元）</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
@@ -206,6 +206,8 @@
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
     <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔。如果之前也有支付，请进入“转账记录”确认</string>
     <string name="toast_alipay2">正在重启黑域服务，请稍候再试</string>
+    <string name="toast_alipay_ok">如果已经支付，请点按“转账记录”自动识别</string>
+    <string name="toast_alipay_ko">无法自动确认，请不要支付</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
 
     <string name="logs_description">%1$s\n（请描述与日志相关的问题。）</string>
@@ -216,13 +218,13 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="pay_verify">如您已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="pay_verify">如果已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="pay_alipay">打开“支付宝”</string>
     <string name="pay_email">邮件</string>
     <string name="pay_email_subject">支付确认 %1$s（%2$s）</string>
     <string name="pay_email_text">%s\n（请附上支付订单截图。）</string>
 
-    <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$s？\n如您已经支付，请根据流程确认支付。\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
+    <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$s？\n如果已经支付，请根据流程确认支付。\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
 

@@ -3,7 +3,7 @@
 
     <string name="donation">Nie wahaj się zapłacić za pełną wersję, jeżeli lubisz Brevent</string>
     <string name="donation_unsupported">Proszę zainstalować Aliplay</string>
-    <string name="donation_unsupported_unsafe">Niebezpiecznie, by zapłacić</string>
+    <string name="donation_unsupported_unsafe">Can\'t confirm to pay</string>
     <string name="donation_play_unavailable">Wbudowane fakturowanie Play nie jest dostępne</string>
     <string name="donation_play_checking">Sprawdzanie wbudowanego fakturowania Play…</string>
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.io.DataInputStream;
@@ -54,12 +55,21 @@ public class BreventServerReceiver extends BroadcastReceiver {
             }
         } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
             Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
+        } else if (BreventIntent.ACTION_ALIPAY3.equals(action)) {
+            showAlipay2(context, intent.getBooleanExtra(BreventIntent.EXTRA_ALIPAY, false));
         } else if (BreventIntent.ACTION_BREVENT.equals(action)) {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext instanceof BreventApplication) {
                 ((BreventApplication) applicationContext).onStarted();
                 checkPort(intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN));
             }
+        }
+    }
+
+    private void showAlipay2(Context context, boolean ok) {
+        String message = context.getString(ok ? R.string.toast_alipay_ok : R.string.toast_alipay_ko);
+        if (!TextUtils.isEmpty(message)) {
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
     }
 

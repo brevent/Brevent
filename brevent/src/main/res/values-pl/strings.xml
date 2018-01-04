@@ -205,9 +205,11 @@
 
     <string name="toast_home_tid">Rozpoznany prawdziwy przycisk \"Home\": %d</string>
     <string name="toast_add_package">Zbreventowano \"%1$s\", ogółem %2$d</string>
-    <string name="toast_alipay">Dzięki za zapłacenie w sumie %1$s Brefoil poprzez Alipay</string>
+    <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
-    <string name="toast_alipay2">Ponowne uruchamianie usługi Brevent, proszę spróbować później</string>
+    <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
+    <string name="toast_alipay_ok" />
+    <string name="toast_alipay_ko" />
     <string name="toast_donate">Dzięki za zapłacenie %1$s Brefoil</string>
 
     <string name="logs_description">%1$s\n(Proszę umieścić opis logów.)</string>
@@ -218,11 +220,11 @@
     <string name="brevent_status_unknown">Serwer Brevent może być zatrzymany</string>
     <string name="brevent_status_report">Dotknij, aby wysłać informację zwrotną oraz dokładnie ją opisać</string>
 
-    <string name="pay_verify">Jeżeli zapłaciłeś, proszę wyłączyć Xposed, uruchomić Alipay, wejść w zakładkę Records – powinno to zostać automatycznie rozpoznane.\n\nJeżeli zapłaciłeś poprzez inny serwis niż Alipay, proszę wysłać wiadomość e-mail ze załączonymi zrzutami ekranu szczegółów płatności.</string>
-    <string name="pay_alipay">Uruchom Alipay</string>
-    <string name="pay_email">E-mail</string>
-    <string name="pay_email_subject">Zapłata zweryfikowana %1$s (%2$s)</string>
-    <string name="pay_email_text">%s\n(Proszę załączyć zrzuty ekrany ze szczegółami płatności)</string>
+    <string name="pay_verify">If you have paid, please disable \"Xposed\", launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
+    <string name="pay_alipay">Launch Alipay</string>
+    <string name="pay_email">Email</string>
+    <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
+    <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
 
     <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>

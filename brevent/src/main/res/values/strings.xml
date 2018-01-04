@@ -208,6 +208,8 @@
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
+    <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
+    <string name="toast_alipay_ko">Can\'t confirm payment, don\'t pay</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
@@ -218,7 +220,7 @@
     <string name="brevent_status_unknown">Brevent server may be stopped</string>
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
-    <string name="pay_verify">If you have paid, please disable Xposed, launch Alipay, tap Records, it should be recognized automatically.\n\nIf paid via non Alipay, please send email with screenshots of payment details.</string>
+    <string name="pay_verify">If you have paid, please disable \"Xposed\", launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
     <string name="pay_alipay">Launch Alipay</string>
     <string name="pay_email">Email</string>
     <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
