@@ -339,6 +339,7 @@ public class BreventIntentService extends IntentService {
             sleep(0x1);
             if (!application.checkPort(true)) {
                 showStopped(application);
+                BreventActivity.cancelAlarm(application);
             }
         } catch (NetworkErrorException e) {
             UILog.w("brevent checking timeout");

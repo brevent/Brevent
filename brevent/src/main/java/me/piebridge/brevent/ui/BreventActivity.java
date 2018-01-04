@@ -178,6 +178,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_PROGRESS2 = "progress2";
     private static final String FRAGMENT_SORT = "sort";
     private static final String FRAGMENT_PAYMENT = "payment";
+    private static final String FRAGMENT_USB = "usb";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -496,18 +497,6 @@ public class BreventActivity extends AbstractActivity
         }
         if (hasResponse) {
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE, DELAY);
-        }
-        checkUsbFunctions();
-    }
-
-    private void checkUsbFunctions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (isUsbDataUnlocked()) {
-                showUnsupported(R.string.unsupported_adb, false);
-                cancelAlarm(this);
-            } else {
-                dismissDialog(FRAGMENT_UNSUPPORTED, false);
-            }
         }
     }
 
@@ -1600,7 +1589,6 @@ public class BreventActivity extends AbstractActivity
 
     public void showViewPager() {
         dismissDialog(FRAGMENT_UNSUPPORTED, false);
-        checkUsbFunctions();
         mPager.setVisibility(View.VISIBLE);
         updateAdapter(mAdapter);
         if (mPager.getAdapter() == null) {
@@ -1608,6 +1596,30 @@ public class BreventActivity extends AbstractActivity
         } else {
             mAdapter.refreshFragment();
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            checkUsb();
+        }
+    }
+
+    private void checkUsb() {
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.isUsbChanged()) {
+            application.setUsbChanged(false);
+            showUsb();
+        }
+    }
+
+    private void showUsb() {
+        if (isStopped()) {
+            return;
+        }
+        UsbFragment fragment = (UsbFragment) getFragmentManager()
+                .findFragmentByTag(FRAGMENT_USB);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        fragment = new UsbFragment();
+        fragment.show(getFragmentManager(), FRAGMENT_USB);
     }
 
     public void setRefreshEnabled(boolean enabled) {
@@ -1777,8 +1789,6 @@ public class BreventActivity extends AbstractActivity
                 .findFragmentByTag(FRAGMENT_DISABLED);
         if (fragment != null && connected != fragment.isConnected()) {
             showDisabled(fragment.getTitle(), true);
-        } else {
-            checkUsbFunctions();
         }
     }
 
@@ -2094,17 +2104,8 @@ public class BreventActivity extends AbstractActivity
         return frameworkSignatures;
     }
 
-    private boolean isUsbDataUnlocked() {
-        Intent intent = registerReceiver(null, new IntentFilter(HideApiOverride.ACTION_USB_STATE));
-        return isUsbConnected(intent) && isUsbDataUnlocked(intent);
-    }
-
     static boolean isUsbConnected(Intent intent) {
         return intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
-    }
-
-    static boolean isUsbDataUnlocked(Intent intent) {
-        return intent != null && intent.getBooleanExtra(HideApiOverride.USB_DATA_UNLOCKED, false);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

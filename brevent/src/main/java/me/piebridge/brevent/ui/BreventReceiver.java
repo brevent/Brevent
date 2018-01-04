@@ -24,9 +24,7 @@ public class BreventReceiver extends BroadcastReceiver {
                 BreventIntentService.checkBrevent(application);
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                     && HideApiOverride.ACTION_USB_STATE.equals(action)) {
-                if (BreventActivity.isUsbDataUnlocked(intent)) {
-                    BreventActivity.cancelAlarm(application);
-                }
+                application.setUsbChanged(BreventActivity.isUsbConnected(intent));
                 BreventIntentService.checkStopped(application);
             }
         }

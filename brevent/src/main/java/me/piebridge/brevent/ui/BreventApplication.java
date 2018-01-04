@@ -74,6 +74,8 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private boolean mSupportAppops = false;
 
+    private boolean mUsbChanged = false;
+
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
 
     private int mRecommend;
@@ -634,6 +636,14 @@ public class BreventApplication extends Application implements DonationPreferenc
         nm.cancel(BreventIntentService.ID);
         nm.cancel(BreventIntentService.ID2);
         nm.cancel(BreventIntentService.ID3);
+    }
+
+    public void setUsbChanged(boolean usbChanged) {
+        this.mUsbChanged = usbChanged;
+    }
+
+    public boolean isUsbChanged() {
+        return this.mUsbChanged;
     }
 
 }
