@@ -163,7 +163,7 @@ public class SettingsFragment extends PreferenceFragment
         preference.setOnPreferenceClickListener(this);
         if (BuildConfig.RELEASE) {
             Activity activity = getActivity();
-            Application application = activity.getApplication();
+            BreventApplication application = (BreventApplication) activity.getApplication();
             double donation = BreventApplication.getDonation(application);
             int playDonation = BreventApplication.getPlayDonation(application);
             String amount = DecimalUtils.format(donation + playDonation);

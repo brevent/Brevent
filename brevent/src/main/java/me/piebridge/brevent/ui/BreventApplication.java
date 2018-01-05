@@ -76,6 +76,8 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private boolean mUsbChanged = false;
 
+    private boolean mPromotion = false;
+
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
 
     private int mRecommend;
@@ -217,6 +219,14 @@ public class BreventApplication extends Application implements DonationPreferenc
         return mSupportAppops;
     }
 
+    private void setPromotion(boolean promotion) {
+        mPromotion = promotion;
+    }
+
+    public boolean isPromotion() {
+        return mPromotion;
+    }
+
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -236,6 +246,7 @@ public class BreventApplication extends Application implements DonationPreferenc
         setSupportStopped(breventResponse.mSupportStopped);
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
+        setPromotion(breventResponse.mPromotion);
         if (BuildConfig.RELEASE && shouldUpdated) {
             long daemon = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             long server = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mServerTime);
@@ -496,7 +507,7 @@ public class BreventApplication extends Application implements DonationPreferenc
         return getPlayDonation(this) + DecimalUtils.intValue(getDonation(this));
     }
 
-    public static double getDonation(Application application) {
+    public static double getDonation(BreventApplication application) {
         SharedPreferences preferences = PreferencesUtils.getPreferences(application);
         String alipay1 = preferences.getString("alipay1", "");
         double donate1 = decode(application, alipay1, true);
@@ -510,7 +521,12 @@ public class BreventApplication extends Application implements DonationPreferenc
             donate2 = 0;
             preferences.edit().remove("alipay2").apply();
         }
-        return Math.max(donate1, donate2);
+        double donation = Math.max(donate1, donate2);
+        if (application.isPromotion()) {
+            return donation + 1d;
+        } else {
+            return donation;
+        }
     }
 
     public static byte[] dumpsys(String serviceName, String[] args) {
