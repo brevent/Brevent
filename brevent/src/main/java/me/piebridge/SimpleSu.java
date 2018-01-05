@@ -58,7 +58,8 @@ public class SimpleSu {
     }
 
     private static String exec(String command, boolean output) {
-        d("[command] " + command);
+        d(">>> +++++++");
+        d("[suexec] " + command);
         StringWriter sw = new StringWriter();
         try {
             Process process = Runtime.getRuntime().exec("su");
@@ -66,8 +67,8 @@ public class SimpleSu {
             Thread err = null;
             if (output) {
                 PrintWriter pw = new PrintWriter(sw);
-                out = new Thread(new StreamGobbler(process.getInputStream(), pw));
-                err = new Thread(new StreamGobbler(process.getErrorStream(), pw));
+                out = new Thread(new StreamGobbler(process.getInputStream(), pw, "[stdout] "));
+                err = new Thread(new StreamGobbler(process.getErrorStream(), pw, "[stderr] "));
                 out.start();
                 err.start();
             }
@@ -83,12 +84,14 @@ public class SimpleSu {
             }
             return sw.toString();
         } catch (IOException e) {
-            d("io", e);
+            w("[suwarn] io exception", e);
             return null;
         } catch (InterruptedException e) {
-            d("interrupted", e);
+            w("[suwarn] interrupted", e);
             Thread.currentThread().interrupt();
             return null;
+        } finally {
+            d("+++++++ <<<");
         }
     }
 
@@ -102,6 +105,14 @@ public class SimpleSu {
 
     static void d(String msg, Throwable t) {
         Log.d(TAG, msg, t);
+    }
+
+    static void w(String msg) {
+        Log.w(TAG, msg);
+    }
+
+    static void w(String msg, Throwable t) {
+        Log.w(TAG, msg, t);
     }
 
     private static class Holder {
@@ -131,10 +142,12 @@ public class SimpleSu {
     private static class StreamGobbler implements Runnable {
         private final InputStream is;
         private final PrintWriter pw;
+        private final String prefix;
 
-        StreamGobbler(InputStream is, PrintWriter pw) {
+        StreamGobbler(InputStream is, PrintWriter pw, String prefix) {
             this.is = new BufferedInputStream(is);
             this.pw = pw;
+            this.prefix = prefix;
         }
 
         @Override
@@ -145,13 +158,13 @@ public class SimpleSu {
                 String line;
                 while ((line = br.readLine()) != null) {
                     synchronized (pw) {
-                        d(line);
+                        d(prefix + line);
                         pw.println(line);
                         pw.flush();
                     }
                 }
             } catch (IOException e) {
-                d("io", e);
+                d(prefix + "io exception", e);
             }
         }
     }

@@ -108,10 +108,9 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private ExecutorService executor = new ScheduledThreadPoolExecutor(0x1);
 
-    private boolean needClose;
     private boolean needStop;
-    private boolean fixAdb;
     private boolean started;
+    private boolean starting;
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -588,15 +587,9 @@ public class BreventApplication extends Application implements DonationPreferenc
         super.attachBaseContext(LocaleUtils.updateResources(base));
     }
 
-    public void setAdb(boolean needClose, boolean needStop) {
-        this.needClose = needClose;
+    public void setAdb(boolean needStop) {
         this.needStop = needStop;
-        this.fixAdb = true;
         this.started = false;
-    }
-
-    public void unsetFixAdb() {
-        this.fixAdb = false;
     }
 
     public void stopAdbIfNeeded() {
@@ -606,21 +599,16 @@ public class BreventApplication extends Application implements DonationPreferenc
     }
 
     private void stopAdbIfNeededSync() {
-        if (fixAdb && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            SimpleSu.su("pbd=`pidof brevent_daemon`; " +
-                    "pbs=`pidof brevent_server`; " +
-                    "pin=`pidof installd`; " +
-                    "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
-                    "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
-                    "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
-                    "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs");
-            fixAdb = false;
-        }
-        if (!needClose) {
-            needClose = "1".equals(SystemProperties.get("service.adb.brevent.close", ""));
-        }
-        if (needClose) {
-            needClose = false;
+        if ("1".equals(SystemProperties.get("service.adb.brevent.close", ""))) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                SimpleSu.su("pbd=`pidof brevent_daemon`; " +
+                        "pbs=`pidof brevent_server`; " +
+                        "pin=`pidof installd`; " +
+                        "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
+                        "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
+                        "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
+                        "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs");
+            }
             String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
             SimpleSu.su("setprop service.adb.tcp.port -1; " +
                     "setprop service.adb.brevent.close 0; " + command);
@@ -660,6 +648,18 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     public boolean isUsbChanged() {
         return this.mUsbChanged;
+    }
+
+    public void setStarting(boolean starting) {
+        this.starting = starting;
+    }
+
+    public boolean isStarting() {
+        return this.starting;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
 }

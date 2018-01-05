@@ -45,11 +45,11 @@ public class BreventIntentService extends IntentService {
 
     private static final String CHANNEL_ID = "root";
 
-    private static final int TIMEOUT = 15;
+    private static final int TIMEOUT = 42;
 
-    private static final int ADB_TIMEOUT = 6;
+    private static final int ADB_TIMEOUT = 10;
 
-    private static final int CHECK_TIMEOUT_MS = 15_000;
+    private static final int CHECK_TIMEOUT_MS = 42_000;
 
     private static final Object LOCK_BREVENT = new Object();
 
@@ -65,10 +65,14 @@ public class BreventIntentService extends IntentService {
         super("BreventIntentService");
     }
 
+    private boolean isStarted() {
+        return ((BreventApplication) getApplication()).isStarted() || checkPort();
+    }
+
     private boolean checkPort() {
         try {
             return ((BreventApplication) getApplication()).checkPort();
-        } catch (NetworkErrorException e) {
+        } catch (NetworkErrorException e) { // NOSONAR
             return false;
         }
     }
@@ -82,13 +86,19 @@ public class BreventIntentService extends IntentService {
         UILog.d("show notification");
         startForeground(ID, notification);
         if (SimpleSu.hasSu() && !checkPort()) {
+            application.setStarted(false);
             synchronized (LOCK_BREVENT) {
-                if (!checkPort()) {
-                    startBrevent(action);
+                if (!isStarted()) {
+                    try {
+                        application.setStarting(true);
+                        startBrevent(action);
+                    } finally {
+                        application.setStarting(false);
+                    }
                 }
             }
         }
-        if (!SimpleSu.hasSu() || !checkPort()) {
+        if (!SimpleSu.hasSu() || !isStarted()) {
             showStopped(application);
         }
         UILog.d("hide notification");
@@ -99,7 +109,7 @@ public class BreventIntentService extends IntentService {
         BreventApplication application = (BreventApplication) getApplication();
         if (BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action)) {
             UILog.d("startBreventSync, action: " + action);
-            application.notifyRootCompleted(startBreventSync());
+            application.notifyRootCompleted(startBreventSync(true));
         } else {
             UILog.d("startBrevent, action: " + action);
             startBrevent();
@@ -122,7 +132,7 @@ public class BreventIntentService extends IntentService {
         future = executor.submit(new Runnable() {
             @Override
             public void run() {
-                results.addAll(startBreventSync());
+                results.addAll(startBreventSync(false));
             }
         });
         long timeout = System.currentTimeMillis() + CHECK_TIMEOUT_MS;
@@ -130,21 +140,6 @@ public class BreventIntentService extends IntentService {
             sleep(1);
             if (!results.isEmpty()) {
                 return results;
-            }
-            try {
-                if (BreventProtocol.checkPortSync()) {
-                    UILog.d("checked");
-                    for (int i = 0; i < ADB_TIMEOUT; ++i) {
-                        if (future.isDone()) {
-                            return Collections.emptyList();
-                        }
-                        sleep(1);
-                    }
-                    future.cancel(true);
-                    return Collections.emptyList();
-                }
-            } catch (IOException e) {
-                // do nothing
             }
         } while (System.currentTimeMillis() < timeout);
         try {
@@ -165,8 +160,8 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    List<String> startBreventSync() {
-        if (checkPort()) {
+    List<String> startBreventSync(boolean interactive) {
+        if (isStarted()) {
             return Collections.singletonList("(Started)");
         }
         BreventApplication application = (BreventApplication) getApplication();
@@ -174,44 +169,44 @@ public class BreventIntentService extends IntentService {
         if (path == null) {
             return Collections.singletonList("(Can't make brevent)");
         } else if (BuildConfig.RELEASE && BuildConfig.ADB_K != null) {
-            return startBreventAdb(path);
+            return startBreventAdb(path, interactive);
         } else {
-            return Collections.singletonList(startBreventRoot(path));
+            return Collections.singletonList(startBreventRoot(path, interactive));
         }
     }
 
-    private List<String> startBreventAdb(String path) {
-        boolean needClose = "1".equals(SystemProperties.get("service.adb.brevent.close", ""));
+    private List<String> startBreventAdb(String path, boolean interactive) {
         boolean needStop = false;
-        boolean success = false;
         int port = AdbPortUtils.getAdbPort();
         if (port <= 0) {
-            needClose = true;
             needStop = !AppsDisabledFragment.isAdbRunning();
-            SimpleSu.su("setprop service.adb.tcp.port 5555; " +
+            String message = SimpleSu.su("setprop service.adb.tcp.port 5555; " +
                     "setprop service.adb.brevent.close 1; " +
-                    "setprop ctl.restart adbd");
+                    "setprop ctl.restart adbd", interactive);
             port = AdbPortUtils.getAdbPort();
             if (port <= 0) {
-                return Collections.singletonList("(Can't network adb)");
+                return Collections.singletonList(message);
             }
         }
-        makeSureKeys();
+        if (interactive) {
+            makeSureKeys();
+        }
         String message = "(Can't adb)";
         BreventApplication application = (BreventApplication) getApplication();
-        application.setAdb(needClose, needStop);
+        application.setAdb(needStop);
         String command = "sh " + path;
         SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
+        boolean fail = true;
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
             try {
                 String adb = simpleAdb.exec(port, command);
                 if (adb != null) {
                     message = adb;
+                    for (String s : adb.split(System.lineSeparator())) {
+                        UILog.d(s);
+                    }
+                    fail = adb.contains("pm path");
                 }
-                for (String s : message.split(System.lineSeparator())) {
-                    UILog.d(s);
-                }
-                success = application.isStarted() || checkPort();
                 break;
             } catch (ConnectException e) {
                 UILog.d("Can't adb(Connection refused)", e);
@@ -224,18 +219,19 @@ public class BreventIntentService extends IntentService {
             }
             sleep(1);
         }
-        // shouldn't happen if success
-        if (!success) {
-            application.unsetFixAdb();
-        }
-        application.stopAdbIfNeeded();
-        if (success) {
+        if (isStarted()) {
+            UILog.d("adb success");
+            return Collections.singletonList(message);
+        } else if (!fail) {
+            application.setStarted(true);
+            UILog.d("adb no fail");
             return Collections.singletonList(message);
         } else {
+            UILog.d("adb fail, fallback to direct root");
             List<String> messages = new ArrayList<>();
             messages.add(message);
             messages.add(System.lineSeparator());
-            messages.add(startBreventRoot(path));
+            messages.add(startBreventRoot(path, interactive));
             return messages;
         }
     }
@@ -257,12 +253,8 @@ public class BreventIntentService extends IntentService {
         return true;
     }
 
-    private String startBreventRoot(String path) {
-        String result = SimpleSu.su("$SHELL " + path, true);
-        if (!checkPort()) {
-            result = SimpleSu.su(path, true);
-        }
-        return result;
+    private String startBreventRoot(String path, boolean interactive) {
+        return SimpleSu.su("$SHELL " + path, interactive);
     }
 
     static NotificationManager getNotificationManager(Context context) {
@@ -337,7 +329,7 @@ public class BreventIntentService extends IntentService {
     public static void checkStopped(BreventApplication application) {
         try {
             sleep(0x1);
-            if (!application.checkPort(true)) {
+            if (!application.isStarting() && !application.checkPort(true)) {
                 showStopped(application);
                 BreventActivity.cancelAlarm(application);
             }

@@ -218,7 +218,7 @@ static int check(time_t now) {
     int pid = 0;
     signal(SIGUSR1, signal_check);
     printf("checking for server.");
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 6; ++i) {
         int id = get_pid();
         if (pid == 0 && id > 0) {
             printf("started, pid: %d\n", id);
