@@ -8,7 +8,7 @@ import android.support.annotation.RequiresApi;
 @RequiresApi(Build.VERSION_CODES.M)
 public interface IDeviceIdleController {
 
-    String[] getFullPowerWhitelist() throws RemoteException;
+    String[] getFullPowerWhitelistExceptIdle() throws RemoteException;
 
     class Stub {
 
