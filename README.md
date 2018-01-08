@@ -34,6 +34,10 @@ Currently, default name and package name is `Nrevent`, means `Not Brevent`.
 
 请参见[DEVELOP.md](DEVELOP.md)。根据 WTFPL 协议，您可自由修改黑域代码。
 
-但是，如果您改动代码，请换个名字，当然也不能叫黒域；同时，2.1.6 以后，包名也须修改。
+但是，如果您改动代码，请换个名字。
 
-当前，默认名字为“白域”，包名为“nrevent”（参见英文）。
+自 2.1.5 版本起，不能命名为黒域及其他令人引起误解的名字。
+
+自 2.1.6 版本起，不能再使用黑域的包名。
+
+当前，默认名字为“白域”，包名为“Nrevent”，意为“Not Brevent”（不是黑域）。
