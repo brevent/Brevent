@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.os.SystemProperties;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.File;
@@ -66,16 +67,10 @@ public class BreventIntentService extends IntentService {
     }
 
     private boolean isStarted() {
-        return ((BreventApplication) getApplication()).isStarted() || checkPort();
+        BreventApplication application = (BreventApplication) getApplication();
+        return application.isStarted() || application.checkPortNE();
     }
 
-    private boolean checkPort() {
-        try {
-            return ((BreventApplication) getApplication()).checkPort();
-        } catch (NetworkErrorException e) { // NOSONAR
-            return false;
-        }
-    }
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -85,7 +80,7 @@ public class BreventIntentService extends IntentService {
         Notification notification = postNotification(application);
         UILog.d("show notification");
         startForeground(ID, notification);
-        if (SimpleSu.hasSu() && !checkPort()) {
+        if (SimpleSu.hasSu() && !application.checkPortNE()) {
             application.setStarted(false);
             synchronized (LOCK_BREVENT) {
                 if (!isStarted()) {
@@ -116,9 +111,9 @@ public class BreventIntentService extends IntentService {
         }
     }
 
-    private static void sleep(int s) {
+    static void sleep(int s) {
         try {
-            Thread.sleep(1000 * s);
+            Thread.sleep(TimeUnit.SECONDS.toMillis(s));
         } catch (InterruptedException e) { // NOSONAR
             // do nothing
         }
@@ -168,7 +163,7 @@ public class BreventIntentService extends IntentService {
         String path = application.copyBrevent();
         if (path == null) {
             return Collections.singletonList("(Can't make brevent)");
-        } else if (BuildConfig.RELEASE && BuildConfig.ADB_K != null) {
+        } else if (BuildConfig.RELEASE && BuildConfig.ADB_K != null && application.isRootAdb()) {
             return startBreventAdb(path, interactive);
         } else {
             return Collections.singletonList(startBreventRoot(path, interactive));
@@ -185,7 +180,12 @@ public class BreventIntentService extends IntentService {
                     "setprop ctl.restart adbd", interactive);
             port = AdbPortUtils.getAdbPort();
             if (port <= 0) {
-                return Collections.singletonList(message);
+                if (TextUtils.isEmpty(message)) {
+                    ((BreventApplication) getApplication()).setRootAdb(false);
+                    return Collections.singletonList(startBreventRoot(path, interactive));
+                } else {
+                    return Collections.singletonList(message);
+                }
             }
         }
         if (interactive) {
@@ -206,6 +206,9 @@ public class BreventIntentService extends IntentService {
                         UILog.d(s);
                     }
                     fail = adb.contains("pm path");
+                    if (adb.contains("run as root")) {
+                        ((BreventApplication) getApplication()).setRootAdb(false);
+                    }
                 }
                 break;
             } catch (ConnectException e) {
@@ -254,7 +257,8 @@ public class BreventIntentService extends IntentService {
     }
 
     private String startBreventRoot(String path, boolean interactive) {
-        return SimpleSu.su("$SHELL " + path, interactive);
+        return SimpleSu.su("setprop service.adb.brevent.close -1; "
+                + "$SHELL " + path + " || sh " + path, interactive);
     }
 
     static NotificationManager getNotificationManager(Context context) {

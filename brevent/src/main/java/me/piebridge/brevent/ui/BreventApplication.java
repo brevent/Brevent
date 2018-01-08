@@ -66,6 +66,8 @@ import me.piebridge.stats.StatsUtils;
  */
 public class BreventApplication extends Application implements DonationPreference.Donation {
 
+    private static final String ROOT_ADB = "root_adb";
+
     private boolean mSupportStopped = true;
 
     private boolean mSupportStandby = false;
@@ -496,7 +498,7 @@ public class BreventApplication extends Application implements DonationPreferenc
         }
         if (recommend != mRecommend) {
             mRecommend = recommend;
-            PreferencesUtils.getDevicePreferences(this)
+            PreferencesUtils.getPreferences(this)
                     .edit().putInt(DonationPreference.DONATION_RECOMMEND, recommend).apply();
         }
     }
@@ -550,6 +552,14 @@ public class BreventApplication extends Application implements DonationPreferenc
         }
     }
 
+    public boolean checkPortNE() {
+        try {
+            return checkPort(false);
+        } catch (NetworkErrorException e) { // NOSONAR
+            return false;
+        }
+    }
+
     public boolean checkPort() throws NetworkErrorException {
         return checkPort(false);
     }
@@ -600,6 +610,7 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private void stopAdbIfNeededSync() {
         if ("1".equals(SystemProperties.get("service.adb.brevent.close", ""))) {
+            boolean connected = checkPortNE();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 SimpleSu.su("pbd=`pidof brevent_daemon`; " +
                         "pbs=`pidof brevent_server`; " +
@@ -612,6 +623,10 @@ public class BreventApplication extends Application implements DonationPreferenc
             String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
             SimpleSu.su("setprop service.adb.tcp.port -1; " +
                     "setprop service.adb.brevent.close 0; " + command);
+            BreventIntentService.sleep(1);
+            if (connected && !checkPortNE()) {
+                setRootAdb(false);
+            }
         }
     }
 
@@ -660,6 +675,14 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     public void setStarted(boolean started) {
         this.started = started;
+    }
+
+    public boolean isRootAdb() {
+        return PreferencesUtils.getPreferences(this).getBoolean(ROOT_ADB, true);
+    }
+
+    public void setRootAdb(boolean rootAdb) {
+        PreferencesUtils.getPreferences(this).edit().putBoolean(ROOT_ADB, rootAdb).apply();
     }
 
 }
