@@ -168,6 +168,7 @@ public class BreventActivity extends AbstractActivity
     public static final int IMPORTANT_TRUST_AGENT = 12;
     public static final int IMPORTANT_GMS = 13;
     public static final int IMPORTANT_WALLPAPER = 14;
+    public static final int IMPORTANT_NOTIFICATION_LISTENER = 15;
 
     private static final String FRAGMENT_DISABLED = "disabled";
     private static final String FRAGMENT_PROGRESS = "progress";
@@ -1544,6 +1545,18 @@ public class BreventActivity extends AbstractActivity
             mImportant.put(wallpaperInfo.getPackageName(), IMPORTANT_WALLPAPER);
         }
 
+        //notificationListeners
+        String notificationListeners = getSecureSetting(HideApiOverride.getEnabledNotificationListeners());
+        if (notificationListeners != null) {
+            String[] components = notificationListeners.split(":");
+            for (String component : components) {
+                ComponentName componentName = ComponentName.unflattenFromString(component);
+                if (componentName != null) {
+                    mImportant.put(componentName.getPackageName(), IMPORTANT_NOTIFICATION_LISTENER);
+                }
+            }
+        }
+
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("important: " + mImportant);
         }
@@ -1720,6 +1733,8 @@ public class BreventActivity extends AbstractActivity
                 return getString(R.string.important_gms, label);
             case IMPORTANT_WALLPAPER:
                 return getString(R.string.important_wallpaper, label);
+            case IMPORTANT_NOTIFICATION_LISTENER:
+                return getString(R.string.important_notification_listener, label);
             default:
                 break;
         }

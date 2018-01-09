@@ -52,6 +52,14 @@ public class Settings {
          */
         public static String VOICE_INTERACTION_SERVICE = "voice_interaction_service";
 
+        /**
+         * Names of the service components that the current user has explicitly allowed to
+         * see all of the user's notifications, separated by ':'.
+         *
+         * @hide
+         */
+        public static String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+
     }
 
     public static class Global {

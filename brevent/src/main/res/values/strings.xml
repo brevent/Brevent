@@ -99,6 +99,7 @@
     <string name="important_trust_agent">%s (Trust agent)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Wallpaper)</string>
+    <string name="important_notification_listener">%s (Notification listener)</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort by</string>
