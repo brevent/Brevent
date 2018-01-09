@@ -99,6 +99,7 @@
     <string name="important_trust_agent">%s (Agente de confianza)</string>
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Fondo de pantalla)</string>
+    <string name="important_notification_listener">%s (Detector de notificaciones)</string>
 
     <string name="menu_search">Buscar</string>
     <string name="menu_sort">Ordenar por:</string>

@@ -306,6 +306,15 @@ public class HideApiOverride {
         }
     }
 
+    public static String getEnabledNotificationListeners() {
+        try {
+            return Settings.Secure.ENABLED_NOTIFICATION_LISTENERS;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Secure.ENABLED_NOTIFICATION_LISTENERS");
+            return "enabled_notification_listeners";
+        }
+    }
+
     private static int getRootUid() {
         try {
             return Process.ROOT_UID;

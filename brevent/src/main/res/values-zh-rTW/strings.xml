@@ -97,6 +97,7 @@
     <string name="important_trust_agent">%s（信任的代理程式）</string>
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（桌布）</string>
+    <string name="important_notification_listener">%s（通知接聽器）</string>
 
     <string name="menu_search">搜尋</string>
     <string name="menu_sort">排序依據</string>
