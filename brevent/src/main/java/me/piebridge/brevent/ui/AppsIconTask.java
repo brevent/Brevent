@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
@@ -13,7 +14,13 @@ public class AppsIconTask extends AsyncTask<Object, Void, AppsItemViewHolder> {
         PackageManager packageManager = (PackageManager) params[0];
         AppsItemViewHolder holder = (AppsItemViewHolder) params[1];
         try {
-            holder.icon = packageManager.getApplicationIcon(holder.packageName);
+            Intent launchIntent = packageManager.getLaunchIntentForPackage(holder.packageName);
+            if (launchIntent == null) {
+                holder.icon = packageManager.getApplicationIcon(holder.packageName);
+            } else {
+                holder.icon = packageManager.resolveActivity(launchIntent, 0).activityInfo
+                        .loadIcon(packageManager);
+            }
         } catch (PackageManager.NameNotFoundException e) { // NOSONAR
             // do nothing
         }
