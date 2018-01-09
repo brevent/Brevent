@@ -58,7 +58,7 @@ public class Settings {
          *
          * @hide
          */
-        public static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+        public static String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
 
     }
 
