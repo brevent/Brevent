@@ -63,7 +63,7 @@ project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
 
 project.ext.supportLibraryVersion = '27.0.2'
 
-project.ext.buildToolsVersion = '27.0.2'
+project.ext.buildToolsVersion = '27.0.3'
 
 project.ext.minSdkVersion = 21
 
