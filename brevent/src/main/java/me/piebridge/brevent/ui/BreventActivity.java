@@ -54,6 +54,7 @@ import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.telecom.TelecomManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
@@ -1550,9 +1551,9 @@ public class BreventActivity extends AbstractActivity
         if (notificationListeners != null) {
             String[] components = notificationListeners.split(":");
             for (String component : components) {
-                ComponentName componentName = ComponentName.unflattenFromString(component);
-                if (componentName != null) {
-                    mImportant.put(componentName.getPackageName(), IMPORTANT_NOTIFICATION_LISTENER);
+                String packageName = getPackageName(component);
+                if (!TextUtils.isEmpty(packageName) && !mImportant.containsKey(packageName)) {
+                    mImportant.put(packageName, IMPORTANT_NOTIFICATION_LISTENER);
                 }
             }
         }
