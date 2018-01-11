@@ -78,7 +78,7 @@ public class BreventIntentService extends IntentService {
         hideStopped(application);
         String action = intent.getAction();
         Notification notification = postNotification(application);
-        UILog.d("show notification");
+        UILog.i("show notification");
         startForeground(ID, notification);
         if (SimpleSu.hasSu() && !application.checkPortNE()) {
             application.setStarted(false);
@@ -96,17 +96,17 @@ public class BreventIntentService extends IntentService {
         if (!SimpleSu.hasSu() || !isStarted()) {
             showStopped(application);
         }
-        UILog.d("hide notification");
+        UILog.i("hide notification");
         stopForeground(true);
     }
 
     private void startBrevent(String action) {
         BreventApplication application = (BreventApplication) getApplication();
         if (BreventIntent.ACTION_RUN_AS_ROOT.equalsIgnoreCase(action)) {
-            UILog.d("startBreventSync, action: " + action);
+            UILog.i("startBreventSync, action: " + action);
             application.notifyRootCompleted(startBreventSync(true));
         } else {
-            UILog.d("startBrevent, action: " + action);
+            UILog.i("startBrevent, action: " + action);
             startBrevent();
         }
     }
@@ -142,11 +142,11 @@ public class BreventIntentService extends IntentService {
             return results;
         } catch (InterruptedException | ExecutionException e) {
             String msg = "(Can't start Brevent)";
-            UILog.d(msg, e);
+            UILog.i(msg, e);
             return Collections.singletonList(msg);
         } catch (TimeoutException e) {
             String msg = "(Can't start Brevent in " + TIMEOUT + " seconds)";
-            UILog.d(msg, e);
+            UILog.i(msg, e);
             return Collections.singletonList(msg);
         } finally {
             if (!future.isDone()) {
@@ -203,7 +203,7 @@ public class BreventIntentService extends IntentService {
                 if (adb != null) {
                     message = adb;
                     for (String s : adb.split(System.lineSeparator())) {
-                        UILog.d(s);
+                        UILog.i(s);
                     }
                     fail = adb.contains("pm path");
                     if (adb.contains("run as root")) {
@@ -212,7 +212,7 @@ public class BreventIntentService extends IntentService {
                 }
                 break;
             } catch (ConnectException e) {
-                UILog.d("Can't adb(Connection refused)", e);
+                UILog.i("Can't adb(Connection refused)", e);
             } catch (IOException e) {
                 UILog.w("Can't adb(" + e.getMessage() + ")", e);
                 StringWriter sw = new StringWriter();
@@ -223,14 +223,14 @@ public class BreventIntentService extends IntentService {
             sleep(1);
         }
         if (isStarted()) {
-            UILog.d("adb success");
+            UILog.i("adb success");
             return Collections.singletonList(message);
         } else if (!fail) {
             application.setStarted(true);
-            UILog.d("adb no fail");
+            UILog.i("adb no fail");
             return Collections.singletonList(message);
         } else {
-            UILog.d("adb fail, fallback to direct root");
+            UILog.i("adb fail, fallback to direct root");
             List<String> messages = new ArrayList<>();
             messages.add(message);
             messages.add(System.lineSeparator());
@@ -318,10 +318,10 @@ public class BreventIntentService extends IntentService {
         Intent intent = new Intent(application, BreventIntentService.class);
         intent.setAction(action);
         if (shouldForeground()) {
-            UILog.d("will startForegroundService");
+            UILog.i("will startForegroundService");
             application.startForegroundService(intent);
         } else {
-            UILog.d("will startService");
+            UILog.i("will startService");
             application.startService(intent);
         }
     }
@@ -346,7 +346,7 @@ public class BreventIntentService extends IntentService {
         try {
             for (int i = 0; i < 0x5; ++i) {
                 if (application.checkPort(true)) {
-                    UILog.d("brevent worked");
+                    UILog.i("brevent worked");
                     return true;
                 }
                 sleep(0x1);
@@ -368,7 +368,7 @@ public class BreventIntentService extends IntentService {
     }
 
     private static void showNoBrevent(Context context, boolean exit) {
-        UILog.d("no brevent, exit: " + exit);
+        UILog.i("no brevent, exit: " + exit);
         Notification.Builder builder = buildNotification(context);
         builder.setAutoCancel(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);

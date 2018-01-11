@@ -13,7 +13,7 @@ public class BreventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        UILog.d("received: " + action);
+        UILog.i("received: " + action);
         Context applicationContext = LocaleUtils.updateResources(context).getApplicationContext();
         if (applicationContext instanceof BreventApplication) {
             BreventApplication application = (BreventApplication) applicationContext;

@@ -40,6 +40,10 @@ class UILog {
         Log.i(TAG, msg);
     }
 
+    static void i(String msg, Throwable t) {
+        Log.i(TAG, msg, t);
+    }
+
     static void w(String msg) {
         Log.w(TAG, msg);
     }
