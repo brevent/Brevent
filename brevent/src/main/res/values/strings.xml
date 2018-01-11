@@ -185,6 +185,8 @@
     <string name="brevent_about_version_like_play">like Play</string>
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
+    <string name="brevent_about_version_xiaomi">Xiaomi</string>
+    <string name="brevent_about_version_like_xiaomi">like Xiaomi</string>
     <string name="brevent_about_developer">Developer Options</string>
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_translation">Translator</string>

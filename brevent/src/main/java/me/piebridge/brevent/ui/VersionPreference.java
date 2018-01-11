@@ -43,19 +43,30 @@ public class VersionPreference extends Preference {
     static String getVersion(Context context) {
         PackageManager packageManager = context.getPackageManager();
         String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
+        if (TextUtils.isEmpty(installer)
+                || packageManager.getLaunchIntentForPackage(installer) == null) {
+            installer = null;
+        }
 
-        if (!TextUtils.isEmpty(installer)
-                && packageManager.getLaunchIntentForPackage(installer) != null) {
-            if ("com.meizu.mstore".equals(installer)) {
-                return context.getString(R.string.brevent_about_version_meizu);
-            } else if ("com.smartisanos.appstore".equals(installer)) {
-                return context.getString(R.string.brevent_about_version_smartisan);
-            } else if (DonateActivity.PACKAGE_PLAY.equals(installer)) {
-                return context.getString(R.string.brevent_about_version_play);
+        int color = context.getResources().getIdentifier("ic_brevent_background", "color",
+                BuildConfig.APPLICATION_ID);
+        if (color == 0) {
+            if ("com.xiaomi.market".equals(installer)) {
+                return context.getString(R.string.brevent_about_version_xiaomi);
+            } else {
+                return context.getString(R.string.brevent_about_version_like_xiaomi);
             }
         }
 
-        return context.getString(R.string.brevent_about_version_like_play);
+        if ("com.meizu.mstore".equals(installer)) {
+            return context.getString(R.string.brevent_about_version_meizu);
+        } else if ("com.smartisanos.appstore".equals(installer)) {
+            return context.getString(R.string.brevent_about_version_smartisan);
+        } else if (DonateActivity.PACKAGE_PLAY.equals(installer)) {
+            return context.getString(R.string.brevent_about_version_play);
+        } else {
+            return context.getString(R.string.brevent_about_version_like_play);
+        }
     }
 
     static boolean isPlay(Context context) {
