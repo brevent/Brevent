@@ -552,19 +552,11 @@ public class BreventApplication extends Application implements DonationPreferenc
         }
     }
 
-    public boolean checkPortNE() {
-        try {
-            return checkPort(false);
-        } catch (NetworkErrorException e) { // NOSONAR
-            return false;
-        }
-    }
-
-    public boolean checkPort() throws NetworkErrorException {
+    public boolean checkPort() {
         return checkPort(false);
     }
 
-    public boolean checkPort(final boolean io) throws NetworkErrorException {
+    public boolean checkPort(final boolean io) {
         Future<Boolean> future = executor.submit(new Callable<Boolean>() {
             @Override
             public Boolean call() {
@@ -584,7 +576,8 @@ public class BreventApplication extends Application implements DonationPreferenc
         try {
             return future.get(5, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new NetworkErrorException(e);
+            UILog.w("future exception", e);
+            return false;
         } finally {
             if (!future.isDone()) {
                 future.cancel(true);
@@ -610,7 +603,7 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private void stopAdbIfNeededSync() {
         if ("1".equals(SystemProperties.get("service.adb.brevent.close", ""))) {
-            boolean connected = checkPortNE();
+            boolean connected = checkPort();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 SimpleSu.su("pbd=`pidof brevent_daemon`; " +
                         "pbs=`pidof brevent_server`; " +
@@ -624,7 +617,7 @@ public class BreventApplication extends Application implements DonationPreferenc
             SimpleSu.su("setprop service.adb.tcp.port -1; " +
                     "setprop service.adb.brevent.close 0; " + command);
             BreventIntentService.sleep(1);
-            if (connected && !checkPortNE()) {
+            if (connected && !checkPort()) {
                 setRootAdb(false);
             }
         }

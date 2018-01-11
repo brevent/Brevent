@@ -131,6 +131,7 @@ public class BreventActivity extends AbstractActivity
     public static final int MESSAGE_ROOT_COMPLETED = 5;
     public static final int MESSAGE_LOGS = 6;
     public static final int MESSAGE_REMOVE_ADB = 7;
+    public static final int MESSAGE_CHECK_NETWORK = 8;
 
     public static final int UI_MESSAGE_SHOW_PROGRESS = 0;
     public static final int UI_MESSAGE_HIDE_PROGRESS = 1;
@@ -364,7 +365,7 @@ public class BreventActivity extends AbstractActivity
         }
         UnsupportedFragment fragment = (UnsupportedFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_UNSUPPORTED);
-        if (fragment == null || fragment.getMessage() != resId) {
+        if (fragment == null || fragment.getMessage() != resId || fragment.getExit() != exit) {
             if (fragment != null) {
                 fragment.dismiss();
             }
@@ -519,6 +520,7 @@ public class BreventActivity extends AbstractActivity
             return;
         }
         hideDisabled();
+        hideAppProgress();
         ProgressFragment fragment = (ProgressFragment) getFragmentManager()
                 .findFragmentByTag(FRAGMENT_PROGRESS);
         if (fragment == null || fragment.getMessage() != message) {
@@ -613,11 +615,7 @@ public class BreventActivity extends AbstractActivity
         super.onPostResume();
         force = true;
         if (mHandler != null) {
-            if (((BreventApplication) getApplication()).isRunningAsRoot()) {
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
-            } else {
-                mHandler.sendEmptyMessage(MESSAGE_RETRIEVE);
-            }
+            mHandler.sendEmptyMessage(MESSAGE_CHECK_NETWORK);
         }
         if (BuildConfig.RELEASE) {
             ((BreventApplication) getApplication()).decodeFromClipboard();
@@ -1546,10 +1544,10 @@ public class BreventActivity extends AbstractActivity
             mImportant.put(wallpaperInfo.getPackageName(), IMPORTANT_WALLPAPER);
         }
 
-        //notificationListeners
-        String notificationListeners = getSecureSetting(HideApiOverride.getEnabledNotificationListeners());
-        if (notificationListeners != null) {
-            String[] components = notificationListeners.split(":");
+        // notificationListeners
+        String notifications = getSecureSetting(HideApiOverride.getEnabledNotificationListeners());
+        if (notifications != null) {
+            String[] components = notifications.split(":");
             for (String component : components) {
                 String packageName = getPackageName(component);
                 if (!TextUtils.isEmpty(packageName) && !mImportant.containsKey(packageName)) {
@@ -1953,7 +1951,7 @@ public class BreventActivity extends AbstractActivity
             return true;
         }
         BreventApplication application = (BreventApplication) getApplication();
-        if (application.isStarted() || checkPort(application)) {
+        if (application.isStarted() || application.checkPort()) {
             mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
             return true;
         }
@@ -1965,15 +1963,6 @@ public class BreventActivity extends AbstractActivity
         mHandler.removeCallbacksAndMessages(null);
         uiHandler.removeCallbacksAndMessages(null);
         return false;
-    }
-
-    private boolean checkPort(BreventApplication application) {
-        try {
-            return application.checkPort(false);
-        } catch (NetworkErrorException ignore) { // NOSONAR
-            // do nothing
-            return false;
-        }
     }
 
     public String getQuery() {

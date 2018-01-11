@@ -49,6 +49,7 @@ public class UnsupportedFragment extends AbstractDialogFragment
             Activity activity = getActivity();
             if (activity != null) {
                 activity.finish();
+                System.exit(0);
             }
         }
     }
@@ -72,6 +73,11 @@ public class UnsupportedFragment extends AbstractDialogFragment
     public int getMessage() {
         return getArguments().getInt(MESSAGE);
     }
+
+    public boolean getExit() {
+        return getArguments().getBoolean(EXIT);
+    }
+
 
     @Override
     public void onClick(DialogInterface dialog, int which) {

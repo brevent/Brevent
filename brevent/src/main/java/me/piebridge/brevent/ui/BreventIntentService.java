@@ -68,9 +68,8 @@ public class BreventIntentService extends IntentService {
 
     private boolean isStarted() {
         BreventApplication application = (BreventApplication) getApplication();
-        return application.isStarted() || application.checkPortNE();
+        return application.isStarted() || application.checkPort();
     }
-
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -80,7 +79,7 @@ public class BreventIntentService extends IntentService {
         Notification notification = postNotification(application);
         UILog.i("show notification");
         startForeground(ID, notification);
-        if (SimpleSu.hasSu() && !application.checkPortNE()) {
+        if (SimpleSu.hasSu() && !application.checkPort()) {
             application.setStarted(false);
             synchronized (LOCK_BREVENT) {
                 if (!isStarted()) {
@@ -331,30 +330,22 @@ public class BreventIntentService extends IntentService {
     }
 
     public static void checkStopped(BreventApplication application) {
-        try {
-            sleep(0x1);
-            if (!application.isStarting() && !application.checkPort(true)) {
-                showStopped(application);
-                BreventActivity.cancelAlarm(application);
-            }
-        } catch (NetworkErrorException e) {
-            UILog.w("brevent checking timeout");
+        sleep(0x1);
+        if (!application.isStarting() && !application.checkPort(true)) {
+            showStopped(application);
+            BreventActivity.cancelAlarm(application);
         }
     }
 
     public static boolean checkBrevent(BreventApplication application) {
-        try {
-            for (int i = 0; i < 0x5; ++i) {
-                if (application.checkPort(true)) {
-                    UILog.i("brevent worked");
-                    return true;
-                }
-                sleep(0x1);
+        for (int i = 0; i < 0x5; ++i) {
+            if (application.checkPort(true)) {
+                UILog.i("brevent worked");
+                return true;
             }
-            showNoBrevent(application, true);
-        } catch (NetworkErrorException e) {
-            UILog.w("brevent checking timeout");
+            sleep(0x1);
         }
+        showNoBrevent(application, true);
         return false;
     }
 

@@ -30,6 +30,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import me.piebridge.SimpleAdb;
+import me.piebridge.SimpleSock;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventRequest;
@@ -87,30 +88,41 @@ public class AppsActivityHandler extends Handler {
     @Override
     public void handleMessage(Message message) {
         BreventActivity activity = mReference.get();
+        if (activity == null) {
+            return;
+        }
         switch (message.what) {
+            case BreventActivity.MESSAGE_CHECK_NETWORK:
+                boolean checked = false;
+                try {
+                    SimpleSock simpleSock = new SimpleSock();
+                    checked = simpleSock.check();
+                    simpleSock.quit();
+                } catch (IOException e) {
+                    UILog.d("io exception", e);
+                }
+                if (!checked) {
+                    uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
+                } else if (((BreventApplication) activity.getApplication()).isRunningAsRoot()) {
+                    sendEmptyMessage(BreventActivity.MESSAGE_RETRIEVE2);
+                } else {
+                    sendEmptyMessage(BreventActivity.MESSAGE_RETRIEVE);
+                }
+                break;
             case BreventActivity.MESSAGE_RETRIEVE:
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE);
-                if (BuildConfig.RELEASE && !adbChecked && activity != null) {
-                    Boolean checked = checkPort(activity);
-                    if (checked == null) {
-                        break;
-                    } else if (!checked) {
-                        checkAdb(activity);
-                    }
+                if (BuildConfig.RELEASE && !adbChecked && !checkPort(activity)) {
+                    checkAdb(activity);
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 UILog.d("request status");
-                if (activity != null) {
-                    requestStatus(false, activity.isCheck());
-                }
+                requestStatus(false, activity.isCheck());
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 UILog.d("retry request status");
                 hasResponse = false;
-                if (activity != null) {
-                    requestStatus(true, activity.isCheck());
-                }
+                requestStatus(true, activity.isCheck());
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
                 if (!hasResponse) {
@@ -121,7 +133,7 @@ public class AppsActivityHandler extends Handler {
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
                 BreventProtocol response = (BreventProtocol) message.obj;
-                if (activity != null && !activity.isStopped()) {
+                if (!activity.isStopped()) {
                     activity.onBreventResponse(response);
                 }
                 uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_HIDE_DISABLED);
@@ -294,14 +306,10 @@ public class AppsActivityHandler extends Handler {
         send(request);
     }
 
-    private Boolean checkPort(BreventActivity activity) {
+    private boolean checkPort(BreventActivity activity) {
         uiHandler.sendEmptyMessageDelayed(BreventActivity.UI_MESSAGE_CHECKING_BREVENT, SHORT);
         try {
             return ((BreventApplication) (activity.getApplication())).checkPort();
-        } catch (NetworkErrorException e) {
-            UILog.d("Can't check port: " + e.getMessage(), e);
-            uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
-            return null;
         } finally {
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_CHECKED_BREVENT);
         }
@@ -316,10 +324,7 @@ public class AppsActivityHandler extends Handler {
         }
         boolean timeout = false;
         int action = message.getAction();
-        Boolean checked = checkPort(activity);
-        if (checked == null) {
-            return false;
-        } else if (!checked) {
+        if (!checkPort(activity)) {
             onConnectError(activity);
             onFinal(action, false);
             return false;
