@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.accounts.NetworkErrorException;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
-import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -34,7 +32,6 @@ import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventIntent;
-import me.piebridge.brevent.protocol.BreventProtocol;
 
 public class BreventIntentService extends IntentService {
 

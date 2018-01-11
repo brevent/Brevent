@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.Manifest;
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;

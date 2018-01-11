@@ -205,6 +205,7 @@
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
     <string name="unsupported_usb">Since Android 8, Brevent server would stop work whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
+    <string name="unsupported_granted">Brevent server has no sufficient permission, please check advanced settings in \"Developer Options\".</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>

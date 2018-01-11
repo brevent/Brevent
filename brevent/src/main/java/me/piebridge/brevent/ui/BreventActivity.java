@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlarmManager;
@@ -182,6 +181,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_SORT = "sort";
     private static final String FRAGMENT_PAYMENT = "payment";
     private static final String FRAGMENT_USB = "usb";
+    private static final String FRAGMENT_GRANTED = "granted";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -1305,6 +1305,9 @@ public class BreventActivity extends AbstractActivity
             unregisterReceiver();
             hideReport();
             hasResponse = true;
+            if (!status.mGranted) {
+                showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
+            }
         }
 
         if (mSelectStatus == 0 && mBrevent.isEmpty()) {
@@ -1617,21 +1620,24 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         if (application.isUsbChanged()) {
             application.setUsbChanged(false);
-            showUsb();
+            showWarning(FRAGMENT_USB, R.string.unsupported_usb);
         }
     }
 
-    private void showUsb() {
+    private void showWarning(String tag, int resId) {
         if (isStopped()) {
             return;
         }
-        UsbFragment fragment = (UsbFragment) getFragmentManager()
-                .findFragmentByTag(FRAGMENT_USB);
-        if (fragment != null) {
-            fragment.dismiss();
+        WarningFragment fragment = (WarningFragment) getFragmentManager()
+                .findFragmentByTag(tag);
+        if (fragment == null || fragment.getMessage() != resId) {
+            if (fragment != null) {
+                fragment.dismiss();
+            }
+            fragment = new WarningFragment();
+            fragment.setMessage(resId);
+            fragment.show(getFragmentManager(), tag);
         }
-        fragment = new UsbFragment();
-        fragment.show(getFragmentManager(), FRAGMENT_USB);
     }
 
     public void setRefreshEnabled(boolean enabled) {

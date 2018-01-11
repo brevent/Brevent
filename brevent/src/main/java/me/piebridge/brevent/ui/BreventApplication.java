@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.accounts.NetworkErrorException;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.ClipData;
@@ -89,8 +88,6 @@ public class BreventApplication extends Application implements DonationPreferenc
     long mDaemonTime;
 
     long mServerTime;
-
-    int mUid;
 
     public static final boolean IS_OWNER = HideApiOverride.getUserId() == getOwner();
 
@@ -242,7 +239,6 @@ public class BreventApplication extends Application implements DonationPreferenc
                 && mDaemonTime != breventResponse.mDaemonTime;
         mDaemonTime = breventResponse.mDaemonTime;
         mServerTime = breventResponse.mServerTime;
-        mUid = breventResponse.mUid;
         setSupportStandby(breventResponse.mSupportStandby);
         setSupportStopped(breventResponse.mSupportStopped);
         setSupportUpgrade(breventResponse.mSupportUpgrade);
@@ -262,6 +258,7 @@ public class BreventApplication extends Application implements DonationPreferenc
             attributes.put("root", SimpleSu.hasSu() ? "true" : "false");
             attributes.put("paid", getDonated());
             attributes.put("size", breventResponse.mBrevent.size());
+            attributes.put("granted", breventResponse.mGranted);
             StatsUtils.logLogin(attributes);
         }
     }

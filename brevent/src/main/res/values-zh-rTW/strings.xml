@@ -203,6 +203,7 @@
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
+    <string name="unsupported_granted">黑域服务权限不足，部分功能暂不可用。请检查“开发者选项”中的高级设置。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>

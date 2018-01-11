@@ -49,7 +49,7 @@ public class BreventResponse extends BreventProtocol {
 
     public final long mServerTime;
 
-    public final int mUid;
+    public final boolean mGranted;
 
     public final Collection<String> mAndroidProcesses;
 
@@ -68,7 +68,7 @@ public class BreventResponse extends BreventProtocol {
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
-                           boolean supportStandby, long daemonTime, long serverTime, int uid,
+                           boolean supportStandby, long daemonTime, long serverTime, boolean granted,
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
                            String alipaySum, String vpn, Collection<String> packages,
@@ -82,7 +82,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportStandby = supportStandby;
         mDaemonTime = daemonTime;
         mServerTime = serverTime;
-        mUid = uid;
+        mGranted = granted;
         mAndroidProcesses = androidProcesses;
         mFullPowerList = fullPowerList;
         mSupportUpgrade = supportUpgrade;
@@ -104,7 +104,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportStandby = in.readInt() != 0;
         mDaemonTime = in.readLong();
         mServerTime = in.readLong();
-        mUid = in.readInt();
+        mGranted = in.readInt() != 0;
         mAndroidProcesses = ParcelUtils.readCollection(in);
         mFullPowerList = ParcelUtils.readCollection(in);
         mSupportUpgrade = in.readInt() != 0;
@@ -127,15 +127,15 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mSupportStandby ? 1 : 0);
         dest.writeLong(mDaemonTime);
         dest.writeLong(mServerTime);
-        dest.writeInt(mUid);
+        dest.writeInt(mGranted ? 1 : 0);
         ParcelUtils.writeCollection(dest, mAndroidProcesses);
         ParcelUtils.writeCollection(dest, mFullPowerList);
         dest.writeInt(mSupportUpgrade ? 1 : 0);
         dest.writeString(mAlipaySum);
         dest.writeString(mVpn);
         ParcelUtils.writeCollection(dest, mPackages);
-        dest.writeInt(mSupportAppops ? 1: 0);
-        dest.writeInt(mAlipaySin ? 1: 0);
+        dest.writeInt(mSupportAppops ? 1 : 0);
+        dest.writeInt(mAlipaySin ? 1 : 0);
         dest.writeInt(mPromotion ? 1 : 0);
     }
 
