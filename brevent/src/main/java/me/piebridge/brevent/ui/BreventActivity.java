@@ -4,6 +4,7 @@ import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;
@@ -182,6 +183,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_PAYMENT = "payment";
     private static final String FRAGMENT_USB = "usb";
     private static final String FRAGMENT_GRANTED = "granted";
+    private static final String FRAGMENT_CHECKING = "checking";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -637,11 +639,13 @@ public class BreventActivity extends AbstractActivity
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
-    public static void setAlarm(Context context) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+    public static void setAlarm(Activity activity) {
+        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmPendingIntent(context));
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmPendingIntent(activity));
+        PreferencesUtils.getPreferences(activity).edit()
+                .putLong(BreventReceiver.ALARM_TIME, SystemClock.elapsedRealtime()).apply();
         UILog.i("setAlarm");
     }
 
@@ -1311,7 +1315,7 @@ public class BreventActivity extends AbstractActivity
                 showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
             }
             if (isChecking()) {
-                setAlarm(this);
+                checkChecking(status);
             }
         }
 
@@ -1333,6 +1337,36 @@ public class BreventActivity extends AbstractActivity
                 checkBreventList(application, days);
             }
         }
+    }
+
+    private void checkChecking(BreventResponse status) {
+        if ((status.mForceStopped || noAlarm())) {
+            showWarning(FRAGMENT_CHECKING, R.string.unsupported_checking);
+            mConfiguration.checking = false;
+            PreferencesUtils.getPreferences(this)
+                    .edit().putBoolean(BreventConfiguration.BREVENT_CHECKING,
+                    false).apply();
+        } else {
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
+            long serverTime = preferences.getLong(BreventSettings.SERVER_TIME, 0);
+            if (serverTime != status.mServerTime) {
+                setAlarm(this);
+                preferences.edit().putLong(BreventSettings.SERVER_TIME, status.mServerTime).apply();
+            }
+        }
+    }
+
+    private boolean noAlarm() {
+        long lastAlarm = PreferencesUtils.getPreferences(this)
+                .getLong(BreventReceiver.ALARM_TIME, 0);
+        long maxAlarmTime = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+        if (lastAlarm > 0) {
+            long last = SystemClock.elapsedRealtime() - lastAlarm - maxAlarmTime;
+            if (TimeUnit.MILLISECONDS.toMinutes(last) > 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void checkBreventList(BreventApplication application, int days) {
@@ -2023,7 +2057,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean isChecking() {
-        if (mConfiguration == null){
+        if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
         }
         return mConfiguration.checking;

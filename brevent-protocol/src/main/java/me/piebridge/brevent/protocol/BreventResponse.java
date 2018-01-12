@@ -65,6 +65,8 @@ public class BreventResponse extends BreventProtocol {
 
     public final boolean mPromotion;
 
+    public final boolean mForceStopped;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
@@ -72,7 +74,8 @@ public class BreventResponse extends BreventProtocol {
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
                            String alipaySum, String vpn, Collection<String> packages,
-                           boolean supportAppops, boolean alipaySin, boolean promotion) {
+                           boolean supportAppops, boolean alipaySin, boolean promotion,
+                           boolean forceStopped) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -92,6 +95,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportAppops = supportAppops;
         mAlipaySin = alipaySin;
         mPromotion = promotion;
+        mForceStopped = forceStopped;
     }
 
     BreventResponse(Parcel in) {
@@ -114,6 +118,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportAppops = in.readInt() != 0;
         mAlipaySin = in.readInt() != 0;
         mPromotion = in.readInt() != 0;
+        mForceStopped = in.readInt() != 0;
     }
 
     @Override
@@ -137,6 +142,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mSupportAppops ? 1 : 0);
         dest.writeInt(mAlipaySin ? 1 : 0);
         dest.writeInt(mPromotion ? 1 : 0);
+        dest.writeInt(mForceStopped ? 1 : 0);
     }
 
     public static boolean isStandby(SparseIntArray status) {

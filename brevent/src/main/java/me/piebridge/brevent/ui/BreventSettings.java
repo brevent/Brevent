@@ -33,6 +33,8 @@ public class BreventSettings extends DonateActivity {
 
     static final String DAEMON_TIME = "daemon_time";
 
+    static final String SERVER_TIME = "server_time";
+
     static final int CONTRIBUTOR = 5;
 
     static final int DONATE_AMOUNT = 3;
