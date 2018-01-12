@@ -228,7 +228,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         try {
             return packageManager.getPermissionInfo(permission, 0);
         } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't find permission " + permission, e);
+            UILog.w("Can't find permission " + permission, e);
             return null;
         }
     }
@@ -240,7 +240,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         try {
             return packageManager.getPermissionGroupInfo(group, 0);
         } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't find permission group " + group, e);
+            UILog.w("Can't find permission group " + group, e);
             return null;
         }
     }
@@ -326,7 +326,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         try {
             return appOpsService.getOpsForPackage(packageUid, packageName, null);
         } catch (RemoteException | RuntimeException e) {
-            UILog.d("Can't getOpsForPackage", e);
+            UILog.w("Can't getOpsForPackage", e);
             return null;
         }
     }
@@ -372,7 +372,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
                 return getPackageUidDeprecated(packageName, uid);
             }
         } catch (RemoteException | RuntimeException e) {
-            UILog.d("Can't getPackageUid for " + packageName, e);
+            UILog.w("Can't getPackageUid for " + packageName, e);
             return 0;
         }
     }

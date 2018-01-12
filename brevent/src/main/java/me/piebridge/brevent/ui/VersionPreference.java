@@ -40,13 +40,19 @@ public class VersionPreference extends Preference {
         }
     }
 
-    static String getVersion(Context context) {
+    static String getInstaller(Context context) {
         PackageManager packageManager = context.getPackageManager();
         String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
-        if (TextUtils.isEmpty(installer)
-                || packageManager.getLaunchIntentForPackage(installer) == null) {
-            installer = null;
+        if (!TextUtils.isEmpty(installer)
+                && packageManager.getLaunchIntentForPackage(installer) != null) {
+            return installer;
+        } else {
+            return null;
         }
+    }
+
+    static String getVersion(Context context) {
+        String installer = getInstaller(context);
 
         int color = context.getResources().getIdentifier("ic_brevent_background", "color",
                 BuildConfig.APPLICATION_ID);
@@ -70,19 +76,9 @@ public class VersionPreference extends Preference {
     }
 
     static boolean isPlay(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        String installer = packageManager.getInstallerPackageName(BuildConfig.APPLICATION_ID);
-
-        if (!TextUtils.isEmpty(installer) &&
-                packageManager.getLaunchIntentForPackage(installer) != null) {
-            UILog.d("installer: " + installer);
-            if ("com.meizu.mstore".equals(installer) ||
-                    "com.smartisanos.appstore".equals(installer)) {
-                return false;
-            }
-        }
-
-        return true;
+        String installer = getInstaller(context);
+        return !"com.meizu.mstore".equals(installer)
+                && !"com.smartisanos.appstore".equals(installer);
     }
 
 }

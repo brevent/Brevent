@@ -15,7 +15,7 @@ public class AdbPortUtils {
     public static int getAdbPort() {
         // XXX: SystemProperties.get is @hide method
         String port = SystemProperties.get("service.adb.tcp.port", "");
-        UILog.d("service.adb.tcp.port: " + port);
+        UILog.i("service.adb.tcp.port: " + port);
         if (!TextUtils.isEmpty(port) && TextUtils.isDigitsOnly(port)) {
             int p = Integer.parseInt(port);
             if (p > 0 && p <= 0xffff) {

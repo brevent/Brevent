@@ -109,7 +109,7 @@ public class BreventOps extends AbstractActivity {
             getPackageManager().getApplicationInfo(opsPackage, 0);
             return opsPackage;
         } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't find " + opsPackage, e);
+            UILog.w("Can't find " + opsPackage, e);
             return null;
         }
     }
@@ -123,7 +123,7 @@ public class BreventOps extends AbstractActivity {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(opsPackage, 0);
             setTitle(applicationInfo.loadLabel(packageManager));
         } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't find " + opsPackage, e);
+            UILog.w("Can't find " + opsPackage, e);
             finish();
         }
     }

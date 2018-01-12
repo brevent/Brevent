@@ -13,27 +13,8 @@ class UILog {
 
     }
 
-    static void v(String msg) {
-        Log.v(TAG, msg);
-    }
-
-    static void v(String msg, Throwable t) {
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            Log.v(TAG, msg, t);
-        } else {
-            Log.v(TAG, msg);
-        }
-    }
-
     static void d(String msg) {
         Log.d(TAG, msg);
-    }
-
-    static void d(String msg, Throwable t) {
-        Log.d(TAG, msg);
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            Log.v(TAG, msg, t);
-        }
     }
 
     static void i(String msg) {

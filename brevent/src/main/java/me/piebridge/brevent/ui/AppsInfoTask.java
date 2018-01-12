@@ -52,7 +52,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
             try {
                 packageInfo = packageManager.getPackageInfo(packageName, 0);
             } catch (PackageManager.NameNotFoundException e) {
-                UILog.d("Can't find package " + packageName, e);
+                UILog.w("Can't find package " + packageName, e);
                 continue;
             }
             ApplicationInfo appInfo = packageInfo.applicationInfo;

@@ -29,7 +29,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context c, Intent intent) {
         String action = intent.getAction();
-        UILog.d("received: " + action);
+        UILog.i("received: " + action);
         Context context = LocaleUtils.updateResources(c);
         if (BreventIntent.ACTION_HOME_TID.equals(action)) {
             int homeTid = intent.getIntExtra(BreventIntent.EXTRA_HOME_TID, 0);

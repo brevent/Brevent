@@ -467,9 +467,6 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             // always for all apps
             return true;
         }
-        if (Log.isLoggable(UILog.TAG, Log.VERBOSE)) {
-            UILog.v("checking launcher for " + packageName);
-        }
         return pm.getLaunchIntentForPackage(packageName) != null;
     }
 

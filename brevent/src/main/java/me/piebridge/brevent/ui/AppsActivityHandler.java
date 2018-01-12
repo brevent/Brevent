@@ -98,7 +98,7 @@ public class AppsActivityHandler extends Handler {
                     checked = simpleSock.check();
                     simpleSock.quit();
                 } catch (IOException e) {
-                    UILog.d("io exception", e);
+                    UILog.w("io exception", e);
                 }
                 if (!checked) {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);
@@ -114,18 +114,18 @@ public class AppsActivityHandler extends Handler {
                     checkAdb(activity);
                 }
                 removeMessages(BreventActivity.MESSAGE_BREVENT_NO_RESPONSE);
-                UILog.d("request status");
+                UILog.i("request status");
                 requestStatus(false);
                 break;
             case BreventActivity.MESSAGE_RETRIEVE2:
                 removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
-                UILog.d("retry request status");
+                UILog.i("retry request status");
                 hasResponse = false;
                 requestStatus(true);
                 break;
             case BreventActivity.MESSAGE_BREVENT_RESPONSE:
                 if (!hasResponse) {
-                    UILog.d("received response");
+                    UILog.i("received response");
                     hasResponse = true;
                     ((BreventApplication) activity.getApplication()).onStarted();
                 }
@@ -356,15 +356,15 @@ public class AppsActivityHandler extends Handler {
             return true;
         } catch (ConnectException e) {
             // shouldn't happen
-            UILog.v("Can't connect to localhost:" + BreventProtocol.PORT, e);
+            UILog.i("Can't connect to localhost:" + BreventProtocol.PORT, e);
             onConnectError(activity);
         } catch (SocketTimeoutException e) {
             timeout = true;
             hasResponse = false;
-            UILog.v("timeout to localhost:" + BreventProtocol.PORT, e);
+            UILog.i("timeout to localhost:" + BreventProtocol.PORT, e);
         } catch (IOException e) {
             hasResponse = false;
-            UILog.v("io error to localhost:" + BreventProtocol.PORT, e);
+            UILog.i("io error to localhost:" + BreventProtocol.PORT, e);
             uiHandler.obtainMessage(BreventActivity.UI_MESSAGE_IO_BREVENT, e).sendToTarget();
         }
         onFinal(action, timeout);

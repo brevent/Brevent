@@ -279,7 +279,7 @@ public class BreventActivity extends AbstractActivity
                     }
                 }
                 if (!disabledXposed) {
-                    UILog.d("Can't disable Xposed", t);
+                    UILog.w("Can't disable Xposed", t);
                 }
             }
         }
@@ -417,8 +417,8 @@ public class BreventActivity extends AbstractActivity
             String sourceDir = getPackageManager()
                     .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
             return Arrays.equals(BuildConfig.SIGNATURE, BreventProtocol.getFingerprint(sourceDir));
-        } catch (PackageManager.NameNotFoundException e) { // NOSONAR
-            UILog.d("Can't find " + BuildConfig.APPLICATION_ID);
+        } catch (PackageManager.NameNotFoundException e) {
+            UILog.w("Can't find " + BuildConfig.APPLICATION_ID, e);
             return false;
         }
     }
@@ -642,13 +642,13 @@ public class BreventActivity extends AbstractActivity
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
                 AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmPendingIntent(context));
-        UILog.d("setAlarm");
+        UILog.i("setAlarm");
     }
 
     public static void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(getAlarmPendingIntent(context));
-        UILog.d("cancelAlarm");
+        UILog.i("cancelAlarm");
     }
 
     private void dismissDialog(String tag, boolean allowStateLoss) {
@@ -917,7 +917,6 @@ public class BreventActivity extends AbstractActivity
     @CallSuper
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS) {
-            UILog.d("onActivityResult");
             if (isStopped()) {
                 shouldUpdateConfiguration = true;
             } else {
@@ -1178,7 +1177,7 @@ public class BreventActivity extends AbstractActivity
                 service.expandNotificationsPanel();
                 notificationEventMade = true;
             } catch (RemoteException | RuntimeException | LinkageError e) {
-                UILog.d("Can't expandNotificationsPanel: " + e.getMessage(), e);
+                UILog.w("Can't expandNotificationsPanel: " + e.getMessage(), e);
             }
         }
     }
@@ -1191,7 +1190,7 @@ public class BreventActivity extends AbstractActivity
                 service.collapsePanels();
                 notificationEventMade = false;
             } catch (RemoteException | RuntimeException | LinkageError e) {
-                UILog.d("Can't collapsePanels: " + e.getMessage(), e);
+                UILog.w("Can't collapsePanels: " + e.getMessage(), e);
             }
         }
     }
@@ -1367,7 +1366,7 @@ public class BreventActivity extends AbstractActivity
         List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST,
                 BEGIN, System.currentTimeMillis());
         if (stats == null) {
-            UILog.d("no stats");
+            UILog.i("no stats");
             return;
         }
         for (UsageStats stat : stats) {
@@ -1828,7 +1827,7 @@ public class BreventActivity extends AbstractActivity
     @SuppressLint("WrongConstant")
     public void makeEvent() {
         ((BreventApplication) getApplication()).makeEvent();
-        UILog.d("make event by restart");
+        UILog.i("make event by restart");
         // https://stackoverflow.com/a/3419987/3289354
         // recreate has no appropriate event
         Intent intent = getIntent();
@@ -2062,7 +2061,7 @@ public class BreventActivity extends AbstractActivity
                 PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
                 return isFrameworkPackage(packageManager, packageInfo);
             } catch (PackageManager.NameNotFoundException e) {
-                UILog.d("cannot find " + packageName, e);
+                UILog.w("cannot find " + packageName, e);
                 return false;
             }
         } else {

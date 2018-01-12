@@ -281,7 +281,7 @@ public class SettingsFragment extends PreferenceFragment
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                UILog.d("Can't find settings", e);
+                UILog.w("Can't find settings", e);
             }
         }
         return false;
@@ -301,7 +301,7 @@ public class SettingsFragment extends PreferenceFragment
         if (mList != null) {
             int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
             if (position > 0 && position < mList.getCount()) {
-                UILog.d("count: " + mList.getCount() + ", position: " + position);
+                UILog.i("count: " + mList.getCount() + ", position: " + position);
                 mList.smoothScrollToPosition(position);
             }
         }

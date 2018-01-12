@@ -130,9 +130,9 @@ public class BreventApplication extends Application implements DonationPreferenc
             if (file.exists()) {
                 return file;
             }
-            UILog.d("no libbrevent.so");
+            UILog.w("no libbrevent.so");
         } catch (PackageManager.NameNotFoundException e) {
-            UILog.d("Can't find " + BuildConfig.APPLICATION_ID, e);
+            UILog.w("Can't find " + BuildConfig.APPLICATION_ID, e);
         }
         return null;
     }
@@ -149,12 +149,11 @@ public class BreventApplication extends Application implements DonationPreferenc
                 father = Os.readlink(father);
                 parent = new File(father, parent.getName());
             } catch (ErrnoException e) {
-                UILog.d("Can't read link for " + father, e);
+                UILog.w("Can't read link for " + father, e);
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             parent = createDeviceProtectedStorageContext().getFilesDir().getParentFile();
         }
-        UILog.d("parent: " + parent + ", canRead: " + parent.canRead());
         if (!parent.canRead()) {
             return null;
         }
@@ -247,7 +246,7 @@ public class BreventApplication extends Application implements DonationPreferenc
         if (BuildConfig.RELEASE && shouldUpdated) {
             long daemon = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             long server = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mServerTime);
-            UILog.d("daemon: " + daemon + ", server: " + server);
+            UILog.i("daemon: " + daemon + ", server: " + server);
             Map<String, Object> attributes = new ArrayMap<>();
             attributes.put("standby", Boolean.toString(mSupportStandby));
             attributes.put("stopped", Boolean.toString(mSupportStopped));
@@ -330,7 +329,7 @@ public class BreventApplication extends Application implements DonationPreferenc
             breventId = new BigInteger(androidId, 16).longValue();
         } catch (NumberFormatException e) {
             breventId = 0;
-            UILog.d("Can't parse " + androidId, e);
+            UILog.w("Can't parse " + androidId, e);
         }
         if (breventId == 0) {
             breventId = 0xdeadbeef00000000L | new SecureRandom().nextInt();
@@ -375,7 +374,7 @@ public class BreventApplication extends Application implements DonationPreferenc
                 return decode(application, message, getSignature(application), verbose);
             }
         } catch (NumberFormatException e) {
-            UILog.d("Can't decode, auto: " + auto, e);
+            UILog.w("Can't decode, auto: " + auto, e);
             return 0d;
         }
     }
@@ -395,7 +394,7 @@ public class BreventApplication extends Application implements DonationPreferenc
             final Certificate cert = certFactory.generateCertificate(bais);
             modulus = ((RSAPublicKey) cert.getPublicKey()).getModulus();
         } catch (GeneralSecurityException e) {
-            UILog.d("Can't get signature", e);
+            UILog.w("Can't get signature", e);
             return null;
         }
         return modulus;
@@ -414,13 +413,13 @@ public class BreventApplication extends Application implements DonationPreferenc
         byte v = buffer.get();
         long breventId = buffer.getLong();
         if (breventId != 0 && breventId != getId(application)) {
-            UILog.d("id: " + Long.toHexString(breventId) + " != " +
+            UILog.i("id: " + Long.toHexString(breventId) + " != " +
                     Long.toHexString(getId(application)));
             return 0d;
         } else {
             double d = Double.longBitsToDouble(buffer.getLong());
             if (verbose) {
-                UILog.d("v: " + v + ", d: " + d);
+                UILog.i("v: " + v + ", d: " + d);
             }
             if (v == 1) {
                 return d / 5;
@@ -558,11 +557,9 @@ public class BreventApplication extends Application implements DonationPreferenc
             @Override
             public Boolean call() {
                 try {
-                    boolean started = BreventProtocol.checkPortSync();
-                    UILog.v("connected, started: " + started);
-                    return started;
+                    return BreventProtocol.checkPortSync();
                 } catch (ConnectException e) {
-                    UILog.v("Can't connect to localhost:" + BreventProtocol.PORT, e);
+                    UILog.w("Can't connect to localhost:" + BreventProtocol.PORT, e);
                     return false;
                 } catch (IOException e) {
                     UILog.w("io error to localhost:" + BreventProtocol.PORT, e);

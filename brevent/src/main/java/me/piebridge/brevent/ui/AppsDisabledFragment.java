@@ -133,7 +133,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                 try {
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
-                    UILog.d("Can't find settings", e);
+                    UILog.w("Can't find settings", e);
                 }
                 activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
             }
