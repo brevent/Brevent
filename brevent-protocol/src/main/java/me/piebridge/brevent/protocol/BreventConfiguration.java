@@ -42,6 +42,9 @@ public class BreventConfiguration extends BreventProtocol {
     public static final String BREVENT_OPTIMIZE_AUDIO = "brevent_optimize_audio";
     public static final boolean DEFAULT_BREVENT_OPTIMIZE_AUDIO = false;
 
+    public static final String BREVENT_CHECKING = "brevent_checking";
+    public static final boolean DEFAULT_BREVENT_CHECKING = false;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
@@ -59,6 +62,8 @@ public class BreventConfiguration extends BreventProtocol {
     public long androidId;
 
     public boolean optimizeAudio = DEFAULT_BREVENT_OPTIMIZE_AUDIO;
+
+    public boolean checking = DEFAULT_BREVENT_CHECKING;
 
     public BreventConfiguration() {
         super(CONFIGURATION);
@@ -80,6 +85,7 @@ public class BreventConfiguration extends BreventProtocol {
                 DEFAULT_BREVENT_ABNORMAL_BACK);
         optimizeAudio = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_AUDIO,
                 DEFAULT_BREVENT_OPTIMIZE_AUDIO);
+        checking = sharedPreferences.getBoolean(BREVENT_CHECKING, DEFAULT_BREVENT_CHECKING);
     }
 
     private int convertMethod(String string) {
@@ -109,6 +115,7 @@ public class BreventConfiguration extends BreventProtocol {
         abnormalBack = in.readInt() != 0;
         androidId = in.readLong();
         optimizeAudio = in.readInt() != 0;
+        checking = in.readInt() != 0;
     }
 
     @Override
@@ -123,6 +130,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(abnormalBack ? 1 : 0);
         dest.writeLong(androidId);
         dest.writeInt(optimizeAudio ? 1 : 0);
+        dest.writeInt(checking ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -134,6 +142,7 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_AGGRESSIVE, aggressive);
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
         write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
+        write(pw, BREVENT_CHECKING, checking);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -184,6 +193,9 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_OPTIMIZE_AUDIO:
                 optimizeAudio = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_CHECKING:
+                checking = Boolean.parseBoolean(value);
+                break;
             default:
                 break;
         }
@@ -226,6 +238,10 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.optimizeAudio != request.optimizeAudio) {
             this.optimizeAudio = request.optimizeAudio;
+            updated = true;
+        }
+        if (this.checking != request.checking) {
+            this.checking = request.checking;
             updated = true;
         }
         return updated;

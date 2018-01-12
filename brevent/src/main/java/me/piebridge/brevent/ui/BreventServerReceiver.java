@@ -129,7 +129,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
                 DataOutputStream os = new DataOutputStream(socket.getOutputStream());
                 DataInputStream is = new DataInputStream(socket.getInputStream())
         ) {
-            BreventProtocol.writeTo(new BreventRequest(false, token), os);
+            BreventProtocol.writeTo(new BreventRequest(token), os);
             os.flush();
             BreventProtocol.readFrom(is);
         } catch (IOException ignore) {

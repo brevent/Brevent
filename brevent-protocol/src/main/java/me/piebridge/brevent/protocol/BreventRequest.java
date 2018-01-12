@@ -7,30 +7,25 @@ import android.os.Parcel;
  */
 public class BreventRequest extends BreventProtocol {
 
-    public final boolean check;
-
     public final String token;
 
-    public BreventRequest(boolean check) {
-        this(check, "");
+    public BreventRequest() {
+        this("");
     }
 
-    public BreventRequest(boolean check, String token) {
+    public BreventRequest(String token) {
         super(BreventProtocol.STATUS_REQUEST);
-        this.check = check;
         this.token = token;
     }
 
     BreventRequest(Parcel in) {
         super(in);
-        check = in.readInt() != 0;
         token = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeInt(check ? 1 : 0);
         dest.writeString(token);
     }
 

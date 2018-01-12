@@ -245,7 +245,6 @@ public class BreventActivity extends AbstractActivity
     private SearchView mSearchView;
     private String mQuery;
 
-    private Boolean check;
     private BreventConfiguration mConfiguration;
     private boolean shouldUpdateConfiguration;
     private boolean shouldOpenSettings;
@@ -331,8 +330,6 @@ public class BreventActivity extends AbstractActivity
                     android.R.attr.colorControlHighlight);
 
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
-
-            updateCheck();
         }
     }
 
@@ -630,7 +627,7 @@ public class BreventActivity extends AbstractActivity
             }
         }
         if (shouldUpdateConfiguration) {
-            updateConfiguration(true);
+            updateConfiguration();
         }
     }
 
@@ -643,7 +640,7 @@ public class BreventActivity extends AbstractActivity
     public static void setAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                SystemClock.elapsedRealtime(),
                 AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmPendingIntent(context));
         UILog.d("setAlarm");
     }
@@ -924,21 +921,24 @@ public class BreventActivity extends AbstractActivity
             if (isStopped()) {
                 shouldUpdateConfiguration = true;
             } else {
-                updateConfiguration(false);
+                updateConfiguration();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void updateConfiguration(boolean inResume) {
+    private void updateConfiguration() {
         shouldUpdateConfiguration = false;
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-        if (mConfiguration == null || mConfiguration.update(new BreventConfiguration(preferences))) {
-            doUpdateConfiguration();
+        BreventConfiguration configuration = new BreventConfiguration(preferences);
+        if (mConfiguration.checking && !configuration.checking) {
+            cancelAlarm(this);
+        } else if (!mConfiguration.checking && configuration.checking) {
+            setAlarm(this);
         }
-        if (updateCheck() && !inResume) {
-            mHandler.sendEmptyMessage(MESSAGE_RETRIEVE2);
+        if (mConfiguration.update(configuration)) {
+            doUpdateConfiguration();
         }
         if (mAdapter != null && updateAdapter(mAdapter)) {
             mAdapter.refreshFragment();
@@ -983,6 +983,9 @@ public class BreventActivity extends AbstractActivity
     public void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
         intent.putExtra(BreventIntent.EXTRA_BREVENT_SIZE, mBrevent.size());
+        if (mConfiguration == null) {
+            mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
+        }
         startActivityForResult(intent, REQUEST_CODE_SETTINGS);
     }
 
@@ -1308,17 +1311,15 @@ public class BreventActivity extends AbstractActivity
             if (!status.mGranted) {
                 showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
             }
+            if (isChecking()) {
+                setAlarm(this);
+            }
         }
 
         if (mSelectStatus == 0 && mBrevent.isEmpty()) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
         unbreventImportant();
-        if (isCheck()) {
-            setAlarm(this);
-        } else {
-            cancelAlarm(this);
-        }
 
         if (application.isPlay() && BuildConfig.RELEASE && !mBrevent.isEmpty()) {
             int days = 0;
@@ -2022,25 +2023,11 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    private boolean updateCheck() {
-        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-        if (mConfiguration == null) {
-            mConfiguration = new BreventConfiguration(preferences);
+    public boolean isChecking() {
+        if (mConfiguration == null){
+            mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
         }
-        boolean checking = preferences.getBoolean("brevent_checking", false);
-        if (check == null || check != checking) {
-            check = checking;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isCheck() {
-        if (check == null) {
-            updateCheck();
-        }
-        return check;
+        return mConfiguration.checking;
     }
 
     public UsageStats getStats(String packageName) {
