@@ -1152,6 +1152,12 @@ public class BreventActivity extends AbstractActivity
             case BreventProtocol.STATUS_NO_EVENT:
                 onBreventNoEvent((BreventNoEvent) response);
                 break;
+            case BreventProtocol.CONFIGURATION:
+                if (shouldOpenSettings) {
+                    shouldOpenSettings = false;
+                    openSettings();
+                }
+                break;
             default:
                 break;
         }
@@ -1239,11 +1245,6 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
         showAlipay(status.mAlipaySum, status.mAlipaySin);
-        if (shouldOpenSettings) {
-            shouldOpenSettings = false;
-            openSettings();
-            return;
-        }
 
         if (mStats == null) {
             synchronized (updateLock) {
@@ -1356,10 +1357,9 @@ public class BreventActivity extends AbstractActivity
     private boolean noAlarm() {
         long lastAlarm = PreferencesUtils.getPreferences(this)
                 .getLong(BreventReceiver.ALARM_TIME, 0);
-        long maxAlarmTime = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
         if (lastAlarm > 0) {
-            long last = SystemClock.elapsedRealtime() - lastAlarm - maxAlarmTime;
-            if (TimeUnit.MILLISECONDS.toMinutes(last) > 1) {
+            final long maxAlarmTime = 0x2 * AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+            if (SystemClock.elapsedRealtime() - lastAlarm > maxAlarmTime) {
                 return true;
             }
         }
@@ -2137,11 +2137,14 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void onUnsupportedChecking() {
-        if (mConfiguration != null) {
-            mConfiguration.checking = false;
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
+        if (mConfiguration == null) {
+            mConfiguration = new BreventConfiguration(preferences);
         }
-        PreferencesUtils.getPreferences(this)
-                .edit().putBoolean(BreventConfiguration.BREVENT_CHECKING, false).apply();
+        mConfiguration.checking = false;
+        preferences.edit().putBoolean(BreventConfiguration.BREVENT_CHECKING, false).apply();
+        doUpdateConfiguration();
+        shouldOpenSettings = true;
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
