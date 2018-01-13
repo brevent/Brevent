@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop cached apps. To increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop safe cached apps by default. To increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
@@ -27,7 +27,7 @@
     <string name="start_brevent">Launch Brevent</string>
 
     <string name="brevent_service_start">Please start Brevent server (%s)</string>
-    <string name="brevent_service_no_response">Brevent server no response (%s)</string>
+    <string name="brevent_service_no_response">No response from brevent server (%s)</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can recognize device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_open_development">Developer</string>
     <string name="brevent_service_copy_path">Copy command</string>
@@ -121,7 +121,7 @@
     <string name="brevent_list">Brevent List</string>
     <string name="brevent_auto">Auto brevent</string>
     <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled(not supported on some ROMs)</string>
-    <string name="brevent_method">Brevent method</string>
+    <string name="brevent_method">Brevent Method</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
@@ -142,7 +142,7 @@
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s\n\nBrevent doesn\'t show standby time</string>
 
     <string name="brevent_advanced">Advanced Features</string>
-    <string name="brevent_aggressive">Aggressive mode</string>
+    <string name="brevent_aggressive">Aggressive Mode</string>
     <string name="brevent_aggressive_label">Brevent immediately, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
     <string name="show_framework_apps">Show core apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing core apps</string>
@@ -153,10 +153,10 @@
 
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_check_notification">Check notifications</string>
-    <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or reboot</string>
+    <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on, but may cause device freeze or even reboot</string>
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
-    <string name="brevent_optimize_audio">Optimize Music Player</string>
+    <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification</string>
 
     <string name="show_donation">Show payment</string>
@@ -170,7 +170,7 @@
     <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="brevent_checking">Diagnosis</string>
-    <string name="brevent_checking_label">Checking Brevent server every 15 minutes\n\nTurn on if Brevent stops unreasonably</string>
+    <string name="brevent_checking_label">Check Brevent server every 15 minutes\n\nTurn on if Brevent stops unreasonably</string>
     <string name="brevent_appops">AppOps (experimental)</string>
     <string name="brevent_appops_label">Currently only simple read and write, still in progress</string>
 
@@ -204,7 +204,7 @@
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
-    <string name="unsupported_usb">Since Android 8, Brevent server would stop work whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
+    <string name="unsupported_usb">Since Android 8, Brevent server would stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
     <string name="unsupported_granted">Brevent server has no sufficient permission, please check advanced settings in \"Developer Options\".</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
 
@@ -214,7 +214,7 @@
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
     <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
-    <string name="toast_alipay_ko">Can\'t confirm payment, don\'t pay</string>
+    <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
 
     <string name="logs_description">%1$s\n(Please give a description for the logs.)</string>
@@ -226,12 +226,12 @@
     <string name="brevent_status_report">Tap here to feedback, and give a detailed description</string>
 
     <string name="pay_verify">If you have paid, please disable \"Xposed\", launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
-    <string name="pay_alipay">Launch Alipay</string>
+    <string name="pay_alipay">Launch \"Alipay\"</string>
     <string name="pay_email">Email</string>
     <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
 
-    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
+    <string name="make_brevent_better">You have used %1$d days and brevented %2$d apps. Please pay %3$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
     <string name="pay_brevent_require">Require to pay %s</string>
 
