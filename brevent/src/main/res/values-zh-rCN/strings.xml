@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <string name="app_name">黑域</string>
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”按钮或者“概览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别您是否打开或已经退出，阻断黑域清单里的应用在没有使用的时候长期运行。对于被恶意唤醒的应用，一律强行停止。</string>
-    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用的服务不再运行；当您点按“主页”按钮、“概览”按钮或通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen，也称为最新动态屏幕、最近任务列表或最近使用的应用）划掉应用时，黑域将强行停止它。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”或“概览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别应用状态，防止“黑域清单”内应用长期运行。</string>
+    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用及其所包含的服务不再运行；当您点按“主页”或“概览”按钮，或者通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen，也称为最新动态屏幕、最近任务列表或最近使用的应用）划掉应用时，黑域将强行停止它。无论何时应用被唤醒，只要没有打开界面，黑域都将强行停止它。\n\n“黑域清单”内应用也可以接收通知或执行同步，只要设置为“允许同步”就好。“允许同步”应用有不可取消通知或前台服务时，不会被黑域；有通知或在后台运行时，不会被强行停止。</string>
 
     <string name="fragment_guide_permission">权限</string>
-    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以“调试模式”执行一个命令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
-    <string name="fragment_guide_permission_message2">“调试模式”权限很高，Android O 以下设备重启就失效；在 Android O 及以上则更严格，关闭“USB 调试”或更改 USB 选项就失效。</string>
+    <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以“USB 调试”模式执行一个指令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
+    <string name="fragment_guide_permission_message2">“USB 调试”模式权限很高，Android 8 以下设备重启就失效；在 Android 8 及以上则更严格，关闭“USB 调试”或更改 USB 选项就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑域不需要 Root 或修改系统文件，卸载后没有残留。黑域不破坏其它应用的完整性，也不处理未被黑域的应用。</string>
+    <string name="fragment_guide_security_message">黑域不需要 Root 或修改系统文件，卸载后没有残留。</string>
     <string name="fragment_guide_security_message2">黑域使用大量 Android 隐藏 API，部分厂商可能改变这些 API 行为，使用黑域可能会对应用甚至设备造成不良影响。\n\n不要在工作设备上使用黑域，也不要黑域工作应用、常用应用和重要应用。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
-    <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，请阅读商店详情，带上相应日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">黑域默认先使用“待机”（App Standby，Android 6.0 引入，部分设备不支持）处理应用，应用待机后将不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用。为了降低自身耗电，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，欢迎带上日志提交反馈。</string>
+    <string name="fragment_guide_enjoy_message2">默认黑域方法为“待机，然后强行停止”。应用待机（App Standby，Android 6.0 引入，部分设备不支持）后不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用。此外，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用“.\\adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n3.（macOS）打开 Finder，进入“应用程序”，进入“实用工具”，打开“终端”，把“adb”拖到“终端”里，请使用这个带全路径的“adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
+    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用“.\\adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n3.（macOS）打开“访达”，进入“应用程序”，进入“实用工具”，打开“终端”，把“adb”拖到“终端”里，请使用这个带全路径的“adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
 
     <string name="brevent_service_start">请启动黑域服务（%s）</string>
     <string name="brevent_service_no_response">黑域服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或者中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
     <string name="brevent_service_command_copied">指令已复制：%s</string>
@@ -123,7 +123,7 @@
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时或者从概览屏幕划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时，或者从概览屏幕划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从概览屏幕划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
@@ -197,7 +197,7 @@
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
+    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或者其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>

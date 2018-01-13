@@ -153,7 +153,7 @@
 
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_check_notification">Comprobar notificaciones</string>
-    <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or reboot</string>
+    <string name="brevent_check_notification_label">Optimize Brevent according notifications\n\nRecommends on. May cause device freeze or even reboot</string>
     <string name="brevent_abnormal_back">Reconocer un irregular \"Volver\"</string>
     <string name="brevent_abnormal_back_label">Brevent inmediatamente cuando las aplicaciones vuelven a la pantalla principal sin pulsar HOME (ej. Volver/Atras)</string>
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
@@ -204,7 +204,7 @@
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>
     <string name="unsupported_no_local_network">Brevent no puede acceder a la red local. Por favor, modifique su configuración de red, ahorro de batería y optimización de batería. Genere y envíe registros si es necesario o directamente desinstale App.</string>
-    <string name="unsupported_usb">Since Android 8, Brevent server would stop work whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
+    <string name="unsupported_usb">Since Android 8, Brevent server would stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
     <string name="unsupported_granted">Brevent server has no sufficient permission, please check advanced settings in \"Developer Options\".</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
 
@@ -226,7 +226,7 @@
     <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada.</string>
 
     <string name="pay_verify">If you have paid, please disable \"Xposed\", launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
-    <string name="pay_alipay">Launch Alipay</string>
+    <string name="pay_alipay">Launch \"Alipay\"</string>
     <string name="pay_email">Email</string>
     <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
