@@ -58,8 +58,8 @@ public class SimpleSu {
     }
 
     private static String exec(String command, boolean output) {
-        d(">>> +++++++");
-        d("[suexec] " + command);
+        i(">>> +++++++");
+        i("[suexec] " + command);
         StringWriter sw = new StringWriter();
         try {
             Process process = Runtime.getRuntime().exec("su");
@@ -91,7 +91,7 @@ public class SimpleSu {
             Thread.currentThread().interrupt();
             return null;
         } finally {
-            d("+++++++ <<<");
+            i("+++++++ <<<");
         }
     }
 
@@ -99,16 +99,12 @@ public class SimpleSu {
         return Holder.SU;
     }
 
-    static void d(String msg) {
-        Log.d(TAG, msg);
+    static void i(String msg) {
+        Log.i(TAG, msg);
     }
 
-    static void d(String msg, Throwable t) {
-        Log.d(TAG, msg, t);
-    }
-
-    static void w(String msg) {
-        Log.w(TAG, msg);
+    static void i(String msg, Throwable t) {
+        Log.i(TAG, msg, t);
     }
 
     static void w(String msg, Throwable t) {
@@ -127,14 +123,14 @@ public class SimpleSu {
                 File path = new File(dir, "su");
                 try {
                     if (Os.access(path.getPath(), 1)) {
-                        d("has su: " + path);
+                        i("has su: " + path);
                         return true;
                     }
                 } catch (ErrnoException e) {
-                    d("Can't access " + path);
+                    i("Can't access " + path);
                 }
             }
-            d("has no su");
+            i("has no su");
             return false;
         }
     }
@@ -158,13 +154,13 @@ public class SimpleSu {
                 String line;
                 while ((line = br.readLine()) != null) {
                     synchronized (pw) {
-                        d(prefix + line);
+                        i(prefix + line);
                         pw.println(line);
                         pw.flush();
                     }
                 }
             } catch (IOException e) {
-                d(prefix + "io exception", e);
+                i(prefix + "io exception", e);
             }
         }
     }

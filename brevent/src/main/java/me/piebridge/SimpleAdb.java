@@ -138,7 +138,7 @@ public class SimpleAdb {
         buffer.putInt(length);
         buffer.putInt(sum);
         buffer.putInt(~message.command);
-        d("send, command: " + command(message.command) + ", length: " + length);
+        i("send, command: " + command(message.command) + ", length: " + length);
         if (length > 0) {
             buffer.put(message.data);
         }
@@ -152,7 +152,7 @@ public class SimpleAdb {
             e("recv head, length too short");
             throw new AdbException();
         }
-        d("recv, head: " + Arrays.toString(head));
+        i("recv, head: " + Arrays.toString(head));
         ByteBuffer buffer = ByteBuffer.wrap(head);
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         Message message = new Message();
@@ -162,7 +162,7 @@ public class SimpleAdb {
         message.length = buffer.getInt();
         message.check = buffer.getInt();
         message.magic = buffer.getInt();
-        d("recv, command: " + command(message.command)
+        i("recv, command: " + command(message.command)
                 + ", arg0: " + message.arg0 + ", arg1: " + message.arg1);
         if (message.length > 0) {
             byte[] body = new byte[message.length];
@@ -172,9 +172,9 @@ public class SimpleAdb {
             }
             message.data = body;
             if (message.command == A_AUTH) {
-                d("recv, data: " + Arrays.toString(body));
+                i("recv, data: " + Arrays.toString(body));
             } else {
-                d("recv: data: " + new String(body, "UTF-8"));
+                i("recv: data: " + new String(body, "UTF-8"));
             }
         }
         return message;
@@ -286,8 +286,8 @@ public class SimpleAdb {
         }
     }
 
-    private static void d(String msg) {
-        Log.d(TAG, msg);
+    private static void i(String msg) {
+        Log.i(TAG, msg);
     }
 
     private static void e(String msg) {

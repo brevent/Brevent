@@ -42,7 +42,7 @@ public class SimpleSock {
 
     private static final int BACKLOG = 50;
 
-    private static final int PORT = 59527;
+    private static final int PORT_BREVENT = 59527;
 
     private final int port;
 
@@ -51,7 +51,7 @@ public class SimpleSock {
     private final Random random;
 
     public SimpleSock() throws IOException {
-        this(PORT);
+        this(PORT_BREVENT);
     }
 
     public SimpleSock(int port) throws IOException {
@@ -72,7 +72,7 @@ public class SimpleSock {
             os.flush();
             return is.readInt() == number;
         } catch (IOException e) {
-            d("[c-check] io exception", e);
+            i("[c-check] io exception", e);
             return false;
         }
     }
@@ -82,8 +82,8 @@ public class SimpleSock {
         check();
     }
 
-    static void d(String msg, Throwable t) {
-        Log.d(TAG, msg, t);
+    static void i(String msg, Throwable t) {
+        Log.i(TAG, msg, t);
     }
 
     static class Server implements Runnable {
@@ -114,13 +114,13 @@ public class SimpleSock {
                     os.writeInt(is.readInt());
                     os.flush();
                 } catch (IOException e) {
-                    d("[s-accept] io exception", e);
+                    i("[s-accept] io exception", e);
                 }
             }
             try {
                 server.close();
             } catch (IOException e) {
-                d("[s-close] io exception", e);
+                i("[s-close] io exception", e);
             }
         }
     }

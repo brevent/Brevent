@@ -43,7 +43,8 @@ public class AppsActivityHandler extends Handler {
             {"system.txt", "-b system"},
             {"events.txt", "-b events am_pss:s"},
             {"crash.txt", "-b crash"},
-            {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI"}
+            {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI" +
+                    " SimpleSu SimpleAdb SimpleSock"}
     };
 
     private static final String[][] DUMPS = new String[][] {
