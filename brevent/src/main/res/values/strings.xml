@@ -10,7 +10,7 @@
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC, making brevent has permission to manage other apps indirectly.</string>
-    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android 8 or higher, Brevent will stop running if you turn off \"USB Debugging\" or change USB options.</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android 8 or higher, brevent server will stop running if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, so there is no residue after uninstallation.</string>
