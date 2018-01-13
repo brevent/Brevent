@@ -203,7 +203,7 @@ public class BreventIntentService extends IntentService {
                     }
                     fail = adb.contains("pm path");
                     if (adb.contains("run as root")) {
-                        ((BreventApplication) getApplication()).setRootAdb(false);
+                        application.setRootAdb(false);
                     }
                 }
                 break;
@@ -227,6 +227,8 @@ public class BreventIntentService extends IntentService {
             return Collections.singletonList(message);
         } else {
             UILog.i("adb fail, fallback to direct root");
+            application.stopAdbIfNeeded();
+            application.setRootAdb(false);
             List<String> messages = new ArrayList<>();
             messages.add(message);
             messages.add(System.lineSeparator());
