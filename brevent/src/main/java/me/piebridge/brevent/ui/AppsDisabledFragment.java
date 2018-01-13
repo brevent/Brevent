@@ -2,8 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -126,15 +124,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                 Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
                 activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
             } else {
-                Intent intent = new Intent();
-                intent.setComponent(new ComponentName("com.android.settings",
-                        "com.android.settings.DevelopmentSettings"));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                try {
-                    startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    UILog.w("Can't find settings", e);
-                }
+                ((BreventApplication) activity.getApplication()).launchDevelopmentSettings();
                 activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
             }
         } else if (which == DialogInterface.BUTTON_NEUTRAL) {

@@ -1311,12 +1311,13 @@ public class BreventActivity extends AbstractActivity
             unregisterReceiver();
             hideReport();
             hasResponse = true;
-            if (!status.mGranted) {
-                showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
-            }
             if (isChecking()) {
                 checkChecking(status);
             }
+        }
+
+        if (!status.mGranted && !application.isGrantedWarned()) {
+            showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
         }
 
         if (mSelectStatus == 0 && mBrevent.isEmpty()) {
@@ -1342,10 +1343,6 @@ public class BreventActivity extends AbstractActivity
     private void checkChecking(BreventResponse status) {
         if ((status.mForceStopped || noAlarm())) {
             showWarning(FRAGMENT_CHECKING, R.string.unsupported_checking);
-            mConfiguration.checking = false;
-            PreferencesUtils.getPreferences(this)
-                    .edit().putBoolean(BreventConfiguration.BREVENT_CHECKING,
-                    false).apply();
         } else {
             SharedPreferences preferences = PreferencesUtils.getPreferences(this);
             long serverTime = preferences.getLong(BreventSettings.SERVER_TIME, 0);
@@ -2137,6 +2134,14 @@ public class BreventActivity extends AbstractActivity
 
     static boolean isUsbConnected(Intent intent) {
         return intent != null && intent.getBooleanExtra(HideApiOverride.USB_CONNECTED, false);
+    }
+
+    public void onUnsupportedChecking() {
+        if (mConfiguration != null) {
+            mConfiguration.checking = false;
+        }
+        PreferencesUtils.getPreferences(this)
+                .edit().putBoolean(BreventConfiguration.BREVENT_CHECKING, false).apply();
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

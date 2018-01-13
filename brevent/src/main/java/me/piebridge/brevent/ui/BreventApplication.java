@@ -2,8 +2,10 @@ package me.piebridge.brevent.ui;
 
 import android.app.Application;
 import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -110,6 +112,8 @@ public class BreventApplication extends Application implements DonationPreferenc
     private boolean needStop;
     private boolean started;
     private boolean starting;
+
+    private boolean grantedWarned;
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -670,6 +674,26 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     public void setRootAdb(boolean rootAdb) {
         PreferencesUtils.getPreferences(this).edit().putBoolean(ROOT_ADB, rootAdb).apply();
+    }
+
+    public void launchDevelopmentSettings() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.android.settings",
+                "com.android.settings.DevelopmentSettings"));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            UILog.w("Can't find settings", e);
+        }
+    }
+
+    public boolean isGrantedWarned() {
+        return grantedWarned;
+    }
+
+    public void setGrantedWarned(boolean grantedWarned) {
+        this.grantedWarned = grantedWarned;
     }
 
 }

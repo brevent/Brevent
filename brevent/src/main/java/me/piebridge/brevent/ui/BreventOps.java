@@ -216,6 +216,9 @@ public class BreventOps extends AbstractActivity {
                         hideProgress();
                         if (update) {
                             refresh();
+                        } else {
+                            ((BreventApplication) getApplication()).setGrantedWarned(false);
+                            finish();
                         }
                     }
                 }

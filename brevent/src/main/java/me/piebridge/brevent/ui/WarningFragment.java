@@ -11,12 +11,14 @@ import me.piebridge.brevent.R;
 /**
  * Created by thom on 2018/1/4.
  */
-public class WarningFragment extends AbstractDialogFragment implements DialogInterface.OnClickListener {
+public class WarningFragment extends AbstractDialogFragment
+        implements DialogInterface.OnClickListener {
 
     private static final String MESSAGE = "message";
 
     public WarningFragment() {
         setArguments(new Bundle());
+        setCancelable(false);
         setStyle(STYLE_NO_TITLE, 0);
     }
 
@@ -25,14 +27,57 @@ public class WarningFragment extends AbstractDialogFragment implements DialogInt
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
-        builder.setMessage(getArguments().getInt(MESSAGE));
+        builder.setMessage(getMessage());
         builder.setPositiveButton(android.R.string.ok, this);
+        if (shouldShowCancel()) {
+            builder.setNegativeButton(android.R.string.cancel, this);
+        }
         return builder.create();
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        // do nothing
+        if (which == DialogInterface.BUTTON_POSITIVE) {
+            onClickOk();
+        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+            onClickCancel();
+        }
+    }
+
+    private boolean shouldShowCancel() {
+        int message = getMessage();
+        switch (message) {
+            case R.string.unsupported_granted:
+            case R.string.unsupported_checking:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void onClickOk() {
+        int message = getMessage();
+        switch (message) {
+            case R.string.unsupported_granted:
+                ((BreventApplication) getActivity().getApplication()).launchDevelopmentSettings();
+                break;
+            case R.string.unsupported_checking:
+                ((BreventActivity) getActivity()).onUnsupportedChecking();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void onClickCancel() {
+        int message = getMessage();
+        switch (message) {
+            case R.string.unsupported_granted:
+                ((BreventApplication) getActivity().getApplication()).setGrantedWarned(true);
+                break;
+            default:
+                break;
+        }
     }
 
     public void setMessage(int resId) {

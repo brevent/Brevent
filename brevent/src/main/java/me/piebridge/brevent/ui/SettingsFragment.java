@@ -1,10 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -274,15 +270,7 @@ public class SettingsFragment extends PreferenceFragment
                 repeat = 0;
             }
         } else if ("brevent_about_developer".equals(key)) {
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName("com.android.settings",
-                    "com.android.settings.DevelopmentSettings"));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                UILog.w("Can't find settings", e);
-            }
+            ((BreventApplication) getActivity().getApplication()).launchDevelopmentSettings();
         }
         return false;
     }
