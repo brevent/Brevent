@@ -5,20 +5,20 @@
     <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you have finished your work and want to quit.\nTapping Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed apps by this way, preventing apps which are in the Brevent list from running in long time when not used. Apps which are wakened maliciously will always be force-stopped.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, the services of these apps will be stopped; tap Home and they will be kept in the background to complete their tasks; swipe apps away from recents screen (also known as the Overview screen, recent task list, or recent apps) and they will be force-stopped.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you have finished your work and want to quit.\nTapping Home or Overview will kick this app into background.\n\nBrevent recognizes apps\' states by this way, preventing apps which are in the Brevent list from running in long time.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, the apps as well as their services will no longer run unless you launch them again; tap Home or Overview, or kick apps into the background, they and their services can continue running; swipe apps away from recents screen (also known as the Overview screen, recent task list, or recent apps) and they will be force-stopped. Whenever an app is wakened, as long as there is no UI, Brevent will force-stop it. \n\nThe apps in the brevent list can also push notifications or sync as long as set \"Allow sync"\. When an app is set \"Allow sync\", if it has noncancelable notification or top services, it will not be brevented; if it has notification or is running in the background, it will not be force-stopped.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
-    <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
-    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
+    <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC, making brevent has permission to manage other apps indirectly.</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android 8 or higher, Brevent will stop running if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
+    <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, so there is no residue after uninstallation.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
-    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop safe cached apps by default. To increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, feel free to feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". When an app is standby(since Android 6.0, not supported on some devices), it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop safe cached apps by default. In addtion, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
@@ -119,7 +119,7 @@
     <string name="email_label">%1$s (%2$s)</string>
 
     <string name="brevent_list">Brevent list</string>
-    <string name="brevent_auto">Auto brevent</string>
+    <string name="brevent_auto">Auto Brevent</string>
     <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled(not supported on some ROMs)</string>
     <string name="brevent_method">Brevent method</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
@@ -142,7 +142,7 @@
     <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s\n\nBrevent doesn\'t show standby time</string>
 
     <string name="brevent_advanced">Advanced features</string>
-    <string name="brevent_aggressive">Aggressive mode</string>
+    <string name="brevent_aggressive">Aggressive Mode</string>
     <string name="brevent_aggressive_label">Brevent immediately, force-stop safe apps.\n\nSpecially for the OCD, check carefully</string>
     <string name="show_framework_apps">Show core apps</string>
     <string name="show_framework_apps_label">All apps have the same signature with framework\n\nBe careful when breventing core apps</string>
