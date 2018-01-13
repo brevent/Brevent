@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
@@ -563,10 +564,10 @@ public class BreventApplication extends Application implements DonationPreferenc
                 try {
                     return BreventProtocol.checkPortSync();
                 } catch (ConnectException e) {
-                    UILog.w("Can't connect to localhost:" + BreventProtocol.PORT, e);
+                    UILog.w(formatBreventException(e));
                     return false;
                 } catch (IOException e) {
-                    UILog.w("io error to localhost:" + BreventProtocol.PORT, e);
+                    UILog.w(formatBreventException(e), e);
                     return io;
                 }
             }
@@ -581,6 +582,11 @@ public class BreventApplication extends Application implements DonationPreferenc
                 future.cancel(true);
             }
         }
+    }
+
+    static String formatBreventException(Exception e) {
+        return "Can't brevent(" + e.getMessage() + ") to "
+                + InetAddress.getLoopbackAddress() + ":" + BreventProtocol.PORT;
     }
 
     @Override

@@ -208,9 +208,9 @@ public class BreventIntentService extends IntentService {
                 }
                 break;
             } catch (ConnectException e) {
-                UILog.i("Can't adb(Connection refused)", e);
+                UILog.w(formatAdbException(port, e));
             } catch (IOException e) {
-                UILog.w("Can't adb(" + e.getMessage() + ")", e);
+                UILog.w(formatAdbException(port, e), e);
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
                 e.printStackTrace(pw);
@@ -235,6 +235,10 @@ public class BreventIntentService extends IntentService {
             messages.add(startBreventRoot(path, interactive));
             return messages;
         }
+    }
+
+    static String formatAdbException(int port, Exception e) {
+        return "Can't adb(" + e.getMessage() + ") to localhost:" + port;
     }
 
     private boolean makeSureKeys() {
