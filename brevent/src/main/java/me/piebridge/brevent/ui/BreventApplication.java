@@ -573,8 +573,11 @@ public class BreventApplication extends Application implements DonationPreferenc
             }
         });
         try {
-            return future.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            return future.get(0x5, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            UILog.w(formatBreventException(e));
+            return io;
+        } catch (InterruptedException | ExecutionException e) {
             UILog.w("future exception", e);
             return false;
         } finally {

@@ -362,7 +362,7 @@ public class AppsActivityHandler extends Handler {
         } catch (SocketTimeoutException e) {
             timeout = true;
             hasResponse = false;
-            UILog.w(BreventApplication.formatBreventException(e), e);
+            UILog.w(BreventApplication.formatBreventException(e));
         } catch (IOException e) {
             hasResponse = false;
             UILog.w(BreventApplication.formatBreventException(e), e);
