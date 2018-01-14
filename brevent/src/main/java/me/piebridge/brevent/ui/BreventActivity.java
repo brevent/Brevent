@@ -372,7 +372,7 @@ public class BreventActivity extends AbstractActivity
             fragment.setMessage(resId);
             fragment.setExit(exit);
             fragment.show(getFragmentManager(), FRAGMENT_UNSUPPORTED);
-            if (exit) {
+            if (exit && mHandler != null && uiHandler != null) {
                 mHandler.removeCallbacksAndMessages(null);
                 uiHandler.removeCallbacksAndMessages(null);
             }
@@ -935,6 +935,9 @@ public class BreventActivity extends AbstractActivity
         shouldUpdateConfiguration = false;
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         BreventConfiguration configuration = new BreventConfiguration(preferences);
+        if (mConfiguration == null) {
+            mConfiguration = new BreventConfiguration(preferences);
+        }
         if (mConfiguration.checking && !configuration.checking) {
             cancelAlarm(this);
         } else if (!mConfiguration.checking && configuration.checking) {
