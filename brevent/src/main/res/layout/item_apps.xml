@@ -23,7 +23,7 @@
             android:layout_width="@android:dimen/app_icon_size"
             android:layout_height="@android:dimen/app_icon_size"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,11 +69,11 @@
 
         <ImageView
             android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="0dp"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:tint="?android:attr/textColorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,11 +81,11 @@
 
         <ImageView
             android:id="@+id/sync"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="@dimen/marginItemEnd"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_sync_black_24dp"
             android:tint="?android:attr/textColorSecondary"
             android:visibility="invisible"
