@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">请尽情享受黑域，发现任何问题，欢迎带上日志提交反馈。</string>
-    <string name="fragment_guide_enjoy_message2">默认黑域方法为“待机，然后强行停止”。应用待机（App Standby，Android 6.0 引入，部分设备不支持）后不能联网、执行任务（Job，Android 5.0 引入）与同步。\n\n黑域默认不强行停止安全的缓存应用。此外，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">默认黑域方法为“待机，然后强行停止”。应用待机（App Standby，Android 6.0 引入，部分设备不支持）后不能联网、执行任务（Job）与同步。\n\n黑域默认不强行停止安全的缓存应用。此外，黑域集中处理，根据事件级别延后 3 到 60 秒不等。</string>
     <string name="start_brevent">进入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -203,7 +203,7 @@
     <string name="unsupported_shell">无法启动黑域服务。</string>
     <string name="unsupported_no_local_network">黑域无法访问本地网络，请调整网络设置、省电模式与强制低电耗（doze）等。\n\n必要时，带日志反馈，或者直接卸载。</string>
     <string name="unsupported_usb">Android 8 起，“USB 调试”停用后黑域就失效。\n\n不要停用“USB 调试”，不要更改 USB 选项。</string>
-    <string name="unsupported_granted">黑域服务权限不足，部分功能暂不可用。请检查“开发者选项”中的高级设置。</string>
+    <string name="unsupported_granted">黑域服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑域可在后台运行，然后重新开启。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>

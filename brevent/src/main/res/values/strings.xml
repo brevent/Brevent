@@ -5,20 +5,20 @@
     <string name="app_name_debug">Nrevent</string>
 
     <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you have finished your work and want to quit.\nTapping Home will start the launcher and kick this app into background.\n\nBrevent recognizes whether you have opened or closed apps by this way, preventing apps which are in the Brevent list from running in long time when not used. Apps which are wakened maliciously will always be force-stopped.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, the services of these apps will be stopped; tap Home and they will be kept in the background to complete their tasks; swipe apps away from recents screen (also known as the Overview screen, recent task list, or recent apps) and they will be force-stopped.</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into background.\n\nBrevent recognizes states of apps in this way, preventing apps in Brevent list from running in long time.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen (also known as the Overview screen, recent task list, or recent apps), apps will be force-stopped. Whenever apps are wakened without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or do sync jobs. Brevent won't brevent \"allow sync\" apps with sticky notifications nor foreground services, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, so there is no residue after uninstallation. Brevent does not destroy the integrity of other applications, nor does it deal with applications that are not in the Brevent list.</string>
+    <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, there is no residue after uninstallation.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
-    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please read the store\'s details and submit feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"App Standby\" (since Android 6.0, not supported on some devices). When an app is standby, it can\'t connect to the Internet, nor carry on it\'s tasks(Job, since Android 5.0) and sync.\n\nBrevent will not force-stop safe cached apps by default. To increase battery performance, Brevent server deals with apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs and syncs.\n\nBrevent wouldn\'t force-stop safe cached apps by default. In addition, Brevent server brevent apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
@@ -205,7 +205,7 @@
     <string name="unsupported_shell">Fail to start Brevent server.</string>
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
     <string name="unsupported_usb">Since Android 8, Brevent server would stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
-    <string name="unsupported_granted">Brevent server has no sufficient permission, please check advanced settings in \"Developer options\".</string>
+    <string name="unsupported_granted">Brevent server has no sufficient permissions, some features are unavailable.</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
