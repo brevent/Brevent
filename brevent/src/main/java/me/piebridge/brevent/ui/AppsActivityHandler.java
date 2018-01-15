@@ -23,6 +23,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
@@ -256,12 +257,12 @@ public class AppsActivityHandler extends Handler {
                     zipLog(context, zos, date, dump[0]);
                 }
                 File parent = context.getExternalFilesDir(null).getParentFile();
-                File[] files = parent.listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        String name = file.getName();
+                names = parent.list();
+                if (names != null) {
+                    Arrays.sort(names);
+                    for (String name : names) {
                         if (name.startsWith("server.") && name.endsWith(".txt")) {
-                            zipLog(zos, file);
+                            zipLog(zos, new File(parent, name));
                         }
                     }
                 }
