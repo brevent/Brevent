@@ -94,13 +94,16 @@ public class AppsActivityHandler extends Handler {
         }
         switch (message.what) {
             case BreventActivity.MESSAGE_CHECK_NETWORK:
+                removeMessages(BreventActivity.MESSAGE_CHECK_NETWORK);
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE);
+                removeMessages(BreventActivity.MESSAGE_RETRIEVE2);
                 boolean checked = false;
-                try {
-                    SimpleSock simpleSock = new SimpleSock();
+                try (
+                        SimpleSock simpleSock = SimpleSock.newInstance()
+                ) {
                     checked = simpleSock.check();
-                    simpleSock.quit();
                 } catch (IOException e) {
-                    UILog.w("io exception", e);
+                    UILog.w("SimpleSock " + e.getMessage(), e);
                 }
                 if (!checked) {
                     uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_NO_LOCAL_NETWORK);

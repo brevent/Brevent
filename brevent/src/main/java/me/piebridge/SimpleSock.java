@@ -26,6 +26,7 @@ import android.util.Log;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -36,11 +37,9 @@ import java.util.Random;
 /**
  * Created by thom on 2018/1/11.
  */
-public class SimpleSock {
+public class SimpleSock implements AutoCloseable {
 
     private static final String TAG = "SimpleSock";
-
-    private static final int BACKLOG = 50;
 
     private static final int PORT_BREVENT = 59527;
 
@@ -50,15 +49,28 @@ public class SimpleSock {
 
     private final Random random;
 
-    public SimpleSock() throws IOException {
-        this(PORT_BREVENT);
-    }
-
     public SimpleSock(int port) throws IOException {
         this.port = port;
-        this.server = new Server(port);
-        this.random = new SecureRandom();
-        new Thread(this.server).start();
+        server = new Server(port);
+        random = new SecureRandom();
+        Thread thread = new Thread(server);
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();
+        while (!server.canAccept()) {
+            Thread.yield();
+        }
+    }
+
+    public static SimpleSock newInstance() throws IOException {
+        int port = PORT_BREVENT;
+        while (true) {
+            try {
+                return new SimpleSock(port);
+            } catch (BindException e) {
+                i("port " + port + " " + e.getMessage());
+                port++;
+            }
+        }
     }
 
     public boolean check() {
@@ -72,55 +84,83 @@ public class SimpleSock {
             os.flush();
             return is.readInt() == number;
         } catch (IOException e) {
-            i("[c-check] io exception", e);
+            i("[client] " + e.getMessage(), e);
             return false;
         }
     }
 
-    public void quit() {
-        server.quit();
-        check();
+    @Override
+    public void close() throws IOException {
+        server.close();
+    }
+
+    static void i(String msg) {
+        System.out.println(msg);
     }
 
     static void i(String msg, Throwable t) {
         Log.i(TAG, msg, t);
     }
 
-    static class Server implements Runnable {
+    static class Server implements Runnable, AutoCloseable {
 
-        private final ServerSocket server;
+        private static final int BACKLOG = 50;
 
-        private volatile boolean quit;
+        private final ServerSocket serverSocket;
+
+        private volatile boolean closed;
+
+        private volatile boolean accept;
+
+        private final Object lock = new Object();
 
         Server(int port) throws IOException {
             InetSocketAddress address = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-            this.server = new ServerSocket();
-            this.server.setReuseAddress(true);
-            this.server.bind(address, BACKLOG);
+            serverSocket = new ServerSocket();
+            serverSocket.setReuseAddress(true);
+            serverSocket.bind(address, BACKLOG);
         }
 
-        void quit() {
-            this.quit = true;
+        @Override
+        public void close() throws IOException {
+            synchronized (lock) {
+                closed = true;
+                serverSocket.close();
+            }
+        }
+
+        boolean isClosed() {
+            synchronized (lock) {
+                return closed;
+            }
+        }
+
+        boolean canAccept() {
+            synchronized (lock) {
+                return accept;
+            }
         }
 
         @Override
         public void run() {
-            while (!quit) {
+            synchronized (lock) {
+                accept = true;
+            }
+            while (!isClosed()) {
                 try (
-                        Socket socket = server.accept();
+                        Socket socket = serverSocket.accept();
                         DataInputStream is = new DataInputStream(socket.getInputStream());
-                        DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+                        DataOutputStream os = new DataOutputStream(socket.getOutputStream())
                 ) {
                     os.writeInt(is.readInt());
                     os.flush();
                 } catch (IOException e) {
-                    i("[s-accept] io exception", e);
+                    if (isClosed()) {
+                        break;
+                    } else {
+                        i("[server] " + e.getMessage(), e);
+                    }
                 }
-            }
-            try {
-                server.close();
-            } catch (IOException e) {
-                i("[s-close] io exception", e);
             }
         }
     }
