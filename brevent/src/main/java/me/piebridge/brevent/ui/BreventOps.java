@@ -5,6 +5,7 @@ import android.app.AppOpsManager;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
@@ -58,10 +59,6 @@ public class BreventOps extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ops);
-        String opsPackage = getOpsPackage();
-        if (TextUtils.isEmpty(opsPackage)) {
-            finish();
-        }
 
         toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
@@ -88,7 +85,7 @@ public class BreventOps extends AbstractActivity {
         }
 
         opsFragment = new OpsFragment();
-        opsFragment.getArguments().putString(Intent.EXTRA_PACKAGE_NAME, opsPackage);
+        opsFragment.getArguments().putString(Intent.EXTRA_PACKAGE_NAME, getOpsPackage());
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -105,6 +102,10 @@ public class BreventOps extends AbstractActivity {
         if (TextUtils.isEmpty(opsPackage)) {
             return null;
         }
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.getInstantPackageInfo(opsPackage) != null) {
+            return opsPackage;
+        }
         try {
             getPackageManager().getApplicationInfo(opsPackage, 0);
             return opsPackage;
@@ -118,9 +119,24 @@ public class BreventOps extends AbstractActivity {
     protected void onResume() {
         super.onResume();
         String opsPackage = getOpsPackage();
+        if (TextUtils.isEmpty(opsPackage)) {
+            finish();
+        } else {
+            updateTitle(opsPackage);
+        }
+    }
+
+    private void updateTitle(String opsPackage) {
+        BreventApplication application = (BreventApplication) getApplication();
         PackageManager packageManager = getPackageManager();
         try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(opsPackage, 0);
+            ApplicationInfo applicationInfo;
+            PackageInfo packageInfo = application.getInstantPackageInfo(opsPackage);
+            if (packageInfo != null) {
+                applicationInfo = packageInfo.applicationInfo;
+            } else {
+                applicationInfo = packageManager.getApplicationInfo(opsPackage, 0);
+            }
             setTitle(applicationInfo.loadLabel(packageManager));
         } catch (PackageManager.NameNotFoundException e) {
             UILog.w("Can't find " + opsPackage, e);

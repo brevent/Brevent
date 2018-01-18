@@ -1,5 +1,6 @@
 package me.piebridge.brevent.protocol;
 
+import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.SystemClock;
@@ -67,6 +68,8 @@ public class BreventResponse extends BreventProtocol {
 
     public final boolean mForceStopped;
 
+    public final Collection<PackageInfo> mInstantPackages;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
@@ -75,7 +78,7 @@ public class BreventResponse extends BreventProtocol {
                            Collection<String> fullPowerList, boolean supportUpgrade,
                            String alipaySum, String vpn, Collection<String> packages,
                            boolean supportAppops, boolean alipaySin, boolean promotion,
-                           boolean forceStopped) {
+                           boolean forceStopped, Collection<PackageInfo> instantPackages) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -96,6 +99,7 @@ public class BreventResponse extends BreventProtocol {
         mAlipaySin = alipaySin;
         mPromotion = promotion;
         mForceStopped = forceStopped;
+        mInstantPackages = instantPackages;
     }
 
     BreventResponse(Parcel in) {
@@ -119,6 +123,7 @@ public class BreventResponse extends BreventProtocol {
         mAlipaySin = in.readInt() != 0;
         mPromotion = in.readInt() != 0;
         mForceStopped = in.readInt() != 0;
+        mInstantPackages = ParcelUtils.readPackages(in);
     }
 
     @Override
@@ -143,6 +148,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mAlipaySin ? 1 : 0);
         dest.writeInt(mPromotion ? 1 : 0);
         dest.writeInt(mForceStopped ? 1 : 0);
+        ParcelUtils.writePackages(dest, mInstantPackages);
     }
 
     public static boolean isStandby(SparseIntArray status) {

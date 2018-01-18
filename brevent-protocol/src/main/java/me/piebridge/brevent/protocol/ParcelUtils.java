@@ -1,5 +1,6 @@
 package me.piebridge.brevent.protocol;
 
+import android.content.pm.PackageInfo;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,6 +94,29 @@ class ParcelUtils {
             for (int i = 0; i < size; ++i) {
                 dest.writeString(map.keyAt(i));
                 writeSparseIntArray(dest, map.valueAt(i));
+            }
+        }
+    }
+
+    static Collection<PackageInfo> readPackages(Parcel in) {
+        int size = in.readInt();
+        if (size <= 0) {
+            return new ArraySet<>();
+        }
+        Collection<PackageInfo> collection = new ArraySet<>(size);
+        for (int i = 0; i < size; ++i) {
+            collection.add(PackageInfo.CREATOR.createFromParcel(in));
+        }
+        return collection;
+    }
+
+    static void writePackages(Parcel dest, Collection<PackageInfo> collection) {
+        if (collection == null) {
+            dest.writeInt(-1);
+        } else {
+            dest.writeInt(collection.size());
+            for (PackageInfo packageInfo : collection) {
+                packageInfo.writeToParcel(dest, 0);
             }
         }
     }

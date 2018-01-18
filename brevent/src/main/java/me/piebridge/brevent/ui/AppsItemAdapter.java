@@ -15,7 +15,6 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,7 +161,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         } else {
             viewHolder.nameView.setText(viewHolder.label);
             viewHolder.iconView.setImageTintList(null);
-            new AppsIconTask().execute(getActivity().getPackageManager(), viewHolder);
+            new AppsIconTask().execute(getActivity().getApplication(), viewHolder);
             viewHolder.cardView.setBackgroundColor(cardColorBackgroundDefault);
         }
     }

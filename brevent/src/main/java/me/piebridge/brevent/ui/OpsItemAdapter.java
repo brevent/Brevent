@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.IPackageManager;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
@@ -80,7 +81,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         mFragment = fragment;
         mPackageName = packageName;
         mOpsInfo = new ArrayList<>();
-        SparseArray<OpsInfo> opss = load(packageName);
+        SparseArray<OpsInfo> opss = load(getApplication(), packageName);
         int size = NAMES.size();
         for (int i = 0; i < size; ++i) {
             int op = NAMES.keyAt(i);
@@ -95,6 +96,10 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         Collections.sort(mOpsInfo, getSortMethod());
     }
 
+    private BreventApplication getApplication() {
+        return (BreventApplication) mFragment.getActivity().getApplication();
+    }
+
     private OpsInfo getOpsInfo(SparseArray<OpsInfo> opss, int op) {
         OpsInfo opsInfo = opss.get(op, null);
         if (opsInfo == null) {
@@ -107,7 +112,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
 
     void refresh() {
         List<OpsInfo> mOld = new ArrayList<>(mOpsInfo);
-        SparseArray<OpsInfo> opss = load(mPackageName);
+        SparseArray<OpsInfo> opss = load(getApplication(), mPackageName);
         for (OpsInfo opsInfo : mOpsInfo) {
             opsInfo.update(getOpsInfo(opss, opsInfo.op));
         }
@@ -319,11 +324,17 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         return true;
     }
 
-    static List getOpsForPackage(String packageName) {
-        IBinder service = ServiceManager.getService(Context.APP_OPS_SERVICE);
-        IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(service);
-        int packageUid = getPackageUid(packageName, BreventApplication.getOwner());
+    static List getOpsForPackage(BreventApplication application, String packageName) {
+        PackageInfo packageInfo = application.getInstantPackageInfo(packageName);
+        int packageUid;
+        if (packageInfo != null) {
+            packageUid = packageInfo.applicationInfo.uid;
+        } else {
+            packageUid = getPackageUid(packageName, BreventApplication.getOwner());
+        }
         try {
+            IBinder service = ServiceManager.getService(Context.APP_OPS_SERVICE);
+            IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(service);
             return appOpsService.getOpsForPackage(packageUid, packageName, null);
         } catch (RemoteException | RuntimeException e) {
             UILog.w("Can't getOpsForPackage", e);
@@ -331,9 +342,9 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         }
     }
 
-    private static SparseArray<OpsInfo> load(String packageName) {
+    private static SparseArray<OpsInfo> load(BreventApplication application, String packageName) {
         SparseArray<OpsInfo> opss = new SparseArray<>();
-        for (Object packageOps : getOpsForPackage(packageName)) {
+        for (Object packageOps : getOpsForPackage(application, packageName)) {
             for (Object opEntry : HideApiOverride.getPackageOpsOps(packageOps)) {
                 int op = HideApiOverride.getOpEntryOp(opEntry);
                 int mode = HideApiOverride.getOpEntryMode(opEntry);

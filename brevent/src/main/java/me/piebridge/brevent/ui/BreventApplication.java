@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Resources;
@@ -18,6 +19,7 @@ import android.os.Message;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.support.v4.util.ArrayMap;
+import android.support.v4.util.SimpleArrayMap;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.text.TextUtils;
@@ -115,6 +117,8 @@ public class BreventApplication extends Application implements DonationPreferenc
     private boolean starting;
 
     private boolean grantedWarned;
+
+    SimpleArrayMap<String, PackageInfo> mInstantPackages = new SimpleArrayMap<>();
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -248,6 +252,10 @@ public class BreventApplication extends Application implements DonationPreferenc
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
         setPromotion(breventResponse.mPromotion);
+        mInstantPackages.clear();
+        for (PackageInfo packageInfo : breventResponse.mInstantPackages) {
+            mInstantPackages.put(packageInfo.packageName, packageInfo);
+        }
         if (BuildConfig.RELEASE && shouldUpdated) {
             long daemon = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mDaemonTime);
             long server = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mServerTime);
@@ -703,6 +711,10 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     public void setGrantedWarned(boolean grantedWarned) {
         this.grantedWarned = grantedWarned;
+    }
+
+    public PackageInfo getInstantPackageInfo(String packageName) {
+        return mInstantPackages.get(packageName);
     }
 
 }

@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -39,6 +38,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
                 .getBoolean(SettingsFragment.SHOW_ALL_APPS, SettingsFragment.DEFAULT_SHOW_ALL_APPS);
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(activity);
+        BreventApplication application = (BreventApplication) activity.getApplication();
         Collection<String> packageNames = activity.mPackages;
         int max = packageNames.size();
         int progress = 0;
@@ -48,18 +48,19 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
             query = AppsLabelLoader.trim(query).toString().toLowerCase(Locale.US);
         }
         for (String packageName : packageNames) {
-            PackageInfo packageInfo;
+            PackageInfo packageInfo = application.getInstantPackageInfo(packageName);
             try {
-                packageInfo = packageManager.getPackageInfo(packageName, 0);
+                if (packageInfo == null) {
+                    packageInfo = packageManager.getPackageInfo(packageName, 0);
+                }
             } catch (PackageManager.NameNotFoundException e) {
                 UILog.w("Can't find package " + packageName, e);
                 continue;
             }
-            ApplicationInfo appInfo = packageInfo.applicationInfo;
-            if (appInfo.enabled && mAdapter.accept(packageManager, packageInfo, showAllApps)) {
+            if (mAdapter.accept(packageManager, packageInfo, showAllApps)) {
                 String label = labelLoader.loadLabel(packageManager, packageInfo);
                 if (query == null || acceptLabel(label, query)
-                        || acceptPackageName(appInfo.packageName, query)) {
+                        || acceptPackageName(packageName, query)) {
                     mAdapter.addPackage(activity, packageInfo, label);
                     size++;
                 }

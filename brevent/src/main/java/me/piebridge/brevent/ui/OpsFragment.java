@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,8 @@ public class OpsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mRecycler != null && mRecycler.getAdapter() == null) {
-            String packageName = getArguments().getString(Intent.EXTRA_PACKAGE_NAME);
+        String packageName = getArguments().getString(Intent.EXTRA_PACKAGE_NAME);
+        if (mRecycler != null && mRecycler.getAdapter() == null && !TextUtils.isEmpty(packageName)) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             linearLayoutManager.setAutoMeasureEnabled(true);
             mRecycler.setLayoutManager(linearLayoutManager);
