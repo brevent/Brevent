@@ -13,4 +13,8 @@ public class SystemProperties {
         throw new UnsupportedOperationException();
     }
 
+    public static void set(String key, String val) {
+        throw new UnsupportedOperationException();
+    }
+
 }
