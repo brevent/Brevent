@@ -74,6 +74,7 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -209,7 +210,7 @@ public class BreventActivity extends AbstractActivity
     private Set<String> mPriority = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
-    private volatile SimpleArrayMap<String, UsageStats> mStats = null;
+    private volatile SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
     Set<String> mPackages = new ArraySet<>();
     private String mVpn;
@@ -251,6 +252,8 @@ public class BreventActivity extends AbstractActivity
     private boolean shouldUpdateConfiguration;
     private boolean shouldOpenSettings;
     private boolean force;
+
+    private UsageStatsManager mUsageStatsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,6 +301,8 @@ public class BreventActivity extends AbstractActivity
             super.finish();
         } else {
             setContentView(R.layout.activity_brevent);
+
+            mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
 
             mCoordinator = findViewById(R.id.coordinator);
             mToolbar = findViewById(R.id.toolbar);
@@ -1244,21 +1249,34 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
+    private static SimpleArrayMap<String, UsageStats> retrieveStats(UsageStatsManager manager) {
+        SimpleArrayMap<String, UsageStats> arrayMap = new SimpleArrayMap<>();
+        List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST,
+                BreventProtocol.getStatsStartTime(), System.currentTimeMillis());
+        if (stats == null) {
+            return arrayMap;
+        }
+        for (UsageStats stat : stats) {
+            String packageName = stat.getPackageName();
+            int key = arrayMap.indexOfKey(packageName);
+            if (key >= 0) {
+                arrayMap.valueAt(key).add(stat);
+            } else {
+                arrayMap.put(packageName, new UsageStats(stat));
+            }
+        }
+        return arrayMap;
+    }
+
     private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
         showAlipay(status.mAlipaySum, status.mAlipaySin);
 
-        if (mStats == null) {
-            synchronized (updateLock) {
-                if (mStats == null) {
-                    mStats = new SimpleArrayMap<>();
-                    retrieveStats();
-                }
-            }
-        }
-
         synchronized (updateLock) {
+            mStats.clear();
+            mStats.putAll(retrieveStats(mUsageStatsManager));
+            mStats.putAll(status.mStats);
             mProcesses.clear();
             mProcesses.putAll(status.mProcesses);
         }
@@ -1392,25 +1410,6 @@ public class BreventActivity extends AbstractActivity
             BreventServerReceiver.showAlipay(((BreventApplication) getApplication()),
                     alipaySum, alipaySin);
             doUpdateConfiguration();
-        }
-    }
-
-    private void retrieveStats() {
-        UsageStatsManager manager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-        List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST,
-                BEGIN, System.currentTimeMillis());
-        if (stats == null) {
-            UILog.i("no stats");
-            return;
-        }
-        for (UsageStats stat : stats) {
-            String packageName = stat.getPackageName();
-            int key = mStats.indexOfKey(packageName);
-            if (key >= 0) {
-                mStats.valueAt(key).add(stat);
-            } else {
-                mStats.put(packageName, new UsageStats(stat));
-            }
         }
     }
 

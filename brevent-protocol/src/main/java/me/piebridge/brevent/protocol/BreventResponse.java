@@ -1,5 +1,6 @@
 package me.piebridge.brevent.protocol;
 
+import android.app.usage.UsageStats;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Parcel;
@@ -70,6 +71,8 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<PackageInfo> mInstantPackages;
 
+    public final SimpleArrayMap<String, UsageStats> mStats;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
@@ -78,7 +81,8 @@ public class BreventResponse extends BreventProtocol {
                            Collection<String> fullPowerList, boolean supportUpgrade,
                            String alipaySum, String vpn, Collection<String> packages,
                            boolean supportAppops, boolean alipaySin, boolean promotion,
-                           boolean forceStopped, Collection<PackageInfo> instantPackages) {
+                           boolean forceStopped, Collection<PackageInfo> instantPackages,
+                           SimpleArrayMap<String, UsageStats> stats) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -100,13 +104,14 @@ public class BreventResponse extends BreventProtocol {
         mPromotion = promotion;
         mForceStopped = forceStopped;
         mInstantPackages = instantPackages;
+        mStats = stats;
     }
 
     BreventResponse(Parcel in) {
         super(in);
         mBrevent = ParcelUtils.readCollection(in);
         mPriority = ParcelUtils.readCollection(in);
-        mProcesses = ParcelUtils.readSimpleArrayMap(in);
+        mProcesses = ParcelUtils.readSparseIntArrayMap(in);
         mTrustAgents = ParcelUtils.readCollection(in);
         mSupportStopped = in.readInt() != 0;
         mSupportStandby = in.readInt() != 0;
@@ -124,6 +129,7 @@ public class BreventResponse extends BreventProtocol {
         mPromotion = in.readInt() != 0;
         mForceStopped = in.readInt() != 0;
         mInstantPackages = ParcelUtils.readPackages(in);
+        mStats = ParcelUtils.readUsageStatsMap(in);
     }
 
     @Override
@@ -131,7 +137,7 @@ public class BreventResponse extends BreventProtocol {
         super.writeToParcel(dest, flags);
         ParcelUtils.writeCollection(dest, mBrevent);
         ParcelUtils.writeCollection(dest, mPriority);
-        ParcelUtils.writeSimpleArrayMap(dest, mProcesses);
+        ParcelUtils.writeSpareIntArrayMap(dest, mProcesses);
         ParcelUtils.writeCollection(dest, mTrustAgents);
         dest.writeInt(mSupportStopped ? 1 : 0);
         dest.writeInt(mSupportStandby ? 1 : 0);
@@ -149,6 +155,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mPromotion ? 1 : 0);
         dest.writeInt(mForceStopped ? 1 : 0);
         ParcelUtils.writePackages(dest, mInstantPackages);
+        ParcelUtils.writeUsageStatsMap(dest, mStats);
     }
 
     public static boolean isStandby(SparseIntArray status) {

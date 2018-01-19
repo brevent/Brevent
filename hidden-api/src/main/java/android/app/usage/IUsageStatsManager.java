@@ -1,5 +1,6 @@
 package android.app.usage;
 
+import android.content.pm.ParceledListSlice;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -18,6 +19,9 @@ public interface IUsageStatsManager {
      */
     @RequiresApi(Build.VERSION_CODES.M)
     boolean isAppInactive(String packageName, int userId) throws RemoteException;
+
+    ParceledListSlice queryUsageStats(int bucketType, long beginTime, long endTime,
+                                      String callingPackage);
 
     abstract class Stub {
 

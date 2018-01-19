@@ -1,5 +1,6 @@
 package me.piebridge.brevent.protocol;
 
+import android.app.usage.UsageStats;
 import android.content.pm.PackageInfo;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -53,7 +54,9 @@ class ParcelUtils {
         }
         SparseIntArray array = new SparseIntArray(size);
         for (int i = 0; i < size; ++i) {
-            array.append(in.readInt(), in.readInt());
+            int key = in.readInt();
+            int value = in.readInt();
+            array.append(key, value);
         }
         return array;
     }
@@ -72,20 +75,22 @@ class ParcelUtils {
     }
 
     @NonNull
-    static SimpleArrayMap<String, SparseIntArray> readSimpleArrayMap(Parcel in) {
+    static SimpleArrayMap<String, SparseIntArray> readSparseIntArrayMap(Parcel in) {
         int size = in.readInt();
         if (size <= 0) {
             return new SimpleArrayMap<>();
         }
         SimpleArrayMap<String, SparseIntArray> map = new SimpleArrayMap<>(size);
         for (int i = 0; i < size; ++i) {
-            map.put(in.readString(), readSparseIntArray(in));
+            String key = in.readString();
+            SparseIntArray value = readSparseIntArray(in);
+            map.put(key, value);
         }
         return map;
     }
 
-    static void writeSimpleArrayMap(Parcel dest,
-                                    @Nullable SimpleArrayMap<String, SparseIntArray> map) {
+    static void writeSpareIntArrayMap(Parcel dest,
+                                      @Nullable SimpleArrayMap<String, SparseIntArray> map) {
         if (map == null) {
             dest.writeInt(-1);
         } else {
@@ -117,6 +122,34 @@ class ParcelUtils {
             dest.writeInt(collection.size());
             for (PackageInfo packageInfo : collection) {
                 packageInfo.writeToParcel(dest, 0);
+            }
+        }
+    }
+
+    @NonNull
+    static SimpleArrayMap<String, UsageStats> readUsageStatsMap(Parcel in) {
+        int size = in.readInt();
+        if (size <= 0) {
+            return new SimpleArrayMap<>();
+        }
+        SimpleArrayMap<String, UsageStats> map = new SimpleArrayMap<>(size);
+        for (int i = 0; i < size; ++i) {
+            String key = in.readString();
+            UsageStats value = UsageStats.CREATOR.createFromParcel(in);
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    static void writeUsageStatsMap(Parcel dest, @Nullable SimpleArrayMap<String, UsageStats> map) {
+        if (map == null) {
+            dest.writeInt(-1);
+        } else {
+            int size = map.size();
+            dest.writeInt(size);
+            for (int i = 0; i < size; ++i) {
+                dest.writeString(map.keyAt(i));
+                map.valueAt(i).writeToParcel(dest, 0);
             }
         }
     }

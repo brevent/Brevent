@@ -18,6 +18,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -263,6 +264,12 @@ public abstract class BreventProtocol {
             // do nothing
             return null;
         }
+    }
+
+    public static long getStatsStartTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -0x5);
+        return calendar.getTimeInMillis();
     }
 
     public static class IOTooLargeException extends IOException {
