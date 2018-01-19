@@ -338,7 +338,7 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
             return appOpsService.getOpsForPackage(packageUid, packageName, null);
         } catch (RemoteException | RuntimeException e) {
             UILog.w("Can't getOpsForPackage", e);
-            return null;
+            return Collections.emptyList();
         }
     }
 

@@ -64,7 +64,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     private AppsFragment mFragment;
 
-    private boolean mCompleted;
+    private volatile boolean mCompleted;
 
     private boolean mSuccess;
 
@@ -309,7 +309,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
         mCompleted = false;
         mSuccess = false;
-        mNext.clear();
+        synchronized (mNext) {
+            mNext.clear();
+        }
         mChanged = true;
         mPackages.clear();
         mHandler.sendEmptyMessage(AppsItemHandler.MSG_STOP_UPDATE);
@@ -319,7 +321,9 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     public void updateAppsInfo() {
         if (mCompleted) {
             if (mSuccess) {
-                updateAppsStatus();
+                synchronized (mNext) {
+                    updateAppsStatus();
+                }
                 mHandler.sendEmptyMessage(AppsItemHandler.MSG_UPDATE_ITEM);
             } else {
                 retrievePackages();
@@ -428,7 +432,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     }
 
     public void addPackage(BreventActivity activity, PackageInfo packageInfo, String label) {
-        if (mPackages.add(packageInfo.packageName)) {
+        if (!mCompleted && mPackages.add(packageInfo.packageName)) {
             AppsInfo appsInfo = new AppsInfo(packageInfo.packageName, label);
             appsInfo.lastUpdateTime = packageInfo.lastUpdateTime;
             appsInfo.stats = activity.getStats(packageInfo.packageName);

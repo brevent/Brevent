@@ -2075,7 +2075,7 @@ public class BreventActivity extends AbstractActivity
         BreventApplication application = (BreventApplication) getApplication();
         return getPackageManager().checkPermission("android.permission.GET_APP_OPS_STATS",
                 BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED
-                && OpsItemAdapter.getOpsForPackage(application, packageName) != null;
+                && !OpsItemAdapter.getOpsForPackage(application, packageName).isEmpty();
     }
 
     public void updateSort() {

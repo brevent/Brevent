@@ -43,9 +43,12 @@ public class AppsPaymentFragment extends AbstractDialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        BreventActivity activity = (BreventActivity) getActivity();
+        if (activity == null || activity.isStopped()) {
+            return;
+        }
         if (DialogInterface.BUTTON_POSITIVE == which) {
             dismiss();
-            BreventActivity activity = (BreventActivity) getActivity();
             activity.openSettings();
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
             dismiss();

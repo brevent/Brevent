@@ -42,8 +42,8 @@ public class AppsDonateFragment extends AbstractDialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Activity activity = getActivity();
-        if (activity == null) {
+        AbstractActivity activity = (AbstractActivity) getActivity();
+        if (activity == null || activity.isStopped()) {
             return;
         }
         if (DialogInterface.BUTTON_POSITIVE == which) {

@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.v4.util.ArraySet;
 
 import java.util.Collection;
 import java.util.Locale;
@@ -39,7 +40,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(activity);
         BreventApplication application = (BreventApplication) activity.getApplication();
-        Collection<String> packageNames = activity.mPackages;
+        Collection<String> packageNames = new ArraySet(activity.mPackages);
         int max = packageNames.size();
         int progress = 0;
         int size = 0;

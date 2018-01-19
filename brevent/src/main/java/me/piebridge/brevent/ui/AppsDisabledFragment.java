@@ -109,7 +109,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         BreventActivity activity = (BreventActivity) getActivity();
-        if (activity == null) {
+        if (activity == null || activity.isStopped()) {
             return;
         }
         if (which == DialogInterface.BUTTON_POSITIVE) {

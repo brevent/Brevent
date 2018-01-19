@@ -28,6 +28,9 @@ public class OpsSortFragment extends AbstractDialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         BreventOps activity = (BreventOps) getActivity();
+        if (activity == null || activity.isStopped()) {
+            return;
+        }
         if (getChecked(activity) != which) {
             PreferencesUtils.getPreferences(activity)
                     .edit().putInt(OPS_SORT_METHOD, which).apply();
