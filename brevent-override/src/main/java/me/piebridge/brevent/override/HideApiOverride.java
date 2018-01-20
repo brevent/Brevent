@@ -3,6 +3,7 @@ package me.piebridge.brevent.override;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
+import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
@@ -48,6 +49,8 @@ public class HideApiOverride {
 
     private static final int RECENT_IGNORE_HOME_STACK_TASKS = getRecentIgnoreHomeStackTasks();
     private static final int RECENT_INCLUDE_PROFILES = getRecentIncludeProfiles();
+
+    private static int flagForwardLock;
 
     private HideApiOverride() {
 
@@ -452,6 +455,15 @@ public class HideApiOverride {
         }
     }
 
+    public static int getFlagForwardLock() {
+        try {
+            return ApplicationInfo.FLAG_FORWARD_LOCK;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find  ApplicationInfo.FLAG_FORWARD_LOCK");
+            return 1 << 29;
+        }
+    }
+
     public static AssetManager newAssetManager() {
         return new AssetManager();
     }
@@ -466,6 +478,17 @@ public class HideApiOverride {
 
     public static long getLastEvent(UsageStats stats) {
         return stats.mLastEvent;
+    }
+
+    public static boolean isForwardLockedM(ApplicationInfo applicationInfo) {
+        return applicationInfo.isForwardLocked();
+    }
+
+    public static boolean isForwardLockedL(int flags) {
+        if (flagForwardLock == 0) {
+            flagForwardLock = getFlagForwardLock();
+        }
+       return (flags & flagForwardLock) != 0;
     }
 
 }

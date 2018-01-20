@@ -294,6 +294,8 @@ public class BreventActivity extends AbstractActivity
             showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
+        } else if (isInvalidLocation()) {
+            showUnsupported(R.string.unsupported_location);
         } else if (shouldShowGuide()) {
             openGuide("first");
             super.finish();
@@ -335,6 +337,27 @@ public class BreventActivity extends AbstractActivity
                     android.R.attr.colorControlHighlight);
 
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+        }
+    }
+
+    private boolean isInvalidLocation() {
+        try {
+            ApplicationInfo applicationInfo = getPackageManager()
+                    .getApplicationInfo(BuildConfig.APPLICATION_ID, 0);
+            int flags = applicationInfo.flags;
+            final int system = ApplicationInfo.FLAG_SYSTEM;
+            final int external = ApplicationInfo.FLAG_EXTERNAL_STORAGE;
+            if ((flags & (system | external)) != 0) {
+                return true;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return HideApiOverride.isForwardLockedM(applicationInfo);
+            } else {
+                return HideApiOverride.isForwardLockedL(flags);
+            }
+        } catch (PackageManager.NameNotFoundException | LinkageError | RuntimeException e) {
+            UILog.w("Can't check location", e);
+            return false;
         }
     }
 

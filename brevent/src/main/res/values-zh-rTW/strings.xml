@@ -204,6 +204,7 @@
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
     <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_checking">暫不支持「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
+    <string name="unsupported_location">黑域不支持各種奇怪的安裝位置，請重新安裝。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_add_package">成功黑域「%1$s」，共 %2$d 個</string>
