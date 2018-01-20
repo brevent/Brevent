@@ -74,7 +74,6 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -108,8 +107,6 @@ public class BreventActivity extends AbstractActivity
     private static final int DELAY5 = 5000;
 
     private static final int DELAY15 = 15000;
-
-    public static final long BEGIN = 1415750400_000L;
 
     private static final String GMS = "com.google.android.gms";
 
@@ -185,6 +182,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_USB = "usb";
     private static final String FRAGMENT_GRANTED = "granted";
     private static final String FRAGMENT_CHECKING = "checking";
+    private static final String FRAGMENT_PROMOTION = "promotion";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -1336,6 +1334,15 @@ public class BreventActivity extends AbstractActivity
             if (isChecking()) {
                 checkChecking(status);
             }
+            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
+            final String key = "promotion";
+            if (status.mPromotion != preferences.getInt(key, BreventResponse.PROMOTION_DEFAULT)
+                    || status.mDaemonTime != preferences.getLong(BreventSettings.DAEMON_TIME, 0)) {
+                if (status.mPromotion != BreventResponse.PROMOTION_INVALID) {
+                    preferences.edit().putInt(key, status.mPromotion).apply();
+                }
+                showWarning(FRAGMENT_PROMOTION, getPromotion(status.mPromotion));
+            }
         }
 
         if (!status.mGranted && !application.isGrantedWarned()) {
@@ -1359,6 +1366,24 @@ public class BreventActivity extends AbstractActivity
             if (days > 0x2) {
                 checkBreventList(application, days);
             }
+        }
+        SharedPreferences preferences = PreferencesUtils.getPreferences(this);
+        if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
+            preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
+        }
+    }
+
+    private int getPromotion(int promotion) {
+        switch (promotion) {
+            case BreventResponse.PROMOTION_INVALID:
+                return R.string.promotion_invalid;
+            case BreventResponse.PROMOTION_NONE:
+                return R.string.promotion_none;
+            case BreventResponse.PROMOTION_ONE:
+                return R.string.promotion_one;
+            default:
+                return 0;
+
         }
     }
 
@@ -1398,8 +1423,7 @@ public class BreventActivity extends AbstractActivity
             int mbDays = sp.getInt(AppsPaymentFragment.DAYS, 0);
             if (daemonTime != application.mDaemonTime || mbRequired != required || mbDays != days) {
                 showPayment(days, size, required);
-                sp.edit().putLong(BreventSettings.DAEMON_TIME, application.mDaemonTime)
-                        .putInt(AppsPaymentFragment.DAYS, days)
+                sp.edit().putInt(AppsPaymentFragment.DAYS, days)
                         .putInt(AppsPaymentFragment.REQUIRED, required).apply();
             }
         }
@@ -1658,6 +1682,9 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void showWarning(String tag, int resId) {
+        if (resId == 0) {
+            return;
+        }
         if (isStopped()) {
             return;
         }

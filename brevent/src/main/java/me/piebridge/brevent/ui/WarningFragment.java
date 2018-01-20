@@ -37,6 +37,10 @@ public class WarningFragment extends AbstractDialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        AbstractActivity activity = (AbstractActivity) getActivity();
+        if (activity == null || activity.isStopped()) {
+            return;
+        }
         if (which == DialogInterface.BUTTON_POSITIVE) {
             onClickOk();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
@@ -63,6 +67,9 @@ public class WarningFragment extends AbstractDialogFragment
                 break;
             case R.string.unsupported_checking:
                 ((BreventActivity) getActivity()).onUnsupportedChecking();
+                break;
+            case R.string.promotion_invalid:
+                getActivity().finish();
                 break;
             default:
                 break;

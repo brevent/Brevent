@@ -31,6 +31,16 @@ public class BreventResponse extends BreventProtocol {
 
     public static final int PROCESS_STATE_AUDIO_PAUSED = -6;
 
+    public static final int PROMOTION_INVALID = -3;
+
+    public static final int PROMOTION_NONE = -1;
+
+    public static final int PROMOTION_ZERO = 0;
+
+    public static final int PROMOTION_ONE = 1;
+
+    public static final int PROMOTION_DEFAULT = PROMOTION_ZERO;
+
     public final Collection<String> mBrevent;
 
     public final Collection<String> mPriority;
@@ -65,7 +75,7 @@ public class BreventResponse extends BreventProtocol {
 
     public final boolean mAlipaySin;
 
-    public final boolean mPromotion;
+    public final int mPromotion;
 
     public final boolean mForceStopped;
 
@@ -80,7 +90,7 @@ public class BreventResponse extends BreventProtocol {
                            Collection<String> androidProcesses,
                            Collection<String> fullPowerList, boolean supportUpgrade,
                            String alipaySum, String vpn, Collection<String> packages,
-                           boolean supportAppops, boolean alipaySin, boolean promotion,
+                           boolean supportAppops, boolean alipaySin, int promotion,
                            boolean forceStopped, Collection<PackageInfo> instantPackages,
                            SimpleArrayMap<String, UsageStats> stats) {
         super(BreventProtocol.STATUS_RESPONSE);
@@ -126,7 +136,7 @@ public class BreventResponse extends BreventProtocol {
         mPackages = ParcelUtils.readCollection(in);
         mSupportAppops = in.readInt() != 0;
         mAlipaySin = in.readInt() != 0;
-        mPromotion = in.readInt() != 0;
+        mPromotion = in.readInt();
         mForceStopped = in.readInt() != 0;
         mInstantPackages = ParcelUtils.readPackages(in);
         mStats = ParcelUtils.readUsageStatsMap(in);
@@ -152,7 +162,7 @@ public class BreventResponse extends BreventProtocol {
         ParcelUtils.writeCollection(dest, mPackages);
         dest.writeInt(mSupportAppops ? 1 : 0);
         dest.writeInt(mAlipaySin ? 1 : 0);
-        dest.writeInt(mPromotion ? 1 : 0);
+        dest.writeInt(mPromotion);
         dest.writeInt(mForceStopped ? 1 : 0);
         ParcelUtils.writePackages(dest, mInstantPackages);
         ParcelUtils.writeUsageStatsMap(dest, mStats);

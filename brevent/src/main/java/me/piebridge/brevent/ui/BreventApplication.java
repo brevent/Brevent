@@ -82,7 +82,7 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private boolean mUsbChanged = false;
 
-    private boolean mPromotion = false;
+    private int mPromotion = BreventResponse.PROMOTION_DEFAULT;
 
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
 
@@ -225,12 +225,12 @@ public class BreventApplication extends Application implements DonationPreferenc
         return mSupportAppops;
     }
 
-    private void setPromotion(boolean promotion) {
+    private void setPromotion(int promotion) {
         mPromotion = promotion;
     }
 
     public boolean isPromotion() {
-        return mPromotion;
+        return mPromotion == BreventResponse.PROMOTION_ONE;
     }
 
     public String getInstaller() {
