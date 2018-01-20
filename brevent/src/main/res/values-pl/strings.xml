@@ -186,7 +186,6 @@
     <string name="brevent_about_version_meizu">Meizu</string>
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_xiaomi">Xiaomi</string>
-    <string name="brevent_about_version_like_xiaomi">like Xiaomi</string>
     <string name="brevent_about_developer">Opcje programistyczne</string>
     <string name="brevent_about_developer_adb">\"Debugowanie USB\" jest włączone</string>
     <string name="brevent_about_translation">Tłumaczenie</string>

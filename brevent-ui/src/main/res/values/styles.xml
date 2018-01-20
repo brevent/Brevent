@@ -18,6 +18,7 @@
         <item name="android:colorPrimaryDark">#ff242424</item>
         <item name="android:colorAccent">#ff5e97f6</item>
         <item name="android:statusBarColor">?android:attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?android:attr/colorPrimaryDark</item>
         <item name="android:toolbarStyle">@style/toolbar</item>
         <item name="android:alertDialogTheme">@style/alertDialog</item>
         <item name="colorPrimary">?android:attr/colorPrimary</item>

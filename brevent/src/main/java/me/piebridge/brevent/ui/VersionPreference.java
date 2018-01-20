@@ -53,18 +53,9 @@ public class VersionPreference extends Preference {
 
     static String getVersion(Context context) {
         String installer = getInstaller(context);
-
-        int color = context.getResources().getIdentifier("ic_brevent_background", "color",
-                BuildConfig.APPLICATION_ID);
-        if (color == 0) {
-            if ("com.xiaomi.market".equals(installer)) {
-                return context.getString(R.string.brevent_about_version_xiaomi);
-            } else {
-                return context.getString(R.string.brevent_about_version_like_xiaomi);
-            }
-        }
-
-        if ("com.meizu.mstore".equals(installer)) {
+        if ("com.xiaomi.market".equals(installer)) {
+            return context.getString(R.string.brevent_about_version_xiaomi);
+        } else if ("com.meizu.mstore".equals(installer)) {
             return context.getString(R.string.brevent_about_version_meizu);
         } else if ("com.smartisanos.appstore".equals(installer)) {
             return context.getString(R.string.brevent_about_version_smartisan);

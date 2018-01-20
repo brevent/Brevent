@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.IconDrawableFactory;
 
+import me.piebridge.brevent.BuildConfig;
+
 /**
  * Created by thom on 2017/1/25.
  */
@@ -15,6 +17,10 @@ public class AppsIconTask extends AsyncTask<Object, Void, AppsItemViewHolder> {
     protected AppsItemViewHolder doInBackground(Object... params) {
         BreventApplication application = (BreventApplication) params[0];
         AppsItemViewHolder holder = (AppsItemViewHolder) params[1];
+        if (BuildConfig.APPLICATION_ID.equals(holder.packageName)) {
+            holder.icon = null;
+            return holder;
+        }
         PackageManager packageManager = application.getPackageManager();
         String packageName = holder.packageName;
         try {
@@ -39,7 +45,9 @@ public class AppsIconTask extends AsyncTask<Object, Void, AppsItemViewHolder> {
 
     @Override
     protected void onPostExecute(AppsItemViewHolder holder) {
-        if (holder.icon != null) {
+        if (BuildConfig.APPLICATION_ID.equals(holder.packageName)) {
+            holder.iconView.setImageResource(BuildConfig.ICON);
+        } else if (holder.icon != null) {
             holder.iconView.setImageDrawable(holder.icon);
             holder.icon = null;
         }
