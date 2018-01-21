@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
+import java.util.Objects;
+
 /**
  * Created by thom on 2017/1/31.
  */
@@ -39,7 +41,7 @@ public class AppsLabelLoader {
         return lastSync;
     }
 
-    public String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {
+    public String getLabel(PackageManager packageManager, PackageInfo packageInfo) {
         long lastUpdateTime = packageInfo.lastUpdateTime;
         if (lastUpdateTime > mLastUpdateTime) {
             mLastUpdateTime = lastUpdateTime;
@@ -48,23 +50,27 @@ public class AppsLabelLoader {
         if (lastUpdateTime <= mLastSync && mPreferences.contains(packageName)) {
             return mPreferences.getString(packageName, packageName);
         } else {
-            Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
-            CharSequence label;
-            if (launchIntent == null) {
-                label = packageInfo.applicationInfo.loadLabel(packageManager);
-            } else {
-                label = packageManager.resolveActivity(launchIntent, 0).activityInfo
-                        .loadLabel(packageManager);
-            }
-            if (label == null) {
-                label = packageName;
-            }
-            String name = trim(label).toString();
-            if (!label.equals(mPreferences.getString(packageName, null))) {
+            String name = loadLabel(packageManager, packageInfo);
+            if (!Objects.equals(name, mPreferences.getString(packageName, null))) {
                 mPreferences.edit().putString(packageName, name).apply();
             }
             return name;
         }
+    }
+
+    public static String loadLabel(PackageManager packageManager, PackageInfo packageInfo) {
+        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageInfo.packageName);
+        CharSequence label;
+        if (launchIntent == null) {
+            label = packageInfo.applicationInfo.loadLabel(packageManager);
+        } else {
+            label = packageManager.resolveActivity(launchIntent, 0)
+                    .activityInfo.loadLabel(packageManager);
+        }
+        if (label == null) {
+            label = packageInfo.packageName;
+        }
+        return trim(label).toString();
     }
 
     public void onCompleted() {

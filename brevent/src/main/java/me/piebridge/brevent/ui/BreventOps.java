@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.AppOpsManager;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -130,14 +129,11 @@ public class BreventOps extends AbstractActivity {
         BreventApplication application = (BreventApplication) getApplication();
         PackageManager packageManager = getPackageManager();
         try {
-            ApplicationInfo applicationInfo;
             PackageInfo packageInfo = application.getInstantPackageInfo(opsPackage);
-            if (packageInfo != null) {
-                applicationInfo = packageInfo.applicationInfo;
-            } else {
-                applicationInfo = packageManager.getApplicationInfo(opsPackage, 0);
+            if (packageInfo == null) {
+                packageInfo = packageManager.getPackageInfo(opsPackage, 0);
             }
-            setTitle(applicationInfo.loadLabel(packageManager));
+            setTitle(AppsLabelLoader.loadLabel(packageManager, packageInfo));
         } catch (PackageManager.NameNotFoundException e) {
             UILog.w("Can't find " + opsPackage, e);
             finish();

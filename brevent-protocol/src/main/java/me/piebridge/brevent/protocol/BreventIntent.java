@@ -18,6 +18,7 @@ public final class BreventIntent {
     public static final String PERMISSION_MANAGER = "me.piebridge.brevent.permission.MANAGER";
 
     public static final String EXTRA_HOME_TID = "me.piebridge.brevent.intent.extra.HOME_TID";
+    public static final String EXTRA_PACKAGE_INFO = "me.piebridge.brevent.intent.extra.PACKAGE_INFO";
     public static final String EXTRA_BREVENT_SIZE = "me.piebridge.brevent.intent.extra.BREVENT_SIZE";
     public static final String EXTRA_ALIPAY_SUM = "me.piebridge.brevent.intent.extra.ALIPAY_SUM";
     public static final String EXTRA_ALIPAY_SIN = "me.piebridge.brevent.intent.extra.ALIPAY_SIN";
