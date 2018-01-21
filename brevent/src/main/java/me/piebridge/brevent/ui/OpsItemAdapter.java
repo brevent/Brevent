@@ -335,11 +335,14 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
         try {
             IBinder service = ServiceManager.getService(Context.APP_OPS_SERVICE);
             IAppOpsService appOpsService = IAppOpsService.Stub.asInterface(service);
-            return appOpsService.getOpsForPackage(packageUid, packageName, null);
+            List packageOpsList = appOpsService.getOpsForPackage(packageUid, packageName, null);
+            if (packageOpsList != null) {
+                return packageOpsList;
+            }
         } catch (RemoteException | RuntimeException e) {
             UILog.w("Can't getOpsForPackage", e);
-            return Collections.emptyList();
         }
+        return Collections.emptyList();
     }
 
     private static SparseArray<OpsInfo> load(BreventApplication application, String packageName) {
