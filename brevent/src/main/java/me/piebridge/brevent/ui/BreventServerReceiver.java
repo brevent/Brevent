@@ -9,6 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -129,6 +133,18 @@ public class BreventServerReceiver extends BroadcastReceiver {
         return (response != null && response instanceof BreventPackages);
     }
 
+    static Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
     private void showBrevented(Context context, PackageInfo packageInfo, String token) {
         String label = AppsLabelLoader.loadLabel(context.getPackageManager(), packageInfo);
         NotificationManager nm = BreventIntentService.getNotificationManager(context);
@@ -139,6 +155,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         builder.setGroupSummary(true);
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         builder.setSmallIcon(BuildConfig.IC_STAT);
+        builder.setLargeIcon(drawableToBitmap(AppsIconTask.loadIcon(context, packageInfo)));
         builder.setContentTitle(context.getString(R.string.brevented_app, label));
         builder.setContentText(context.getString(R.string.unbrevent_app));
 

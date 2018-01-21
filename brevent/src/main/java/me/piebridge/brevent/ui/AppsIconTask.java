@@ -1,9 +1,12 @@
 package me.piebridge.brevent.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.IconDrawableFactory;
 
 import me.piebridge.brevent.BuildConfig;
@@ -21,26 +24,34 @@ public class AppsIconTask extends AsyncTask<Object, Void, AppsItemViewHolder> {
             holder.icon = null;
             return holder;
         }
-        PackageManager packageManager = application.getPackageManager();
-        String packageName = holder.packageName;
-        try {
-            PackageInfo packageInfo = application.getInstantPackageInfo(packageName);
-            if (packageInfo != null) {
-                holder.icon = IconDrawableFactory.newInstance(application)
-                        .getBadgedIcon(packageInfo.applicationInfo);
-            } else {
-                Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
-                if (launchIntent == null) {
-                    holder.icon = packageManager.getApplicationIcon(packageName);
-                } else {
-                    holder.icon = packageManager.resolveActivity(launchIntent, 0).activityInfo
-                            .loadIcon(packageManager);
-                }
+        PackageInfo packageInfo = application.getInstantPackageInfo(holder.packageName);
+        if (packageInfo == null) {
+            try {
+                PackageManager packageManager = application.getPackageManager();
+                packageInfo = packageManager.getPackageInfo(holder.packageName, 0);
+            } catch (PackageManager.NameNotFoundException ignore) {
+                // do nothing
             }
-        } catch (PackageManager.NameNotFoundException e) { // NOSONAR
-            // do nothing
+        }
+        if (packageInfo != null) {
+            holder.icon = loadIcon(application, packageInfo);
         }
         return holder;
+    }
+
+    static Drawable loadIcon(Context context, PackageInfo packageInfo) {
+        String packageName = packageInfo.packageName;
+        PackageManager packageManager = context.getPackageManager();
+        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
+        if (launchIntent != null) {
+            return packageManager.resolveActivity(launchIntent, 0)
+                    .activityInfo.loadIcon(packageManager);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return IconDrawableFactory.newInstance(context)
+                    .getBadgedIcon(packageInfo.applicationInfo);
+        } else {
+            return packageInfo.applicationInfo.loadIcon(packageManager);
+        }
     }
 
     @Override
