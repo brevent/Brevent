@@ -41,8 +41,6 @@ public class BreventIntentService extends IntentService {
 
     public static final int ID3 = 59528;
 
-    private static final String CHANNEL_ID = "root";
-
     private static final int TIMEOUT = 42;
 
     private static final int ADB_TIMEOUT = 10;
@@ -268,26 +266,32 @@ public class BreventIntentService extends IntentService {
     }
 
     private static Notification.Builder buildNotification(Context context) {
+        return buildNotification(context, "root",
+                NotificationManager.IMPORTANCE_LOW, Notification.PRIORITY_LOW);
+    }
+
+    static Notification.Builder buildNotification(Context context, String channelId, int priority,
+                                                  int priorityDeprecated) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager nm = getNotificationManager(context);
-            NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
-            if (channel != null && channel.getImportance() != NotificationManager.IMPORTANCE_LOW) {
-                nm.deleteNotificationChannel(CHANNEL_ID);
+            NotificationChannel channel = nm.getNotificationChannel(channelId);
+            if (channel == null || channel.getImportance() != priority) {
+                if (channel != null) {
+                    nm.deleteNotificationChannel(channelId);
+                }
+                channel = new NotificationChannel(channelId,
+                        context.getString(R.string.brevent), priority);
+                nm.createNotificationChannel(channel);
             }
-            channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.brevent),
-                    NotificationManager.IMPORTANCE_LOW);
-            nm.createNotificationChannel(channel);
-            return new Notification.Builder(context, CHANNEL_ID);
+            return new Notification.Builder(context, channelId);
         } else {
-            return buildNotificationDeprecation(context);
+            return buildNotificationDeprecation(context, priorityDeprecated);
         }
     }
 
     @SuppressWarnings("deprecation")
-    private static Notification.Builder buildNotificationDeprecation(Context context) {
-        Notification.Builder builder = new Notification.Builder(context);
-        builder.setPriority(Notification.PRIORITY_MAX);
-        return builder;
+    private static Notification.Builder buildNotificationDeprecation(Context context, int priority) {
+        return new Notification.Builder(context).setPriority(priority);
     }
 
     private static Notification postNotification(Context context) {

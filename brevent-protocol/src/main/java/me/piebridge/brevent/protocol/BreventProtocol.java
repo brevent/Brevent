@@ -54,20 +54,25 @@ public abstract class BreventProtocol {
 
     public boolean retry;
 
+    public String token;
+
     public BreventProtocol(int action) {
         this.mVersion = VERSION;
         this.mAction = action;
+        this.token = "";
     }
 
     BreventProtocol(Parcel in) {
         mVersion = in.readInt();
         mAction = in.readInt();
+        token = in.readString();
     }
 
     @CallSuper
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mVersion);
         dest.writeInt(mAction);
+        dest.writeString(token);
     }
 
     public final int getAction() {

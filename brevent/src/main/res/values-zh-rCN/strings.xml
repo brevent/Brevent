@@ -207,7 +207,6 @@
     <string name="unsupported_location">黑域不支持各种奇怪的安装位置，请重新安装。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
-    <string name="toast_add_package">成功黑域“%1$s”，共 %2$d 个</string>
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
     <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔。如果之前也有支付，请进入“转账记录”确认</string>
     <string name="toast_alipay2">正在重启黑域服务，请稍候再试</string>
@@ -232,6 +231,11 @@
     <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$s？\n如果已经支付，请根据流程确认支付。\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
+
+    <string name="brevented_app">已黑域“%1$s”</string>
+    <string name="unbrevent_app">点按即可不再黑域。</string>
+    <string name="unbrevented_app">不再黑域“%1$s”</string>
+    <string name="unbrevented_app_fail">不再黑域“%1$s”失败，烦请进入黑域处理</string>
 
     <string-array name="brefoils">
         <item>1 二向箔（约合人民币 6.5 元）</item>

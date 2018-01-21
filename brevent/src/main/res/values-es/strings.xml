@@ -118,7 +118,7 @@
     <string name="feedback_email">Email</string>
     <string name="email_label">%1$s (%2$s)</string>
 
-    <string name="brevent_list">General:</string>
+    <string name="brevent_list">General</string>
     <string name="brevent_auto">Auto Brevent</string>
     <string name="brevent_auto_label">Actualizar la lista de Brevent cuando las aplicaciones se instalen o desinstalen (No operativo en algunas ROM).</string>
     <string name="brevent_method">Método Brevent</string>
@@ -209,7 +209,6 @@
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
-    <string name="toast_add_package">Brevented \"%1$s\", total %2$d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
@@ -234,6 +233,11 @@
     <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
     <string name="pay_brevent_require">Require to pay %s</string>
+
+    <string name="brevented_app">Brevented \"%1$s\"</string>
+    <string name="unbrevent_app">Tap to restore.</string>
+    <string name="unbrevented_app">Restore \"%1$s\"</string>
+    <string name="unbrevented_app_fail">Can\'t restore \"%1$s\", please launch Brevent</string>
 
     <string-array name="brefoils">
         <item>1 Brefoil</item>
