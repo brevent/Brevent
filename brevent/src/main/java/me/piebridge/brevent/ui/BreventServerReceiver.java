@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -13,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -147,7 +145,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         String label = AppsLabelLoader.loadLabel(context.getPackageManager(), packageInfo);
         NotificationManager nm = BreventIntentService.getNotificationManager(context);
         Notification.Builder builder = BreventIntentService.buildNotification(context, "brevent",
-                NotificationManager.IMPORTANCE_HIGH, Notification.PRIORITY_HIGH);
+                R.string.notification_auto_brevent, NotificationManager.IMPORTANCE_HIGH);
         builder.setAutoCancel(true);
         builder.setGroup("brevented");
         builder.setGroupSummary(true);

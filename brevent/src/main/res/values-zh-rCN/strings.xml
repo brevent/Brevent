@@ -236,6 +236,9 @@
     <string name="unbrevented_app">不再黑域“%1$s”</string>
     <string name="unbrevented_app_fail">不再黑域“%1$s”失败，烦请进入黑域处理</string>
 
+    <string name="notification_brevent_server">黑域服务</string>
+    <string name="notification_auto_brevent">自动黑域</string>
+
     <string-array name="brefoils">
         <item>1 二向箔（约合人民币 6.5 元）</item>
         <item>2 二向箔（约合人民币 13 元）</item>

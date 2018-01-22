@@ -238,6 +238,9 @@
     <string name="unbrevented_app">Restore \"%1$s\"</string>
     <string name="unbrevented_app_fail">Can\'t restore \"%1$s\", please launch Brevent</string>
 
+    <string name="notification_brevent_server">Brevent server</string>
+    <string name="notification_auto_brevent">Auto brevent</string>
+
     <string-array name="brefoils">
         <item>1 Brefoil</item>
         <item>2 Brefoil</item>

@@ -236,6 +236,9 @@
     <string name="unbrevented_app">不再黑域「%1$s」</string>
     <string name="unbrevented_app_fail">不再黑域「%1$s」失敗，煩請進入黑域處理</string>
 
+    <string name="notification_brevent_server">黑域服務</string>
+    <string name="notification_auto_brevent">自動黑域</string>
+
     <string-array name="brefoils">
         <item>1 二向箔</item>
         <item>2 二向箔</item>

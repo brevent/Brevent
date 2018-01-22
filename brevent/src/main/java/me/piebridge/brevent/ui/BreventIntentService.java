@@ -20,6 +20,7 @@ import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -266,26 +267,40 @@ public class BreventIntentService extends IntentService {
     }
 
     private static Notification.Builder buildNotification(Context context) {
-        return buildNotification(context, "root",
-                NotificationManager.IMPORTANCE_LOW, Notification.PRIORITY_LOW);
+        return buildNotification(context, "root", R.string.notification_brevent_server,
+                NotificationManager.IMPORTANCE_LOW);
     }
 
-    static Notification.Builder buildNotification(Context context, String channelId, int priority,
-                                                  int priorityDeprecated) {
+    static Notification.Builder buildNotification(Context context, String channelId, int resId,
+                                                  int priority) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager nm = getNotificationManager(context);
             NotificationChannel channel = nm.getNotificationChannel(channelId);
-            if (channel == null || channel.getImportance() != priority) {
+            String name = context.getString(resId);
+            if (channel == null || !Objects.equals(channel.getName(), name)) {
                 if (channel != null) {
                     nm.deleteNotificationChannel(channelId);
                 }
-                channel = new NotificationChannel(channelId,
-                        context.getString(R.string.brevent), priority);
+                channel = new NotificationChannel(channelId, name, priority);
                 nm.createNotificationChannel(channel);
             }
             return new Notification.Builder(context, channelId);
         } else {
-            return buildNotificationDeprecation(context, priorityDeprecated);
+            return buildNotificationDeprecation(context, getPriorityDeprecated(priority));
+        }
+    }
+
+    private static int getPriorityDeprecated(int priority) {
+        switch (priority) {
+            case NotificationManager.IMPORTANCE_MIN:
+                return Notification.PRIORITY_MIN;
+            case NotificationManager.IMPORTANCE_LOW:
+                return Notification.PRIORITY_LOW;
+            case NotificationManager.IMPORTANCE_HIGH:
+                return Notification.PRIORITY_HIGH;
+            case NotificationManager.IMPORTANCE_DEFAULT:
+            default:
+                return Notification.PRIORITY_DEFAULT;
         }
     }
 
