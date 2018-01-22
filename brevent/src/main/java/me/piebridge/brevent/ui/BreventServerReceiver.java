@@ -58,8 +58,10 @@ public class BreventServerReceiver extends BroadcastReceiver {
             }
         } else if (BreventIntent.ACTION_ADD_PACKAGE.equals(action)) {
             PackageInfo packageInfo = intent.getParcelableExtra(BreventIntent.EXTRA_PACKAGE_INFO);
-            String token = intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN);
-            showBrevented(context, packageInfo, token);
+            if (packageInfo != null) {
+                String token = intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN);
+                showBrevented(context, packageInfo, token);
+            }
         } else if (BreventIntent.ACTION_ALIPAY.equals(action) && BuildConfig.RELEASE) {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext instanceof BreventApplication) {
