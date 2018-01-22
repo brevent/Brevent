@@ -6,11 +6,11 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into background.\n\nBrevent recognizes states of apps in this way, preventing apps in Brevent list from running in long time.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen (also known as the Overview screen, recent task list, or recent apps), apps will be force-stopped. Whenever apps are wakened without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t brevent \"allow sync\" apps with sticky notifications nor foreground services, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are wakened without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t brevent \"allow sync\" apps with sticky notifications nor foreground services, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
-    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. For Android O, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, there is no residue after uninstallation.</string>
@@ -125,9 +125,9 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out or clear them from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out, or swipe apps away from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop awaken apps which have no activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or clear apps from recents screen\n\nAlways force-stop awaken apps which have no activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or swipe apps from away recents screen\n\nAlways force-stop awaken apps which have no activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
