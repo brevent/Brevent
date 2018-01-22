@@ -69,8 +69,6 @@ public class BreventServerReceiver extends BroadcastReceiver {
                 showAlipay(application, intent.getStringExtra(BreventIntent.EXTRA_ALIPAY_SUM),
                         intent.getBooleanExtra(BreventIntent.EXTRA_ALIPAY_SIN, false));
             }
-        } else if (BreventIntent.ACTION_ALIPAY2.equals(action)) {
-            Toast.makeText(context, R.string.toast_alipay2, Toast.LENGTH_LONG).show();
         } else if (BreventIntent.ACTION_ALIPAY3.equals(action)) {
             showAlipay2(context, intent.getBooleanExtra(BreventIntent.EXTRA_ALIPAY, false));
         } else if (BreventIntent.ACTION_BREVENT.equals(action)) {

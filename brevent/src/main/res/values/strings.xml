@@ -211,7 +211,6 @@
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
-    <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
     <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
     <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>

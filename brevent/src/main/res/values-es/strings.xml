@@ -211,7 +211,6 @@
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
-    <string name="toast_alipay2">Restarting Brevent Server, please try again later</string>
     <string name="toast_alipay_ok" />
     <string name="toast_alipay_ko" />
     <string name="toast_donate">Gracias por pagar %1$s Brefoil.</string>
