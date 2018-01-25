@@ -82,8 +82,6 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private boolean mUsbChanged = false;
 
-    private int mPromotion = BreventResponse.PROMOTION_DEFAULT;
-
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
 
     private int mRecommend;
@@ -225,14 +223,6 @@ public class BreventApplication extends Application implements DonationPreferenc
         return mSupportAppops;
     }
 
-    private void setPromotion(int promotion) {
-        mPromotion = promotion;
-    }
-
-    public boolean isPromotion() {
-        return mPromotion == BreventResponse.PROMOTION_ONE;
-    }
-
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -251,7 +241,6 @@ public class BreventApplication extends Application implements DonationPreferenc
         setSupportStopped(breventResponse.mSupportStopped);
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
-        setPromotion(breventResponse.mPromotion);
         mInstantPackages.clear();
         for (PackageInfo packageInfo : breventResponse.mInstantPackages) {
             mInstantPackages.put(packageInfo.packageName, packageInfo);
@@ -531,12 +520,7 @@ public class BreventApplication extends Application implements DonationPreferenc
             donate2 = 0;
             preferences.edit().remove("alipay2").apply();
         }
-        double donation = Math.max(donate1, donate2);
-        if (application.isPromotion()) {
-            return donation + 1d;
-        } else {
-            return donation;
-        }
+        return Math.max(donate1, donate2);
     }
 
     public static byte[] dumpsys(String serviceName, String[] args) {

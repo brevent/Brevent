@@ -121,6 +121,10 @@ public class BreventActivity extends AbstractActivity
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
 
+    private static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
+
+    private static final String MOTIONELF_CLASS = String.valueOf(BuildConfig.MOTIONELF_CLASS);
+
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
@@ -488,6 +492,25 @@ public class BreventActivity extends AbstractActivity
         return false;
     }
 
+    private boolean shouldStartMotionelf() {
+        try {
+            PackageManager packageManager = getPackageManager();
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(MOTIONELF_PACKAGE, 0);
+            if (new File(applicationInfo.dataDir).canRead()) {
+                return false;
+            }
+            ResolveInfo resolveInfo = packageManager.resolveActivity(getMotionelfIntent(), 0);
+            ActivityInfo activityInfo = resolveInfo == null ? null : resolveInfo.activityInfo;
+            return activityInfo != null && activityInfo.exported && activityInfo.enabled;
+        } catch (PackageManager.NameNotFoundException ignore) {
+            return false;
+        }
+    }
+
+    private Intent getMotionelfIntent() {
+        return new Intent().setClassName(MOTIONELF_PACKAGE, MOTIONELF_CLASS);
+    }
+
     public void showDisabled() {
         hideProgress();
         showDisabled(R.string.brevent_service_start);
@@ -522,6 +545,9 @@ public class BreventActivity extends AbstractActivity
             fragment = new AppsDisabledFragment();
             fragment.setTitle(title);
             fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
+            if (shouldStartMotionelf()) {
+                startActivity(getMotionelfIntent());
+            }
         }
         if (hasResponse) {
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE, DELAY);
@@ -1357,15 +1383,6 @@ public class BreventActivity extends AbstractActivity
             if (isChecking()) {
                 checkChecking(status);
             }
-            SharedPreferences preferences = PreferencesUtils.getPreferences(this);
-            final String key = "promotion";
-            if (status.mPromotion != preferences.getInt(key, BreventResponse.PROMOTION_DEFAULT)
-                    || status.mDaemonTime != preferences.getLong(BreventSettings.DAEMON_TIME, 0)) {
-                if (status.mPromotion != BreventResponse.PROMOTION_INVALID) {
-                    preferences.edit().putInt(key, status.mPromotion).apply();
-                }
-                showWarning(FRAGMENT_PROMOTION, getPromotion(status.mPromotion));
-            }
         }
 
         if (!status.mGranted && !application.isGrantedWarned()) {
@@ -1393,20 +1410,6 @@ public class BreventActivity extends AbstractActivity
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
-        }
-    }
-
-    private int getPromotion(int promotion) {
-        switch (promotion) {
-            case BreventResponse.PROMOTION_INVALID:
-                return R.string.promotion_invalid;
-            case BreventResponse.PROMOTION_NONE:
-                return R.string.promotion_none;
-            case BreventResponse.PROMOTION_ONE:
-                return R.string.promotion_one;
-            default:
-                return 0;
-
         }
     }
 

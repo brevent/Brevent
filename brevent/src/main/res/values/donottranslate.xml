@@ -143,8 +143,4 @@
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>
 
-    <string name="promotion_invalid">您已安装非授权假冒“飞智游戏厅”，请卸载后重新激活黑域。\n\n此外，飞智小游 19 包邮，谨防上当受骗。</string>
-    <string name="promotion_one">感谢您购买黑域专属激活器，赠送 1 二向箔。</string>
-    <string name="promotion_none">您已安装假冒“飞智游戏厅”。如果不使用飞智小游激活，建议直接卸载。\n\n此外，黑域将联合飞智科技推出专属激活器，不再需要假冒“飞智游戏厅”并赠送 1 二向箔，敬请关注。</string>
-
 </resources>

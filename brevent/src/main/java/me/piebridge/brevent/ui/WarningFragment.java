@@ -68,9 +68,6 @@ public class WarningFragment extends AbstractDialogFragment
             case R.string.unsupported_checking:
                 ((BreventActivity) getActivity()).onUnsupportedChecking();
                 break;
-            case R.string.promotion_invalid:
-                getActivity().finish();
-                break;
             default:
                 break;
         }

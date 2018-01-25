@@ -47,6 +47,8 @@ android {
             buildConfigField 'byte[]', 'ADB_M', properties['build.adb.m']
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
+            buildConfigField 'char[]', 'MOTIONELF_PACKAGE', properties['build.motionelf.packageName']
+            buildConfigField 'char[]', 'MOTIONELF_CLASS', properties['build.motionelf.className']
             resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl'
             resValue 'string', 'appId', 'me.piebridge.brevent'
             if (rootProject.isIde) {
@@ -99,6 +101,8 @@ android {
             buildConfigField 'byte[]', 'ADB_M', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
+            buildConfigField 'char[]', 'MOTIONELF_PACKAGE', 'null'
+            buildConfigField 'char[]', 'MOTIONELF_CLASS', 'null'
             resValue 'string', 'appId', 'me.piebridge.nrevent'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
