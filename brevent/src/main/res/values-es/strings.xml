@@ -111,6 +111,7 @@
     <string name="menu_settings">Ajustes</string>
     <string name="menu_logs">Logs</string>
     <string name="menu_guide">Guía</string>
+    <string name="menu_command">Exec command</string>
 
     <string name="feedback_message">Siéntase libre de enviar comentarios.\n\nSi tiene una cuenta GitHub, cree un caso. También puede ver los problemas abiertos. %s</string>
     <string name="feedback_message_email">\n\nPara mensajes privados, escríbame.</string>
@@ -232,6 +233,7 @@
     <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
     <string name="pay_brevent_require">Require to pay %s</string>
+    <string name="pay_brevent_recommend_3">Recommend to pay 3 Brefoil</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Tap to restore.</string>
@@ -240,6 +242,10 @@
 
     <string name="notification_brevent_server">Brevent server</string>
     <string name="notification_auto_brevent">Auto brevent</string>
+
+    <string name="cmd_menu_reset">Reset</string>
+    <string name="cmd_menu_stop">Stop</string>
+    <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
 
     <string-array name="brefoils">
         <item>1 Brefoil</item>

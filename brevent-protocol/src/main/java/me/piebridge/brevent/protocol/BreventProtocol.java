@@ -31,6 +31,8 @@ import me.piebridge.brevent.override.HideApiOverrideM;
  */
 public abstract class BreventProtocol {
 
+    public static final InetAddress HOST = InetAddress.getLoopbackAddress();
+
     // md5(BuildConfig.APPLICATION_ID)
     public static final int PORT = 59526;
 
@@ -47,6 +49,8 @@ public abstract class BreventProtocol {
     public static final int OPS_RESET = 9;
     public static final int OPS_UPDATE = 10;
     public static final int OPS_OK = 11;
+    public static final int CMD_REQUEST = 12;
+    public static final int CMD_RESPONSE = 13;
 
     private int mVersion;
 
@@ -145,6 +149,10 @@ public abstract class BreventProtocol {
                 return "ops_update";
             case OPS_OK:
                 return "ops_ok";
+            case CMD_REQUEST:
+                return "cmd_request";
+            case CMD_RESPONSE:
+                return "cmd_response";
             default:
                 return "(unknown: " + action + ")";
         }
@@ -180,6 +188,10 @@ public abstract class BreventProtocol {
                     return new BreventOpsUpdate(parcel);
                 case OPS_OK:
                     return BreventOpsOK.INSTANCE;
+                case CMD_REQUEST:
+                    return new BreventCmdRequest(parcel);
+                case CMD_RESPONSE:
+                    return new BreventCmdResponse(parcel);
                 default:
                     return null;
             }
@@ -227,7 +239,7 @@ public abstract class BreventProtocol {
     @WorkerThread
     public static boolean checkPortSync() throws IOException {
         try (
-                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT);
                 DataOutputStream os = new DataOutputStream(socket.getOutputStream());
                 DataInputStream is = new DataInputStream(socket.getInputStream())
         ) {

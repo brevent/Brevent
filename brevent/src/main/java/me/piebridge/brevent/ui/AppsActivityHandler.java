@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
@@ -335,7 +334,7 @@ public class AppsActivityHandler extends Handler {
         }
         message.token = ((BreventApplication) activity.getApplication()).getToken();
         try (
-                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT);
         ) {
             if (action == BreventProtocol.STATUS_REQUEST) {
                 socket.setSoTimeout(TIMEOUT);

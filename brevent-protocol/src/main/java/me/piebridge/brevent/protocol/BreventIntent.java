@@ -14,6 +14,7 @@ public final class BreventIntent {
     public static final String ACTION_FEEDBACK = "me.piebridge.brevent.intent.action.FEEDBACK";
     public static final String ACTION_BREVENT = "me.piebridge.brevent.intent.action.BREVENT";
     public static final String ACTION_RESTORE = "me.piebridge.brevent.intent.action.RESTORE";
+    public static final String ACTION_COMMAND = "me.piebridge.brevent.intent.action.COMMAND";
 
     public static final String PERMISSION_MANAGER = "me.piebridge.brevent.permission.MANAGER";
 
@@ -24,6 +25,7 @@ public final class BreventIntent {
     public static final String EXTRA_ALIPAY_SIN = "me.piebridge.brevent.intent.extra.ALIPAY_SIN";
     public static final String EXTRA_PATH = "me.piebridge.brevent.intent.extra.PATH";
     public static final String EXTRA_ALIPAY = "me.piebridge.brevent.intent.extra.ALIPAY";
+    public static final String EXTRA_COMMAND = "me.piebridge.brevent.intent.extra.COMMAND";
 
     private BreventIntent() {
 

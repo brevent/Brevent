@@ -109,6 +109,7 @@
     <string name="menu_settings">设置</string>
     <string name="menu_guide">向导</string>
     <string name="menu_logs">日志</string>
+    <string name="menu_command">执行指令</string>
 
     <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
@@ -230,6 +231,7 @@
     <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 个应用，可否支付 %3$s？\n如果已经支付，请根据流程确认支付。\n\n这能促进黑域良性发展，也能激励其他独立开发者。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
+    <string name="pay_brevent_recommend_3">建议支付 3 二向箔（约合人民币 19.5 元）</string>
 
     <string name="brevented_app">已黑域“%1$s”</string>
     <string name="unbrevent_app">点按即可不再黑域。</string>
@@ -238,6 +240,10 @@
 
     <string name="notification_brevent_server">黑域服务</string>
     <string name="notification_auto_brevent">自动黑域</string>
+
+    <string name="cmd_menu_reset">重置</string>
+    <string name="cmd_menu_stop">停止</string>
+    <string name="cmd_too_large">%1$s\n# 错误：输出 %2$d > %3$d</string>
 
     <string-array name="brefoils">
         <item>1 二向箔（约合人民币 6.5 元）</item>

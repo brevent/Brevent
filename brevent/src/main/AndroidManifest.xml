@@ -5,8 +5,6 @@
     package="me.piebridge.brevent"
     android:installLocation="internalOnly">
 
-    <uses-sdk android:minSdkVersion="21" tools:ignore="GradleOverrides" />
-
     <permission
         android:name="me.piebridge.brevent.permission.MANAGER"
         android:protectionLevel="signature" />
@@ -16,10 +14,12 @@
     <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-                     tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.DUMP"
-                     tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.DUMP"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
 
     <application
@@ -34,9 +34,11 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".ui.BreventSettings"
@@ -51,13 +53,29 @@
         <activity
             android:name=".ui.BreventOps"
             android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:label="@string/menu_guide"
+            android:label="@string/context_menu_appops"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.BreventCmd"
+            android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:label="@string/menu_command"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.COMMAND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.BreventLicenses"
             android:configChanges="keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:exported="false"
             android:theme="@style/dialog"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.VIEW_LICENSE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".ui.BreventReceiver"
@@ -97,13 +115,15 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ui.BreventIntentService" android:directBootAware="true" />
+        <service
+            android:name=".ui.BreventIntentService"
+            android:directBootAware="true" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />

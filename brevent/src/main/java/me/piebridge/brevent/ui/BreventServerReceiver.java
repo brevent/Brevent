@@ -74,8 +74,11 @@ public class BreventServerReceiver extends BroadcastReceiver {
         } else if (BreventIntent.ACTION_BREVENT.equals(action)) {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext instanceof BreventApplication) {
-                ((BreventApplication) applicationContext).onStarted();
-                checkPort(intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN));
+                String token = intent.getStringExtra(Intent.EXTRA_REMOTE_INTENT_TOKEN);
+                checkPort(token);
+                BreventApplication application = (BreventApplication) applicationContext;
+                application.setToken(token);
+                application.onStarted();
             }
         } else if (BreventIntent.ACTION_RESTORE.equals(action)) {
             String packageName = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME);
@@ -206,7 +209,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
 
     void checkToken(String token) {
         try (
-                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
+                Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT);
                 DataOutputStream os = new DataOutputStream(socket.getOutputStream());
                 DataInputStream is = new DataInputStream(socket.getInputStream())
         ) {

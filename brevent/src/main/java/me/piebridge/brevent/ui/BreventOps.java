@@ -17,7 +17,6 @@ import android.widget.Toolbar;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Collection;
 import java.util.Map;
@@ -201,7 +200,7 @@ public class BreventOps extends AbstractActivity {
     boolean doRequest(BreventProtocol request) {
         boolean result = false;
         try (
-                Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT)
+                Socket socket = new Socket(BreventProtocol.HOST, BreventProtocol.PORT)
         ) {
             socket.setSoTimeout(5000);
 

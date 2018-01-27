@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="marginItemTop">8dp</dimen>
+    <dimen name="marginItemDouble">16dp</dimen>
     <dimen name="marginItemBottom">8dp</dimen>
     <dimen name="marginItemStart">8dp</dimen>
     <dimen name="marginItemEnd">8dp</dimen>

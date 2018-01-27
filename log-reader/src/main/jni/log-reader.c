@@ -8,6 +8,7 @@
 #include <android/log.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "log.h"
 
 #define TAG "BreventServer"
@@ -136,4 +137,65 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jobjec
     }
 
     android_logger_list_free(logger_list);
+}
+
+JNIEXPORT jint JNICALL
+Java_me_piebridge_LogReader_getPid(JNIEnv *UNUSED(env), jclass UNUSED(type)) {
+    return get_pid();
+}
+
+static int killChild(int ppid, int deep) {
+    int count = 0;
+    DIR *proc;
+    struct dirent *entry;
+
+    if (!(proc = opendir("/proc"))) {
+        return count;
+    };
+
+    while ((entry = readdir(proc))) {
+        int pid;
+        FILE *fp;
+        char buf[PATH_MAX];
+
+        if (!(pid = atoi(entry->d_name))) {
+            continue;
+        }
+
+        sprintf(buf, "/proc/%u/status", pid);
+        fp = fopen(buf, "r");
+        if (fp != NULL) {
+            while (fgets(buf, PATH_MAX - 1, fp) != NULL) {
+                if (strncmp(buf, "PPid:", 0x5) == 0) {
+                    char *tab = strchr(buf, '\t');
+                    if (tab != NULL) {
+                        if (atoi(tab + 1) == ppid) {
+                            if (deep) {
+                                count += killChild(pid, deep);
+                            }
+                            sprintf(buf, "/proc/%u/status", pid);
+                            if (access(buf, F_OK) == -1) {
+                                LOGI("exited %d (ppid %d)", pid, ppid);
+                                count++;
+                            } else if (kill(pid, SIGKILL) == 0) {
+                                count++;
+                                LOGI("killed %d (ppid %d)", pid, ppid);
+                            } else {
+                                LOGW("cannot kill %d (ppid %d): %s", pid, ppid, strerror(errno));
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            fclose(fp);
+        }
+    }
+    closedir(proc);
+    return count;
+}
+
+JNIEXPORT jint JNICALL
+Java_me_piebridge_LogReader_killDescendants(JNIEnv *UNUSED(env), jclass UNUSED(type), jint pid) {
+    return killChild(pid, 1);
 }

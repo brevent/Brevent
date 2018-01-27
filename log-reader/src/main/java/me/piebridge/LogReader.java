@@ -21,4 +21,8 @@ public class LogReader {
      */
     public static native void readEvents(EventHandler handler);
 
+    public static native int getPid();
+
+    public static native int killDescendants(int pid);
+
 }

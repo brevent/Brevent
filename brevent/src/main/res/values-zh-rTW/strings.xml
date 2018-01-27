@@ -109,6 +109,7 @@
     <string name="menu_settings">設定</string>
     <string name="menu_guide">指引</string>
     <string name="menu_logs">日誌</string>
+    <string name="menu_command">執行指令</string>
 
     <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
@@ -230,6 +231,7 @@
     <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
+    <string name="pay_brevent_recommend_3">建議支付 3 二向箔</string>
 
     <string name="brevented_app">已黑域“%1$s”</string>
     <string name="unbrevent_app">輕觸即可不再黑域。</string>
@@ -238,6 +240,10 @@
 
     <string name="notification_brevent_server">黑域服務</string>
     <string name="notification_auto_brevent">自動黑域</string>
+
+    <string name="cmd_menu_reset">重設</string>
+    <string name="cmd_menu_stop">停止</string>
+    <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
 
     <string-array name="brefoils">
         <item>1 二向箔</item>

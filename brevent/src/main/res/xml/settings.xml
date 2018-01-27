@@ -118,6 +118,13 @@
             android:title="@string/brevent_appops"
             brevent:recommend="3" />
 
+        <Preference
+            android:summary="@string/pay_brevent_recommend_3"
+            android:title="@string/menu_command">
+            <intent
+                android:action="me.piebridge.brevent.intent.action.COMMAND" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -141,9 +148,7 @@
         <PreferenceScreen
             android:title="@string/brevent_about_licenses">
             <intent
-                android:targetClass="me.piebridge.brevent.ui.BreventLicenses"
-                android:targetPackage="@string/appId" />
-
+                android:action="me.piebridge.brevent.intent.action.VIEW_LICENSE" />
         </PreferenceScreen>
 
     </PreferenceCategory>

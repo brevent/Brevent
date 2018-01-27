@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_stop"
+        android:icon="@drawable/ic_highlight_off_black_24dp"
+        android:showAsAction="ifRoom"
+        android:title="@string/cmd_menu_stop" />
+
+    <item
+        android:id="@+id/action_reset"
+        android:icon="@drawable/ic_settings_backup_restore_black_24dp"
+        android:showAsAction="ifRoom"
+        android:title="@string/cmd_menu_reset" />
+
+</menu>

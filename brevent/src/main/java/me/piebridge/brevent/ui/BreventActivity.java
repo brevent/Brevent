@@ -495,6 +495,9 @@ public class BreventActivity extends AbstractActivity
     private boolean shouldStartMotionelf() {
         try {
             PackageManager packageManager = getPackageManager();
+            if (packageManager.getLaunchIntentForPackage(MOTIONELF_PACKAGE) != null) {
+                return false;
+            }
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(MOTIONELF_PACKAGE, 0);
             if (new File(applicationInfo.dataDir).canRead()) {
                 return false;
