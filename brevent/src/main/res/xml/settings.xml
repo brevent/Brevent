@@ -116,7 +116,7 @@
             android:key="brevent_appops"
             android:summary="@string/brevent_appops_label"
             android:title="@string/brevent_appops"
-            brevent:require="3" />
+            brevent:recommend="3" />
 
     </PreferenceCategory>
 
