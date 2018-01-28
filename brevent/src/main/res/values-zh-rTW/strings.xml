@@ -229,7 +229,7 @@
     <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>
     <string name="pay_email_text">%s\n（請附上支付訂單截圖。）</string>
 
-    <string name="make_brevent_better">您已使用 %1$d 天，共黑域 %2$d 個應用，請考慮支付 %3$s 以促進黑域良性發展。</string>
+    <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s 以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
 
