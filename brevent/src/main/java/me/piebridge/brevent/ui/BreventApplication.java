@@ -116,6 +116,8 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private boolean grantedWarned;
 
+    private String mToken = "";
+
     SimpleArrayMap<String, PackageInfo> mInstantPackages = new SimpleArrayMap<>();
 
     private void setSupportStopped(boolean supportStopped) {
@@ -699,6 +701,16 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     public PackageInfo getInstantPackageInfo(String packageName) {
         return mInstantPackages.get(packageName);
+    }
+
+    public void setToken(String token) {
+        if (!TextUtils.isEmpty(token)) {
+            this.mToken = token;
+        }
+    }
+
+    public String getToken() {
+        return this.mToken;
     }
 
 }

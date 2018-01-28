@@ -333,6 +333,7 @@ public class AppsActivityHandler extends Handler {
             onFinal(action, false);
             return false;
         }
+        message.token = ((BreventApplication) activity.getApplication()).getToken();
         try (
                 Socket socket = new Socket(InetAddress.getLoopbackAddress(), BreventProtocol.PORT);
         ) {

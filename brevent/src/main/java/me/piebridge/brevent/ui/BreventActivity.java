@@ -1182,6 +1182,7 @@ public class BreventActivity extends AbstractActivity
         if (response == null || response == BreventOK.INSTANCE) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_NO_PERMISSION);
         } else {
+            ((BreventApplication) getApplication()).setToken(response.token);
             dispatchResponse(response);
         }
     }
