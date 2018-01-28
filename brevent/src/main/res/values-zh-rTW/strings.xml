@@ -5,8 +5,8 @@
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別應用程式狀態，防止「黑域清單」內應用程式長期運行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen，也被稱為最近畫面、最近工作清單，或最近的應用程式）拉掉應用程式時，黑域將強制停止它。無論何時應用被喚醒，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式有不可取消通知或前景服務時，不會被黑域；有通知或在背景運行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別應用程式狀態，防止「黑域清單」內應用程式長期執行。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen，也被稱為最近畫面、最近工作清單，或最近的應用程式）拉掉應用程式時，黑域將強制停止它。無論何時應用程式被喚醒，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式有不可取消通知或前景服務時，不會被黑域；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
@@ -23,7 +23,7 @@
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，點擊滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，按下滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="brevent_service_start">請開啟黑域服務（%s）</string>
     <string name="brevent_service_no_response">黑域服務沒有回應（%s）</string>
@@ -43,7 +43,7 @@
     <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
     <string name="process_retrieving_apps">正在取得應用程式資訊，請稍候. . .</string>
     <string name="process_retrieving_logs">正在取得日誌，請稍候. . .</string>
-    <string name="process_waiting">正在等待事件日誌，請查看然後關閉通知以觸發事件. . .</string>
+    <string name="process_waiting">正在等待事件日誌，請查看然後關閉通知以觸發事件……</string>
     <string name="process_starting">正在開啟黑域服務，請稍候……</string>
     <string name="process_checking">正在檢查黑域服務，請稍候……</string>
 
@@ -85,7 +85,7 @@
     <string name="important_alarm">%s（鬧鐘應用程式）</string>
     <string name="important_sms">%s（簡訊應用程式）</string>
     <string name="important_home">%s（主畫面應用程式）</string>
-    <string name="important_persistent">%s（永久應用程式）</string>
+    <string name="important_persistent">%s（永久處理程序）</string>
     <string name="important_android">%s（Android 處理程序）</string>
     <string name="important_dialer">%s（電話應用程式）</string>
     <string name="important_assistant">%s（小幫手應用程式）</string>
@@ -123,9 +123,9 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如點擊「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如點擊「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被喚醒但有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_forcestop_only_label">退出應用程式（如點擊「返回」按鈕），或者背景應用程式逾時，或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如按下「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如按下「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被喚醒但有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">退出應用程式（如按下「返回」按鈕），或者背景應用程式逾時，或者從最近使用的應用程式拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -143,17 +143,17 @@
     <string name="brevent_aggressive">激進模式</string>
     <string name="brevent_aggressive_label">立即黑域，強制停止安全應用程式\n\n強迫症必備，請謹慎啟用</string>
     <string name="show_all_apps">顯示所有應用程式</string>
-    <string name="show_all_apps_label">包括無法開啟的系統應用程式和框架應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
+    <string name="show_all_apps_label">包括無法開啟的系統應用程式和框架應用程式\n\n請謹慎黑域無法打開的系統應用程式和框架應用程式</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
-    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域系統應用程式或框架應用程式</string>
+    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域框架應用程式</string>
     <string name="brevent_language">界面語言</string>
     <string name="brevent_language_auto">與系統同步</string>
 
-    <string name="brevent_optimize">优化功能</string>
+    <string name="brevent_optimize">優化功能</string>
     <string name="brevent_check_notification">檢查通知</string>
     <string name="brevent_check_notification_label">根據通知優化黑域\n\n強烈建議開啟，但可能導致裝置卡頓甚至重啟</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
-    <string name="brevent_abnormal_back_label">有些應用程式按「返回」時放到背景而不結束</string>
+    <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑域</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">依賴「檢查通知」。播放時不處理，暫停且有通知時不強行停止</string>
 
@@ -170,7 +170,7 @@
     <string name="brevent_checking">自我診斷</string>
     <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
     <string name="brevent_appops">程式權限（實驗性）</string>
-    <string name="brevent_appops_label">當前僅有簡單的讀寫功能，將根據情況進一步開發</string>
+    <string name="brevent_appops_label">目前僅有簡單的讀寫功能，將依情況進一步開發</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
@@ -203,7 +203,7 @@
     <string name="unsupported_shell">無法開啟黑域服務。</string>
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
-    <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
+    <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。請檢查「開發人員選項」中和「USB 偵錯」相關的設定。</string>
     <string name="unsupported_checking">暫不支持「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
@@ -223,13 +223,13 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="pay_verify">如果已經支付，請打開「支付寶」（需要臨時禁用「Xposed」），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
+    <string name="pay_verify">如果已經支付，請打開「支付寶」（需要臨時禁用「Xposed」），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜尋「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
     <string name="pay_alipay">打開「支付寶」</string>
     <string name="pay_email">郵件</string>
     <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>
     <string name="pay_email_text">%s\n（請附上支付訂單截圖。）</string>
 
-    <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s以促進黑域良性發展。</string>
+    <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s 以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
 
