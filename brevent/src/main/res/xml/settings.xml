@@ -136,6 +136,10 @@
             android:title="@string/brevent_about_version" />
 
         <Preference
+            android:key="brevent_about_system"
+            android:title="@string/brevent_about_system" />
+
+        <Preference
             android:key="brevent_about_developer"
             android:summary="@string/brevent_about_developer_adb"
             android:title="@string/brevent_about_developer" />

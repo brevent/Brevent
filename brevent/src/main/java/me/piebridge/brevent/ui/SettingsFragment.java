@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -156,6 +157,8 @@ public class SettingsFragment extends PreferenceFragment
         } else {
             preference.setSummary(null);
         }
+        getPreferenceScreen().findPreference("brevent_about_system")
+                .setSummary(getSystemSummary());
         preference.setOnPreferenceClickListener(this);
         if (BuildConfig.RELEASE) {
             Activity activity = getActivity();
@@ -309,6 +312,18 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         return true;
+    }
+
+    private String getSystemSummary() {
+        Activity activity = getActivity();
+        Resources resources = activity.getResources();
+        String supported = resources.getString(R.string.brevent_about_system_supported);
+        String unsupported = resources.getString(R.string.brevent_about_system_unsupported);
+        BreventApplication application = (BreventApplication) activity.getApplicationContext();
+        return resources.getString(R.string.brevent_about_system_summary,
+                application.supportStandby() ? supported : unsupported,
+                application.supportStopped() ? supported : unsupported,
+                application.supportAppops() ? supported : unsupported);
     }
 
 }

@@ -24,19 +24,12 @@ public class VersionPreference extends Preference {
     public CharSequence getSummary() {
         Context context = getContext();
         Resources resources = context.getResources();
-        String supported = resources.getString(R.string.brevent_about_version_supported);
-        String unsupported = resources.getString(R.string.brevent_about_version_unsupported);
-        BreventApplication application = (BreventApplication) context.getApplicationContext();
-        String extra = resources.getString(R.string.brevent_about_version_extra,
-                application.supportStandby() ? supported : unsupported,
-                application.supportStopped() ? supported : unsupported,
-                application.supportAppops() ? supported : unsupported);
         if (!BuildConfig.RELEASE) {
             return resources.getString(R.string.brevent_about_version_summary_debug,
-                    BuildConfig.VERSION_NAME) + extra;
+                    BuildConfig.VERSION_NAME);
         } else {
             return resources.getString(R.string.brevent_about_version_summary,
-                    BuildConfig.VERSION_NAME, getVersion(context)) + extra;
+                    BuildConfig.VERSION_NAME, getVersion(context));
         }
     }
 
