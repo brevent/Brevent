@@ -29,6 +29,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
 import java.net.Socket;
+import java.util.Objects;
 
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventCmdRequest;
@@ -89,6 +90,10 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
         execView.setOnClickListener(this);
 
         workHandler = new WorkHandler(this, new MainHandler(this));
+
+        WarningFragment fragment = new WarningFragment();
+        fragment.setMessage(R.string.cmd_warning);
+        fragment.show(getFragmentManager(), "command");
     }
 
     @Override
@@ -112,6 +117,12 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     public void onClick(View v) {
         if (v == execView) {
             String command = commandView.getText().toString();
+            String safeCommand = command.replaceAll("\\xc2", "").replaceAll("\\xa0", " ");
+            if (!Objects.equals(command, safeCommand)) {
+                command = safeCommand;
+                commandView.setText(command);
+                commandView.setSelection(command.length());
+            }
             if (TextUtils.isEmpty(command)) {
                 reset(false);
             } else if (isInvalid(command.split("[;|\n]"))) {

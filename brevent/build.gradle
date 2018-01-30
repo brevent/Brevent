@@ -100,8 +100,8 @@ android {
             buildConfigField 'byte[]', 'ADB_M', 'null'
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
-            buildConfigField 'char[]', 'MOTIONELF_PACKAGE', 'null'
-            buildConfigField 'char[]', 'MOTIONELF_CLASS', 'null'
+            buildConfigField 'char[]', 'MOTIONELF_PACKAGE', '{}'
+            buildConfigField 'char[]', 'MOTIONELF_CLASS', '{}'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
             } else {

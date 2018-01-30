@@ -40,7 +40,10 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
 
         AppsLabelLoader labelLoader = new AppsLabelLoader(activity);
         BreventApplication application = (BreventApplication) activity.getApplication();
-        Collection<String> packageNames = new ArraySet(activity.mPackages);
+        Collection<String> packageNames;
+        synchronized (activity.mPackages) {
+            packageNames = new ArraySet(activity.mPackages);
+        }
         int max = packageNames.size();
         int progress = 0;
         int size = 0;

@@ -231,7 +231,7 @@
     <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
     <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
 
-    <string name="make_brevent_better">You have brevented %2$d apps in %1$d days. Please pay %3$s to make Brevent better.</string>
+    <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
     <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_brevent_recommend_3">Recommend to pay 3 Brefoil</string>
@@ -247,6 +247,7 @@
     <string name="cmd_menu_reset">Reset</string>
     <string name="cmd_menu_stop">Stop</string>
     <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
+    <string name="cmd_warning">Exec command only supports simple shell script, use it at your risk.</string>
 
     <string-array name="brefoils">
         <item>1 Brefoil</item>

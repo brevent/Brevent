@@ -53,6 +53,7 @@ public class WarningFragment extends AbstractDialogFragment
         switch (message) {
             case R.string.unsupported_granted:
             case R.string.unsupported_checking:
+            case R.string.cmd_warning:
                 return true;
             default:
                 return false;
@@ -68,6 +69,8 @@ public class WarningFragment extends AbstractDialogFragment
             case R.string.unsupported_checking:
                 ((BreventActivity) getActivity()).onUnsupportedChecking();
                 break;
+            case R.string.cmd_warning:
+                break;
             default:
                 break;
         }
@@ -78,6 +81,9 @@ public class WarningFragment extends AbstractDialogFragment
         switch (message) {
             case R.string.unsupported_granted:
                 ((BreventApplication) getActivity().getApplication()).setGrantedWarned(true);
+                break;
+            case R.string.cmd_warning:
+                getActivity().finish();
                 break;
             default:
                 break;

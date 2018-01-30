@@ -229,7 +229,7 @@
     <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>
     <string name="pay_email_text">%s\n（請附上支付訂單截圖。）</string>
 
-    <string name="make_brevent_better">您已使用 %2$d 天，共黑域 %1$d 個應用，請考慮支付 %3$s以促進黑域良性發展。</string>
+    <string name="make_brevent_better">您已黑域 %1$d 個應用程式，請考慮支付 %2$s以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_recommend_3">建議支付 3 二向箔</string>
@@ -245,6 +245,7 @@
     <string name="cmd_menu_reset">重設</string>
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
+    <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
 
     <string-array name="brefoils">
         <item>1 二向箔</item>

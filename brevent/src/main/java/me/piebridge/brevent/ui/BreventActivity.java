@@ -121,9 +121,9 @@ public class BreventActivity extends AbstractActivity
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
 
-    private static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
+    static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
 
-    private static final String MOTIONELF_CLASS = String.valueOf(BuildConfig.MOTIONELF_CLASS);
+    static final String MOTIONELF_CLASS = String.valueOf(BuildConfig.MOTIONELF_CLASS);
 
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
@@ -186,7 +186,6 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_USB = "usb";
     private static final String FRAGMENT_GRANTED = "granted";
     private static final String FRAGMENT_CHECKING = "checking";
-    private static final String FRAGMENT_PROMOTION = "promotion";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -214,7 +213,7 @@ public class BreventActivity extends AbstractActivity
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private volatile SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
-    Set<String> mPackages = new ArraySet<>();
+    final Set<String> mPackages = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -409,7 +408,7 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public void showPayment(int days, int size, int required) {
+    public void showPayment(int size, int required) {
         hideDisabled();
         hideProgress();
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
@@ -424,7 +423,7 @@ public class BreventActivity extends AbstractActivity
             fragment.dismiss();
         }
         fragment = new AppsPaymentFragment();
-        fragment.setMessage(days, size, required);
+        fragment.setMessage(size, required);
         fragment.show(getFragmentManager(), FRAGMENT_PAYMENT);
     }
 
@@ -1366,11 +1365,15 @@ public class BreventActivity extends AbstractActivity
 
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
-            mPackages.clear();
-            mPackages.addAll(status.mPackages);
+            synchronized (mPackages) {
+                mPackages.clear();
+                mPackages.addAll(status.mPackages);
+            }
         } else if (!Objects.equals(mPackages, status.mPackages)) {
-            mPackages.clear();
-            mPackages.addAll(status.mPackages);
+            synchronized (mPackages) {
+                mPackages.clear();
+                mPackages.addAll(status.mPackages);
+            }
             mAdapter.setExpired();
         }
         if (uiHandler == null) {
@@ -1399,22 +1402,29 @@ public class BreventActivity extends AbstractActivity
         unbreventImportant();
 
         if (application.isPlay() && BuildConfig.RELEASE && !mBrevent.isEmpty()) {
-            int days = 0;
-            try {
-                PackageInfo pi = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
-                long duration = System.currentTimeMillis() - pi.firstInstallTime;
-                days = (int) TimeUnit.MILLISECONDS.toDays(duration);
-            } catch (PackageManager.NameNotFoundException ignore) {
-                //
-            }
-            if (days > 0x2) {
-                checkBreventList(application, days);
+            int days = getDays();
+            int donated = application.getDonated();
+            if (days > 0x2 && donated < BreventSettings.DONATE_AMOUNT) {
+                checkBreventList(application, days, donated);
             }
         }
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
         }
+    }
+
+    private int getDays() {
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+            long duration = System.currentTimeMillis() - pi.firstInstallTime;
+            if (duration > 0) {
+                return (int) TimeUnit.MILLISECONDS.toDays(duration);
+            }
+        } catch (PackageManager.NameNotFoundException ignore) {
+            // shouldn't happen
+        }
+        return 0x3;
     }
 
     private void checkChecking(BreventResponse status) {
@@ -1442,21 +1452,26 @@ public class BreventActivity extends AbstractActivity
         return false;
     }
 
-    private void checkBreventList(BreventApplication application, int days) {
-        int donated = application.getDonated();
+    private void checkBreventList(BreventApplication application, int days, int donated) {
         int size = mBrevent.size();
-        int required = BreventSettings.getRecommend(this, size);
+        int required = BreventSettings.getRecommend(this, size, hasFakeMotionelf());
         if (required > donated) {
             SharedPreferences sp = PreferencesUtils.getPreferences(this);
             long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);
             int mbRequired = sp.getInt(AppsPaymentFragment.REQUIRED, 0);
             int mbDays = sp.getInt(AppsPaymentFragment.DAYS, 0);
             if (daemonTime != application.mDaemonTime || mbRequired != required || mbDays != days) {
-                showPayment(days, size, required);
+                showPayment(size, required);
                 sp.edit().putInt(AppsPaymentFragment.DAYS, days)
                         .putInt(AppsPaymentFragment.REQUIRED, required).apply();
             }
         }
+    }
+
+    private boolean hasFakeMotionelf() {
+        final String packageName = MOTIONELF_PACKAGE;
+        return mPackages.contains(packageName)
+                && getPackageManager().getLaunchIntentForPackage(packageName) == null;
     }
 
     private void showAlipay(String alipaySum, boolean alipaySin) {

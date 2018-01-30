@@ -184,8 +184,10 @@ public class BreventServerReceiver extends BroadcastReceiver {
         }
         double donation = BreventApplication.decode(application, sum, true, true);
         if (DecimalUtils.isPositive(donation)) {
-            PreferencesUtils.getPreferences(application)
-                    .edit().putString("alipay1", sum).apply();
+            if (DecimalUtils.isPositive(donation - BreventApplication.getDonation(application))) {
+                PreferencesUtils.getPreferences(application)
+                        .edit().putString("alipay1", sum).apply();
+            }
         } else {
             PreferencesUtils.getPreferences(application)
                     .edit().remove("alipay1").apply();

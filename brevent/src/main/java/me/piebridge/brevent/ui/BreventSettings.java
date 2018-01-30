@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -191,7 +192,7 @@ public class BreventSettings extends DonateActivity {
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
         int size = getIntent().getIntExtra(BreventIntent.EXTRA_BREVENT_SIZE, 0);
-        int amount = getRecommend(this, size);
+        int amount = getRecommend(this, size, hasFakeMotionelf());
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -200,6 +201,17 @@ public class BreventSettings extends DonateActivity {
             }
         }
         return skus;
+    }
+
+    private boolean hasFakeMotionelf() {
+        PackageManager packageManager = getPackageManager();
+        try {
+            final String packageName = BreventActivity.MOTIONELF_PACKAGE;
+            packageManager.getApplicationInfo(packageName, 0);
+            return packageManager.getLaunchIntentForPackage(packageName) == null;
+        } catch (PackageManager.NameNotFoundException ignore) {
+            return false;
+        }
     }
 
     @Override
@@ -266,15 +278,17 @@ public class BreventSettings extends DonateActivity {
         }
     }
 
-    static int getRecommend(Activity activity, int size) {
+    static int getRecommend(Activity activity, int size, boolean fakeMotionelf) {
         int recommend = BreventSettings.getRecommend(size);
-        if (recommend > 0) {
-            int recommend2 = PreferencesUtils.getPreferences(activity)
-                    .getInt(DonationPreference.DONATION_RECOMMEND, 0);
-            return Math.max(recommend, recommend2);
-        } else {
-            return recommend;
+        if (recommend == 0) {
+            return 0;
         }
+        if (fakeMotionelf) {
+            return BreventSettings.DONATE_AMOUNT;
+        }
+        int recommend2 = PreferencesUtils.getPreferences(activity)
+                .getInt(DonationPreference.DONATION_RECOMMEND, 0);
+        return Math.max(recommend, recommend2);
     }
 
 }

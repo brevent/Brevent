@@ -29,13 +29,12 @@ public class AppsPaymentFragment extends AbstractDialogFragment
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(R.string.brevent);
         Bundle arguments = getArguments();
-        int days = arguments.getInt(DAYS);
         int size = arguments.getInt(SIZE);
         int required = arguments.getInt(REQUIRED);
         int index = required - 1;
         String[] brefoils = getResources().getStringArray(R.array.brefoils);
         String brefoil = brefoils.length > index ? brefoils[index] : "";
-        builder.setMessage(getString(R.string.make_brevent_better, days, size, brefoil));
+        builder.setMessage(getString(R.string.make_brevent_better, size, brefoil));
         builder.setPositiveButton(android.R.string.ok, this);
         builder.setNegativeButton(android.R.string.cancel, this);
         return builder.create();
@@ -55,9 +54,8 @@ public class AppsPaymentFragment extends AbstractDialogFragment
         }
     }
 
-    public void setMessage(int days, int size, int required) {
+    public void setMessage(int size, int required) {
         Bundle arguments = getArguments();
-        arguments.putInt(DAYS, days);
         arguments.putInt(SIZE, size);
         arguments.putInt(REQUIRED, required);
     }
