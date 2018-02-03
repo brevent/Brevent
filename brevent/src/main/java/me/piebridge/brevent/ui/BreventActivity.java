@@ -39,6 +39,7 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -1398,7 +1399,7 @@ public class BreventActivity extends AbstractActivity
         }
 
         if (!status.mGranted && !application.isGrantedWarned()) {
-            showWarning(FRAGMENT_GRANTED, R.string.unsupported_granted);
+            showWarning(FRAGMENT_GRANTED, getUnsupportedGranted());
         }
 
         if (mSelectStatus == 0 && mBrevent.isEmpty()) {
@@ -1416,6 +1417,14 @@ public class BreventActivity extends AbstractActivity
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
+        }
+    }
+
+    private int getUnsupportedGranted() {
+        if ("x".equals(SystemProperties.get("ro.miui.ui.version.name", "x"))) {
+            return R.string.unsupported_granted;
+        } else {
+            return R.string.unsupported_granted_miui;
         }
     }
 

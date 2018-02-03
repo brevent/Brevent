@@ -52,6 +52,7 @@ public class WarningFragment extends AbstractDialogFragment
         int message = getMessage();
         switch (message) {
             case R.string.unsupported_granted:
+            case R.string.unsupported_granted_miui:
             case R.string.unsupported_checking:
             case R.string.cmd_warning:
                 return true;
@@ -64,6 +65,7 @@ public class WarningFragment extends AbstractDialogFragment
         int message = getMessage();
         switch (message) {
             case R.string.unsupported_granted:
+            case R.string.unsupported_granted_miui:
                 ((BreventApplication) getActivity().getApplication()).launchDevelopmentSettings();
                 break;
             case R.string.unsupported_checking:
@@ -80,6 +82,7 @@ public class WarningFragment extends AbstractDialogFragment
         int message = getMessage();
         switch (message) {
             case R.string.unsupported_granted:
+            case R.string.unsupported_granted_miui:
                 ((BreventApplication) getActivity().getApplication()).setGrantedWarned(true);
                 break;
             case R.string.cmd_warning:

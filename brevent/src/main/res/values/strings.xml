@@ -207,6 +207,7 @@
     <string name="unsupported_no_local_network">Brevent can\'t access local network, please modify your settings of network, battery saver and force doze. Feedback with logs when necessary, or uninstall directly.</string>
     <string name="unsupported_usb">Since Android 8, Brevent server would stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
     <string name="unsupported_granted">Brevent server has no sufficient permissions, some features are unavailable.</string>
+    <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
 

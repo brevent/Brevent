@@ -205,6 +205,7 @@
     <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
     <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
+    <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">暫不支持「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
     <string name="unsupported_location">黑域不支持各種奇怪的安裝位置，請重新安裝。</string>
 
