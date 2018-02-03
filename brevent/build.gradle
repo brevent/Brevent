@@ -150,6 +150,7 @@ android {
         exclude '/fabric/*.properties'
         exclude '/META-INF/*.version'
         exclude '/assets/crashlytics-build.properties'
+        exclude '/lib/*/liblog.so'
     }
 }
 
@@ -268,6 +269,11 @@ def getNdkBuild = { ->
 }
 
 task buildBootstrap(type: Exec) {
+    inputs.dir file('src/main/jni')
+    rootProject.abiFilters.each { abi ->
+        outputs.file file("src/main/libs/${abi}/libbrevent.so")
+    }
+    outputs.upToDateWhen { !outputs.files.filter { file -> file.exists() }.empty }
     commandLine getNdkBuild(),
             '-C', file('src/main/jni').path,
             'APP_BUILD_SCRIPT=Android.mk',
@@ -277,29 +283,26 @@ task buildBootstrap(type: Exec) {
 buildBootstrap.dependsOn ':hidden-api:bundleRelease'
 buildBootstrap.finalizedBy renameBootstrap
 
-task cleanBootstrap(type: Exec) {
-    commandLine getNdkBuild(),
-            '-C', file('src/main/jni').path,
-            'APP_BUILD_SCRIPT=Android.mk',
-            'NDK_APPLICATION_MK=Application.mk',
-            'clean'
-}
-
 task deleteNativeBuild(type: Delete) {
-    delete file('.externalNativeBuild')
     delete file('src/main/obj')
+    delete file('src/main/libs')
 }
 
 tasks.withType(JavaCompile) { compileTask ->
     compileTask.dependsOn buildBootstrap
 }
 
-clean.dependsOn cleanBootstrap
 clean.dependsOn deleteNativeBuild
 
-task copyReleaseApk(type: Copy) {
-    from file("build/outputs/apk/release/${project.ext.apkName}")
-    into rootProject.file('.')
+task copyReleaseApk {
+    inputs.file file("build/outputs/apk/release/${project.ext.apkName}")
+    outputs.file rootProject.file("${project.ext.apkName}")
+    doLast {
+        copy {
+            from inputs.files
+            into rootProject.file('.')
+        }
+    }
 }
 
 afterEvaluate {

@@ -24,21 +24,8 @@ android {
     }
 }
 
-task deleteLogStub(type: Delete) {
-    delete fileTree('build') {
-        include '**/liblog.so'
-    }
-}
-
 task deleteNativeBuild(type: Delete) {
     delete file('.externalNativeBuild')
 }
 
-tasks.whenTaskAdded { task ->
-    if (task.name == 'externalNativeBuildRelease' || task.name == 'externalNativeBuildDebug') {
-        task.finalizedBy deleteLogStub
-    }
-    if (task.name == 'clean') {
-        task.finalizedBy deleteNativeBuild
-    }
-}
+clean.finalizedBy deleteNativeBuild
