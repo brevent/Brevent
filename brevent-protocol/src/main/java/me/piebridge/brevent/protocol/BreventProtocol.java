@@ -178,8 +178,6 @@ public abstract class BreventProtocol {
                     return new BreventConfiguration(parcel);
                 case UPDATE_PRIORITY:
                     return new BreventPriority(parcel);
-                case STATUS_NO_EVENT:
-                    return new BreventNoEvent(parcel);
                 case OPS_KO:
                     return BreventOpsKO.INSTANCE;
                 case OPS_RESET:

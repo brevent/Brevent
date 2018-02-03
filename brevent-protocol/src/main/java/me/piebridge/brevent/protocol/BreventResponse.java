@@ -71,6 +71,8 @@ public class BreventResponse extends BreventProtocol {
 
     public final SimpleArrayMap<String, UsageStats> mStats;
 
+    public final boolean mEventLog;
+
     public BreventResponse(Collection<String> brevent, Collection<String> priority,
                            SimpleArrayMap<String, SparseIntArray> processes,
                            Collection<String> trustAgents, boolean supportStopped,
@@ -80,7 +82,7 @@ public class BreventResponse extends BreventProtocol {
                            String alipaySum, String vpn, Collection<String> packages,
                            boolean supportAppops, boolean alipaySin,
                            boolean forceStopped, Collection<PackageInfo> instantPackages,
-                           SimpleArrayMap<String, UsageStats> stats) {
+                           SimpleArrayMap<String, UsageStats> stats, boolean eventLog) {
         super(BreventProtocol.STATUS_RESPONSE);
         mBrevent = brevent;
         mPriority = priority;
@@ -102,6 +104,7 @@ public class BreventResponse extends BreventProtocol {
         mForceStopped = forceStopped;
         mInstantPackages = instantPackages;
         mStats = stats;
+        mEventLog = eventLog;
     }
 
     BreventResponse(Parcel in) {
@@ -126,6 +129,7 @@ public class BreventResponse extends BreventProtocol {
         mForceStopped = in.readInt() != 0;
         mInstantPackages = ParcelUtils.readPackages(in);
         mStats = ParcelUtils.readUsageStatsMap(in);
+        mEventLog = in.readInt() != 0;
     }
 
     @Override
@@ -151,6 +155,7 @@ public class BreventResponse extends BreventProtocol {
         dest.writeInt(mForceStopped ? 1 : 0);
         ParcelUtils.writePackages(dest, mInstantPackages);
         ParcelUtils.writeUsageStatsMap(dest, mStats);
+        dest.writeInt(mEventLog ? 1 : 0);
     }
 
     public static boolean isStandby(SparseIntArray status) {

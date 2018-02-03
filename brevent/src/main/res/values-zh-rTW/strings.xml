@@ -43,7 +43,6 @@
     <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
     <string name="process_retrieving_apps">正在取得應用程式資訊，請稍候. . .</string>
     <string name="process_retrieving_logs">正在取得日誌，請稍候. . .</string>
-    <string name="process_waiting">正在等待事件日誌，請查看然後關閉通知以觸發事件. . .</string>
     <string name="process_starting">正在開啟黑域服務，請稍候. . .</string>
     <string name="process_checking">正在檢查黑域服務，請稍候. . .</string>
 
@@ -198,7 +197,7 @@
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
     <string name="unsupported_permission">沒有權限存取黑域服務。黑域不支持多用戶、雙開、分身等場景。</string>
-    <string name="unsupported_no_event">黑域服務已開啟，但是沒有事件日誌。\n\n請不要關閉「USB偵錯」，並適當調整「開發人員選項」中的「紀錄器緩衝區空間」，或者其它類似選項。部分設備需要至工程模式開啟日誌。</string>
+    <string name="unsupported_no_event">沒有事件日誌，黑域無法自動工作。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑域服務。</string>

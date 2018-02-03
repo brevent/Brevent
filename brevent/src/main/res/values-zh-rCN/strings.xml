@@ -43,7 +43,6 @@
     <string name="process_retrieving">正在获取进程状态，请稍候……</string>
     <string name="process_retrieving_apps">正在获取应用信息，请稍候……</string>
     <string name="process_retrieving_logs">正在获取日志，请稍候……</string>
-    <string name="process_waiting">正在等待事件日志，请查看然后关闭通知以触发事件……</string>
     <string name="process_starting">正在启动黑域服务，请稍候……</string>
     <string name="process_checking">正在检查黑域服务，请稍候……</string>
 
@@ -198,7 +197,7 @@
     <string name="unsupported_xposed">请禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑域服务。黑域不支持多用户、双开、分身等场景。</string>
-    <string name="unsupported_no_event">黑域服务已启动，但是没有事件日志。\n\n请不要关闭“USB 调试”，并适当调整“开发者选项”中的“日志记录器缓冲区大小”，或者其它类似选项。部分设备需要至工程模式开启日志。\n\n必要时，带日志反馈，或者直接卸载。</string>
+    <string name="unsupported_no_event">没有事件日志，黑域无法自动工作。</string>
     <string name="unsupported_version_mismatched">黑域服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
     <string name="unsupported_shell">无法启动黑域服务。</string>

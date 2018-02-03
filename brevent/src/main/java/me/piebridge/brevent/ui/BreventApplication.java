@@ -94,8 +94,6 @@ public class BreventApplication extends Application implements DonationPreferenc
 
     private WeakReference<Handler> handlerReference;
 
-    private boolean eventMade;
-
     private static long id;
 
     private static final Object LOCK = new Object();
@@ -289,22 +287,6 @@ public class BreventApplication extends Application implements DonationPreferenc
                 handler.sendMessageDelayed(message, 0x400);
             }
             handlerReference = null;
-        }
-    }
-
-    public boolean isEventMade() {
-        return eventMade;
-    }
-
-    public void makeEvent() {
-        if (!eventMade) {
-            eventMade = true;
-        }
-    }
-
-    public void resetEvent() {
-        if (eventMade) {
-            eventMade = false;
         }
     }
 

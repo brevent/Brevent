@@ -91,7 +91,6 @@ import me.piebridge.brevent.override.HideApiOverrideM;
 import me.piebridge.brevent.override.HideApiOverrideN;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventIntent;
-import me.piebridge.brevent.protocol.BreventNoEvent;
 import me.piebridge.brevent.protocol.BreventOK;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
@@ -147,7 +146,6 @@ public class BreventActivity extends AbstractActivity
     public static final int UI_MESSAGE_HIDE_DISABLED = 8;
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
-    public static final int UI_MESSAGE_NO_EVENT = 11;
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
     public static final int UI_MESSAGE_MAKE_EVENT = 13;
     public static final int UI_MESSAGE_LOGS = 14;
@@ -187,6 +185,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_USB = "usb";
     private static final String FRAGMENT_GRANTED = "granted";
     private static final String FRAGMENT_CHECKING = "checking";
+    private static final String FRAGMENT_EVENT_LOG = "event_log";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -1195,14 +1194,8 @@ public class BreventActivity extends AbstractActivity
 
     private void dispatchResponse(@NonNull BreventProtocol response) {
         int action = response.getAction();
-        if (action != BreventProtocol.STATUS_NO_EVENT) {
-            collapsePanels();
-        }
         switch (action) {
             case BreventProtocol.STATUS_RESPONSE:
-                uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
-                BreventApplication application = (BreventApplication) getApplication();
-                application.resetEvent();
                 mIdle = false;
                 onBreventStatusResponse((BreventResponse) response);
                 mIdle = true;
@@ -1213,9 +1206,6 @@ public class BreventActivity extends AbstractActivity
             case BreventProtocol.UPDATE_PRIORITY:
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
-            case BreventProtocol.STATUS_NO_EVENT:
-                onBreventNoEvent((BreventNoEvent) response);
-                break;
             case BreventProtocol.CONFIGURATION:
                 if (shouldOpenSettings) {
                     shouldOpenSettings = false;
@@ -1224,48 +1214,6 @@ public class BreventActivity extends AbstractActivity
                 break;
             default:
                 break;
-        }
-    }
-
-    private void onBreventNoEvent(BreventNoEvent response) {
-        if (response.versionMismatched()) {
-            showUnsupported(R.string.unsupported_version_mismatched);
-        } else if (response.mExit) {
-            showUnsupported(R.string.unsupported_no_event);
-        } else {
-            uiHandler.sendEmptyMessage(UI_MESSAGE_NO_EVENT);
-            mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE2, DELAY);
-            expandNotificationsPanel();
-            BreventApplication application = (BreventApplication) getApplication();
-            if (!application.isEventMade()) {
-                uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_EVENT, DELAY5);
-            }
-        }
-    }
-
-    private void expandNotificationsPanel() {
-        if (!notificationEventMade) {
-            try {
-                IStatusBarService service = IStatusBarService.Stub
-                        .asInterface(ServiceManager.getService("statusbar"));
-                service.expandNotificationsPanel();
-                notificationEventMade = true;
-            } catch (RemoteException | RuntimeException | LinkageError e) {
-                UILog.w("Can't expandNotificationsPanel: " + e.getMessage(), e);
-            }
-        }
-    }
-
-    private void collapsePanels() {
-        if (notificationEventMade) {
-            try {
-                IStatusBarService service = IStatusBarService.Stub
-                        .asInterface(ServiceManager.getService("statusbar"));
-                service.collapsePanels();
-                notificationEventMade = false;
-            } catch (RemoteException | RuntimeException | LinkageError e) {
-                UILog.w("Can't collapsePanels: " + e.getMessage(), e);
-            }
         }
     }
 
@@ -1395,6 +1343,9 @@ public class BreventActivity extends AbstractActivity
             hasResponse = true;
             if (isChecking()) {
                 checkChecking(status);
+            }
+            if (!status.mEventLog) {
+                showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
             }
         }
 
@@ -1943,29 +1894,10 @@ public class BreventActivity extends AbstractActivity
         return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
-    @SuppressLint("WrongConstant")
-    public void makeEvent() {
-        ((BreventApplication) getApplication()).makeEvent();
-        UILog.i("make event by restart");
-        // https://stackoverflow.com/a/3419987/3289354
-        // recreate has no appropriate event
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        super.finish();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-    }
-
     public void showNoPermission() {
         hideProgress();
         hideDisabled();
         showUnsupported(R.string.unsupported_permission);
-    }
-
-    public void showNoEvent() {
-        hideDisabled();
-        showProgress(R.string.process_waiting);
     }
 
     public void onLogsCompleted(File path) {
