@@ -255,6 +255,7 @@ public class BreventActivity extends AbstractActivity
     private boolean force;
 
     private UsageStatsManager mUsageStatsManager;
+    private boolean mIdle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1037,7 +1038,9 @@ public class BreventActivity extends AbstractActivity
         if (BuildConfig.RELEASE) {
             configuration.androidId = BreventApplication.getId(application);
         }
-        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
+        if (mHandler != null) {
+            mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();
+        }
     }
 
     public void openSettings() {
@@ -1199,7 +1202,9 @@ public class BreventActivity extends AbstractActivity
                 uiHandler.removeMessages(UI_MESSAGE_MAKE_EVENT);
                 BreventApplication application = (BreventApplication) getApplication();
                 application.resetEvent();
+                mIdle = false;
                 onBreventStatusResponse((BreventResponse) response);
+                mIdle = true;
                 break;
             case BreventProtocol.UPDATE_BREVENT:
                 onBreventPackagesResponse((BreventPackages) response);
@@ -2220,6 +2225,10 @@ public class BreventActivity extends AbstractActivity
         preferences.edit().putBoolean(BreventConfiguration.BREVENT_CHECKING, false).apply();
         doUpdateConfiguration();
         shouldOpenSettings = true;
+    }
+
+    public boolean isIdle() {
+        return mIdle;
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

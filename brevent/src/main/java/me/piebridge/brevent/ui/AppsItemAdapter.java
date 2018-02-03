@@ -167,9 +167,11 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     }
 
     static void updateViewHolder(BreventActivity activity, AppsItemViewHolder viewHolder) {
-        updateInactive(activity, viewHolder);
-        updateStatus(activity, viewHolder);
-        updateDescription(activity, viewHolder);
+        if (activity.isIdle()) {
+            updateInactive(activity, viewHolder);
+            updateStatus(activity, viewHolder);
+            updateDescription(activity, viewHolder);
+        }
     }
 
     static void updateInactive(BreventActivity activity, AppsItemViewHolder viewHolder) {

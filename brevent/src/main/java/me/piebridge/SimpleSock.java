@@ -43,6 +43,8 @@ public class SimpleSock implements AutoCloseable {
 
     private static final int PORT_BREVENT = 59527;
 
+    private static final int PORT_BREVENT_MAX = 0xe900;
+
     private final int port;
 
     private final Server server;
@@ -68,7 +70,9 @@ public class SimpleSock implements AutoCloseable {
                 return new SimpleSock(port);
             } catch (BindException e) {
                 i("port " + port + " " + e.getMessage());
-                port++;
+                if (++port >= PORT_BREVENT_MAX) {
+                    throw e;
+                }
             }
         }
     }
