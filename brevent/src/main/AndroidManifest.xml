@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="me.piebridge.brevent"
     android:installLocation="internalOnly">
 
@@ -14,12 +13,6 @@
     <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
-    <uses-permission
-        android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.DUMP"
-        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
 
     <application

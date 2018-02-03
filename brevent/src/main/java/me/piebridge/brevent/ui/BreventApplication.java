@@ -41,7 +41,6 @@ import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -522,28 +521,6 @@ public class BreventApplication extends Application implements DonationPreferenc
             preferences.edit().remove("alipay2").apply();
         }
         return Math.max(donate1, donate2);
-    }
-
-    public static byte[] dumpsys(String serviceName, String[] args) {
-        String clazzServer = String.valueOf(BuildConfig.SERVER);
-        try {
-            ClassLoader classLoader = BreventApplication.class.getClassLoader();
-            return (byte[]) classLoader.loadClass(clazzServer)
-                    .getMethod(String.valueOf('c'), String.class, String[].class)
-                    .invoke(null, serviceName, args);
-        } catch (ReflectiveOperationException | RuntimeException e) {
-            UILog.w("Can't dumpsys " + serviceName + " " + Arrays.toString(args), e);
-            return null;
-        }
-    }
-
-    public static void dumpsys(String serviceName, String[] args, File file) throws IOException {
-        byte[] results = dumpsys(serviceName, args);
-        if (results != null && file != null) {
-            try (FileOutputStream os = new FileOutputStream(file)) {
-                os.write(results);
-            }
-        }
     }
 
     public boolean checkPort() {

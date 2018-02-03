@@ -1,8 +1,6 @@
 package me.piebridge.brevent.ui;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -45,10 +43,6 @@ public class AppsActivityHandler extends Handler {
             {"crash.txt", "-b crash"},
             {"brevent.txt", "-b main -s BreventServer BreventLoader BreventUI" +
                     " SimpleSu SimpleAdb SimpleSock"}
-    };
-
-    private static final String[][] DUMPS = new String[][] {
-            {"battery.txt", "batterystats", null},
     };
 
     private static final long DELAY = 15000;
@@ -181,16 +175,6 @@ public class AppsActivityHandler extends Handler {
                     UILog.d("logcat for " + log[0]);
                     Runtime.getRuntime().exec(command).waitFor();
                 }
-                if (context.getPackageManager().checkPermission(Manifest.permission.DUMP,
-                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED) {
-                    for (String[] dump : DUMPS) {
-                        File file = new File(cacheDir, date + "." + dump[0]);
-                        String[] args = dump[2] == null ? null : dump[2].split(" ");
-                        BreventApplication.dumpsys(dump[1], args, file);
-                    }
-                } else {
-                    UILog.d("skip for dump");
-                }
                 Runtime.getRuntime().exec("sync").waitFor();
                 path = zipLog(context, dir, date);
             } catch (IOException | InterruptedException e) {
@@ -254,9 +238,6 @@ public class AppsActivityHandler extends Handler {
             ) {
                 for (String[] log : LOGS) {
                     zipLog(context, zos, date, log[0]);
-                }
-                for (String[] dump : DUMPS) {
-                    zipLog(context, zos, date, dump[0]);
                 }
                 File parent = context.getExternalFilesDir(null).getParentFile();
                 names = parent.list();
