@@ -8,6 +8,8 @@ import android.support.v4.util.ArraySet;
 import java.util.Collection;
 import java.util.Locale;
 
+import me.piebridge.SimpleTrim;
+
 /**
  * Created by thom on 2017/2/4.
  */
@@ -49,7 +51,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
         int size = 0;
         String query = activity.getQuery();
         if (query != null) {
-            query = AppsLabelLoader.trim(query).toString().toLowerCase(Locale.US);
+            query = SimpleTrim.trim(query).toString().toLowerCase(Locale.US);
         }
         for (String packageName : packageNames) {
             PackageInfo packageInfo = application.getInstantPackageInfo(packageName);

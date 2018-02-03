@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
@@ -87,7 +88,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
         }
         String important = activity.getLabel("", packageName);
         if (!TextUtils.isEmpty(important)) {
-            menu.add(AppsLabelLoader.trim(important));
+            menu.add(SimpleTrim.trim(important));
         }
     }
 

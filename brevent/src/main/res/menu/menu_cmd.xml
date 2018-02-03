@@ -13,4 +13,8 @@
         android:showAsAction="ifRoom"
         android:title="@string/cmd_menu_reset" />
 
+    <item
+        android:id="@+id/action_batterystats"
+        android:title="@string/cmd_menu_batterystats" />
+
 </menu>

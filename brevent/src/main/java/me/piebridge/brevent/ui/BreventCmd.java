@@ -31,6 +31,7 @@ import java.lang.ref.WeakReference;
 import java.net.Socket;
 import java.util.Objects;
 
+import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventCmdRequest;
 import me.piebridge.brevent.protocol.BreventCmdResponse;
@@ -117,7 +118,7 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     public void onClick(View v) {
         if (v == execView) {
             String command = commandView.getText().toString();
-            String safeCommand = command.replaceAll("\\xc2", "").replaceAll("\\xa0", " ");
+            String safeCommand = SimpleTrim.removeWhiteSpace(command);
             if (!Objects.equals(command, safeCommand)) {
                 command = safeCommand;
                 commandView.setText(command);
@@ -149,8 +150,6 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
             menu.removeItem(R.id.action_stop);
             menu.findItem(R.id.action_reset).getIcon().setTint(mColorControlNormal);
             addMotionelf(menu);
-            addAppops(menu);
-            addDpm(menu);
         } else {
             menu.removeItem(R.id.action_reset);
             menu.findItem(R.id.action_stop).getIcon().setTint(mColorControlNormal);
@@ -163,28 +162,6 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
         addCommand(menu, packageName, packageName);
     }
 
-    private void addAppops(Menu menu) {
-        final String packageName = "moe.shizuku.privileged.api";
-        final String command = "sh /sdcard/Android/data/moe.shizuku.privileged.api/files/start.sh";
-        addCommand(menu, packageName, command);
-    }
-
-    private boolean addDpm(Menu menu) {
-        return addIsland(menu) || addIcebox(menu);
-    }
-
-    private boolean addIsland(Menu menu) {
-        final String packageName = "com.oasisfeng.island";
-        final String command = "dpm set-device-owner com.oasisfeng.island/.IslandDeviceAdminReceiver";
-        return addCommand(menu, packageName, command);
-    }
-
-    private boolean addIcebox(Menu menu) {
-        final String packageName = "com.catchingnow.icebox";
-        final String command = "dpm set-device-owner com.catchingnow.icebox/.receiver.DPMReceiver";
-        return addCommand(menu, packageName, command);
-    }
-
     private boolean addCommand(Menu menu, String packageName, String command) {
         PackageManager packageManager = getPackageManager();
         if (packageManager.getLaunchIntentForPackage(packageName) == null) {
@@ -195,12 +172,16 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
             packageInfo = packageManager.getPackageInfo(packageName, 0);
             String label = AppsLabelLoader.loadLabel(packageManager, packageInfo);
             MenuItem item = menu.add(Menu.NONE, packageInfo.applicationInfo.uid, Menu.NONE, label);
-            item.setIntent(new Intent().putExtra(BreventIntent.EXTRA_COMMAND, command));
+            item.setIntent(getCommandIntent(command));
             return true;
         } catch (PackageManager.NameNotFoundException ignore) {
             // ignore
             return false;
         }
+    }
+
+    private Intent getCommandIntent(String command) {
+        return new Intent().putExtra(BreventIntent.EXTRA_COMMAND, command);
     }
 
     @Override
@@ -254,6 +235,9 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
                 return true;
             case R.id.action_stop:
                 doStop();
+                return true;
+            case R.id.action_batterystats:
+                setCommand(getCommandIntent("dumpsys batterystats > /sdcard/batterystats.txt"));
                 return true;
             default:
                 setCommand(item.getIntent());
