@@ -164,12 +164,13 @@
     <string name="show_donation_summary_play">如果已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_summary_not_play">推荐使用支付宝自动确认。如果已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
-    <string name="show_donation_rmb">感谢您支付 %s 二向箔（1 二向箔折合人民币 6.5 元）</string>
+    <string name="show_donation_rmb">感谢您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
+    <string name="show_donation_xposed">（Xposed）</string>
     <string name="brevent_checking">自我诊断</string>
     <string name="brevent_checking_label">每 15 分钟检查黑域服务\n\n只有偶然不正常停止时，才需要开启</string>
     <string name="brevent_appops">应用权限（实验性）</string>
@@ -213,7 +214,8 @@
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔。如果之前也有支付，请进入“转账记录”确认</string>
+    <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔</string>
+    <string name="toast_xposed">@string/show_donation_xposed</string>
     <string name="toast_alipay_ok">如果已经支付，请点按“转账记录”自动识别</string>
     <string name="toast_alipay_ko">无法自动确认，请不要支付</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
@@ -226,7 +228,7 @@
     <string name="brevent_status_unknown">黑域服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="pay_verify">如果已经支付，请打开“支付宝”（需要临时禁用 Xposed），点开“转账记录”（不是“账单详情”），将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
+    <string name="pay_verify">如果已经支付，请打开“支付宝”，点开“转账记录”（不是“账单详情”），将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期。\n\n如果其它方式支付，请发送邮件（需要安装邮件客户端），附上支付订单截图。邮件一般 24 小时内回复，请尽量自动确认。</string>
     <string name="pay_alipay">打开“支付宝”</string>
     <string name="pay_email">邮件</string>
     <string name="pay_email_subject">支付确认 %1$s（%2$s）</string>

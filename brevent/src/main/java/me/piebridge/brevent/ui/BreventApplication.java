@@ -44,6 +44,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -113,6 +114,14 @@ public class BreventApplication extends Application {
     private String mToken = "";
 
     SimpleArrayMap<String, PackageInfo> mInstantPackages = new SimpleArrayMap<>();
+
+    private Boolean mXposed;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mXposed = getXposed();
+    }
 
     private void setSupportStopped(boolean supportStopped) {
         if (mSupportStopped != supportStopped) {
@@ -322,9 +331,14 @@ public class BreventApplication extends Application {
     }
 
     public boolean isUnsafe() {
-        if (AppsDisabledFragment.isEmulator()) {
-            return true;
-        }
+        return AppsDisabledFragment.isEmulator() || mXposed == null;
+    }
+
+    public boolean isXposed() {
+        return Objects.equals(mXposed, Boolean.TRUE);
+    }
+
+    private Boolean getXposed() {
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
@@ -334,8 +348,7 @@ public class BreventApplication extends Application {
             return (boolean) classLoader.loadClass(clazzServer).getMethod(String.valueOf('c'))
                     .invoke(null);
         } catch (ReflectiveOperationException | PackageManager.NameNotFoundException e) { // NOSONAR
-            // do nothing
-            return false;
+            return null;
         }
     }
 
@@ -480,18 +493,23 @@ public class BreventApplication extends Application {
     public static double getDonation(BreventApplication application) {
         SharedPreferences preferences = PreferencesUtils.getPreferences(application);
         String alipay1 = preferences.getString("alipay1", "");
-        double donate1 = decode(application, alipay1, true);
-        if (donate1 < 0) {
-            donate1 = 0;
-            preferences.edit().remove("alipay1").apply();
-        }
+        double donate1 = Math.abs(decode(application, alipay1, true));
         String alipay2 = preferences.getString("alipay2", "");
         double donate2 = decode(application, alipay2, false);
-        if (donate2 < 0) {
-            donate2 = 0;
+        int compare = Double.compare(donate1, donate2);
+        if (compare <= 0 || donate1 == 0) {
+            preferences.edit().remove("alipay1").apply();
+        }
+        if (compare > 0 || donate2 == 0) {
             preferences.edit().remove("alipay2").apply();
         }
         return Math.max(donate1, donate2);
+    }
+
+    public static boolean isXposed(BreventApplication application) {
+        SharedPreferences preferences = PreferencesUtils.getPreferences(application);
+        String alipay1 = preferences.getString("alipay1", "");
+        return !DecimalUtils.isPositive(decode(application, alipay1, true));
     }
 
     public boolean checkPort() {

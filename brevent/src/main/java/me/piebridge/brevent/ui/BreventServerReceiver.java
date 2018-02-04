@@ -183,19 +183,20 @@ public class BreventServerReceiver extends BroadcastReceiver {
             return;
         }
         double donation = BreventApplication.decode(application, sum, true, true);
-        if (DecimalUtils.isPositive(donation)) {
-            if (DecimalUtils.isPositive(donation - BreventApplication.getDonation(application))) {
-                PreferencesUtils.getPreferences(application)
-                        .edit().putString("alipay1", sum).apply();
-            }
-        } else {
+        boolean xposed = !DecimalUtils.isPositive(donation);
+        donation = Math.abs(donation);
+        if (DecimalUtils.isPositive(donation - BreventApplication.getDonation(application))) {
             PreferencesUtils.getPreferences(application)
-                    .edit().remove("alipay1").apply();
+                    .edit().putString("alipay1", sum).apply();
         }
         String format = DecimalUtils.format(donation);
         if (!"0".equals(format)) {
+            Resources resources = application.getResources();
             int resId = sin ? R.string.toast_alipay_single : R.string.toast_alipay;
-            String message = application.getResources().getString(resId, format);
+            String message = resources.getString(resId, format);
+            if (xposed) {
+                message += resources.getString(R.string.toast_xposed);
+            }
             Toast.makeText(application, message, Toast.LENGTH_LONG).show();
         }
     }

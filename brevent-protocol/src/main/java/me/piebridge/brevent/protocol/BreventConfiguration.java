@@ -70,6 +70,8 @@ public class BreventConfiguration extends BreventProtocol {
 
     public boolean background = DEFAULT_BREVENT_BACKGROUND;
 
+    public boolean xposed;
+
     public BreventConfiguration() {
         super(CONFIGURATION);
     }
@@ -123,6 +125,7 @@ public class BreventConfiguration extends BreventProtocol {
         optimizeAudio = in.readInt() != 0;
         checking = in.readInt() != 0;
         background = in.readInt() != 0;
+        xposed = in.readInt() != 0;
     }
 
     @Override
@@ -139,6 +142,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(optimizeAudio ? 1 : 0);
         dest.writeInt(checking ? 1 : 0);
         dest.writeInt(background ? 1: 0);
+        dest.writeInt(xposed ? 1 : 0);
     }
 
     public void write(PrintWriter pw) {
@@ -259,6 +263,9 @@ public class BreventConfiguration extends BreventProtocol {
         if (this.background != request.background) {
             this.background = request.background;
             updated = true;
+        }
+        if (!this.xposed && request.xposed) {
+            this.xposed = true;
         }
         return updated;
     }

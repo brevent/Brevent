@@ -170,6 +170,7 @@
     <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_xposed">（Xposed）</string>
     <string name="brevent_checking">自我診斷</string>
     <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
     <string name="brevent_appops">程式權限（實驗性）</string>
@@ -213,7 +214,8 @@
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔。如果之前也有支付，請進入「轉賬記錄」確認</string>
+    <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔</string>
+    <string name="toast_xposed">@string/show_donation_xposed</string>
     <string name="toast_alipay_ok">如果已經支付，請點按「轉賬記錄」自動識別</string>
     <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
@@ -226,7 +228,7 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="pay_verify">如果已經支付，請打開「支付寶」（需要臨時禁用「Xposed」），點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
+    <string name="pay_verify">如果已經支付，請打開「支付寶」，點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
     <string name="pay_alipay">打開「支付寶」</string>
     <string name="pay_email">郵件</string>
     <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>

@@ -266,6 +266,7 @@ public class SettingsFragment extends PreferenceFragment
         BreventApplication application = (BreventApplication) activity.getApplication();
         String summary;
         double donation = BreventApplication.getDonation(application);
+        boolean xposed = BreventApplication.isXposed(application);
         String play = Integer.toString(total);
         String rmb = DecimalUtils.format(donation);
         if (contributor) {
@@ -289,12 +290,18 @@ public class SettingsFragment extends PreferenceFragment
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb,
                             play, rmb);
+                    if (xposed) {
+                        summary += getString(R.string.show_donation_xposed);
+                    }
                 } else {
                     summary = getString(R.string.show_donation_play, play);
                 }
             } else {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
+                    if (xposed) {
+                        summary += getString(R.string.show_donation_xposed);
+                    }
                 } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = getString(R.string.show_donation_summary_play);
                 } else {

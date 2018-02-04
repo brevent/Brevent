@@ -1016,6 +1016,7 @@ public class BreventActivity extends AbstractActivity
         BreventConfiguration configuration = new BreventConfiguration(preferences);
         if (BuildConfig.RELEASE) {
             configuration.androidId = BreventApplication.getId(application);
+            configuration.xposed = application.isXposed();
         }
         if (mHandler != null) {
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, configuration).sendToTarget();

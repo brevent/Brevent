@@ -172,6 +172,7 @@
     <string name="show_donation_play_and_contributor">Dzięki za kupno %s Brefoil w Sklepie Play i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_rmb_and_contributor">Dzięki za kupno %s Brefoil i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
+    <string name="show_donation_xposed">(Xposed)</string>
     <string name="brevent_checking">Diagnostyka</string>
     <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
     <string name="brevent_appops">AppOps (Eksperymentalne)</string>
@@ -216,9 +217,10 @@
     <string name="toast_home_tid">Rozpoznany prawdziwy przycisk \"Home\": %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
-    <string name="toast_alipay_ok" />
-    <string name="toast_alipay_ko" />
-    <string name="toast_donate">Dzięki za zapłacenie %1$s Brefoil</string>
+    <string name="toast_xposed">@string/show_donation_xposed</string>
+    <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
+    <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
+    <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
 
     <string name="logs_description">%1$s\n(Proszę umieścić opis logów.)</string>
 
@@ -228,7 +230,7 @@
     <string name="brevent_status_unknown">Serwer Brevent może być zatrzymany</string>
     <string name="brevent_status_report">Dotknij, aby wysłać informację zwrotną oraz dokładnie ją opisać</string>
 
-    <string name="pay_verify">If you have paid, please disable \"Xposed\", launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
+    <string name="pay_verify">If you have paid, please launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
     <string name="pay_alipay">Launch \"Alipay\"</string>
     <string name="pay_email">Email</string>
     <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
