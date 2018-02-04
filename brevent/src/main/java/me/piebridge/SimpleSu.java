@@ -33,6 +33,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.UUID;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by thom on 2017/11/15.
@@ -43,8 +48,20 @@ public class SimpleSu {
 
     private static final Object LOCK = new Object();
 
+    private static final String BOM = UUID.randomUUID().toString();
+
+    private static final String EOF = UUID.randomUUID().toString();
+
+    private static boolean exit;
+
+    private static Runnable kill;
+
     private SimpleSu() {
 
+    }
+
+    public static void setKill(Runnable runnable) {
+        kill = runnable;
     }
 
     public static void su(String command) {
@@ -57,11 +74,18 @@ public class SimpleSu {
         }
     }
 
+    static void kill() {
+        if (kill != null) {
+            kill.run();
+        }
+    }
+
     private static String exec(String command, boolean output) {
         i(">>> +++++++");
         i("[suexec] " + command);
         StringWriter sw = new StringWriter();
         try {
+            exit = false;
             Process process = Runtime.getRuntime().exec("su");
             Thread out = null;
             Thread err = null;
@@ -73,11 +97,15 @@ public class SimpleSu {
                 err.start();
             }
             PrintWriter stdin = new PrintWriter(process.getOutputStream());
+            stdin.println("echo " + BOM);
+            stdin.println("echo " + BOM + " >&2");
             stdin.println(command);
+            stdin.println("echo " + EOF);
             stdin.println("exit");
             stdin.flush();
             stdin.close();
             process.waitFor();
+            exit = true;
             if (output) {
                 out.join();
                 err.join();
@@ -139,11 +167,16 @@ public class SimpleSu {
         private final InputStream is;
         private final PrintWriter pw;
         private final String prefix;
+        private volatile boolean bom;
+
+        private final ScheduledExecutorService executor;
+        private Future future;
 
         StreamGobbler(InputStream is, PrintWriter pw, String prefix) {
             this.is = new BufferedInputStream(is);
             this.pw = pw;
             this.prefix = prefix;
+            this.executor = new ScheduledThreadPoolExecutor(0x1);
         }
 
         @Override
@@ -152,15 +185,75 @@ public class SimpleSu {
                     BufferedReader br = new BufferedReader(new InputStreamReader(is))
             ) {
                 String line;
-                while ((line = br.readLine()) != null) {
-                    synchronized (pw) {
-                        i(prefix + line);
-                        pw.println(line);
-                        pw.flush();
+                boolean shouldBreak = false;
+                while (true) {
+                    if (br.ready()) {
+                        line = br.readLine();
+                        shouldBreak = line == null || onLine(line);
+                    } else if (shouldBreak || exit || sleep(0x1)) {
+                        break;
                     }
                 }
             } catch (IOException e) {
                 i(prefix + "io exception", e);
+            }
+        }
+
+        private boolean sleep(int i) {
+            try {
+                TimeUnit.SECONDS.sleep(i);
+                return false;
+            } catch (InterruptedException e) { // NOSONAR
+                Thread.currentThread().interrupt();
+                i(prefix + "read interrupted");
+                return true;
+            }
+        }
+
+        private boolean onLine(String line) {
+            if (line.endsWith(EOF)) {
+                if (!EOF.equals(line)) {
+                    write(line.substring(0, line.length() - EOF.length()));
+                }
+                scheduleKill();
+                return true;
+            }
+
+            if (bom) {
+                write(line);
+            } else if (BOM.equals(line)) {
+                bom = true;
+                cancelKill();
+            } else {
+                write(line);
+                scheduleKill();
+            }
+            return false;
+        }
+
+        private void cancelKill() {
+            if (future != null) {
+                future.cancel(true);
+            }
+        }
+
+        private void scheduleKill() {
+            if (future != null) {
+                future.cancel(true);
+            }
+            future = executor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    kill();
+                }
+            }, 0x3, TimeUnit.SECONDS);
+        }
+
+        private void write(String line) {
+            i(prefix + line);
+            synchronized (pw) {
+                pw.println(line);
+                pw.flush();
             }
         }
     }
