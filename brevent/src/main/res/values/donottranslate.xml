@@ -143,4 +143,6 @@
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>
 
+    <string name="unsupported_motionelf">您已安装假冒“飞智游戏厅”。如果不使用飞智小游激活，建议直接卸载。</string>
+
 </resources>

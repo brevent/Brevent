@@ -2,7 +2,6 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -36,8 +35,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
-import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.provider.Settings;
@@ -66,8 +63,6 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.SearchView;
 import android.widget.Toolbar;
-
-import com.android.internal.statusbar.IStatusBarService;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -120,6 +115,9 @@ public class BreventActivity extends AbstractActivity
             {88, -31, -60, 19, 63, 116, 65, -20, 61, 44,
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
+
+    private static final byte[] DEBUG_SIGNATURE = {97, -19, 55, 126, -123, -45, -122, -88, -33, -18,
+            107, -122, 75, -40, 91, 11, -6, -91, -81, -127};
 
     static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
 
@@ -186,6 +184,7 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_GRANTED = "granted";
     private static final String FRAGMENT_CHECKING = "checking";
     private static final String FRAGMENT_EVENT_LOG = "event_log";
+    private static final String FRAGMENT_MOTIONELF = "motionelf";
 
     private static final String PACKAGE_FRAMEWORK = "android";
     private Signature[] frameworkSignatures;
@@ -294,7 +293,7 @@ public class BreventActivity extends AbstractActivity
             showUnsupported(R.string.unsupported_xposed);
         } else if (!BreventApplication.IS_OWNER) {
             showUnsupported(R.string.unsupported_owner);
-        } else if (!verifySignature()) {
+        } else if (!verifySignature(this, BuildConfig.APPLICATION_ID, BuildConfig.SIGNATURE)) {
             showUnsupported(R.string.unsupported_signature);
         } else if (isFlymeClone()) {
             showUnsupported(R.string.unsupported_clone);
@@ -441,17 +440,26 @@ public class BreventActivity extends AbstractActivity
         fragment.show(getFragmentManager(), FRAGMENT_SORT);
     }
 
-    private boolean verifySignature() {
+    static boolean isGenuineMotionelf(Context context) {
+        return context.getPackageManager().getLaunchIntentForPackage(MOTIONELF_PACKAGE) != null
+                && verifySignature(context, MOTIONELF_PACKAGE, BuildConfig.MOTIONELF_SIGNATURE);
+    }
+
+    static boolean isDebugMotionelf(Context context) {
+        return verifySignature(context, MOTIONELF_PACKAGE, DEBUG_SIGNATURE);
+    }
+
+    static boolean verifySignature(Context context, String packageName, byte[] signature) {
         if (!BuildConfig.RELEASE) {
             return true;
         }
+        String sourceDir;
         try {
-            String sourceDir = getPackageManager()
-                    .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
-            return Arrays.equals(BuildConfig.SIGNATURE, BreventProtocol.getFingerprint(sourceDir));
+            sourceDir = context.getPackageManager().getApplicationInfo(packageName, 0).sourceDir;
+            return Arrays.equals(signature, BreventProtocol.getFingerprint(sourceDir));
         } catch (PackageManager.NameNotFoundException e) {
             UILog.w("Can't find " + BuildConfig.APPLICATION_ID, e);
-            return false;
+            return true;
         }
     }
 
@@ -492,28 +500,6 @@ public class BreventActivity extends AbstractActivity
         return false;
     }
 
-    private boolean shouldStartMotionelf() {
-        try {
-            PackageManager packageManager = getPackageManager();
-            if (packageManager.getLaunchIntentForPackage(MOTIONELF_PACKAGE) != null) {
-                return false;
-            }
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(MOTIONELF_PACKAGE, 0);
-            if (new File(applicationInfo.dataDir).canRead()) {
-                return false;
-            }
-            ResolveInfo resolveInfo = packageManager.resolveActivity(getMotionelfIntent(), 0);
-            ActivityInfo activityInfo = resolveInfo == null ? null : resolveInfo.activityInfo;
-            return activityInfo != null && activityInfo.exported && activityInfo.enabled;
-        } catch (PackageManager.NameNotFoundException ignore) {
-            return false;
-        }
-    }
-
-    private Intent getMotionelfIntent() {
-        return new Intent().setClassName(MOTIONELF_PACKAGE, MOTIONELF_CLASS);
-    }
-
     public void showDisabled() {
         hideProgress();
         showDisabled(R.string.brevent_service_start);
@@ -548,9 +534,6 @@ public class BreventActivity extends AbstractActivity
             fragment = new AppsDisabledFragment();
             fragment.setTitle(title);
             fragment.show(getFragmentManager(), FRAGMENT_DISABLED);
-            if (shouldStartMotionelf()) {
-                startActivity(getMotionelfIntent());
-            }
         }
         if (hasResponse) {
             mHandler.sendEmptyMessageDelayed(MESSAGE_RETRIEVE, DELAY);
@@ -1347,6 +1330,9 @@ public class BreventActivity extends AbstractActivity
             if (!status.mEventLog) {
                 showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
             }
+            if (mPackages.contains(MOTIONELF_PACKAGE) && !isGenuineMotionelf(this)) {
+                checkMotionelf(application);
+            }
         }
 
         if (!status.mGranted && !application.isGrantedWarned()) {
@@ -1368,6 +1354,13 @@ public class BreventActivity extends AbstractActivity
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
+        }
+    }
+
+    private void checkMotionelf(BreventApplication application) {
+        if ((application.isPlay() || !isDebugMotionelf(application))
+                && application.getDonated() < BreventSettings.DONATE_AMOUNT) {
+            showWarning(FRAGMENT_MOTIONELF, R.string.unsupported_motionelf);
         }
     }
 
@@ -1419,7 +1412,7 @@ public class BreventActivity extends AbstractActivity
 
     private void checkBreventList(BreventApplication application, int days, int donated) {
         int size = mBrevent.size();
-        int required = BreventSettings.getRecommend(this, size, hasFakeMotionelf());
+        int required = BreventSettings.getRecommend(this, size, !isGenuineMotionelf(this));
         if (required > donated) {
             SharedPreferences sp = PreferencesUtils.getPreferences(this);
             long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);
@@ -1431,12 +1424,6 @@ public class BreventActivity extends AbstractActivity
                         .putInt(AppsPaymentFragment.REQUIRED, required).apply();
             }
         }
-    }
-
-    private boolean hasFakeMotionelf() {
-        final String packageName = MOTIONELF_PACKAGE;
-        return mPackages.contains(packageName)
-                && getPackageManager().getLaunchIntentForPackage(packageName) == null;
     }
 
     private void showAlipay(String alipaySum, boolean alipaySin) {

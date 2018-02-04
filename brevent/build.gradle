@@ -48,7 +48,7 @@ android {
             buildConfigField 'byte[]', 'ADB_K', properties['build.adb.k']
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             buildConfigField 'char[]', 'MOTIONELF_PACKAGE', properties['build.motionelf.packageName']
-            buildConfigField 'char[]', 'MOTIONELF_CLASS', properties['build.motionelf.className']
+            buildConfigField 'byte[]', 'MOTIONELF_SIGNATURE', properties['build.motionelf.signature']
             resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
@@ -101,7 +101,7 @@ android {
             buildConfigField 'byte[]', 'ADB_K', 'null'
             buildConfigField 'byte[]', 'DONATE_M', 'null'
             buildConfigField 'char[]', 'MOTIONELF_PACKAGE', '{}'
-            buildConfigField 'char[]', 'MOTIONELF_CLASS', '{}'
+            buildConfigField 'byte[]', 'MOTIONELF_SIGNATURE', '{}'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
             } else {

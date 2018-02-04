@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -192,7 +191,7 @@ public class BreventSettings extends DonateActivity {
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
         int size = getIntent().getIntExtra(BreventIntent.EXTRA_BREVENT_SIZE, 0);
-        int amount = getRecommend(this, size, hasFakeMotionelf());
+        int amount = getRecommend(this, size, !BreventActivity.isGenuineMotionelf(this));
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -201,17 +200,6 @@ public class BreventSettings extends DonateActivity {
             }
         }
         return skus;
-    }
-
-    private boolean hasFakeMotionelf() {
-        PackageManager packageManager = getPackageManager();
-        try {
-            final String packageName = BreventActivity.MOTIONELF_PACKAGE;
-            packageManager.getApplicationInfo(packageName, 0);
-            return packageManager.getLaunchIntentForPackage(packageName) == null;
-        } catch (PackageManager.NameNotFoundException ignore) {
-            return false;
-        }
     }
 
     @Override

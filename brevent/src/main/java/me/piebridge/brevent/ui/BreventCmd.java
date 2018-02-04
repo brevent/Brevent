@@ -149,7 +149,9 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
         if (execView.isClickable()) {
             menu.removeItem(R.id.action_stop);
             menu.findItem(R.id.action_reset).getIcon().setTint(mColorControlNormal);
-            addMotionelf(menu);
+            if (BreventActivity.isGenuineMotionelf(this)) {
+                addMotionelf(menu);
+            }
         } else {
             menu.removeItem(R.id.action_reset);
             menu.findItem(R.id.action_stop).getIcon().setTint(mColorControlNormal);
@@ -158,8 +160,13 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     }
 
     private void addMotionelf(Menu menu) {
-        final String packageName = "com.game.motionelf";
-        addCommand(menu, packageName, packageName);
+        final String packageName = BreventActivity.MOTIONELF_PACKAGE;
+        final String command = "path=/data/local/tmp/motionelf_server; " +
+                "rm -rf $path; " +
+                "cp /data/data/" + packageName + "/files/motionelf_server $path; " +
+                "chmod 0755 $path; " +
+                "$path &";
+        addCommand(menu, packageName, command);
     }
 
     private boolean addCommand(Menu menu, String packageName, String command) {
@@ -286,9 +293,7 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     }
 
     private boolean isInvalid(String command) {
-        if (command.contains("&")) {
-            return true;
-        } else if (command.contains(" ")) {
+        if (command.contains(" ")) {
             return false;
         } else if (command.equals("sh") || command.equals("su")) {
             return true;
