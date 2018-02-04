@@ -131,7 +131,7 @@ public class AppsItemHandler extends Handler {
                         long diff = now - inactive;
                         viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(diff));
                     } else {
-                        viewHolder.inactiveView.setText(null);
+                        viewHolder.inactiveView.setText(SortFragment.getText(activity, viewHolder));
                     }
                 }
             }

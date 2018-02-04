@@ -73,7 +73,7 @@
     <string name="action_message_undo">Cofnij</string>
     <string name="action_message_undone">Cofnięto</string>
 
-    <string name="context_menu_select">Zaznacz / Odznacz</string>
+    <string name="context_menu_target">SDK %1$d (%2$s)</string>
     <string name="context_menu_package_name">Kopiuj nazwę pakietu</string>
     <string name="context_menu_app_info">Informacje o aplikacji</string>
     <string name="context_menu_open">Uruchom</string>
@@ -103,6 +103,7 @@
     <string name="menu_search">Szukaj</string>
     <string name="menu_sort">Sortuj wg</string>
     <string name="menu_sort_by_name">Aplikacji</string>
+    <string name="menu_sort_by_install_time">Install time</string>
     <string name="menu_sort_by_update_time">Czasu aktualizacji</string>
     <string name="menu_sort_by_last_time">Ostatniego czasu użycia</string>
     <string name="menu_sort_by_usage_time">Czasu działania</string>
@@ -158,6 +159,8 @@
     <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)</string>
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
     <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie</string>
+    <string name="brevent_background">Background limits</string>
+    <string name="brevent_background_label">Update background limits dynamically, may cause brevented apps crash</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_play" />

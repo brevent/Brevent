@@ -15,6 +15,7 @@ public final class BreventIntent {
     public static final String ACTION_BREVENT = "me.piebridge.brevent.intent.action.BREVENT";
     public static final String ACTION_RESTORE = "me.piebridge.brevent.intent.action.RESTORE";
     public static final String ACTION_COMMAND = "me.piebridge.brevent.intent.action.COMMAND";
+    public static final String ACTION_DEVELOPER = "me.piebridge.brevent.intent.action.DEVELOPER";
 
     public static final String PERMISSION_MANAGER = "me.piebridge.brevent.permission.MANAGER";
 

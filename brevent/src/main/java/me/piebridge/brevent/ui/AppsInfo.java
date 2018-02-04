@@ -37,7 +37,11 @@ class AppsInfo {
 
     final boolean hasName;
 
+    long firstInstallTime;
+
     long lastUpdateTime;
+
+    int sdk;
 
     UsageStats stats;
 
@@ -153,6 +157,38 @@ class AppsInfo {
                 long t1 = o1.stats == null ? -1 : o1.stats.getTotalTimeInForeground();
                 long t2 = o2.stats == null ? -1 : o2.stats.getTotalTimeInForeground();
                 result = Long.compare(t2, t1);
+            }
+            if (result == 0) {
+                result = Collator.getInstance().compare(o1.label, o2.label);
+            }
+            return result;
+        }
+
+    }
+
+    public static class SortByInstallTime implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                result = Long.compare(o2.firstInstallTime, o1.firstInstallTime);
+            }
+            if (result == 0) {
+                result = Collator.getInstance().compare(o1.label, o2.label);
+            }
+            return result;
+        }
+
+    }
+
+    public static class SortBySdk implements Comparator<AppsInfo> {
+
+        @Override
+        public int compare(AppsInfo o1, AppsInfo o2) {
+            int result = o1.compareTo(o2);
+            if (result == 0) {
+                result = Integer.compare(o2.sdk, o1.sdk);
             }
             if (result == 0) {
                 result = Collator.getInstance().compare(o1.label, o2.label);

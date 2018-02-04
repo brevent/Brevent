@@ -10,8 +10,6 @@
         android:icon="@drawable/ic_settings_development"
         android:shortcutId="developer"
         android:shortcutShortLabel="@string/brevent_about_developer">
-        <intent
-            android:targetClass="com.android.settings.DevelopmentSettings"
-            android:targetPackage="com.android.settings" />
+        <intent android:action="me.piebridge.brevent.intent.action.DEVELOPER" />
     </shortcut>
 </shortcuts>

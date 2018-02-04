@@ -77,6 +77,9 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
             Drawable drawable = getResources().getDrawable(R.drawable.ic_code_black_24dp, getTheme());
             drawable.setTint(mColorControlNormal);
             toolbar.setNavigationIcon(drawable);
+        } else if (isActionDeveloper()) {
+            ((BreventApplication) getApplication()).launchDevelopmentSettings();
+            finish();
         } else {
             ActionBar actionBar = getActionBar();
             if (actionBar != null) {
@@ -112,6 +115,11 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     private boolean isActionCommand() {
         Intent intent = getIntent();
         return intent != null && BreventIntent.ACTION_COMMAND.equals(intent.getAction());
+    }
+
+    private boolean isActionDeveloper() {
+        Intent intent = getIntent();
+        return intent != null && BreventIntent.ACTION_DEVELOPER.equals(intent.getAction());
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateUtils;
+
+import java.text.DateFormat;
 
 import me.piebridge.brevent.R;
 
@@ -26,7 +29,7 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
             itemsId = R.array.sort_method;
         } else {
             itemsId = R.array.sort_method_no_stats;
-            if (checked > 1) {
+            if (checked >= activity.getResources().getStringArray(itemsId).length) {
                 checked = 0;
             }
         }
@@ -54,6 +57,17 @@ public class SortFragment extends AbstractDialogFragment implements DialogInterf
         } catch (ClassCastException e) { // NOSONAR
             // do nothing
             return 0;
+        }
+    }
+
+    public static CharSequence getText(Activity activity, AppsItemViewHolder viewHolder) {
+        if (getChecked(activity) == 0x5) {
+            return activity.getString(R.string.sdk, viewHolder.sdk);
+        } else if (getChecked(activity) == 0x4 && viewHolder.firstInstallTime > 0) {
+            return DateUtils.formatSameDayTime(viewHolder.firstInstallTime,
+                    System.currentTimeMillis(), DateFormat.SHORT, DateFormat.SHORT);
+        } else {
+            return null;
         }
     }
 

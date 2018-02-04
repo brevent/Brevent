@@ -20,6 +20,9 @@ public class AppOpsManager {
      */
     public static int OP_ACTIVATE_VPN = 47;
 
+    /** @hide Control whether an application is allowed to run in the background. */
+    public static int OP_RUN_IN_BACKGROUND = 63;
+
     /** @hide */
     public static int _NUM_OP = 70;
 

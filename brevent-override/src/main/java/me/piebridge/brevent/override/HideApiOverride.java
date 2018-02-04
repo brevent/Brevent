@@ -29,6 +29,7 @@ public class HideApiOverride {
     public static final int OP_NONE = getOpNone();
     public static final int OP_GET_USAGE_STATS = getOpGetUsageStats();
     public static final int OP_ACTIVATE_VPN = getOpActivateVpn();
+    public static final int OP_RUN_IN_BACKGROUND = getOpRunInBackground();
 
     public static final String ACTION_USB_STATE = getActionUsbState();
     public static final String USB_CONNECTED = getUsbConnected();
@@ -216,6 +217,15 @@ public class HideApiOverride {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find AppOpsManager.OP_GET_USAGE_STATS");
             return 43;
+        }
+    }
+
+    private static int getOpRunInBackground() {
+        try {
+            return AppOpsManager.OP_RUN_IN_BACKGROUND;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager.OP_RUN_IN_BACKGROUND");
+            return 63;
         }
     }
 

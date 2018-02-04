@@ -71,7 +71,7 @@
     <string name="action_message_undo">撤消</string>
     <string name="action_message_undone">已撤消</string>
 
-    <string name="context_menu_select">选择 / 取消选择</string>
+    <string name="context_menu_target">SDK %1$d（%2$s）</string>
     <string name="context_menu_package_name">复制包名</string>
     <string name="context_menu_app_info">应用信息</string>
     <string name="context_menu_open">打开</string>
@@ -101,6 +101,7 @@
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序方式</string>
     <string name="menu_sort_by_name">名称</string>
+    <string name="menu_sort_by_install_time">安装时间</string>
     <string name="menu_sort_by_update_time">更新时间</string>
     <string name="menu_sort_by_last_time">上次使用时间</string>
     <string name="menu_sort_by_usage_time">使用时长</string>
@@ -156,6 +157,8 @@
     <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑域</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">依赖“检查通知”。播放时不黑域，暂停且有通知时不强行停止</string>
+    <string name="brevent_background">后台限制</string>
+    <string name="brevent_background_label">动态设置后台限制，没有适配应用可能提示崩溃</string>
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_play">如果已经支付，请点按 7 次版本号查看确认方法</string>

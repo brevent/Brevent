@@ -56,6 +56,10 @@
                 <action android:name="me.piebridge.brevent.intent.action.COMMAND" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="me.piebridge.brevent.intent.action.DEVELOPER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.BreventLicenses"

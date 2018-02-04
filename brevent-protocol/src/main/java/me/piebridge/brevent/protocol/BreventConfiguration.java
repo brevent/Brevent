@@ -45,6 +45,9 @@ public class BreventConfiguration extends BreventProtocol {
     public static final String BREVENT_CHECKING = "brevent_checking";
     public static final boolean DEFAULT_BREVENT_CHECKING = false;
 
+    public static final String BREVENT_BACKGROUND = "brevent_background";
+    public static final boolean DEFAULT_BREVENT_BACKGROUND = false;
+
     public boolean autoUpdate = DEFAULT_BREVENT_AUTO_UPDATE;
 
     public int timeout = DEFAULT_BREVENT_TIMEOUT;
@@ -64,6 +67,8 @@ public class BreventConfiguration extends BreventProtocol {
     public boolean optimizeAudio = DEFAULT_BREVENT_OPTIMIZE_AUDIO;
 
     public boolean checking = DEFAULT_BREVENT_CHECKING;
+
+    public boolean background = DEFAULT_BREVENT_BACKGROUND;
 
     public BreventConfiguration() {
         super(CONFIGURATION);
@@ -86,6 +91,7 @@ public class BreventConfiguration extends BreventProtocol {
         optimizeAudio = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_AUDIO,
                 DEFAULT_BREVENT_OPTIMIZE_AUDIO);
         checking = sharedPreferences.getBoolean(BREVENT_CHECKING, DEFAULT_BREVENT_CHECKING);
+        background = sharedPreferences.getBoolean(BREVENT_BACKGROUND, DEFAULT_BREVENT_BACKGROUND);
     }
 
     private int convertMethod(String string) {
@@ -116,6 +122,7 @@ public class BreventConfiguration extends BreventProtocol {
         androidId = in.readLong();
         optimizeAudio = in.readInt() != 0;
         checking = in.readInt() != 0;
+        background = in.readInt() != 0;
     }
 
     @Override
@@ -131,6 +138,7 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeLong(androidId);
         dest.writeInt(optimizeAudio ? 1 : 0);
         dest.writeInt(checking ? 1 : 0);
+        dest.writeInt(background ? 1: 0);
     }
 
     public void write(PrintWriter pw) {
@@ -143,6 +151,7 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
         write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
         write(pw, BREVENT_CHECKING, checking);
+        write(pw, BREVENT_BACKGROUND, background);
     }
 
     private void write(PrintWriter pw, String key, int value) {
@@ -196,6 +205,9 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_CHECKING:
                 checking = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_BACKGROUND:
+                background = Boolean.parseBoolean(value);
+                break;
             default:
                 break;
         }
@@ -242,6 +254,10 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.checking != request.checking) {
             this.checking = request.checking;
+            updated = true;
+        }
+        if (this.background != request.background) {
+            this.background = request.background;
             updated = true;
         }
         return updated;

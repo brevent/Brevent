@@ -81,6 +81,14 @@
 
         <me.piebridge.brevent.ui.DonationPreference
             android:defaultValue="false"
+            android:dependency="brevent_check_notification"
+            android:key="brevent_optimize_audio"
+            android:summary="@string/brevent_optimize_audio_label"
+            android:title="@string/brevent_optimize_audio"
+            brevent:recommend="2" />
+
+        <me.piebridge.brevent.ui.DonationPreference
+            android:defaultValue="false"
             android:key="brevent_abnormal_back"
             android:summary="@string/brevent_abnormal_back_label"
             android:title="@string/brevent_abnormal_back"
@@ -88,11 +96,10 @@
 
         <me.piebridge.brevent.ui.DonationPreference
             android:defaultValue="false"
-            android:dependency="brevent_check_notification"
-            android:key="brevent_optimize_audio"
-            android:summary="@string/brevent_optimize_audio_label"
-            android:title="@string/brevent_optimize_audio"
-            brevent:recommend="2" />
+            android:key="brevent_background"
+            android:summary="@string/brevent_background_label"
+            android:title="@string/brevent_background"
+            brevent:recommend="3" />
 
     </PreferenceCategory>
 

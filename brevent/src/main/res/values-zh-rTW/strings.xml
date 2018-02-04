@@ -71,7 +71,7 @@
     <string name="action_message_undo">還原</string>
     <string name="action_message_undone">已還原</string>
 
-    <string name="context_menu_select">選取 / 不再選取</string>
+    <string name="context_menu_target">SDK %1$d（Android %2$s）</string>
     <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>
@@ -101,6 +101,7 @@
     <string name="menu_search">搜尋</string>
     <string name="menu_sort">排序依據</string>
     <string name="menu_sort_by_name">名稱</string>
+    <string name="menu_sort_by_install_time">安裝時間</string>
     <string name="menu_sort_by_update_time">更新時間</string>
     <string name="menu_sort_by_last_time">上次使用時間</string>
     <string name="menu_sort_by_usage_time">使用時長</string>
@@ -156,6 +157,8 @@
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑域</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">依賴「檢查通知」。播放時不處理，暫停且有通知時不強行停止</string>
+    <string name="brevent_background">揹景限制</string>
+    <string name="brevent_background_label">動態設定揹景限制，沒有适配應用程式可能提示崩潰</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />

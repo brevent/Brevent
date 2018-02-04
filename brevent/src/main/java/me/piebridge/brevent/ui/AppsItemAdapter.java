@@ -119,6 +119,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             if (!appsInfo.packageName.equals(viewHolder.packageName)) {
                 viewHolder.packageName = appsInfo.packageName;
                 viewHolder.label = appsInfo.label;
+                viewHolder.sdk = appsInfo.sdk;
+                viewHolder.firstInstallTime = appsInfo.firstInstallTime;
                 viewHolder.cardView.setTag(viewHolder);
             }
             updateViewHolder(viewHolder);
@@ -176,15 +178,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     static void updateInactive(BreventActivity activity, AppsItemViewHolder viewHolder) {
         int inactive = activity.getInactive(viewHolder.packageName);
-        if (viewHolder.inactive != inactive) {
-            viewHolder.inactive = inactive;
-            if (viewHolder.inactive > 0) {
-                viewHolder.inactiveView.setVisibility(View.VISIBLE);
-                int elapsed = BreventResponse.now() - viewHolder.inactive;
-                viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
-            } else {
-                viewHolder.inactiveView.setVisibility(View.GONE);
-            }
+        viewHolder.inactive = inactive;
+        if (inactive > 0) {
+            int elapsed = BreventResponse.now() - inactive;
+            viewHolder.inactiveView.setText(DateUtils.formatElapsedTime(elapsed));
+        } else {
+            viewHolder.inactiveView.setText(SortFragment.getText(activity, viewHolder));
         }
     }
 
@@ -391,6 +390,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 return new AppsInfo.SortByLastTime();
             case 3:
                 return new AppsInfo.SortByUsageTime();
+            case 4:
+                return new AppsInfo.SortByInstallTime();
+            case 5:
+                return new AppsInfo.SortBySdk();
             case 0:
             default:
                 return new AppsInfo.SortByName();
@@ -437,6 +440,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!mCompleted && mPackages.add(packageInfo.packageName)) {
             AppsInfo appsInfo = new AppsInfo(packageInfo.packageName, label);
             appsInfo.lastUpdateTime = packageInfo.lastUpdateTime;
+            appsInfo.firstInstallTime = packageInfo.firstInstallTime;
+            appsInfo.sdk = packageInfo.applicationInfo.targetSdkVersion;
             appsInfo.stats = activity.getStats(packageInfo.packageName);
             mNext.add(appsInfo);
         }

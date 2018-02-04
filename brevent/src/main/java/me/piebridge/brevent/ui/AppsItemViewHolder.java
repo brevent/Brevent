@@ -1,9 +1,11 @@
 package me.piebridge.brevent.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.CardView;
@@ -41,6 +43,8 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
     int inactive;
     @DrawableRes
     int statusIconRes;
+    int sdk;
+    long firstInstallTime;
 
     private final AppsFragment mFragment;
 
@@ -55,8 +59,10 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         BreventActivity activity = (BreventActivity) mFragment.getActivity();
         menu.setHeaderTitle(label);
-        menu.add(Menu.NONE, R.string.context_menu_select, Menu.NONE,
-                activity.getString(R.string.context_menu_select));
+        String target = getTarget(activity);
+        if (!TextUtils.isEmpty(target)) {
+            menu.add(Menu.NONE, R.string.context_menu_target, Menu.NONE, target);
+        }
         menu.add(Menu.NONE, R.string.context_menu_package_name, Menu.NONE,
                 activity.getString(R.string.context_menu_package_name));
         menu.add(Menu.NONE, R.string.context_menu_app_info, Menu.NONE,
@@ -92,6 +98,76 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
         }
     }
 
+    private String getTarget(Context context) {
+        try {
+            int sdk = context.getPackageManager().getApplicationInfo(packageName, 0).targetSdkVersion;
+            return context.getString(R.string.context_menu_target, sdk, getName(sdk));
+        } catch (PackageManager.NameNotFoundException e) {
+            return null;
+        }
+    }
+
+    private String getName(int sdk) {
+        switch (sdk) {
+            case Build.VERSION_CODES.BASE:
+                return "Android 1, 2008";
+            case Build.VERSION_CODES.BASE_1_1:
+                return "Android 1.1, 2009";
+            case Build.VERSION_CODES.CUPCAKE:
+                return "Android 1.5, 2009";
+            case Build.VERSION_CODES.DONUT:
+                return "Android 1.6, 2009";
+            case Build.VERSION_CODES.ECLAIR:
+                return "Android 2.0, 2009";
+            case Build.VERSION_CODES.ECLAIR_0_1:
+                return "Android 2.0.1, 2009";
+            case Build.VERSION_CODES.ECLAIR_MR1:
+                return "Android 2.1, 2010";
+            case Build.VERSION_CODES.FROYO:
+                return "Android 2.2, 2010";
+            case Build.VERSION_CODES.GINGERBREAD:
+                return "Android 2.3, 2010";
+            case Build.VERSION_CODES.GINGERBREAD_MR1:
+                return "Android 2.3.3, 2011";
+            case Build.VERSION_CODES.HONEYCOMB:
+                return "Android 3.0, 2011";
+            case Build.VERSION_CODES.HONEYCOMB_MR1:
+                return "Android 3.1, 2011";
+            case Build.VERSION_CODES.HONEYCOMB_MR2:
+                return "Android 3.2, 2011";
+            case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
+                return "Android 4.0, 2011";
+            case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
+                return "Android 4.0.3, 2011";
+            case Build.VERSION_CODES.JELLY_BEAN:
+                return "Android 4.1, 2012";
+            case Build.VERSION_CODES.JELLY_BEAN_MR1:
+                return "Android 4.2, 2012";
+            case Build.VERSION_CODES.JELLY_BEAN_MR2:
+                return "Android 4.3, 2013";
+            case Build.VERSION_CODES.KITKAT:
+                return "Android 4.4, 2013";
+            case Build.VERSION_CODES.KITKAT_WATCH:
+                return "Android 4.4W, 2014";
+            case Build.VERSION_CODES.LOLLIPOP:
+                return "Android 5.0, 2014";
+            case Build.VERSION_CODES.LOLLIPOP_MR1:
+                return "Android 5.1, 2015";
+            case Build.VERSION_CODES.M:
+                return "Android 6, 2015";
+            case Build.VERSION_CODES.N:
+                return "Android 7.0, 2016";
+            case Build.VERSION_CODES.N_MR1:
+                return "Android 7.1, 2016";
+            case Build.VERSION_CODES.O:
+                return "Android 8.0, 2017";
+            case 27:
+                return "Android 8.1, 2017";
+            default:
+                return "Unknown";
+        }
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         BreventActivity activity = (BreventActivity) mFragment.getActivity();
@@ -101,9 +177,6 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 break;
             case R.string.context_menu_brevent_server_info:
                 openAppInfo(PACKAGE_SHELL);
-                break;
-            case R.string.context_menu_select:
-                iconView.performClick();
                 break;
             case R.string.context_menu_package_name:
                 copy(packageName);

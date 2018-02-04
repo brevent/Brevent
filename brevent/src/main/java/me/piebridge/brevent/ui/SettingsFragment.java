@@ -100,6 +100,11 @@ public class SettingsFragment extends PreferenceFragment
             ((PreferenceCategory) preferenceScreen.findPreference("brevent"))
                     .removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            final String key = BreventConfiguration.BREVENT_BACKGROUND;
+            ((PreferenceCategory) preferenceScreen.findPreference("brevent_optimize"))
+                    .removePreference(preferenceScreen.findPreference(key));
+        }
         if (BuildConfig.RELEASE) {
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);

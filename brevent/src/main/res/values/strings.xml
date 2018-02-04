@@ -73,7 +73,7 @@
     <string name="action_message_undo">Undo</string>
     <string name="action_message_undone">Undone</string>
 
-    <string name="context_menu_select">Select / Unselect</string>
+    <string name="context_menu_target">SDK %1$d (%2$s)</string>
     <string name="context_menu_package_name">Copy package name</string>
     <string name="context_menu_app_info">Application Info</string>
     <string name="context_menu_open">Launch</string>
@@ -103,6 +103,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort by</string>
     <string name="menu_sort_by_name">App</string>
+    <string name="menu_sort_by_install_time">Install time</string>
     <string name="menu_sort_by_update_time">Update time</string>
     <string name="menu_sort_by_last_time">Last time used</string>
     <string name="menu_sort_by_usage_time">Usage time</string>
@@ -158,6 +159,8 @@
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Won\'t be brevented while playing, won\'t be force-stopped while pausing with notification</string>
+    <string name="brevent_background">Background limits</string>
+    <string name="brevent_background_label">Update background limits dynamically, may cause brevented apps crash</string>
 
     <string name="show_donation">Show payment</string>
     <string name="show_donation_summary_play" />
