@@ -184,8 +184,8 @@ public class BreventApplication extends Application implements DonationPreferenc
             }
         }
         try {
-            Os.chmod(parent.getPath(), 00755);
-            Os.chmod(path, 00755);
+            Os.chmod(parent.getPath(), 0751);
+            Os.chmod(path, 0644);
         } catch (ErrnoException e) {
             UILog.w("Can't chmod brevent", e);
             return null;
