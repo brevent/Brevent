@@ -87,6 +87,10 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_CHECKED_BREVENT:
                     removeMessages(BreventActivity.UI_MESSAGE_CHECKING_BREVENT);
                     activity.hideProcessChecking();
+                    break;
+                case BreventActivity.UI_MESSAGE_MAKE_QUERY:
+                    activity.updateQuery();
+                    break;
                 default:
                     break;
             }

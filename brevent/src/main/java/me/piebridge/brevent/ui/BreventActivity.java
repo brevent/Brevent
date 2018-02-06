@@ -121,8 +121,6 @@ public class BreventActivity extends AbstractActivity
 
     static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
 
-    static final String MOTIONELF_CLASS = String.valueOf(BuildConfig.MOTIONELF_CLASS);
-
     public static final int MESSAGE_RETRIEVE = 0;
     public static final int MESSAGE_RETRIEVE2 = 1;
     public static final int MESSAGE_BREVENT_RESPONSE = 2;
@@ -145,7 +143,7 @@ public class BreventActivity extends AbstractActivity
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
-    public static final int UI_MESSAGE_MAKE_EVENT = 13;
+    public static final int UI_MESSAGE_MAKE_QUERY = 13;
     public static final int UI_MESSAGE_LOGS = 14;
     public static final int UI_MESSAGE_ROOT_COMPLETED = 15;
     public static final int UI_MESSAGE_SHELL_COMPLETED = 16;
@@ -242,8 +240,6 @@ public class BreventActivity extends AbstractActivity
     private UsbConnectedReceiver mConnectedReceiver;
 
     private final Object updateLock = new Object();
-
-    private boolean notificationEventMade;
 
     private SearchView mSearchView;
     private String mQuery;
@@ -2036,10 +2032,20 @@ public class BreventActivity extends AbstractActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        uiHandler.removeMessages(UI_MESSAGE_MAKE_QUERY);
+        uiHandler.sendEmptyMessageDelayed(UI_MESSAGE_MAKE_QUERY, DELAY);
         return false;
     }
 
+    void updateQuery() {
+        CharSequence query = mSearchView.getQuery();
+        if (query != null && query.length() > 0 && !Objects.equals(mQuery, query.toString())) {
+            updateQuery(query.toString());
+        }
+    }
+
     private void updateQuery(String query) {
+        uiHandler.removeMessages(UI_MESSAGE_MAKE_QUERY);
         mQuery = query;
         if (mAdapter != null) {
             mAdapter.setExpired();
