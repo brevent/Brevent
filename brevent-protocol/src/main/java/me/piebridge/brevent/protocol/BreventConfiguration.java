@@ -32,10 +32,6 @@ public class BreventConfiguration extends BreventProtocol {
 
     public static final String BREVENT_CHECK_NOTIFICATION = "brevent_check_notification";
     public static final boolean DEFAULT_BREVENT_CHECK_NOTIFICATION = true;
-
-    public static final String BREVENT_AGGRESSIVE = "brevent_aggressive";
-    public static final boolean DEFAULT_BREVENT_AGGRESSIVE = false;
-
     public static final String BREVENT_ABNORMAL_BACK = "brevent_abnormal_back";
     public static final boolean DEFAULT_BREVENT_ABNORMAL_BACK = false;
 
@@ -57,8 +53,6 @@ public class BreventConfiguration extends BreventProtocol {
     public int standbyTimeout = DEFAULT_BREVENT_STANDBY_TIMEOUT;
 
     public boolean checkNotification = DEFAULT_BREVENT_CHECK_NOTIFICATION;
-
-    public boolean aggressive = DEFAULT_BREVENT_AGGRESSIVE;
 
     public boolean abnormalBack = DEFAULT_BREVENT_ABNORMAL_BACK;
 
@@ -86,8 +80,6 @@ public class BreventConfiguration extends BreventProtocol {
                 "" + DEFAULT_BREVENT_STANDBY_TIMEOUT));
         checkNotification = sharedPreferences.getBoolean(BREVENT_CHECK_NOTIFICATION,
                 DEFAULT_BREVENT_CHECK_NOTIFICATION);
-        aggressive = sharedPreferences.getBoolean(BREVENT_AGGRESSIVE,
-                DEFAULT_BREVENT_AGGRESSIVE);
         abnormalBack = sharedPreferences.getBoolean(BREVENT_ABNORMAL_BACK,
                 DEFAULT_BREVENT_ABNORMAL_BACK);
         optimizeAudio = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_AUDIO,
@@ -119,7 +111,6 @@ public class BreventConfiguration extends BreventProtocol {
         method = in.readInt();
         standbyTimeout = in.readInt();
         checkNotification = in.readInt() != 0;
-        aggressive = in.readInt() != 0;
         abnormalBack = in.readInt() != 0;
         androidId = in.readLong();
         optimizeAudio = in.readInt() != 0;
@@ -136,7 +127,6 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeInt(method);
         dest.writeInt(standbyTimeout);
         dest.writeInt(checkNotification ? 1 : 0);
-        dest.writeInt(aggressive ? 1 : 0);
         dest.writeInt(abnormalBack ? 1 : 0);
         dest.writeLong(androidId);
         dest.writeInt(optimizeAudio ? 1 : 0);
@@ -151,7 +141,6 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_METHOD, method);
         write(pw, BREVENT_STANDBY_TIMEOUT, standbyTimeout);
         write(pw, BREVENT_CHECK_NOTIFICATION, checkNotification);
-        write(pw, BREVENT_AGGRESSIVE, aggressive);
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
         write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
         write(pw, BREVENT_CHECKING, checking);
@@ -197,9 +186,6 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_CHECK_NOTIFICATION:
                 checkNotification = Boolean.parseBoolean(value);
                 break;
-            case BREVENT_AGGRESSIVE:
-                aggressive = Boolean.parseBoolean(value);
-                break;
             case BREVENT_ABNORMAL_BACK:
                 abnormalBack = Boolean.parseBoolean(value);
                 break;
@@ -242,10 +228,6 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.checkNotification != request.checkNotification) {
             this.checkNotification = request.checkNotification;
-            updated = true;
-        }
-        if (this.aggressive != request.aggressive) {
-            this.aggressive = request.aggressive;
             updated = true;
         }
         if (this.abnormalBack != request.abnormalBack) {

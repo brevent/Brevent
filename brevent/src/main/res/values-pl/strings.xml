@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs and syncs.\n\nBrevent wouldn\'t force-stop safe cached apps by default. In addition, Brevent server brevent apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs and syncs.\n\nBrevent wouldn\'t force-stop safe cached apps. In addition, Brevent server brevent apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
@@ -55,7 +55,7 @@
     <string name="process_stats">(ostatnio: %1$s, ogółem: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d główny(ch)</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d usług(i)</string>
-    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d w pamięci podręcznej</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached (safe)</string>
     <string name="process_all_total">%d</string>
     <string name="process_service" tools:ignore="PluralsCandidate">%d usługa</string>
     <string name="process_total">ogółem %d</string>
@@ -143,8 +143,6 @@
     <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
-    <string name="brevent_aggressive">Tryb agresywny</string>
-    <string name="brevent_aggressive_label">Breventuj natychmiastowo, wymuś zatrzymanie bezpiecznych aplikacji.\n\nSpecjalnie dla OCD, używaj ostrożnie</string>
     <string name="show_framework_apps">Pokaż frameworki</string>
     <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
     <string name="show_all_apps">Pokaż wszystkie aplikacje</string>

@@ -43,12 +43,6 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="brevent_aggressive"
-            android:summary="@string/brevent_aggressive_label"
-            android:title="@string/brevent_aggressive" />
-
-        <SwitchPreference
-            android:defaultValue="false"
             android:key="show_framework_apps"
             android:summary="@string/show_framework_apps_label"
             android:title="@string/show_framework_apps" />
