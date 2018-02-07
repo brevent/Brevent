@@ -234,8 +234,6 @@
 
     <string name="make_brevent_better">您已黑域 %1$d 個應用程式，請考慮支付 %2$s以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
-    <string name="pay_brevent_require">需要支付 %s</string>
-    <string name="pay_brevent_recommend_3">建議支付 3 二向箔</string>
 
     <string name="brevented_app">已黑域“%1$s”</string>
     <string name="unbrevent_app">輕觸即可不再黑域。</string>

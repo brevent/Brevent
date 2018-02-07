@@ -29,6 +29,8 @@ import me.piebridge.stats.StatsUtils;
  */
 public class BreventSettings extends DonateActivity {
 
+    static final String DONATION_RECOMMEND = "donation_recommend";
+
     static final String SETTINGS_POSITION = "SETTINGS_POSITION";
 
     static final String DAEMON_TIME = "daemon_time";
@@ -275,7 +277,7 @@ public class BreventSettings extends DonateActivity {
             return BreventSettings.DONATE_AMOUNT;
         }
         int recommend2 = PreferencesUtils.getPreferences(activity)
-                .getInt(DonationPreference.DONATION_RECOMMEND, 0);
+                .getInt(DONATION_RECOMMEND, 0);
         return Math.max(recommend, recommend2);
     }
 

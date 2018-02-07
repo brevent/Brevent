@@ -66,7 +66,7 @@ import me.piebridge.stats.StatsUtils;
 /**
  * Created by thom on 2017/2/7.
  */
-public class BreventApplication extends Application implements DonationPreference.Donation {
+public class BreventApplication extends Application {
 
     private boolean mSupportStopped = true;
 
@@ -449,19 +449,11 @@ public class BreventApplication extends Application implements DonationPreferenc
         return BreventSettings.getPlayDonation(purchased);
     }
 
-    @Override
     public CharSequence getRecommend(Resources resources, int recommend) {
         String[] brefoils = resources.getStringArray(R.array.brefoils);
         return resources.getString(R.string.pay_brevent_recommend, brefoils[recommend - 1]);
     }
 
-    @Override
-    public CharSequence getRequire(Resources resources, int require) {
-        String[] brefoils = resources.getStringArray(R.array.brefoils);
-        return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
-    }
-
-    @Override
     public void setRecommend(String key, int value, boolean checked) {
         if (checked) {
             mRecommendMap.put(key, value);
@@ -477,11 +469,10 @@ public class BreventApplication extends Application implements DonationPreferenc
         if (recommend != mRecommend) {
             mRecommend = recommend;
             PreferencesUtils.getPreferences(this)
-                    .edit().putInt(DonationPreference.DONATION_RECOMMEND, recommend).apply();
+                    .edit().putInt(BreventSettings.DONATION_RECOMMEND, recommend).apply();
         }
     }
 
-    @Override
     public int getDonated() {
         return getPlayDonation(this) + DecimalUtils.intValue(getDonation(this));
     }

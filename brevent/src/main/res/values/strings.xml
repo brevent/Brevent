@@ -236,8 +236,6 @@
 
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
-    <string name="pay_brevent_require">Require to pay %s</string>
-    <string name="pay_brevent_recommend_3">Recommend to pay 3 Brefoil</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Tap to restore.</string>

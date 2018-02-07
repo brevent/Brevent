@@ -79,27 +79,27 @@
             android:summary="@string/brevent_check_notification_label"
             android:title="@string/brevent_check_notification" />
 
-        <me.piebridge.brevent.ui.DonationPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:dependency="brevent_check_notification"
+            android:fragment="2"
             android:key="brevent_optimize_audio"
             android:summary="@string/brevent_optimize_audio_label"
-            android:title="@string/brevent_optimize_audio"
-            brevent:recommend="2" />
+            android:title="@string/brevent_optimize_audio" />
 
-        <me.piebridge.brevent.ui.DonationPreference
+        <SwitchPreference
             android:defaultValue="false"
+            android:fragment="2"
             android:key="brevent_abnormal_back"
             android:summary="@string/brevent_abnormal_back_label"
-            android:title="@string/brevent_abnormal_back"
-            brevent:recommend="2" />
+            android:title="@string/brevent_abnormal_back" />
 
-        <me.piebridge.brevent.ui.DonationPreference
+        <SwitchPreference
             android:defaultValue="false"
+            android:fragment="3"
             android:key="brevent_background"
             android:summary="@string/brevent_background_label"
-            android:title="@string/brevent_background"
-            brevent:recommend="3" />
+            android:title="@string/brevent_background" />
 
     </PreferenceCategory>
 
@@ -118,15 +118,15 @@
             android:summary="@string/brevent_checking_label"
             android:title="@string/brevent_checking" />
 
-        <me.piebridge.brevent.ui.DonationPreference
+        <SwitchPreference
             android:defaultValue="false"
+            android:fragment="3"
             android:key="brevent_appops"
             android:summary="@string/brevent_appops_label"
-            android:title="@string/brevent_appops"
-            brevent:recommend="3" />
+            android:title="@string/brevent_appops" />
 
         <Preference
-            android:summary="@string/pay_brevent_recommend_3"
+            android:fragment="3"
             android:title="@string/menu_command">
             <intent
                 android:action="me.piebridge.brevent.intent.action.COMMAND" />

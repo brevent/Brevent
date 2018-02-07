@@ -1,6 +1,7 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,11 +108,57 @@ public class SettingsFragment extends PreferenceFragment
                     .removePreference(preferenceScreen.findPreference(key));
         }
         if (BuildConfig.RELEASE) {
+            updateSummaries();
             preferenceScreen.findPreference("brevent_about_version")
                     .setOnPreferenceClickListener(this);
             updateDonation();
         }
         onUpdateBreventMethod();
+    }
+
+    private void updateSummaries() {
+        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
+        int size = rootAdapter.getCount();
+        for (int i = 0; i < size; ++i) {
+            Object item = rootAdapter.getItem(i);
+            if (item instanceof Preference) {
+                updatePreference((Preference) item);
+            }
+        }
+    }
+
+    private void updatePreference(Preference preference) {
+        int recommend = getRecommend(preference);
+        if (recommend > 0) {
+            Context context = preference.getContext();
+            BreventApplication application = (BreventApplication) context.getApplicationContext();
+            CharSequence extra = application.getRecommend(context.getResources(), recommend);
+            preference.setSummary(append(preference.getSummary(), extra));
+            preference.setOnPreferenceChangeListener(this);
+        }
+    }
+
+    private int getRecommend(Preference preference) {
+        String fragment = preference.getFragment();
+        if (!TextUtils.isEmpty(fragment) && TextUtils.isDigitsOnly(fragment)) {
+            return Integer.parseInt(fragment);
+        } else {
+            return 0;
+        }
+    }
+
+    private CharSequence append(CharSequence summary, CharSequence extra) {
+        if (summary == null) {
+            return extra;
+        }
+        if (extra == null) {
+            return summary;
+        }
+        if (summary.toString().contains("\n\n")) {
+            return summary + "\n" + extra;
+        } else {
+            return summary + "\n\n" + extra;
+        }
     }
 
     private void updateDonation() {
@@ -255,18 +303,6 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         preferenceDonation.setSummary(summary);
-        int count = total + DecimalUtils.intValue(donation);
-        if (contributor) {
-            count += BreventSettings.CONTRIBUTOR;
-        }
-        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
-        int size = rootAdapter.getCount();
-        for (int i = 0; i < size; ++i) {
-            Object item = rootAdapter.getItem(i);
-            if (item instanceof DonationPreference) {
-                ((DonationPreference) item).updateDonated(count);
-            }
-        }
     }
 
     @Override
@@ -315,6 +351,11 @@ public class SettingsFragment extends PreferenceFragment
                 getArguments().putBoolean(LOCALE_CHANGED, true);
                 activity.recreate();
             }
+        }
+        int recommend = getRecommend(preference);
+        if (recommend > 0) {
+            BreventApplication application = (BreventApplication) getActivity().getApplication();
+            application.setRecommend(preference.getKey(), recommend, (boolean) newValue);
         }
         return true;
     }
