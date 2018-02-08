@@ -260,12 +260,8 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     public void onCompleted(boolean success) {
         mCompleted = true;
         mSuccess = success;
-        BreventActivity activity = getActivity();
-        if (activity != null) {
-            if (success) {
-                updateAppsInfo();
-            }
-            activity.hideAppProgress();
+        if (success) {
+            updateAppsInfo();
         }
     }
 

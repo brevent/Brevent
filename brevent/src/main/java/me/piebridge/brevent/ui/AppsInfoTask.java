@@ -96,6 +96,10 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         mAdapter.onCompleted(result == null ? false : result);
+        BreventActivity activity = mAdapter.getActivity();
+        if (activity != null) {
+            activity.hideAppProgress();
+        }
     }
 
 }
