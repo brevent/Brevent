@@ -436,6 +436,10 @@ public class BreventActivity extends AbstractActivity
         fragment.show(getFragmentManager(), FRAGMENT_SORT);
     }
 
+    private boolean isFakeMotionelf() {
+        return mPackages.contains(MOTIONELF_PACKAGE) && !isGenuineMotionelf(this);
+    }
+
     static boolean isGenuineMotionelf(Context context) {
         return context.getPackageManager().getLaunchIntentForPackage(MOTIONELF_PACKAGE) != null
                 && verifySignature(context, MOTIONELF_PACKAGE, BuildConfig.MOTIONELF_SIGNATURE);
@@ -1025,7 +1029,7 @@ public class BreventActivity extends AbstractActivity
 
     public void openSettings() {
         Intent intent = new Intent(this, BreventSettings.class);
-        intent.putExtra(BreventIntent.EXTRA_BREVENT_SIZE, mBrevent.size());
+        intent.putExtra(BreventIntent.EXTRA_RECOMMEND, getRecommend());
         if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
         }
@@ -1327,7 +1331,7 @@ public class BreventActivity extends AbstractActivity
             if (!status.mEventLog) {
                 showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
             }
-            if (mPackages.contains(MOTIONELF_PACKAGE) && !isGenuineMotionelf(this)) {
+            if (isFakeMotionelf()) {
                 checkMotionelf(application);
             }
         }
@@ -1408,19 +1412,31 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void checkBreventList(BreventApplication application, int days, int donated) {
-        int size = mBrevent.size();
-        int required = BreventSettings.getRecommend(this, size, !isGenuineMotionelf(this));
+        int required = getRecommend();
         if (required > donated) {
             SharedPreferences sp = PreferencesUtils.getPreferences(this);
             long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);
             int mbRequired = sp.getInt(AppsPaymentFragment.REQUIRED, 0);
             int mbDays = sp.getInt(AppsPaymentFragment.DAYS, 0);
             if (daemonTime != application.mDaemonTime || mbRequired != required || mbDays != days) {
-                showPayment(size, required);
+                showPayment(mBrevent.size(), required);
                 sp.edit().putInt(AppsPaymentFragment.DAYS, days)
                         .putInt(AppsPaymentFragment.REQUIRED, required).apply();
             }
         }
+    }
+
+    private int getRecommend() {
+        int recommend = BreventSettings.getRecommend(mBrevent.size());
+        if (recommend == 0) {
+            return 0;
+        }
+        if (isFakeMotionelf()) {
+            return BreventSettings.DONATE_AMOUNT;
+        }
+        int recommend2 = PreferencesUtils.getPreferences(this)
+                .getInt(BreventSettings.DONATION_RECOMMEND, 0);
+        return Math.max(recommend, recommend2);
     }
 
     private void showAlipay(String alipaySum, boolean alipaySin) {

@@ -192,8 +192,7 @@ public class BreventSettings extends DonateActivity {
     @Override
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
-        int size = getIntent().getIntExtra(BreventIntent.EXTRA_BREVENT_SIZE, 0);
-        int amount = getRecommend(this, size, !BreventActivity.isGenuineMotionelf(this));
+        int amount = getIntent().getIntExtra(BreventIntent.EXTRA_RECOMMEND, DONATE_AMOUNT);
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -256,7 +255,7 @@ public class BreventSettings extends DonateActivity {
         }
     }
 
-    private static int getRecommend(int size) {
+    public static int getRecommend(int size) {
         if (size >= SIZE_3) {
             return BreventSettings.DONATE_AMOUNT;
         } else if (size >= SIZE_2) {
@@ -266,19 +265,6 @@ public class BreventSettings extends DonateActivity {
         } else {
             return 0;
         }
-    }
-
-    static int getRecommend(Activity activity, int size, boolean fakeMotionelf) {
-        int recommend = BreventSettings.getRecommend(size);
-        if (recommend == 0) {
-            return 0;
-        }
-        if (fakeMotionelf) {
-            return BreventSettings.DONATE_AMOUNT;
-        }
-        int recommend2 = PreferencesUtils.getPreferences(activity)
-                .getInt(DONATION_RECOMMEND, 0);
-        return Math.max(recommend, recommend2);
     }
 
 }
