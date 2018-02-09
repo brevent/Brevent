@@ -1331,7 +1331,7 @@ public class BreventActivity extends AbstractActivity
             if (!status.mEventLog) {
                 showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
             }
-            if (isFakeMotionelf()) {
+            if (BuildConfig.RELEASE && isFakeMotionelf()) {
                 checkMotionelf(application);
             }
         }
