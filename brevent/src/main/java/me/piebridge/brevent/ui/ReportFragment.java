@@ -1,15 +1,16 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 
 /**
@@ -33,9 +34,13 @@ public class ReportFragment extends AbstractDialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_report, container);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreateDialog(savedInstanceState);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(BuildConfig.ICON);
+        builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.fragment_report, null);
         Bundle arguments = getArguments();
         TextView messageView = view.findViewById(R.id.message);
         messageView.setText(arguments.getInt(MESSAGE));
@@ -47,7 +52,8 @@ public class ReportFragment extends AbstractDialogFragment {
             detailsView.setVisibility(View.VISIBLE);
             detailsView.setText(details);
         }
-        return view;
+        builder.setView(view);
+        return builder.create();
     }
 
     public void setDetails(int message, String details) {
