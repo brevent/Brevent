@@ -156,10 +156,10 @@
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">依赖“检查通知”。播放时不黑域，暂停且有通知时不强行停止</string>
     <string name="brevent_background">后台限制</string>
-    <string name="brevent_background_label">动态设置后台限制，没有适配应用可能提示崩溃</string>
+    <string name="brevent_background_label">动态设置后台限制\n\n建议关闭，可能导致应用强行停止\</string>
 
     <string name="show_donation">显示支付</string>
-    <string name="show_donation_summary_play">如果已经支付，请点按 7 次版本号查看确认方法</string>
+    <string name="show_donation_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
     <string name="show_donation_summary_not_play">推荐使用支付宝自动确认。如果已经支付，请点按 7 次版本号查看确认方法</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔</string>
@@ -169,10 +169,11 @@
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑域所作的特别贡献</string>
     <string name="show_donation_xposed">（Xposed）</string>
+    <string name="show_donation_brefoil">\n\n1 二向箔现合人民币 6 元，曾合人民币 5 到 6.85 元不等</string>
     <string name="brevent_checking">自我诊断</string>
     <string name="brevent_checking_label">每 15 分钟检查黑域服务\n\n只有偶然不正常停止时，才需要开启</string>
     <string name="brevent_appops">应用权限（实验性）</string>
-    <string name="brevent_appops_label">当前仅有简单的读写功能，将根据情况进一步开发</string>
+    <string name="brevent_appops_label">当前非常简单，将根据情况进一步开发</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_version">版本</string>
@@ -250,9 +251,9 @@
     <string name="cmd_warning">执行指令可能会对应用甚至设备造成不良影响。如有疑问，请立即停止。</string>
 
     <string-array name="brefoils">
-        <item>1 二向箔（约合人民币 6.5 元）</item>
-        <item>2 二向箔（约合人民币 13 元）</item>
-        <item>3 二向箔（约合人民币 19.5 元）</item>
+        <item>1 二向箔（现合人民币 6 元）</item>
+        <item>2 二向箔（现合人民币 12 元）</item>
+        <item>3 二向箔（现合人民币 18 元）</item>
     </string-array>
 
 </resources>

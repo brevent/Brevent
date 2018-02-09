@@ -420,8 +420,10 @@ public class BreventApplication extends Application {
                 return d / 5;
             } else if (v == 2) {
                 return d / 6.85;
-            } else {
+            } else if (v == 3) {
                 return d / 6.5;
+            } else {
+                return d / 6;
             }
         }
     }

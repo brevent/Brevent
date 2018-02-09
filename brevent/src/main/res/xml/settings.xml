@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:brevent="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         android:key="brevent_list"
@@ -41,6 +41,14 @@
         android:key="brevent_advanced"
         android:title="@string/brevent_advanced">
 
+        <ListPreference
+            android:defaultValue="auto"
+            android:entries="@array/brevent_language_entries"
+            android:entryValues="@array/brevent_language_values"
+            android:key="brevent_language"
+            android:summary="%s"
+            android:title="@string/brevent_language" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="show_framework_apps"
@@ -52,14 +60,6 @@
             android:key="show_all_apps"
             android:summary="@string/show_all_apps_label"
             android:title="@string/show_all_apps" />
-
-        <ListPreference
-            android:defaultValue="auto"
-            android:entries="@array/brevent_language_entries"
-            android:entryValues="@array/brevent_language_values"
-            android:key="brevent_language"
-            android:summary="%s"
-            android:title="@string/brevent_language" />
 
     </PreferenceCategory>
 
@@ -76,24 +76,24 @@
         <SwitchPreference
             android:defaultValue="false"
             android:dependency="brevent_check_notification"
-            android:fragment="2"
+            android:fragment="me.piebridge.brevent.ui.Recommend2"
             android:key="brevent_optimize_audio"
             android:summary="@string/brevent_optimize_audio_label"
             android:title="@string/brevent_optimize_audio" />
 
         <SwitchPreference
             android:defaultValue="false"
-            android:fragment="2"
+            android:fragment="me.piebridge.brevent.ui.Recommend2"
             android:key="brevent_abnormal_back"
             android:summary="@string/brevent_abnormal_back_label"
             android:title="@string/brevent_abnormal_back" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:fragment="3"
-            android:key="brevent_background"
-            android:summary="@string/brevent_background_label"
-            android:title="@string/brevent_background" />
+        <Preference
+            android:fragment="me.piebridge.brevent.ui.Recommend3"
+            android:title="@string/menu_command">
+            <intent
+                android:action="me.piebridge.brevent.intent.action.COMMAND" />
+        </Preference>
 
     </PreferenceCategory>
 
@@ -114,17 +114,16 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:fragment="3"
+            android:fragment="me.piebridge.brevent.ui.Recommend3"
             android:key="brevent_appops"
             android:summary="@string/brevent_appops_label"
             android:title="@string/brevent_appops" />
 
-        <Preference
-            android:fragment="3"
-            android:title="@string/menu_command">
-            <intent
-                android:action="me.piebridge.brevent.intent.action.COMMAND" />
-        </Preference>
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_background"
+            android:summary="@string/brevent_background_label"
+            android:title="@string/brevent_background" />
 
     </PreferenceCategory>
 

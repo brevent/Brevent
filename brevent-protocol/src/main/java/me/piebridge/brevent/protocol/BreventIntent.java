@@ -27,6 +27,7 @@ public final class BreventIntent {
     public static final String EXTRA_PATH = "me.piebridge.brevent.intent.extra.PATH";
     public static final String EXTRA_ALIPAY = "me.piebridge.brevent.intent.extra.ALIPAY";
     public static final String EXTRA_COMMAND = "me.piebridge.brevent.intent.extra.COMMAND";
+    public static final String EXTRA_PLAY = "me.piebridge.brevent.intent.extra.PLAY";
 
     private BreventIntent() {
 

@@ -1028,8 +1028,10 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void openSettings() {
+        BreventApplication application = (BreventApplication) getApplication();
         Intent intent = new Intent(this, BreventSettings.class);
         intent.putExtra(BreventIntent.EXTRA_RECOMMEND, getRecommend());
+        intent.putExtra(BreventIntent.EXTRA_PLAY, BreventApplication.getPlayDonation(application));
         if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
         }
@@ -1441,9 +1443,13 @@ public class BreventActivity extends AbstractActivity
 
     private void showAlipay(String alipaySum, boolean alipaySin) {
         if (alipaySum != null) {
-            BreventServerReceiver.showAlipay(((BreventApplication) getApplication()),
-                    alipaySum, alipaySin);
-            doUpdateConfiguration();
+            BreventApplication application = (BreventApplication) getApplication();
+            String alipay = PreferencesUtils.getPreferences(application).getString("alipay1", "");
+            double oldDonation = BreventApplication.decode(application, alipay, true, false);
+            double newDonation = BreventApplication.decode(application, alipaySum, true, false);
+            if (oldDonation != newDonation) {
+                BreventServerReceiver.showAlipay(application, alipaySum, alipaySin);
+            }
         }
     }
 

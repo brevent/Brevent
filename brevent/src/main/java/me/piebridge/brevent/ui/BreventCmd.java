@@ -101,6 +101,12 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle(R.string.menu_command);
+    }
+
+    @Override
     protected void onDestroy() {
         if (workHandler != null) {
             Looper looper = workHandler.getLooper();

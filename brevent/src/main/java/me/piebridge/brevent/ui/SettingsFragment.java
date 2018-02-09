@@ -11,13 +11,13 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -58,8 +58,6 @@ public class SettingsFragment extends PreferenceFragment
 
     private ListView mList;
 
-    private String mAmount;
-
     public SettingsFragment() {
         setArguments(new Bundle());
     }
@@ -95,11 +93,12 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAutoUpdate.setEnabled(false);
         }
 
+        final String brevent = "brevent";
         if (!BuildConfig.RELEASE) {
-            preferenceScreen.removePreference(preferenceScreen.findPreference("brevent"));
+            preferenceScreen.removePreference(preferenceScreen.findPreference(brevent));
         }
         if (!application.supportAppops()) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent"))
+            ((PreferenceCategory) preferenceScreen.findPreference(brevent))
                     .removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
         }
         SwitchPreference preferenceBackground = (SwitchPreference) preferenceScreen
@@ -107,13 +106,15 @@ public class SettingsFragment extends PreferenceFragment
         int donated = BuildConfig.RELEASE ? application.getDonated() : 0;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || donated < BreventSettings.CONTRIBUTOR) {
             preferenceBackground.setChecked(false);
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_optimize"))
+            ((PreferenceCategory) preferenceScreen.findPreference(brevent))
                     .removePreference(preferenceBackground);
         }
         if (BuildConfig.RELEASE) {
             updateSummaries();
-            preferenceScreen.findPreference("brevent_about_version")
-                    .setOnPreferenceClickListener(this);
+            if (!getArguments().getBoolean(IS_PLAY, false)) {
+                preferenceScreen.findPreference("brevent_about_version")
+                        .setOnPreferenceClickListener(this);
+            }
             updateDonation();
         }
         onUpdateBreventMethod();
@@ -143,8 +144,10 @@ public class SettingsFragment extends PreferenceFragment
 
     private int getRecommend(Preference preference) {
         String fragment = preference.getFragment();
-        if (!TextUtils.isEmpty(fragment) && TextUtils.isDigitsOnly(fragment)) {
-            return Integer.parseInt(fragment);
+        if ("me.piebridge.brevent.ui.Recommend2".equals(fragment)) {
+            return 0x2;
+        } else if ("me.piebridge.brevent.ui.Recommend3".equals(fragment)) {
+            return 0x3;
         } else {
             return 0;
         }
@@ -216,18 +219,6 @@ public class SettingsFragment extends PreferenceFragment
         getPreferenceScreen().findPreference("brevent_about_system")
                 .setSummary(getSystemSummary());
         preference.setOnPreferenceClickListener(this);
-        if (BuildConfig.RELEASE) {
-            Activity activity = getActivity();
-            BreventApplication application = (BreventApplication) activity.getApplication();
-            double donation = BreventApplication.getDonation(application);
-            int playDonation = BreventApplication.getPlayDonation(application);
-            String amount = DecimalUtils.format(donation + playDonation);
-            if (mAmount == null) {
-                mAmount = amount;
-            } else if (!Objects.equals(mAmount, amount)) {
-                activity.recreate();
-            }
-        }
     }
 
     @Override
@@ -262,7 +253,7 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     public void updatePlayDonation(int total, boolean contributor) {
-        Activity activity = getActivity();
+        BreventSettings activity = (BreventSettings) getActivity();
         if (activity == null) {
             return;
         }
@@ -287,24 +278,19 @@ public class SettingsFragment extends PreferenceFragment
                     summary = getString(R.string.show_donation_contributor);
                 }
             }
-
         } else {
             if (total > 0) {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_play_and_rmb,
                             play, rmb);
-                    if (xposed) {
-                        summary += getString(R.string.show_donation_xposed);
-                    }
+                    summary += getExtraInfo(xposed);
                 } else {
                     summary = getString(R.string.show_donation_play, play);
                 }
             } else {
                 if (DecimalUtils.isPositive(donation)) {
                     summary = getString(R.string.show_donation_rmb, rmb);
-                    if (xposed) {
-                        summary += getString(R.string.show_donation_xposed);
-                    }
+                    summary += getExtraInfo(xposed);
                 } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = getString(R.string.show_donation_summary_play);
                 } else {
@@ -313,6 +299,24 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         preferenceDonation.setSummary(summary);
+        if (total != activity.getPlay()) {
+            activity.setPlay(total);
+            if (total > 0) {
+                Toast.makeText(application, summary, Toast.LENGTH_LONG).show();
+                if (DecimalUtils.intValue(donation + total) >= activity.getRecommend()) {
+                    preferenceDonation.setChecked(false);
+                }
+            }
+        }
+    }
+
+    private String getExtraInfo(boolean xposed) {
+        StringBuilder sb = new StringBuilder();
+        if (xposed) {
+            sb.append(getString(R.string.show_donation_xposed));
+        }
+        sb.append(getString(R.string.show_donation_brefoil));
+        return sb.toString();
     }
 
     @Override
@@ -361,11 +365,12 @@ public class SettingsFragment extends PreferenceFragment
                 getArguments().putBoolean(LOCALE_CHANGED, true);
                 activity.recreate();
             }
-        }
-        int recommend = getRecommend(preference);
-        if (recommend > 0) {
-            BreventApplication application = (BreventApplication) getActivity().getApplication();
-            application.setRecommend(preference.getKey(), recommend, (boolean) newValue);
+        } else {
+            int recommend = getRecommend(preference);
+            if (recommend > 0) {
+                BreventApplication application = (BreventApplication) getActivity().getApplication();
+                application.setRecommend(preference.getKey(), recommend, (boolean) newValue);
+            }
         }
         return true;
     }

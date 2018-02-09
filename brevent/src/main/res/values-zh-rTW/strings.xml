@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題，歡迎附上日誌發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">預設黑域方法為「待機，然後強制停止」。應用程式待機（App Standby，Android 6.0 引入，部分裝置不支持）後不能聯網、執行任務（Job）與同步。\n\n黑域不強制停止安全的緩存應用程式。此外，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">預設黑域方法為「待機，然後強制停止」。應用程式待機（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑域不強制停止安全的緩存應用程式。此外，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑域</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -119,7 +119,7 @@
 
     <string name="brevent_list">黑域清單</string>
     <string name="brevent_auto">自動更新</string>
-    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單（部分 ROM 不支持）</string>
+    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單（部分 ROM 不支援）</string>
     <string name="brevent_method">黑域方法</string>
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
@@ -155,8 +155,8 @@
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑域</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">依賴「檢查通知」。播放時不處理，暫停且有通知時不強行停止</string>
-    <string name="brevent_background">揹景限制</string>
-    <string name="brevent_background_label">動態設定揹景限制，沒有适配應用程式可能提示崩潰</string>
+    <string name="brevent_background">背景限制</string>
+    <string name="brevent_background_label">動態設定背景限制\n\n建議關閉，可能導致應用程式強制停止</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />
@@ -169,10 +169,11 @@
     <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_xposed">（Xposed）</string>
+    <string name="show_donation_brefoil" />
     <string name="brevent_checking">自我診斷</string>
     <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
     <string name="brevent_appops">程式權限（實驗性）</string>
-    <string name="brevent_appops_label">目前僅有簡單的讀寫功能，將依情況進一步開發</string>
+    <string name="brevent_appops_label">目前非常簡單，將依情況進一步開發</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_version">版本</string>
@@ -185,8 +186,8 @@
     <string name="brevent_about_version_xiaomi">小米版</string>
     <string name="brevent_about_system">系統狀態</string>
     <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n程式權限：%3$s</string>
-    <string name="brevent_about_system_supported">支持</string>
-    <string name="brevent_about_system_unsupported">不支持</string>
+    <string name="brevent_about_system_supported">支援</string>
+    <string name="brevent_about_system_unsupported">不支援</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_translation">翻譯</string>
@@ -198,7 +199,7 @@
     <string name="unsupported_signature">請勿破解黑域。</string>
     <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
-    <string name="unsupported_permission">沒有權限存取黑域服務。黑域不支持多用戶、雙開、分身等場景。</string>
+    <string name="unsupported_permission">沒有權限存取黑域服務。黑域不支援多用戶、雙開、分身等場景。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑域無法自動工作。</string>
     <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
@@ -207,7 +208,7 @@
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
     <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
-    <string name="unsupported_checking">暫不支持「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
+    <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
     <string name="unsupported_location">請不要把黑域安裝在系統目錄、外置存儲，或者保護目錄。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>

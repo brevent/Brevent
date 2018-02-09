@@ -185,10 +185,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         double donation = BreventApplication.decode(application, sum, true, true);
         boolean xposed = !DecimalUtils.isPositive(donation);
         donation = Math.abs(donation);
-        if (DecimalUtils.isPositive(donation - BreventApplication.getDonation(application))) {
-            PreferencesUtils.getPreferences(application)
-                    .edit().putString("alipay1", sum).apply();
-        }
+        PreferencesUtils.getPreferences(application).edit().putString("alipay1", sum).apply();
         String format = DecimalUtils.format(donation);
         if (!"0".equals(format)) {
             Resources resources = application.getResources();

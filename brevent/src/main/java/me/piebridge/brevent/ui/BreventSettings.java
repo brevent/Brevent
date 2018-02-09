@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -49,6 +48,8 @@ public class BreventSettings extends DonateActivity {
 
     private int mTotal;
 
+    private int mPlayDonation;
+
     private static final int SIZE_1 = 30;
 
     private static final int SIZE_2 = 60;
@@ -76,6 +77,8 @@ public class BreventSettings extends DonateActivity {
         if (savedInstanceState != null) {
             arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
         }
+
+        mPlayDonation = getIntent().getIntExtra(BreventIntent.EXTRA_PLAY, 0);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -192,7 +195,7 @@ public class BreventSettings extends DonateActivity {
     @Override
     protected List<String> getDonateSkus() {
         List<String> skus = new ArrayList<>();
-        int amount = getIntent().getIntExtra(BreventIntent.EXTRA_RECOMMEND, DONATE_AMOUNT);
+        int amount = getRecommend();
         amount -= mTotal;
         if (amount > 0) {
             for (int j = 0; j < 0x5; ++j) {
@@ -253,6 +256,18 @@ public class BreventSettings extends DonateActivity {
         } else {
             return !preferences.getBoolean(SettingsFragment.SHOW_DONATION, true);
         }
+    }
+
+    int getRecommend() {
+        return getIntent().getIntExtra(BreventIntent.EXTRA_RECOMMEND, DONATE_AMOUNT);
+    }
+
+    int getPlay() {
+        return mPlayDonation;
+    }
+
+    void setPlay(int play) {
+        mPlayDonation = play;
     }
 
     public static int getRecommend(int size) {

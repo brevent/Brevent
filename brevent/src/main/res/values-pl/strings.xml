@@ -158,7 +158,7 @@
     <string name="brevent_optimize_audio">Optymalizuj Odtwarzacz Muzyczny</string>
     <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Aplikacje odtwarzania muzyki ani nie znajdą się w trybie czuwania, ani nie zostanie wymuszone ich zatrzymanie</string>
     <string name="brevent_background">Background limits</string>
-    <string name="brevent_background_label">Update background limits dynamically, may cause brevented apps crash</string>
+    <string name="brevent_background_label">Update background limits dynamically\n\nRecommend off. May cause brevented apps crash</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_play" />
@@ -171,10 +171,11 @@
     <string name="show_donation_rmb_and_contributor">Dzięki za kupno %s Brefoil i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
     <string name="show_donation_xposed">(Xposed)</string>
+    <string name="show_donation_brefoil" />
     <string name="brevent_checking">Diagnostyka</string>
     <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
-    <string name="brevent_appops">AppOps (Eksperymentalne)</string>
-    <string name="brevent_appops_label">Currently only simple read and write, still in progress</string>
+    <string name="brevent_appops">AppOps (experimental)</string>
+    <string name="brevent_appops_label">Very simple, still in progress</string>
 
     <string name="brevent_about">O Brevent</string>
     <string name="brevent_about_version">Wersja</string>
