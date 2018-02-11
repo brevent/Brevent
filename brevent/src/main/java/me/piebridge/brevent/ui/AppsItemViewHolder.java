@@ -52,7 +52,6 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
         super(view);
         mFragment = fragment;
         view.setOnCreateContextMenuListener(this);
-        view.setLongClickable(false);
     }
 
     @Override

@@ -37,7 +37,8 @@ import me.piebridge.brevent.protocol.BreventResponse;
 /**
  * Created by thom on 2017/1/25.
  */
-public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClickListener,
+        View.OnLongClickListener {
 
     private static final int VIEW_TYPE_SECTION = 0;
     private static final int VIEW_TYPE_ITEM = 1;
@@ -103,6 +104,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             viewHolder.descriptionView = view.findViewById(R.id.description);
             viewHolder.inactiveView = view.findViewById(R.id.inactive);
             view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
             viewHolder.iconView.setOnClickListener(this);
             if (cardColorBackgroundDefault == Color.TRANSPARENT) {
                 cardColorBackgroundDefault = view.getCardBackgroundColor().getDefaultColor();
@@ -268,11 +270,25 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v instanceof CardView) {
-            v.showContextMenu();
+            if (mSelected.isEmpty()) {
+                v.showContextMenu();
+            } else {
+                onSelected((CardView) v);
+            }
         } else if (v instanceof ImageView) {
             if (v.getId() == R.id.icon) {
                 onSelected((CardView) v.getParent().getParent());
             }
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v instanceof CardView) {
+            onSelected((CardView) v);
+            return true;
+        } else {
+            return false;
         }
     }
 
