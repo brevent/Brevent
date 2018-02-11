@@ -210,7 +210,7 @@ public class AppsActivityHandler extends Handler {
     void doAdb(int port, String path) {
         SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
         try {
-            adb = simpleAdb.exec(port, "sh " + path);
+            adb = simpleAdb.exec(port, "/system/bin/sh " + path);
         } catch (IOException e) {
             UILog.e("Can't adb", e);
         } finally {

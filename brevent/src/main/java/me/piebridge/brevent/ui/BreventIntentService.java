@@ -192,7 +192,7 @@ public class BreventIntentService extends IntentService {
         String message = "(Can't adb)";
         BreventApplication application = (BreventApplication) getApplication();
         application.setAdb(needStop);
-        String command = "sh " + path;
+        String command = "/system/bin/sh " + path;
         SimpleAdb simpleAdb = new SimpleAdb(BuildConfig.ADB_K, BuildConfig.ADB_M, BuildConfig.ADB_D);
         boolean fail = true;
         for (int i = 0; i < ADB_TIMEOUT; ++i) {
