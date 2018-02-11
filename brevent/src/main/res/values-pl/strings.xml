@@ -47,9 +47,10 @@
     <string name="process_starting">Uruchamianie serwera Brevent, proszę czekać. . .</string>
     <string name="process_checking">Sprawdzanie serwera Brevent, proszę czekać. . .</string>
 
-    <string name="process_status_running">Działające</string>
-    <string name="process_status_standby">W Trybie Czuwania</string>
-    <string name="process_status_stopped">Zatrzymane</string>
+    <string name="process_status_running">Running</string>
+    <string name="process_status_standby">Standby</string>
+    <string name="process_status_ignored">Ignored</string>
+    <string name="process_status_stopped">Stopped</string>
     <string name="process_not_running">(nie działa w tle)</string>
     <string name="process_no_stats">(nigdy nie uruchamiana)</string>
     <string name="process_stats">(ostatnio: %1$s, ogółem: %2$s)</string>

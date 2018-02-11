@@ -25,7 +25,9 @@ class AppsInfo {
 
     static final int STATUS_STANDBY = 1;
 
-    static final int STATUS_STOPPED = 2;
+    static final int STATUS_IGNORED = 2;
+
+    static final int STATUS_STOPPED = 3;
 
     final String packageName;
 

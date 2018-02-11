@@ -46,6 +46,7 @@ public class HideApiOverride {
     private static int processStateForegroundService;
     private static final int PROCESS_STATE_SERVICE = getProcessStateService();
     private static final int PROCESS_STATE_RECEIVER = getProcessStateReceiver();
+    private static final int PROCESS_STATE_HOME = getProcessStateHome();
     private static final int PROCESS_STATE_TOP = getProcessStateTop();
 
     private static final int RECENT_IGNORE_HOME_STACK_TASKS = getRecentIgnoreHomeStackTasks();
@@ -94,7 +95,7 @@ public class HideApiOverride {
     }
 
     public static boolean isSafe(int processState) {
-        return processState > PROCESS_STATE_RECEIVER;
+        return processState >= PROCESS_STATE_HOME;
     }
 
     public static boolean isService(int processState) {
@@ -411,6 +412,15 @@ public class HideApiOverride {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_RECEIVER");
             return 11;
+        }
+    }
+
+    private static int getProcessStateHome() {
+        try {
+            return ActivityManager.PROCESS_STATE_HOME;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find ActivityManager.PROCESS_STATE_HOME");
+            return 12;
         }
     }
 

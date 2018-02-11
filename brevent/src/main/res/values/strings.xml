@@ -49,6 +49,7 @@
 
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
+    <string name="process_status_ignored">Ignored</string>
     <string name="process_status_stopped">Stopped</string>
     <string name="process_not_running">(not running)</string>
     <string name="process_no_stats">(never launched)</string>

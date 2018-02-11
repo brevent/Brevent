@@ -70,6 +70,7 @@
     <string-array name="process_status">
         <item>@string/process_status_running</item>
         <item>@string/process_status_standby</item>
+        <item>@string/process_status_ignored</item>
         <item>@string/process_status_stopped</item>
     </string-array>
 

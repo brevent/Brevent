@@ -48,6 +48,7 @@
 
     <string name="process_status_running">正在執行</string>
     <string name="process_status_standby">已經待機</string>
+    <string name="process_status_ignored">無需處理</string>
     <string name="process_status_stopped">沒有執行</string>
     <string name="process_not_running">（沒有執行）</string>
     <string name="process_no_stats">（從未開啟）</string>

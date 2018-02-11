@@ -751,6 +751,8 @@ public class BreventActivity extends AbstractActivity
         }
         if (status == null) {
             return AppsInfo.STATUS_STOPPED;
+        } else if (BreventResponse.isSafe(status)) {
+            return AppsInfo.STATUS_IGNORED;
         } else if (BreventResponse.isStandby(status)) {
             return AppsInfo.STATUS_STANDBY;
         } else {
