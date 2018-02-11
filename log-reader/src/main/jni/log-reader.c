@@ -62,14 +62,8 @@ static int get_pid() {
     return pid;
 }
 
-/*
- * Class:     me_piebridge_LogReader
- * Method:    readEvents
- * Signature: (Lme/piebridge/EventHandler;)V
- */
 JNIEXPORT void JNICALL
-Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jobject value) {
-    int pid;
+Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid, jobject value) {
     struct timespec ts;
     struct logger_list *logger_list;
     struct log_time log_time;
@@ -82,7 +76,6 @@ Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jobjec
     jmethodID onEvent = (*env)->GetMethodID(env, eventHandler, "onEvent",
                                             "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)Z");
 
-    pid = get_pid();
     clock_gettime(CLOCK_REALTIME, &ts);
     LOGI("system_server: %d, now: %ld", pid, ts.tv_sec);
 

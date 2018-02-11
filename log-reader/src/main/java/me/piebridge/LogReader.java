@@ -19,7 +19,7 @@ public class LogReader {
      *
      * @param handler event handler
      */
-    public static native void readEvents(EventHandler handler);
+    public static native void readEvents(int pid, EventHandler handler);
 
     public static native int getPid();
 
