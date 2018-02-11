@@ -1343,6 +1343,13 @@ public class BreventActivity extends AbstractActivity
             if (BuildConfig.RELEASE && isFakeMotionelf()) {
                 checkMotionelf(application);
             }
+            if (BuildConfig.RELEASE && application.isPlay() && !mBrevent.isEmpty()) {
+                int days = getDays();
+                int donated = application.getDonated();
+                if (days > 0x2 && donated < BreventSettings.DONATE_AMOUNT) {
+                    checkBreventList(application, days, donated);
+                }
+            }
         }
 
         if (!status.mGranted && !application.isGrantedWarned()) {
@@ -1354,13 +1361,6 @@ public class BreventActivity extends AbstractActivity
         }
         unbreventImportant();
 
-        if (application.isPlay() && BuildConfig.RELEASE && !mBrevent.isEmpty()) {
-            int days = getDays();
-            int donated = application.getDonated();
-            if (days > 0x2 && donated < BreventSettings.DONATE_AMOUNT) {
-                checkBreventList(application, days, donated);
-            }
-        }
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();

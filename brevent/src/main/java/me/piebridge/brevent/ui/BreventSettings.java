@@ -141,7 +141,7 @@ public class BreventSettings extends DonateActivity {
         int total = 0;
         boolean contributor = false;
         for (String p : purchased) {
-            if (p.startsWith("contributor_")) {
+            if ("contributor_5".equals(p)) {
                 contributor = true;
             } else {
                 total += parse(p);

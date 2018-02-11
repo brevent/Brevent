@@ -118,11 +118,13 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     public static Collection<String> getPurchased(Application application, String tag,
                                                   BigInteger modulus) {
         if (!hasPlay(application)) {
+            Log.w(tag, "no play store, remove play cache");
             removePlayCache(application);
             return null;
         }
         String play = PreferencesUtils.getPreferences(application).getString("play", null);
         if (TextUtils.isEmpty(play)) {
+            Log.i(tag, "no play cache: " + play);
             return null;
         }
         JSONArray jsonArray;
@@ -136,10 +138,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         List<String> data = convert(jsonArray.optJSONArray(0));
         List<String> sigs = convert(jsonArray.optJSONArray(1));
         if (data.isEmpty() || sigs.isEmpty()) {
+            Log.i(tag, "no play cache: " + play);
             removePlayCache(application);
             return Collections.emptyList();
         }
-        return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs);
+        return PlayServiceConnection.checkPurchased(tag, modulus, data, sigs, true);
     }
 
     public boolean activatePlayIfNeeded() {

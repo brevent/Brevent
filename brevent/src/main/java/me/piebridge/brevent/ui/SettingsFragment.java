@@ -19,8 +19,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.Objects;
-
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
@@ -103,7 +101,7 @@ public class SettingsFragment extends PreferenceFragment
         }
         SwitchPreference preferenceBackground = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_BACKGROUND);
-        int donated = BuildConfig.RELEASE ? application.getDonated() : 0;
+        int donated = getDonated(application);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || donated < BreventSettings.CONTRIBUTOR) {
             preferenceBackground.setChecked(false);
             ((PreferenceCategory) preferenceScreen.findPreference(brevent))
@@ -118,6 +116,16 @@ public class SettingsFragment extends PreferenceFragment
             updateDonation();
         }
         onUpdateBreventMethod();
+    }
+
+    private int getDonated(BreventApplication application) {
+        if (BuildConfig.RELEASE) {
+            int donation = DecimalUtils.intValue(BreventApplication.getDonation(application));
+            BreventSettings activity = (BreventSettings) getActivity();
+            return activity.getPlay() + donation;
+        } else {
+            return 0;
+        }
     }
 
     private void updateSummaries() {
@@ -172,7 +180,9 @@ public class SettingsFragment extends PreferenceFragment
         double donation = BreventApplication.getDonation(application);
         if (DecimalUtils.isPositive(donation)) {
             String format = DecimalUtils.format(donation);
-            preferenceDonation.setSummary(getString(R.string.show_donation_rmb, format));
+            String summary = getString(R.string.show_donation_rmb, format)
+                    + getExtraInfo(BreventApplication.isXposed(application));
+            preferenceDonation.setSummary(summary);
         } else if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceDonation.setSummary(R.string.show_donation_summary_play);
         } else {
@@ -299,6 +309,10 @@ public class SettingsFragment extends PreferenceFragment
             }
         }
         preferenceDonation.setSummary(summary);
+        if (contributor) {
+            total += BreventSettings.CONTRIBUTOR;
+        }
+        UILog.i("total: " + total + ", play: " + activity.getPlay());
         if (total != activity.getPlay()) {
             activity.setPlay(total);
             if (total > 0) {

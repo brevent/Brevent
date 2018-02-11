@@ -157,15 +157,16 @@ abstract class PlayServiceConnection extends Handler implements ServiceConnectio
         JSONArray json = new JSONArray();
         json.put(new JSONArray(data));
         json.put(new JSONArray(sigs));
-        PreferencesUtils.getPreferences(donateActivity)
+        PreferencesUtils.getPreferences(donateActivity.getApplication())
                 .edit().putString("play", json.toString()).apply();
-        return checkPurchased(mTag, donateActivity.getPlayModulus(), data, sigs);
+        return checkPurchased(mTag, donateActivity.getPlayModulus(), data, sigs, false);
     }
 
     static Collection<String> checkPurchased(String tag, BigInteger modulus,
-                                             List<String> data, List<String> sigs) {
+                                             List<String> data, List<String> sigs, boolean cached) {
         Collection<String> purchased = new ArraySet<>();
         if (isEmpty(data) || isEmpty(sigs)) {
+            Log.i(tag, "no play, data: " + data + ", sigs: " + sigs);
             return purchased;
         }
 
@@ -176,10 +177,14 @@ abstract class PlayServiceConnection extends Handler implements ServiceConnectio
 
         for (int i = 0; i < size; ++i) {
             String datum = data.get(i);
-            if (verify(tag, modulus, datum, sigs.get(i))) {
+            String sig = sigs.get(i);
+            if (verify(tag, modulus, datum, sig)) {
                 checkProductId(purchased, tag, datum);
+            } else {
+                Log.w(tag, "cannot verify, data: " + datum + ", sig: " + sig);
             }
         }
+        Log.i(tag, "purchased: " + purchased + ", cached: " + cached);
         return purchased;
     }
 
@@ -191,6 +196,8 @@ abstract class PlayServiceConnection extends Handler implements ServiceConnectio
                 if (!TextUtils.isEmpty(productId)) {
                     purchased.add(productId);
                 }
+            } else {
+                Log.w(tag, "invalid purchase  state: " + datum);
             }
         } catch (JSONException e) {
             Log.d(tag, "Can't check productId from " + datum);
