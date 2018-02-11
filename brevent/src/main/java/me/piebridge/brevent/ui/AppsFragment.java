@@ -24,8 +24,6 @@ import me.piebridge.brevent.R;
  */
 public abstract class AppsFragment extends Fragment {
 
-    static final String PACKAGE_FRAMEWORK = "android";
-
     private View mView;
 
     private RecyclerView mRecycler;

@@ -183,9 +183,9 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_CHECKING = "checking";
     private static final String FRAGMENT_EVENT_LOG = "event_log";
     private static final String FRAGMENT_MOTIONELF = "motionelf";
+    private static final String FRAGMENT_FAKE_FRAMEWORK = "fake_framework";
 
     private static final String PACKAGE_FRAMEWORK = "android";
-    private Signature[] frameworkSignatures;
     private boolean fakeFramework;
 
     static final int REQUEST_CODE_SETTINGS = 1;
@@ -255,8 +255,9 @@ public class BreventActivity extends AbstractActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BreventApplication application = (BreventApplication) getApplication();
         if (BuildConfig.RELEASE) {
-            StatsUtils.init(getApplication());
+            StatsUtils.init(application);
         }
         boolean disabledXposed = !BuildConfig.RELEASE;
         if (BuildConfig.SERVER != null) {
@@ -336,6 +337,10 @@ public class BreventActivity extends AbstractActivity
                     android.R.attr.colorControlHighlight);
 
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
+            if (fakeFramework && !application.isFakeWarned()) {
+                application.setFakeWarned(true);
+                showWarning(FRAGMENT_FAKE_FRAMEWORK, R.string.unsupported_fake_framework);
+            }
         }
     }
 
@@ -1726,8 +1731,8 @@ public class BreventActivity extends AbstractActivity
         SharedPreferences sp = PreferencesUtils.getPreferences(this);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
-        boolean showFramework = sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
-                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS) || breventedFrameworkApps();
+        boolean showFramework = !fakeFramework && (sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
+                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS) || breventedFrameworkApps());
         return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
     }
 
@@ -2118,55 +2123,16 @@ public class BreventActivity extends AbstractActivity
     }
 
     private boolean isBreventFramework() {
-        PackageManager packageManager = getPackageManager();
-        return packageManager.checkSignatures(PACKAGE_FRAMEWORK, BuildConfig.APPLICATION_ID) ==
-                PackageManager.SIGNATURE_MATCH;
+        return isFrameworkPackage(getPackageManager(), BuildConfig.APPLICATION_ID);
     }
 
     private boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
-        if (fakeFramework) {
-            try {
-                PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-                return isFrameworkPackage(packageManager, packageInfo);
-            } catch (PackageManager.NameNotFoundException e) {
-                UILog.w("cannot find " + packageName, e);
-                return false;
-            }
-        } else {
-            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
-                    PackageManager.SIGNATURE_MATCH;
-        }
+        final int match = PackageManager.SIGNATURE_MATCH;
+        return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == match;
     }
 
     boolean isFrameworkPackage(PackageManager packageManager, PackageInfo packageInfo) {
-        String packageName = packageInfo.packageName;
-        if (fakeFramework) {
-            SharedPreferences preferences = getSharedPreferences("signature", Context.MODE_PRIVATE);
-            long lastSync = AppsLabelLoader.getLastSync(this);
-            if (preferences.contains(packageName) && packageInfo.lastUpdateTime <= lastSync) {
-                return preferences.getBoolean(packageName, false);
-            }
-            boolean isFrameworkPackage = isFrameworkPackageSignature(packageManager, packageName);
-            preferences.edit().putBoolean(packageName, isFrameworkPackage).apply();
-            return isFrameworkPackage;
-        } else {
-            return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) ==
-                    PackageManager.SIGNATURE_MATCH;
-        }
-    }
-
-    private boolean isFrameworkPackageSignature(PackageManager packageManager, String packageName) {
-        boolean frameworkApp = Arrays.equals(getFrameworkSignatures(packageManager),
-                BreventActivity.getSignatures(packageManager, packageName));
-        UILog.i("checking framework app for " + packageName + ": " + (frameworkApp ? "yes" : "no"));
-        return frameworkApp;
-    }
-
-    private Signature[] getFrameworkSignatures(PackageManager packageManager) {
-        if (frameworkSignatures == null) {
-            frameworkSignatures = BreventActivity.getSignatures(packageManager, PACKAGE_FRAMEWORK);
-        }
-        return frameworkSignatures;
+        return !fakeFramework && isFrameworkPackage(packageManager, packageInfo.packageName);
     }
 
     static boolean isUsbConnected(Intent intent) {

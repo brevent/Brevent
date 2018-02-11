@@ -212,6 +212,7 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
+    <string name="unsupported_fake_framework">System APIs are hooked, cannot verify core apps.</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>

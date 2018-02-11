@@ -210,6 +210,7 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
     <string name="unsupported_location">請不要把黑域安裝在系統目錄、外置存儲，或者保護目錄。</string>
+    <string name="unsupported_fake_framework">系統 API 被劫持，不支援識別框架應用程式。</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>
     <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>

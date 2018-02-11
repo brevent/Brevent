@@ -110,6 +110,7 @@ public class BreventApplication extends Application {
     private boolean starting;
 
     private boolean grantedWarned;
+    private boolean fakeWarned;
 
     private String mToken = "";
 
@@ -657,6 +658,14 @@ public class BreventApplication extends Application {
 
     public void setGrantedWarned(boolean grantedWarned) {
         this.grantedWarned = grantedWarned;
+    }
+
+    public boolean isFakeWarned() {
+        return fakeWarned;
+    }
+
+    public void setFakeWarned(boolean fakeWarned) {
+        this.fakeWarned = fakeWarned;
     }
 
     public PackageInfo getInstantPackageInfo(String packageName) {
