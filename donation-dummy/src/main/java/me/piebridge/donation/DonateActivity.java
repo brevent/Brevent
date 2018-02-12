@@ -16,10 +16,6 @@ import me.piebridge.brevent.ui.AbstractActivity;
  */
 public abstract class DonateActivity extends AbstractActivity {
 
-    public static final String PACKAGE_PLAY = "com.android.vending";
-
-    public static final String PACKAGE_ALIPAY = "com.eg.android.AlipayGphone";
-
     @Nullable
     public static Collection<String> getPurchased(Application application, String tag,
                                                   BigInteger modulus) {

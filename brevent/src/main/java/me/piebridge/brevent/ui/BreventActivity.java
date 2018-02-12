@@ -231,10 +231,6 @@ public class BreventActivity extends AbstractActivity
 
     private String mLauncher;
 
-    private String mSms;
-
-    private String mDialer;
-
     private volatile boolean hasResponse;
 
     private UsbConnectedReceiver mConnectedReceiver;
@@ -1473,23 +1469,6 @@ public class BreventActivity extends AbstractActivity
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
         }
-        makePriority();
-    }
-
-    private void makePriority() {
-        if (mSms != null) {
-            updatePriority(mSms);
-        }
-        if (mDialer != null) {
-            updatePriority(mDialer);
-        }
-        updatePriority(BuildConfig.APPLICATION_ID);
-    }
-
-    private void updatePriority(String packageName) {
-        if (mBrevent.contains(packageName) && !mPriority.contains(packageName)) {
-            updatePriority(packageName, true);
-        }
     }
 
     private Collection<String> checkReceiver(Intent intent) {
@@ -1522,37 +1501,22 @@ public class BreventActivity extends AbstractActivity
             mImportant.put(alarmClockPackage, IMPORTANT_ALARM);
         }
 
-        // sms
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
-            mSms = getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION);
-            if (isSystemPackage(mSms)) {
-                mFavorite.put(mSms, IMPORTANT_SMS);
-            } else {
-                mImportant.put(mSms, IMPORTANT_SMS);
+            // sms
+            String sms = getSecureSetting(HideApiOverride.SMS_DEFAULT_APPLICATION);
+            if (sms != null) {
+                mImportant.put(sms, IMPORTANT_SMS);
             }
 
             // dialer
-            mDialer = getDefaultApp(Intent.ACTION_DIAL);
-            if (mDialer != null) {
-                if (isSystemPackage(mDialer)) {
-                    mFavorite.put(mDialer, IMPORTANT_DIALER);
-                } else {
-                    mImportant.put(mDialer, IMPORTANT_DIALER);
-                }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mDialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
+            String dialer = getDefaultApp(Intent.ACTION_DIAL);
+            if (dialer == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                dialer = ((TelecomManager) getSystemService(TELECOM_SERVICE))
                         .getDefaultDialerPackage();
-                if (mDialer != null) {
-                    if (isSystemPackage(mDialer)) {
-                        mFavorite.put(mDialer, IMPORTANT_DIALER);
-                    } else {
-                        mImportant.put(mDialer, IMPORTANT_DIALER);
-                    }
-                }
             }
-        } else {
-            mSms = null;
-            mDialer = null;
+            if (dialer != null) {
+                mImportant.put(dialer, IMPORTANT_DIALER);
+            }
         }
 
         // assistant
@@ -1756,7 +1720,6 @@ public class BreventActivity extends AbstractActivity
     public void updateBreventResponse(BreventPackages breventPackages) {
         if (breventPackages.brevent) {
             mBrevent.addAll(breventPackages.packageNames);
-            makePriority();
         } else {
             mBrevent.removeAll(breventPackages.packageNames);
         }
