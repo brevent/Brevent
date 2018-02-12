@@ -52,6 +52,10 @@ public class SettingsFragment extends PreferenceFragment
 
     private Preference preferenceStandbyTimeout;
 
+    private PreferenceCategory preferenceBrevent;
+
+    private SwitchPreference preferenceBackground;
+
     private int repeat = 0;
 
     private ListView mList;
@@ -91,21 +95,19 @@ public class SettingsFragment extends PreferenceFragment
             preferenceAutoUpdate.setEnabled(false);
         }
 
-        final String brevent = "brevent";
+        preferenceBrevent = (PreferenceCategory) preferenceScreen.findPreference("brevent");
         if (!BuildConfig.RELEASE) {
-            preferenceScreen.removePreference(preferenceScreen.findPreference(brevent));
+            preferenceScreen.removePreference(preferenceBrevent);
         }
         if (!application.supportAppops()) {
-            ((PreferenceCategory) preferenceScreen.findPreference(brevent))
-                    .removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
+            preferenceBrevent.removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
         }
-        SwitchPreference preferenceBackground = (SwitchPreference) preferenceScreen
+        preferenceBackground = (SwitchPreference) preferenceScreen
                 .findPreference(BreventConfiguration.BREVENT_BACKGROUND);
         int donated = getDonated(application);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || donated < BreventSettings.CONTRIBUTOR) {
             preferenceBackground.setChecked(false);
-            ((PreferenceCategory) preferenceScreen.findPreference(brevent))
-                    .removePreference(preferenceBackground);
+            preferenceBrevent.removePreference(preferenceBackground);
         }
         if (BuildConfig.RELEASE) {
             updateSummaries();
@@ -313,6 +315,7 @@ public class SettingsFragment extends PreferenceFragment
             total += BreventSettings.CONTRIBUTOR;
         }
         UILog.i("total: " + total + ", play: " + activity.getPlay());
+        int donated = getDonated(application);
         if (total != activity.getPlay()) {
             activity.setPlay(total);
             if (total > 0) {
@@ -321,6 +324,11 @@ public class SettingsFragment extends PreferenceFragment
                     preferenceDonation.setChecked(false);
                 }
             }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && donated < BreventSettings.CONTRIBUTOR
+                && getDonated(application) >= BreventSettings.CONTRIBUTOR) {
+            preferenceBrevent.addPreference(preferenceBackground);
         }
     }
 
