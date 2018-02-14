@@ -214,6 +214,7 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
+    <string name="unsupported_brevented">You have brevented some important apps. Do you wan to unbrevent them?</string>
 
     <string name="toast_home_tid">Recognized real Home: %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>

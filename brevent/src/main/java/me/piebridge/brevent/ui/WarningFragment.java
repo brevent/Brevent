@@ -55,6 +55,7 @@ public class WarningFragment extends AbstractDialogFragment
             case R.string.unsupported_granted_miui:
             case R.string.unsupported_checking:
             case R.string.cmd_warning:
+            case R.string.unsupported_brevented:
                 return true;
             default:
                 return false;
@@ -73,6 +74,9 @@ public class WarningFragment extends AbstractDialogFragment
                 break;
             case R.string.cmd_warning:
                 break;
+            case R.string.unsupported_brevented:
+                ((BreventActivity) getActivity()).unbreventImportant(true);
+                break;
             default:
                 break;
         }
@@ -88,6 +92,8 @@ public class WarningFragment extends AbstractDialogFragment
             case R.string.cmd_warning:
                 getActivity().finish();
                 break;
+            case R.string.unsupported_brevented:
+                ((BreventActivity) getActivity()).unsetBreventImportant();
             default:
                 break;
         }

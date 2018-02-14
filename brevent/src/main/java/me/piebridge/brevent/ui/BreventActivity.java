@@ -182,7 +182,9 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_GRANTED = "granted";
     private static final String FRAGMENT_CHECKING = "checking";
     private static final String FRAGMENT_EVENT_LOG = "event_log";
-    private static final String FRAGMENT_MOTIONELF = "motionelf";
+    private static final String FRAGMENT_UNBREVENT = "unbrevent";
+
+    private static final String KEY_BREVENTED_IMPORTANT = "brevented_important";
 
     static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -202,6 +204,7 @@ public class BreventActivity extends AbstractActivity
     private SimpleArrayMap<String, SparseIntArray> mProcesses = new SimpleArrayMap<>();
     private Set<String> mBrevent = new ArraySet<>();
     private Set<String> mPriority = new ArraySet<>();
+    final Set<String> mBreventedImportant = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
     private volatile SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
@@ -434,10 +437,6 @@ public class BreventActivity extends AbstractActivity
     static boolean isGenuineMotionelf(Context context) {
         return context.getPackageManager().getLaunchIntentForPackage(MOTIONELF_PACKAGE) != null
                 && verifySignature(context, MOTIONELF_PACKAGE, BuildConfig.MOTIONELF_SIGNATURE);
-    }
-
-    static boolean isDebugMotionelf(Context context) {
-        return verifySignature(context, MOTIONELF_PACKAGE, DEBUG_SIGNATURE);
     }
 
     static boolean verifySignature(Context context, String packageName, byte[] signature) {
@@ -1296,6 +1295,13 @@ public class BreventActivity extends AbstractActivity
             }
         }
 
+        Set<String> breventedImportant = new ArraySet<>();
+        for (String packageName : mBrevent) {
+            if (mImportant.containsKey(packageName)) {
+                breventedImportant.add(packageName);
+            }
+        }
+
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
             synchronized (mPackages) {
@@ -1326,9 +1332,6 @@ public class BreventActivity extends AbstractActivity
             if (!status.mEventLog) {
                 showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
             }
-            if (BuildConfig.RELEASE && isFakeMotionelf()) {
-                checkMotionelf(application);
-            }
             if (BuildConfig.RELEASE && application.isPlay() && !mBrevent.isEmpty()) {
                 int days = getDays();
                 int donated = application.getDonated();
@@ -1345,18 +1348,20 @@ public class BreventActivity extends AbstractActivity
         if (mSelectStatus == 0 && mBrevent.isEmpty()) {
             uiHandler.sendEmptyMessage(UI_MESSAGE_SHOW_SUCCESS);
         }
-        unbreventImportant();
 
         SharedPreferences preferences = PreferencesUtils.getPreferences(this);
         if (preferences.getLong(BreventSettings.DAEMON_TIME, 0) != status.mDaemonTime) {
             preferences.edit().putLong(BreventSettings.DAEMON_TIME, status.mDaemonTime).apply();
         }
-    }
 
-    private void checkMotionelf(BreventApplication application) {
-        if ((application.isPlay() || !isDebugMotionelf(application))
-                && application.getDonated() < BreventSettings.DONATE_AMOUNT) {
-            showWarning(FRAGMENT_MOTIONELF, R.string.unsupported_motionelf);
+        if (!breventedImportant.isEmpty()) {
+            UILog.d("brevented important: " + breventedImportant);
+            Set<String> ignored = preferences.getStringSet(KEY_BREVENTED_IMPORTANT, null);
+            if (!breventedImportant.equals(ignored)) {
+                mBreventedImportant.clear();
+                mBreventedImportant.addAll(breventedImportant);
+                unbreventImportant(false);
+            }
         }
     }
 
@@ -1446,18 +1451,26 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    private void unbreventImportant() {
-        Set<String> importantBrevented = new ArraySet<>();
-        for (String packageName : mBrevent) {
-            if (mImportant.containsKey(packageName)) {
-                importantBrevented.add(packageName);
-            }
-        }
-        if (!importantBrevented.isEmpty()) {
-            UILog.i("will unbrevent: " + importantBrevented);
-            BreventPackages breventPackages = new BreventPackages(false, importantBrevented);
+    void unbreventImportant(boolean confirm) {
+        if (mBreventedImportant.isEmpty()) {
+            // do nothing
+        } else if (confirm) {
+            UILog.i("will unbrevent: " + mBreventedImportant);
+            BreventPackages breventPackages = new BreventPackages(false,
+                    new ArraySet<>(mBreventedImportant));
             breventPackages.undoable = false;
             mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, breventPackages).sendToTarget();
+            mBreventedImportant.clear();
+        } else {
+            showWarning(FRAGMENT_UNBREVENT, R.string.unsupported_brevented);
+        }
+    }
+
+    void unsetBreventImportant() {
+        if (!mBreventedImportant.isEmpty()) {
+            PreferencesUtils.getPreferences(this).edit()
+                    .putStringSet(KEY_BREVENTED_IMPORTANT, mBreventedImportant).apply();
+            mBreventedImportant.clear();
         }
     }
 
