@@ -226,7 +226,7 @@ public class BreventIntentService extends IntentService {
             return Collections.singletonList(message);
         } else {
             UILog.i("adb fail, fallback to direct root");
-            application.stopAdbIfNeeded();
+            application.stopAdbIfNeeded(true);
             List<String> messages = new ArrayList<>();
             messages.add(message);
             messages.add(System.lineSeparator());

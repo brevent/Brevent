@@ -564,32 +564,48 @@ public class BreventApplication extends Application {
         this.started = false;
     }
 
-    public void stopAdbIfNeeded() {
+    public void stopAdbIfNeeded(boolean force) {
         synchronized (lockAdb) {
-            stopAdbIfNeededSync();
+            stopAdbIfNeededSync(force);
         }
     }
 
-    private void stopAdbIfNeededSync() {
+    private void stopAdbIfNeededSync(boolean force) {
         if ("1".equals(SystemProperties.get("service.adb.brevent.close", ""))) {
-            boolean connected = checkPort(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                SimpleSu.su("pbd=`pidof brevent_daemon`; " +
-                        "pbs=`pidof brevent_server`; " +
-                        "pin=`pidof installd`; " +
-                        "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
-                        "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
-                        "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
-                        "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs");
+            if (force) {
+                stopAdbSync();
+            } else {
+                stopAdbCheck();
             }
-            String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
-            SimpleSu.su("setprop service.adb.tcp.port -1; " +
-                    "setprop service.adb.brevent.close 0; " + command);
-            BreventIntentService.sleep(1);
-            if (connected && !checkPort(true)) {
-                SimpleSu.su("setprop service.adb.tcp.port 5555; " +
-                        "setprop ctl.restart adbd");
-            }
+        }
+    }
+
+    private void stopAdbSync() {
+        String command = needStop ? "setprop ctl.stop adbd" : "setprop ctl.restart adbd";
+        SimpleSu.su("setprop service.adb.tcp.port -1; " +
+                "setprop service.adb.brevent.close 0; " + command);
+    }
+
+    private void stopAdbCheck() {
+        if (!checkPort(true)) {
+            UILog.w("Can't connect, won't stop adb");
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            SimpleSu.su("pbd=`pidof brevent_daemon`; " +
+                    "pbs=`pidof brevent_server`; " +
+                    "pin=`pidof installd`; " +
+                    "echo \"pbd=$pbd, pbs=$pbs, pin=$pin\"; " +
+                    "echo $pbd > /acct/uid_0/pid_$pin/tasks; " +
+                    "echo $pbd > /acct/uid_0/pid_$pin/cgroup.procs; " +
+                    "echo $pbs > /acct/uid_0/pid_$pin/tasks; " +
+                    "echo $pbs > /acct/uid_0/pid_$pin/cgroup.procs");
+        }
+        stopAdbSync();
+        BreventIntentService.sleep(0x3);
+        if (!checkPort(true)) {
+            UILog.w("Can't connect after adb is stopped, turn on network adb");
+            SimpleSu.su("setprop service.adb.tcp.port 5555; setprop ctl.restart adbd");
         }
     }
 
@@ -604,7 +620,7 @@ public class BreventApplication extends Application {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        stopAdbIfNeeded();
+                        stopAdbIfNeeded(false);
                     }
                 }).start();
             }
