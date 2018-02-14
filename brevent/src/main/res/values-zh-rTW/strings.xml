@@ -222,8 +222,6 @@
     <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
 
-    <string name="logs_description">%1$s\n（請描述與日誌相關的問題。）</string>
-
     <string name="brevent_status_starting">正在開啟黑域服務</string>
     <string name="brevent_status_not_started">黑域服務沒有開啟</string>
     <string name="brevent_status_stopped">黑域服務已經停止</string>

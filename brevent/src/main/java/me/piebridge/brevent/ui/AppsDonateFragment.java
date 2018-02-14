@@ -53,15 +53,10 @@ public class AppsDonateFragment extends AbstractDialogFragment
             activity.startActivity(intent);
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
             BreventApplication application = (BreventApplication) activity.getApplication();
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.setType("message/rfc822");
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pay_email_subject,
-                    BuildConfig.VERSION_NAME, Long.toHexString(BreventApplication.getId(application))));
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.pay_email_text,
-                    Build.FINGERPRINT));
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
-            BreventActivity.sendEmail(activity, intent);
+            String subject = getString(R.string.pay_email_subject, BuildConfig.VERSION_NAME,
+                    Long.toHexString(BreventApplication.getId(application)));
+            String content = getString(R.string.pay_email_text, Build.FINGERPRINT);
+            BreventActivity.sendEmail(activity, subject, content);
         } else if (DialogInterface.BUTTON_NEUTRAL == which) {
             dismiss();
         }

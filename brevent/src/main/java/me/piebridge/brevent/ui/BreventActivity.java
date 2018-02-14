@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -31,6 +32,7 @@ import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUriExposedException;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -649,11 +651,8 @@ public class BreventActivity extends AbstractActivity
         }
         if (BreventIntent.ACTION_FEEDBACK.equals(getIntent().getAction())) {
             String path = getIntent().getStringExtra(BreventIntent.EXTRA_PATH);
-            UILog.d("path: " + path);
-            if (hasEmailClient(this)) {
-                String content = Build.FINGERPRINT + "\n" +
-                        getString(R.string.brevent_status_stopped);
-                sendEmail(this, new File(path), content);
+            if (path != null) {
+                openLogs(new File(path));
             }
         }
         if (shouldUpdateConfiguration) {
@@ -884,9 +883,8 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean canFetchLogs() {
-        return BuildConfig.RELEASE && hasEmailClient(this) &&
-                getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
-                        BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
+        return getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
+                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -1885,8 +1883,58 @@ public class BreventActivity extends AbstractActivity
         if (path == null) {
             showUnsupported(R.string.unsupported_logs, false);
         } else {
-            sendEmail(this, path, getString(R.string.logs_description, Build.FINGERPRINT));
+            openLogs(path);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private void safelyStartActivity(Intent intent) {
+        HideApiOverride.disableDeathOnFileUriExposure();
+        try {
+            startActivity(intent);
+        } catch (FileUriExposedException ignore) { // NOSONAR
+            // do nothing
+        } finally {
+            HideApiOverride.enableDeathOnFileUriExposure();
+        }
+    }
+
+    private boolean openLogs(File path) {
+        UILog.d("path: " + path);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse("file://" + path.toString()), "application/zip");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    safelyStartActivity(intent);
+                } else {
+                    startActivity(intent);
+                }
+                return true;
+            } catch (RuntimeException ignore) {
+                // do nothing
+            }
+        }
+
+        Uri uri;
+        try {
+            uri = FileProvider.getUriForFile(this,
+                    BuildConfig.APPLICATION_ID + ".fileprovider", path);
+        } catch (IllegalArgumentException e) {
+            UILog.w("Can't get uri for " + path);
+            showUnsupported(R.string.unsupported_logs, false);
+            return false;
+        }
+
+        intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("application/zip");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+            return true;
+        }
+        showUnsupported(R.string.unsupported_logs, false);
+        return false;
     }
 
     static Intent getEmailIntent() {
@@ -1901,32 +1949,13 @@ public class BreventActivity extends AbstractActivity
                 PackageManager.MATCH_DEFAULT_ONLY) != null;
     }
 
-    private static String getSubject(Context context) {
-        return context.getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME +
-                "(Android " + LocaleUtils.getOverrideLocale(context)
-                + "-" + Build.VERSION.RELEASE + ")";
-    }
-
-    public static void sendEmail(Context context, File path, String content) {
+    public static void sendEmail(Context context, String subject, String content) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setType("message/rfc822");
-        if (path != null) {
-            try {
-                Uri uri = FileProvider.getUriForFile(context,
-                        BuildConfig.APPLICATION_ID + ".fileprovider", path);
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-            } catch (IllegalArgumentException e) {
-                UILog.w("Can't get uri for " + path);
-            }
-        }
-        intent.putExtra(Intent.EXTRA_SUBJECT, getSubject(context));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, content);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
-        sendEmail(context, intent);
-    }
-
-    public static void sendEmail(Context context, Intent intent) {
         Intent email = getEmailIntent();
         PackageManager packageManager = LocaleUtils.getSystemContext(context).getPackageManager();
         Set<ComponentName> emails = new ArraySet<>();

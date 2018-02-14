@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,8 +46,14 @@ public class AppsFeedbackFragment extends AbstractDialogFragment
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
             activity.startActivity(intent);
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
-            BreventActivity.sendEmail(activity, null, Build.FINGERPRINT);
+            BreventActivity.sendEmail(activity, getSubject(activity), Build.FINGERPRINT);
         }
+    }
+
+    private static String getSubject(Context context) {
+        return context.getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME +
+                "(Android " + LocaleUtils.getOverrideLocale(context)
+                + "-" + Build.VERSION.RELEASE + ")";
     }
 
 }

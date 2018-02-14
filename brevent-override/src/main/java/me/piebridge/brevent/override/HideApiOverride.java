@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
+import android.os.StrictMode;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
@@ -508,7 +509,23 @@ public class HideApiOverride {
         if (flagForwardLock == 0) {
             flagForwardLock = getFlagForwardLock();
         }
-       return (flags & flagForwardLock) != 0;
+        return (flags & flagForwardLock) != 0;
+    }
+
+    public static void enableDeathOnFileUriExposure() {
+        try {
+            StrictMode.enableDeathOnFileUriExposure();
+        } catch (LinkageError ignore) { // NOSONAR
+            // do nothing
+        }
+    }
+
+    public static void disableDeathOnFileUriExposure() {
+        try {
+            StrictMode.disableDeathOnFileUriExposure();
+        } catch (LinkageError ignore) { // NOSONAR
+            // do nothing
+        }
     }
 
 }
