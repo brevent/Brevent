@@ -144,6 +144,7 @@
     <string name="brevent_advanced">高级功能</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑域框架应用</string>
+    <string name="show_framework_apps_label_fake">黑域与系统框架签名相同</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开的系统应用和框架应用\n\n请谨慎黑域无法打开的系统应用和框架应用</string>
     <string name="brevent_language">界面语言</string>
@@ -211,7 +212,6 @@
     <string name="unsupported_granted_miui">黑域服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑域可在后台运行，然后重新开启。</string>
     <string name="unsupported_location">请不要把黑域安装在系统目录、外置存储，或者保护目录。</string>
-    <string name="unsupported_fake_framework">系统 API 被劫持，不支持识别框架应用。</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
     <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>

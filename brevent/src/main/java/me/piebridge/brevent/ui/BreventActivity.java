@@ -183,10 +183,6 @@ public class BreventActivity extends AbstractActivity
     private static final String FRAGMENT_CHECKING = "checking";
     private static final String FRAGMENT_EVENT_LOG = "event_log";
     private static final String FRAGMENT_MOTIONELF = "motionelf";
-    private static final String FRAGMENT_FAKE_FRAMEWORK = "fake_framework";
-
-    private static final String PACKAGE_FRAMEWORK = "android";
-    private boolean fakeFramework;
 
     static final int REQUEST_CODE_SETTINGS = 1;
 
@@ -325,18 +321,12 @@ public class BreventActivity extends AbstractActivity
 
             mTitles = getResources().getStringArray(R.array.fragment_apps);
 
-            fakeFramework = isBreventFramework();
-
             mColorControlNormal = ColorUtils.resolveColor(this, android.R.attr.colorControlNormal);
             mTextColorPrimary = ColorUtils.resolveColor(this, android.R.attr.textColorPrimary);
             mColorControlHighlight = ColorUtils.resolveColor(this,
                     android.R.attr.colorControlHighlight);
 
             uiHandler.sendEmptyMessage(BreventActivity.UI_MESSAGE_SHOW_PROGRESS);
-            if (fakeFramework && !application.isFakeWarned()) {
-                application.setFakeWarned(true);
-                showWarning(FRAGMENT_FAKE_FRAMEWORK, R.string.unsupported_fake_framework);
-            }
         }
     }
 
@@ -1697,15 +1687,17 @@ public class BreventActivity extends AbstractActivity
         SharedPreferences sp = PreferencesUtils.getPreferences(this);
         boolean showAllApps = sp.getBoolean(SettingsFragment.SHOW_ALL_APPS,
                 SettingsFragment.DEFAULT_SHOW_ALL_APPS);
-        boolean showFramework = !fakeFramework && (sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
-                SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS) || breventedFrameworkApps());
+        BreventApplication application = (BreventApplication) getApplication();
+        boolean showFramework = !application.isFakeFramework() &&
+                (sp.getBoolean(SettingsFragment.SHOW_FRAMEWORK_APPS,
+                        SettingsFragment.DEFAULT_SHOW_FRAMEWORK_APPS) || breventedFrameworkApps());
         return adapter.setShowAllApps(showAllApps) | adapter.setShowFramework(showFramework);
     }
 
     private boolean breventedFrameworkApps() {
         PackageManager packageManager = getPackageManager();
         for (String packageName : mBrevent) {
-            if (isFrameworkPackage(packageManager, packageName)) {
+            if (BreventApplication.isFrameworkPackage(packageManager, packageName)) {
                 return true;
             }
         }
@@ -2085,19 +2077,6 @@ public class BreventActivity extends AbstractActivity
         if (mAdapter != null) {
             mAdapter.setExpired();
         }
-    }
-
-    private boolean isBreventFramework() {
-        return isFrameworkPackage(getPackageManager(), BuildConfig.APPLICATION_ID);
-    }
-
-    private boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
-        final int match = PackageManager.SIGNATURE_MATCH;
-        return packageManager.checkSignatures(PACKAGE_FRAMEWORK, packageName) == match;
-    }
-
-    boolean isFrameworkPackage(PackageManager packageManager, PackageInfo packageInfo) {
-        return !fakeFramework && isFrameworkPackage(packageManager, packageInfo.packageName);
     }
 
     static boolean isUsbConnected(Intent intent) {

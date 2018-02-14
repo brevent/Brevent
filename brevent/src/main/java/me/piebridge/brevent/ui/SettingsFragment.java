@@ -94,6 +94,11 @@ public class SettingsFragment extends PreferenceFragment
                     .findPreference(BreventConfiguration.BREVENT_AUTO_UPDATE);
             preferenceAutoUpdate.setEnabled(false);
         }
+        if (application.isFakeFramework()) {
+            Preference preference = preferenceScreen.findPreference(SHOW_FRAMEWORK_APPS);
+            preference.setEnabled(false);
+            preference.setSummary(R.string.show_framework_apps_label_fake);
+        }
 
         preferenceBrevent = (PreferenceCategory) preferenceScreen.findPreference("brevent");
         if (!BuildConfig.RELEASE) {

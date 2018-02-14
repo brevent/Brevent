@@ -146,6 +146,7 @@
     <string name="brevent_advanced">Características avanzadas:</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
+    <string name="show_framework_apps_label_fake">Brevent has the same signature with framework</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
     <string name="brevent_language">Seleccionar lenguaje</string>
@@ -213,7 +214,6 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
-    <string name="unsupported_fake_framework">System APIs are hooked, cannot verify core apps.</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>

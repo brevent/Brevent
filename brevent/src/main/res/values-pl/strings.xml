@@ -146,6 +146,7 @@
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
     <string name="show_framework_apps">Pokaż frameworki</string>
     <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
+    <string name="show_framework_apps_label_fake">Brevent has the same signature with framework</string>
     <string name="show_all_apps">Pokaż wszystkie aplikacje</string>
     <string name="show_all_apps_label">Włącznie z systemowymi aplikacjami oraz frameworkami, które nie mogą zostać uruchomione.\n\nBądź ostrożny podczas breventowania systemowych aplikacji i frameworków, które nie mogą zostać uruchomione</string>
     <string name="brevent_language">Język</string>
@@ -213,7 +214,6 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
-    <string name="unsupported_fake_framework">System APIs are hooked, cannot verify core apps.</string>
 
     <string name="toast_home_tid">Rozpoznany prawdziwy przycisk \"Home\": %d</string>
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>

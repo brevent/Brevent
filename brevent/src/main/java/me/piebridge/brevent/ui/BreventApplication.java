@@ -118,10 +118,13 @@ public class BreventApplication extends Application {
 
     private Boolean mXposed;
 
+    private boolean mFakeFramework;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mXposed = getXposed();
+        mFakeFramework = isFrameworkPackage(getPackageManager(), BuildConfig.APPLICATION_ID);
     }
 
     private void setSupportStopped(boolean supportStopped) {
@@ -351,6 +354,16 @@ public class BreventApplication extends Application {
         } catch (ReflectiveOperationException | PackageManager.NameNotFoundException e) { // NOSONAR
             return null;
         }
+    }
+
+    public boolean isFakeFramework() {
+        return mFakeFramework;
+    }
+
+    static boolean isFrameworkPackage(PackageManager packageManager, String packageName) {
+        final int match = PackageManager.SIGNATURE_MATCH;
+        final String packageFramewrok = "android";
+        return packageManager.checkSignatures(packageFramewrok, packageName) == match;
     }
 
     public static double decode(Application application, String message, boolean auto) {
@@ -674,14 +687,6 @@ public class BreventApplication extends Application {
 
     public void setGrantedWarned(boolean grantedWarned) {
         this.grantedWarned = grantedWarned;
-    }
-
-    public boolean isFakeWarned() {
-        return fakeWarned;
-    }
-
-    public void setFakeWarned(boolean fakeWarned) {
-        this.fakeWarned = fakeWarned;
     }
 
     public PackageInfo getInstantPackageInfo(String packageName) {

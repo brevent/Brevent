@@ -197,7 +197,12 @@ public abstract class AppsFragment extends Fragment {
     protected final boolean isFrameworkPackage(PackageManager packageManager,
                                                PackageInfo packageInfo) {
         BreventActivity activity = (BreventActivity) getActivity();
-        return activity != null && activity.isFrameworkPackage(packageManager, packageInfo);
+        if (activity == null) {
+            return false;
+        }
+        BreventApplication application = (BreventApplication) activity.getApplication();
+        return !application.isFakeFramework()
+                && BreventApplication.isFrameworkPackage(packageManager, packageInfo.packageName);
     }
 
     public boolean supportAllApps() {
