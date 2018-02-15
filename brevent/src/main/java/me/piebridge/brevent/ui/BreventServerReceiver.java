@@ -54,7 +54,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
             int homeTid = intent.getIntExtra(BreventIntent.EXTRA_HOME_TID, 0);
             if (homeTid > 0) {
                 String message = resources.getString(R.string.toast_home_tid, homeTid);
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
             }
         } else if (BreventIntent.ACTION_ADD_PACKAGE.equals(action)) {
             PackageInfo packageInfo = intent.getParcelableExtra(BreventIntent.EXTRA_PACKAGE_INFO);
@@ -112,7 +112,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
             resId = R.string.unbrevented_app_fail;
         }
         String message = context.getResources().getString(resId, label);
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     boolean doRestore(String packageName, String token) {
@@ -174,7 +174,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
     private void showAlipay2(Context context, boolean ok) {
         String message = context.getString(ok ? R.string.toast_alipay_ok : R.string.toast_alipay_ko);
         if (!TextUtils.isEmpty(message)) {
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -194,7 +194,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
             if (xposed) {
                 message += resources.getString(R.string.toast_xposed);
             }
-            Toast.makeText(application, message, Toast.LENGTH_LONG).show();
+            Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
         }
     }
 

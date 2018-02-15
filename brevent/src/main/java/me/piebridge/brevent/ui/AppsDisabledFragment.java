@@ -121,7 +121,7 @@ public class AppsDisabledFragment extends AbstractDialogFragment
                 String commandLine = getBootstrapCommandLine(activity, true);
                 activity.copy(commandLine);
                 String message = getString(R.string.brevent_service_command_copied, commandLine);
-                Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                 activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
             } else {
                 ((BreventApplication) activity.getApplication()).launchDevelopmentSettings();

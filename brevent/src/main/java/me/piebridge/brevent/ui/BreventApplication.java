@@ -465,7 +465,7 @@ public class BreventApplication extends Application {
                     String format = DecimalUtils.format(donate2);
                     String message = getString(R.string.toast_donate, format);
                     clipboard.setText(message);
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 }
             }
         }

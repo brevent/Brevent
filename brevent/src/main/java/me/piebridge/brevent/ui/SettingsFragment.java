@@ -324,7 +324,7 @@ public class SettingsFragment extends PreferenceFragment
         if (total != activity.getPlay()) {
             activity.setPlay(total);
             if (total > 0) {
-                Toast.makeText(application, summary, Toast.LENGTH_LONG).show();
+                Toast.makeText(application, summary, Toast.LENGTH_SHORT).show();
                 if (DecimalUtils.intValue(donation + total) >= activity.getRecommend()) {
                     preferenceDonation.setChecked(false);
                 }
