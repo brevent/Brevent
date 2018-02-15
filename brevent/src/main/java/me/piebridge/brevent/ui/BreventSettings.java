@@ -100,7 +100,7 @@ public class BreventSettings extends DonateActivity {
 
     @Override
     protected String getAlipayLink() {
-        return BuildConfig.DONATE_ALIPAY;
+        return String.valueOf(BuildConfig.DONATE_ALIPAY);
     }
 
     @Override

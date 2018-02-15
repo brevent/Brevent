@@ -189,7 +189,7 @@
     <string name="brevent_about_version_smartisan">Smartisan</string>
     <string name="brevent_about_version_xiaomi">Xiaomi</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state：%2$s\nAppOps: %3$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAppOps: %3$s</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Developer options</string>

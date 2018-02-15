@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -42,15 +40,12 @@ public class AppsDonateFragment extends AbstractDialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        AbstractActivity activity = (AbstractActivity) getActivity();
+        DonateActivity activity = (DonateActivity) getActivity();
         if (activity == null || activity.isStopped()) {
             return;
         }
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.DONATE_ALIPAY));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            activity.startActivity(intent);
+            activity.donateViaAlipay();
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {
             BreventApplication application = (BreventApplication) activity.getApplication();
             String subject = getString(R.string.pay_email_subject, BuildConfig.VERSION_NAME,

@@ -243,7 +243,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         }
     }
 
-    private void donateViaAlipay() {
+    public void donateViaAlipay() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getAlipayLink()));
         startDonateActivity(intent, "alipay");
     }

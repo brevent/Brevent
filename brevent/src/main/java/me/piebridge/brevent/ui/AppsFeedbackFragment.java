@@ -42,7 +42,8 @@ public class AppsFeedbackFragment extends AbstractDialogFragment
             return;
         }
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.FEEDBACK));
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(String.valueOf(BuildConfig.FEEDBACK)));
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
             activity.startActivity(intent);
         } else if (DialogInterface.BUTTON_NEGATIVE == which) {

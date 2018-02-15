@@ -35,11 +35,10 @@ android {
             maxSdkVersion rootProject.targetSdkVersion
             targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', properties['build.release']
-            buildConfigField 'String', 'DONATE_ALIPAY', properties['build.alipay']
+            buildConfigField 'char[]', 'DONATE_ALIPAY', properties['build.alipay']
             buildConfigField 'byte[]', 'DONATE_PLAY', properties['build.play']
-            buildConfigField 'String', 'FEEDBACK', properties['build.feedback']
-            buildConfigField 'String', 'EMAIL', properties['build.email']
-            buildConfigField 'String', 'PROJECT', properties['build.project']
+            buildConfigField 'char[]', 'FEEDBACK', properties['build.feedback']
+            buildConfigField 'char[]', 'EMAIL', properties['build.email']
             buildConfigField 'byte[]', 'SIGNATURE', properties['build.signature']
             buildConfigField 'char[]', 'SERVER', properties['build.server']
             buildConfigField 'char[]', 'FLYME_CLONE', properties['build.flyme.clone']
@@ -88,11 +87,10 @@ android {
             maxSdkVersion rootProject.targetSdkVersion
             targetSdkVersion rootProject.targetSdkVersion
             buildConfigField 'boolean', 'RELEASE', 'false'
-            buildConfigField 'String', 'DONATE_ALIPAY', 'null'
+            buildConfigField 'char[]', 'DONATE_ALIPAY', '{}'
             buildConfigField 'byte[]', 'DONATE_PLAY', 'null'
-            buildConfigField 'String', 'FEEDBACK', 'null'
-            buildConfigField 'String', 'EMAIL', 'null'
-            buildConfigField 'String', 'PROJECT', 'null'
+            buildConfigField 'char[]', 'FEEDBACK', '{}'
+            buildConfigField 'char[]', 'EMAIL', '{}'
             buildConfigField 'byte[]', 'SIGNATURE', 'null'
             buildConfigField 'char[]', 'SERVER', 'null'
             buildConfigField 'char[]', 'FLYME_CLONE', 'null'

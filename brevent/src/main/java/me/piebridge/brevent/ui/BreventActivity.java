@@ -1955,7 +1955,7 @@ public class BreventActivity extends AbstractActivity
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, content);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {BuildConfig.EMAIL});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {String.valueOf(BuildConfig.EMAIL)});
         Intent email = getEmailIntent();
         PackageManager packageManager = LocaleUtils.getSystemContext(context).getPackageManager();
         Set<ComponentName> emails = new ArraySet<>();

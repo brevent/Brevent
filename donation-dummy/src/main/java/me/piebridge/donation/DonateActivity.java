@@ -46,6 +46,10 @@ public abstract class DonateActivity extends AbstractActivity {
 
     protected abstract List<String> getDonateSkus();
 
+    public void donateViaAlipay() {
+
+    }
+
     public void startDonateActivity(Intent intent, String type) {
 
     }
