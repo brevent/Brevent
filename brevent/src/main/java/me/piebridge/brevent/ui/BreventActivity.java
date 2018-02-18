@@ -93,6 +93,7 @@ import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
+import me.piebridge.brevent.protocol.BreventState;
 import me.piebridge.stats.StatsUtils;
 
 public class BreventActivity extends AbstractActivity
@@ -118,9 +119,6 @@ public class BreventActivity extends AbstractActivity
                     39, 2, 112, -95, 72, 2, -38, 71, -70, 14}
     };
 
-    private static final byte[] DEBUG_SIGNATURE = {97, -19, 55, 126, -123, -45, -122, -88, -33, -18,
-            107, -122, 75, -40, 91, 11, -6, -91, -81, -127};
-
     static final String MOTIONELF_PACKAGE = String.valueOf(BuildConfig.MOTIONELF_PACKAGE);
 
     public static final int MESSAGE_RETRIEVE = 0;
@@ -144,6 +142,7 @@ public class BreventActivity extends AbstractActivity
     public static final int UI_MESSAGE_HIDE_DISABLED = 8;
     public static final int UI_MESSAGE_UPDATE_PRIORITY = 9;
     public static final int UI_MESSAGE_SHOW_SUCCESS = 10;
+    public static final int UI_MESSAGE_UPDATE_STATE = 11;
     public static final int UI_MESSAGE_NO_PERMISSION = 12;
     public static final int UI_MESSAGE_MAKE_QUERY = 13;
     public static final int UI_MESSAGE_LOGS = 14;
@@ -154,13 +153,13 @@ public class BreventActivity extends AbstractActivity
     public static final int UI_MESSAGE_NO_LOCAL_NETWORK = 19;
     public static final int UI_MESSAGE_CHECKED_BREVENT = 20;
 
-    public static final int IMPORTANT_INPUT = 0;
-    public static final int IMPORTANT_ALARM = 1;
+    public static final int IMPORTANT_ANDROID = 0;
+    public static final int IMPORTANT_HOME = 1;
     public static final int IMPORTANT_SMS = 2;
-    public static final int IMPORTANT_HOME = 3;
-    public static final int IMPORTANT_PERSISTENT = 4;
-    public static final int IMPORTANT_ANDROID = 5;
-    public static final int IMPORTANT_DIALER = 6;
+    public static final int IMPORTANT_DIALER = 3;
+    public static final int IMPORTANT_INPUT = 4;
+    public static final int IMPORTANT_ALARM = 5;
+    public static final int IMPORTANT_PERSISTENT = 6;
     public static final int IMPORTANT_ASSISTANT = 7;
     public static final int IMPORTANT_WEBVIEW = 8;
     public static final int IMPORTANT_ACCESSIBILITY = 9;
@@ -190,8 +189,6 @@ public class BreventActivity extends AbstractActivity
 
     static final int REQUEST_CODE_SETTINGS = 1;
 
-    private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
-
     private static final int STATUS_BREVENT = 0x1;
     private static final int STATUS_UNBREVENT = 0x2;
     private static final int STATUS_IMPORTANT = 0x4;
@@ -212,6 +209,7 @@ public class BreventActivity extends AbstractActivity
     private volatile SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
     final Set<String> mPackages = new ArraySet<>();
+    final Set<String> mDisabledPackages = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -455,16 +453,13 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    public boolean hasGms() {
+    private boolean hasGms() {
         PackageManager packageManager = getPackageManager();
         PackageInfo packageInfo;
         try {
             packageInfo = packageManager.getPackageInfo(GMS, 0);
-            if (!packageInfo.applicationInfo.enabled) {
-                return false;
-            }
-        } catch (PackageManager.NameNotFoundException e) { // NOSONAR
-            // do nothing
+        } catch (PackageManager.NameNotFoundException e) {
+            UILog.w("Can't find " + GMS, e);
             return false;
         }
 
@@ -729,6 +724,9 @@ public class BreventActivity extends AbstractActivity
     }
 
     public int getStatus(String packageName) {
+        if (!isEnabled(packageName)) {
+            return AppsInfo.STATUS_DISABLED;
+        }
         SparseIntArray status;
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
@@ -802,6 +800,9 @@ public class BreventActivity extends AbstractActivity
     public int getStatusIcon(String packageName) {
         if (!mBrevent.contains(packageName)) {
             return 0;
+        }
+        if (mDisabledPackages.contains(packageName)) {
+            return R.drawable.ic_do_not_disturb_black_24dp;
         }
         if (Objects.equals(packageName, mVpn)) {
             return R.drawable.ic_vpn_key_black_24dp;
@@ -1019,9 +1020,12 @@ public class BreventActivity extends AbstractActivity
 
     public void openSettings() {
         BreventApplication application = (BreventApplication) getApplication();
+        int playDonation = BreventApplication.getPlayDonation(application);
+        double donation = BreventApplication.getDonation(application);
+        int donated = playDonation + DecimalUtils.intValue(donation);
         Intent intent = new Intent(this, BreventSettings.class);
-        intent.putExtra(BreventIntent.EXTRA_RECOMMEND, getRecommend());
-        intent.putExtra(BreventIntent.EXTRA_PLAY, BreventApplication.getPlayDonation(application));
+        intent.putExtra(BreventIntent.EXTRA_RECOMMEND, getRecommend(donated, donation));
+        intent.putExtra(BreventIntent.EXTRA_PLAY, playDonation);
         if (mConfiguration == null) {
             mConfiguration = new BreventConfiguration(PreferencesUtils.getPreferences(this));
         }
@@ -1182,6 +1186,9 @@ public class BreventActivity extends AbstractActivity
             case BreventProtocol.UPDATE_PRIORITY:
                 onBreventPriorityResponse((BreventPriority) response);
                 break;
+            case BreventProtocol.UPDATE_STATE:
+                onBreventStateResponse((BreventState) response);
+                break;
             case BreventProtocol.CONFIGURATION:
                 if (shouldOpenSettings) {
                     shouldOpenSettings = false;
@@ -1194,7 +1201,11 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void onBreventPackagesResponse(BreventPackages response) {
-        if (!response.packageNames.isEmpty()) {
+        if (HideApiOverride.DISABLE_ONLY_FOR_BREVENTED && !response.brevent
+                && (response.confirm || !response.undoable)) {
+            updateState(response.packageNames, true);
+        }
+        if (!response.packageNames.isEmpty() && !response.confirm) {
             AppsSnackbarCallback callback = new AppsSnackbarCallback(mHandler, uiHandler, response);
             Snackbar snackbar;
             if (response.undoable) {
@@ -1218,14 +1229,35 @@ public class BreventActivity extends AbstractActivity
             mPriority.removeAll(breventPriority.packageNames);
         }
         if (mAdapter != null) {
-            AppsFragment fragment = getFragment();
-            fragment.update(breventPriority.packageNames);
+            getFragment().update(breventPriority.packageNames);
+        }
+    }
+
+    private boolean updateState(Collection<String> packageNames, boolean enable) {
+        synchronized (mPackages) {
+            if (enable) {
+                return mPackages.addAll(packageNames) | mDisabledPackages.removeAll(packageNames);
+            } else {
+                return mPackages.removeAll(packageNames) | mDisabledPackages.addAll(packageNames);
+            }
+        }
+    }
+
+    public void updateBreventResponse(BreventState breventState) {
+        if (updateState(breventState.packageNames, breventState.enable) && mAdapter != null) {
+            getFragment().update(breventState.packageNames);
         }
     }
 
     private void onBreventPriorityResponse(BreventPriority response) {
         if (!response.packageNames.isEmpty()) {
             uiHandler.obtainMessage(UI_MESSAGE_UPDATE_PRIORITY, response).sendToTarget();
+        }
+    }
+
+    private void onBreventStateResponse(BreventState response) {
+        if (!response.packageNames.isEmpty()) {
+            uiHandler.obtainMessage(UI_MESSAGE_UPDATE_STATE, response).sendToTarget();
         }
     }
 
@@ -1251,7 +1283,7 @@ public class BreventActivity extends AbstractActivity
     private void onBreventStatusResponse(BreventResponse status) {
         BreventApplication application = (BreventApplication) getApplication();
         application.updateStatus(status);
-        showAlipay(status.mAlipaySum, status.mAlipaySin);
+        showAlipay(status.mAlipaySum, status.mSupportSingle);
 
         synchronized (updateLock) {
             mStats.clear();
@@ -1274,7 +1306,7 @@ public class BreventActivity extends AbstractActivity
         for (String packageName : status.mTrustAgents) {
             mImportant.put(packageName, IMPORTANT_TRUST_AGENT);
         }
-        for (String packageName : status.mAndroidProcesses) {
+        for (String packageName : status.mCoreApps) {
             mImportant.put(packageName, IMPORTANT_ANDROID);
         }
         for (String packageName : status.mFullPowerList) {
@@ -1286,7 +1318,7 @@ public class BreventActivity extends AbstractActivity
             UILog.d("vpn: " + mVpn);
         }
 
-        if (hasGms()) {
+        if (mPackages.contains(GMS) && !mDisabledPackages.contains(GMS) && hasGms()) {
             mFavorite.put(GMS, IMPORTANT_GMS);
             if (((BreventApplication) getApplication()).supportStopped()) {
                 resolveGcmPackages(mGcm);
@@ -1302,15 +1334,10 @@ public class BreventActivity extends AbstractActivity
 
         if (mAdapter == null) {
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
-            synchronized (mPackages) {
-                mPackages.clear();
-                mPackages.addAll(status.mPackages);
-            }
-        } else if (!Objects.equals(mPackages, status.mPackages)) {
-            synchronized (mPackages) {
-                mPackages.clear();
-                mPackages.addAll(status.mPackages);
-            }
+            updatePackages(status);
+        } else if (!Objects.equals(mPackages, status.mPackages)
+                || !Objects.equals(mDisabledPackages, status.mDisabledPackages)) {
+            updatePackages(status);
             mAdapter.setExpired();
         }
         if (uiHandler == null) {
@@ -1327,10 +1354,7 @@ public class BreventActivity extends AbstractActivity
             if (isChecking()) {
                 checkChecking(status);
             }
-            if (!status.mEventLog) {
-                showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
-            }
-            if (BuildConfig.RELEASE && application.isPlay() && !mBrevent.isEmpty()) {
+            if (BuildConfig.RELEASE && !mBrevent.isEmpty()) {
                 int days = getDays();
                 int donated = application.getDonated();
                 if (days > 0x2 && donated < BreventSettings.DONATE_AMOUNT) {
@@ -1339,7 +1363,7 @@ public class BreventActivity extends AbstractActivity
             }
         }
 
-        if (!status.mGranted && !application.isGrantedWarned()) {
+        if (!status.mSupportGranted && !application.isGrantedWarned()) {
             showWarning(FRAGMENT_GRANTED, getUnsupportedGranted());
         }
 
@@ -1363,6 +1387,15 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
+    private void updatePackages(BreventResponse status) {
+        synchronized (mPackages) {
+            mPackages.clear();
+            mPackages.addAll(status.mPackages);
+            mDisabledPackages.clear();
+            mDisabledPackages.addAll(status.mDisabledPackages);
+        }
+    }
+
     private int getUnsupportedGranted() {
         if ("x".equals(SystemProperties.get("ro.miui.ui.version.name", "x"))) {
             return R.string.unsupported_granted;
@@ -1378,14 +1411,14 @@ public class BreventActivity extends AbstractActivity
             if (duration > 0) {
                 return (int) TimeUnit.MILLISECONDS.toDays(duration);
             }
-        } catch (PackageManager.NameNotFoundException ignore) {
-            // shouldn't happen
+        } catch (PackageManager.NameNotFoundException e) {
+            UILog.w("Can't find " + BuildConfig.APPLICATION_ID, e);
         }
         return 0x3;
     }
 
     private void checkChecking(BreventResponse status) {
-        if ((status.mForceStopped || noAlarm())) {
+        if (!status.mSupportCheck || noAlarm()) {
             showWarning(FRAGMENT_CHECKING, R.string.unsupported_checking);
         } else {
             SharedPreferences preferences = PreferencesUtils.getPreferences(this);
@@ -1410,7 +1443,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void checkBreventList(BreventApplication application, int days, int donated) {
-        int required = getRecommend();
+        int required = getRecommend(donated, BreventApplication.getDonation(application));
         if (required > donated) {
             SharedPreferences sp = PreferencesUtils.getPreferences(this);
             long daemonTime = sp.getLong(BreventSettings.DAEMON_TIME, 0);
@@ -1424,8 +1457,8 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    private int getRecommend() {
-        int recommend = BreventSettings.getRecommend(mBrevent.size());
+    private int getRecommend(int donated, double donation) {
+        int recommend = BreventSettings.getRecommend(mBrevent.size(), donated, donation);
         if (recommend == 0) {
             return 0;
         }
@@ -1523,12 +1556,12 @@ public class BreventActivity extends AbstractActivity
         // assistant
         String assistant;
         assistant = getPackageName(getSecureSetting(HideApiOverride.getVoiceInteractionService()));
-        if (assistant != null) {
+        if (!TextUtils.isEmpty(assistant)) {
             mImportant.put(assistant, IMPORTANT_ASSISTANT);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             assistant = getPackageName(getSecureSetting(HideApiOverride.getAssistant()));
-            if (assistant != null) {
+            if (!TextUtils.isEmpty(assistant)) {
                 mImportant.put(assistant, IMPORTANT_ASSISTANT);
             }
         }
@@ -1549,16 +1582,6 @@ public class BreventActivity extends AbstractActivity
             mLauncher = resolveInfo.activityInfo.packageName;
             mImportant.put(mLauncher, IMPORTANT_HOME);
         }
-
-        // installer
-        intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setDataAndType(Uri.fromFile(new File("foo.apk")), PACKAGE_MIME_TYPE);
-        resolveInfo = getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (resolveInfo != null) {
-            mImportant.put(resolveInfo.activityInfo.packageName, IMPORTANT_ANDROID);
-        }
-        mImportant.put("com.android.defcontainer", IMPORTANT_ANDROID);
 
         AccessibilityManager accessibility = (AccessibilityManager) getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
@@ -1811,6 +1834,11 @@ public class BreventActivity extends AbstractActivity
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, request).sendToTarget();
     }
 
+    public void updateState(String packageName, boolean enable) {
+        BreventProtocol request = new BreventState(enable, Collections.singleton(packageName));
+        mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, request).sendToTarget();
+    }
+
     public boolean isBrevent(String packageName) {
         return mBrevent.contains(packageName);
     }
@@ -1825,7 +1853,7 @@ public class BreventActivity extends AbstractActivity
         try {
             return getSignatures(packageManager.getApplicationInfo(packageName, 0).sourceDir);
         } catch (PackageManager.NameNotFoundException e) {
-            // do nothing
+            UILog.w("Can't find " + packageName, e);
             return null;
         }
     }
@@ -1861,16 +1889,12 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
-    private boolean isSystemPackage(String packageName) {
-        try {
-            return isSystemPackage(getPackageManager().getApplicationInfo(packageName, 0).flags);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
+    static boolean isSystemPackage(int flags) {
+        return (flags & ApplicationInfo.FLAG_SYSTEM) != 0;
     }
 
-    static boolean isSystemPackage(int flags) {
-        return (flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
+    static boolean isUpdatedSystemPackage(int flags) {
+        return (flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0;
     }
 
     public void showNoPermission() {
@@ -1892,8 +1916,8 @@ public class BreventActivity extends AbstractActivity
         HideApiOverride.disableDeathOnFileUriExposure();
         try {
             startActivity(intent);
-        } catch (FileUriExposedException ignore) { // NOSONAR
-            // do nothing
+        } catch (FileUriExposedException e) {
+            UILog.w("Can't startActivity", e);
         } finally {
             HideApiOverride.enableDeathOnFileUriExposure();
         }
@@ -1911,8 +1935,8 @@ public class BreventActivity extends AbstractActivity
                     startActivity(intent);
                 }
                 return true;
-            } catch (RuntimeException ignore) {
-                // do nothing
+            } catch (RuntimeException e) {
+                UILog.w("Can't startActivity", e);
             }
         }
 
@@ -2110,9 +2134,31 @@ public class BreventActivity extends AbstractActivity
 
     public boolean hasOps(String packageName) {
         BreventApplication application = (BreventApplication) getApplication();
-        return getPackageManager().checkPermission("android.permission.GET_APP_OPS_STATS",
-                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED
+        SharedPreferences sp = PreferencesUtils.getPreferences(application);
+        return sp.getBoolean(BreventConfiguration.BREVENT_APPOPS, false)
+                && hasPermission("android.permission.GET_APP_OPS_STATS")
                 && !OpsItemAdapter.getOpsForPackage(application, packageName).isEmpty();
+    }
+
+    boolean hasPermission(String permission) {
+        return getPackageManager().checkPermission(permission, BuildConfig.APPLICATION_ID)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean canDisable(String packageName) {
+        BreventApplication application = (BreventApplication) getApplication();
+        if (!application.supportDisable()) {
+            return false;
+        }
+        SharedPreferences sp = PreferencesUtils.getPreferences(application);
+        return sp.getBoolean(BreventConfiguration.BREVENT_DISABLE, false)
+                && !BuildConfig.APPLICATION_ID.equals(packageName)
+                && !isVeryImportant(packageName);
+    }
+
+    private boolean isVeryImportant(String packageName) {
+        Integer important = mImportant.get(packageName);
+        return important != null && important <= IMPORTANT_INPUT;
     }
 
     public void updateSort() {
@@ -2138,6 +2184,10 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isIdle() {
         return mIdle;
+    }
+
+    public boolean isEnabled(String packageName) {
+        return !mDisabledPackages.contains(packageName);
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {

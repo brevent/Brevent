@@ -44,8 +44,6 @@ public class BreventSettings extends DonateActivity {
 
     private SettingsFragment settingsFragment;
 
-    private boolean mPlay;
-
     private int mTotal;
 
     private int mPlayDonation;
@@ -61,8 +59,6 @@ public class BreventSettings extends DonateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        mPlay = ((BreventApplication) getApplication()).isPlay();
-
         setActionBar(findViewById(R.id.toolbar));
 
         ActionBar actionBar = getActionBar();
@@ -72,8 +68,7 @@ public class BreventSettings extends DonateActivity {
 
         settingsFragment = new SettingsFragment();
         Bundle arguments = settingsFragment.getArguments();
-        arguments.putBoolean(SettingsFragment.LIKE_PLAY, mPlay);
-        arguments.putBoolean(SettingsFragment.IS_PLAY, mPlay && isPlayInstaller());
+        arguments.putBoolean(SettingsFragment.IS_PLAY, isPlayInstaller());
         if (savedInstanceState != null) {
             arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
         }
@@ -183,11 +178,6 @@ public class BreventSettings extends DonateActivity {
     }
 
     @Override
-    protected boolean isPlay() {
-        return mPlay;
-    }
-
-    @Override
     protected String getApplicationId() {
         return BuildConfig.APPLICATION_ID;
     }
@@ -270,15 +260,19 @@ public class BreventSettings extends DonateActivity {
         mPlayDonation = play;
     }
 
-    public static int getRecommend(int size) {
-        if (size >= SIZE_3) {
-            return BreventSettings.DONATE_AMOUNT;
-        } else if (size >= SIZE_2) {
-            return 0x2;
-        } else if (size >= SIZE_1) {
-            return 0x1;
-        } else {
+    public static int getRecommend(int size, int donated, double donation) {
+        if (size < SIZE_1) {
             return 0;
+        }
+        if (donated == 0 && donation == 0) {
+            return BreventSettings.DONATE_AMOUNT;
+        }
+        if (size < SIZE_2) {
+            return 0x1;
+        } else if (size < SIZE_3) {
+            return 0x2;
+        } else {
+            return 0x3;
         }
     }
 

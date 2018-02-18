@@ -45,6 +45,7 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
         Collection<String> packageNames;
         synchronized (activity.mPackages) {
             packageNames = new ArraySet(activity.mPackages);
+            packageNames.addAll(activity.mDisabledPackages);
         }
         int max = packageNames.size();
         int progress = 0;

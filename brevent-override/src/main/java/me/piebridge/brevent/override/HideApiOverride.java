@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
@@ -18,6 +19,8 @@ import java.util.List;
  * Created by thom on 2017/2/22.
  */
 public class HideApiOverride {
+
+    public static final boolean DISABLE_ONLY_FOR_BREVENTED = false;
 
     private static final String TAG = "BreventServer";
 
@@ -480,7 +483,7 @@ public class HideApiOverride {
         try {
             return ApplicationInfo.FLAG_FORWARD_LOCK;
         } catch (LinkageError e) {
-            Log.w(TAG, "Can't find  ApplicationInfo.FLAG_FORWARD_LOCK");
+            Log.w(TAG, "Can't find ApplicationInfo.FLAG_FORWARD_LOCK");
             return 1 << 29;
         }
     }
@@ -525,6 +528,14 @@ public class HideApiOverride {
             StrictMode.disableDeathOnFileUriExposure();
         } catch (LinkageError ignore) { // NOSONAR
             // do nothing
+        }
+    }
+
+    public static boolean isCoreApp(PackageInfo packageInfo) {
+        try {
+            return packageInfo.coreApp;
+        } catch (LinkageError ignore) { // NOSONAR
+            return false;
         }
     }
 

@@ -127,4 +127,12 @@ public class AppsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    public void updateAppsInfo() {
+        for (AppsFragment fragment : mFragments) {
+            if (fragment != null) {
+                fragment.updateAppsInfo();
+            }
+        }
+    }
+
 }

@@ -112,6 +112,12 @@ public abstract class AppsFragment extends Fragment {
         }
     }
 
+    public void updateAppsInfo() {
+        if (mAdapter != null) {
+            mAdapter.updateAppsInfo();
+        }
+    }
+
     public void setRefreshEnabled(boolean enabled) {
         if (mRefresh != null) {
             mRefresh.setEnabled(enabled);

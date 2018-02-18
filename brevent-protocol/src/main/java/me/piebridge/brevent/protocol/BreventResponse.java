@@ -21,6 +21,15 @@ import me.piebridge.brevent.override.HideApiOverride;
  */
 public class BreventResponse extends BreventProtocol {
 
+    public static final int SUPPORT_UPGRADE = 1 << 0;
+    public static final int SUPPORT_STOPPED = 1 << 1;
+    public static final int SUPPORT_STANDBY = 1 << 2;
+    public static final int SUPPORT_APPOPS = 1 << 3;
+    public static final int SUPPORT_DISABLE = 1 << 4;
+    public static final int SUPPORT_CHECK = 1 << 5;
+    public static final int SUPPORT_GRANTED = 1 << 6;
+    public static final int SUPPORT_SINGLE = 1 << 7;
+
     public static final int PROCESS_STATE_IDLE = -2;
 
     public static final int PROCESS_STATE_INACTIVE = -3;
@@ -31,131 +40,140 @@ public class BreventResponse extends BreventProtocol {
 
     public static final int PROCESS_STATE_AUDIO_PAUSED = -6;
 
-    public final Collection<String> mBrevent;
+    public final Collection<String> mPackages;
+    public final Collection<PackageInfo> mInstantPackages;
+    public final Collection<String> mDisabledPackages;
 
+    public final Collection<String> mBrevent;
     public final Collection<String> mPriority;
 
+    public final String mVpn;
+    public final SimpleArrayMap<String, UsageStats> mStats;
     public final SimpleArrayMap<String, SparseIntArray> mProcesses;
-
     public final Collection<String> mTrustAgents;
-
-    public final Collection<String> mPackages;
-
-    public final boolean mSupportStopped;
-
-    public final boolean mSupportStandby;
-
-    public final boolean mSupportUpgrade;
-
-    public final long mDaemonTime;
-
-    public final long mServerTime;
-
-    public final boolean mGranted;
-
-    public final Collection<String> mAndroidProcesses;
-
+    public final Collection<String> mCoreApps;
     public final Collection<String> mFullPowerList;
 
+    public final long mDaemonTime;
+    public final long mServerTime;
+    public final long mEventTime;
+    public final int mSupport;
     public final String mAlipaySum;
 
-    public final String mVpn;
-
+    public final boolean mSupportUpgrade;
+    public final boolean mSupportStopped;
+    public final boolean mSupportStandby;
     public final boolean mSupportAppops;
+    public final boolean mSupportDisable;
+    public final boolean mSupportCheck;
+    public final boolean mSupportGranted;
+    public final boolean mSupportSingle;
 
-    public final boolean mAlipaySin;
+    public BreventResponse(Collection<String> packages,
+                           Collection<PackageInfo> instantPackages,
+                           Collection<String> disabledPackages,
 
-    public final boolean mForceStopped;
+                           Collection<String> brevent,
+                           Collection<String> priority,
 
-    public final Collection<PackageInfo> mInstantPackages;
-
-    public final SimpleArrayMap<String, UsageStats> mStats;
-
-    public final boolean mEventLog;
-
-    public BreventResponse(Collection<String> brevent, Collection<String> priority,
+                           String vpn,
+                           SimpleArrayMap<String, UsageStats> stats,
                            SimpleArrayMap<String, SparseIntArray> processes,
-                           Collection<String> trustAgents, boolean supportStopped,
-                           boolean supportStandby, long daemonTime, long serverTime, boolean granted,
-                           Collection<String> androidProcesses,
-                           Collection<String> fullPowerList, boolean supportUpgrade,
-                           String alipaySum, String vpn, Collection<String> packages,
-                           boolean supportAppops, boolean alipaySin,
-                           boolean forceStopped, Collection<PackageInfo> instantPackages,
-                           SimpleArrayMap<String, UsageStats> stats, boolean eventLog) {
+                           Collection<String> trustAgents,
+                           Collection<String> coreApps,
+                           Collection<String> fullPowerList,
+
+                           long daemonTime, long serverTime, long eventTime,
+                           int support, String alipaySum) {
         super(BreventProtocol.STATUS_RESPONSE);
+        mPackages = packages;
+        mInstantPackages = instantPackages;
+        mDisabledPackages = disabledPackages;
+
         mBrevent = brevent;
         mPriority = priority;
+
+        mVpn = vpn;
+        mStats = stats;
         mProcesses = processes;
         mTrustAgents = trustAgents;
-        mSupportStopped = supportStopped;
-        mSupportStandby = supportStandby;
+        mCoreApps = coreApps;
+        mFullPowerList = fullPowerList;
+
         mDaemonTime = daemonTime;
         mServerTime = serverTime;
-        mGranted = granted;
-        mAndroidProcesses = androidProcesses;
-        mFullPowerList = fullPowerList;
-        mSupportUpgrade = supportUpgrade;
+        mEventTime = eventTime;
+        mSupport = support;
         mAlipaySum = alipaySum;
-        mVpn = vpn;
-        mPackages = packages;
-        mSupportAppops = supportAppops;
-        mAlipaySin = alipaySin;
-        mForceStopped = forceStopped;
-        mInstantPackages = instantPackages;
-        mStats = stats;
-        mEventLog = eventLog;
+
+        mSupportUpgrade = hasSupport(mSupport, SUPPORT_UPGRADE);
+        mSupportStopped = hasSupport(mSupport, SUPPORT_STOPPED);
+        mSupportStandby = hasSupport(mSupport, SUPPORT_STANDBY);
+        mSupportAppops = hasSupport(mSupport, SUPPORT_APPOPS);
+        mSupportDisable = hasSupport(mSupport, SUPPORT_DISABLE);
+        mSupportCheck = hasSupport(mSupport, SUPPORT_CHECK);
+        mSupportGranted = hasSupport(mSupport, SUPPORT_GRANTED);
+        mSupportSingle = hasSupport(mSupport, SUPPORT_SINGLE);
+    }
+
+    private boolean hasSupport(int flags, int flag) {
+        return (flags & flag) != 0;
     }
 
     BreventResponse(Parcel in) {
         super(in);
+        mPackages = ParcelUtils.readCollection(in);
+        mInstantPackages = ParcelUtils.readPackages(in);
+        mDisabledPackages = ParcelUtils.readCollection(in);
+
         mBrevent = ParcelUtils.readCollection(in);
         mPriority = ParcelUtils.readCollection(in);
+
+        mVpn = in.readString();
+        mStats = ParcelUtils.readUsageStatsMap(in);
         mProcesses = ParcelUtils.readSparseIntArrayMap(in);
         mTrustAgents = ParcelUtils.readCollection(in);
-        mSupportStopped = in.readInt() != 0;
-        mSupportStandby = in.readInt() != 0;
+        mCoreApps = ParcelUtils.readCollection(in);
+        mFullPowerList = ParcelUtils.readCollection(in);
+
         mDaemonTime = in.readLong();
         mServerTime = in.readLong();
-        mGranted = in.readInt() != 0;
-        mAndroidProcesses = ParcelUtils.readCollection(in);
-        mFullPowerList = ParcelUtils.readCollection(in);
-        mSupportUpgrade = in.readInt() != 0;
+        mEventTime = in.readLong();
+        mSupport = in.readInt();
         mAlipaySum = in.readString();
-        mVpn = in.readString();
-        mPackages = ParcelUtils.readCollection(in);
-        mSupportAppops = in.readInt() != 0;
-        mAlipaySin = in.readInt() != 0;
-        mForceStopped = in.readInt() != 0;
-        mInstantPackages = ParcelUtils.readPackages(in);
-        mStats = ParcelUtils.readUsageStatsMap(in);
-        mEventLog = in.readInt() != 0;
+
+        mSupportUpgrade = hasSupport(mSupport, SUPPORT_UPGRADE);
+        mSupportStopped = hasSupport(mSupport, SUPPORT_STOPPED);
+        mSupportStandby = hasSupport(mSupport, SUPPORT_STANDBY);
+        mSupportAppops = hasSupport(mSupport, SUPPORT_APPOPS);
+        mSupportDisable = hasSupport(mSupport, SUPPORT_DISABLE);
+        mSupportCheck = hasSupport(mSupport, SUPPORT_CHECK);
+        mSupportGranted = hasSupport(mSupport, SUPPORT_GRANTED);
+        mSupportSingle = hasSupport(mSupport, SUPPORT_SINGLE);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        ParcelUtils.writeCollection(dest, mPackages);
+        ParcelUtils.writePackages(dest, mInstantPackages);
+        ParcelUtils.writeCollection(dest, mDisabledPackages);
+
         ParcelUtils.writeCollection(dest, mBrevent);
         ParcelUtils.writeCollection(dest, mPriority);
+
+        dest.writeString(mVpn);
+        ParcelUtils.writeUsageStatsMap(dest, mStats);
         ParcelUtils.writeSpareIntArrayMap(dest, mProcesses);
         ParcelUtils.writeCollection(dest, mTrustAgents);
-        dest.writeInt(mSupportStopped ? 1 : 0);
-        dest.writeInt(mSupportStandby ? 1 : 0);
+        ParcelUtils.writeCollection(dest, mCoreApps);
+        ParcelUtils.writeCollection(dest, mFullPowerList);
+
         dest.writeLong(mDaemonTime);
         dest.writeLong(mServerTime);
-        dest.writeInt(mGranted ? 1 : 0);
-        ParcelUtils.writeCollection(dest, mAndroidProcesses);
-        ParcelUtils.writeCollection(dest, mFullPowerList);
-        dest.writeInt(mSupportUpgrade ? 1 : 0);
+        dest.writeLong(mEventTime);
+        dest.writeInt(mSupport);
         dest.writeString(mAlipaySum);
-        dest.writeString(mVpn);
-        ParcelUtils.writeCollection(dest, mPackages);
-        dest.writeInt(mSupportAppops ? 1 : 0);
-        dest.writeInt(mAlipaySin ? 1 : 0);
-        dest.writeInt(mForceStopped ? 1 : 0);
-        ParcelUtils.writePackages(dest, mInstantPackages);
-        ParcelUtils.writeUsageStatsMap(dest, mStats);
-        dest.writeInt(mEventLog ? 1 : 0);
     }
 
     public static boolean isStandby(SparseIntArray status) {

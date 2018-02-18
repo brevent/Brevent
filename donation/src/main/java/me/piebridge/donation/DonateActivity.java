@@ -86,7 +86,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             if (!usePlayCache() || !activatePlayIfNeeded()) {
                 activatePlay();
             }
-            if (!isPlay() || !isPlayInstaller()) {
+            if (!isPlayInstaller()) {
                 activateDonations();
             }
         } else {
@@ -191,7 +191,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             } catch (IllegalArgumentException e) {
                 Log.d(getTag(), "Can't bind activateConnection", e);
             }
-        } else if (isPlay()) {
+        } else {
             showPlay(null);
         }
     }
@@ -321,7 +321,7 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         return true;
     }
 
-    protected boolean hasPlay() {
+    public boolean hasPlay() {
         return hasPlay(this);
     }
 
@@ -338,15 +338,11 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
                 .getInstallerPackageName(getApplicationId()));
     }
 
-    protected boolean isPlay() {
-        return isPlayInstaller();
-    }
-
     @CallSuper
     public void showPlay(@Nullable Collection<String> purchased) {
         unbindActivateService();
         if (purchased == null) {
-            if (isPlay() && isPlayInstaller()) {
+            if (isPlayInstaller()) {
                 mDonationTip.setText(R.string.donation_play_unavailable);
                 mDonation.setVisibility(View.GONE);
             }
@@ -366,10 +362,8 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     @CallSuper
     public void showPlayCheck() {
-        if (isPlay()) {
-            mDonationTip.setText(R.string.donation_play_checking);
-            findViewById(R.id.play).setVisibility(View.GONE);
-        }
+        mDonationTip.setText(R.string.donation_play_checking);
+        findViewById(R.id.play).setVisibility(View.GONE);
     }
 
     protected List<String> getAllSkus() {

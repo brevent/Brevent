@@ -32,8 +32,8 @@ public class HideApiOverrideM {
         return pm.queryIntentReceivers(intent, null, 0, uid);
     }
 
-    public static List queryIntentActivities(IPackageManager pm, Intent intent, int uid) {
-        return pm.queryIntentActivities(intent, null, 0, uid);
+    public static List queryIntentActivities(IPackageManager pm, Intent intent, int flags, int uid) {
+        return pm.queryIntentActivities(intent, null, flags, uid);
     }
 
 }

@@ -27,7 +27,9 @@ class AppsInfo {
 
     static final int STATUS_IGNORED = 2;
 
-    static final int STATUS_STOPPED = 3;
+    static final int STATUS_DISABLED = 3;
+
+    static final int STATUS_STOPPED = 4;
 
     final String packageName;
 
@@ -44,6 +46,8 @@ class AppsInfo {
     long lastUpdateTime;
 
     int sdk;
+
+    boolean enabled;
 
     UsageStats stats;
 

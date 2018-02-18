@@ -61,6 +61,12 @@
             android:summary="@string/show_all_apps_label"
             android:title="@string/show_all_apps" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="brevent_checking"
+            android:summary="@string/brevent_checking_label"
+            android:title="@string/brevent_checking" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -108,19 +114,23 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="brevent_checking"
-            android:summary="@string/brevent_checking_label"
-            android:title="@string/brevent_checking" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:fragment="me.piebridge.brevent.ui.Recommend3"
+            android:fragment="me.piebridge.brevent.ui.Require3"
             android:key="brevent_appops"
             android:summary="@string/brevent_appops_label"
             android:title="@string/brevent_appops" />
 
         <SwitchPreference
             android:defaultValue="false"
+            android:enabled="false"
+            android:fragment="me.piebridge.brevent.ui.Require3"
+            android:key="brevent_disable"
+            android:summary="@string/brevent_disable_label"
+            android:title="@string/brevent_disable" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:enabled="false"
+            android:fragment="me.piebridge.brevent.ui.Require5"
             android:key="brevent_background"
             android:summary="@string/brevent_background_label"
             android:title="@string/brevent_background" />
@@ -130,10 +140,6 @@
     <PreferenceCategory
         android:key="brevent_about"
         android:title="@string/brevent_about">
-
-        <me.piebridge.brevent.ui.VersionPreference
-            android:key="brevent_about_version"
-            android:title="@string/brevent_about_version" />
 
         <Preference
             android:key="brevent_about_system"

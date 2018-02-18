@@ -10,7 +10,7 @@
     <string name="ops_mode_ask">询问</string>
     <string name="ops_mode_unknown">未知</string>
 
-    <string name="context_menu_appops">应用权限</string>
+    <string name="context_menu_appops">应用操作</string>
 
     <string name="ops_time_allow">%s允许</string>
     <string name="ops_time_reject">%s拒绝</string>

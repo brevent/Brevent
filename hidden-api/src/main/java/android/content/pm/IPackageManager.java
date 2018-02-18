@@ -78,6 +78,19 @@ public interface IPackageManager {
     void grantRuntimePermission(String pkgName, String permName, int userId)
             throws RemoteException;
 
+    void setApplicationEnabledSetting(String packageName, int newState, int flags,
+                                      int userId, String callingPackage)
+            throws RemoteException;
+
+    int getApplicationEnabledSetting(String packageName, int userId)
+            throws RemoteException;
+
+    String getPermissionControllerPackageName() throws RemoteException;
+
+    String getServicesSystemSharedLibraryPackageName() throws RemoteException;
+
+    String getSharedSystemSharedLibraryPackageName() throws RemoteException;
+
     class Stub {
 
         public static IPackageManager asInterface(IBinder binder) {

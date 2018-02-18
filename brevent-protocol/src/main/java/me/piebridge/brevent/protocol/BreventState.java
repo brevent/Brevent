@@ -5,38 +5,36 @@ import android.os.Parcel;
 import java.util.Collection;
 
 /**
- * brevent priority - allow sync
- * <p>
- * Created by thom on 2017/2/6.
+ * Created by thom on 2018/2/18.
  */
-public class BreventPriority extends BreventProtocol {
+public class BreventState extends BreventProtocol {
 
-    public final boolean priority;
+    public final boolean enable;
 
     public final Collection<String> packageNames;
 
-    public BreventPriority(boolean priority, Collection<String> packageNames) {
-        super(UPDATE_PRIORITY);
-        this.priority = priority;
+    public BreventState(boolean enable, Collection<String> packageNames) {
+        super(UPDATE_STATE);
+        this.enable = enable;
         this.packageNames = packageNames;
     }
 
-    BreventPriority(Parcel in) {
+    BreventState(Parcel in) {
         super(in);
-        priority = in.readInt() != 0;
+        enable = in.readInt() != 0;
         packageNames = ParcelUtils.readCollection(in);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeInt(priority ? 1 : 0);
+        dest.writeInt(enable ? 1 : 0);
         ParcelUtils.writeCollection(dest, packageNames);
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", priority: " + priority + ", packageNames: " + packageNames;
+        return super.toString() + ", enable: " + enable + ", packageNames: " + packageNames;
     }
 
 }

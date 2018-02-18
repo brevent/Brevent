@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Handler;
 import android.os.Process;
 import android.support.annotation.ColorInt;
@@ -123,6 +125,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
                 viewHolder.label = appsInfo.label;
                 viewHolder.sdk = appsInfo.sdk;
                 viewHolder.firstInstallTime = appsInfo.firstInstallTime;
+                viewHolder.enabled = appsInfo.enabled;
                 viewHolder.cardView.setTag(viewHolder);
             }
             updateViewHolder(viewHolder);
@@ -134,10 +137,22 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     }
 
     private void updateViewHolder(AppsItemViewHolder viewHolder) {
-        updateIcon(viewHolder);
         BreventActivity activity = getActivity();
         if (activity != null) {
+            updateIcon(viewHolder);
             updateViewHolder(activity, viewHolder);
+        }
+    }
+
+    static void updateIcon(ImageView v, boolean enabled) {
+        if (enabled) {
+            v.setColorFilter(null);
+            v.setAlpha(1.0f);
+        } else {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            v.setColorFilter(new ColorMatrixColorFilter(matrix));
+            v.setAlpha(0.5f);
         }
     }
 
@@ -162,11 +177,12 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             }
             viewHolder.iconView.setImageTintList(textColorPrimary);
             viewHolder.cardView.setBackgroundColor(cardColorBackgroundHighlight);
+            updateIcon(viewHolder.iconView, viewHolder.enabled);
         } else {
             viewHolder.nameView.setText(viewHolder.label);
             viewHolder.iconView.setImageTintList(null);
-            new AppsIconTask().execute(getActivity().getApplication(), viewHolder);
             viewHolder.cardView.setBackgroundColor(cardColorBackgroundDefault);
+            new AppsIconTask().execute(getActivity().getApplication(), viewHolder);
         }
     }
 
@@ -191,6 +207,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
 
     static void updateStatus(BreventActivity activity, AppsItemViewHolder viewHolder) {
         String packageName = viewHolder.packageName;
+        viewHolder.enabled = activity.isEnabled(packageName);
         int statusIcon = activity.getStatusIcon(packageName);
         if (viewHolder.statusIconRes != statusIcon) {
             viewHolder.statusIconRes = statusIcon;
@@ -270,11 +287,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v instanceof CardView) {
-            if (mSelected.isEmpty()) {
-                v.showContextMenu();
-            } else {
-                onSelected((CardView) v);
-            }
+            v.showContextMenu();
         } else if (v instanceof ImageView) {
             if (v.getId() == R.id.icon) {
                 onSelected((CardView) v.getParent().getParent());
@@ -454,6 +467,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             appsInfo.lastUpdateTime = packageInfo.lastUpdateTime;
             appsInfo.firstInstallTime = packageInfo.firstInstallTime;
             appsInfo.sdk = packageInfo.applicationInfo.targetSdkVersion;
+            appsInfo.enabled = activity.isEnabled(packageInfo.packageName);
             appsInfo.stats = activity.getStats(packageInfo.packageName);
             mNext.add(appsInfo);
         }
@@ -471,6 +485,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (!mFragment.accept(pm, packageInfo)) {
             return false;
         }
+        if (!BreventActivity.isSystemPackage(appInfo.flags)
+                || BreventActivity.isUpdatedSystemPackage(appInfo.flags)) {
+            return true;
+        }
         if (activity != null) {
             if (activity.isLauncher(packageName)) {
                 // always show launcher
@@ -482,6 +500,10 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
             }
             if (activity.isBrevent(packageName)) {
                 // always for brevented apps
+                return true;
+            }
+            if (activity.isImportant(packageName) && !activity.isEnabled(packageName)) {
+                // for important disabled apps
                 return true;
             }
         }

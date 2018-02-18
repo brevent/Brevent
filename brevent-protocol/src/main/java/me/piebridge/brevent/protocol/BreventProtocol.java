@@ -44,6 +44,7 @@ public abstract class BreventProtocol {
     public static final int CONFIGURATION = 3;
     public static final int UPDATE_PRIORITY = 4;
     public static final int STATUS_NO_EVENT = 5;
+    public static final int UPDATE_STATE = 6;
     public static final int STATUS_OK = 7;
     public static final int OPS_KO = 8;
     public static final int OPS_RESET = 9;
@@ -139,6 +140,8 @@ public abstract class BreventProtocol {
                 return "priority";
             case STATUS_NO_EVENT:
                 return "no_event";
+            case UPDATE_STATE:
+                return "state";
             case STATUS_OK:
                 return "status_ok";
             case OPS_KO:
@@ -178,6 +181,8 @@ public abstract class BreventProtocol {
                     return new BreventConfiguration(parcel);
                 case UPDATE_PRIORITY:
                     return new BreventPriority(parcel);
+                case UPDATE_STATE:
+                    return new BreventState(parcel);
                 case OPS_KO:
                     return BreventOpsKO.INSTANCE;
                 case OPS_RESET:

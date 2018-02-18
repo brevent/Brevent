@@ -71,6 +71,7 @@
         <item>@string/process_status_running</item>
         <item>@string/process_status_standby</item>
         <item>@string/process_status_ignored</item>
+        <item>@string/process_status_disabled</item>
         <item>@string/process_status_stopped</item>
     </string-array>
 
@@ -146,8 +147,7 @@
     <string name="percent" translatable="false">%d %%</string>
     <string name="default_brevent_method" translatable="false">forcestop_only</string>
 
-    <string name="unsupported_motionelf">您已安装假冒“飞智游戏厅”。如果不使用飞智小游激活，建议直接卸载。</string>
-    <string name="menu_sort_by_sdk">SDK</string>
-    <string name="sdk">SDK %1$d</string>
+    <string name="menu_sort_by_sdk">API</string>
+    <string name="sdk">API %1$d</string>
 
 </resources>

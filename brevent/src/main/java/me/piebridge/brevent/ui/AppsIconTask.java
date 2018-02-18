@@ -62,6 +62,7 @@ public class AppsIconTask extends AsyncTask<Object, Void, AppsItemViewHolder> {
             holder.iconView.setImageDrawable(holder.icon);
             holder.icon = null;
         }
+        AppsItemAdapter.updateIcon(holder.iconView, holder.enabled);
     }
 
 }

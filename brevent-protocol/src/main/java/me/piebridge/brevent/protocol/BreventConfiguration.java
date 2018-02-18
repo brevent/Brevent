@@ -41,6 +41,12 @@ public class BreventConfiguration extends BreventProtocol {
     public static final String BREVENT_CHECKING = "brevent_checking";
     public static final boolean DEFAULT_BREVENT_CHECKING = false;
 
+    public static final String BREVENT_APPOPS = "brevent_appops";
+    public static final boolean DEFAULT_BREVENT_APPOPS = false;
+
+    public static final String BREVENT_DISABLE = "brevent_disable";
+    public static final boolean DEFAULT_BREVENT_DISABLE = false;
+
     public static final String BREVENT_BACKGROUND = "brevent_background";
     public static final boolean DEFAULT_BREVENT_BACKGROUND = false;
 
@@ -64,6 +70,10 @@ public class BreventConfiguration extends BreventProtocol {
 
     public boolean background = DEFAULT_BREVENT_BACKGROUND;
 
+    public boolean appops = DEFAULT_BREVENT_APPOPS;
+
+    public boolean disable = DEFAULT_BREVENT_DISABLE;
+
     public boolean xposed;
 
     public BreventConfiguration() {
@@ -85,6 +95,8 @@ public class BreventConfiguration extends BreventProtocol {
         optimizeAudio = sharedPreferences.getBoolean(BREVENT_OPTIMIZE_AUDIO,
                 DEFAULT_BREVENT_OPTIMIZE_AUDIO);
         checking = sharedPreferences.getBoolean(BREVENT_CHECKING, DEFAULT_BREVENT_CHECKING);
+        appops = sharedPreferences.getBoolean(BREVENT_APPOPS, DEFAULT_BREVENT_APPOPS);
+        disable = sharedPreferences.getBoolean(BREVENT_DISABLE, DEFAULT_BREVENT_DISABLE);
         background = sharedPreferences.getBoolean(BREVENT_BACKGROUND, DEFAULT_BREVENT_BACKGROUND);
     }
 
@@ -115,6 +127,8 @@ public class BreventConfiguration extends BreventProtocol {
         androidId = in.readLong();
         optimizeAudio = in.readInt() != 0;
         checking = in.readInt() != 0;
+        appops = in.readInt() != 0;
+        disable = in.readInt() != 0;
         background = in.readInt() != 0;
         xposed = in.readInt() != 0;
     }
@@ -131,7 +145,9 @@ public class BreventConfiguration extends BreventProtocol {
         dest.writeLong(androidId);
         dest.writeInt(optimizeAudio ? 1 : 0);
         dest.writeInt(checking ? 1 : 0);
-        dest.writeInt(background ? 1: 0);
+        dest.writeInt(appops ? 1 : 0);
+        dest.writeInt(disable ? 1 : 0);
+        dest.writeInt(background ? 1 : 0);
         dest.writeInt(xposed ? 1 : 0);
     }
 
@@ -144,6 +160,8 @@ public class BreventConfiguration extends BreventProtocol {
         write(pw, BREVENT_ABNORMAL_BACK, abnormalBack);
         write(pw, BREVENT_OPTIMIZE_AUDIO, optimizeAudio);
         write(pw, BREVENT_CHECKING, checking);
+        write(pw, BREVENT_APPOPS, appops);
+        write(pw, BREVENT_DISABLE, disable);
         write(pw, BREVENT_BACKGROUND, background);
     }
 
@@ -195,6 +213,12 @@ public class BreventConfiguration extends BreventProtocol {
             case BREVENT_CHECKING:
                 checking = Boolean.parseBoolean(value);
                 break;
+            case BREVENT_APPOPS:
+                appops = Boolean.parseBoolean(value);
+                break;
+            case BREVENT_DISABLE:
+                disable = Boolean.parseBoolean(value);
+                break;
             case BREVENT_BACKGROUND:
                 background = Boolean.parseBoolean(value);
                 break;
@@ -240,6 +264,14 @@ public class BreventConfiguration extends BreventProtocol {
         }
         if (this.checking != request.checking) {
             this.checking = request.checking;
+            updated = true;
+        }
+        if (this.appops != request.appops) {
+            this.appops = request.appops;
+            updated = true;
+        }
+        if (this.disable != request.disable) {
+            this.disable = request.disable;
             updated = true;
         }
         if (this.background != request.background) {

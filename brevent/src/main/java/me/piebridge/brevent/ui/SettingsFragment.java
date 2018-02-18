@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
@@ -11,7 +10,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +38,8 @@ public class SettingsFragment extends PreferenceFragment
     public static final String SHOW_FRAMEWORK_APPS = "show_framework_apps";
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
-    public static final String BREVENT_APPOPS = "brevent_appops";
-
-    public static final String LIKE_PLAY = "like_play";
     public static final String IS_PLAY = "is_play";
     private static final String LOCALE_CHANGED = "LOCALE_CHANGED";
-
-    private static final String FRAGMENT_DONATE = "donate";
 
     private SwitchPreference preferenceDonation;
 
@@ -54,11 +47,9 @@ public class SettingsFragment extends PreferenceFragment
 
     private PreferenceCategory preferenceBrevent;
 
-    private SwitchPreference preferenceBackground;
-
-    private int repeat = 0;
-
     private ListView mList;
+
+    private int mDonated;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -76,53 +67,40 @@ public class SettingsFragment extends PreferenceFragment
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
 
-        preferenceDonation = (SwitchPreference) preferenceScreen.findPreference(SHOW_DONATION);
+        preferenceDonation = (SwitchPreference) findPreference(SHOW_DONATION);
 
-        preferenceStandbyTimeout = preferenceScreen
-                .findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
+        preferenceStandbyTimeout = findPreference(BreventConfiguration.BREVENT_STANDBY_TIMEOUT);
 
-        preferenceScreen.findPreference("brevent_language")
-                .setOnPreferenceChangeListener(this);
+        findPreference("brevent_language").setOnPreferenceChangeListener(this);
 
         BreventApplication application = (BreventApplication) getActivity().getApplication();
         if (!application.supportStandby()) {
-            ((PreferenceCategory) preferenceScreen.findPreference("brevent_list"))
+            ((PreferenceCategory) findPreference("brevent_list"))
                     .removePreference(preferenceStandbyTimeout);
         }
         if (!application.supportUpgrade()) {
-            SwitchPreference preferenceAutoUpdate = (SwitchPreference) preferenceScreen
-                    .findPreference(BreventConfiguration.BREVENT_AUTO_UPDATE);
-            preferenceAutoUpdate.setEnabled(false);
+            findPreference(BreventConfiguration.BREVENT_AUTO_UPDATE).setEnabled(false);
         }
         if (application.isFakeFramework()) {
-            Preference preference = preferenceScreen.findPreference(SHOW_FRAMEWORK_APPS);
+            Preference preference = findPreference(SHOW_FRAMEWORK_APPS);
             preference.setEnabled(false);
             preference.setSummary(R.string.show_framework_apps_label_fake);
         }
 
-        preferenceBrevent = (PreferenceCategory) preferenceScreen.findPreference("brevent");
+        preferenceBrevent = (PreferenceCategory) findPreference("brevent");
         if (!BuildConfig.RELEASE) {
             preferenceScreen.removePreference(preferenceBrevent);
         }
         if (!application.supportAppops()) {
-            preferenceBrevent.removePreference(preferenceScreen.findPreference(BREVENT_APPOPS));
-        }
-        preferenceBackground = (SwitchPreference) preferenceScreen
-                .findPreference(BreventConfiguration.BREVENT_BACKGROUND);
-        int donated = getDonated(application);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || donated < BreventSettings.CONTRIBUTOR) {
-            preferenceBackground.setChecked(false);
-            preferenceBrevent.removePreference(preferenceBackground);
+            preferenceBrevent.removePreference(findPreference(BreventConfiguration.BREVENT_APPOPS));
         }
         if (BuildConfig.RELEASE) {
             updateSummaries();
-            if (!getArguments().getBoolean(IS_PLAY, false)) {
-                preferenceScreen.findPreference("brevent_about_version")
-                        .setOnPreferenceClickListener(this);
-            }
             updateDonation();
         }
+        updateSummaries(getDonated(application), false);
         onUpdateBreventMethod();
+        mDonated = getDonated(application);
     }
 
     private int getDonated(BreventApplication application) {
@@ -149,10 +127,7 @@ public class SettingsFragment extends PreferenceFragment
     private void updatePreference(Preference preference) {
         int recommend = getRecommend(preference);
         if (recommend > 0) {
-            Context context = preference.getContext();
-            BreventApplication application = (BreventApplication) context.getApplicationContext();
-            CharSequence extra = application.getRecommend(context.getResources(), recommend);
-            preference.setSummary(append(preference.getSummary(), extra));
+            preference.setSummary(join(preference.getSummary(), getRecommend(preference, recommend)));
             preference.setOnPreferenceChangeListener(this);
         }
     }
@@ -168,18 +143,86 @@ public class SettingsFragment extends PreferenceFragment
         }
     }
 
-    private CharSequence append(CharSequence summary, CharSequence extra) {
+    private void updateSummaries(int donated, boolean remove) {
+        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
+        int size = rootAdapter.getCount();
+        for (int i = 0; i < size; ++i) {
+            Object item = rootAdapter.getItem(i);
+            if (item instanceof Preference) {
+                updatePreference((Preference) item, donated, remove);
+            }
+        }
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        if (!application.supportDisable()) {
+            disable(BreventConfiguration.BREVENT_DISABLE);
+        }
+        if (!application.supportAppops()) {
+            disable(BreventConfiguration.BREVENT_APPOPS);
+            disable(BreventConfiguration.BREVENT_BACKGROUND);
+        }
+    }
+
+    private void disable(String key) {
+        Preference preference = findPreference(key);
+        if (preference != null) {
+            preference.setEnabled(false);
+        }
+    }
+
+    private void updatePreference(Preference preference, int donated, boolean remove) {
+        int require = getRequire(preference);
+        if (require > 0) {
+            if ((remove && donated < require) || shouldRemove(preference)) {
+                if (preference instanceof SwitchPreference) {
+                    ((SwitchPreference) preference).setChecked(false);
+                }
+                preferenceBrevent.removePreference(preference);
+            } else {
+                preference.setEnabled(true);
+                preference.setSummary(join(preference.getSummary(), getRequire(preference, require)));
+            }
+        }
+    }
+
+    CharSequence getRecommend(Preference preference, int recommend) {
+        Resources resources = preference.getContext().getResources();
+        String[] brefoils = resources.getStringArray(R.array.brefoils);
+        return resources.getString(R.string.pay_brevent_recommend, brefoils[recommend - 1]);
+    }
+
+    CharSequence getRequire(Preference preference, int require) {
+        Resources resources = preference.getContext().getResources();
+        String[] brefoils = resources.getStringArray(R.array.brefoils);
+        return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
+    }
+
+    private boolean shouldRemove(Preference preference) {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.N
+                && BreventConfiguration.BREVENT_BACKGROUND.equals(preference.getKey());
+    }
+
+    private int getRequire(Preference preference) {
+        String fragment = preference.getFragment();
+        if ("me.piebridge.brevent.ui.Require5".equals(fragment)) {
+            return 0x5;
+        } else if ("me.piebridge.brevent.ui.Require3".equals(fragment)) {
+            return 0x3;
+        } else {
+            return 0;
+        }
+    }
+
+    private CharSequence join(CharSequence summary, CharSequence extra) {
         if (summary == null) {
             return extra;
         }
         if (extra == null) {
             return summary;
         }
-        if (summary.toString().contains("\n\n")) {
-            return summary + "\n" + extra;
-        } else {
-            return summary + "\n\n" + extra;
+        if (summary.toString().endsWith(extra.toString())) {
+            return summary;
         }
+        return summary + "\n\n" + extra;
     }
 
     private void updateDonation() {
@@ -205,37 +248,22 @@ public class SettingsFragment extends PreferenceFragment
         return view;
     }
 
-    public void showDonate() {
-        if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
-            UILog.d("show " + FRAGMENT_DONATE);
-        }
-        DonateActivity activity = (DonateActivity) getActivity();
-        if (activity == null || activity.isStopped()) {
-            return;
-        }
-        AppsDonateFragment fragment = (AppsDonateFragment) getFragmentManager()
-                .findFragmentByTag(FRAGMENT_DONATE);
-        if (fragment != null) {
-            fragment.dismiss();
-        }
-        fragment = new AppsDonateFragment();
-        fragment.show(getFragmentManager(), FRAGMENT_DONATE);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         onShowDonationChanged();
-        Preference preference = getPreferenceScreen().findPreference("brevent_about_developer");
+        Preference preference = findPreference("brevent_about_developer");
         if (!SimpleSu.hasSu() && AppsDisabledFragment.isAdbRunning()) {
             preference.setSummary(R.string.brevent_about_developer_adb);
         } else {
             preference.setSummary(null);
         }
-        getPreferenceScreen().findPreference("brevent_about_system")
-                .setSummary(getSystemSummary());
+        findPreference("brevent_about_system").setSummary(getSystemSummary());
         preference.setOnPreferenceClickListener(this);
+        if (getDonated((BreventApplication) getActivity().getApplication()) != mDonated) {
+            getActivity().recreate();
+        }
     }
 
     @Override
@@ -320,7 +348,6 @@ public class SettingsFragment extends PreferenceFragment
             total += BreventSettings.CONTRIBUTOR;
         }
         UILog.i("total: " + total + ", play: " + activity.getPlay());
-        int donated = getDonated(application);
         if (total != activity.getPlay()) {
             activity.setPlay(total);
             if (total > 0) {
@@ -330,11 +357,7 @@ public class SettingsFragment extends PreferenceFragment
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                && donated < BreventSettings.CONTRIBUTOR
-                && getDonated(application) >= BreventSettings.CONTRIBUTOR) {
-            preferenceBrevent.addPreference(preferenceBackground);
-        }
+        updateSummaries(getDonated(application), true);
     }
 
     private String getExtraInfo(boolean xposed) {
@@ -349,12 +372,7 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        if (BuildConfig.RELEASE && "brevent_about_version".equals(key)) {
-            if (++repeat == 0x7) {
-                showDonate();
-                repeat = 0;
-            }
-        } else if ("brevent_about_developer".equals(key)) {
+        if ("brevent_about_developer".equals(key)) {
             ((BreventApplication) getActivity().getApplication()).launchDevelopmentSettings();
         }
         return false;
@@ -411,7 +429,8 @@ public class SettingsFragment extends PreferenceFragment
         return resources.getString(R.string.brevent_about_system_summary,
                 application.supportStandby() ? supported : unsupported,
                 application.supportStopped() ? supported : unsupported,
-                application.supportAppops() ? supported : unsupported);
+                application.supportAppops() ? supported : unsupported,
+                application.supportDisable() ? supported : unsupported);
     }
 
 }

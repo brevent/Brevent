@@ -49,6 +49,7 @@
     <string name="process_status_running">正在執行</string>
     <string name="process_status_standby">已經待機</string>
     <string name="process_status_ignored">無需處理</string>
+    <string name="process_status_disabled">已經停用</string>
     <string name="process_status_stopped">沒有執行</string>
     <string name="process_not_running">（沒有執行）</string>
     <string name="process_no_stats">（從未開啟）</string>
@@ -72,7 +73,7 @@
     <string name="action_message_undo">還原</string>
     <string name="action_message_undone">已還原</string>
 
-    <string name="context_menu_target">SDK %1$d（Android %2$s）</string>
+    <string name="context_menu_target">API %1$d（Android %2$s）</string>
     <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>
@@ -80,6 +81,8 @@
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
+    <string name="context_menu_disable">停用</string>
+    <string name="context_menu_enable">啟用</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘應用程式）</string>
@@ -142,13 +145,15 @@
     <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
 
     <string name="brevent_advanced">進階功能</string>
+    <string name="brevent_language">界面語言</string>
+    <string name="brevent_language_auto">與系統同步</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域框架應用程式</string>
     <string name="show_framework_apps_label_fake">黑域與系統框架簽名相同</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟的系統應用程式和框架應用程式\n\n請謹慎黑域無法開啟的系統應用程式和框架應用程式</string>
-    <string name="brevent_language">界面語言</string>
-    <string name="brevent_language_auto">與系統同步</string>
+    <string name="brevent_checking">自我診斷</string>
+    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
 
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_check_notification">檢查通知</string>
@@ -157,12 +162,10 @@
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑域</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">依賴「檢查通知」。播放時不處理，暫停且有通知時不強行停止</string>
-    <string name="brevent_background">背景限制</string>
-    <string name="brevent_background_label">動態設定背景限制\n\n建議關閉，可能導致應用程式強制停止</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_not_play" />
+    <string name="show_donation_summary_not_play">如果已經支付，請打開「支付寶」，點開「轉賬記錄」，將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期</string>
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
@@ -172,22 +175,16 @@
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
     <string name="show_donation_xposed">（Xposed）</string>
     <string name="show_donation_brefoil" />
-    <string name="brevent_checking">自我診斷</string>
-    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
-    <string name="brevent_appops">程式權限（實驗性）</string>
+    <string name="brevent_appops">應用程式操作（實驗性）</string>
     <string name="brevent_appops_label">目前非常簡單，將依情況進一步開發</string>
+    <string name="brevent_disable">停用應用程式（实验性）</string>
+    <string name="brevent_disable_label">目前非常簡單，將依情況進一步開發</string>
+    <string name="brevent_background">背景限制（實驗性）</string>
+    <string name="brevent_background_label">建議關閉，可能導致應用程式強制停止</string>
 
     <string name="brevent_about">關於</string>
-    <string name="brevent_about_version">版本</string>
-    <string name="brevent_about_version_summary">%1$s，%2$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s，社區版</string>
-    <string name="brevent_about_version_play">Play 版</string>
-    <string name="brevent_about_version_like_play">同 Play 版</string>
-    <string name="brevent_about_version_meizu">魅族版</string>
-    <string name="brevent_about_version_smartisan">錘子版</string>
-    <string name="brevent_about_version_xiaomi">小米版</string>
     <string name="brevent_about_system">系統狀態</string>
-    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n程式權限：%3$s</string>
+    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n應用程式操作：%3$s\n停用應用程式：%4$s</string>
     <string name="brevent_about_system_supported">支援</string>
     <string name="brevent_about_system_unsupported">不支援</string>
     <string name="brevent_about_developer">開發人員選項</string>
@@ -228,14 +225,9 @@
     <string name="brevent_status_unknown">黑域服務可能已經停止</string>
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
-    <string name="pay_verify">如果已經支付，請打開「支付寶」，點開「轉賬記錄」（不是「賬單詳情」），將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期。\n\n如果其它方式支付，請發送郵件（需要安裝郵件客戶端），附上支付訂單截圖。郵件一般 24 小時內回覆，請盡量自動確認。</string>
-    <string name="pay_alipay">打開「支付寶」</string>
-    <string name="pay_email">郵件</string>
-    <string name="pay_email_subject">支付確認 %1$s（%2$s）</string>
-    <string name="pay_email_text">%s\n（請附上支付訂單截圖。）</string>
-
     <string name="make_brevent_better">您已黑域 %1$d 個應用程式，請考慮支付 %2$s以促進黑域良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
+    <string name="pay_brevent_require">需要支付 %s</string>
 
     <string name="brevented_app">已黑域“%1$s”</string>
     <string name="unbrevent_app">輕觸即可不再黑域。</string>
@@ -255,6 +247,8 @@
         <item>1 二向箔</item>
         <item>2 二向箔</item>
         <item>3 二向箔</item>
+        <item>4 二向箔</item>
+        <item>5 二向箔</item>
     </string-array>
 
 </resources>

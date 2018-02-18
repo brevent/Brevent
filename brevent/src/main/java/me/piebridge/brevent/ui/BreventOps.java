@@ -25,6 +25,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventOpsOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
 import me.piebridge.brevent.protocol.BreventOpsUpdate;
@@ -71,7 +72,7 @@ public class BreventOps extends AbstractActivity {
         BreventApplication application = (BreventApplication) getApplication();
         supportAppops = application.supportAppops();
         if (supportAppops && !PreferencesUtils.getPreferences(application)
-                .getBoolean(SettingsFragment.BREVENT_APPOPS, false)) {
+                .getBoolean(BreventConfiguration.BREVENT_APPOPS, false)) {
             supportAppops = false;
         }
 

@@ -10,6 +10,7 @@ import java.util.List;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.protocol.BreventPackages;
 import me.piebridge.brevent.protocol.BreventPriority;
+import me.piebridge.brevent.protocol.BreventState;
 
 /**
  * Created by thom on 2017/2/3.
@@ -60,6 +61,9 @@ public class AppsActivityUIHandler extends Handler {
                     break;
                 case BreventActivity.UI_MESSAGE_SHOW_SUCCESS:
                     activity.showSuccess();
+                    break;
+                case BreventActivity.UI_MESSAGE_UPDATE_STATE:
+                    activity.updateBreventResponse((BreventState) message.obj);
                     break;
                 case BreventActivity.UI_MESSAGE_NO_PERMISSION:
                     activity.showNoPermission();

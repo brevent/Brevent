@@ -21,6 +21,7 @@ import android.widget.TextView;
 import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.override.HideApiOverride;
 
 /**
  * Created by thom on 2017/1/25.
@@ -45,6 +46,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
     int statusIconRes;
     int sdk;
     long firstInstallTime;
+    boolean enabled;
 
     private final AppsFragment mFragment;
 
@@ -74,7 +76,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE,
                     activity.getString(R.string.context_menu_open));
         }
-        if (activity.isBrevent(packageName)) {
+        if (enabled && activity.isBrevent(packageName)) {
             if (activity.isPriority(packageName)) {
                 menu.add(Menu.NONE, R.string.context_menu_unset_priority, Menu.NONE,
                         activity.getString(R.string.context_menu_unset_priority));
@@ -83,9 +85,19 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                         activity.getString(R.string.context_menu_set_priority));
             }
         }
-        if (activity.hasOps(packageName)) {
+        if (enabled && activity.hasOps(packageName)) {
             menu.add(Menu.NONE, R.string.context_menu_appops, Menu.NONE,
                     activity.getString(R.string.context_menu_appops));
+        }
+        if ((!HideApiOverride.DISABLE_ONLY_FOR_BREVENTED || activity.isBrevent(packageName))
+                && activity.canDisable(packageName)) {
+            if (enabled) {
+                menu.add(Menu.NONE, R.string.context_menu_disable, Menu.NONE,
+                        activity.getString(R.string.context_menu_disable));
+            } else {
+                menu.add(Menu.NONE, R.string.context_menu_enable, Menu.NONE,
+                        activity.getString(R.string.context_menu_enable));
+            }
         }
         int size = menu.size();
         for (int i = 0; i < size; ++i) {
@@ -196,6 +208,12 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 Intent i = new Intent(activity, BreventOps.class);
                 i.putExtra(Intent.EXTRA_PACKAGE_NAME, packageName);
                 activity.startActivity(i);
+                break;
+            case R.string.context_menu_enable:
+                activity.updateState(packageName, true);
+                break;
+            case R.string.context_menu_disable:
+                activity.updateState(packageName, false);
                 break;
             default:
                 break;

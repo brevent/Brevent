@@ -50,6 +50,7 @@
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
     <string name="process_status_ignored">Ignored</string>
+    <string name="process_status_disabled">Disabled</string>
     <string name="process_status_stopped">Stopped</string>
     <string name="process_not_running">(No iniciado)</string>
     <string name="process_no_stats">(Sin ejecución)</string>
@@ -74,7 +75,7 @@
     <string name="action_message_undo">Deshacer</string>
     <string name="action_message_undone">Deshecho</string>
 
-    <string name="context_menu_target">SDK %1$d (%2$s)</string>
+    <string name="context_menu_target">API %1$d (%2$s)</string>
     <string name="context_menu_package_name">Copiar nombre del paquete</string>
     <string name="context_menu_app_info">Información de la aplicación</string>
     <string name="context_menu_open">Abrir</string>
@@ -82,6 +83,8 @@
     <string name="context_menu_set_priority">Permitir sincronización</string>
     <string name="context_menu_unset_priority">Deshabilitar sincronización</string>
     <string name="context_menu_message_copied">Nombre del paquete copiado: %s</string>
+    <string name="context_menu_disable">Disable</string>
+    <string name="context_menu_enable">Enable</string>
 
     <string name="important_input">%s (Método de entrada)</string>
     <string name="important_alarm">%s (Aplicación de alarma)</string>
@@ -144,13 +147,15 @@
     <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
 
     <string name="brevent_advanced">Características avanzadas:</string>
+    <string name="brevent_language">Seleccionar lenguaje</string>
+    <string name="brevent_language_auto">Automático</string>
     <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
     <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
     <string name="show_framework_apps_label_fake">Brevent has the same signature with framework</string>
     <string name="show_all_apps">Mostrar todas las aplicaciones</string>
     <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
-    <string name="brevent_language">Seleccionar lenguaje</string>
-    <string name="brevent_language_auto">Automático</string>
+    <string name="brevent_checking">Diagnóstico</string>
+    <string name="brevent_checking_label">Comprobar servidor Brevent cada 15 minutos.\n\nInicie Brevent si se detiene y añada aplicación Brevent en (Batería/Optimización de bateria).</string>
 
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_check_notification">Comprobar notificaciones</string>
@@ -159,12 +164,10 @@
     <string name="brevent_abnormal_back_label">Brevent inmediatamente cuando las aplicaciones vuelven a la pantalla principal sin pulsar HOME (ej. Volver/Atras)</string>
     <string name="brevent_optimize_audio">Optimizar reproductor de música</string>
     <string name="brevent_optimize_audio_label">Depends on \"Check notifications\". Aplicaciones de reproducción de música no se mantienen en espera ni fuerzan detener</string>
-    <string name="brevent_background">Background limits</string>
-    <string name="brevent_background_label">Update background limits dynamically\n\nRecommend off. May cause brevented apps crash</string>
 
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_not_play" />
+    <string name="show_donation_summary_not_play">If you have paid, please launch \"Alipay\", tap \"Records\", it should be recognized automatically</string>
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store.</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil.</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
@@ -174,24 +177,18 @@
     <string name="show_donation_play_and_rmb_and_contributor">Gracias por pagar %1$s Brefoil en Play Store, %2$s Brefoil, y por su valiosa contribución a Brevent.</string>
     <string name="show_donation_xposed">(Xposed)</string>
     <string name="show_donation_brefoil" />
-    <string name="brevent_checking">Diagnóstico</string>
-    <string name="brevent_checking_label">Comprobar servidor Brevent cada 15 minutos.\n\nInicie Brevent si se detiene y añada aplicación Brevent en (Batería/Optimización de bateria).</string>
-    <string name="brevent_appops">AppOps (experimental)</string>
+    <string name="brevent_appops">App ops (experimental)</string>
     <string name="brevent_appops_label">Very simple, still in progress</string>
+    <string name="brevent_disable">Disable Apps (experimental)</string>
+    <string name="brevent_disable_label">Very simple, still in progress</string>
+    <string name="brevent_background">Background limits (experimental)</string>
+    <string name="brevent_background_label">Recommend off. May cause brevented apps crash</string>
 
     <string name="brevent_about">Acerca de:</string>
-    <string name="brevent_about_version">Versión</string>
-    <string name="brevent_about_version_summary">%1$s, %2$s</string>
-    <string name="brevent_about_version_summary_debug">%1$s, Edición de comunidad</string>
-    <string name="brevent_about_version_play">Play Store</string>
-    <string name="brevent_about_version_like_play">Igual que Play Store</string>
-    <string name="brevent_about_version_meizu">Meizu</string>
-    <string name="brevent_about_version_smartisan">Smartisan</string>
-    <string name="brevent_about_version_xiaomi">Xiaomi</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nForzar detener: %2$s\nAppOps: %3$s</string>
-    <string name="brevent_about_system_supported">soportado</string>
-    <string name="brevent_about_system_unsupported">no soportado</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nApp ops: %3$s\nDisable Apps: %4$s</string>
+    <string name="brevent_about_system_supported">supported</string>
+    <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Opciones de desarrollador</string>
     <string name="brevent_about_developer_adb">Depuración USB activada</string>
     <string name="brevent_about_translation">Traductor</string>
@@ -230,14 +227,9 @@
     <string name="brevent_status_unknown">Servidor Brevent tal vez detenido.</string>
     <string name="brevent_status_report">Pinche aquí para reportar y dar una descripción detallada.</string>
 
-    <string name="pay_verify">If you have paid, please launch \"Alipay\", tap \"Records\", it should be recognized automatically.\n\nIf paid via non \"Alipay\", please send email with screenshots of payment details.</string>
-    <string name="pay_alipay">Launch \"Alipay\"</string>
-    <string name="pay_email">Email</string>
-    <string name="pay_email_subject">Payment verify %1$s (%2$s)</string>
-    <string name="pay_email_text">%s\n(Please attach screenshots of payment details.)</string>
-
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
+    <string name="pay_brevent_require">Require to pay %s</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Tap to restore.</string>
@@ -257,6 +249,8 @@
         <item>1 Brefoil</item>
         <item>2 Brefoil</item>
         <item>3 Brefoil</item>
+        <item>4 Brefoil</item>
+        <item>5 Brefoil</item>
     </string-array>
 
 </resources>

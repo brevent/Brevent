@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -77,6 +76,8 @@ public class BreventApplication extends Application {
 
     private boolean mSupportAppops = false;
 
+    private boolean mSupportDisable = false;
+
     private boolean mUsbChanged = false;
 
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
@@ -98,8 +99,6 @@ public class BreventApplication extends Application {
     private static final Object LOCK = new Object();
 
     private final Object lockAdb = new Object();
-
-    private Boolean play;
 
     private static BigInteger modulus;
 
@@ -232,6 +231,14 @@ public class BreventApplication extends Application {
         return mSupportAppops;
     }
 
+    private void setSupportDisable(boolean supportDisable) {
+        mSupportDisable = supportDisable;
+    }
+
+    public boolean supportDisable() {
+        return mSupportDisable;
+    }
+
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -250,6 +257,7 @@ public class BreventApplication extends Application {
         setSupportStopped(breventResponse.mSupportStopped);
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
+        setSupportDisable(breventResponse.mSupportDisable);
         mInstantPackages.clear();
         for (PackageInfo packageInfo : breventResponse.mInstantPackages) {
             mInstantPackages.put(packageInfo.packageName, packageInfo);
@@ -268,7 +276,7 @@ public class BreventApplication extends Application {
             attributes.put("root", SimpleSu.hasSu() ? "true" : "false");
             attributes.put("paid", getDonated());
             attributes.put("size", breventResponse.mBrevent.size());
-            attributes.put("granted", breventResponse.mGranted);
+            attributes.put("granted", breventResponse.mSupportGranted);
             StatsUtils.logLogin(attributes);
         }
     }
@@ -442,14 +450,6 @@ public class BreventApplication extends Application {
         }
     }
 
-    public boolean isPlay() {
-        if (play != null) {
-            return play;
-        }
-        play = VersionPreference.isPlay(this);
-        return play;
-    }
-
     public double decodeFromClipboard() {
         double donate2 = 0d;
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -476,11 +476,6 @@ public class BreventApplication extends Application {
         BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
         Collection<String> purchased = DonateActivity.getPurchased(application, UILog.TAG, modulus);
         return BreventSettings.getPlayDonation(purchased);
-    }
-
-    public CharSequence getRecommend(Resources resources, int recommend) {
-        String[] brefoils = resources.getStringArray(R.array.brefoils);
-        return resources.getString(R.string.pay_brevent_recommend, brefoils[recommend - 1]);
     }
 
     public void setRecommend(String key, int value, boolean checked) {

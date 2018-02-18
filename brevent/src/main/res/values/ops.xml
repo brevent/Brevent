@@ -10,7 +10,7 @@
     <string name="ops_mode_ask">Ask</string>
     <string name="ops_mode_unknown">Unknown</string>
 
-    <string name="context_menu_appops">AppOps</string>
+    <string name="context_menu_appops">App ops</string>
 
     <string name="ops_time_allow">Allowed %s</string>
     <string name="ops_time_reject">Rejected %s</string>
