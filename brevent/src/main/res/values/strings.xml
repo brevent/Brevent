@@ -201,7 +201,8 @@
     <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server. Brevent does\'t support multi-user, parallel apps, or app clone.</string>
-    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, then contact Rom provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, then contact Rom provider.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>

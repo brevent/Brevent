@@ -201,7 +201,8 @@
     <string name="unsupported_xposed">Brevent sólo está disponible sin Xposed.</string>
     <string name="unsupported_path">(Error: No puede crear brevent.sh)</string>
     <string name="unsupported_permission">No hay permiso para acceder al servidor de Brevent.</string>
-    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, then contact Rom provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, then contact Rom provider.</string>
     <string name="unsupported_version_mismatched">Servidor Brevent se está actualizando. Por favor, inténtelo de nuevo más tarde ...</string>
     <string name="unsupported_logs">No se pueden guardar registros Log. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="unsupported_shell">No se puede iniciar servidor Brevent.</string>

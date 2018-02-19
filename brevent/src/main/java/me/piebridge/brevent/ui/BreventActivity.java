@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -55,6 +56,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.telecom.TelecomManager;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
@@ -70,6 +72,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -246,6 +249,9 @@ public class BreventActivity extends AbstractActivity
 
     private UsageStatsManager mUsageStatsManager;
     private boolean mIdle;
+
+    private long mRequest;
+    private static final long EVENT_TIMEOUT = 300000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -639,6 +645,7 @@ public class BreventActivity extends AbstractActivity
         super.onPostResume();
         force = true;
         if (mHandler != null) {
+            mRequest = System.currentTimeMillis();
             mHandler.sendEmptyMessage(MESSAGE_CHECK_NETWORK);
         }
         if (BuildConfig.RELEASE) {
@@ -1354,6 +1361,7 @@ public class BreventActivity extends AbstractActivity
             if (isChecking()) {
                 checkChecking(status);
             }
+            checkEvent(status, application);
             if (BuildConfig.RELEASE && !mBrevent.isEmpty()) {
                 int days = getDays();
                 int donated = application.getDonated();
@@ -1385,6 +1393,34 @@ public class BreventActivity extends AbstractActivity
                 unbreventImportant(false);
             }
         }
+    }
+
+    private void checkEvent(BreventResponse status, BreventApplication application) {
+        if (status.mEventTime < 0) {
+            if (application.isEventMaken()) {
+                showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event);
+            } else {
+                application.makeEvent();
+                makeEvent();
+            }
+        } else if (status.mEventTime > 0 && mRequest - status.mEventTime > EVENT_TIMEOUT) {
+            CharSequence extra = DateUtils.formatSameDayTime(status.mEventTime, mRequest,
+                    DateFormat.SHORT, DateFormat.SHORT);
+            showWarning(FRAGMENT_EVENT_LOG, R.string.unsupported_no_event2, extra);
+        }
+    }
+
+    @SuppressLint("WrongConstant")
+    public void makeEvent() {
+        UILog.i("make event by restart");
+        // https://stackoverflow.com/a/3419987/3289354
+        // recreate has no appropriate event
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        super.finish();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     private void updatePackages(BreventResponse status) {
@@ -1693,6 +1729,10 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void showWarning(String tag, int resId) {
+        showWarning(tag, resId, null);
+    }
+
+    private void showWarning(String tag, int resId, CharSequence extra) {
         if (resId == 0) {
             return;
         }
@@ -1707,6 +1747,7 @@ public class BreventActivity extends AbstractActivity
             }
             fragment = new WarningFragment();
             fragment.setMessage(resId);
+            fragment.setExtra(extra);
             fragment.show(getFragmentManager(), tag);
         }
     }
@@ -2089,7 +2130,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     void updateQuery() {
-        CharSequence query = mSearchView.getQuery();
+        CharSequence query = mSearchView == null ? null : mSearchView.getQuery();
         if (query != null && query.length() > 0 && !Objects.equals(mQuery, query.toString())) {
             updateQuery(query.toString());
         }

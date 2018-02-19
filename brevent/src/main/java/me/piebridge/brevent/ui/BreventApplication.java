@@ -1,5 +1,6 @@
 package me.piebridge.brevent.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
@@ -109,7 +110,6 @@ public class BreventApplication extends Application {
     private boolean starting;
 
     private boolean grantedWarned;
-    private boolean fakeWarned;
 
     private String mToken = "";
 
@@ -118,6 +118,8 @@ public class BreventApplication extends Application {
     private Boolean mXposed;
 
     private boolean mFakeFramework;
+
+    private boolean eventMaken;
 
     @Override
     public void onCreate() {
@@ -664,6 +666,7 @@ public class BreventApplication extends Application {
         this.started = started;
     }
 
+    @SuppressLint("WrongConstant")
     public void launchDevelopmentSettings() {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.android.settings",
@@ -696,6 +699,14 @@ public class BreventApplication extends Application {
 
     public String getToken() {
         return this.mToken;
+    }
+
+    public boolean isEventMaken() {
+        return eventMaken;
+    }
+
+    public void makeEvent() {
+        eventMaken = true;
     }
 
 }

@@ -3,6 +3,7 @@ package me.piebridge.brevent.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import me.piebridge.brevent.BuildConfig;
@@ -16,6 +17,8 @@ public class WarningFragment extends AbstractDialogFragment
 
     private static final String MESSAGE = "message";
 
+    private static final String EXTRA = "extra";
+
     public WarningFragment() {
         setArguments(new Bundle());
         setCancelable(false);
@@ -27,7 +30,14 @@ public class WarningFragment extends AbstractDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(BuildConfig.ICON);
         builder.setTitle(getString(R.string.brevent) + " " + BuildConfig.VERSION_NAME);
-        builder.setMessage(getMessage());
+        int message = getMessage();
+        if (message == R.string.unsupported_no_event2) {
+            CharSequence extra = getArguments().getCharSequence(EXTRA);
+            Resources resources = builder.getContext().getResources();
+            builder.setMessage(resources.getString(R.string.unsupported_no_event2, extra));
+        } else {
+            builder.setMessage(message);
+        }
         builder.setPositiveButton(android.R.string.ok, this);
         if (shouldShowCancel()) {
             builder.setNegativeButton(android.R.string.cancel, this);
@@ -105,6 +115,10 @@ public class WarningFragment extends AbstractDialogFragment
 
     public int getMessage() {
         return getArguments().getInt(MESSAGE);
+    }
+
+    public void setExtra(CharSequence extra) {
+        getArguments().putCharSequence(EXTRA, extra);
     }
 
 }
