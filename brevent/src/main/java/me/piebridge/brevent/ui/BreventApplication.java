@@ -278,7 +278,6 @@ public class BreventApplication extends Application {
             attributes.put("root", SimpleSu.hasSu() ? "true" : "false");
             attributes.put("paid", getDonated());
             attributes.put("size", breventResponse.mBrevent.size());
-            attributes.put("granted", breventResponse.mSupportGranted);
             StatsUtils.logLogin(attributes);
         }
     }

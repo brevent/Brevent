@@ -868,8 +868,8 @@ public class BreventActivity extends AbstractActivity
             inflater.inflate(R.menu.menu_default, menu);
             if (!BuildConfig.RELEASE) {
                 menu.removeItem(R.id.action_feedback);
-                menu.removeItem(R.id.action_logs);
-            } else if (!canFetchLogs()) {
+            }
+            if (!canFetchLogs()) {
                 menu.removeItem(R.id.action_logs);
             }
             MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -891,8 +891,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean canFetchLogs() {
-        return getPackageManager().checkPermission(Manifest.permission.READ_LOGS,
-                BuildConfig.APPLICATION_ID) == PackageManager.PERMISSION_GRANTED;
+        return hasPermission(Manifest.permission.READ_LOGS);
     }
 
     @Override
@@ -2182,8 +2181,8 @@ public class BreventActivity extends AbstractActivity
     }
 
     boolean hasPermission(String permission) {
-        return getPackageManager().checkPermission(permission, BuildConfig.APPLICATION_ID)
-                == PackageManager.PERMISSION_GRANTED;
+        final int granted = PackageManager.PERMISSION_GRANTED;
+        return getPackageManager().checkPermission(permission, BuildConfig.APPLICATION_ID) == granted;
     }
 
     public boolean canDisable(String packageName) {
