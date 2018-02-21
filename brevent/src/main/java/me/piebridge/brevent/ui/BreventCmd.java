@@ -95,9 +95,12 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
 
         workHandler = new WorkHandler(this, new MainHandler(this));
 
-        WarningFragment fragment = new WarningFragment();
-        fragment.setMessage(R.string.cmd_warning);
-        fragment.show(getFragmentManager(), "command");
+        BreventApplication application = (BreventApplication) getApplication();
+        if (application.getDonated() < BreventSettings.CONTRIBUTOR) {
+            WarningFragment fragment = new WarningFragment();
+            fragment.setMessage(R.string.cmd_warning);
+            fragment.show(getFragmentManager(), "command");
+        }
     }
 
     @Override
