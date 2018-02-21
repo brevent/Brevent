@@ -72,13 +72,17 @@ public abstract class AppsFragment extends Fragment {
 
     private void lazyLoad() {
         if (mVisible && mResumed && mRecycler != null) {
+            BreventActivity activity = (BreventActivity) getActivity();
             if (mRecycler.getAdapter() == null) {
-                BreventActivity activity = (BreventActivity) getActivity();
                 if (activity != null && !activity.isStopped()) {
+                    activity.updateTab(false);
                     activity.showFragmentAsync(this, 0);
                 }
             } else if (mExpired) {
                 mExpired = false;
+                if (activity != null && !activity.isStopped()) {
+                    activity.updateTab(false);
+                }
                 mAdapter.retrievePackagesAsync();
             }
         }

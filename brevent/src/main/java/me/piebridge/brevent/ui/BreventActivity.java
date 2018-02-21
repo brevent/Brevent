@@ -49,6 +49,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.FileProvider;
 import android.support.v4.util.ArraySet;
 import android.support.v4.util.SimpleArrayMap;
@@ -65,6 +66,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toolbar;
 
@@ -198,6 +200,7 @@ public class BreventActivity extends AbstractActivity
     private static final int STATUS_MASK = 0x1 | 0x2;
 
     private ViewPager mPager;
+    private TabLayout mTab;
 
     private AppsPagerAdapter mAdapter;
 
@@ -324,6 +327,8 @@ public class BreventActivity extends AbstractActivity
                 }
             });
             mPager.setVisibility(View.INVISIBLE);
+
+            mTab = findViewById(R.id.tab);
 
             uiHandler = new AppsActivityUIHandler(this);
             mHandler = new AppsActivityHandler(this, uiHandler);
@@ -586,6 +591,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public AppsProgressFragment showAppProgress() {
+        updateTab(false);
         if (Log.isLoggable(UILog.TAG, Log.DEBUG)) {
             UILog.d("show " + FRAGMENT_PROGRESS_APPS + ", stopped: " + isStopped());
         }
@@ -622,6 +628,7 @@ public class BreventActivity extends AbstractActivity
     public void hideAppProgress() {
         dismissDialog(FRAGMENT_PROGRESS, false);
         dismissDialog(FRAGMENT_PROGRESS_APPS, false);
+        updateTab(true);
     }
 
     @Override
@@ -2228,6 +2235,15 @@ public class BreventActivity extends AbstractActivity
 
     public boolean isEnabled(String packageName) {
         return !mDisabledPackages.contains(packageName);
+    }
+
+    public void updateTab(boolean enabled) {
+        mPager.setEnabled(enabled);
+        LinearLayout tabStrip = (LinearLayout) mTab.getChildAt(0);
+        int count = tabStrip.getChildCount();
+        for (int i = 0; i < count; ++i) {
+            tabStrip.getChildAt(i).setClickable(enabled);
+        }
     }
 
     private static class UsbConnectedReceiver extends BroadcastReceiver {
