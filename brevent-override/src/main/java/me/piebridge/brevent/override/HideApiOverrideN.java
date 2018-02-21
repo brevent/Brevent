@@ -1,6 +1,7 @@
 package me.piebridge.brevent.override;
 
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
@@ -18,6 +19,8 @@ public class HideApiOverrideN {
     public static final String WEBVIEW_PROVIDER = getWebviewProvider();
 
     public static final int FREEFORM_WORKSPACE_STACK_ID = getFreeformWorkspaceStackId();
+
+    public static final int OP_RUN_IN_BACKGROUND = getOpRunInBackground();
 
     private HideApiOverrideN() {
 
@@ -51,6 +54,15 @@ public class HideApiOverrideN {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID");
             return 2;
+        }
+    }
+
+    private static int getOpRunInBackground() {
+        try {
+            return AppOpsManager.OP_RUN_IN_BACKGROUND;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find AppOpsManager.OP_RUN_IN_BACKGROUND");
+            return 63;
         }
     }
 
