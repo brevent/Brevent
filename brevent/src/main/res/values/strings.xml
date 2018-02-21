@@ -35,6 +35,7 @@
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
     <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_hard" />
     <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose then brevent them</string>
 
     <string name="fragment_apps_user">User Apps</string>

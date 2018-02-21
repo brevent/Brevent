@@ -47,10 +47,7 @@ public class AppsPaymentFragment extends AbstractDialogFragment
             return;
         }
         if (DialogInterface.BUTTON_POSITIVE == which) {
-            dismiss();
             activity.openSettings();
-        } else if (DialogInterface.BUTTON_NEGATIVE == which) {
-            dismiss();
         }
     }
 

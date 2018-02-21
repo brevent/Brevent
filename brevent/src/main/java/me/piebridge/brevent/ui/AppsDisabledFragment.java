@@ -6,15 +6,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.support.customtabs.CustomTabsIntent;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.stats.StatsUtils;
 
 /**
  * Created by thom on 2017/2/5.
@@ -55,8 +59,8 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         builder.setMessage(getString(R.string.brevent_service_guide,
                 adbStatus, usbStatus, commandLine));
         builder.setNeutralButton(R.string.menu_guide, this);
-        if (activity.canFetchLogs()) {
-            builder.setNegativeButton(R.string.menu_logs, this);
+        if (BuildConfig.RELEASE && !TextUtils.isEmpty(getString(R.string.brevent_service_hard))) {
+            builder.setNegativeButton(R.string.brevent_service_hard, this);
         }
         if (SimpleSu.hasSu()) {
             builder.setPositiveButton(R.string.brevent_service_run_as_root, this);
@@ -116,7 +120,6 @@ public class AppsDisabledFragment extends AbstractDialogFragment
             boolean usbConnected = isUsbConnected(activity);
             if (SimpleSu.hasSu()) {
                 activity.runAsRoot();
-                dismiss();
             } else if (usbConnected && isAdbRunning()) {
                 String commandLine = getBootstrapCommandLine(activity, true);
                 activity.copy(commandLine);
@@ -129,15 +132,23 @@ public class AppsDisabledFragment extends AbstractDialogFragment
             }
         } else if (which == DialogInterface.BUTTON_NEUTRAL) {
             activity.openGuide("disabled");
-            dismiss();
         } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-            if (activity.canFetchLogs()) {
-                activity.fetchLogs();
-                dismiss();
+            if (BuildConfig.RELEASE && !TextUtils.isEmpty(getString(R.string.brevent_service_hard))) {
+                openLink(activity);
             } else {
                 activity.showDisabled(getArguments().getInt(TITLE, DEFAULT_TITLE), true);
             }
         }
+    }
+
+    private void openLink(BreventActivity activity) {
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setToolbarColor(ColorUtils.resolveColor(activity, android.R.attr.colorPrimary));
+        builder.setShowTitle(true);
+        builder.enableUrlBarHiding();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(activity, Uri.parse(String.valueOf(BuildConfig.LINK_HARD)));
+        StatsUtils.logShare();
     }
 
     public int getTitle() {

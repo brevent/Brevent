@@ -48,6 +48,7 @@ android {
             buildConfigField 'byte[]', 'DONATE_M', properties['build.donate.m']
             buildConfigField 'char[]', 'MOTIONELF_PACKAGE', properties['build.motionelf.packageName']
             buildConfigField 'byte[]', 'MOTIONELF_SIGNATURE', properties['build.motionelf.signature']
+            buildConfigField 'char[]', 'LINK_HARD', properties['build.link.hard']
             resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
@@ -100,6 +101,7 @@ android {
             buildConfigField 'byte[]', 'DONATE_M', 'null'
             buildConfigField 'char[]', 'MOTIONELF_PACKAGE', '{}'
             buildConfigField 'byte[]', 'MOTIONELF_SIGNATURE', '{}'
+            buildConfigField 'char[]', 'LINK_HARD', '{}'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
             } else {
@@ -177,6 +179,9 @@ dependencies {
         implementation("com.android.support:design:${rootProject.supportLibraryVersion}") {
             exclude group: 'com.android.support', module: 'appcompat-v7'
         }
+    }
+    implementation("com.android.support:customtabs:${rootProject.supportLibraryVersion}") {
+        exclude group: 'com.android.support', module: 'support-compat'
     }
     // https://dl.google.com/dl/android/maven2/com/android/support/constraint/constraint-layout/maven-metadata.xml
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

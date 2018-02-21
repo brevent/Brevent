@@ -35,6 +35,7 @@
     <string name="brevent_service_adb_running">(Włączony)</string>
     <string name="brevent_service_usb_connected">(Podłączono USB)</string>
     <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_hard" />
     <string name="brevent_service_success">Serwer Brevent został pomyślnie uruchomiony. Proszę dotknąć ikony aplikacji, aby je następnie zbreventować.</string>
 
     <string name="fragment_apps_user">Aplikacje Użytkownika</string>

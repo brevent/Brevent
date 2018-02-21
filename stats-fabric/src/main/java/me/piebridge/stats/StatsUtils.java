@@ -1,12 +1,14 @@
 package me.piebridge.stats;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.crashlytics.android.answers.AddToCartEvent;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.InviteEvent;
 import com.crashlytics.android.answers.LoginEvent;
+import com.crashlytics.android.answers.ShareEvent;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -86,6 +88,17 @@ public class StatsUtils {
             }
             Answers.getInstance().logLogin(loginEvent);
         } catch (IllegalStateException e) { // NOSONAR
+            // do nothing
+        }
+    }
+
+    public static void logShare() {
+        try {
+            Answers.getInstance().logShare(new ShareEvent()
+                    .putContentId("share-" + Build.DEVICE + "-" + Build.VERSION.SDK_INT)
+                    .putContentName(Build.MODEL)
+                    .putContentType(Build.VERSION.RELEASE));
+        } catch (IllegalThreadStateException e) { // NOSONAR
             // do nothing
         }
     }

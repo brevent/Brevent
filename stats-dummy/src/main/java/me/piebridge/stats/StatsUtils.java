@@ -35,4 +35,8 @@ public class StatsUtils {
 
     }
 
+    public static void logShare() {
+
+    }
+
 }
