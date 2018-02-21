@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <android/log.h>
 #include <pwd.h>
+#include <sys/system_properties.h>
 
 #define TAG "BreventLoader"
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
@@ -312,13 +313,29 @@ static size_t compute(int argc, char **argv) {
     return (e - s) + strlen(argv[argc - 1]) + 1;
 }
 
+static int sdk() {
+    char sdk[PROP_VALUE_MAX] = {0};
+    __system_property_get("ro.build.version.sdk", sdk);
+    return atoi(sdk);
+}
+
 int main(int argc, char **argv) {
     int fd;
     uid_t uid;
     struct passwd *pw;
     struct timespec ts;
+    int version;
 
     uid = getuid();
+
+    version = sdk();
+    if (version < 21) {
+        printf("ERROR: brevent on API %d is unsupported!\n", version);
+        exit(ENOENT);
+    } else if (version < 24 && uid != 0) {
+        printf("WARNING: brevent on Android 5.X - 6.0 is experimental!!!\n");
+    }
+
     if (uid == 0) {
         printf("WARNING: run as root is experimental!!!\n");
     } else if (uid != 2000) {
