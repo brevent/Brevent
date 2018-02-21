@@ -166,6 +166,7 @@ public class SettingsFragment extends PreferenceFragment
         Preference preference = findPreference(key);
         if (preference != null) {
             preference.setEnabled(false);
+            preferenceBrevent.removePreference(preference);
         }
     }
 
