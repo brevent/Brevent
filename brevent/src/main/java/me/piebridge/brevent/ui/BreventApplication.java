@@ -521,7 +521,8 @@ public class BreventApplication extends Application {
     public static boolean isXposed(BreventApplication application) {
         SharedPreferences preferences = PreferencesUtils.getPreferences(application);
         String alipay1 = preferences.getString("alipay1", "");
-        return !DecimalUtils.isPositive(decode(application, alipay1, true));
+        return !TextUtils.isEmpty(alipay1)
+                && !DecimalUtils.isPositive(decode(application, alipay1, true));
     }
 
     public boolean checkPort() {
