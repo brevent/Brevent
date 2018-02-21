@@ -36,7 +36,6 @@ public class HideApiOverride {
 
     public static final String ACTION_USB_STATE = getActionUsbState();
     public static final String USB_CONNECTED = getUsbConnected();
-    public static final String USB_DATA_UNLOCKED = getUsbDataUnlocked();
 
     public static final String SMS_DEFAULT_APPLICATION = getSmsDefaultApplication();
 
@@ -242,57 +241,12 @@ public class HideApiOverride {
         }
     }
 
-    private static String getUsbDataUnlocked() {
-        try {
-            return UsbManager.USB_DATA_UNLOCKED;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find UsbManager.USB_DATA_UNLOCKED");
-            return "unlocked";
-        }
-    }
-
-    private static String getCallMethodUserKey() {
-        try {
-            return Settings.CALL_METHOD_USER_KEY;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find Settings.CALL_METHOD_USER_KEY");
-            return "_user";
-        }
-    }
-
-    private static String getCallMethodGetSecure() {
-        try {
-            return Settings.CALL_METHOD_GET_SECURE;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find Settings.CALL_METHOD_GET_SECURE");
-            return "GET_secure";
-        }
-    }
-
-    private static String getCallMethodGetGlobal() {
-        try {
-            return Settings.CALL_METHOD_GET_GLOBAL;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find Settings.CALL_METHOD_GET_GLOBAL");
-            return "GET_global";
-        }
-    }
-
     private static String getSmsDefaultApplication() {
         try {
             return Settings.Secure.SMS_DEFAULT_APPLICATION;
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find Settings.Secure.SMS_DEFAULT_APPLICATION");
             return "sms_default_application";
-        }
-    }
-
-    public static String getDialerDefaultApplication() {
-        try {
-            return Settings.Secure.DIALER_DEFAULT_APPLICATION;
-        } catch (LinkageError e) {
-            Log.w(TAG, "Can't find Settings.Secure.DIALER_DEFAULT_APPLICATION");
-            return "dialer_default_application";
         }
     }
 

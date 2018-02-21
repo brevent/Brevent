@@ -5,21 +5,6 @@ package android.provider;
  */
 public class Settings {
 
-    /**
-     * @hide - User handle argument extra to the fast-path call()-based requests
-     */
-    public static String CALL_METHOD_USER_KEY = "_user";
-
-    /**
-     * @hide - Private call() method on SettingsProvider to read from 'secure' table.
-     */
-    public static String CALL_METHOD_GET_SECURE = "GET_secure";
-
-    /**
-     * @hide - Private call() method on SettingsProvider to read from 'global' table.
-     */
-    public static String CALL_METHOD_GET_GLOBAL = "GET_global";
-
     public static class Secure {
 
         /**
@@ -28,13 +13,6 @@ public class Settings {
          * @hide
          */
         public static String SMS_DEFAULT_APPLICATION = "sms_default_application";
-
-        /**
-         * Specifies the package name currently configured to be the default dialer application
-         *
-         * @hide
-         */
-        public static String DIALER_DEFAULT_APPLICATION = "dialer_default_application";
 
         /**
          * The current assistant component. It could be a voice interaction service,
