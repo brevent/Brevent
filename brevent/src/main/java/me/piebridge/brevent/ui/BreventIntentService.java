@@ -173,6 +173,14 @@ public class BreventIntentService extends IntentService {
     }
 
     private List<String> startBreventAdb(String path) {
+        String breventRoot = null;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            breventRoot = startBreventRoot(path);
+            if (isStarted() || !breventRoot.contains("pm path")) {
+                return Collections.singletonList(breventRoot);
+            }
+        }
+
         boolean needStop = false;
         int port = AdbPortUtils.getAdbPort();
         if (port <= 0) {
@@ -183,7 +191,7 @@ public class BreventIntentService extends IntentService {
             port = AdbPortUtils.getAdbPort();
             if (port <= 0) {
                 if (TextUtils.isEmpty(message)) {
-                    return Collections.singletonList(startBreventRoot(path));
+                    return Collections.singletonList(fallbackDirectRoot(path, breventRoot));
                 } else {
                     return Collections.singletonList(message);
                 }
@@ -230,8 +238,16 @@ public class BreventIntentService extends IntentService {
             List<String> messages = new ArrayList<>();
             messages.add(message);
             messages.add(System.lineSeparator());
-            messages.add(startBreventRoot(path));
+            messages.add(fallbackDirectRoot(path, breventRoot));
             return messages;
+        }
+    }
+
+    private String fallbackDirectRoot(String path, String message) {
+        if (message == null) {
+            return startBreventRoot(path);
+        } else {
+            return message;
         }
     }
 
