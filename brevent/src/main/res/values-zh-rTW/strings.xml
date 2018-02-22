@@ -178,7 +178,7 @@
     <string name="show_donation_brefoil" />
     <string name="brevent_appops">應用程式操作（實驗性）</string>
     <string name="brevent_appops_label">目前非常簡單，將依情況進一步開發</string>
-    <string name="brevent_disable">停用應用程式（实验性）</string>
+    <string name="brevent_disable">停用應用程式（實驗性）</string>
     <string name="brevent_disable_label">目前非常簡單，將依情況進一步開發</string>
     <string name="brevent_background">背景限制（實驗性）</string>
     <string name="brevent_background_label">建議關閉，可能導致應用程式強制停止</string>

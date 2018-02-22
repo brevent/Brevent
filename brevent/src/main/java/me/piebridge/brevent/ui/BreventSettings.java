@@ -30,8 +30,6 @@ public class BreventSettings extends DonateActivity {
 
     static final String DONATION_RECOMMEND = "donation_recommend";
 
-    static final String SETTINGS_POSITION = "SETTINGS_POSITION";
-
     static final String DAEMON_TIME = "daemon_time";
 
     static final String DAEMON_TIME_PLAY = "daemon_time_play";
@@ -70,10 +68,10 @@ public class BreventSettings extends DonateActivity {
         Bundle arguments = settingsFragment.getArguments();
         arguments.putBoolean(SettingsFragment.IS_PLAY, isPlayInstaller());
         if (savedInstanceState != null) {
-            arguments.putInt(SETTINGS_POSITION, savedInstanceState.getInt(SETTINGS_POSITION));
+            mPlayDonation = savedInstanceState.getInt(BreventIntent.EXTRA_PLAY);
+        } else {
+            mPlayDonation = getIntent().getIntExtra(BreventIntent.EXTRA_PLAY, 0);
         }
-
-        mPlayDonation = getIntent().getIntExtra(BreventIntent.EXTRA_PLAY, 0);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -85,12 +83,6 @@ public class BreventSettings extends DonateActivity {
     protected void onResume() {
         super.onResume();
         setTitle(R.string.menu_settings);
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        settingsFragment.updatePosition();
     }
 
     @Override
@@ -231,7 +223,7 @@ public class BreventSettings extends DonateActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SETTINGS_POSITION, settingsFragment.getPosition());
+        outState.putInt(BreventIntent.EXTRA_PLAY, getPlay());
         super.onSaveInstanceState(outState);
     }
 

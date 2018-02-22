@@ -10,12 +10,12 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import me.piebridge.SimpleSu;
 import me.piebridge.brevent.BuildConfig;
@@ -39,7 +39,6 @@ public class SettingsFragment extends PreferenceFragment
     public static final boolean DEFAULT_SHOW_FRAMEWORK_APPS = false;
 
     public static final String IS_PLAY = "is_play";
-    private static final String LOCALE_CHANGED = "LOCALE_CHANGED";
 
     private SwitchPreference preferenceDonation;
 
@@ -47,9 +46,9 @@ public class SettingsFragment extends PreferenceFragment
 
     private PreferenceCategory preferenceBrevent;
 
-    private ListView mList;
-
     private int mDonated;
+
+    private Map<SwitchPreference, Integer> mPreferences;
 
     public SettingsFragment() {
         setArguments(new Bundle());
@@ -92,15 +91,61 @@ public class SettingsFragment extends PreferenceFragment
             preferenceScreen.removePreference(preferenceBrevent);
         }
         if (!application.supportAppops()) {
-            preferenceBrevent.removePreference(findPreference(BreventConfiguration.BREVENT_APPOPS));
+            disable(BreventConfiguration.BREVENT_APPOPS);
+            disable(BreventConfiguration.BREVENT_BACKGROUND);
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            disable(BreventConfiguration.BREVENT_BACKGROUND);
+        }
+        if (!application.supportDisable()) {
+            disable(BreventConfiguration.BREVENT_DISABLE);
         }
         if (BuildConfig.RELEASE) {
             updateSummaries();
             updateDonation();
         }
-        updateSummaries(getDonated(application), false);
+        mPreferences = findRequiredPreferences(getDonated(application));
         onUpdateBreventMethod();
         mDonated = getDonated(application);
+    }
+
+    private Map<SwitchPreference, Integer> findRequiredPreferences(int donated) {
+        Map<SwitchPreference, Integer> preferences = new LinkedHashMap<>(0x4);
+        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
+        int size = rootAdapter.getCount();
+        for (int i = 0; i < size; ++i) {
+            Object item = rootAdapter.getItem(i);
+            if (item instanceof SwitchPreference) {
+                SwitchPreference preference = (SwitchPreference) item;
+                int require = getRequire(preference);
+                if (require > 0) {
+                    CharSequence extra = getRequire(preference, require);
+                    preference.setSummary(join(preference.getSummary(), extra));
+                    if (donated >= require) {
+                        preference.setEnabled(true);
+                    } else {
+                        preference.setEnabled(false);
+                        preference.setChecked(false);
+                        preferences.put(preference, require);
+                        preferenceBrevent.removePreference(preference);
+                    }
+                }
+            }
+        }
+        return preferences;
+    }
+
+    private void updateRequiredPreferences(int donated) {
+        Iterator<Map.Entry<SwitchPreference, Integer>> it = mPreferences.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<SwitchPreference, Integer> entry = it.next();
+            int require = entry.getValue();
+            SwitchPreference preference = entry.getKey();
+            if (donated >= require) {
+                preference.setEnabled(true);
+                preferenceBrevent.addPreference(preference);
+                it.remove();
+            }
+        }
     }
 
     private int getDonated(BreventApplication application) {
@@ -143,45 +188,11 @@ public class SettingsFragment extends PreferenceFragment
         }
     }
 
-    private void updateSummaries(int donated, boolean remove) {
-        ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
-        int size = rootAdapter.getCount();
-        for (int i = 0; i < size; ++i) {
-            Object item = rootAdapter.getItem(i);
-            if (item instanceof Preference) {
-                updatePreference((Preference) item, donated, remove);
-            }
-        }
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
-        if (!application.supportDisable()) {
-            disable(BreventConfiguration.BREVENT_DISABLE);
-        }
-        if (!application.supportAppops()) {
-            disable(BreventConfiguration.BREVENT_APPOPS);
-            disable(BreventConfiguration.BREVENT_BACKGROUND);
-        }
-    }
-
     private void disable(String key) {
         Preference preference = findPreference(key);
         if (preference != null) {
             preference.setEnabled(false);
             preferenceBrevent.removePreference(preference);
-        }
-    }
-
-    private void updatePreference(Preference preference, int donated, boolean remove) {
-        int require = getRequire(preference);
-        if (require > 0) {
-            if ((remove && donated < require) || shouldRemove(preference)) {
-                if (preference instanceof SwitchPreference) {
-                    ((SwitchPreference) preference).setChecked(false);
-                }
-                preferenceBrevent.removePreference(preference);
-            } else {
-                preference.setEnabled(true);
-                preference.setSummary(join(preference.getSummary(), getRequire(preference, require)));
-            }
         }
     }
 
@@ -197,17 +208,12 @@ public class SettingsFragment extends PreferenceFragment
         return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
     }
 
-    private boolean shouldRemove(Preference preference) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.N
-                && BreventConfiguration.BREVENT_BACKGROUND.equals(preference.getKey());
-    }
-
     private int getRequire(Preference preference) {
         String fragment = preference.getFragment();
-        if ("me.piebridge.brevent.ui.Require5".equals(fragment)) {
-            return 0x5;
-        } else if ("me.piebridge.brevent.ui.Require3".equals(fragment)) {
+        if ("me.piebridge.brevent.ui.Require3".equals(fragment)) {
             return 0x3;
+        } else if ("me.piebridge.brevent.ui.Require5".equals(fragment)) {
+            return 0x5;
         } else {
             return 0;
         }
@@ -218,9 +224,6 @@ public class SettingsFragment extends PreferenceFragment
             return extra;
         }
         if (extra == null) {
-            return summary;
-        }
-        if (summary.toString().endsWith(extra.toString())) {
             return summary;
         }
         return summary + "\n\n" + extra;
@@ -242,14 +245,6 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        mList = view.findViewById(android.R.id.list);
-        return view;
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -262,8 +257,10 @@ public class SettingsFragment extends PreferenceFragment
         }
         findPreference("brevent_about_system").setSummary(getSystemSummary());
         preference.setOnPreferenceClickListener(this);
-        if (getDonated((BreventApplication) getActivity().getApplication()) != mDonated) {
-            getActivity().recreate();
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        int donated = getDonated(application);
+        if (donated != mDonated) {
+            updateRequiredPreferences(donated);
         }
     }
 
@@ -351,6 +348,7 @@ public class SettingsFragment extends PreferenceFragment
         UILog.i("total: " + total + ", play: " + activity.getPlay());
         if (total != activity.getPlay()) {
             activity.setPlay(total);
+            updateRequiredPreferences(getDonated(application));
             if (total > 0) {
                 Toast.makeText(application, summary, Toast.LENGTH_SHORT).show();
                 if (DecimalUtils.intValue(donation + total) >= activity.getRecommend()) {
@@ -358,7 +356,6 @@ public class SettingsFragment extends PreferenceFragment
                 }
             }
         }
-        updateSummaries(getDonated(application), true);
     }
 
     private String getExtraInfo(boolean xposed) {
@@ -379,24 +376,8 @@ public class SettingsFragment extends PreferenceFragment
         return false;
     }
 
-    int getPosition() {
-        Bundle arguments = getArguments();
-        if (arguments.getBoolean(LOCALE_CHANGED, false)) {
-            arguments.putBoolean(LOCALE_CHANGED, false);
-            return mList != null ? mList.getLastVisiblePosition() : 0;
-        } else {
-            return -1;
-        }
-    }
-
-    void updatePosition() {
-        if (mList != null) {
-            int position = getArguments().getInt(BreventSettings.SETTINGS_POSITION, 0);
-            if (position > 0 && position < mList.getCount()) {
-                UILog.i("count: " + mList.getCount() + ", position: " + position);
-                mList.smoothScrollToPosition(position);
-            }
-        }
+    private void updateLocale() {
+        getActivity().recreate();
     }
 
     @Override
@@ -408,8 +389,7 @@ public class SettingsFragment extends PreferenceFragment
                 language = "";
             }
             if (LocaleUtils.setOverrideLanguage(activity, language)) {
-                getArguments().putBoolean(LOCALE_CHANGED, true);
-                activity.recreate();
+                updateLocale();
             }
         } else {
             int recommend = getRecommend(preference);

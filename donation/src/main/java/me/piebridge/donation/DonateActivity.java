@@ -117,11 +117,6 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     @Nullable
     public static Collection<String> getPurchased(Application application, String tag,
                                                   BigInteger modulus) {
-        if (!hasPlay(application)) {
-            Log.w(tag, "no play store, remove play cache");
-            removePlayCache(application);
-            return null;
-        }
         String play = PreferencesUtils.getPreferences(application).getString("play", null);
         if (TextUtils.isEmpty(play)) {
             Log.i(tag, "no play cache: " + play);
@@ -176,23 +171,20 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     private synchronized void activatePlay() {
         Log.d(getTag(), "activatePlay");
         removePlayCache(getApplication());
-        if (hasPlay()) {
-            showPlayCheck();
-            HandlerThread thread = new HandlerThread("DonateService");
-            thread.start();
-            unbindActivateService();
-            activateConnection = new ActivatePlayServiceConnection(thread.getLooper(), this);
-            Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
-            serviceIntent.setPackage(PACKAGE_PLAY);
-            try {
-                if (!bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE)) {
-                    unbindService(activateConnection);
-                }
-            } catch (IllegalArgumentException e) {
-                Log.d(getTag(), "Can't bind activateConnection", e);
+
+        showPlayCheck();
+        HandlerThread thread = new HandlerThread("DonateService");
+        thread.start();
+        unbindActivateService();
+        activateConnection = new ActivatePlayServiceConnection(thread.getLooper(), this);
+        Intent serviceIntent = new Intent(PlayServiceConnection.ACTION_BIND);
+        serviceIntent.setPackage(PACKAGE_PLAY);
+        try {
+            if (!bindService(serviceIntent, activateConnection, Context.BIND_AUTO_CREATE)) {
+                showPlay(null);
             }
-        } else {
-            showPlay(null);
+        } catch (IllegalArgumentException e) {
+            Log.d(getTag(), "Can't bind activateConnection", e);
         }
     }
 
@@ -321,21 +313,12 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
         return true;
     }
 
-    public boolean hasPlay() {
-        return hasPlay(this);
-    }
-
-    static boolean hasPlay(Context context) {
-        return context.getPackageManager().getLaunchIntentForPackage(PACKAGE_PLAY) != null;
-    }
-
     protected String getApplicationId() {
         return getPackageName();
     }
 
     protected final boolean isPlayInstaller() {
-        return hasPlay() && PACKAGE_PLAY.equals(getPackageManager()
-                .getInstallerPackageName(getApplicationId()));
+        return PACKAGE_PLAY.equals(getPackageManager().getInstallerPackageName(getApplicationId()));
     }
 
     @CallSuper

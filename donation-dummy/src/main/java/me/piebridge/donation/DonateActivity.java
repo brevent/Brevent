@@ -36,10 +36,6 @@ public abstract class DonateActivity extends AbstractActivity {
 
     protected abstract boolean acceptDonation();
 
-    public boolean hasPlay() {
-        return false;
-    }
-
     public void showPlay(@Nullable Collection<String> purchased) {
 
     }
