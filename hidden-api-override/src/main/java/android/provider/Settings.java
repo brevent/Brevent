@@ -50,6 +50,23 @@ public class Settings {
          */
         public static String WEBVIEW_PROVIDER = "webview_provider";
 
+        /**
+         * The server used for captive portal detection upon a new conection. A
+         * 204 response code from the server is used for validation.
+         * TODO: remove this deprecated symbol.
+         *
+         * @hide
+         */
+        public static String CAPTIVE_PORTAL_SERVER = "captive_portal_server";
+
+        /**
+         * The URL used for HTTPS captive portal detection upon a new connection.
+         * A 204 response code from the server is used for validation.
+         *
+         * @hide
+         */
+        public static String CAPTIVE_PORTAL_HTTPS_URL = "captive_portal_https_url";
+
     }
 
 }

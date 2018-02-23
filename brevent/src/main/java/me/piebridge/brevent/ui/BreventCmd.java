@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +34,7 @@ import java.util.Objects;
 
 import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.protocol.BreventCmdRequest;
 import me.piebridge.brevent.protocol.BreventCmdResponse;
 import me.piebridge.brevent.protocol.BreventIntent;
@@ -166,6 +168,9 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
         if (execView.isClickable()) {
             menu.removeItem(R.id.action_stop);
             menu.findItem(R.id.action_reset).getIcon().setTint(mColorControlNormal);
+            if (shouldUpdatePortal()) {
+                addPortal(menu);
+            }
             if (BreventActivity.isGenuineMotionelf(this)) {
                 addMotionelf(menu);
             }
@@ -174,6 +179,36 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
             menu.findItem(R.id.action_stop).getIcon().setTint(mColorControlNormal);
         }
         return true;
+    }
+
+    private void addPortal(Menu menu) {
+        String command;
+        try {
+            String httpsUrl = HideApiOverride.getCaptivePortalHttpsUrl();
+            command = "settings put global " + httpsUrl + " https://www.google.cn/generate_204";
+        } catch (LinkageError e) {
+            String server = HideApiOverride.getCaptivePortalServer();
+            command = "settings put global " + server + " www.google.cn";
+        }
+        menu.add(Menu.NONE, R.string.cmd_menu_portal, Menu.NONE, R.string.cmd_menu_portal)
+                .setIntent(getCommandIntent(command));
+    }
+
+    private String getGlobalString(String name) {
+        return Settings.Global.getString(getContentResolver(), name);
+    }
+
+    private boolean shouldUpdatePortal() {
+        if (TextUtils.isEmpty(getString(R.string.cmd_menu_portal))) {
+            return false;
+        }
+        String key;
+        try {
+            key = HideApiOverride.getCaptivePortalHttpsUrl();
+        } catch (LinkageError ignore) {
+            key = HideApiOverride.getCaptivePortalServer();
+        }
+        return TextUtils.isEmpty(getGlobalString(key));
     }
 
     private void addMotionelf(Menu menu) {

@@ -483,4 +483,17 @@ public class HideApiOverride {
         }
     }
 
+    public static String getCaptivePortalHttpsUrl() {
+        return Settings.Global.CAPTIVE_PORTAL_HTTPS_URL;
+    }
+
+    public static String getCaptivePortalServer() {
+        try {
+            return Settings.Global.CAPTIVE_PORTAL_SERVER;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find Settings.Global.CAPTIVE_PORTAL_SERVER");
+            return "captive_portal_server";
+        }
+    }
+
 }
