@@ -372,8 +372,6 @@ int main(int argc, char **argv) {
 
     chdir("/");
 
-    umask(0);
-
     if ((fd = open(_PATH_DEVNULL, O_RDWR)) == -1) {
         perror("cannot open " _PATH_DEVNULL);
         return -EPERM;
