@@ -26,6 +26,7 @@
 sig_atomic_t update;
 sig_atomic_t quited;
 sig_atomic_t looped;
+sig_atomic_t initko;
 char start[11];
 
 #if defined(__aarch64__)
@@ -37,6 +38,20 @@ char start[11];
 #elif defined(__i386__)
 #define ABI "x86"
 #endif
+
+#define KEY "log.tag.brevent.event"
+
+static int ko() {
+    char value[PROP_VALUE_MAX] = {'\0'};
+    __system_property_get(KEY, value);
+    return !strcmp(value, "ko");
+}
+
+static void ok() {
+    if (ko()) {
+        __system_property_set(KEY, "");
+    }
+}
 
 static void rstrip(char *loader) {
     char *path;
@@ -123,6 +138,7 @@ static int server(size_t length, char *arg) {
         return -EPERM;
     }
 
+    initko = 0;
     for (;;) {
         sigsuspend(&set);
         if (quited) {
@@ -217,22 +233,33 @@ static void signal_check(int signo) {
 
 static int check(time_t now) {
     int pid = 0;
+    static int initko = 0;
     signal(SIGUSR1, signal_check);
-    printf("checking for server.");
+    if (initko == 0) {
+        printf("checking for server.");
+    }
     for (int i = 0; i < 6; ++i) {
         int id = get_pid();
         if (pid == 0 && id > 0) {
-            printf("started, pid: %d\n", id);
-            printf("checking for stable.");
+            printf("%s, pid: %d\nchecking for stable.",
+                   initko == 0 ? "started" : "reborn", id);
             i = 0;
             pid = id;
         } else if (pid > 0 && id == 0) {
-            printf("quited\n\n");
-            fflush(stdout);
-            report(now);
-            return EXIT_FAILURE;
+            if (!initko && ko()) {
+                initko = 1;
+                return check(now);
+            } else {
+                printf("quited\n\n");
+                fflush(stdout);
+                report(now);
+                return EXIT_FAILURE;
+            }
         } else if (quited || looped) {
             break;
+        } else if (pid != id) {
+            initko = 1;
+            return check(now);
         }
         printf(".");
         fflush(stdout);
@@ -287,14 +314,24 @@ static void signal_handler(int signo) {
             quited = 1;
             update = 0;
             if (WIFEXITED(status)) {
-                if (WEXITSTATUS(status) == 0) {
-                    LOGD("worker %d exited with status %d", pid, WEXITSTATUS(status));
+                int exitstatus = WEXITSTATUS(status);
+                if (exitstatus == 0) {
+                    ok();
+                    initko = 0;
                     update = 1;
+                    LOGD("worker %d exited with status %d", pid, exitstatus);
                 } else {
-                    LOGE("worker %d exited with status %d", pid, WEXITSTATUS(status));
+                    LOGE("worker %d exited with status %d", pid, exitstatus);
                 }
             } else if (WIFSIGNALED(status)) {
-                LOGE("worker %d exited on signal %d", pid, WTERMSIG(status));
+                int termsig = WTERMSIG(status);
+                if (!initko && ko()) {
+                    initko = 1;
+                    update = 1;
+                    LOGD("worker %d exited on signal %d", pid, termsig);
+                } else {
+                    LOGE("worker %d exited on signal %d", pid, termsig);
+                }
             }
         }
     } else if (signo == SIGUSR1) {
@@ -326,8 +363,8 @@ int main(int argc, char **argv) {
     struct timespec ts;
     int version;
 
+    ok();
     uid = getuid();
-
     version = sdk();
     if (version < 21) {
         printf("ERROR: brevent on API %d is unsupported!\n", version);

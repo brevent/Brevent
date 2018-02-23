@@ -62,79 +62,80 @@ static int get_pid() {
     return pid;
 }
 
+extern "C"
+JNIEXPORT jint JNICALL
+Java_me_piebridge_LogReader_getPid(JNIEnv *, jclass) {
+    return get_pid();
+}
+
+extern "C"
 JNIEXPORT void JNICALL
-Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass UNUSED(clazz), jint pid, jobject value) {
-    struct timespec ts;
+Java_me_piebridge_LogReader_readEvents(JNIEnv *env, jclass, jint pid, jobject handler) {
     struct logger_list *logger_list;
-    struct log_time log_time;
 
-    jclass eventClass = (*env)->FindClass(env, ANDROID_UTIL_EVENT_LOG_EVENT);
-    jmethodID eventConstructor = (*env)->GetMethodID(env, eventClass, "<init>", "([B)V");
+    jclass eventClass = env->FindClass(ANDROID_UTIL_EVENT_LOG_EVENT);
+    jmethodID eventConstructor = env->GetMethodID(eventClass, "<init>", "([B)V");
 
-    jclass eventHandler = (*env)->GetObjectClass(env, value);
-    jmethodID accept = (*env)->GetMethodID(env, eventHandler, "accept", "(I)Z");
-    jmethodID onEvent = (*env)->GetMethodID(env, eventHandler, "onEvent",
-                                            "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)Z");
+    jclass eventHandler = env->GetObjectClass(handler);
+    jmethodID accept = env->GetMethodID(eventHandler, "accept", "(I)Z");
+    jmethodID onEvent = env->GetMethodID(eventHandler, "onEvent",
+                                         "(L" ANDROID_UTIL_EVENT_LOG_EVENT ";)V");
 
-    clock_gettime(CLOCK_REALTIME, &ts);
-    LOGI("system_server: %d, now: %ld", pid, ts.tv_sec);
+#if __ANDROID_USE_LIBLOG_CLOCK_INTERFACE
+    log_time now(android_log_clockid());
+#else
+    log_time now(CLOCK_REALTIME);
+#endif
 
-    log_time.tv_sec = (uint32_t) ts.tv_sec;
-    log_time.tv_nsec = (uint32_t) ts.tv_nsec;
+    LOGI("system_server: %d, now: %u", pid, now.tv_sec);
 
-    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, log_time, pid);
+    logger_list = android_logger_list_alloc_time(ANDROID_LOG_RDONLY, now, pid);
     if (!android_logger_open(logger_list, LOG_ID_EVENTS)) {
+        LOGW("android_logger_open fail");
+        android_logger_list_free(logger_list);
         return;
     }
 
     for (;;) {
-        char *buf;
         int32_t tag;
         struct log_msg log_msg;
         int size = android_logger_list_read(logger_list, &log_msg);
 
-        if (size == -EINTR) {
-            continue;
-        } else if (size <= 0) {
+        if (size <= 0) {
+            LOGW("android_logger_list_read, size: %d", size);
             break;
         }
 
-        if (log_msg.entry.lid != LOG_ID_EVENTS) {
+        if (log_msg.id() != LOG_ID_EVENTS) {
             continue;
         }
 
-        buf = log_msg.entry.hdr_size ? (char *) log_msg.buf + log_msg.entry.hdr_size
-                                     : log_msg.entry_v1.msg;
-        tag = *(int32_t *) buf;
-        if ((*env)->CallBooleanMethod(env, value, accept, tag)) {
+        tag = *(int32_t *) log_msg.msg();
+        if (env->CallBooleanMethod(handler, accept, tag)) {
             jsize len = size;
-            jbyteArray array = (*env)->NewByteArray(env, len);
+            jbyteArray array = env->NewByteArray(len);
             if (array == NULL) {
+                LOGW("NewByteArray fail, len: %d", len);
                 break;
             }
-            jbyte *bytes = (*env)->GetByteArrayElements(env, array, NULL);
+
+            jbyte *bytes = env->GetByteArrayElements(array, NULL);
             memcpy(bytes, log_msg.buf, (size_t) len);
-            (*env)->ReleaseByteArrayElements(env, array, bytes, 0);
-            jobject event = (*env)->NewObject(env, eventClass, eventConstructor, array);
+            env->ReleaseByteArrayElements(array, bytes, 0);
+
+            jobject event = env->NewObject(eventClass, eventConstructor, array);
             if (event == NULL) {
-                (*env)->DeleteLocalRef(env, array);
+                LOGW("NewObject fail, len: %d", len);
+                env->DeleteLocalRef(array);
                 break;
             }
-            jboolean result = (*env)->CallBooleanMethod(env, value, onEvent, event);
-            (*env)->DeleteLocalRef(env, event);
-            (*env)->DeleteLocalRef(env, array);
-            if (!result) {
-                break;
-            }
+            env->CallVoidMethod(handler, onEvent, event);
+            env->DeleteLocalRef(event);
+            env->DeleteLocalRef(array);
         }
     }
 
     android_logger_list_free(logger_list);
-}
-
-JNIEXPORT jint JNICALL
-Java_me_piebridge_LogReader_getPid(JNIEnv *UNUSED(env), jclass UNUSED(type)) {
-    return get_pid();
 }
 
 static int killChild(int ppid, int deep) {
@@ -188,7 +189,8 @@ static int killChild(int ppid, int deep) {
     return count;
 }
 
+extern "C"
 JNIEXPORT jint JNICALL
-Java_me_piebridge_LogReader_killDescendants(JNIEnv *UNUSED(env), jclass UNUSED(type), jint pid) {
+Java_me_piebridge_LogReader_killDescendants(JNIEnv *, jclass, jint pid) {
     return killChild(pid, 1);
 }

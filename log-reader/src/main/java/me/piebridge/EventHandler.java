@@ -26,8 +26,8 @@ public interface EventHandler {
      *
      * @param event Event
      * @return false to exit readEvents
-     * @see LogReader#readEvents(EventHandler)
+     * @see LogReader#readEvents(int, EventHandler)
      */
-    boolean onEvent(EventLog.Event event);
+    void onEvent(EventLog.Event event);
 
 }

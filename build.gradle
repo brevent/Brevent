@@ -59,7 +59,7 @@ def isIde = { ->
 
 project.ext.javaVersion = JavaVersion.VERSION_1_8
 
-project.ext.abiFilters = ['armeabi', 'arm64-v8a', 'x86', 'x86_64']
+project.ext.abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
 
 project.ext.supportLibraryVersion = '27.0.2'
 

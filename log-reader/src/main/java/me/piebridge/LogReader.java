@@ -15,13 +15,17 @@ public class LogReader {
     }
 
     /**
+     * @return system server pid
+     */
+    public static native int getPid();
+
+    /**
      * read events since now, would block
      *
+     * @param pid     event pid
      * @param handler event handler
      */
     public static native void readEvents(int pid, EventHandler handler);
-
-    public static native int getPid();
 
     public static native int killDescendants(int pid);
 
