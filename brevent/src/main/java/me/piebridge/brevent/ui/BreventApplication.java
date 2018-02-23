@@ -352,6 +352,9 @@ public class BreventApplication extends Application {
     }
 
     private Boolean getXposed() {
+        if (!BuildConfig.RELEASE) {
+            return false;
+        }
         String clazzServer = String.valueOf(BuildConfig.SERVER);
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         try {
@@ -474,6 +477,9 @@ public class BreventApplication extends Application {
     }
 
     public static int getPlayDonation(Application application) {
+        if (!BuildConfig.RELEASE) {
+            return 0;
+        }
         BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
         Collection<String> purchased = DonateActivity.getPurchased(application, UILog.TAG, modulus);
         return BreventSettings.getPlayDonation(purchased);
