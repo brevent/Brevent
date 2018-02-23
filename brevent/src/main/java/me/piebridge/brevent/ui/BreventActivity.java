@@ -1331,13 +1331,6 @@ public class BreventActivity extends AbstractActivity
             UILog.d("vpn: " + mVpn);
         }
 
-        if (mPackages.contains(GMS) && !mDisabledPackages.contains(GMS) && hasGms()) {
-            mFavorite.put(GMS, IMPORTANT_GMS);
-            if (((BreventApplication) getApplication()).supportStopped()) {
-                resolveGcmPackages(mGcm);
-            }
-        }
-
         Set<String> breventedImportant = new ArraySet<>();
         for (String packageName : mBrevent) {
             if (mImportant.containsKey(packageName)) {
@@ -1353,6 +1346,14 @@ public class BreventActivity extends AbstractActivity
             updatePackages(status);
             mAdapter.setExpired();
         }
+
+        if (mPackages.contains(GMS) && !mDisabledPackages.contains(GMS) && hasGms()) {
+            mFavorite.put(GMS, IMPORTANT_GMS);
+            if (status.mSupportStopped) {
+                resolveGcmPackages(mGcm);
+            }
+        }
+
         if (uiHandler == null) {
             return;
         }
