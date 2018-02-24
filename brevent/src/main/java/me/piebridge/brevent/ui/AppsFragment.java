@@ -75,13 +75,13 @@ public abstract class AppsFragment extends Fragment {
             BreventActivity activity = (BreventActivity) getActivity();
             if (mRecycler.getAdapter() == null) {
                 if (activity != null && !activity.isStopped()) {
-                    activity.updateTab(false);
+                    activity.disableTab();
                     activity.showFragmentAsync(this, 0);
                 }
             } else if (mExpired) {
                 mExpired = false;
                 if (activity != null && !activity.isStopped()) {
-                    activity.updateTab(false);
+                    activity.disableTab();
                 }
                 mAdapter.retrievePackagesAsync();
             }

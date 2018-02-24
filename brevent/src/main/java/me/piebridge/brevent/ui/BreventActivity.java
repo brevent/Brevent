@@ -157,6 +157,7 @@ public class BreventActivity extends AbstractActivity
     public static final int UI_MESSAGE_CHECKING_BREVENT = 18;
     public static final int UI_MESSAGE_NO_LOCAL_NETWORK = 19;
     public static final int UI_MESSAGE_CHECKED_BREVENT = 20;
+    public static final int UI_MESSAGE_DISABLE_TAB = 21;
 
     public static final int IMPORTANT_ANDROID = 0;
     public static final int IMPORTANT_HOME = 1;
@@ -2246,6 +2247,14 @@ public class BreventActivity extends AbstractActivity
         int count = tabStrip.getChildCount();
         for (int i = 0; i < count; ++i) {
             tabStrip.getChildAt(i).setClickable(enabled);
+        }
+    }
+
+    public void disableTab() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            updateTab(false);
+        } else if (uiHandler != null) {
+            uiHandler.sendEmptyMessage(UI_MESSAGE_DISABLE_TAB);
         }
     }
 

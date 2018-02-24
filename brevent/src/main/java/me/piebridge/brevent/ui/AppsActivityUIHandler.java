@@ -95,6 +95,9 @@ public class AppsActivityUIHandler extends Handler {
                 case BreventActivity.UI_MESSAGE_MAKE_QUERY:
                     activity.updateQuery();
                     break;
+                case BreventActivity.UI_MESSAGE_DISABLE_TAB:
+                    activity.updateTab(false);
+                    break;
                 default:
                     break;
             }
