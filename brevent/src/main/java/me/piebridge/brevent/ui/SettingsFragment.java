@@ -415,7 +415,8 @@ public class SettingsFragment extends PreferenceFragment
                 application.supportStandby() ? supported : unsupported,
                 application.supportStopped() ? supported : unsupported,
                 application.supportAppops() ? supported : unsupported,
-                application.supportDisable() ? supported : unsupported);
+                application.supportDisable() ? supported : unsupported,
+                application.supportEvent() ? supported : unsupported);
     }
 
 }

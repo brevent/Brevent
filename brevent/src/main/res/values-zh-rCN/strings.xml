@@ -184,7 +184,7 @@
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
-    <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n应用操作：%3$s\n停用应用：%4$s</string>
+    <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n应用操作：%3$s\n停用应用：%4$s\n自动黑域：%5$s</string>
     <string name="brevent_about_system_supported">支持</string>
     <string name="brevent_about_system_unsupported">不支持</string>
     <string name="brevent_about_developer">开发者选项</string>

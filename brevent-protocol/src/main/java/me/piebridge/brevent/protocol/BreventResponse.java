@@ -29,6 +29,7 @@ public class BreventResponse extends BreventProtocol {
     public static final int SUPPORT_CHECK = 1 << 5;
     public static final int SUPPORT_GRANTED = 1 << 6;
     public static final int SUPPORT_SINGLE = 1 << 7;
+    public static final int SUPPORT_EVENT = 1 << 8;
 
     public static final int PROCESS_STATE_IDLE = -2;
 
@@ -68,6 +69,7 @@ public class BreventResponse extends BreventProtocol {
     public final boolean mSupportCheck;
     public final boolean mSupportGranted;
     public final boolean mSupportSingle;
+    public final boolean mSupportEvent;
 
     public BreventResponse(Collection<String> packages,
                            Collection<PackageInfo> instantPackages,
@@ -114,6 +116,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportCheck = hasSupport(mSupport, SUPPORT_CHECK);
         mSupportGranted = hasSupport(mSupport, SUPPORT_GRANTED);
         mSupportSingle = hasSupport(mSupport, SUPPORT_SINGLE);
+        mSupportEvent = hasSupport(mSupport, SUPPORT_EVENT);
     }
 
     private boolean hasSupport(int flags, int flag) {
@@ -150,6 +153,7 @@ public class BreventResponse extends BreventProtocol {
         mSupportCheck = hasSupport(mSupport, SUPPORT_CHECK);
         mSupportGranted = hasSupport(mSupport, SUPPORT_GRANTED);
         mSupportSingle = hasSupport(mSupport, SUPPORT_SINGLE);
+        mSupportEvent = hasSupport(mSupport, SUPPORT_EVENT);
     }
 
     @Override

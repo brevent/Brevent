@@ -186,7 +186,7 @@
 
     <string name="brevent_about">Acerca de:</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nApp ops: %3$s\nDisable Apps: %4$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nApp ops: %3$s\nDisable Apps: %4$s\nAuto Brevent: %5$s</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Opciones de desarrollador</string>

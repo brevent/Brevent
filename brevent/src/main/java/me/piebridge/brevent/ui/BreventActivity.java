@@ -1368,7 +1368,9 @@ public class BreventActivity extends AbstractActivity
             if (isChecking()) {
                 checkChecking(status);
             }
-            checkEvent(status, application);
+            if (status.mSupportEvent) {
+                checkEvent(status, application);
+            }
             if (BuildConfig.RELEASE && !mBrevent.isEmpty()) {
                 int days = getDays();
                 int donated = application.getDonated();

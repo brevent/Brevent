@@ -184,7 +184,7 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
-    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n應用程式操作：%3$s\n停用應用程式：%4$s</string>
+    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n應用程式操作：%3$s\n停用應用程式：%4$s\n自動黑域：%5$s</string>
     <string name="brevent_about_system_supported">支援</string>
     <string name="brevent_about_system_unsupported">不支援</string>
     <string name="brevent_about_developer">開發人員選項</string>

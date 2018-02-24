@@ -79,6 +79,8 @@ public class BreventApplication extends Application {
 
     private boolean mSupportDisable = false;
 
+    private boolean mSupportEvent = false;
+
     private boolean mUsbChanged = false;
 
     private ArrayMap<String, Integer> mRecommendMap = new ArrayMap<>();
@@ -241,6 +243,14 @@ public class BreventApplication extends Application {
         return mSupportDisable;
     }
 
+    private void setSupportEvent(boolean supportEvent) {
+        mSupportEvent = supportEvent;
+    }
+
+    public boolean supportEvent() {
+        return mSupportEvent;
+    }
+
     public String getInstaller() {
         String installer = getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID);
         if (TextUtils.isEmpty(installer)) {
@@ -260,6 +270,7 @@ public class BreventApplication extends Application {
         setSupportUpgrade(breventResponse.mSupportUpgrade);
         setSupportAppops(breventResponse.mSupportAppops);
         setSupportDisable(breventResponse.mSupportDisable);
+        setSupportEvent(breventResponse.mSupportEvent);
         mInstantPackages.clear();
         for (PackageInfo packageInfo : breventResponse.mInstantPackages) {
             mInstantPackages.put(packageInfo.packageName, packageInfo);
