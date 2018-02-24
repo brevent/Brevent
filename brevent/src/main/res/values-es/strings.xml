@@ -168,7 +168,6 @@
 
     <string name="show_donation">Mostrar pago</string>
     <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_not_play">If you have paid, please launch \"Alipay\", tap \"Records\", it should be recognized automatically</string>
     <string name="show_donation_play">Gracias por pagar %s Brefoil en Play Store.</string>
     <string name="show_donation_rmb">Gracias por pagar %s Brefoil.</string>
     <string name="show_donation_contributor">Gracias por su valiosa contribución a Brevent.</string>
@@ -216,12 +215,14 @@
     <string name="unsupported_brevented">You have brevented some important apps. Do you wan to unbrevent them?</string>
 
     <string name="toast_home_tid">Inicio correcto: %d</string>
+    <!-- don't translate start, only for china -->
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
     <string name="toast_xposed">@string/show_donation_xposed</string>
     <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
     <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
+    <!-- don't translate end, only for china -->
 
     <string name="brevent_status_starting">Iniciando servidor Brevent ...</string>
     <string name="brevent_status_not_started">Servidor Brevent no se ha iniciado.</string>

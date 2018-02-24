@@ -46,6 +46,8 @@ public class BreventSettings extends DonateActivity {
 
     private int mPlayDonation;
 
+    private boolean mSupportAlipay;
+
     private static final int SIZE_1 = 30;
 
     private static final int SIZE_2 = 60;
@@ -211,9 +213,15 @@ public class BreventSettings extends DonateActivity {
 
     @Override
     public void activateDonations() {
+        mSupportAlipay = false;
         if (!((BreventApplication) getApplication()).isUnsafe()) {
             super.activateDonations();
         }
+    }
+
+    @Override
+    protected void onSupportAlipay() {
+        mSupportAlipay = true;
     }
 
     @Override
@@ -266,6 +274,10 @@ public class BreventSettings extends DonateActivity {
         } else {
             return 0x3;
         }
+    }
+
+    public boolean supportAlipay() {
+        return mSupportAlipay;
     }
 
 }

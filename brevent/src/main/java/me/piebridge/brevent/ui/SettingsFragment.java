@@ -134,7 +134,7 @@ public class SettingsFragment extends PreferenceFragment
         return preferences;
     }
 
-    private void updateRequiredPreferences(int donated) {
+    private void updateRequiredPreferences(int donated, int recommend) {
         Iterator<Map.Entry<SwitchPreference, Integer>> it = mPreferences.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<SwitchPreference, Integer> entry = it.next();
@@ -145,6 +145,9 @@ public class SettingsFragment extends PreferenceFragment
                 preferenceBrevent.addPreference(preference);
                 it.remove();
             }
+        }
+        if (donated > recommend) {
+            preferenceDonation.setChecked(false);
         }
     }
 
@@ -230,7 +233,8 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     private void updateDonation() {
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        BreventSettings activity = (BreventSettings) getActivity();
+        BreventApplication application = (BreventApplication) activity.getApplication();
         double donation = BreventApplication.getDonation(application);
         if (DecimalUtils.isPositive(donation)) {
             String format = DecimalUtils.format(donation);
@@ -239,8 +243,8 @@ public class SettingsFragment extends PreferenceFragment
             preferenceDonation.setSummary(summary);
         } else if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceDonation.setSummary(R.string.show_donation_summary_play);
-        } else {
-            preferenceDonation.setSummary(R.string.show_donation_summary_not_play);
+        } else if (activity.supportAlipay()){
+            preferenceDonation.setSummary(R.string.show_donation_summary_alipay);
         }
     }
 
@@ -257,10 +261,11 @@ public class SettingsFragment extends PreferenceFragment
         }
         findPreference("brevent_about_system").setSummary(getSystemSummary());
         preference.setOnPreferenceClickListener(this);
-        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        BreventSettings activity = (BreventSettings) getActivity();
+        BreventApplication application = (BreventApplication) activity.getApplication();
         int donated = getDonated(application);
         if (donated != mDonated) {
-            updateRequiredPreferences(donated);
+            updateRequiredPreferences(donated, activity.getRecommend());
         }
     }
 
@@ -336,8 +341,10 @@ public class SettingsFragment extends PreferenceFragment
                     summary += getExtraInfo(xposed);
                 } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = getString(R.string.show_donation_summary_play);
+                } else if (activity.supportAlipay()){
+                    summary = getString(R.string.show_donation_summary_alipay);
                 } else {
-                    summary = getString(R.string.show_donation_summary_not_play);
+                    summary = null;
                 }
             }
         }
@@ -348,12 +355,9 @@ public class SettingsFragment extends PreferenceFragment
         UILog.i("total: " + total + ", play: " + activity.getPlay());
         if (total != activity.getPlay()) {
             activity.setPlay(total);
-            updateRequiredPreferences(getDonated(application));
+            updateRequiredPreferences(getDonated(application), activity.getRecommend());
             if (total > 0) {
                 Toast.makeText(application, summary, Toast.LENGTH_SHORT).show();
-                if (DecimalUtils.intValue(donation + total) >= activity.getRecommend()) {
-                    preferenceDonation.setChecked(false);
-                }
             }
         }
     }

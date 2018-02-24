@@ -150,4 +150,6 @@
     <string name="menu_sort_by_sdk">API</string>
     <string name="sdk">API %1$d</string>
 
+    <string name="show_donation_summary_alipay">如果已经支付，请打开“支付宝”，点开“转账记录”，将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期</string>
+
 </resources>

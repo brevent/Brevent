@@ -166,7 +166,6 @@
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
-    <string name="show_donation_summary_not_play">如果已经支付，请打开“支付宝”，点开“转账记录”，将会自动识别；如果支付时间超过一年，可在账单中搜索“黑域”并选择日期</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感谢您为黑域所作的特别贡献</string>

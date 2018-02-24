@@ -279,14 +279,12 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
     }
 
     protected void activateDonations() {
-        Collection<DonateItem> items = new ArrayList<>(0x3);
+        Collection<DonateItem> items = new ArrayList<>(0x1);
         if (!TextUtils.isEmpty(getAlipayLink())) {
             checkPackage(items, R.id.alipay, PACKAGE_ALIPAY);
         }
-        if (items.isEmpty()) {
-            mDonationTip.setText(R.string.donation_unsupported);
-            mDonation.setVisibility(mShowDonation ? View.VISIBLE : View.GONE);
-        } else {
+        if (!items.isEmpty()) {
+            onSupportAlipay();
             mDonationTip.setText(R.string.donation);
             new DonateTask(this, false).execute(items.toArray(new DonateItem[items.size()]));
         }
@@ -335,8 +333,15 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
             if (!items.isEmpty()) {
                 mDonationTip.setText(R.string.donation);
                 new DonateTask(this, true).execute(items.toArray(new DonateItem[items.size()]));
+            } else if (isPlayInstaller()) {
+                mDonationTip.setText(R.string.donation_play_unavailable);
+                mDonation.setVisibility(View.GONE);
             }
         }
+    }
+
+    protected void onSupportAlipay() {
+
     }
 
     protected String getTag() {
@@ -345,8 +350,10 @@ public abstract class DonateActivity extends AbstractActivity implements View.On
 
     @CallSuper
     public void showPlayCheck() {
-        mDonationTip.setText(R.string.donation_play_checking);
-        findViewById(R.id.play).setVisibility(View.GONE);
+        if (isPlayInstaller()) {
+            mDonationTip.setText(R.string.donation_play_checking);
+            findViewById(R.id.play).setVisibility(View.GONE);
+        }
     }
 
     protected List<String> getAllSkus() {

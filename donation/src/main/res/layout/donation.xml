@@ -18,11 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="@string/donation_unsupported_unsafe"
+        android:text="@string/donation_unsupported"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <LinearLayout
-        android:id="@+id/donation_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

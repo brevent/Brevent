@@ -166,7 +166,6 @@
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_not_play">如果已經支付，請打開「支付寶」，點開「轉賬記錄」，將會自動識別；如果支付時間超過一年，可在賬單中搜索「黑域」並選擇日期</string>
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>

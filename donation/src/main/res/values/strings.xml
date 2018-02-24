@@ -2,8 +2,7 @@
 <resources>
 
     <string name="donation">Feel free to pay if you like</string>
-    <string name="donation_unsupported">Please install Alipay</string>
-    <string name="donation_unsupported_unsafe">Can\'t confirm to pay</string>
+    <string name="donation_unsupported">Payment is unavailable</string>
     <string name="donation_play_unavailable">Play In-app Billing is unavailable</string>
     <string name="donation_play_checking">Checking Play In-app Billing…</string>
 

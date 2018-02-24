@@ -60,6 +60,10 @@ public abstract class DonateActivity extends AbstractActivity {
 
     }
 
+    protected void onSupportAlipay() {
+
+    }
+
     protected abstract String getTag();
 
     protected abstract boolean usePlayCache();
