@@ -47,6 +47,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
     int sdk;
     long firstInstallTime;
     boolean enabled;
+    boolean launcher;
 
     private final AppsFragment mFragment;
 
@@ -73,8 +74,11 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             menu.add(Menu.NONE, R.string.context_menu_brevent_server_info, Menu.NONE,
                     activity.getString(R.string.context_menu_brevent_server_info));
         } else if (packageManager.getLaunchIntentForPackage(packageName) != null) {
+            launcher = true;
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE,
                     activity.getString(R.string.context_menu_open));
+        } else {
+            launcher = activity.isDisabledLauncher(packageName);
         }
         if (enabled && activity.isBrevent(packageName)) {
             if (activity.isPriority(packageName)) {
@@ -97,6 +101,10 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             } else {
                 menu.add(Menu.NONE, R.string.context_menu_enable, Menu.NONE,
                         activity.getString(R.string.context_menu_enable));
+                if (launcher && activity.isBrevent(packageName)) {
+                    menu.add(Menu.NONE, R.string.context_menu_enable_open, Menu.NONE,
+                            activity.getString(R.string.context_menu_enable_open));
+                }
             }
         }
         int size = menu.size();
@@ -210,10 +218,13 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 activity.startActivity(i);
                 break;
             case R.string.context_menu_enable:
-                activity.updateState(packageName, true);
+                activity.updateState(packageName, launcher, true, false);
                 break;
             case R.string.context_menu_disable:
-                activity.updateState(packageName, false);
+                activity.updateState(packageName, launcher, false, false);
+                break;
+            case R.string.context_menu_enable_open:
+                activity.updateState(packageName, launcher, true, true);
                 break;
             default:
                 break;

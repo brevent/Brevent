@@ -84,6 +84,7 @@
     <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">啟用</string>
+    <string name="context_menu_enable_open">臨時啟用</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘應用程式）</string>

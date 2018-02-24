@@ -86,6 +86,7 @@
     <string name="context_menu_message_copied">Copied package name: %s</string>
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
+    <string name="context_menu_enable_open">Instant enable</string>
 
     <string name="important_input">%s (Input method)</string>
     <string name="important_alarm">%s (Alarm app)</string>

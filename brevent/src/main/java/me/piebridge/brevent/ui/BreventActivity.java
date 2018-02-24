@@ -217,6 +217,7 @@ public class BreventActivity extends AbstractActivity
     private Set<String> mGcm = new ArraySet<>();
     final Set<String> mPackages = new ArraySet<>();
     final Set<String> mDisabledPackages = new ArraySet<>();
+    final Set<String> mDisabledLauncher = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -1084,6 +1085,10 @@ public class BreventActivity extends AbstractActivity
         return mLauncher != null && mLauncher.equals(packageName);
     }
 
+    public boolean isDisabledLauncher(String packageName) {
+        return mDisabledLauncher.contains(packageName);
+    }
+
     public boolean isGms(String packageName) {
         if (GMS.equals(packageName)) {
             Integer important = mFavorite.get(packageName);
@@ -1258,8 +1263,18 @@ public class BreventActivity extends AbstractActivity
     }
 
     public void updateBreventResponse(BreventState breventState) {
-        if (updateState(breventState.packageNames, breventState.enable) && mAdapter != null) {
-            getFragment().update(breventState.packageNames);
+        Collection<String> packageNames = Collections.singletonList(breventState.packageName);
+        if (updateState(packageNames, breventState.enable) && mAdapter != null) {
+            getFragment().update(packageNames);
+        }
+        if (!breventState.enable && breventState.launcher) {
+            mDisabledLauncher.add(breventState.packageName);
+        }
+        if (breventState.launch) {
+            Intent intent = getPackageManager().getLaunchIntentForPackage(breventState.packageName);
+            if (intent != null) {
+                startActivity(intent);
+            }
         }
     }
 
@@ -1270,9 +1285,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void onBreventStateResponse(BreventState response) {
-        if (!response.packageNames.isEmpty()) {
-            uiHandler.obtainMessage(UI_MESSAGE_UPDATE_STATE, response).sendToTarget();
-        }
+        uiHandler.obtainMessage(UI_MESSAGE_UPDATE_STATE, response).sendToTarget();
     }
 
     private static SimpleArrayMap<String, UsageStats> retrieveStats(UsageStatsManager manager) {
@@ -1342,7 +1355,7 @@ public class BreventActivity extends AbstractActivity
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
             updatePackages(status);
         } else if (!Objects.equals(mPackages, status.mPackages)
-                || !Objects.equals(mDisabledPackages, status.mDisabledPackages)) {
+                || !Objects.equals(mDisabledPackages, asSet(status.mDisabledPackages))) {
             updatePackages(status);
             mAdapter.setExpired();
         }
@@ -1404,6 +1417,15 @@ public class BreventActivity extends AbstractActivity
         }
     }
 
+    private Set<String> asSet(SimpleArrayMap<String, Boolean> map) {
+        int size = map.size();
+        Set<String> set = new ArraySet<>();
+        for (int i = 0; i < size; ++i) {
+            set.add(map.keyAt(i));
+        }
+        return set;
+    }
+
     private void checkEvent(BreventResponse status, BreventApplication application) {
         if (status.mEventTime < 0) {
             if (application.isEventMaken()) {
@@ -1437,7 +1459,18 @@ public class BreventActivity extends AbstractActivity
             mPackages.clear();
             mPackages.addAll(status.mPackages);
             mDisabledPackages.clear();
-            mDisabledPackages.addAll(status.mDisabledPackages);
+            mDisabledLauncher.clear();
+
+            SimpleArrayMap<String, Boolean> disabledPackages = status.mDisabledPackages;
+            int size = disabledPackages.size();
+            for (int i = 0; i < size; ++i) {
+                String key = disabledPackages.keyAt(i);
+                boolean value = disabledPackages.valueAt(i);
+                mDisabledPackages.add(key);
+                if (value) {
+                    mDisabledLauncher.add(key);
+                }
+            }
         }
     }
 
@@ -1886,8 +1919,8 @@ public class BreventActivity extends AbstractActivity
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, request).sendToTarget();
     }
 
-    public void updateState(String packageName, boolean enable) {
-        BreventProtocol request = new BreventState(enable, Collections.singleton(packageName));
+    public void updateState(String packageName, boolean launcher, boolean enable, boolean launch) {
+        BreventProtocol request = new BreventState(enable, launcher, launch, packageName);
         mHandler.obtainMessage(MESSAGE_BREVENT_REQUEST, request).sendToTarget();
     }
 

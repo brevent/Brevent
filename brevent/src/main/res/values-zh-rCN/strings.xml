@@ -84,6 +84,7 @@
     <string name="context_menu_message_copied">包名已复制：%s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">启用</string>
+    <string name="context_menu_enable_open">临时启用</string>
 
     <string name="important_input">%s（输入法）</string>
     <string name="important_alarm">%s（闹钟应用）</string>

@@ -43,7 +43,7 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<String> mPackages;
     public final Collection<PackageInfo> mInstantPackages;
-    public final Collection<String> mDisabledPackages;
+    public final SimpleArrayMap<String, Boolean> mDisabledPackages;
 
     public final Collection<String> mBrevent;
     public final Collection<String> mPriority;
@@ -73,7 +73,7 @@ public class BreventResponse extends BreventProtocol {
 
     public BreventResponse(Collection<String> packages,
                            Collection<PackageInfo> instantPackages,
-                           Collection<String> disabledPackages,
+                           SimpleArrayMap<String, Boolean> disabledPackages,
 
                            Collection<String> brevent,
                            Collection<String> priority,
@@ -127,7 +127,7 @@ public class BreventResponse extends BreventProtocol {
         super(in);
         mPackages = ParcelUtils.readCollection(in);
         mInstantPackages = ParcelUtils.readPackages(in);
-        mDisabledPackages = ParcelUtils.readCollection(in);
+        mDisabledPackages = ParcelUtils.readBooleanMap(in);
 
         mBrevent = ParcelUtils.readCollection(in);
         mPriority = ParcelUtils.readCollection(in);
@@ -161,7 +161,7 @@ public class BreventResponse extends BreventProtocol {
         super.writeToParcel(dest, flags);
         ParcelUtils.writeCollection(dest, mPackages);
         ParcelUtils.writePackages(dest, mInstantPackages);
-        ParcelUtils.writeCollection(dest, mDisabledPackages);
+        ParcelUtils.writeBooleanMap(dest, mDisabledPackages);
 
         ParcelUtils.writeCollection(dest, mBrevent);
         ParcelUtils.writeCollection(dest, mPriority);

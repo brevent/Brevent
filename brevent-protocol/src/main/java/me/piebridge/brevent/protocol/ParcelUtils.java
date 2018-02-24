@@ -158,4 +158,32 @@ class ParcelUtils {
         }
     }
 
+    @NonNull
+    static SimpleArrayMap<String, Boolean> readBooleanMap(Parcel in) {
+        int size = in.readInt();
+        if (size <= 0) {
+            return new SimpleArrayMap<>();
+        }
+        SimpleArrayMap<String, Boolean> map = new SimpleArrayMap<>(size);
+        for (int i = 0; i < size; ++i) {
+            String key = in.readString();
+            boolean value = in.readInt() != 0;
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    static void writeBooleanMap(Parcel dest, @Nullable SimpleArrayMap<String, Boolean> map) {
+        if (map == null) {
+            dest.writeInt(-1);
+        } else {
+            int size = map.size();
+            dest.writeInt(size);
+            for (int i = 0; i < size; ++i) {
+                dest.writeString(map.keyAt(i));
+                dest.writeInt(map.valueAt(i) ? 1 : 0);
+            }
+        }
+    }
+
 }
