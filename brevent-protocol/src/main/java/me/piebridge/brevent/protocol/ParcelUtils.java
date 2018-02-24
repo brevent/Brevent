@@ -110,7 +110,11 @@ class ParcelUtils {
         }
         Collection<PackageInfo> collection = new ArraySet<>(size);
         for (int i = 0; i < size; ++i) {
-            collection.add(PackageInfo.CREATOR.createFromParcel(in));
+            try {
+                collection.add(PackageInfo.CREATOR.createFromParcel(in));
+            } catch (RuntimeException ignore) {
+                // do nothing
+            }
         }
         return collection;
     }

@@ -1305,10 +1305,9 @@ public class BreventActivity extends AbstractActivity
             mStats.putAll(status.mStats);
             mProcesses.clear();
             mProcesses.putAll(status.mProcesses);
+            mBrevent.clear();
+            mBrevent.addAll(status.mBrevent);
         }
-
-        mBrevent.clear();
-        mBrevent.addAll(status.mBrevent);
 
         mPriority.clear();
         mPriority.addAll(status.mPriority);
@@ -1781,9 +1780,11 @@ public class BreventActivity extends AbstractActivity
 
     private boolean breventedFrameworkApps() {
         PackageManager packageManager = getPackageManager();
-        for (String packageName : mBrevent) {
-            if (BreventApplication.isFrameworkPackage(packageManager, packageName)) {
-                return true;
+        synchronized (updateLock) {
+            for (String packageName : mBrevent) {
+                if (BreventApplication.isFrameworkPackage(packageManager, packageName)) {
+                    return true;
+                }
             }
         }
         return false;

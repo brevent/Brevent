@@ -2,6 +2,7 @@ package me.piebridge.brevent.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -147,8 +148,22 @@ public class AppsDisabledFragment extends AbstractDialogFragment
         builder.setShowTitle(true);
         builder.enableUrlBarHiding();
         CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(activity, Uri.parse(String.valueOf(BuildConfig.LINK_HARD)));
-        StatsUtils.logShare();
+        Uri uri = Uri.parse(String.valueOf(BuildConfig.LINK_HARD));
+        try {
+            customTabsIntent.launchUrl(activity, uri);
+            StatsUtils.logShare();
+        } catch (ActivityNotFoundException ignore) {
+            openLinkFallback(activity, uri);
+        }
+    }
+
+    private void openLinkFallback(Context context, Uri uri) {
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            StatsUtils.logShare();
+        } catch (ActivityNotFoundException ignore) {
+            // do nothing
+        }
     }
 
     public int getTitle() {
