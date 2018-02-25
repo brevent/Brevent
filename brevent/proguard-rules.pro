@@ -35,7 +35,7 @@
 
 -keep class com.android.vending.billing.**
 
--keep public !final class me.piebridge.brevent.protocol.Brevent** {
+-keep public !final class me.piebridge.brevent.protocol.**Brevent** {
     public !static <fields>;
     public <init>(*);
     public <methods>;
