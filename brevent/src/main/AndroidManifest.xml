@@ -12,8 +12,6 @@
         android:name="me.piebridge.brevent.permission.MANAGER"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
-
     <!-- need local network to access brevent server -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- captive portal status, quick way instead of access brevent server -->
