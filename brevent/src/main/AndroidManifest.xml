@@ -12,13 +12,21 @@
         android:name="me.piebridge.brevent.permission.MANAGER"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="me.piebridge.brevent.permission.MANAGER" />
+
+    <!-- need local network to access brevent server -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- captive portal status, quick way instead of access brevent server -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- notification after boot completed -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- logs. quick way instead of access brevent server -->
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
+    <!-- usage stats and sort method, quick way instead of access brevent server -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
                      tools:ignore="ProtectedPermissions" />
+    <!-- app ops, quick way instead of access brevent server -->
+    <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
 
     <application
         android:name=".ui.BreventApplication"

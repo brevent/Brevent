@@ -74,7 +74,7 @@
     <string name="action_message_undo">還原</string>
     <string name="action_message_undone">已還原</string>
 
-    <string name="context_menu_target">API %1$d（Android %2$s）</string>
+    <string name="context_menu_target">API %1$d（%2$s）</string>
     <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
     <string name="context_menu_app_info">應用程式訊息</string>
     <string name="context_menu_open">開啟</string>
@@ -242,7 +242,7 @@
     <string name="cmd_menu_reset">重設</string>
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">獲取電量數據</string>
-    <string name="cmd_menu_portal" />
+    <string name="cmd_menu_portal">更新網路檢測</string>
     <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
     <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
 

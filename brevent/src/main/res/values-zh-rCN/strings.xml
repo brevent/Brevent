@@ -242,7 +242,7 @@
     <string name="cmd_menu_reset">重置</string>
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">获取电量数据</string>
-    <string name="cmd_menu_portal">去除网络叹号</string>
+    <string name="cmd_menu_portal">更新网络检查</string>
     <string name="cmd_too_large">%1$s\n# 错误：输出 %2$d > %3$d</string>
     <string name="cmd_warning">执行指令可能会对应用甚至设备造成不良影响。如有疑问，请立即停止。</string>
 

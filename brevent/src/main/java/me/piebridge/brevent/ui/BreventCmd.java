@@ -1,17 +1,23 @@
 package me.piebridge.brevent.ui;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +39,7 @@ import java.net.Socket;
 import java.util.Objects;
 
 import me.piebridge.SimpleTrim;
+import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.protocol.BreventCmdRequest;
@@ -168,7 +175,7 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
         if (execView.isClickable()) {
             menu.removeItem(R.id.action_stop);
             menu.findItem(R.id.action_reset).getIcon().setTint(mColorControlNormal);
-            if (shouldUpdatePortal()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && shouldUpdatePortal()) {
                 addPortal(menu);
             }
             if (BreventActivity.isGenuineMotionelf(this)) {
@@ -194,21 +201,26 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
                 .setIntent(getCommandIntent(command));
     }
 
-    private String getGlobalString(String name) {
-        return Settings.Global.getString(getContentResolver(), name);
-    }
-
+    @TargetApi(Build.VERSION_CODES.M)
     private boolean shouldUpdatePortal() {
         if (TextUtils.isEmpty(getString(R.string.cmd_menu_portal))) {
             return false;
         }
-        String key;
-        try {
-            key = HideApiOverride.getCaptivePortalHttpsUrl();
-        } catch (LinkageError ignore) {
-            key = HideApiOverride.getCaptivePortalServer();
+        if (getPackageManager().checkPermission(BuildConfig.APPLICATION_ID,
+                Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+            return false;
         }
-        return TextUtils.isEmpty(getGlobalString(key));
+        ConnectivityManager connectivityManager;
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            Network activeNetwork = connectivityManager.getActiveNetwork();
+            if (activeNetwork != null) {
+                return !connectivityManager.getNetworkCapabilities(activeNetwork)
+                        .hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+            }
+        }
+
+        return false;
     }
 
     private void addMotionelf(Menu menu) {

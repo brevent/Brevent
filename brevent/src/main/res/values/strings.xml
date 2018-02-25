@@ -246,7 +246,7 @@
     <string name="cmd_menu_reset">Reset</string>
     <string name="cmd_menu_stop">Stop</string>
     <string name="cmd_menu_batterystats">Dump battery data</string>
-    <string name="cmd_menu_portal" />
+    <string name="cmd_menu_portal">Update captive portal</string>
     <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
     <string name="cmd_warning">Exec command only supports simple shell script, use it at your risk.</string>
 
