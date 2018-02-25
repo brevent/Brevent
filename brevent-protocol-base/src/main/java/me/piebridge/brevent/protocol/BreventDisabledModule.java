@@ -2,12 +2,14 @@ package me.piebridge.brevent.protocol;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by thom on 2018/2/25.
@@ -16,6 +18,17 @@ import java.util.List;
 public class BreventDisabledModule {
 
     private static final int TIMEOUT = 5000;
+
+    private static String token;
+
+    /**
+     * 获取 token
+     *
+     * @return token
+     */
+    public static String getToken() {
+        return token;
+    }
 
     /**
      * 检测停用应用支持状态
@@ -77,6 +90,7 @@ public class BreventDisabledModule {
     }
 
     private static BaseBreventProtocol request(BaseBreventProtocol request) throws IOException {
+        request.token = token;
         try (
                 Socket socket = new Socket(BaseBreventProtocol.HOST, BaseBreventProtocol.PORT);
                 DataOutputStream os = new DataOutputStream(socket.getOutputStream());
@@ -85,7 +99,16 @@ public class BreventDisabledModule {
             socket.setSoTimeout(TIMEOUT);
             BaseBreventProtocol.writeTo(request, os);
             os.flush();
-            return BaseBreventProtocol.readFromBase(is);
+            BaseBreventProtocol response = BaseBreventProtocol.readFromBase(is);
+            if (response == BaseBreventOK.INSTANCE) {
+                throw new SecurityException("no permission");
+            }
+            if (response != null
+                    && !TextUtils.isEmpty(response.token)
+                    && !Objects.equals(token, response.token)) {
+                token = response.token;
+            }
+            return response;
         }
     }
 

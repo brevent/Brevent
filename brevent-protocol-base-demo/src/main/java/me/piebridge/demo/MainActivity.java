@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
     private void check() {
         try {
             checkDisabled();
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             updateMessage(sw.toString());
@@ -56,6 +56,11 @@ public class MainActivity extends Activity {
             enable(sb, packageName, true);
             checkDisabled(sb, packageName);
             checkDisabledPackages(sb);
+
+            sb.append("token（注意安全）: ");
+            sb.append(BreventDisabledModule.getToken());
+            sb.append("\n");
+            updateMessage(sb);
         }
     }
 

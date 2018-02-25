@@ -3,6 +3,7 @@ package me.piebridge.brevent.protocol;
 import android.os.Parcel;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+
 import me.piebridge.brevent.protocol.base.BuildConfig;
 
 import java.io.ByteArrayInputStream;
@@ -28,6 +29,7 @@ public abstract class BaseBreventProtocol {
 
     public static final int VERSION = BuildConfig.VERSION_CODE;
 
+    public static final int BASE_STATUS_OK = 99;
     public static final int DISABLED_STATUS = 100;
     public static final int DISABLED_PACKAGES_REQUEST = 101;
     public static final int DISABLED_PACKAGES_RESPONSE = 102;
@@ -108,6 +110,8 @@ public abstract class BaseBreventProtocol {
 
     protected String getActionName(int action) {
         switch (action) {
+            case BASE_STATUS_OK:
+                return "base_status_ok";
             case DISABLED_STATUS:
                 return "disabled_status";
             case DISABLED_PACKAGES_REQUEST:
@@ -139,6 +143,8 @@ public abstract class BaseBreventProtocol {
 
     public static BaseBreventProtocol unwrapBase(int action, Parcel parcel) {
         switch (action) {
+            case BASE_STATUS_OK:
+                return BaseBreventOK.INSTANCE;
             case DISABLED_STATUS:
                 return new BreventDisabledStatus(parcel);
             case DISABLED_PACKAGES_REQUEST:
