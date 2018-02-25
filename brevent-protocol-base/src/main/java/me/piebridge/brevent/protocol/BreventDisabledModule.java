@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 1. 尽量不要持久化 token，应当放在内存等不易获取的地方<br>
+ * 2. 除 IOException 外，还应当捕获 SecurityException<br>
  * Created by thom on 2018/2/25.
  */
 @WorkerThread
@@ -28,6 +30,15 @@ public class BreventDisabledModule {
      */
     public static String getToken() {
         return token;
+    }
+
+    /**
+     * 设定 token
+     *
+     * @param token
+     */
+    public static void setToken(String token) {
+        BreventDisabledModule.token = token;
     }
 
     /**
