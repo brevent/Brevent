@@ -14,6 +14,11 @@
 -->
 <resources>
 
+    <string name="app_ops_summaries_read_phone_numbers">leer números de teléfono</string>
+    <string name="app_ops_summaries_request_install_packages">solicitar instalación de paquetes</string>
+    <string name="app_ops_summaries_picture_in_picture">usar \"foto sobre foto\"</string>
+    <string name="app_ops_summaries_instant_app_start_foreground">inicio instantáneo de la aplicación en primer plano</string>
+    <string name="app_ops_summaries_answer_phone_calls">responder llamadas</string>
     <string name="app_ops_summaries_toggle_wifi">alternar Wi-Fi</string>
     <string name="app_ops_summaries_toggle_bluetooth">alternar Bluetooth</string>
     <string name="app_ops_summaries_start_at_boot">iniciar en el arranque</string>

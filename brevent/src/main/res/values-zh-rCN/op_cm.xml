@@ -14,6 +14,11 @@
 -->
 <resources>
 
+    <string name="app_ops_summaries_read_phone_numbers">读取电话号码</string>
+    <string name="app_ops_summaries_request_install_packages">请求安装文件包</string>
+    <string name="app_ops_summaries_picture_in_picture">使用画中画</string>
+    <string name="app_ops_summaries_instant_app_start_foreground">在前台启动即时应用</string>
+    <string name="app_ops_summaries_answer_phone_calls">应答电话呼叫</string>
     <string name="app_ops_summaries_toggle_wifi">切换 Wi-Fi</string>
     <string name="app_ops_summaries_toggle_bluetooth">切换蓝牙</string>
     <string name="app_ops_summaries_start_at_boot">在开机时启动</string>

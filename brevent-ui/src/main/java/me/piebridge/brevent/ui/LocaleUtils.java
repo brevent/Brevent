@@ -91,7 +91,7 @@ public class LocaleUtils {
         boolean changed;
         if (!language.equals(current.getLanguage())) {
             changed = true;
-        } else if ("zh".equals(language)) {
+        } else if ("zh".equals(language) || "pt".equals(language)) {
             changed = !locale.getCountry().equals(current.getCountry());
         } else {
             changed = false;

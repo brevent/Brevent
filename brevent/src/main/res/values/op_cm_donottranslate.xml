@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="op_read_phone_numbers" translatable="false">@string/app_ops_summaries_read_phone_numbers</string>
+    <string name="op_request_install_packages" translatable="false">@string/app_ops_summaries_request_install_packages</string>
+    <string name="op_picture_in_picture" translatable="false">@string/app_ops_summaries_picture_in_picture</string>
+    <string name="op_instant_app_start_foreground" translatable="false">@string/app_ops_summaries_instant_app_start_foreground</string>
+    <string name="op_answer_phone_calls" translatable="false">@string/app_ops_summaries_answer_phone_calls</string>
     <string name="op_wifi_change" translatable="false">@string/app_ops_summaries_toggle_wifi</string>
     <string name="op_bluetooth_change" translatable="false">@string/app_ops_summaries_toggle_bluetooth</string>
     <string name="op_boot_completed" translatable="false">@string/app_ops_summaries_start_at_boot</string>

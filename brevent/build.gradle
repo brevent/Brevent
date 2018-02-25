@@ -49,7 +49,7 @@ android {
             buildConfigField 'char[]', 'MOTIONELF_PACKAGE', properties['build.motionelf.packageName']
             buildConfigField 'byte[]', 'MOTIONELF_SIGNATURE', properties['build.motionelf.signature']
             buildConfigField 'char[]', 'LINK_HARD', properties['build.link.hard']
-            resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl'
+            resConfigs 'en', 'zh-rCN', 'zh-rTW', 'es', 'pl', 'pt-rBR'
             if (rootProject.isIde) {
                 resValue 'string', 'brevent', 'Brevent'
             } else {

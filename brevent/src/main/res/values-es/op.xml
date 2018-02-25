@@ -84,9 +84,4 @@
     <string name="op_get_accounts">"obtener cuentas"</string>
     <string name="op_run_in_background">"ejecutar en segundo plano"</string>
     <string name="op_audio_accessibility_volume">"volumen de accesibilidad"</string>
-    <string name="op_read_phone_numbers" />
-    <string name="op_request_install_packages" />
-    <string name="op_picture_in_picture" />
-    <string name="op_instant_app_start_foreground" />
-    <string name="op_answer_phone_calls" />
 </resources>

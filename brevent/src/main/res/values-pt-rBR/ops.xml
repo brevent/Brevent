@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="group_permission">(%1$s) %2$s</string>
+
+    <string name="ops_mode_allow">Permitir</string>
+    <string name="ops_mode_ignore">Ignorar</string>
+    <string name="ops_mode_deny">Negar</string>
+    <string name="ops_mode_default">Padrão</string>
+    <string name="ops_mode_ask">Perguntar</string>
+    <string name="ops_mode_unknown">Desconhecido</string>
+
+    <string name="context_menu_appops">Opções do app</string>
+
+    <string name="ops_time_allow">Permitido %s</string>
+    <string name="ops_time_reject">Rejeitado %s</string>
+
+    <string name="ops_menu_allow">@string/ops_mode_allow</string>
+    <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
+    <string name="ops_menu_reset">Redefinir</string>
+    <string name="ops_menu_sort_by_time">Tempo</string>
+    <string name="ops_menu_sort_by_name">Nome</string>
+    <string name="ops_menu_sort_by_group">Grupo</string>
+    <string name="ops_menu_sort_by_op">Código</string>
+    <string name="ops_menu_sort_by_mode">Modo</string>
+
+    <string name="action_select_all">Todos</string>
+
+</resources>

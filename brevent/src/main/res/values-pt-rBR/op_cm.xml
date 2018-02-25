@@ -19,11 +19,11 @@
     <string name="app_ops_summaries_picture_in_picture">use picture in picture</string>
     <string name="app_ops_summaries_instant_app_start_foreground">start instant app in foreground</string>
     <string name="app_ops_summaries_answer_phone_calls">answer phone calls</string>
-    <string name="app_ops_summaries_toggle_wifi">toggle Wi-Fi</string>
-    <string name="app_ops_summaries_toggle_bluetooth">toggle bluetooth</string>
-    <string name="app_ops_summaries_start_at_boot">start at boot</string>
-    <string name="app_ops_summaries_toggle_nfc">toggle NFC</string>
-    <string name="app_ops_summaries_toggle_mobile_data">toggle cellular data</string>
-    <string name="app_ops_summaries_superuser">root access</string>
+    <string name="app_ops_summaries_toggle_wifi">alternar Wi-Fi</string>
+    <string name="app_ops_summaries_toggle_bluetooth">alternar Bluetooth</string>
+    <string name="app_ops_summaries_start_at_boot">começar na inicialização</string>
+    <string name="app_ops_summaries_toggle_nfc">alternar NFC</string>
+    <string name="app_ops_summaries_toggle_mobile_data">alternar dados de celular</string>
+    <string name="app_ops_summaries_superuser">acesso superusuário</string>
 
 </resources>
