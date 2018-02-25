@@ -1,6 +1,5 @@
 package me.piebridge.brevent.ui;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Context;
@@ -39,7 +38,6 @@ import java.net.Socket;
 import java.util.Objects;
 
 import me.piebridge.SimpleTrim;
-import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.protocol.BreventCmdRequest;
@@ -204,10 +202,6 @@ public class BreventCmd extends AbstractActivity implements View.OnClickListener
     @TargetApi(Build.VERSION_CODES.M)
     private boolean shouldUpdatePortal() {
         if (TextUtils.isEmpty(getString(R.string.cmd_menu_portal))) {
-            return false;
-        }
-        if (getPackageManager().checkPermission(BuildConfig.APPLICATION_ID,
-                Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
             return false;
         }
         ConnectivityManager connectivityManager;
