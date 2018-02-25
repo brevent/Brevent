@@ -33,4 +33,16 @@
         android:id="@+id/action_select_inverse"
         android:title="@string/action_select_inverse" />
 
+    <item
+        android:id="@+id/action_error"
+        android:title="@string/ops_mode_deny" />
+
+    <item
+        android:id="@+id/action_default"
+        android:title="@string/ops_mode_default" />
+
+    <item
+        android:id="@+id/action_ask"
+        android:title="@string/ops_mode_ask" />
+
 </menu>

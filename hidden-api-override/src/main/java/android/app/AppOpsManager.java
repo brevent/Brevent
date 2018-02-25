@@ -8,6 +8,13 @@ import java.util.List;
 public class AppOpsManager {
 
     /**
+     * @hide Result from {@link #checkOp}, {@link #noteOp}, {@link #startOp}:
+     * AppOps Service should show a dialog box on screen to get user
+     * permission.
+     */
+    public static int MODE_ASK = 4;
+
+    /**
      * @hide No operation specified.
      */
     public static int OP_NONE = -1;

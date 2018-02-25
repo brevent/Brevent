@@ -187,6 +187,14 @@ public class HideApiOverride {
         }
     }
 
+    public static int getModeAsk() {
+        try {
+            return AppOpsManager.MODE_ASK;
+        } catch (LinkageError ignore) {
+            return -1;
+        }
+    }
+
     private static int getNumOp() {
         try {
             return AppOpsManager._NUM_OP;

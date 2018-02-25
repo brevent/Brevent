@@ -25,6 +25,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventOpsOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
@@ -46,8 +47,10 @@ public class BreventOps extends AbstractActivity {
     private static final int ACTION_RESET = -1;
 
     private static final int ACTION_ALLOW = AppOpsManager.MODE_ALLOWED;
-
     private static final int ACTION_IGNORE = AppOpsManager.MODE_IGNORED;
+    private static final int ACTION_ERRORED = AppOpsManager.MODE_ERRORED;
+    private static final int ACTION_DEFAULT = AppOpsManager.MODE_DEFAULT;
+    private static final int ACTION_ASK = HideApiOverride.getModeAsk();
 
     private static final String FRAGMENT_SORT = "sort";
     private static final String FRAGMENT_PROGRESS = "progress";
@@ -154,6 +157,15 @@ public class BreventOps extends AbstractActivity {
             case R.id.action_ignore:
                 request(ACTION_IGNORE);
                 return true;
+            case R.id.action_error:
+                request(ACTION_ERRORED);
+                return true;
+            case R.id.action_default:
+                request(ACTION_DEFAULT);
+                return true;
+            case R.id.action_ask:
+                request(ACTION_ASK);
+                return true;
             case R.id.action_reset:
                 request(ACTION_RESET);
                 return true;
@@ -182,8 +194,13 @@ public class BreventOps extends AbstractActivity {
                         break;
                     case ACTION_ALLOW:
                     case ACTION_IGNORE:
+                    case ACTION_ERRORED:
+                    case ACTION_DEFAULT:
                         doRequest(new BreventOpsUpdate(action, getOpsPackage(), getOps()));
                         break;
+                }
+                if (action == ACTION_ASK) {
+                    doRequest(new BreventOpsUpdate(action, getOpsPackage(), getOps()));
                 }
             }
         });
@@ -249,6 +266,9 @@ public class BreventOps extends AbstractActivity {
             menu.removeItem(R.id.action_reset);
             menu.removeItem(R.id.action_select_all);
             menu.removeItem(R.id.action_select_inverse);
+            menu.removeItem(R.id.action_error);
+            menu.removeItem(R.id.action_default);
+            menu.removeItem(R.id.action_ask);
         } else if (getSelectedSize() > 0) {
             if (opsFragment.canAllow()) {
                 menu.findItem(R.id.action_allow).getIcon().setTint(mColorControlNormal);
@@ -261,11 +281,17 @@ public class BreventOps extends AbstractActivity {
                 menu.removeItem(R.id.action_ignore);
             }
             menu.removeItem(R.id.action_reset);
+            if (ACTION_ASK < 0) {
+                menu.removeItem(R.id.action_ask);
+            }
         } else {
             menu.removeItem(R.id.action_allow);
             menu.removeItem(R.id.action_ignore);
             menu.findItem(R.id.action_reset).getIcon().setTint(mColorControlNormal);
             menu.removeItem(R.id.action_select_inverse);
+            menu.removeItem(R.id.action_error);
+            menu.removeItem(R.id.action_default);
+            menu.removeItem(R.id.action_ask);
         }
         menu.findItem(R.id.action_sort).getIcon().setTint(mColorControlNormal);
         return true;
