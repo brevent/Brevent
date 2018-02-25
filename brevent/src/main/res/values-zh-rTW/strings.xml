@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別應用程式狀態，防止「黑域清單」內應用程式長期執行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑域將強制停止它。無論何時應用被喚醒，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑域將強制停止它。無論何時應用被執行，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
@@ -130,9 +130,9 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被喚醒但有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被喚醒但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -210,7 +210,7 @@
     <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
-    <string name="unsupported_location">請不要把黑域安裝在系統目錄、外置存儲，或者保護目錄。</string>
+    <string name="unsupported_location">請不要把黑域安裝在系統目錄、外置存儲或保護目錄。</string>
     <string name="unsupported_brevented">您已黑域一些重要應用程式，是否需要不再黑域？</string>
 
     <string name="toast_home_tid">已確認真正的「主畫面應用程式」：%d</string>

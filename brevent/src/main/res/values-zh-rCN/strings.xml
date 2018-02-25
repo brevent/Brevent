@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">欢迎</string>
     <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”或“概览”（Overview）按钮把应用放到后台。\n\n黑域通过这种方式识别应用状态，防止“黑域清单”内应用长期运行。</string>
-    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用及其所包含的服务不再运行；当您点按“主页”或“概览”按钮，或者通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen）划掉应用时，黑域将强行停止它。无论何时应用被唤醒，只要没有打开界面，黑域都将强行停止它。\n\n“黑域清单”内应用也可以接收通知或执行同步，只要设置为“允许同步”就好。“允许同步”应用不会被待机；有通知或在后台运行时，不会被强行停止。</string>
+    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用及其所包含的服务不再运行；当您点按“主页”或“概览”按钮，或者通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen）划掉应用时，黑域将强行停止它。无论何时应用被运行，只要没有打开界面，黑域都将强行停止它。\n\n“黑域清单”内应用也可以接收通知或执行同步，只要设置为“允许同步”就好。“允许同步”应用不会被待机；有通知或在后台运行时，不会被强行停止。</string>
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑域需要您每次开机以后，以“USB 调试”模式执行一个指令启动黑域服务，让黑域间接持有管理其它应用的权限。</string>
@@ -130,9 +130,9 @@
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时，或者从概览屏幕划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从概览屏幕划掉后强行停止\n\n针对被唤醒但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
@@ -210,7 +210,7 @@
     <string name="unsupported_granted">黑域服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_granted_miui">黑域服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑域可在后台运行，然后重新开启。</string>
-    <string name="unsupported_location">请不要把黑域安装在系统目录、外置存储，或者保护目录。</string>
+    <string name="unsupported_location">请不要把黑域安装在系统目录、外置存储或保护目录。</string>
     <string name="unsupported_brevented">您已黑域一些重要应用，是否需要不再黑域？</string>
 
     <string name="toast_home_tid">已确认真正的“主页”：%d</string>
