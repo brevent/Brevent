@@ -817,15 +817,19 @@ public class BreventActivity extends AbstractActivity
         if (!mBrevent.contains(packageName)) {
             return 0;
         }
-        if (mDisabledPackages.contains(packageName)) {
-            return R.drawable.ic_do_not_disturb_black_24dp;
-        }
         if (Objects.equals(packageName, mVpn)) {
             return R.drawable.ic_vpn_key_black_24dp;
         }
         SparseIntArray status;
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
+        }
+        if (mDisabledPackages.contains(packageName)) {
+            if (status == null) {
+                return R.drawable.ic_do_not_disturb_black_24dp;
+            } else {
+                return R.drawable.ic_alarm_off_black_24dp;
+            }
         }
         if (BreventResponse.isAudio(status)) {
             return R.drawable.ic_play_circle_outline_black_24dp;
@@ -2272,7 +2276,11 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean isEnabled(String packageName) {
-        return !mDisabledPackages.contains(packageName);
+        SparseIntArray status;
+        synchronized (updateLock) {
+            status = mProcesses.get(packageName);
+        }
+        return status != null || !mDisabledPackages.contains(packageName);
     }
 
     public void updateTab(boolean enabled) {
