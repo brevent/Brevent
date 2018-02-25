@@ -103,8 +103,14 @@ public class SettingsFragment extends PreferenceFragment
             updateSummaries();
             updateDonation();
         }
-        mPreferences = findRequiredPreferences(getDonated(application));
         onUpdateBreventMethod();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        BreventApplication application = (BreventApplication) getActivity().getApplication();
+        mPreferences = findRequiredPreferences(getDonated(application));
         mDonated = getDonated(application);
     }
 
