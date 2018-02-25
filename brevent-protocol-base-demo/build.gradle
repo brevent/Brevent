@@ -1,0 +1,24 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "me.piebridge.brevent.disabled.demo"
+        minSdkVersion rootProject.minSdkVersion
+        maxSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "0.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':brevent-protocol-base')
+}

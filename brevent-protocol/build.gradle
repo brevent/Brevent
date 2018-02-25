@@ -36,6 +36,7 @@ dependencies {
         implementation "com.android.support:support-compat:${rootProject.supportLibraryVersion}"
     }
     implementation "com.android.support:support-annotations:${rootProject.supportLibraryVersion}"
+    api project(':brevent-protocol-base')
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
 }

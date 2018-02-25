@@ -197,7 +197,7 @@ dependencies {
         implementation project(':donation-dummy')
         implementation project(':stats-dummy')
     }
-    implementation project(':brevent-protocol')
+    api project(':brevent-protocol')
     implementation project(':brevent-override')
     implementation project(':brevent-override-m')
     implementation project(':log-reader')

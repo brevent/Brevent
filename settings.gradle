@@ -1,13 +1,18 @@
-include ':hidden-api', ':brevent', ':log-reader', ':donation', ':hidden-api-override-m', ':brevent-override-m', ':brevent-override', ':hidden-api-override', ':brevent-protocol'
-include ':stats-fabric', ':stats-dummy'
-include ':brevent-ui', ':donation-dummy'
+if (file('brevent').exists()) {
+    include ':brevent-protocol', ':brevent-ui', ':brevent', ':log-reader'
+    include ':hidden-api', ':hidden-api-override', ':hidden-api-override-m', ':brevent-override', ':brevent-override-m'
+    include ':stats-fabric', ':stats-dummy'
+    include ':donation', ':donation-dummy'
+    include ':appcompat-dummy'
+}
 if (file('brevent-server').exists()) {
     include ':brevent-server'
 }
-include ':appcompat-dummy'
 if (file('design-snackbar-tablayout').exists()) {
     include ':design-snackbar-tablayout'
 }
 if (file('support-compat-nores').exists()) {
     include ':support-compat-nores'
 }
+include ':brevent-protocol-base'
+include ':brevent-protocol-base-demo'

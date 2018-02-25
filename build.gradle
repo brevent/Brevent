@@ -88,4 +88,6 @@ if (rootProject.file('ant.properties').exists()) {
 }
 
 project.ext.isIde = isIde()
-project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
+if (rootProject.file('hidden-api').exists()) {
+    project.ext.hiddenApi = files(project(':hidden-api').file('build/intermediates/bundles/release/classes.jar'))
+}

@@ -5,12 +5,9 @@ import android.content.pm.PackageParser;
 import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Parcel;
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,8 +16,6 @@ import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import me.piebridge.brevent.override.HideApiOverrideM;
 
@@ -29,14 +24,13 @@ import me.piebridge.brevent.override.HideApiOverrideM;
  * <p>
  * Created by thom on 2017/2/6.
  */
-public abstract class BreventProtocol {
+public abstract class BreventProtocol extends BaseBreventProtocol {
 
-    public static final InetAddress HOST = InetAddress.getLoopbackAddress();
+    public static final InetAddress HOST = BaseBreventProtocol.HOST;
 
-    // md5(BuildConfig.APPLICATION_ID)
-    public static final int PORT = 59526;
+    public static final int PORT = BaseBreventProtocol.PORT;
 
-    private static final int VERSION = BuildConfig.VERSION_CODE;
+    public static final int VERSION = BaseBreventProtocol.VERSION;
 
     public static final int STATUS_REQUEST = 0;
     public static final int STATUS_RESPONSE = 1;
@@ -53,58 +47,26 @@ public abstract class BreventProtocol {
     public static final int CMD_REQUEST = 12;
     public static final int CMD_RESPONSE = 13;
 
-    private int mVersion;
-
-    private int mAction;
-
-    public boolean retry;
-
-    public String token;
-
     public BreventProtocol(int action) {
-        this.mVersion = VERSION;
-        this.mAction = action;
-        this.token = "";
+        super(action);
     }
 
     BreventProtocol(Parcel in) {
-        mVersion = in.readInt();
-        mAction = in.readInt();
-        token = in.readString();
-    }
-
-    @CallSuper
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mVersion);
-        dest.writeInt(mAction);
-        dest.writeString(token);
-    }
-
-    public final int getAction() {
-        return mAction;
-    }
-
-    public final boolean versionMismatched() {
-        return mVersion != VERSION;
-    }
-
-    public static void writeTo(BreventProtocol protocol, DataOutputStream os) throws IOException {
-        Parcel parcel = Parcel.obtain();
-        protocol.writeToParcel(parcel, 0);
-        byte[] bytes = parcel.marshall();
-        parcel.recycle();
-
-        bytes = compress(bytes);
-        int size = bytes.length;
-        if (size > 0xffff) {
-            throw new IOTooLargeException(size);
-        }
-        os.writeShort(size);
-        os.write(bytes);
+        super(in);
     }
 
     @Nullable
     public static BreventProtocol readFrom(DataInputStream is) throws IOException {
+        BaseBreventProtocol baseProtocol = readFromBase(is);
+        if (baseProtocol instanceof BreventProtocol) {
+            return (BreventProtocol) baseProtocol;
+        } else {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static BaseBreventProtocol readFromBase(DataInputStream is) throws IOException {
         int size = is.readUnsignedShort();
         if (size == 0) {
             return null;
@@ -126,7 +88,7 @@ public abstract class BreventProtocol {
         return unwrap(uncompress(bytes));
     }
 
-    private String getActionName(int action) {
+    protected String getActionName(int action) {
         switch (action) {
             case STATUS_REQUEST:
                 return "request";
@@ -161,82 +123,49 @@ public abstract class BreventProtocol {
         }
     }
 
-    private static BreventProtocol unwrap(byte[] bytes) {
+    public static BaseBreventProtocol unwrap(byte[] bytes) {
         Parcel parcel = Parcel.obtain();
         parcel.unmarshall(bytes, 0, bytes.length);
         parcel.setDataPosition(0);
         parcel.readInt(); // skip version
         int action = parcel.readInt();
         parcel.setDataPosition(0);
-
         try {
-            switch (action) {
-                case STATUS_REQUEST:
-                    return new BreventRequest(parcel);
-                case STATUS_RESPONSE:
-                    return new BreventResponse(parcel);
-                case UPDATE_BREVENT:
-                    return new BreventPackages(parcel);
-                case CONFIGURATION:
-                    return new BreventConfiguration(parcel);
-                case UPDATE_PRIORITY:
-                    return new BreventPriority(parcel);
-                case UPDATE_STATE:
-                    return new BreventState(parcel);
-                case OPS_KO:
-                    return BreventOpsKO.INSTANCE;
-                case OPS_RESET:
-                    return new BreventOpsReset(parcel);
-                case OPS_UPDATE:
-                    return new BreventOpsUpdate(parcel);
-                case OPS_OK:
-                    return BreventOpsOK.INSTANCE;
-                case CMD_REQUEST:
-                    return new BreventCmdRequest(parcel);
-                case CMD_RESPONSE:
-                    return new BreventCmdResponse(parcel);
-                default:
-                    return null;
-            }
+            return unwrap(action, parcel);
         } finally {
             parcel.recycle();
         }
     }
 
-    private static byte[] compress(byte[] bytes) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            GZIPOutputStream gos = new GZIPOutputStream(baos);
-            gos.write(bytes);
-            gos.close();
-            return baos.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public static BaseBreventProtocol unwrap(int action, Parcel parcel) {
+        switch (action) {
+            case STATUS_REQUEST:
+                return new BreventRequest(parcel);
+            case STATUS_RESPONSE:
+                return new BreventResponse(parcel);
+            case UPDATE_BREVENT:
+                return new BreventPackages(parcel);
+            case CONFIGURATION:
+                return new BreventConfiguration(parcel);
+            case UPDATE_PRIORITY:
+                return new BreventPriority(parcel);
+            case UPDATE_STATE:
+                return new BreventState(parcel);
+            case OPS_KO:
+                return BreventOpsKO.INSTANCE;
+            case OPS_RESET:
+                return new BreventOpsReset(parcel);
+            case OPS_UPDATE:
+                return new BreventOpsUpdate(parcel);
+            case OPS_OK:
+                return BreventOpsOK.INSTANCE;
+            case CMD_REQUEST:
+                return new BreventCmdRequest(parcel);
+            case CMD_RESPONSE:
+                return new BreventCmdResponse(parcel);
+            default:
+                return BaseBreventProtocol.unwrapBase(action, parcel);
         }
-    }
-
-    private static byte[] uncompress(byte[] compressed) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
-            GZIPInputStream gis = new GZIPInputStream(bais);
-            byte[] buffer = new byte[0x1000];
-            int length;
-            while ((length = gis.read(buffer)) != -1) {
-                if (length > 0) {
-                    baos.write(buffer, 0, length);
-                }
-            }
-            gis.close();
-            return baos.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "version: " + mVersion + ", action: " + getActionName(mAction);
     }
 
     @WorkerThread
@@ -290,21 +219,6 @@ public abstract class BreventProtocol {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -0x5);
         return calendar.getTimeInMillis();
-    }
-
-    public static class IOTooLargeException extends IOException {
-
-        private final int mSize;
-
-        IOTooLargeException(int size) {
-            super();
-            mSize = size;
-        }
-
-        public int getSize() {
-            return mSize;
-        }
-
     }
 
 }
