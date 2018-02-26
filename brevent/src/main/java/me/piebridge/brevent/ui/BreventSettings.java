@@ -36,6 +36,8 @@ public class BreventSettings extends DonateActivity {
 
     static final String SERVER_TIME = "server_time";
 
+    static final String CONTRIBUTOR_5 = "contributor_5";
+
     static final int CONTRIBUTOR = 5;
 
     static final int DONATE_AMOUNT = 3;
@@ -123,6 +125,10 @@ public class BreventSettings extends DonateActivity {
         super.showPlay(purchased);
     }
 
+    public static boolean isContributor(@Nullable Collection<String> purchased) {
+        return purchased != null && purchased.contains(CONTRIBUTOR_5);
+    }
+
     public static int getPlayDonation(@Nullable Collection<String> purchased) {
         if (purchased == null || purchased.isEmpty()) {
             return 0;
@@ -130,7 +136,7 @@ public class BreventSettings extends DonateActivity {
         int total = 0;
         boolean contributor = false;
         for (String p : purchased) {
-            if ("contributor_5".equals(p)) {
+            if (CONTRIBUTOR_5.equals(p)) {
                 contributor = true;
             } else {
                 total += parse(p);

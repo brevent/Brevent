@@ -496,6 +496,15 @@ public class BreventApplication extends Application {
         return BreventSettings.getPlayDonation(purchased);
     }
 
+    public boolean isContributor() {
+        if (!BuildConfig.RELEASE) {
+            return false;
+        }
+        BigInteger modulus = new BigInteger(1, BuildConfig.DONATE_PLAY);
+        Collection<String> purchased = DonateActivity.getPurchased(this, UILog.TAG, modulus);
+        return BreventSettings.isContributor(purchased);
+    }
+
     public void setRecommend(String key, int value, boolean checked) {
         if (checked) {
             mRecommendMap.put(key, value);

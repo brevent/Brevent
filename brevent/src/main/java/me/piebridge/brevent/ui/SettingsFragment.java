@@ -110,11 +110,11 @@ public class SettingsFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         BreventApplication application = (BreventApplication) getActivity().getApplication();
-        mPreferences = findRequiredPreferences(getDonated(application));
+        mPreferences = findRequiredPreferences(getDonated(application), application.isContributor());
         mDonated = getDonated(application);
     }
 
-    private Map<SwitchPreference, Integer> findRequiredPreferences(int donated) {
+    private Map<SwitchPreference, Integer> findRequiredPreferences(int donated, boolean contributor) {
         Map<SwitchPreference, Integer> preferences = new LinkedHashMap<>(0x4);
         ListAdapter rootAdapter = getPreferenceScreen().getRootAdapter();
         int size = rootAdapter.getCount();
@@ -126,7 +126,7 @@ public class SettingsFragment extends PreferenceFragment
                 if (require > 0) {
                     CharSequence extra = getRequire(preference, require);
                     preference.setSummary(join(preference.getSummary(), extra));
-                    if (donated >= require) {
+                    if (isEnabled(preference, donated, contributor)) {
                         preference.setEnabled(true);
                     } else {
                         preference.setEnabled(false);
@@ -140,13 +140,12 @@ public class SettingsFragment extends PreferenceFragment
         return preferences;
     }
 
-    private void updateRequiredPreferences(int donated, int recommend) {
+    private void updateRequiredPreferences(int donated, int recommend, boolean contributor) {
         Iterator<Map.Entry<SwitchPreference, Integer>> it = mPreferences.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<SwitchPreference, Integer> entry = it.next();
-            int require = entry.getValue();
             SwitchPreference preference = entry.getKey();
-            if (donated >= require) {
+            if (isEnabled(preference, donated, contributor)) {
                 preference.setEnabled(true);
                 preferenceBrevent.addPreference(preference);
                 it.remove();
@@ -154,6 +153,17 @@ public class SettingsFragment extends PreferenceFragment
         }
         if (donated > recommend) {
             preferenceDonation.setChecked(false);
+        }
+    }
+
+    private boolean isEnabled(SwitchPreference preference, int donated, boolean contributor) {
+        Resources resources = preference.getContext().getResources();
+        String[] brefoils = resources.getStringArray(R.array.brefoils);
+        int require = getRequire(preference);
+        if (require > brefoils.length) {
+            return contributor;
+        } else {
+            return donated >= require;
         }
     }
 
@@ -214,7 +224,11 @@ public class SettingsFragment extends PreferenceFragment
     CharSequence getRequire(Preference preference, int require) {
         Resources resources = preference.getContext().getResources();
         String[] brefoils = resources.getStringArray(R.array.brefoils);
-        return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
+        if (require > brefoils.length) {
+            return resources.getString(R.string.show_donation_contributor);
+        } else {
+            return resources.getString(R.string.pay_brevent_require, brefoils[require - 1]);
+        }
     }
 
     private int getRequire(Preference preference) {
@@ -249,7 +263,7 @@ public class SettingsFragment extends PreferenceFragment
             preferenceDonation.setSummary(summary);
         } else if (getArguments().getBoolean(IS_PLAY, false)) {
             preferenceDonation.setSummary(R.string.show_donation_summary_play);
-        } else if (activity.supportAlipay()){
+        } else if (activity.supportAlipay()) {
             preferenceDonation.setSummary(R.string.show_donation_summary_alipay);
         }
     }
@@ -271,7 +285,7 @@ public class SettingsFragment extends PreferenceFragment
         BreventApplication application = (BreventApplication) activity.getApplication();
         int donated = getDonated(application);
         if (donated != mDonated) {
-            updateRequiredPreferences(donated, activity.getRecommend());
+            updateRequiredPreferences(donated, activity.getRecommend(), application.isContributor());
         }
     }
 
@@ -347,7 +361,7 @@ public class SettingsFragment extends PreferenceFragment
                     summary += getExtraInfo(xposed);
                 } else if (getArguments().getBoolean(IS_PLAY, false)) {
                     summary = getString(R.string.show_donation_summary_play);
-                } else if (activity.supportAlipay()){
+                } else if (activity.supportAlipay()) {
                     summary = getString(R.string.show_donation_summary_alipay);
                 } else {
                     summary = null;
@@ -361,7 +375,7 @@ public class SettingsFragment extends PreferenceFragment
         UILog.i("total: " + total + ", play: " + activity.getPlay());
         if (total != activity.getPlay()) {
             activity.setPlay(total);
-            updateRequiredPreferences(getDonated(application), activity.getRecommend());
+            updateRequiredPreferences(getDonated(application), activity.getRecommend(), contributor);
             if (total > 0) {
                 Toast.makeText(application, summary, Toast.LENGTH_SHORT).show();
             }
