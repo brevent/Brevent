@@ -43,7 +43,9 @@ public class BreventResponse extends BreventProtocol {
 
     public final Collection<String> mPackages;
     public final Collection<PackageInfo> mInstantPackages;
-    public final SimpleArrayMap<String, Boolean> mDisabledPackages;
+    public final Collection<String> mDisabledPackages;
+    public final Collection<String> mDisabledLaunchers;
+    public final Collection<String> mDisablingPackages;
 
     public final Collection<String> mBrevent;
     public final Collection<String> mPriority;
@@ -73,7 +75,9 @@ public class BreventResponse extends BreventProtocol {
 
     public BreventResponse(Collection<String> packages,
                            Collection<PackageInfo> instantPackages,
-                           SimpleArrayMap<String, Boolean> disabledPackages,
+                           Collection<String> disabledPackages,
+                           Collection<String> disabledLaunchers,
+                           Collection<String> disablingPackages,
 
                            Collection<String> brevent,
                            Collection<String> priority,
@@ -91,6 +95,8 @@ public class BreventResponse extends BreventProtocol {
         mPackages = packages;
         mInstantPackages = instantPackages;
         mDisabledPackages = disabledPackages;
+        mDisabledLaunchers = disabledLaunchers;
+        mDisablingPackages = disablingPackages;
 
         mBrevent = brevent;
         mPriority = priority;
@@ -127,7 +133,9 @@ public class BreventResponse extends BreventProtocol {
         super(in);
         mPackages = ParcelUtils.readCollection(in);
         mInstantPackages = ParcelUtils.readPackages(in);
-        mDisabledPackages = ParcelUtils.readBooleanMap(in);
+        mDisabledPackages = ParcelUtils.readCollection(in);
+        mDisabledLaunchers = ParcelUtils.readCollection(in);
+        mDisablingPackages = ParcelUtils.readCollection(in);
 
         mBrevent = ParcelUtils.readCollection(in);
         mPriority = ParcelUtils.readCollection(in);
@@ -161,7 +169,9 @@ public class BreventResponse extends BreventProtocol {
         super.writeToParcel(dest, flags);
         ParcelUtils.writeCollection(dest, mPackages);
         ParcelUtils.writePackages(dest, mInstantPackages);
-        ParcelUtils.writeBooleanMap(dest, mDisabledPackages);
+        ParcelUtils.writeCollection(dest, mDisabledPackages);
+        ParcelUtils.writeCollection(dest, mDisabledLaunchers);
+        ParcelUtils.writeCollection(dest, mDisablingPackages);
 
         ParcelUtils.writeCollection(dest, mBrevent);
         ParcelUtils.writeCollection(dest, mPriority);

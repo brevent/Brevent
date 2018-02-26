@@ -21,7 +21,6 @@ import android.widget.TextView;
 import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
-import me.piebridge.brevent.override.HideApiOverride;
 
 /**
  * Created by thom on 2017/1/25.
@@ -93,8 +92,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             menu.add(Menu.NONE, R.string.context_menu_appops, Menu.NONE,
                     activity.getString(R.string.context_menu_appops));
         }
-        if ((!HideApiOverride.DISABLE_ONLY_FOR_BREVENTED || activity.isBrevent(packageName))
-                && activity.canDisable(packageName)) {
+        if (activity.canDisable(packageName)) {
             if (enabled) {
                 menu.add(Menu.NONE, R.string.context_menu_disable, Menu.NONE,
                         activity.getString(R.string.context_menu_disable));

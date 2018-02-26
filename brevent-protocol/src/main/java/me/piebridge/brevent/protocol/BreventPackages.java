@@ -15,8 +15,6 @@ public class BreventPackages extends BreventProtocol {
 
     public boolean undoable = false;
 
-    public boolean confirm = false;
-
     public Collection<String> packageNames;
 
     public BreventPackages(boolean brevent, Collection<String> packageNames) {
@@ -30,7 +28,6 @@ public class BreventPackages extends BreventProtocol {
         brevent = in.readInt() != 0;
         undoable = in.readInt() != 0;
         packageNames = ParcelUtils.readCollection(in);
-        confirm = in.readInt() != 0;
     }
 
     @Override
@@ -39,7 +36,6 @@ public class BreventPackages extends BreventProtocol {
         dest.writeInt(brevent ? 1 : 0);
         dest.writeInt(undoable ? 1 : 0);
         ParcelUtils.writeCollection(dest, packageNames);
-        dest.writeInt(confirm ? 1 : 0);
     }
 
     public void undo() {
@@ -50,7 +46,7 @@ public class BreventPackages extends BreventProtocol {
     @Override
     public String toString() {
         return super.toString() + ", brevent: " + brevent + ", undoable: " + undoable
-                + ", packageNames: " + packageNames + ", confirm: " + confirm;
+                + ", packageNames: " + packageNames;
     }
 
 }

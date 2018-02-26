@@ -217,7 +217,8 @@ public class BreventActivity extends AbstractActivity
     private Set<String> mGcm = new ArraySet<>();
     final Set<String> mPackages = new ArraySet<>();
     final Set<String> mDisabledPackages = new ArraySet<>();
-    final Set<String> mDisabledLauncher = new ArraySet<>();
+    final Set<String> mDisabledLaunchers = new ArraySet<>();
+    final Set<String> mDisablingPackages = new ArraySet<>();
     private String mVpn;
 
     private int mSelectStatus;
@@ -817,19 +818,18 @@ public class BreventActivity extends AbstractActivity
         if (!mBrevent.contains(packageName)) {
             return 0;
         }
+        if (mDisabledPackages.contains(packageName)) {
+            return R.drawable.ic_do_not_disturb_black_24dp;
+        }
+        if (mDisablingPackages.contains(packageName)) {
+            return R.drawable.ic_alarm_off_black_24dp;
+        }
         if (Objects.equals(packageName, mVpn)) {
             return R.drawable.ic_vpn_key_black_24dp;
         }
         SparseIntArray status;
         synchronized (updateLock) {
             status = mProcesses.get(packageName);
-        }
-        if (mDisabledPackages.contains(packageName)) {
-            if (status == null) {
-                return R.drawable.ic_do_not_disturb_black_24dp;
-            } else {
-                return R.drawable.ic_alarm_off_black_24dp;
-            }
         }
         if (BreventResponse.isAudio(status)) {
             return R.drawable.ic_play_circle_outline_black_24dp;
@@ -1090,7 +1090,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean isDisabledLauncher(String packageName) {
-        return mDisabledLauncher.contains(packageName);
+        return mDisabledLaunchers.contains(packageName);
     }
 
     public boolean isGms(String packageName) {
@@ -1224,11 +1224,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     private void onBreventPackagesResponse(BreventPackages response) {
-        if (HideApiOverride.DISABLE_ONLY_FOR_BREVENTED && !response.brevent
-                && (response.confirm || !response.undoable)) {
-            updateState(response.packageNames, true);
-        }
-        if (!response.packageNames.isEmpty() && !response.confirm) {
+        if (!response.packageNames.isEmpty()) {
             AppsSnackbarCallback callback = new AppsSnackbarCallback(mHandler, uiHandler, response);
             Snackbar snackbar;
             if (response.undoable) {
@@ -1257,6 +1253,13 @@ public class BreventActivity extends AbstractActivity
     }
 
     private boolean updateState(Collection<String> packageNames, boolean enable) {
+        if (!enable) {
+            synchronized (updateLock) {
+                for (String packageName : packageNames) {
+                    mProcesses.remove(packageName);
+                }
+            }
+        }
         synchronized (mPackages) {
             if (enable) {
                 return mPackages.addAll(packageNames) | mDisabledPackages.removeAll(packageNames);
@@ -1272,7 +1275,7 @@ public class BreventActivity extends AbstractActivity
             getFragment().update(packageNames);
         }
         if (!breventState.enable && breventState.launcher) {
-            mDisabledLauncher.add(breventState.packageName);
+            mDisabledLaunchers.add(breventState.packageName);
         }
         if (breventState.launch) {
             Intent intent = getPackageManager().getLaunchIntentForPackage(breventState.packageName);
@@ -1359,7 +1362,9 @@ public class BreventActivity extends AbstractActivity
             mAdapter = new AppsPagerAdapter(getFragmentManager(), mTitles);
             updatePackages(status);
         } else if (!Objects.equals(mPackages, status.mPackages)
-                || !Objects.equals(mDisabledPackages, asSet(status.mDisabledPackages))) {
+                || !Objects.equals(mDisabledPackages, status.mDisabledPackages)
+                || !Objects.equals(mDisabledLaunchers, status.mDisabledLaunchers)
+                || !Objects.equals(mDisablingPackages, status.mDisablingPackages)) {
             updatePackages(status);
             mAdapter.setExpired();
         }
@@ -1462,19 +1467,15 @@ public class BreventActivity extends AbstractActivity
         synchronized (mPackages) {
             mPackages.clear();
             mPackages.addAll(status.mPackages);
-            mDisabledPackages.clear();
-            mDisabledLauncher.clear();
 
-            SimpleArrayMap<String, Boolean> disabledPackages = status.mDisabledPackages;
-            int size = disabledPackages.size();
-            for (int i = 0; i < size; ++i) {
-                String key = disabledPackages.keyAt(i);
-                boolean value = disabledPackages.valueAt(i);
-                mDisabledPackages.add(key);
-                if (value) {
-                    mDisabledLauncher.add(key);
-                }
-            }
+            mDisabledPackages.clear();
+            mDisabledPackages.addAll(status.mDisabledPackages);
+
+            mDisabledLaunchers.clear();
+            mDisabledLaunchers.addAll(status.mDisabledLaunchers);
+
+            mDisablingPackages.clear();
+            mDisablingPackages.addAll(status.mDisablingPackages);
         }
     }
 
@@ -2276,11 +2277,7 @@ public class BreventActivity extends AbstractActivity
     }
 
     public boolean isEnabled(String packageName) {
-        SparseIntArray status;
-        synchronized (updateLock) {
-            status = mProcesses.get(packageName);
-        }
-        return status != null || !mDisabledPackages.contains(packageName);
+        return !mDisabledPackages.contains(packageName);
     }
 
     public void updateTab(boolean enabled) {
