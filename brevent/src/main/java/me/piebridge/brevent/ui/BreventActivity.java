@@ -1093,6 +1093,10 @@ public class BreventActivity extends AbstractActivity
         return mDisabledLaunchers.contains(packageName);
     }
 
+    public boolean isDisabling(String packageName) {
+        return mDisablingPackages.contains(packageName);
+    }
+
     public boolean isGms(String packageName) {
         if (GMS.equals(packageName)) {
             Integer important = mFavorite.get(packageName);

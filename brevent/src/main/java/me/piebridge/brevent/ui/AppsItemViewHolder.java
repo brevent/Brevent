@@ -83,7 +83,7 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             if (activity.isPriority(packageName)) {
                 menu.add(Menu.NONE, R.string.context_menu_unset_priority, Menu.NONE,
                         activity.getString(R.string.context_menu_unset_priority));
-            } else {
+            } else if (!activity.isDisabling(packageName)) {
                 menu.add(Menu.NONE, R.string.context_menu_set_priority, Menu.NONE,
                         activity.getString(R.string.context_menu_set_priority));
             }
@@ -93,16 +93,16 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                     activity.getString(R.string.context_menu_appops));
         }
         if (activity.canDisable(packageName)) {
-            if (enabled) {
-                menu.add(Menu.NONE, R.string.context_menu_disable, Menu.NONE,
-                        activity.getString(R.string.context_menu_disable));
-            } else {
+            if (!enabled) {
                 menu.add(Menu.NONE, R.string.context_menu_enable, Menu.NONE,
                         activity.getString(R.string.context_menu_enable));
                 if (launcher && activity.isBrevent(packageName)) {
                     menu.add(Menu.NONE, R.string.context_menu_enable_open, Menu.NONE,
                             activity.getString(R.string.context_menu_enable_open));
                 }
+            } else if (!activity.isPriority(packageName)) {
+                menu.add(Menu.NONE, R.string.context_menu_disable, Menu.NONE,
+                        activity.getString(R.string.context_menu_disable));
             }
         }
         int size = menu.size();
