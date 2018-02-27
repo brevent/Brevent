@@ -215,7 +215,7 @@
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
     <string name="unsupported_brevented">You have brevented some important apps. Do you wan to unbrevent them?</string>
 
-    <string name="toast_home_tid">Recognized real Home: %d</string>
+    <string name="toast_working">Brevent server is working</string>
     <!-- don't translate start, only for china -->
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>

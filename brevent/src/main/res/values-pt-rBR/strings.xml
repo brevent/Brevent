@@ -215,7 +215,7 @@
     <string name="unsupported_location">Localização inválida para Brevent, reinstale.</string>
     <string name="unsupported_brevented">Você breveniu alguns apps importantes. Desbreveni-los?</string>
 
-    <string name="toast_home_tid">Reconhecido Início real: %d</string>
+    <string name="toast_working">Brevent server is working</string>
     <!-- don't translate start, only for china -->
     <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
     <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>

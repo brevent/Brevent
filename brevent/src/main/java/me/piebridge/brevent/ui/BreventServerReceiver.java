@@ -50,12 +50,9 @@ public class BreventServerReceiver extends BroadcastReceiver {
         UILog.i("received: " + action);
         Context context = LocaleUtils.updateResources(c);
         Resources resources = context.getResources();
-        if (BreventIntent.ACTION_HOME_TID.equals(action)) {
-            int homeTid = intent.getIntExtra(BreventIntent.EXTRA_HOME_TID, 0);
-            if (homeTid > 0) {
-                String message = resources.getString(R.string.toast_home_tid, homeTid);
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-            }
+        if (BreventIntent.ACTION_WORKING.equals(action)) {
+            String message = resources.getString(R.string.toast_working);
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         } else if (BreventIntent.ACTION_ADD_PACKAGE.equals(action)) {
             PackageInfo packageInfo = intent.getParcelableExtra(BreventIntent.EXTRA_PACKAGE_INFO);
             if (packageInfo != null) {

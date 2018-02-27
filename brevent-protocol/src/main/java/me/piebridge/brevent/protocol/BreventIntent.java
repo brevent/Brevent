@@ -5,7 +5,7 @@ package me.piebridge.brevent.protocol;
  */
 public final class BreventIntent {
 
-    public static final String ACTION_HOME_TID = "me.piebridge.brevent.intent.action.HOME_TID";
+    public static final String ACTION_WORKING = "me.piebridge.brevent.intent.action.WORKING";
     public static final String ACTION_ADD_PACKAGE = "me.piebridge.brevent.intent.action.ADD_PACKAGE";
     public static final String ACTION_RUN_AS_ROOT = "me.piebridge.brevent.intent.action.RUN_AS_ROOT";
     public static final String ACTION_ALIPAY = "me.piebridge.brevent.intent.action.ALIPAY";
