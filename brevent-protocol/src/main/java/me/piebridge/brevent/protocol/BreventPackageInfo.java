@@ -31,6 +31,10 @@ public class BreventPackageInfo {
 
     public final String launcherName;
 
+    public BreventPackageInfo(PackageInfo instantPackage) {
+        this(instantPackage, null);
+    }
+
     public BreventPackageInfo(PackageInfo instantPackage, String launcherName) {
         packageName = instantPackage.packageName;
         firstInstallTime = instantPackage.firstInstallTime;

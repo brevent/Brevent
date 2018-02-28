@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ParceledListSlice;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 
@@ -47,5 +48,10 @@ public interface IActivityManager {
 
     int stopService(IApplicationThread caller, Intent service, String resolvedType, int userId)
             throws RemoteException;
+
+    int startActivityAsUser(IApplicationThread caller, String callingPackage,
+                            Intent intent, String resolvedType, IBinder resultTo, String resultWho,
+                            int requestCode, int flags, ProfilerInfo profilerInfo,
+                            Bundle options, int userId) throws RemoteException;
 
 }

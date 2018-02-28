@@ -5,6 +5,7 @@ import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.hardware.usb.UsbManager;
 import android.os.Process;
@@ -501,6 +502,15 @@ public class HideApiOverride {
         } catch (LinkageError e) {
             Log.w(TAG, "Can't find Settings.Global.CAPTIVE_PORTAL_SERVER");
             return "captive_portal_server";
+        }
+    }
+
+    public static int getMatchInstant() {
+        try {
+            return PackageManager.MATCH_INSTANT;
+        } catch (LinkageError e) {
+            Log.w(TAG, "Can't find PackageManager.MATCH_INSTANT");
+            return 0x00800000;
         }
     }
 
