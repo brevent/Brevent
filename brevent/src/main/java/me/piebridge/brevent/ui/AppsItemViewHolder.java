@@ -21,6 +21,7 @@ import android.widget.TextView;
 import me.piebridge.SimpleTrim;
 import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 
 /**
  * Created by thom on 2017/1/25.
@@ -77,7 +78,15 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
             menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE,
                     activity.getString(R.string.context_menu_open));
         } else {
-            launcher = activity.isDisabledLauncher(packageName);
+            BreventApplication application = (BreventApplication) activity.getApplication();
+            BreventPackageInfo instantPackageInfo = application.getInstantPackageInfo(packageName);
+            if (instantPackageInfo != null && instantPackageInfo.launcherName != null) {
+                launcher = true;
+                menu.add(Menu.NONE, R.string.context_menu_open, Menu.NONE,
+                        activity.getString(R.string.context_menu_open));
+            } else {
+                launcher = activity.isDisabledLauncher(packageName);
+            }
         }
         if (enabled && activity.isBrevent(packageName)) {
             if (activity.isPriority(packageName)) {
@@ -202,6 +211,12 @@ public class AppsItemViewHolder extends RecyclerView.ViewHolder
                 Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
                 if (intent != null) {
                     activity.startActivity(intent);
+                } else {
+                    BreventApplication application = (BreventApplication) activity.getApplication();
+                    BreventPackageInfo packageInfo = application.getInstantPackageInfo(packageName);
+                    if (packageInfo != null) {
+                        packageInfo.startActivity(activity);
+                    }
                 }
                 break;
             case R.string.context_menu_set_priority:

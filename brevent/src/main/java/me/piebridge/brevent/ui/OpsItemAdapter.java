@@ -3,7 +3,6 @@ package me.piebridge.brevent.ui;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.IPackageManager;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
@@ -37,6 +36,7 @@ import java.util.Set;
 
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 
 /**
  * Created by thom on 2017/1/25.
@@ -325,10 +325,10 @@ public class OpsItemAdapter extends RecyclerView.Adapter implements View.OnClick
     }
 
     static List getOpsForPackage(BreventApplication application, String packageName) {
-        PackageInfo packageInfo = application.getInstantPackageInfo(packageName);
+        BreventPackageInfo packageInfo = application.getInstantPackageInfo(packageName);
         int packageUid;
         if (packageInfo != null) {
-            packageUid = packageInfo.applicationInfo.uid;
+            packageUid = packageInfo.uid;
         } else {
             packageUid = getPackageUid(packageName, BreventApplication.getOwner());
         }

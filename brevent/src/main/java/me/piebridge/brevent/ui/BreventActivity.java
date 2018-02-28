@@ -99,6 +99,7 @@ import me.piebridge.brevent.protocol.BreventPriority;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.brevent.protocol.BreventState;
+import me.piebridge.brevent.protocol.BreventUsageStats;
 import me.piebridge.stats.StatsUtils;
 
 public class BreventActivity extends AbstractActivity
@@ -213,7 +214,7 @@ public class BreventActivity extends AbstractActivity
     final Set<String> mBreventedImportant = new ArraySet<>();
     private SimpleArrayMap<String, Integer> mImportant = new SimpleArrayMap<>();
     private SimpleArrayMap<String, Integer> mFavorite = new SimpleArrayMap<>();
-    private volatile SimpleArrayMap<String, UsageStats> mStats = new SimpleArrayMap<>();
+    private volatile SimpleArrayMap<String, BreventUsageStats> mStats = new SimpleArrayMap<>();
     private Set<String> mGcm = new ArraySet<>();
     final Set<String> mPackages = new ArraySet<>();
     final Set<String> mDisabledPackages = new ArraySet<>();
@@ -1299,12 +1300,12 @@ public class BreventActivity extends AbstractActivity
         uiHandler.obtainMessage(UI_MESSAGE_UPDATE_STATE, response).sendToTarget();
     }
 
-    private static SimpleArrayMap<String, UsageStats> retrieveStats(UsageStatsManager manager) {
+    private static SimpleArrayMap<String, BreventUsageStats> retrieveStats(UsageStatsManager manager) {
         SimpleArrayMap<String, UsageStats> arrayMap = new SimpleArrayMap<>();
         List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST,
                 BreventProtocol.getStatsStartTime(), System.currentTimeMillis());
         if (stats == null) {
-            return arrayMap;
+            return new SimpleArrayMap<>();
         }
         for (UsageStats stat : stats) {
             String packageName = stat.getPackageName();
@@ -1315,7 +1316,7 @@ public class BreventActivity extends AbstractActivity
                 arrayMap.put(packageName, new UsageStats(stat));
             }
         }
-        return arrayMap;
+        return BreventUsageStats.convert(arrayMap);
     }
 
     private void onBreventStatusResponse(BreventResponse status) {
@@ -2218,7 +2219,7 @@ public class BreventActivity extends AbstractActivity
         return mConfiguration.checking;
     }
 
-    public UsageStats getStats(String packageName) {
+    public BreventUsageStats getStats(String packageName) {
         return mStats == null ? null : mStats.get(packageName);
     }
 

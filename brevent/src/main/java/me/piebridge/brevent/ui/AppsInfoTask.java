@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Locale;
 
 import me.piebridge.SimpleTrim;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 
 /**
  * Created by thom on 2017/2/4.
@@ -55,20 +56,24 @@ public class AppsInfoTask extends AsyncTask<Void, Integer, Boolean> {
             query = SimpleTrim.trim(query).toString().toLowerCase(Locale.US);
         }
         for (String packageName : packageNames) {
-            PackageInfo packageInfo = application.getInstantPackageInfo(packageName);
+            String label;
+            BreventPackageInfo breventPackageInfo = application.getInstantPackageInfo(packageName);
             try {
-                if (packageInfo == null) {
-                    packageInfo = packageManager.getPackageInfo(packageName, 0);
+                if (breventPackageInfo == null) {
+                    PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+                    breventPackageInfo = new BreventPackageInfo(packageInfo, null);
+                    label = labelLoader.getLabel(packageManager, packageInfo);
+                } else {
+                    label = AppsLabelLoader.loadLabel(packageManager, breventPackageInfo);
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 UILog.w("Can't find package " + packageName, e);
                 continue;
             }
-            if (mAdapter.accept(packageManager, packageInfo, showAllApps)) {
-                String label = labelLoader.getLabel(packageManager, packageInfo);
+            if (mAdapter.accept(packageManager, breventPackageInfo, showAllApps)) {
                 if (query == null || acceptLabel(label, query)
                         || acceptPackageName(packageName, query)) {
-                    mAdapter.addPackage(activity, packageInfo, label);
+                    mAdapter.addPackage(activity, breventPackageInfo, label);
                     size++;
                 }
             }

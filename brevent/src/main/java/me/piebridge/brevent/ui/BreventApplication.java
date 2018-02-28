@@ -10,7 +10,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Build;
@@ -59,6 +58,7 @@ import me.piebridge.brevent.BuildConfig;
 import me.piebridge.brevent.R;
 import me.piebridge.brevent.override.HideApiOverride;
 import me.piebridge.brevent.override.HideApiOverrideN;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.brevent.protocol.BreventResponse;
 import me.piebridge.donation.DonateActivity;
@@ -115,7 +115,7 @@ public class BreventApplication extends Application {
 
     private String mToken = "";
 
-    SimpleArrayMap<String, PackageInfo> mInstantPackages = new SimpleArrayMap<>();
+    private SimpleArrayMap<String, BreventPackageInfo> mInstantPackages = new SimpleArrayMap<>();
 
     private Boolean mXposed;
 
@@ -272,7 +272,7 @@ public class BreventApplication extends Application {
         setSupportDisable(breventResponse.mSupportDisable);
         setSupportEvent(breventResponse.mSupportEvent);
         mInstantPackages.clear();
-        for (PackageInfo packageInfo : breventResponse.mInstantPackages) {
+        for (BreventPackageInfo packageInfo : breventResponse.mInstantPackages) {
             mInstantPackages.put(packageInfo.packageName, packageInfo);
         }
         if (BuildConfig.RELEASE && shouldUpdated) {
@@ -713,7 +713,7 @@ public class BreventApplication extends Application {
         this.grantedWarned = grantedWarned;
     }
 
-    public PackageInfo getInstantPackageInfo(String packageName) {
+    public BreventPackageInfo getInstantPackageInfo(String packageName) {
         return mInstantPackages.get(packageName);
     }
 

@@ -1,7 +1,6 @@
 package me.piebridge.brevent.protocol;
 
 import android.app.usage.UsageStats;
-import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.SystemClock;
@@ -42,7 +41,7 @@ public class BreventResponse extends BreventProtocol {
     public static final int PROCESS_STATE_AUDIO_PAUSED = -6;
 
     public final Collection<String> mPackages;
-    public final Collection<PackageInfo> mInstantPackages;
+    public final Collection<BreventPackageInfo> mInstantPackages;
     public final Collection<String> mDisabledPackages;
     public final Collection<String> mDisabledLaunchers;
     public final Collection<String> mDisablingPackages;
@@ -51,7 +50,7 @@ public class BreventResponse extends BreventProtocol {
     public final Collection<String> mPriority;
 
     public final String mVpn;
-    public final SimpleArrayMap<String, UsageStats> mStats;
+    public final SimpleArrayMap<String, BreventUsageStats> mStats;
     public final SimpleArrayMap<String, SparseIntArray> mProcesses;
     public final Collection<String> mTrustAgents;
     public final Collection<String> mCoreApps;
@@ -74,7 +73,7 @@ public class BreventResponse extends BreventProtocol {
     public final boolean mSupportEvent;
 
     public BreventResponse(Collection<String> packages,
-                           Collection<PackageInfo> instantPackages,
+                           Collection<BreventPackageInfo> instantPackages,
                            Collection<String> disabledPackages,
                            Collection<String> disabledLaunchers,
                            Collection<String> disablingPackages,
@@ -102,7 +101,7 @@ public class BreventResponse extends BreventProtocol {
         mPriority = priority;
 
         mVpn = vpn;
-        mStats = stats;
+        mStats = BreventUsageStats.convert(stats);
         mProcesses = processes;
         mTrustAgents = trustAgents;
         mCoreApps = coreApps;

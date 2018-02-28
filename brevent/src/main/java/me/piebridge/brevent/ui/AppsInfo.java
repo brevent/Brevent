@@ -1,12 +1,13 @@
 package me.piebridge.brevent.ui;
 
-import android.app.usage.UsageStats;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Objects;
+
+import me.piebridge.brevent.protocol.BreventUsageStats;
 
 /**
  * Created by thom on 2017/1/25.
@@ -49,7 +50,7 @@ class AppsInfo {
 
     boolean enabled;
 
-    UsageStats stats;
+    BreventUsageStats stats;
 
     AppsInfo(String packageName, String label) {
         this.packageName = packageName;

@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.AppOpsManager;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
@@ -30,6 +29,7 @@ import me.piebridge.brevent.protocol.BreventConfiguration;
 import me.piebridge.brevent.protocol.BreventOpsOK;
 import me.piebridge.brevent.protocol.BreventOpsReset;
 import me.piebridge.brevent.protocol.BreventOpsUpdate;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 import me.piebridge.brevent.protocol.BreventProtocol;
 import me.piebridge.stats.StatsUtils;
 
@@ -132,11 +132,12 @@ public class BreventOps extends AbstractActivity {
         BreventApplication application = (BreventApplication) getApplication();
         PackageManager packageManager = getPackageManager();
         try {
-            PackageInfo packageInfo = application.getInstantPackageInfo(opsPackage);
+            BreventPackageInfo packageInfo = application.getInstantPackageInfo(opsPackage);
             if (packageInfo == null) {
-                packageInfo = packageManager.getPackageInfo(opsPackage, 0);
+                setTitle(AppsLabelLoader.loadLabel(packageManager, packageManager.getPackageInfo(opsPackage, 0)));
+            } else {
+                setTitle(AppsLabelLoader.loadLabel(packageManager, packageInfo));
             }
-            setTitle(AppsLabelLoader.loadLabel(packageManager, packageInfo));
         } catch (PackageManager.NameNotFoundException e) {
             UILog.w("Can't find " + opsPackage, e);
             finish();

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import java.util.Objects;
 
 import me.piebridge.SimpleTrim;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 
 /**
  * Created by thom on 2017/1/31.
@@ -67,6 +68,11 @@ public class AppsLabelLoader {
         if (label == null) {
             label = packageInfo.packageName;
         }
+        return SimpleTrim.trim(label).toString();
+    }
+
+    public static String loadLabel(PackageManager packageManager, BreventPackageInfo packageInfo) {
+        CharSequence label = packageInfo.loadLabel(packageManager);
         return SimpleTrim.trim(label).toString();
     }
 

@@ -1,7 +1,6 @@
 package me.piebridge.brevent.ui;
 
 import android.app.Fragment;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
@@ -18,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 
 /**
  * Created by thom on 2017/1/25.
@@ -105,7 +105,7 @@ public abstract class AppsFragment extends Fragment {
         super.onDestroy();
     }
 
-    public abstract boolean accept(PackageManager packageManager, PackageInfo packageInfo);
+    public abstract boolean accept(PackageManager packageManager, BreventPackageInfo packageInfo);
 
     public void refresh() {
         if (mAdapter != null) {
@@ -205,7 +205,7 @@ public abstract class AppsFragment extends Fragment {
     }
 
     protected final boolean isFrameworkPackage(PackageManager packageManager,
-                                               PackageInfo packageInfo) {
+                                               BreventPackageInfo packageInfo) {
         BreventActivity activity = (BreventActivity) getActivity();
         if (activity == null) {
             return false;

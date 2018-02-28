@@ -1,9 +1,7 @@
 package me.piebridge.brevent.ui;
 
-import android.app.usage.UsageStats;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -34,7 +32,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import me.piebridge.brevent.R;
+import me.piebridge.brevent.protocol.BreventPackageInfo;
 import me.piebridge.brevent.protocol.BreventResponse;
+import me.piebridge.brevent.protocol.BreventUsageStats;
 
 /**
  * Created by thom on 2017/1/25.
@@ -235,7 +235,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         if (description != null) {
             viewHolder.descriptionView.setText(description);
         } else if (activity.hasStats()) {
-            UsageStats stats = activity.getStats(viewHolder.packageName);
+            BreventUsageStats stats = activity.getStats(viewHolder.packageName);
             if (stats == null) {
                 viewHolder.descriptionView.setText(R.string.process_no_stats);
             } else {
@@ -461,7 +461,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         return mSelected.size();
     }
 
-    public void addPackage(BreventActivity activity, PackageInfo packageInfo, String label) {
+    public void addPackage(BreventActivity activity, BreventPackageInfo packageInfo, String label) {
         if (!mCompleted && mPackages.add(packageInfo.packageName)) {
             AppsInfo appsInfo = new AppsInfo(packageInfo.packageName, label);
             appsInfo.lastUpdateTime = packageInfo.lastUpdateTime;
@@ -473,7 +473,7 @@ public class AppsItemAdapter extends RecyclerView.Adapter implements View.OnClic
         }
     }
 
-    public boolean accept(PackageManager pm, PackageInfo packageInfo, boolean showAllApps) {
+    public boolean accept(PackageManager pm, BreventPackageInfo packageInfo, boolean showAllApps) {
         BreventActivity activity = getActivity();
         ApplicationInfo appInfo = packageInfo.applicationInfo;
         String packageName = packageInfo.packageName;
