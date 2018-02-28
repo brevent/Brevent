@@ -212,6 +212,7 @@ public class BreventServerReceiver extends BroadcastReceiver {
         ) {
             BreventRequest breventRequest = new BreventRequest();
             breventRequest.token = token;
+            breventRequest.check = true;
             BreventProtocol.writeTo(breventRequest, os);
             os.flush();
             BreventProtocol.readFrom(is);
