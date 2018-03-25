@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Brevent</string>
+    <string name="app_name_debug">Nrevent</string>
+
+    <string name="fragment_guide_welcome">Welcome</string>
+    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into background.\n\nBrevent recognizes states of apps in this way, preventing apps in Brevent list from running in long time.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are running without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
+
+    <string name="fragment_guide_permission">Permissions</string>
+    <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
+    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
+
+    <string name="fragment_guide_security">Security</string>
+    <string name="fragment_guide_security_message">Brevent does not need Root or modify system files, there is no residue after uninstallation.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, important apps.</string>
+
+    <string name="fragment_guide_enjoy">Enjoy</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs and syncs.\n\nBrevent wouldn\'t force-stop safe cached apps. In addition, Brevent server brevent apps centrally and delays the processes by 3 to 60 seconds according to the event level.</string>
+
+    <string name="fragment_guide_adb">ADB</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
+
+    <string name="start_brevent">Uruchom Brevent</string>
+
+    <string name="brevent_service_start">Proszę uruchomić serwer Brevent (%s)</string>
+    <string name="brevent_service_no_response">Serwer Brevent nie odpowiada (%s)</string>
+    <string name="brevent_service_guide">1. Włącz \"Opcje programistyczne\" oraz aktywuj funkcję \"Debugowanie USB\" %1$s\n\n2. Podłącz swój telefon do komputera za pomocą kabla USB %2$s\n\n3. Wykonaj w wierszu poleceń komendę \"adb devices\" i upewnij się, że Twój komputer rozpoznaje urządzenie (Przeczytaj: \"Poradnik - ADB\")\n\n4. Wykonaj w wierszu poleceń \"%3$s\"</string>
+    <string name="brevent_service_open_development">Opcje programistyczne</string>
+    <string name="brevent_service_copy_path">Kopiuj polecenie</string>
+    <string name="brevent_service_command_copied">Polecenie zostało skopiowane: %s</string>
+    <string name="brevent_service_adb_running">(Włączony)</string>
+    <string name="brevent_service_usb_connected">(Podłączono USB)</string>
+    <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_hard" />
+    <string name="brevent_service_success">Serwer Brevent został pomyślnie uruchomiony. Proszę dotknąć ikony aplikacji, aby je następnie zbreventować.</string>
+
+    <string name="fragment_apps_user">Aplikacje Użytkownika</string>
+    <string name="fragment_apps_system">Aplikacje Systemowe</string>
+    <string name="fragment_apps_framework">Frameworki</string>
+    <string name="fragment_apps_os">OS Apps</string>
+
+    <string name="process_retrieving">Otrzymywanie statusu procesów, proszę czekać. . .</string>
+    <string name="process_retrieving_apps">Zbieranie informacji o aplikacjach, proszę czekać. . .</string>
+    <string name="process_retrieving_logs">Otrzymywanie logów, proszę czekać. . .</string>
+    <string name="process_starting">Uruchamianie serwera Brevent, proszę czekać. . .</string>
+    <string name="process_checking">Sprawdzanie serwera Brevent, proszę czekać. . .</string>
+
+    <string name="process_status_running">Running</string>
+    <string name="process_status_standby">Standby</string>
+    <string name="process_status_ignored">Ignored</string>
+    <string name="process_status_disabled">Disabled</string>
+    <string name="process_status_stopped">Stopped</string>
+    <string name="process_not_running">(nie działa w tle)</string>
+    <string name="process_no_stats">(nigdy nie uruchamiana)</string>
+    <string name="process_stats">(ostatnio: %1$s, ogółem: %2$s)</string>
+    <string name="process_all_top" tools:ignore="PluralsCandidate">%d główny(ch)</string>
+    <string name="process_all_service" tools:ignore="PluralsCandidate">%d usług(i)</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached (safe)</string>
+    <string name="process_all_total">%d</string>
+    <string name="process_service" tools:ignore="PluralsCandidate">%d usługa</string>
+    <string name="process_total">ogółem %d</string>
+    <plurals name="process_process">
+        <item quantity="one">&#160;procesu</item>
+        <item quantity="other">&#160;procesów</item>
+    </plurals>
+
+    <string name="action_brevent">Breventuj</string>
+    <string name="action_restore">Przywróć</string>
+    <string name="action_select_important">Zaznacz wszystkie</string>
+    <string name="action_select_inverse">Odwróć wszystkie</string>
+    <string name="action_brevent_results" tools:ignore="PluralsCandidate">Zbreventowano %d aplikacje(i)</string>
+    <string name="action_restore_results" tools:ignore="PluralsCandidate">Przywrócono %d aplikacje(i)</string>
+    <string name="action_message_undo">Cofnij</string>
+    <string name="action_message_undone">Cofnięto</string>
+
+    <string name="context_menu_target">API %1$d (%2$s)</string>
+    <string name="context_menu_package_name">Kopiuj nazwę pakietu</string>
+    <string name="context_menu_app_info">Informacje o aplikacji</string>
+    <string name="context_menu_open">Uruchom</string>
+    <string name="context_menu_brevent_server_info">Informacje o usłudze</string>
+    <string name="context_menu_set_priority">Zezwól na synchronizację</string>
+    <string name="context_menu_unset_priority">Nie synchronizuj</string>
+    <string name="context_menu_message_copied">Skopiowano nazwę pakietu: %s</string>
+    <string name="context_menu_disable">Disable</string>
+    <string name="context_menu_enable">Enable</string>
+    <string name="context_menu_enable_open">Instant enable</string>
+
+    <string name="important_input">%s (Metoda wejścia)</string>
+    <string name="important_alarm">%s (Aplikacja alarmu)</string>
+    <string name="important_sms">%s (Aplikacja wiadomości SMS)</string>
+    <string name="important_home">%s (Aplikacja ekranu głównego)</string>
+    <string name="important_persistent">%s (Stała)</string>
+    <string name="important_android">%s (Proces systemu Android)</string>
+    <string name="important_dialer">%s (Aplikacja połączeń)</string>
+    <string name="important_assistant">%s (Aplikacja asystująca)</string>
+    <string name="important_webview">%s (WebView)</string>
+    <string name="important_accessibility">%s (Ustawienia dostępu)</string>
+    <string name="important_device_admin">%s (Administrator urządzenia)</string>
+    <string name="important_gcm">%s (FCM)</string>
+    <string name="important_battery">%s (Bez trybu czuwania)</string>
+    <string name="important_trust_agent">%s (Agent zaufania)</string>
+    <string name="important_gms">%s (GMS)</string>
+    <string name="important_wallpaper">%s (Tapeta)</string>
+    <string name="important_notification_listener">%s (Odbiornik powiadomień)</string>
+
+    <string name="menu_search">Szukaj</string>
+    <string name="menu_sort">Sortuj wg</string>
+    <string name="menu_sort_by_name">Aplikacji</string>
+    <string name="menu_sort_by_install_time">Install time</string>
+    <string name="menu_sort_by_update_time">Czasu aktualizacji</string>
+    <string name="menu_sort_by_last_time">Ostatniego czasu użycia</string>
+    <string name="menu_sort_by_usage_time">Czasu działania</string>
+    <string name="menu_feedback">Informacje zwrotne</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="menu_template">Template</string>
+    <string name="menu_guide">Poradnik</string>
+    <string name="menu_command">Exec command</string>
+
+    <string name="feedback_message">Nie bój się przekazać nam opinii o programie.\n\nJeżeli masz konto na GitHub, utwórz błąd (issue); korzystając z tego serwisu masz możliwość przeglądania innych zgłoszonych błędów.%s</string>
+    <string name="feedback_message_email">\n\nAby nawiązać ze mną kontakt, napisz na mój adres e-mail.</string>
+    <string name="feedback_github">GitHub</string>
+    <string name="feedback_email">E-mail</string>
+    <string name="feedback_logs">Logi</string>
+
+    <string name="brevent_list">Lista Brevent</string>
+    <string name="brevent_auto">Automatycznie breventuj</string>
+    <string name="brevent_auto_label">Aktualizuj listę Brevent, gdy aplikacje są instalowane lub odinstalowywane (niewspierane na niektórych ROM-ach)</string>
+    <string name="brevent_method">Metoda breventowania</string>
+    <string name="brevent_method_standby_forcestop">Tryb czuwania, a następnie wymuszone zatrzymanie</string>
+    <string name="brevent_method_standby_only">Tylko tryb czuwania, bez wymuszonego zatrzymania</string>
+    <string name="brevent_method_forcestop_only">Tylko wymuszone zatrzymanie, bez trybu czuwania</string>
+    <string name="brevent_method_standby_forcestop_label">Tryb czuwania, kiedy opuszczasz aplikacje (dotknij \"Cofnij\") lub przekroczyły limit czasu w tle; wymuś zatrzymanie aplikacji, gdy został przekroczony limit czasu w trybie czuwania lub usunięto je z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
+    <string name="brevent_method_standby_only_label">Tryb czuwania, kiedy opuszczasz aplikacji (dotknij \"Cofnij\") lub został przekroczony limit czasu w tle.\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
+    <string name="brevent_method_forcestop_only_label">Wymuś zatrzymanie, kiedy opuszczasz aplikacje (dotknij \"Cofnij\"), został przekroczony limit czasu w tle lub zostały usunięte z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności</string>
+    <string name="brevent_timeout">Limit czasu aplikacji w tle</string>
+    <string name="brevent_timeout_label">Aplikacje w tle zostaną zbreventowane po %s\n\nBrevent dynamicznie pokazuje czas nieaktywności aplikacji</string>
+    <string name="brevent_timeout_1min">1 minuta</string>
+    <string name="brevent_timeout_5min">5 minut</string>
+    <string name="brevent_timeout_15min">15 minut</string>
+    <string name="brevent_timeout_30min">30 minut</string>
+    <string name="brevent_timeout_1hour">1 godzina</string>
+    <string name="brevent_timeout_3hour">3 godziny</string>
+    <string name="brevent_timeout_6hour">6 godzin</string>
+    <string name="brevent_timeout_long">bardzo długi czas</string>
+    <string name="brevent_standby_timeout">Limit czasu trybu czuwania</string>
+    <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
+
+    <string name="brevent_advanced">Funkcje Zaawansowane</string>
+    <string name="brevent_language">Język</string>
+    <string name="brevent_language_auto">Automatyczny</string>
+    <string name="show_framework_apps">Pokaż frameworki</string>
+    <string name="show_framework_apps_label">Wszystkie aplikacje mają tę samą sygnaturę z frameworkiem\n\nBądź ostrożny podczas breventowania frameworków</string>
+    <string name="show_framework_apps_label_fake">WTF, all apps are framework apps</string>
+    <string name="show_all_apps">Pokaż wszystkie aplikacje</string>
+    <string name="show_all_apps_label">Włącznie z systemowymi aplikacjami oraz frameworkami, które nie mogą zostać uruchomione.\n\nBądź ostrożny podczas breventowania systemowych aplikacji i frameworków, które nie mogą zostać uruchomione</string>
+    <string name="brevent_checking">Diagnostyka</string>
+    <string name="brevent_checking_label">Sprawdzanie serwera Brevent w ciągu każdych 15 minut\n\nUruchom, jeżeli Brevent zatrzymuje się bez powodu. To spowoduje, iż aplikacja znajdzie się na białej liście Optymalizacji Baterii</string>
+
+    <string name="brevent_optimize">Optimized Features</string>
+    <string name="brevent_abnormal_back">Rozpoznawaj niestandardowy przycisk Cofnij</string>
+    <string name="brevent_abnormal_back_label">Breventuj natychmiastowo, gdy aplikacja powraca do ekranu głównego poprzez niestandardowy przycisk Home (np. Cofnij)</string>
+    <string name="brevent_optimize_audio">Optimize music player</string>
+    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification</string>
+    <string name="show_os_apps">Show OS apps</string>
+    <string name="show_os_apps_label">Depends on \"Show core apps\". Android OS apps cannot be brevented</string>
+
+    <string name="show_donation">Pokaż płatności</string>
+    <string name="show_donation_summary_play" />
+    <string name="show_donation_play">Dzięki za kupno %s Brefoil w Sklepie Play</string>
+    <string name="show_donation_rmb">Dzięki za kupno %s Brefoil</string>
+    <string name="show_donation_contributor">Dzięki za bezcenny wkład w Brevent</string>
+    <string name="show_donation_play_and_rmb">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło</string>
+    <string name="show_donation_play_and_contributor">Dzięki za kupno %s Brefoil w Sklepie Play i bezcenny wkład w rozwój Brevent</string>
+    <string name="show_donation_rmb_and_contributor">Dzięki za kupno %s Brefoil i bezcenny wkład w rozwój Brevent</string>
+    <string name="show_donation_play_and_rmb_and_contributor">Dzięki za kupno %1$s Brefoil w Sklepie Play, %2$s Brefoil poprzez inne źródło i bezcenny wkład w rozwój Brevent</string>
+    <string name="show_donation_xposed">(Xposed)</string>
+    <string name="show_donation_brefoil" />
+    <string name="brevent_appops">App ops</string>
+    <string name="brevent_appops_label">Be careful, may cause apps crash</string>
+    <string name="brevent_disable">Disable Apps</string>
+    <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
+    <string name="brevent_dynamic">Dynamic disable</string>
+    <string name="brevent_dynamic_label">Disable apps in brevent list run by other apps dynamically</string>
+
+    <string name="brevent_about">O Brevent</string>
+    <string name="brevent_about_system">System status</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto Brevent: %5$s\nDisable Apps: %4$s\nApp ops: %3$s</string>
+    <string name="brevent_about_system_supported">supported</string>
+    <string name="brevent_about_system_unsupported">unsupported</string>
+    <string name="brevent_about_developer">Opcje programistyczne</string>
+    <string name="brevent_about_developer_adb">\"Debugowanie USB\" jest włączone</string>
+    <string name="brevent_about_translation">Tłumaczenie</string>
+    <string name="brevent_about_translator">bla_ke</string>
+    <string name="brevent_about_licenses">Licencje</string>
+
+    <string name="unsupported_owner">Brevent jest dostępny tylko dla Właściciela.</string>
+    <string name="unsupported_clone">Brevent nie jest dostępny w aplikacji klonowania.</string>
+    <string name="unsupported_signature">Brevent został scrackowany.</string>
+    <string name="unsupported_xposed">Brevent jest dostępny tylko i wyłącznie bez Xposed.</string>
+    <string name="unsupported_path">(Błąd: nie można wykonać brevent.sh)</string>
+    <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, then contact Rom provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, then contact Rom provider.</string>
+    <string name="unsupported_version_mismatched">Serwer Brevent jest aktualizowany. Proszę spróbować później.</string>
+    <string name="unsupported_logs">Nie można uzyskać logów. Proszę spróbować ponownie później.</string>
+    <string name="unsupported_shell">Uruchamianie serwera Brevent zakończne niepowodzeniem.</string>
+    <string name="unsupported_no_local_network">Brevent nie może uzyskać dostępu do lokalnej sieci - proszę zmodyfikować ustawienia sieci, oszczędzanie baterii oraz wymuszoną drzemkę. Jeżeli jest to konieczne, zamieść informację zwrotną z logami lub odinstaluj bezpośrednio aplikację.</string>
+    <string name="unsupported_usb">Since Android 8, Brevent server would stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
+    <string name="unsupported_granted">Brevent server has no sufficient permissions, some features are unavailable.</string>
+    <string name="unsupported_granted_miui">@string/unsupported_granted</string>
+    <string name="unsupported_checking">Brevent diagnosis is unsupported. Please make sure Brevent can run in background, then turn on again.</string>
+    <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
+    <string name="unsupported_brevented">You have brevented some important apps: %1$s.\n\nDo you wan to unbrevent them?</string>
+    <string name="apps_join">, </string>
+
+    <string name="toast_working">Brevent server is working</string>
+    <!-- don't translate start, only for china -->
+    <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
+    <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
+    <string name="toast_xposed">@string/show_donation_xposed</string>
+    <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
+    <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
+    <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
+    <!-- don't translate end, only for china -->
+
+    <string name="brevent_status_starting">Uruchamianie serwera Brevent</string>
+    <string name="brevent_status_not_started">Serwer Brevent nie jest uruchomiony</string>
+    <string name="brevent_status_stopped">Serwer Brevent jest zatrzymany</string>
+    <string name="brevent_status_unknown">Serwer Brevent może być zatrzymany</string>
+    <string name="brevent_status_report">Dotknij, aby wysłać informację zwrotną oraz dokładnie ją opisać</string>
+
+    <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
+    <string name="pay_brevent_recommend">Recommend to pay %s</string>
+    <string name="pay_brevent_require">Require to pay %s</string>
+    <string name="pay_brevent_confirm" />
+
+    <string name="brevented_app">Brevented \"%1$s\"</string>
+    <string name="unbrevent_app">Tap to restore.</string>
+    <string name="unbrevented_app">Restore \"%1$s\"</string>
+    <string name="unbrevented_app_fail">Can\'t restore \"%1$s\", please launch Brevent</string>
+
+    <string name="notification_brevent_server">Brevent server</string>
+    <string name="notification_auto_brevent">Auto brevent</string>
+
+    <string name="cmd_menu_reset">Reset</string>
+    <string name="cmd_menu_stop">Stop</string>
+    <string name="cmd_menu_batterystats">Dump battery data</string>
+    <string name="cmd_menu_portal" />
+    <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
+    <string name="cmd_warning">Exec command only supports simple shell script, use it at your risk.</string>
+
+    <string name="perm_disabled_label">Brevent Disabled API</string>
+    <string name="perm_disabled_description">Enable and disable apps via Brevent server</string>
+
+    <string-array name="brefoils">
+        <item>1 Brefoil</item>
+        <item>2 Brefoil</item>
+        <item>3 Brefoil</item>
+        <item>4 Brefoil</item>
+        <item>5 Brefoil</item>
+    </string-array>
+
+</resources>

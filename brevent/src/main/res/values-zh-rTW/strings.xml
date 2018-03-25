@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">黑域</string>
+    <string name="app_name_debug">白域</string>
+
+    <string name="fragment_guide_welcome">歡迎</string>
+    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別應用程式狀態，防止「黑域清單」內應用程式長期執行。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑域將強制停止它。無論何時應用被執行，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
+
+    <string name="fragment_guide_permission">權限</string>
+    <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
+    <string name="fragment_guide_permission_message2">「USB 偵錯」模式權限很高，Android 8 以下裝置重啟就失效；在 Android 8 及以上則更嚴格，關閉「USB 偵錯」或更改 USB 選項就失效。</string>
+
+    <string name="fragment_guide_security">安全</string>
+    <string name="fragment_guide_security_message">黑域不需要 Root 或修改系統檔案，解除安裝後沒有殘留。</string>
+    <string name="fragment_guide_security_message2">黑域使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑域可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑域，也不要黑域工作應用程式、常用應用程式和重要應用程式。</string>
+
+    <string name="fragment_guide_enjoy">使用</string>
+    <string name="fragment_guide_enjoy_message">請盡情享受黑域，發現任何問題，歡迎附上日誌發送回饋。</string>
+    <string name="fragment_guide_enjoy_message2">預設黑域方法為「待機，然後強制停止」。應用程式待機（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑域不強制停止安全的緩存應用程式。此外，黑域集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="start_brevent">進入黑域</string>
+
+    <string name="fragment_guide_adb">ADB</string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，輕觸滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
+
+    <string name="brevent_service_start">請開啟黑域服務（%s）</string>
+    <string name="brevent_service_no_response">黑域服務沒有回應（%s）</string>
+    <string name="brevent_service_guide">1. 打開「開發人員選項」，啟用「USB偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_open_development">開發人員選項</string>
+    <string name="brevent_service_copy_path">複製指令</string>
+    <string name="brevent_service_command_copied">指令已複製: %s</string>
+    <string name="brevent_service_adb_running">（已啟用）</string>
+    <string name="brevent_service_usb_connected">（已連線）</string>
+    <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_hard">沒有電腦</string>
+    <string name="brevent_service_success">黑域服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑域它們</string>
+
+    <string name="fragment_apps_user">使用者</string>
+    <string name="fragment_apps_system">系統</string>
+    <string name="fragment_apps_framework">框架</string>
+    <string name="fragment_apps_os">作業系統</string>
+
+    <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
+    <string name="process_retrieving_apps">正在取得應用程式資訊，請稍候. . .</string>
+    <string name="process_retrieving_logs">正在取得日誌，請稍候. . .</string>
+    <string name="process_starting">正在開啟黑域服務，請稍候. . .</string>
+    <string name="process_checking">正在檢查黑域服務，請稍候. . .</string>
+
+    <string name="process_status_running">正在執行</string>
+    <string name="process_status_standby">已經待機</string>
+    <string name="process_status_ignored">無需處理</string>
+    <string name="process_status_disabled">已經停用</string>
+    <string name="process_status_stopped">沒有執行</string>
+    <string name="process_not_running">（沒有執行）</string>
+    <string name="process_no_stats">（從未開啟）</string>
+    <string name="process_stats">（至 %1$s 共 %2$s）</string>
+    <string name="process_all_top">%d 個前景</string>
+    <string name="process_all_service">%d 個服務</string>
+    <string name="process_all_cached">%d 個快取（安全）</string>
+    <string name="process_all_total">%d 個</string>
+    <string name="process_service">%d 個服務</string>
+    <string name="process_total">共 %d 個</string>
+    <plurals name="process_process">
+        <item quantity="other">程序</item>
+    </plurals>
+
+    <string name="action_brevent">加入黑域</string>
+    <string name="action_restore">不再黑域</string>
+    <string name="action_select_important">重要</string>
+    <string name="action_select_inverse">反向選擇</string>
+    <string name="action_brevent_results">成功黑域 %d 個應用程式</string>
+    <string name="action_restore_results">不再黑域 %d 個應用程式</string>
+    <string name="action_message_undo">還原</string>
+    <string name="action_message_undone">已還原</string>
+
+    <string name="context_menu_target">API %1$d（%2$s）</string>
+    <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
+    <string name="context_menu_app_info">應用程式訊息</string>
+    <string name="context_menu_open">開啟</string>
+    <string name="context_menu_brevent_server_info">黑域服務訊息</string>
+    <string name="context_menu_set_priority">允許同步</string>
+    <string name="context_menu_unset_priority">取消同步</string>
+    <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
+    <string name="context_menu_disable">停用</string>
+    <string name="context_menu_enable">啟用</string>
+    <string name="context_menu_enable_open">臨時啟用</string>
+
+    <string name="important_input">%s（輸入法）</string>
+    <string name="important_alarm">%s（鬧鐘應用程式）</string>
+    <string name="important_sms">%s（簡訊應用程式）</string>
+    <string name="important_home">%s（主畫面應用程式）</string>
+    <string name="important_persistent">%s（永久處理程序）</string>
+    <string name="important_android">%s（Android 處理程序）</string>
+    <string name="important_dialer">%s（電話應用程式）</string>
+    <string name="important_assistant">%s（小幫手應用程式）</string>
+    <string name="important_webview">%s（WebView 實作）</string>
+    <string name="important_accessibility">%s（無障礙設定）</string>
+    <string name="important_device_admin">%s（裝置管理員）</string>
+    <string name="important_gcm">%s（FCM）</string>
+    <string name="important_battery">%s（無法待機）</string>
+    <string name="important_trust_agent">%s（信任的代理程式）</string>
+    <string name="important_gms">%s（GMS）</string>
+    <string name="important_wallpaper">%s（桌布）</string>
+    <string name="important_notification_listener">%s（通知接聽器）</string>
+
+    <string name="menu_search">搜尋</string>
+    <string name="menu_sort">排序依據</string>
+    <string name="menu_sort_by_name">名稱</string>
+    <string name="menu_sort_by_install_time">安裝時間</string>
+    <string name="menu_sort_by_update_time">更新時間</string>
+    <string name="menu_sort_by_last_time">上次使用時間</string>
+    <string name="menu_sort_by_usage_time">使用時長</string>
+    <string name="menu_feedback">回饋</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_guide">指引</string>
+    <string name="menu_template">模板</string>
+    <string name="menu_command">執行指令</string>
+
+    <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
+    <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
+    <string name="feedback_github">GitHub</string>
+    <string name="feedback_email">郵件</string>
+    <string name="feedback_logs">日誌</string>
+
+    <string name="brevent_list">黑域清單</string>
+    <string name="brevent_auto">自動更新</string>
+    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑域清單（部分 ROM 不支援）</string>
+    <string name="brevent_method">黑域方法</string>
+    <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
+    <string name="brevent_method_standby_only">只待機，不強制停止</string>
+    <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_timeout">背景應用程式逾時</string>
+    <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
+    <string name="brevent_timeout_1min">1 分鐘</string>
+    <string name="brevent_timeout_5min">5 分鐘</string>
+    <string name="brevent_timeout_15min">15 分鐘</string>
+    <string name="brevent_timeout_30min">30 分鐘</string>
+    <string name="brevent_timeout_1hour">1 小時</string>
+    <string name="brevent_timeout_3hour">3 小時</string>
+    <string name="brevent_timeout_6hour">6 小時</string>
+    <string name="brevent_timeout_long">很久</string>
+    <string name="brevent_standby_timeout">待機逾時</string>
+    <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
+
+    <string name="brevent_advanced">進階功能</string>
+    <string name="brevent_language">界面語言</string>
+    <string name="brevent_language_auto">與系統同步</string>
+    <string name="show_framework_apps">顯示框架應用程式</string>
+    <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑域框架應用程式</string>
+    <string name="show_framework_apps_label_fake">卧槽，所有應用都是框架應用程式</string>
+    <string name="show_all_apps">顯示所有應用程式</string>
+    <string name="show_all_apps_label">包括無法開啟也沒有更新的系統應用程式和框架應用程式\n\n請謹慎黑域無法開啟的系統應用程式和框架應用程式</string>
+    <string name="brevent_checking">自我診斷</string>
+    <string name="brevent_checking_label">每 15 分鐘檢查黑域服務\n\n只有偶然不正常停止時，才需要開啟</string>
+
+    <string name="brevent_optimize">優化功能</string>
+    <string name="brevent_abnormal_back">識別非正常「返回」</string>
+    <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑域</string>
+    <string name="brevent_optimize_audio">優化音樂應用程式</string>
+    <string name="brevent_optimize_audio_label">播放且有通知時不黑域，暫停且有通知時不強行停止</string>
+    <string name="show_os_apps">顯示作業系統應用程式</string>
+    <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑域</string>
+
+    <string name="show_donation">顯示支付</string>
+    <string name="show_donation_summary_play" />
+    <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
+    <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
+    <string name="show_donation_contributor">感謝您為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
+    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑域所作的特別貢獻</string>
+    <string name="show_donation_xposed">（Xposed）</string>
+    <string name="show_donation_brefoil" />
+    <string name="brevent_appops">應用程式操作</string>
+    <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
+    <string name="brevent_disable">停用應用程式</string>
+    <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
+    <string name="brevent_dynamic">動態停用</string>
+    <string name="brevent_dynamic_label">如果應用程式被運行且有通知，將被動態停用</string>
+
+    <string name="brevent_about">關於</string>
+    <string name="brevent_about_system">系統狀態</string>
+    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n自動黑域：%5$s\n停用應用程式：%4$s\n應用程式操作：%3$s</string>
+    <string name="brevent_about_system_supported">支援</string>
+    <string name="brevent_about_system_unsupported">不支援</string>
+    <string name="brevent_about_developer">開發人員選項</string>
+    <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
+    <string name="brevent_about_translation">翻譯</string>
+    <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
+    <string name="brevent_about_licenses">軟體授權</string>
+
+    <string name="unsupported_owner">只有擁有者可以使用黑域。</string>
+    <string name="unsupported_clone">黑域不適用於 App clone。</string>
+    <string name="unsupported_signature">請勿破解黑域。</string>
+    <string name="unsupported_xposed">請禁用 Xposed 以便使用黑域。</string>
+    <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
+    <string name="unsupported_permission">沒有權限存取黑域服務。\n\n前景應用程式：%1$s。</string>
+    <string name="unsupported_no_event">沒有事件日誌，黑域無法自動工作。\n\n請稍後重試，或者聯絡 Rom 提供商。</string>
+    <string name="unsupported_no_event2">自 %1$s 起沒有事件日志，黑域不再自動工作。\n\n請重啟黑域服務，或者聯絡 Rom 提供商。</string>
+    <string name="unsupported_version_mismatched">黑域服務正在升級，請稍候重試。</string>
+    <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
+    <string name="unsupported_shell">無法開啟黑域服務。</string>
+    <string name="unsupported_no_local_network">黑域無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
+    <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑域就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
+    <string name="unsupported_granted">黑域服務權限不足，部分功能暫不可用。</string>
+    <string name="unsupported_granted_miui">@string/unsupported_granted</string>
+    <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑域可在背景執行，然後重新開啟。</string>
+    <string name="unsupported_location">請不要把黑域安裝在系統目錄、外部儲存空間或保護目錄。</string>
+    <string name="unsupported_brevented">您已黑域重要應用程式：%1$s。\n\n是否需要不再黑域？</string>
+    <string name="apps_join">、</string>
+
+    <string name="toast_working">黑域服務運行正常</string>
+    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
+    <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔</string>
+    <string name="toast_xposed">@string/show_donation_xposed</string>
+    <string name="toast_alipay_ok">如果已經支付，請點按「轉賬記錄」自動識別</string>
+    <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
+    <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
+
+    <string name="brevent_status_starting">正在開啟黑域服務</string>
+    <string name="brevent_status_not_started">黑域服務沒有開啟</string>
+    <string name="brevent_status_stopped">黑域服務已經停止</string>
+    <string name="brevent_status_unknown">黑域服務可能已經停止</string>
+    <string name="brevent_status_report">請按此發送報告並描述問題</string>
+
+    <string name="make_brevent_better">您已黑域 %1$d 個應用程式，請考慮支付 %2$s以促進黑域良性發展。</string>
+    <string name="pay_brevent_recommend">建議支付 %s</string>
+    <string name="pay_brevent_require">需要支付 %s</string>
+    <string name="pay_brevent_confirm" />
+
+    <string name="brevented_app">已黑域「%1$s」</string>
+    <string name="unbrevent_app">輕觸即可不再黑域。</string>
+    <string name="unbrevented_app">不再黑域「%1$s」</string>
+    <string name="unbrevented_app_fail">不再黑域「%1$s」失敗，煩請進入黑域處理</string>
+
+    <string name="notification_brevent_server">黑域服務</string>
+    <string name="notification_auto_brevent">自動黑域</string>
+
+    <string name="cmd_menu_reset">重設</string>
+    <string name="cmd_menu_stop">停止</string>
+    <string name="cmd_menu_batterystats">取得電量數據</string>
+    <string name="cmd_menu_portal">更新網路檢測</string>
+    <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
+    <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
+
+    <string name="perm_disabled_label">黑域停用 API</string>
+    <string name="perm_disabled_description">使用黑域服務啟用或停用應用程式</string>
+
+    <string-array name="brefoils">
+        <item>1 二向箔</item>
+        <item>2 二向箔</item>
+        <item>3 二向箔</item>
+        <item>4 二向箔</item>
+        <item>5 二向箔</item>
+    </string-array>
+
+</resources>
