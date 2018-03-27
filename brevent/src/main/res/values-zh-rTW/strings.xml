@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑域透過這種方式識別應用程式狀態，防止「黑域清單」內應用程式長期執行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑域將強制停止它。無論何時應用被執行，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設置為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑域將強制停止它。無論何時應用被執行，只要沒有打開界面，黑域都將強制停止它。\n\n「黑域清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑域需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑域服務，讓黑域間接的具備管理其它應用程式的權限。</string>
@@ -77,9 +77,9 @@
 
     <string name="context_menu_target">API %1$d（%2$s）</string>
     <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
-    <string name="context_menu_app_info">應用程式訊息</string>
+    <string name="context_menu_app_info">應用程式資訊</string>
     <string name="context_menu_open">開啟</string>
-    <string name="context_menu_brevent_server_info">黑域服務訊息</string>
+    <string name="context_menu_brevent_server_info">黑域服務資訊</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
@@ -119,7 +119,7 @@
     <string name="menu_command">執行指令</string>
 
     <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
-    <string name="feedback_message_email">\n\n如果您的回饋包含私人訊息，請傳送郵件。</string>
+    <string name="feedback_message_email">\n\n如果您的回饋包含私人資料，請傳送郵件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">郵件</string>
     <string name="feedback_logs">日誌</string>
