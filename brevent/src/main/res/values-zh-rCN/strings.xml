@@ -181,7 +181,7 @@
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
     <string name="brevent_disable_label">停用以后，必须先启用才能继续使用</string>
-    <string name="brevent_dynamic">动态停用</string>
+    <string name="brevent_dynamic">动态停用（实验性）</string>
     <string name="brevent_dynamic_label">如果应用被运行且有通知，将被动态停用</string>
 
     <string name="brevent_about">关于</string>
