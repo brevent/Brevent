@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="donation">如果您喜歡，請隨意支付</string>
-    <string name="donation_unsupported">暫不支援支付</string>
+    <string name="donation">如果您喜歡，請隨意付費</string>
+    <string name="donation_unsupported">暫不支援付費</string>
     <string name="donation_play_unavailable">無法使用 Play 商店內購</string>
     <string name="donation_play_checking">正在檢查 Play 商店內購…</string>
 
