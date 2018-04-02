@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開界面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開介面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑閾需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑閾服務，讓黑閾間接的具備管理其它應用程式的權限。</string>
@@ -17,7 +17,7 @@
     <string name="fragment_guide_security_message2">黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑閾，也不要黑閾工作應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
-    <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌發送回饋。</string>
+    <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌傳送回報。</string>
     <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待機，然後強制停止」。應用程式待機（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑閾不強制停止安全的緩存應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑閾</string>
 
@@ -76,13 +76,13 @@
     <string name="action_message_undone">已還原</string>
 
     <string name="context_menu_target">API %1$d（%2$s）</string>
-    <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
+    <string name="context_menu_package_name">複製包裝名稱</string>
     <string name="context_menu_app_info">應用程式資訊</string>
     <string name="context_menu_open">開啟</string>
     <string name="context_menu_brevent_server_info">黑閾服務資訊</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
+    <string name="context_menu_message_copied">已複製包裝名稱: %s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">啟用</string>
     <string name="context_menu_enable_open">臨時啟用</string>
@@ -112,14 +112,14 @@
     <string name="menu_sort_by_update_time">更新時間</string>
     <string name="menu_sort_by_last_time">上次使用時間</string>
     <string name="menu_sort_by_usage_time">使用時長</string>
-    <string name="menu_feedback">回饋</string>
+    <string name="menu_feedback">回報</string>
     <string name="menu_settings">設定</string>
     <string name="menu_guide">指引</string>
-    <string name="menu_template">模板</string>
+    <string name="menu_template">範本</string>
     <string name="menu_command">執行指令</string>
 
-    <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
-    <string name="feedback_message_email">\n\n如果您的回饋包含私人資料，請傳送郵件。</string>
+    <string name="feedback_message">歡迎傳送回報。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
+    <string name="feedback_message_email">\n\n如果您的回報包含個人資料，請傳送郵件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">郵件</string>
     <string name="feedback_logs">日誌</string>
@@ -131,9 +131,9 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開介面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開介面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開介面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -145,10 +145,10 @@
     <string name="brevent_timeout_6hour">6 小時</string>
     <string name="brevent_timeout_long">很久</string>
     <string name="brevent_standby_timeout">待機逾時</string>
-    <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
+    <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主介面不顯示待命時間長度</string>
 
     <string name="brevent_advanced">進階功能</string>
-    <string name="brevent_language">界面語言</string>
+    <string name="brevent_language">介面語言</string>
     <string name="brevent_language_auto">與系統同步</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑閾框架應用程式</string>
@@ -158,23 +158,23 @@
     <string name="brevent_checking">自我診斷</string>
     <string name="brevent_checking_label">每 15 分鐘檢查黑閾服務\n\n只有偶然不正常停止時，才需要開啟</string>
 
-    <string name="brevent_optimize">優化功能</string>
+    <string name="brevent_optimize">最佳化功能</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑閾</string>
-    <string name="brevent_optimize_audio">優化音樂應用程式</string>
+    <string name="brevent_optimize_audio">最佳化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強行停止</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
     <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑閾</string>
 
-    <string name="show_donation">顯示支付</string>
+    <string name="show_donation">顯示購買</string>
     <string name="show_donation_summary_play" />
-    <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
-    <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
+    <string name="show_donation_play">感謝您透過 Play 商店購買 %s 二向箔</string>
+    <string name="show_donation_rmb">感謝您購買 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑閾所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
-    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店購買 %1$s 二向箔，非 Play 購買 %2$s 二向箔</string>
+    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店購買 %s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_donation_rmb_and_contributor">感謝您購買 %s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店購買 %1$s 二向箔，非 Play 購買 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
     <string name="show_donation_xposed">（Xposed）</string>
     <string name="show_donation_brefoil" />
     <string name="brevent_appops">應用程式操作</string>
@@ -216,22 +216,22 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務運行正常</string>
-    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔</string>
+    <string name="toast_alipay">感謝您透過購買寶累計購買 %1$s 二向箔</string>
+    <string name="toast_alipay_single">感謝您本次透過購買寶購買 %1$s 二向箔</string>
     <string name="toast_xposed">@string/show_donation_xposed</string>
-    <string name="toast_alipay_ok">如果已經支付，請點按「轉賬記錄」自動識別</string>
-    <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
-    <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
+    <string name="toast_alipay_ok">如果已經購買，請點按「轉賬記錄」自動識別</string>
+    <string name="toast_alipay_ko">無法自動確認，請不要購買</string>
+    <string name="toast_donate">感謝您購買 %1$s 二向箔</string>
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
     <string name="brevent_status_stopped">黑閾服務已經停止</string>
     <string name="brevent_status_unknown">黑閾服務可能已經停止</string>
-    <string name="brevent_status_report">請按此發送報告並描述問題</string>
+    <string name="brevent_status_report">請按此傳送報告並描述問題</string>
 
-    <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮支付 %2$s以促進黑閾良性發展。</string>
-    <string name="pay_brevent_recommend">建議支付 %s</string>
-    <string name="pay_brevent_require">需要支付 %s</string>
+    <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮購買 %2$s以促進黑閾良性發展。</string>
+    <string name="pay_brevent_recommend">建議購買 %s</string>
+    <string name="pay_brevent_require">需要購買 %s</string>
     <string name="pay_brevent_confirm" />
 
     <string name="brevented_app">已黑閾「%1$s」</string>
@@ -245,7 +245,7 @@
     <string name="cmd_menu_reset">重設</string>
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">取得電量數據</string>
-    <string name="cmd_menu_portal">更新網路檢測</string>
+    <string name="cmd_menu_portal">更新網路偵測</string>
     <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
     <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
 
