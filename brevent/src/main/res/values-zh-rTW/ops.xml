@@ -15,7 +15,7 @@
 
     <string name="context_menu_appops">應用程式操作</string>
     <string name="context_menu_ops">複製操作</string>
-    <string name="context_menu_ops_copied">操作已複製: %s</string>
+    <string name="context_menu_ops_copied">已複製動作：%s</string>
 
     <string name="ops_time_allow">%s允許</string>
     <string name="ops_time_reject">%s忽略</string>
