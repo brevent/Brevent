@@ -158,10 +158,10 @@
     <string name="brevent_checking">自我診斷</string>
     <string name="brevent_checking_label">每 15 分鐘檢查黑閾服務\n\n只有偶然不正常停止時，才需要開啟</string>
 
-    <string name="brevent_optimize">最佳化功能</string>
+    <string name="brevent_optimize">優化功能</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑閾</string>
-    <string name="brevent_optimize_audio">最佳化音樂應用程式</string>
+    <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強行停止</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
     <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑閾</string>
@@ -177,7 +177,7 @@
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店購買 %1$s 二向箔，非 Play 購買 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
     <string name="show_donation_xposed">（Xposed）</string>
     <string name="show_donation_brefoil" />
-    <string name="brevent_appops">應用程式操作</string>
+    <string name="brevent_appops">應用程式動作</string>
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
@@ -192,7 +192,7 @@
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_translation">翻譯</string>
-    <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321</string>
+    <string name="brevent_about_translator">孟武．尼德霍格．龍\ndavid082321\npan93412</string>
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑閾。</string>
@@ -215,9 +215,9 @@
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否需要不再黑閾？</string>
     <string name="apps_join">、</string>
 
-    <string name="toast_working">黑閾服務運行正常</string>
-    <string name="toast_alipay">感謝您透過購買寶累計購買 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感謝您本次透過購買寶購買 %1$s 二向箔</string>
+    <string name="toast_working">黑閾服務運作正常</string>
+    <string name="toast_alipay">感謝您透過支付寶累計購買 %1$s 二向箔</string>
+    <string name="toast_alipay_single">感謝您本次透過支付寶購買 %1$s 二向箔</string>
     <string name="toast_xposed">@string/show_donation_xposed</string>
     <string name="toast_alipay_ok">如果已經購買，請點選「轉帳記錄」自動識別</string>
     <string name="toast_alipay_ko">無法自動確認，請不要購買</string>
@@ -229,7 +229,7 @@
     <string name="brevent_status_unknown">黑閾服務可能已經停止</string>
     <string name="brevent_status_report">請按此傳送報告並描述問題</string>
 
-    <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮購買 %2$s以促進黑閾良性發展。</string>
+    <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮購買 %2$s 以促進黑閾良性發展。</string>
     <string name="pay_brevent_recommend">建議購買 %s</string>
     <string name="pay_brevent_require">需要購買 %s</string>
     <string name="pay_brevent_confirm" />
