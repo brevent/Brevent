@@ -27,7 +27,7 @@
 
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
-    <string name="brevent_service_guide">1. 打開「開發人員選項」，啟用「USB偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide">1. 打開「開發人員選項」，啟用「USB偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「導覽 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
@@ -114,7 +114,7 @@
     <string name="menu_sort_by_usage_time">使用時長</string>
     <string name="menu_feedback">回報</string>
     <string name="menu_settings">設定</string>
-    <string name="menu_guide">指引</string>
+    <string name="menu_guide">導覽</string>
     <string name="menu_template">範本</string>
     <string name="menu_command">執行指令</string>
 
