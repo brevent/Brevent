@@ -84,6 +84,8 @@
     <string name="context_menu_brevent_server_info">Información de servidor Brevent</string>
     <string name="context_menu_set_priority">Permitir sincronización</string>
     <string name="context_menu_unset_priority">Deshabilitar sincronización</string>
+    <string name="context_menu_set_aggressive">Set aggressive</string>
+    <string name="context_menu_unset_aggressive">Unset aggressive</string>
     <string name="context_menu_message_copied">Nombre del paquete copiado: %s</string>
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
@@ -165,6 +167,8 @@
     <string name="brevent_abnormal_back_label">Brevent inmediatamente cuando las aplicaciones vuelven a la pantalla principal sin pulsar HOME (ej. Volver/Atras)</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification</string>
+    <string name="brevent_auto_aggressive">Auto aggressive</string>
+    <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it aggressive</string>
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Depends on \"Show core apps\". Android OS apps cannot be brevented</string>
 

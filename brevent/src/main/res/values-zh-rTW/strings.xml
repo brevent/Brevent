@@ -82,6 +82,8 @@
     <string name="context_menu_brevent_server_info">黑閾服務資訊</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
+    <string name="context_menu_set_aggressive">設定激進</string>
+    <string name="context_menu_unset_aggressive">取消激進</string>
     <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">啟用</string>
@@ -163,6 +165,8 @@
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑閾</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強行停止</string>
+    <string name="brevent_auto_aggressive">自動激進</string>
+    <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被運行且有通知，將被設定激進</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
     <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑閾</string>
 

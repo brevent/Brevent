@@ -82,6 +82,8 @@
     <string name="context_menu_brevent_server_info">黑阈服务信息</string>
     <string name="context_menu_set_priority">允许同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
+    <string name="context_menu_set_aggressive">设置激进</string>
+    <string name="context_menu_unset_aggressive">取消激进</string>
     <string name="context_menu_message_copied">包名已复制：%s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">启用</string>
@@ -163,6 +165,8 @@
     <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑阈</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放且有通知时不黑阈，暂停且有通知时不强行停止</string>
+    <string name="brevent_auto_aggressive">自动激进</string>
+    <string name="brevent_auto_aggressive_label">如果应用以服务方式被运行且有通知，将被设置激进</string>
     <string name="show_os_apps">显示操作系统应用</string>
     <string name="show_os_apps_label">依赖“显示框架应用”。操作系统应用无法黑阈</string>
 

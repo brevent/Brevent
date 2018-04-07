@@ -85,6 +85,8 @@
     <string name="context_menu_set_priority">Permitir sincronização</string>
     <string name="context_menu_unset_priority">Despermitir sincronização</string>
     <string name="context_menu_message_copied">Copiado nome do pacote: %s</string>
+    <string name="context_menu_set_aggressive">Set aggressive</string>
+    <string name="context_menu_unset_aggressive">Unset aggressive</string>
     <string name="context_menu_disable">Desativar</string>
     <string name="context_menu_enable">Ativar</string>
     <string name="context_menu_enable_open">Ativação instantânea</string>
@@ -165,6 +167,8 @@
     <string name="brevent_abnormal_back_label">Brevenir imediatamente quando apps retornarem para tela inicial via não Início (como Voltar)</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification</string>
+    <string name="brevent_auto_aggressive">Auto aggressive</string>
+    <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it aggressive</string>
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Depends on \"Show core apps\". Android OS apps cannot be brevented</string>
 

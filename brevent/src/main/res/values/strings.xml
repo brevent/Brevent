@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into background.\n\nBrevent recognizes states of apps in this way, preventing apps in Brevent list from running in long time.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are running without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are ran without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
@@ -84,6 +84,8 @@
     <string name="context_menu_brevent_server_info">Brevent server Info</string>
     <string name="context_menu_set_priority">Allow sync</string>
     <string name="context_menu_unset_priority">Disallow sync</string>
+    <string name="context_menu_set_aggressive">Set aggressive</string>
+    <string name="context_menu_unset_aggressive">Unset aggressive</string>
     <string name="context_menu_message_copied">Copied package name: %s</string>
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
@@ -133,9 +135,9 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only Standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out, or swipe apps away from recents screen\n\nAlways force-stop running apps which have no activity</string>
-    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop running apps which have no activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or swipe apps from away recents screen\n\nAlways force-stop running apps which have no activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby time out, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or swipe apps from away recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
@@ -165,6 +167,8 @@
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification</string>
+    <string name="brevent_auto_aggressive">Auto aggressive</string>
+    <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it aggressive</string>
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Depends on \"Show core apps\". Android OS apps cannot be brevented</string>
 
