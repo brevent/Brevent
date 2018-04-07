@@ -181,8 +181,6 @@
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
     <string name="brevent_disable_label">停用以后，必须先启用才能继续使用</string>
-    <string name="brevent_dynamic">动态停用（实验性）</string>
-    <string name="brevent_dynamic_label">如果应用被运行且有通知，将被动态停用</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
@@ -231,7 +229,6 @@
 
     <string name="make_brevent_better">您已黑阈 %1$d 个应用，可否支付 %2$s？如果已经支付，请按流程确认支付。\n\n这能促进黑阈良性发展，也能激励其他独立开发者。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
-    <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_confirm">无法确认</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>

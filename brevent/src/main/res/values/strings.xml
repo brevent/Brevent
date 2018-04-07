@@ -183,8 +183,6 @@
     <string name="brevent_appops_label">Be careful, may cause apps crash</string>
     <string name="brevent_disable">Disable Apps</string>
     <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
-    <string name="brevent_dynamic">Dynamic disable (Experimental)</string>
-    <string name="brevent_dynamic_label">Disable apps in brevent list run by other apps dynamically</string>
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_system">System status</string>
@@ -235,7 +233,6 @@
 
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_recommend">Recommend to pay %s</string>
-    <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_brevent_confirm" />
 
     <string name="brevented_app">Brevented \"%1$s\"</string>

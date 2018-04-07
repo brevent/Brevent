@@ -181,8 +181,6 @@
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
-    <string name="brevent_dynamic">動態停用（實驗性）</string>
-    <string name="brevent_dynamic_label">如果應用程式被運行且有通知，將被動態停用</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
@@ -231,7 +229,6 @@
 
     <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮支付 %2$s以促進黑閾良性發展。</string>
     <string name="pay_brevent_recommend">建議支付 %s</string>
-    <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_confirm" />
 
     <string name="brevented_app">已黑閾「%1$s」</string>
