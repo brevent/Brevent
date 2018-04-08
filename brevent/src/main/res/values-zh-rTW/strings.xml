@@ -238,6 +238,10 @@
     <string name="unbrevent_app">輕觸即可不再黑閾。</string>
     <string name="unbrevented_app">不再黑閾「%1$s」</string>
     <string name="unbrevented_app_fail">不再黑閾「%1$s」失敗，煩請進入黑閾處理</string>
+    <string name="aggressive_app">已將「%1$s」設置激進</string>
+    <string name="normal_app">輕觸即可取消激進。</string>
+    <string name="normaled_app">取消激進「%1$s」</string>
+    <string name="normaled_app_fail">取消激進「%1$s」失敗，煩請進入黑閾處理</string>
 
     <string name="notification_brevent_server">黑閾服務</string>
     <string name="notification_auto_brevent">自動黑閾</string>

@@ -242,6 +242,10 @@
     <string name="unbrevent_app">Toque para restaurar.</string>
     <string name="unbrevented_app">Restaurado \"%1$s\"</string>
     <string name="unbrevented_app_fail">Não foi possível restaurar \"%1$s\", lance Brevent</string>
+    <string name="aggressive_app">Set \"%1$s\" as aggressive</string>
+    <string name="normal_app">Tap to unset.</string>
+    <string name="normaled_app">Unset \"%1$s\"</string>
+    <string name="normaled_app_fail">Can\'t unset \"%1$s\", please launch Brevent</string>
 
     <string name="notification_brevent_server">Servidor Brevent</string>
     <string name="notification_auto_brevent">Autobrevenção</string>
