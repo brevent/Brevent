@@ -202,7 +202,6 @@
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
     <string name="unsupported_clone">Brevent is unavailable in App clone.</string>
     <string name="unsupported_signature">Brevent is cracked.</string>
-    <string name="unsupported_xposed">Brevent is only available without Xposed.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
     <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, then contact Rom provider.</string>

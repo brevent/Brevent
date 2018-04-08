@@ -200,7 +200,6 @@
     <string name="unsupported_owner">只有机主可以使用黑阈。</string>
     <string name="unsupported_clone">黑阈不支持“应用分身”。</string>
     <string name="unsupported_signature">no zuo no die</string>
-    <string name="unsupported_xposed">请禁用 Xposed 以便使用黑阈。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑阈服务。\n\n前台应用：%1$s。</string>
     <string name="unsupported_no_event">没有事件日志，黑阈无法自动工作。\n\n请稍后重试，或者联系 Rom 提供商。</string>
