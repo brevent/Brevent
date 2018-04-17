@@ -216,6 +216,20 @@
     <string name="unsupported_checking">O diagnóstico do Brevent não é suportado. Certifique-se de que o Brevent pode executar em segundo plano e depois ligue novamente.</string>
     <string name="unsupported_location">Localização inválida para Brevent, reinstale.</string>
     <string name="unsupported_brevented">Você breveniu alguns apps importantes: %1$s.\n\nDesbreveni-los?</string>
+    <string name="icon_required">Required by: %1$s.</string>
+    <string name="icon_fcm">Apps are allowed to receive message via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
+    <string name="icon_sync">Apps are allowed to receive message via sync or broadcast.</string>
+    <string name="icon_aggressive">Apps are prohibited to run. Normally, brevented apps can run several seconds for Brevent to check safe or not.</string>
+    <string name="icon_disabled">App is disabled. You must enable before use it.</string>
+    <string name="icon_disabling">App is running temporarily, it will be disabled later.</string>
+    <string name="icon_vpn">App is connected VPN. Brevent won\' force-stop connected VPN.</string>
+    <string name="icon_audio">App is playing. Brevent won\'t force-stop playing apps.</string>
+    <string name="icon_audio_paused">Apps is paused playing. Brevent won\'t force-stop paused apps with notifications.</string>
+    <string name="icon_favorite">Apps are regard as imortant by your Rom.</string>
+    <string name="icon_safe">Safe apps. You shouldn\'t regard it as running.</string>
+    <string name="icon_standby">Apps are standby, it will be force-stop when reach standby timeout.</string>
+    <string name="icon_running">Apps are running and wait for brevented.</string>
+    <string name="icon_brevent">Apps are in brevent list.</string>
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>

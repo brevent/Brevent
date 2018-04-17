@@ -214,6 +214,20 @@
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑阈可在后台运行，然后重新开启。</string>
     <string name="unsupported_location">请不要把黑阈安装在系统目录、外置存储或保护目录。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否需要不再黑阈？</string>
+    <string name="icon_required">被以下应用依赖：%1$s。</string>
+    <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
+    <string name="icon_sync">允许应用通过同步或广播接收消息。</string>
+    <string name="icon_aggressive">应用不许运行。正常情况下，黑阈清单应用可以运行几秒钟，然后黑阈决定是否强行停止它。</string>
+    <string name="icon_disabled">应用已被停用。使用之前，请先启用。</string>
+    <string name="icon_disabling">应用临时启用，稍候将会停用。</string>
+    <string name="icon_vpn">应用属于已连接的 VPN，黑阈不会强行停止它。</string>
+    <string name="icon_audio">应用正在播放音乐，黑阈不会强行停止它。</string>
+    <string name="icon_audio_paused">应用暂停播放音乐，有通知时黑阈不会强行停止它。</string>
+    <string name="icon_favorite">您的 Rom 认为这个应用比较重要。</string>
+    <string name="icon_safe">安全的应用，您不必当它在运行。如果应用不用时都是这个状态，您也就不再需要黑阈。</string>
+    <string name="icon_standby">应用已待机，待机超时以后，将被强行停止。</string>
+    <string name="icon_running">应用正在运行，或者说，等待被黑阈。如果有时间，超时后黑阈；如果没有时间，将很快黑阈。</string>
+    <string name="icon_brevent">应用在黑阈清单。黑阈不会处理不在黑阈清单的应用。</string>
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑阈服务运行正常</string>
