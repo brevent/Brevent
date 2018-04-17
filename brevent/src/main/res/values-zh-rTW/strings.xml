@@ -82,7 +82,7 @@
     <string name="context_menu_brevent_server_info">黑閾服務資訊</string>
     <string name="context_menu_set_priority">允許同步</string>
     <string name="context_menu_unset_priority">取消同步</string>
-    <string name="context_menu_set_aggressive">設定激進</string>
+    <string name="context_menu_set_aggressive">設為激進</string>
     <string name="context_menu_unset_aggressive">取消激進</string>
     <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
     <string name="context_menu_disable">停用</string>
@@ -116,8 +116,8 @@
     <string name="menu_sort_by_usage_time">使用時長</string>
     <string name="menu_feedback">回饋</string>
     <string name="menu_settings">設定</string>
-    <string name="menu_guide">指引</string>
-    <string name="menu_template">模板</string>
+    <string name="menu_guide">導覽</string>
+    <string name="menu_template">範本</string>
     <string name="menu_command">執行指令</string>
 
     <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
@@ -133,8 +133,8 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；待命逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待機；待機逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待機\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
@@ -147,14 +147,14 @@
     <string name="brevent_timeout_6hour">6 小時</string>
     <string name="brevent_timeout_long">很久</string>
     <string name="brevent_standby_timeout">待機逾時</string>
-    <string name="brevent_standby_timeout_label">應用程式待命 %1$s 後強制停止，主界面不顯示待命時間長度</string>
+    <string name="brevent_standby_timeout_label">應用程式待機 %1$s 後強制停止，主界面不顯示待機時間長度</string>
 
     <string name="brevent_advanced">進階功能</string>
     <string name="brevent_language">界面語言</string>
     <string name="brevent_language_auto">與系統同步</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑閾框架應用程式</string>
-    <string name="show_framework_apps_label_fake">卧槽，所有應用都是框架應用程式</string>
+    <string name="show_framework_apps_label_fake">哇靠，所有應用都是框架應用程式</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟也沒有更新的系統應用程式和框架應用程式\n\n請謹慎黑閾無法開啟的系統應用程式和框架應用程式</string>
     <string name="brevent_checking">自我診斷</string>
@@ -166,7 +166,7 @@
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強行停止</string>
     <string name="brevent_auto_aggressive">自動激進</string>
-    <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被運行且有通知，將被設定激進</string>
+    <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被運行且有通知，將被設為激進</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
     <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑閾</string>
 
@@ -215,18 +215,18 @@
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄、外部儲存空間或保護目錄。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否需要不再黑閾？</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
-    <string name="icon_fcm">允許應用程式通過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
-    <string name="icon_sync">允許應用程式通過同步或廣播接收消息。</string>
+    <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
+    <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
     <string name="icon_aggressive">應用程式不許運行。正常情況下，黑閾清單應用程式可以運行幾秒鐘，然後黑閾決定是否強行停止它。</string>
     <string name="icon_disabled">應用程式已被停用。使用之前，請先啟用。</string>
     <string name="icon_disabling">應用程式臨時啟用，稍候將會停用。</string>
-    <string name="icon_vpn">應用程式屬於已連接的 VPN，黑閾不會強行停止它。</string>
+    <string name="icon_vpn">應用程式屬於已連線的 VPN，黑閾不會強行停止它。</string>
     <string name="icon_audio">應用程式正在播放音樂，黑閾不會強行停止它。</string>
     <string name="icon_audio_paused">應用程式暫停播放音樂，有通知時黑閾不會強行停止它。</string>
     <string name="icon_favorite">您的 Rom 認為這個應用程式比較重要。</string>
     <string name="icon_safe">安全的應用程式，您不必當它在運行。如果應用程式不用時都是這個狀態，您也就不再需要黑閾。</string>
-    <string name="icon_standby">應用程式已待機，待機超時以後，將被強行停止。</string>
-    <string name="icon_running">應用程式正在運行，或者說，等待被黑閾。如果有時間，超時後黑閾；如果沒有時間，將很快黑閾。</string>
+    <string name="icon_standby">應用程式已待機，待機逾時以後，將被強行停止。</string>
+    <string name="icon_running">應用程式正在運行，或者說，等待被黑閾。如果有時間，逾時後黑閾；如果沒有時間，將很快黑閾。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
 
     <string name="apps_join">、</string>
@@ -253,7 +253,7 @@
     <string name="unbrevent_app">輕觸即可不再黑閾。</string>
     <string name="unbrevented_app">不再黑閾「%1$s」</string>
     <string name="unbrevented_app_fail">不再黑閾「%1$s」失敗，煩請進入黑閾處理</string>
-    <string name="aggressive_app">已將「%1$s」設置激進</string>
+    <string name="aggressive_app">已將「%1$s」設為激進</string>
     <string name="normal_app">輕觸即可取消激進。</string>
     <string name="normaled_app">取消激進「%1$s」</string>
     <string name="normaled_app_fail">取消激進「%1$s」失敗，煩請進入黑閾處理</string>
