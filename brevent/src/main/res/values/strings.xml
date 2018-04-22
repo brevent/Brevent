@@ -204,8 +204,8 @@
     <string name="unsupported_signature">Brevent is cracked.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
-    <string name="unsupported_no_event">No event log; Brevent server cannot work automatically.\n\nPlease try later, then contact ROM provider.</string>
-    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, then contact ROM provider.</string>
+    <string name="unsupported_no_event">No event log; Brevent server cannot work automatically.\n\nPlease try later, or contact ROM provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s; Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact ROM provider.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Failed to start Brevent server.</string>
