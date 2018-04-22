@@ -204,8 +204,8 @@
     <string name="unsupported_signature">Brevent is cracked.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
-    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, then contact Rom provider.</string>
-    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, then contact Rom provider.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, or contact Rom provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server, or contact Rom provider.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Fail to start Brevent server.</string>
@@ -217,19 +217,19 @@
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
     <string name="unsupported_brevented">You have brevented important apps: %1$s.\n\nDo you wan to unbrevent them?</string>
     <string name="icon_required">Required by: %1$s.</string>
-    <string name="icon_fcm">Apps are allowed to receive message via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
-    <string name="icon_sync">Apps are allowed to receive message via sync or broadcast.</string>
+    <string name="icon_fcm">Apps are allowed to receive message via syncing, broadcast, and FCM (Firebase Cloud Messaging).</string>
+    <string name="icon_sync">Apps are allowed to receive message via syncing or broadcast.</string>
     <string name="icon_aggressive">Apps are prohibited to run. Normally, brevented apps can run several seconds for Brevent to check safe or not.</string>
     <string name="icon_disabled">App is disabled. You must enable before use it.</string>
-    <string name="icon_disabling">App is running temporarily, it will be disabled later.</string>
-    <string name="icon_vpn">App is connected VPN. Brevent won\' force-stop connected VPN.</string>
-    <string name="icon_audio">App is playing. Brevent won\'t force-stop playing apps.</string>
-    <string name="icon_audio_paused">Apps is paused playing. Brevent won\'t force-stop paused apps with notifications.</string>
-    <string name="icon_favorite">Apps are regard as imortant by your Rom.</string>
-    <string name="icon_safe">Safe apps. You shouldn\'t regard it as running.</string>
-    <string name="icon_standby">Apps are standby, it will be force-stop when reach standby timeout.</string>
-    <string name="icon_running">Apps are running and wait for brevented.</string>
-    <string name="icon_brevent">Apps are in brevent list.</string>
+    <string name="icon_disabling">App is running temporarily. It will be disabled later.</string>
+    <string name="icon_vpn">App is connected to VPN. Brevent won\'t force-stop connected VPN.</string>
+    <string name="icon_audio">App is playing audio. Brevent won\'t force-stop playing apps.</string>
+    <string name="icon_audio_paused">Apps has paused playing audio. Brevent won\'t force-stop paused apps with notifications.</string>
+    <string name="icon_favorite">Apps which are regarded imortant by your Rom.</string>
+    <string name="icon_safe">Safe apps. There is no need to regard they are running. If apps remain this state when not using, you no longer have to brevent them.</string>
+    <string name="icon_standby">Apps which are standby. They will be force-stopped when reach standby timeout.</string>
+    <string name="icon_running">Apps which are running or, in other words, waiting for being brevented.</string>
+    <string name="icon_brevent">Apps which are in brevent list.</string>
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>
@@ -269,7 +269,7 @@
     <string name="cmd_menu_batterystats">Dump battery data</string>
     <string name="cmd_menu_portal">Update captive portal</string>
     <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
-    <string name="cmd_warning">Exec command only supports simple shell script, use it at your risk.</string>
+    <string name="cmd_warning">Exec command only supports simple shell script, use it at your own risk.</string>
 
     <string name="perm_disabled_label">Brevent Disabled API</string>
     <string name="perm_disabled_description">Enable and disable apps via Brevent server</string>
