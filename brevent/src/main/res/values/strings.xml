@@ -13,22 +13,22 @@
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">Brevent does not need Root access or ability to modify system files; there is no residue after uninstallation.</string>
+    <string name="fragment_guide_security_message">Brevent does not need Root access nor the ability to modify system files, there is no residue after uninstallation.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, or important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
-    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please send feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to send feedback with logs.</string>
     <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe cached apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools; you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with the full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when pasting the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools.html (long-press to select and copy).</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
 
     <string name="start_brevent">Launch Brevent</string>
 
     <string name="brevent_service_start">Please start Brevent server (%s)</string>
     <string name="brevent_service_no_response">Brevent server don\'t response (%s)</string>
-    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\" and make sure PC can recognize device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can recognize device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_open_development">Developer</string>
     <string name="brevent_service_copy_path">Copy command</string>
     <string name="brevent_service_command_copied">Command copied: %s</string>
@@ -36,7 +36,7 @@
     <string name="brevent_service_usb_connected">(USB connected)</string>
     <string name="brevent_service_run_as_root">Root</string>
     <string name="brevent_service_hard" />
-    <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose which to brevent.</string>
+    <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose, then brevent them</string>
 
     <string name="fragment_apps_user">User Apps</string>
     <string name="fragment_apps_system">System Apps</string>
@@ -178,13 +178,13 @@
     <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>
     <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store</string>
-    <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil via Play Store, and priceless contribution to Brevent</string>
-    <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution to Brevent</string>
+    <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil via Play Store, and priceless contribution on Brevent</string>
+    <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="show_donation_xposed">(Xposed)</string>
     <string name="show_donation_brefoil" />
     <string name="brevent_appops">App ops</string>
-    <string name="brevent_appops_label">Be careful, this may cause apps to crash</string>
+    <string name="brevent_appops_label">Be careful, may cause apps crash</string>
     <string name="brevent_disable">Disable apps</string>
     <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
 
@@ -204,8 +204,8 @@
     <string name="unsupported_signature">Brevent is cracked.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
-    <string name="unsupported_no_event">No event log; Brevent server cannot work automatically.\n\nPlease try later, or contact ROM provider.</string>
-    <string name="unsupported_no_event2">No event log since %1$s; Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact ROM provider.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, or contact Rom provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact Rom provider.</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Failed to start Brevent server.</string>
