@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">“USB 调试”模式权限很高，Android 8 以下设备重启就失效；在 Android 8 及以上则更严格，关闭“USB 调试”或更改 USB 选项就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑阈不需要 Root 或修改系统文件，卸载后没有残留。</string>
+    <string name="fragment_guide_security_message">黑阈不需要 root 或修改系统文件，卸载后没有残留。</string>
     <string name="fragment_guide_security_message2">黑阈使用大量 Android 隐藏 API，部分厂商可能改变这些 API 行为，使用黑阈可能会对应用甚至设备造成不良影响。\n\n不要在工作设备上使用黑阈，也不要黑阈工作应用、常用应用和重要应用。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已复制：%s</string>
     <string name="brevent_service_adb_running">（已启用）</string>
     <string name="brevent_service_usb_connected">（已连接）</string>
-    <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_run_as_root">root</string>
     <string name="brevent_service_hard">没有电脑</string>
     <string name="brevent_service_success">黑阈服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑阈它们</string>
 
@@ -202,8 +202,9 @@
     <string name="unsupported_signature">no zuo no die</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑阈服务。\n\n前台应用：%1$s。</string>
-    <string name="unsupported_no_event">没有事件日志，黑阈无法自动工作。\n\n请稍后重试，或者联系 Rom 提供商。</string>
-    <string name="unsupported_no_event2">自 %1$s 起没有事件日志，黑阈不再自动工作。\n\n请重启黑阈服务，或者联系 Rom 提供商。</string>
+    <string name="unsupported_no_event">没有事件日志，黑阈无法自动工作。\n\n请稍后重试，或者联系 ROM 提供商。</string>
+    <string name="unsupported_no_event2">自 %1$s 起没有事件日志，黑阈不再自动工作。\n\n请重启黑阈服务，或者联系 ROM 提供商。</string>
+    <string name="unsupported_restart">重启黑阈</string>
     <string name="unsupported_version_mismatched">黑阈服务正在升级，请稍候重试。</string>
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
     <string name="unsupported_shell">无法启动黑阈服务。</string>
@@ -223,7 +224,7 @@
     <string name="icon_vpn">应用属于已连接的 VPN，黑阈不会强行停止它。</string>
     <string name="icon_audio">应用正在播放音乐，黑阈不会强行停止它。</string>
     <string name="icon_audio_paused">应用暂停播放音乐，有通知时黑阈不会强行停止它。</string>
-    <string name="icon_favorite">您的 Rom 认为这个应用比较重要。</string>
+    <string name="icon_favorite">您的 ROM 认为这个应用比较重要。</string>
     <string name="icon_safe">安全的应用，您不必当它在运行。如果应用不用时都是这个状态，您也就不再需要黑阈。</string>
     <string name="icon_standby">应用已待机，待机超时以后，将被强行停止。</string>
     <string name="icon_running">应用正在运行，或者说，等待被黑阈。如果有时间，超时后黑阈；如果没有时间，将很快黑阈。</string>
@@ -244,7 +245,7 @@
     <string name="brevent_status_unknown">黑阈服务可能已经停止</string>
     <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
-    <string name="make_brevent_better">您已黑阈 %1$d 个应用，可否支付 %2$s？如果已经支付，请按流程确认支付。\n\n这能促进黑阈良性发展，也能激励其他独立开发者。</string>
+    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认支付。</string>
     <string name="pay_brevent_recommend">建议支付 %s</string>
     <string name="pay_brevent_confirm">无法确认</string>
 
@@ -264,7 +265,7 @@
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">获取电量数据</string>
     <string name="cmd_menu_portal">更新网络检查</string>
-    <string name="cmd_too_large">%1$s\n# 错误：输出 %2$d > %3$d</string>
+    <string name="cmd_too_large">%1$s\n# 输出过多，仅展示部分内容</string>
     <string name="cmd_warning">执行指令可能会对应用甚至设备造成不良影响。如有疑问，请立即停止。</string>
 
     <string name="perm_disabled_label">黑阈停用 API</string>

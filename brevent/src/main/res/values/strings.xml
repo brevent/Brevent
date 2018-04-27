@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
-    <string name="fragment_guide_security_message">Brevent does not need Root access nor the ability to modify system files, there is no residue after uninstallation.</string>
+    <string name="fragment_guide_security_message">Brevent does not need root access nor the ability to modify system files, there is no residue after uninstallation.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, or important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
@@ -34,7 +34,7 @@
     <string name="brevent_service_command_copied">Command copied: %s</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
     <string name="brevent_service_usb_connected">(USB connected)</string>
-    <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_run_as_root">root</string>
     <string name="brevent_service_hard" />
     <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose, then brevent them</string>
 
@@ -204,8 +204,9 @@
     <string name="unsupported_signature">Brevent is cracked.</string>
     <string name="unsupported_path">(Error: cannot make brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
-    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, or contact Rom provider.</string>
-    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact Rom provider.</string>
+    <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, or contact ROM provider.</string>
+    <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact ROM provider.</string>
+    <string name="unsupported_restart">Restart Brevent</string>
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Failed to start Brevent server.</string>
@@ -268,7 +269,7 @@
     <string name="cmd_menu_stop">Stop</string>
     <string name="cmd_menu_batterystats">Dump battery data</string>
     <string name="cmd_menu_portal">Update captive portal</string>
-    <string name="cmd_too_large">%1$s\n# Error: output %2$d &gt; %3$d</string>
+    <string name="cmd_too_large">%1$s\n# Output too large</string>
     <string name="cmd_warning">Exec command only supports simple shell script, use it at your own risk.</string>
 
     <string name="perm_disabled_label">Brevent Disabled API</string>

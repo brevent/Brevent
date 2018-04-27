@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">「USB 偵錯」模式權限很高，Android 8 以下裝置重啟就失效；在 Android 8 及以上則更嚴格，關閉「USB 偵錯」或更改 USB 選項就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
-    <string name="fragment_guide_security_message">黑閾不需要 Root 或修改系統檔案，解除安裝後沒有殘留。</string>
+    <string name="fragment_guide_security_message">黑閾不需要 root 或修改系統檔案，解除安裝後沒有殘留。</string>
     <string name="fragment_guide_security_message2">黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑閾，也不要黑閾工作應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
@@ -33,7 +33,7 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_run_as_root">Root</string>
+    <string name="brevent_service_run_as_root">root</string>
     <string name="brevent_service_hard">沒有電腦</string>
     <string name="brevent_service_success">黑閾服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑閾它們</string>
 
@@ -202,8 +202,9 @@
     <string name="unsupported_signature">請勿破解黑閾。</string>
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
-    <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 Rom 提供商。</string>
-    <string name="unsupported_no_event2">自 %1$s 起沒有事件日志，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 Rom 提供商。</string>
+    <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
+    <string name="unsupported_no_event2">自 %1$s 起沒有事件日志，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 ROM 提供商。</string>
+    <string name="unsupported_restart">重啟黑閾</string>
     <string name="unsupported_version_mismatched">黑閾服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑閾服務。</string>
@@ -223,7 +224,7 @@
     <string name="icon_vpn">應用程式屬於已連線的 VPN，黑閾不會強行停止它。</string>
     <string name="icon_audio">應用程式正在播放音樂，黑閾不會強行停止它。</string>
     <string name="icon_audio_paused">應用程式暫停播放音樂，有通知時黑閾不會強行停止它。</string>
-    <string name="icon_favorite">您的 Rom 認為這個應用程式比較重要。</string>
+    <string name="icon_favorite">您的 ROM 認為這個應用程式比較重要。</string>
     <string name="icon_safe">安全的應用程式，您不必當它在執行。如果應用程式不用時都是這個狀態，您也就不再需要黑閾。</string>
     <string name="icon_standby">應用程式已待機，待機逾時以後，將被強行停止。</string>
     <string name="icon_running">應用程式正在執行，或者說，等待被黑閾。如果有時間，逾時後黑閾；如果沒有時間，將很快黑閾。</string>
@@ -265,7 +266,7 @@
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">取得電量數據</string>
     <string name="cmd_menu_portal">更新網路檢測</string>
-    <string name="cmd_too_large">%1$s\n# 錯誤：輸出 %2$d > %3$d</string>
+    <string name="cmd_too_large">%1$s\n# 輸出過多，僅展示部分內容</string>
     <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
 
     <string name="perm_disabled_label">黑閾停用 API</string>

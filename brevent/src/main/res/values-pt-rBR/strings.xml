@@ -206,6 +206,7 @@
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
     <string name="unsupported_no_event">Nenhum evento de registro, o servidor Brevent não pode funcionar automaticamente.\n\nTente mais tarde, em seguida contate o provedor da Rom.</string>
     <string name="unsupported_no_event2">Nenhum registro de evento desde %1$s, o servidor Brevent não pode funcionar automaticamente.\n\nReinicie o servidor Brevent, em seguida contate o provedor da Rom.</string>
+    <string name="unsupported_restart">Restart Brevent</string>
     <string name="unsupported_version_mismatched">O servidor Brevent está atualizando. Tente novamente mais tarde.</string>
     <string name="unsupported_logs">Não foi possível obter registros. Tente novamente mais tarde.</string>
     <string name="unsupported_shell">Falha ao iniciar o servidor Brevent.</string>
@@ -268,7 +269,7 @@
     <string name="cmd_menu_stop">Encerrar</string>
     <string name="cmd_menu_batterystats">Limpar dados da bateria</string>
     <string name="cmd_menu_portal" />
-    <string name="cmd_too_large">%1$s\n# Erro: saída %2$d &gt; %3$d</string>
+    <string name="cmd_too_large">%1$s\n# Error: output too large</string>
     <string name="cmd_warning">Executar comando apenas suporta script de shell simples, use-o por sua conta e risco.</string>
 
     <string name="perm_disabled_label">Brevent Disabled API</string>
