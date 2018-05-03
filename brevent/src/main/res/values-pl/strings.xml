@@ -82,9 +82,9 @@
     <string name="context_menu_open">Uruchom</string>
     <string name="context_menu_brevent_server_info">Informacje o usłudze</string>
     <string name="context_menu_set_priority">Zezwól na synchronizację</string>
-    <string name="context_menu_unset_priority">Nie synchronizuj</string>
     <string name="context_menu_set_aggressive">Set aggressive</string>
-    <string name="context_menu_unset_aggressive">Unset aggressive</string>
+    <string name="context_menu_off_aggressive">No auto aggressive</string>
+    <string name="context_menu_unset">Unset</string>
     <string name="context_menu_message_copied">Skopiowano nazwę pakietu: %s</string>
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
@@ -220,6 +220,7 @@
     <string name="icon_fcm">Apps are allowed to receive message via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
     <string name="icon_sync">Apps are allowed to receive message via sync or broadcast.</string>
     <string name="icon_aggressive">Apps are prohibited to run. Normally, brevented apps can run several seconds for Brevent to check safe or not.</string>
+    <string name="icon_off_aggressive">Apps won\'t be set as aggressive automatically.</string>
     <string name="icon_disabled">App is disabled. You must enable before use it.</string>
     <string name="icon_disabling">App is running temporarily, it will be disabled later.</string>
     <string name="icon_vpn">App is connected VPN. Brevent won\' force-stop connected VPN.</string>

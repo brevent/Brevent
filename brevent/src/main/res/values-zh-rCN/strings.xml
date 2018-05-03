@@ -80,9 +80,9 @@
     <string name="context_menu_open">打开</string>
     <string name="context_menu_brevent_server_info">黑阈服务信息</string>
     <string name="context_menu_set_priority">允许同步</string>
-    <string name="context_menu_unset_priority">取消同步</string>
     <string name="context_menu_set_aggressive">设置激进</string>
-    <string name="context_menu_unset_aggressive">取消激进</string>
+    <string name="context_menu_off_aggressive">不要自动激进</string>
+    <string name="context_menu_unset">取消额外设置</string>
     <string name="context_menu_message_copied">包名已复制：%s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">启用</string>
@@ -217,7 +217,8 @@
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允许应用通过同步或广播接收消息。</string>
-    <string name="icon_aggressive">应用不许运行。正常情况下，黑阈清单应用可以运行几秒钟，然后黑阈决定是否强行停止它。</string>
+    <string name="icon_aggressive">应用处于激进模式。正常情况下，黑阈清单应用可以运行几秒钟，然后黑阈决定是否强行停止它；激进模式下，一旦被运行，黑阈会立即强行停止它。</string>
+    <string name="icon_off_aggressive">应用不会自动被设置为激进模式。</string>
     <string name="icon_disabled">应用已被停用。使用之前，请先启用。</string>
     <string name="icon_disabling">应用临时启用，稍候将会停用。</string>
     <string name="icon_vpn">应用属于已连接的 VPN，黑阈不会强行停止它。</string>
