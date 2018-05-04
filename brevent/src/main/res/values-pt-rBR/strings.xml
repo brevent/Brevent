@@ -13,7 +13,7 @@
     <string name="fragment_guide_permission_message2">Brevent não funcionará se o dispositivo Android conectado for reiniciado. Desde o Android 8, Brevent não funcionará se você desligar a \"Depuração USB\" ou alterar as opções de USB.</string>
 
     <string name="fragment_guide_security">Segurança</string>
-    <string name="fragment_guide_security_message">Brevent não necessita de Root ou modificar arquivos do sistema, nenhum resíduo é deixado após a desinstalação.</string>
+    <string name="fragment_guide_security_message">Brevent não necessita de root ou modificar arquivos do sistema, nenhum resíduo é deixado após a desinstalação.</string>
     <string name="fragment_guide_security_message2">Brevent usa muitas das APIs ocultas do Android. Algumas ROMs de terceiros podem modificar estas APIs, logo poderá haver alguns problemas quanto ao uso.\n\nNÃO use Brevent em dispositivos de trabalho, NEM BREVINA apps de trabalho, apps frequentemente usados, apps importantes.</string>
 
     <string name="fragment_guide_enjoy">Desfrute</string>
@@ -34,7 +34,6 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Ativado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_run_as_root">Root</string>
     <string name="brevent_service_hard" />
     <string name="brevent_service_success">Servidor Brevent iniciado com sucesso. Toque nos ícones dos apps para escolhê-los e em seguida breveni-los</string>
 
