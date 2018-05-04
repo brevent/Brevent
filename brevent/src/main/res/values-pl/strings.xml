@@ -169,7 +169,7 @@
     <string name="brevent_auto_aggressive">Auto aggressive</string>
     <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it aggressive</string>
     <string name="show_os_apps">Show OS apps</string>
-    <string name="show_os_apps_label">Depends on \"Show core apps\". Android OS apps cannot be brevented</string>
+    <string name="show_os_apps_label">Android OS apps cannot be brevented</string>
 
     <string name="show_donation">Pokaż płatności</string>
     <string name="show_donation_summary_play" />

@@ -167,7 +167,7 @@
     <string name="brevent_auto_aggressive">自動激進</string>
     <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被執行且有通知，將被設為激進</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
-    <string name="show_os_apps_label">依賴「顯示框架應用程式」。作業系統應用程式無法黑閾</string>
+    <string name="show_os_apps_label">作業系統應用程式無法黑閾</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />

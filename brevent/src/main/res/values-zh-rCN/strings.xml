@@ -167,7 +167,7 @@
     <string name="brevent_auto_aggressive">自动激进</string>
     <string name="brevent_auto_aggressive_label">如果应用以服务方式被运行且有通知，将被设置激进</string>
     <string name="show_os_apps">显示操作系统应用</string>
-    <string name="show_os_apps_label">依赖“显示框架应用”。操作系统应用无法黑阈</string>
+    <string name="show_os_apps_label">操作系统应用无法黑阈</string>
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
