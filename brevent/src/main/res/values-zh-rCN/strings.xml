@@ -184,6 +184,8 @@
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
     <string name="brevent_disable_label">停用以后，必须先启用才能继续使用</string>
+    <string name="brevent_dynamic_gms">动态 GMS</string>
+    <string name="brevent_dynamic_gms_label">黑阈 GMS 以后，动态停用和启用</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
