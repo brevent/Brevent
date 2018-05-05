@@ -249,7 +249,7 @@
     <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
     <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮支付 %2$s以促進黑閾良性發展。</string>
-    <string name="pay_brevent_recommend">建議支付 %s</string>
+    <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_confirm" />
 
     <string name="brevented_app">已黑閾「%1$s」</string>

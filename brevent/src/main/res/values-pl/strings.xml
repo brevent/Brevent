@@ -252,7 +252,7 @@
     <string name="brevent_status_report">Dotknij, aby wysłać informację zwrotną oraz dokładnie ją opisać</string>
 
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
-    <string name="pay_brevent_recommend">Recommend to pay %s</string>
+    <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_brevent_confirm" />
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
