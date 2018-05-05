@@ -281,4 +281,11 @@
         <item>5 二向箔（现合人民币 30 元）</item>
     </string-array>
 
+    <string name="version_free">体验版</string>
+    <string name="version_free_tip">@string/donation</string>
+    <string name="version_pro">专业版</string>
+    <string name="version_pro_tip">使用黑阈，享受 Android</string>
+    <string name="version_contributor">特别贡献版</string>
+    <string name="version_contributor_tip">希望有一天不再需要黑阈</string>
+
 </resources>

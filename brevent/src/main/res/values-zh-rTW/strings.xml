@@ -282,4 +282,11 @@
         <item>5 二向箔</item>
     </string-array>
 
+    <string name="version_free">體驗版</string>
+    <string name="version_free_tip">@string/donation</string>
+    <string name="version_pro">專業版</string>
+    <string name="version_pro_tip">使用黑閾，享受 Android</string>
+    <string name="version_contributor">特別貢獻版</string>
+    <string name="version_contributor_tip">希望有一天不再需要黑閾</string>
+
 </resources>

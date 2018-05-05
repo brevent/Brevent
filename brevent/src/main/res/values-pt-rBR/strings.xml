@@ -285,4 +285,11 @@
         <item>5 Brefoil</item>
     </string-array>
 
+    <string name="version_free">Free trial</string>
+    <string name="version_free_tip">@string/donation</string>
+    <string name="version_pro">Professional</string>
+    <string name="version_pro_tip">Enjoy Android with Brevent</string>
+    <string name="version_contributor">Contributor</string>
+    <string name="version_contributor_tip">Enjoy Brevent in Android</string>
+
 </resources>
