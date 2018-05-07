@@ -107,6 +107,12 @@
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Plano de fundo)</string>
     <string name="important_notification_listener">%s (Ouvidor de notificação)</string>
+    <string name="important_os_system">%s (System)</string>
+    <string name="important_os_telephony">%s (Telephony)</string>
+    <string name="important_os_bluetooth">%s (Bluetooth)</string>
+    <string name="important_os_nfc">%s (NFC)</string>
+    <string name="important_os_shell">%s (Shell)</string>
+    <string name="important_os_other">%1$s (UID %2$d)</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_sort">Ordenar por</string>
@@ -186,7 +192,7 @@
     <string name="brevent_appops_label">Be careful, may cause apps crash</string>
     <string name="brevent_disable">Disable Apps</string>
     <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
-    <string name="brevent_dynamic_gms">Dynamic GMS</string>
+    <string name="brevent_dynamic_gms">Dynamic GMS (Experimental)</string>
     <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS dynamically</string>
 
     <string name="brevent_about">Sobre</string>

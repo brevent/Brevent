@@ -105,6 +105,12 @@
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（壁纸）</string>
     <string name="important_notification_listener">%s（通知侦听器）</string>
+    <string name="important_os_system">%s（系统）</string>
+    <string name="important_os_telephony">%s（电话）</string>
+    <string name="important_os_bluetooth">%s（蓝牙）</string>
+    <string name="important_os_nfc">%s（NFC）</string>
+    <string name="important_os_shell">%s（Shell）</string>
+    <string name="important_os_other">%1$s（UID %2$d)</string>
 
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序方式</string>
@@ -184,7 +190,7 @@
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
     <string name="brevent_disable_label">停用以后，必须先启用才能继续使用</string>
-    <string name="brevent_dynamic_gms">动态 GMS</string>
+    <string name="brevent_dynamic_gms">动态 GMS（实验性）</string>
     <string name="brevent_dynamic_gms_label">黑阈 GMS 以后，动态停用和启用</string>
 
     <string name="brevent_about">关于</string>

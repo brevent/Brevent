@@ -105,6 +105,12 @@
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（桌布）</string>
     <string name="important_notification_listener">%s（通知接聽器）</string>
+    <string name="important_os_system">%s（系統）</string>
+    <string name="important_os_telephony">%s（電話）</string>
+    <string name="important_os_bluetooth">%s（藍牙）</string>
+    <string name="important_os_nfc">%s（NFC）</string>
+    <string name="important_os_shell">%s（Shell）</string>
+    <string name="important_os_other">%1$s（UID %2$d）</string>
 
     <string name="menu_search">搜尋</string>
     <string name="menu_sort">排序依據</string>
@@ -184,7 +190,7 @@
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
-    <string name="brevent_dynamic_gms">動態 GMS</string>
+    <string name="brevent_dynamic_gms">動態 GMS（實驗性）</string>
     <string name="brevent_dynamic_gms_label">黑閾 GMS 以後，動態停用和啓用</string>
 
     <string name="brevent_about">關於</string>
