@@ -169,7 +169,7 @@
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
     <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑阈</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
-    <string name="brevent_optimize_audio_label">播放且有通知时不黑阈，暂停且有通知时不强行停止</string>
+    <string name="brevent_optimize_audio_label">播放且有通知时不黑阈，暂停且有通知时不强行停止\n\n部分 ROM 无法生效。可能导致三星设备重启</string>
     <string name="brevent_auto_aggressive">自动激进</string>
     <string name="brevent_auto_aggressive_label">如果应用以服务方式被运行且有通知，将被设置激进</string>
     <string name="show_os_apps">显示操作系统应用</string>

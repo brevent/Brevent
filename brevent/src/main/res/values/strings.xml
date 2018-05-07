@@ -171,7 +171,7 @@
     <string name="brevent_abnormal_back">Recognize abnormal Back</string>
     <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
-    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification</string>
+    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification\n\nNot works on some ROMs. May cause some samsung devices reboot</string>
     <string name="brevent_auto_aggressive">Auto aggressive</string>
     <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it to aggressive.</string>
     <string name="show_os_apps">Show OS apps</string>
