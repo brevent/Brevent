@@ -220,7 +220,7 @@
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑閾可在背景執行，然後重新開啟。</string>
-    <string name="unsupported_location">請不要把黑閾安裝在系統目錄、外部儲存空間或保護目錄。</string>
+    <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否需要不再黑閾？</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>

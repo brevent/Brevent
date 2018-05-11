@@ -220,7 +220,7 @@
     <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_granted_miui">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑阈可在后台运行，然后重新开启。</string>
-    <string name="unsupported_location">请不要把黑阈安装在系统目录、外置存储或保护目录。</string>
+    <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否需要不再黑阈？</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
