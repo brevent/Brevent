@@ -2,8 +2,8 @@
 <resources>
 
     <string name="donation">Siéntete libre de pagar si te gusta.</string>
-    <string name="donation_unsupported">Payment is unavailable</string>
-    <string name="donation_play_unavailable">La función de facturación integrada en la aplicación no está disponible. </string>
+    <string name="donation_unsupported">El pago no está disponible</string>
+    <string name="donation_play_unavailable">La función de facturación integrada en la aplicación no está disponible.</string>
     <string name="donation_play_checking">Comprobando desde aplicación de facturación integrada …</string>
 
 </resources>
