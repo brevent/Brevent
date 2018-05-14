@@ -141,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Tryb czuwania, a następnie wymuszone zatrzymanie</string>
     <string name="brevent_method_standby_only">Tylko tryb czuwania, bez wymuszonego zatrzymania</string>
     <string name="brevent_method_forcestop_only">Tylko wymuszone zatrzymanie, bez trybu czuwania</string>
-    <string name="brevent_method_standby_forcestop_label">Tryb czuwania, kiedy opuszczasz aplikacje (dotknij \"Cofnij\") lub przekroczyły limit czasu w tle; wymuś zatrzymanie aplikacji, gdy został przekroczony limit czasu w trybie czuwania lub usunięto je z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
-    <string name="brevent_method_standby_only_label">Tryb czuwania, kiedy opuszczasz aplikacji (dotknij \"Cofnij\") lub został przekroczony limit czasu w tle.\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
-    <string name="brevent_method_forcestop_only_label">Wymuś zatrzymanie, kiedy opuszczasz aplikacje (dotknij \"Cofnij\"), został przekroczony limit czasu w tle lub zostały usunięte z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Limit czasu aplikacji w tle</string>
     <string name="brevent_timeout_label">Aplikacje w tle zostaną zbreventowane po %s\n\nBrevent dynamicznie pokazuje czas nieaktywności aplikacji</string>
     <string name="brevent_timeout_1min">1 minuta</string>
@@ -154,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 godziny</string>
     <string name="brevent_timeout_6hour">6 godzin</string>
     <string name="brevent_timeout_long">bardzo długi czas</string>
-    <string name="brevent_standby_timeout">Limit czasu trybu czuwania</string>
-    <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
     <string name="brevent_language">Język</string>

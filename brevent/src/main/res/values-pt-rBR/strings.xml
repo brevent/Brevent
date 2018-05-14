@@ -141,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Ocioso, em seguida forçar-parada</string>
     <string name="brevent_method_standby_only">Apenas Ocioso, sem forçar-parada</string>
     <string name="brevent_method_forcestop_only">Apenas forçar-parada, sem Ocioso</string>
-    <string name="brevent_method_standby_forcestop_label">Ocioso quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram; forçar-parada quando for atingido tempo de ocioso, ou deslizar apps para longe da tela de recentes\n\nSempre forçar-parada de apps acordados que não tem atividade</string>
-    <string name="brevent_method_standby_only_label">Ocioso quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram\n\nSempe forçar-parada de apps acordados que não tem atividade</string>
-    <string name="brevent_method_forcestop_only_label">Forçar-parada quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram, ou deslizar apps para longe da tela de recentes\n\nSempe forçar-parada de apps acordados que não tem atividade</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Tempo limite de apps em segundo plano</string>
     <string name="brevent_timeout_label">Apps em segundo plano serão brevenidos após %s\n\nBrevent mostra o tempo inativo para apps em segundo plano dinamicamente</string>
     <string name="brevent_timeout_1min">1 minuto</string>
@@ -154,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_long">muito longo</string>
-    <string name="brevent_standby_timeout">Tempo limite de ocioso</string>
-    <string name="brevent_standby_timeout_label">Forçar-parada quando apps estiverem ociosos por %1$s\n\nBrevent não mostra o tempo de ocioso</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Recursos avançados</string>
     <string name="brevent_language">Idioma</string>

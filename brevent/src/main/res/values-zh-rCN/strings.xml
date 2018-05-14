@@ -139,9 +139,9 @@
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；不再活跃超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">不再活跃超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
@@ -152,8 +152,8 @@
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
     <string name="brevent_timeout_long">很久</string>
-    <string name="brevent_standby_timeout">待机超时</string>
-    <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
+    <string name="brevent_standby_timeout">不再活跃超时</string>
+    <string name="brevent_standby_timeout_label">应用不再活跃 %1$s 后强行停止</string>
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_language">界面语言</string>

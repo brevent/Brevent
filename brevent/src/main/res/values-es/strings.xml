@@ -141,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Standby, luego forzar detener</string>
     <string name="brevent_method_standby_only">Standby, no fuerza detener</string>
     <string name="brevent_method_forcestop_only">Sólo forzar parada, no Standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby al salir de las aplicaciones pulsando \"Volver\" o finalizar aplicación en segundo plano por tiempo de espera.\n\nDetiene la aplicación por tiempo de espera asignado o al ser eliminada manualmente en recientes.\n\nSiempre detiene la apertura de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_standby_only_label">Standby al salir de las aplicaciones pulsando \"Volver\" o aplicaciones en segundo plano finalizadas.\n\nSiempre detiene la activación de aplicaciones que no tienen actividad.</string>
-    <string name="brevent_method_forcestop_only_label">Fuerza detener al salir de las aplicaciones pulsando \"Volver\", por tiempo de espera de Apps en segundo plano o cuando se borre de \"Recientes\".\n\nSiempre detendrá las aplicaciones que no tienen actividad.</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Tiempo de espera de las aplicaciones en 2° plano</string>
     <string name="brevent_timeout_label">Las aplicaciones en segundo plano serán detenidas por Brevent. Actualmente:  %s\n\nBrevent muestra el tiempo inactivo para las aplicaciones en segundo plano dinámicamente.</string>
     <string name="brevent_timeout_1min">1 minuto</string>
@@ -154,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_long">Mucho tiempo</string>
-    <string name="brevent_standby_timeout">Tiempo de espera en Standby</string>
-    <string name="brevent_standby_timeout_label">Forzar detención cuando las aplicaciones están en espera: %1$s.</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Características avanzadas:</string>
     <string name="brevent_language">Seleccionar lenguaje</string>

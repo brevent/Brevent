@@ -139,9 +139,9 @@
     <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
     <string name="brevent_method_standby_only">只待機，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待機；待機逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待機；不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待機\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_forcestop_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -152,8 +152,8 @@
     <string name="brevent_timeout_3hour">3 小時</string>
     <string name="brevent_timeout_6hour">6 小時</string>
     <string name="brevent_timeout_long">很久</string>
-    <string name="brevent_standby_timeout">待機逾時</string>
-    <string name="brevent_standby_timeout_label">應用程式待機 %1$s 後強制停止，主界面不顯示待機時間長度</string>
+    <string name="brevent_standby_timeout">不再活躍逾時</string>
+    <string name="brevent_standby_timeout_label">應用程式不再活躍 %1$s 後強制停止</string>
 
     <string name="brevent_advanced">進階功能</string>
     <string name="brevent_language">界面語言</string>

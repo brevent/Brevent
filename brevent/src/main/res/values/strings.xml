@@ -141,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only standby, no force-stop</string>
     <string name="brevent_method_forcestop_only">Only force-stop, no standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach standby timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-stop when you exit apps (tap \"Back\"), or background apps timed out, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Background apps timeout</string>
     <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
     <string name="brevent_timeout_1min">1 minute</string>
@@ -154,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 hours</string>
     <string name="brevent_timeout_6hour">6 hours</string>
     <string name="brevent_timeout_long">very long</string>
-    <string name="brevent_standby_timeout">Standby timeout</string>
-    <string name="brevent_standby_timeout_label">Force-stop when apps have standby for %1$s\n\nBrevent doesn\'t show standby time</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Advanced features</string>
     <string name="brevent_language">Language</string>
