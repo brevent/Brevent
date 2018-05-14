@@ -257,6 +257,7 @@
     <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认支付。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_confirm">无法确认</string>
+    <string name="pay_brevent_details">详情</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="unbrevent_app">点按即可不再黑阈。</string>
