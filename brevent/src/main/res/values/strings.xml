@@ -107,12 +107,13 @@
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Wallpaper)</string>
     <string name="important_notification_listener">%s (Notification listener)</string>
-    <string name="important_os_system">%s (System)</string>
-    <string name="important_os_telephony">%s (Telephony)</string>
-    <string name="important_os_bluetooth">%s (Bluetooth)</string>
-    <string name="important_os_nfc">%s (NFC)</string>
-    <string name="important_os_shell">%s (Shell)</string>
-    <string name="important_os_other">%1$s (UID %2$d)</string>
+    <string name="important_os_system">System</string>
+    <string name="important_os_telephony">Telephony</string>
+    <string name="important_os_bluetooth">Bluetooth</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">Secure Element</string>
+    <string name="important_os_shell">Shell</string>
+    <string name="important_os_other">UID %1$d</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort by</string>

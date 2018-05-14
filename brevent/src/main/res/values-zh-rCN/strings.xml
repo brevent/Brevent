@@ -105,12 +105,13 @@
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（壁纸）</string>
     <string name="important_notification_listener">%s（通知侦听器）</string>
-    <string name="important_os_system">%s（系统）</string>
-    <string name="important_os_telephony">%s（电话）</string>
-    <string name="important_os_bluetooth">%s（蓝牙）</string>
-    <string name="important_os_nfc">%s（NFC）</string>
-    <string name="important_os_shell">%s（Shell）</string>
-    <string name="important_os_other">%1$s（UID %2$d)</string>
+    <string name="important_os_system">系统</string>
+    <string name="important_os_telephony">电话</string>
+    <string name="important_os_bluetooth">蓝牙</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">安全元素</string>
+    <string name="important_os_shell">Shell</string>
+    <string name="important_os_other">UID %1$d</string>
 
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序方式</string>
