@@ -105,12 +105,13 @@
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（壁纸）</string>
     <string name="important_notification_listener">%s（通知侦听器）</string>
-    <string name="important_os_system">%s（系统）</string>
-    <string name="important_os_telephony">%s（电话）</string>
-    <string name="important_os_bluetooth">%s（蓝牙）</string>
-    <string name="important_os_nfc">%s（NFC）</string>
-    <string name="important_os_shell">%s（Shell）</string>
-    <string name="important_os_other">%1$s（UID %2$d)</string>
+    <string name="important_os_system">系统</string>
+    <string name="important_os_telephony">电话</string>
+    <string name="important_os_bluetooth">蓝牙</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">安全元素</string>
+    <string name="important_os_shell">Shell</string>
+    <string name="important_os_other">UID %1$d</string>
 
     <string name="menu_search">搜索</string>
     <string name="menu_sort">排序方式</string>
@@ -138,9 +139,9 @@
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
     <string name="brevent_method_forcestop_only">只强行停止，不待机</string>
-    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；待机超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出应用（如点按“返回”按钮），或者后台应用超时后先待机；不再活跃超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_method_standby_only_label">退出应用（如点按“返回”按钮），或者后台应用超时后待机\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
-    <string name="brevent_method_forcestop_only_label">退出应用（如点按“返回”按钮），或者后台应用超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
+    <string name="brevent_method_forcestop_only_label">不再活跃超时，或者从概览屏幕划掉后强行停止\n\n针对被运行但没有打开界面的应用，一律强行停止</string>
     <string name="brevent_timeout">后台应用超时</string>
     <string name="brevent_timeout_label">离开后台应用 %1$s 后\n\n后台应用是指您打开过但未退出的应用，主界面动态显示离开时间</string>
     <string name="brevent_timeout_1min">1 分钟</string>
@@ -151,8 +152,8 @@
     <string name="brevent_timeout_3hour">3 小时</string>
     <string name="brevent_timeout_6hour">6 小时</string>
     <string name="brevent_timeout_long">很久</string>
-    <string name="brevent_standby_timeout">待机超时</string>
-    <string name="brevent_standby_timeout_label">应用待机 %1$s 后强行停止，主界面不显示待机时长</string>
+    <string name="brevent_standby_timeout">不再活跃超时</string>
+    <string name="brevent_standby_timeout_label">应用不再活跃 %1$s 后强行停止</string>
 
     <string name="brevent_advanced">高级功能</string>
     <string name="brevent_language">界面语言</string>
@@ -220,7 +221,7 @@
     <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_granted_miui">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
     <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑阈可在后台运行，然后重新开启。</string>
-    <string name="unsupported_location">请不要把黑阈安装在系统目录、外置存储或保护目录。</string>
+    <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否需要不再黑阈？</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
@@ -256,6 +257,7 @@
     <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认支付。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_brevent_confirm">无法确认</string>
+    <string name="pay_brevent_details">详情</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="unbrevent_app">点按即可不再黑阈。</string>

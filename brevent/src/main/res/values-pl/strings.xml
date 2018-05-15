@@ -107,12 +107,13 @@
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Tapeta)</string>
     <string name="important_notification_listener">%s (Odbiornik powiadomień)</string>
-    <string name="important_os_system">%s (System)</string>
-    <string name="important_os_telephony">%s (Telephony)</string>
-    <string name="important_os_bluetooth">%s (Bluetooth)</string>
-    <string name="important_os_nfc">%s (NFC)</string>
-    <string name="important_os_shell">%s (Shell)</string>
-    <string name="important_os_other">%1$s (UID %2$d)</string>
+    <string name="important_os_system">System</string>
+    <string name="important_os_telephony">Telephony</string>
+    <string name="important_os_bluetooth">Bluetooth</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">Secure Element</string>
+    <string name="important_os_shell">Shell</string>
+    <string name="important_os_other">UID %1$d</string>
 
     <string name="menu_search">Szukaj</string>
     <string name="menu_sort">Sortuj wg</string>
@@ -140,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Tryb czuwania, a następnie wymuszone zatrzymanie</string>
     <string name="brevent_method_standby_only">Tylko tryb czuwania, bez wymuszonego zatrzymania</string>
     <string name="brevent_method_forcestop_only">Tylko wymuszone zatrzymanie, bez trybu czuwania</string>
-    <string name="brevent_method_standby_forcestop_label">Tryb czuwania, kiedy opuszczasz aplikacje (dotknij \"Cofnij\") lub przekroczyły limit czasu w tle; wymuś zatrzymanie aplikacji, gdy został przekroczony limit czasu w trybie czuwania lub usunięto je z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
-    <string name="brevent_method_standby_only_label">Tryb czuwania, kiedy opuszczasz aplikacji (dotknij \"Cofnij\") lub został przekroczony limit czasu w tle.\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności.</string>
-    <string name="brevent_method_forcestop_only_label">Wymuś zatrzymanie, kiedy opuszczasz aplikacje (dotknij \"Cofnij\"), został przekroczony limit czasu w tle lub zostały usunięte z Ostatnich Aplikacji\n\nZawsze wymuszaj zatrzymanie wybudzonych aplikacji, które nie mają żadnej aktywności</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Limit czasu aplikacji w tle</string>
     <string name="brevent_timeout_label">Aplikacje w tle zostaną zbreventowane po %s\n\nBrevent dynamicznie pokazuje czas nieaktywności aplikacji</string>
     <string name="brevent_timeout_1min">1 minuta</string>
@@ -153,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 godziny</string>
     <string name="brevent_timeout_6hour">6 godzin</string>
     <string name="brevent_timeout_long">bardzo długi czas</string>
-    <string name="brevent_standby_timeout">Limit czasu trybu czuwania</string>
-    <string name="brevent_standby_timeout_label">Wymuś zatrzymanie, kiedy czas aplikacji w trybie czuwania wynosi: %1$s\n\nBrevent nie wyświetla czasu aplikacji w trybie czuwania</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Funkcje Zaawansowane</string>
     <string name="brevent_language">Język</string>
@@ -260,6 +261,7 @@
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_brevent_confirm" />
+    <string name="pay_brevent_details">Details</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Tap to restore.</string>

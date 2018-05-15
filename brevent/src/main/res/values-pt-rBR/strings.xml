@@ -107,12 +107,13 @@
     <string name="important_gms">%s (GMS)</string>
     <string name="important_wallpaper">%s (Plano de fundo)</string>
     <string name="important_notification_listener">%s (Ouvidor de notificação)</string>
-    <string name="important_os_system">%s (System)</string>
-    <string name="important_os_telephony">%s (Telephony)</string>
-    <string name="important_os_bluetooth">%s (Bluetooth)</string>
-    <string name="important_os_nfc">%s (NFC)</string>
-    <string name="important_os_shell">%s (Shell)</string>
-    <string name="important_os_other">%1$s (UID %2$d)</string>
+    <string name="important_os_system">System</string>
+    <string name="important_os_telephony">Telephony</string>
+    <string name="important_os_bluetooth">Bluetooth</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">Secure Element</string>
+    <string name="important_os_shell">Shell</string>
+    <string name="important_os_other">UID %1$d</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_sort">Ordenar por</string>
@@ -140,9 +141,9 @@
     <string name="brevent_method_standby_forcestop">Ocioso, em seguida forçar-parada</string>
     <string name="brevent_method_standby_only">Apenas Ocioso, sem forçar-parada</string>
     <string name="brevent_method_forcestop_only">Apenas forçar-parada, sem Ocioso</string>
-    <string name="brevent_method_standby_forcestop_label">Ocioso quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram; forçar-parada quando for atingido tempo de ocioso, ou deslizar apps para longe da tela de recentes\n\nSempre forçar-parada de apps acordados que não tem atividade</string>
-    <string name="brevent_method_standby_only_label">Ocioso quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram\n\nSempe forçar-parada de apps acordados que não tem atividade</string>
-    <string name="brevent_method_forcestop_only_label">Forçar-parada quando você sair de apps (tocando \"Voltar\"), ou apps de segundo plano expiram, ou deslizar apps para longe da tela de recentes\n\nSempe forçar-parada de apps acordados que não tem atividade</string>
+    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
+    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
     <string name="brevent_timeout">Tempo limite de apps em segundo plano</string>
     <string name="brevent_timeout_label">Apps em segundo plano serão brevenidos após %s\n\nBrevent mostra o tempo inativo para apps em segundo plano dinamicamente</string>
     <string name="brevent_timeout_1min">1 minuto</string>
@@ -153,8 +154,8 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_long">muito longo</string>
-    <string name="brevent_standby_timeout">Tempo limite de ocioso</string>
-    <string name="brevent_standby_timeout_label">Forçar-parada quando apps estiverem ociosos por %1$s\n\nBrevent não mostra o tempo de ocioso</string>
+    <string name="brevent_standby_timeout">Inactive timeout</string>
+    <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
     <string name="brevent_advanced">Recursos avançados</string>
     <string name="brevent_language">Idioma</string>
@@ -260,6 +261,7 @@
     <string name="make_brevent_better">Você tem brevenido %1$d app(s). Pague %2$s para tornar Brevent melhor.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_brevent_confirm" />
+    <string name="pay_brevent_details">Details</string>
 
     <string name="brevented_app">Brevenido \"%1$s\"</string>
     <string name="unbrevent_app">Toque para restaurar.</string>
