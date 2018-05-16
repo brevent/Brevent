@@ -230,13 +230,15 @@
     <string name="icon_off_aggressive">应用不会自动被设置为激进模式。</string>
     <string name="icon_disabled">应用已被停用。使用之前，请先启用。</string>
     <string name="icon_disabling">应用临时启用，稍候将会停用。</string>
-    <string name="icon_vpn">应用属于已连接的 VPN，黑阈不会强行停止它。</string>
-    <string name="icon_audio">应用正在播放音乐，黑阈不会强行停止它。</string>
-    <string name="icon_audio_paused">应用暂停播放音乐，有通知时黑阈不会强行停止它。</string>
+    <string name="icon_vpn">黑阈不会强行停止已连接的 VPN 应用。</string>
+    <string name="icon_audio">黑阈不会强行停止正在播放的应用。</string>
+    <string name="icon_audio_paused">黑阈不会强行停止暂停播放且有通知的应用。</string>
     <string name="icon_favorite">您的 ROM 认为这个应用比较重要。</string>
-    <string name="icon_safe">安全的应用，您不必当它在运行。如果应用不用时都是这个状态，您也就不再需要黑阈。</string>
-    <string name="icon_standby">应用已待机，待机超时以后，将被强行停止。</string>
-    <string name="icon_running">应用正在运行，或者说，等待被黑阈。如果有时间，超时后黑阈；如果没有时间，将很快黑阈。</string>
+    <string name="icon_safe">安全的应用，您不必当它们在运行。如果应用一直是这个状态，您也就不再需要黑阈。</string>
+    <string name="icon_standby">应用已待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止。</string>
+    <string name="icon_foreground_service">应用有前台服务，不会被黑阈。</string>
+    <string name="icon_active">应用达到“后台应用超时”后被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止。</string>
+    <string name="icon_running">如果主动打开过，应用将很快被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止；如果没有主动打开过，应用将很快被强行停止。</string>
     <string name="icon_brevent">应用在黑阈清单。黑阈不会处理不在黑阈清单的应用。</string>
     <string name="apps_join">、</string>
 

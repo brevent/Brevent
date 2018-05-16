@@ -170,7 +170,7 @@
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
     <string name="brevent_abnormal_back_label">應用程式不是使用「首頁」（如「返回」）方式回到桌面時，立即黑閾</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
-    <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強行停止\n\n部分 ROM 無法生效。可能導致三星設備重啟</string>
+    <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強制停止\n\n部分 ROM 無法生效。可能導致三星設備重啟</string>
     <string name="brevent_auto_aggressive">自動激進</string>
     <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被執行且有通知，將被設為激進</string>
     <string name="show_os_apps">顯示作業系統應用程式</string>
@@ -226,17 +226,19 @@
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
-    <string name="icon_aggressive">應用程式處於激進模式。正常情況下，黑閾清單應用程式可以執行幾秒鐘，然後黑閾決定是否強行停止它；激進模式下，一旦被執行，黑閾會立即強行停止它。</string>
+    <string name="icon_aggressive">應用程式處於激進模式。正常情況下，黑閾清單應用程式可以執行幾秒鐘，然後黑閾決定是否強制停止；激進模式下，一旦被執行，黑閾會立即強制停止。</string>
     <string name="icon_off_aggressive">應用程式不會被自動設置為激進模式。</string>
     <string name="icon_disabled">應用程式已被停用。使用之前，請先啟用。</string>
     <string name="icon_disabling">應用程式臨時啟用，稍候將會停用。</string>
-    <string name="icon_vpn">應用程式屬於已連線的 VPN，黑閾不會強行停止它。</string>
-    <string name="icon_audio">應用程式正在播放音樂，黑閾不會強行停止它。</string>
-    <string name="icon_audio_paused">應用程式暫停播放音樂，有通知時黑閾不會強行停止它。</string>
+    <string name="icon_vpn">黑閾不會強制停止已連線的 VPN 應用程式。</string>
+    <string name="icon_audio">黑閾不會強制停止正在播放的應用程式。</string>
+    <string name="icon_audio_paused">黑閾不會強制停止暫停播放且有通知的應用程式。</string>
     <string name="icon_favorite">您的 ROM 認為這個應用程式比較重要。</string>
-    <string name="icon_safe">安全的應用程式，您不必當它在執行。如果應用程式不用時都是這個狀態，您也就不再需要黑閾。</string>
-    <string name="icon_standby">應用程式已待機，待機逾時以後，將被強行停止。</string>
-    <string name="icon_running">應用程式正在執行，或者說，等待被黑閾。如果有時間，逾時後黑閾；如果沒有時間，將很快黑閾。</string>
+    <string name="icon_safe">安全的應用程式。如果應用程式一直都是這個狀態，您也就不再需要黑閾。</string>
+    <string name="icon_standby">應用程式已待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_foreground_service">應用程式有前景服務，不會被黑閾。</string>
+    <string name="icon_active">應用程式達到「背景應用程式逾時」後待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_running">如果主動打開過，應用程式將很快被待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
 
     <string name="apps_join">、</string>
