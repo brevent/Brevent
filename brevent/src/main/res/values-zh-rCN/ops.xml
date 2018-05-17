@@ -30,5 +30,6 @@
     <string name="ops_menu_sort_by_mode">状态</string>
 
     <string name="action_select_all">全选</string>
+    <string name="action_apply_template">应用模板</string>
 
 </resources>
