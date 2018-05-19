@@ -6,7 +6,7 @@
 
     <string name="fragment_guide_welcome">歡迎</string>
     <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開界面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待機；有通知或在背景執行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開界面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待命；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑閾需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑閾服務，讓黑閾間接的具備管理其它應用程式的權限。</string>
@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待機，然後強制停止」。應用程式待機（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑閾不強制停止安全的緩存應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑閾不強制停止安全的快取應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑閾</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -48,7 +48,7 @@
     <string name="process_checking">正在檢查黑閾服務，請稍候. . .</string>
 
     <string name="process_status_running">正在執行</string>
-    <string name="process_status_standby">已經待機</string>
+    <string name="process_status_standby">已經待命</string>
     <string name="process_status_ignored">無需處理</string>
     <string name="process_status_disabled">已經停用</string>
     <string name="process_status_stopped">沒有執行</string>
@@ -100,7 +100,7 @@
     <string name="important_accessibility">%s（無障礙設定）</string>
     <string name="important_device_admin">%s（裝置管理員）</string>
     <string name="important_gcm">%s（FCM）</string>
-    <string name="important_battery">%s（無法待機）</string>
+    <string name="important_battery">%s（無法待命）</string>
     <string name="important_trust_agent">%s（信任的代理程式）</string>
     <string name="important_gms">%s（GMS）</string>
     <string name="important_wallpaper">%s（桌布）</string>
@@ -136,11 +136,11 @@
     <string name="brevent_auto">自動更新</string>
     <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑閾清單（部分 ROM 不支援）</string>
     <string name="brevent_method">黑閾方法</string>
-    <string name="brevent_method_standby_forcestop">待機，然後強制停止</string>
-    <string name="brevent_method_standby_only">只待機，不強制停止</string>
-    <string name="brevent_method_forcestop_only">只強制停止，不待機</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待機；不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待機\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop">待命，然後強制停止</string>
+    <string name="brevent_method_standby_only">只待命，不強制停止</string>
+    <string name="brevent_method_forcestop_only">只強制停止，不待命</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_method_forcestop_only_label">不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
@@ -192,11 +192,11 @@
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
     <string name="brevent_dynamic_gms">動態 GMS（實驗性）</string>
-    <string name="brevent_dynamic_gms_label">黑閾 GMS 以後，動態停用和啓用</string>
+    <string name="brevent_dynamic_gms_label">黑閾 GMS 以後，動態停用和啟用</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
-    <string name="brevent_about_system_summary">待機：%1$s\n停止狀態：%2$s\n自動黑閾：%5$s\n停用應用程式：%4$s\n應用程式操作：%3$s</string>
+    <string name="brevent_about_system_summary">待命：%1$s\n停止狀態：%2$s\n自動黑閾：%5$s\n停用應用程式：%4$s\n應用程式操作：%3$s</string>
     <string name="brevent_about_system_supported">支援</string>
     <string name="brevent_about_system_unsupported">不支援</string>
     <string name="brevent_about_developer">開發人員選項</string>
@@ -211,7 +211,7 @@
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
-    <string name="unsupported_no_event2">自 %1$s 起沒有事件日志，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 ROM 提供商。</string>
+    <string name="unsupported_no_event2">自 %1$s 起沒有事件日誌，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 ROM 提供商。</string>
     <string name="unsupported_restart">重啟黑閾</string>
     <string name="unsupported_version_mismatched">黑閾服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
@@ -235,10 +235,10 @@
     <string name="icon_audio_paused">黑閾不會強制停止暫停播放且有通知的應用程式。</string>
     <string name="icon_favorite">您的 ROM 認為這個應用程式比較重要。</string>
     <string name="icon_safe">安全的應用程式。如果應用程式一直都是這個狀態，您也就不再需要黑閾。</string>
-    <string name="icon_standby">應用程式已待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_standby">應用程式已待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
     <string name="icon_foreground_service">應用程式有前景服務，不會被黑閾。</string>
-    <string name="icon_active">應用程式達到「背景應用程式逾時」後待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
-    <string name="icon_running">如果主動打開過，應用程式將很快被待機，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
+    <string name="icon_active">應用程式達到「背景應用程式逾時」後待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_running">如果主動打開過，應用程式將很快被待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
 
     <string name="apps_join">、</string>
@@ -247,7 +247,7 @@
     <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
     <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔</string>
     <string name="toast_xposed">@string/show_donation_xposed</string>
-    <string name="toast_alipay_ok">如果已經支付，請點按「轉賬記錄」自動識別</string>
+    <string name="toast_alipay_ok">如果已經支付，請點按「轉帳記錄」自動識別</string>
     <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
 
