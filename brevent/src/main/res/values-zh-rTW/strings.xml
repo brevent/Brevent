@@ -217,7 +217,7 @@
     <string name="unsupported_logs">無法取得記錄檔，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑閾服務。</string>
     <string name="unsupported_no_local_network">黑閾無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
-    <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾便失效。\n\n不要停用「USB 偵錯」，不要變更 USB 選項。</string>
+    <string name="unsupported_usb">Android 8 起，「USB 偵錯」關閉後黑閾便失效。\n\n不要關閉「USB 偵錯」，不要變更 USB 選項。</string>
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑閾可在背景執行，然後重新開啟。</string>
