@@ -165,8 +165,7 @@
     <string name="show_framework_apps_label_fake">WTF, all apps are framework apps</string>
     <string name="show_all_apps">Mostrar todos apps</string>
     <string name="show_all_apps_label">Incluindo apps de sistema e de núcleo que não podem ser lançados\n\nSeja cuidadoso ao brevenir apps de sistema e de núcleo que não podem ser lançados</string>
-    <string name="brevent_checking">Diagnóstico</string>
-    <string name="brevent_checking_label">Verificar servidor Brevent a cada 15 minutos\n\nLigue se Brevent para irracionalmente</string>
+    <string name="brevent_theme">Theme</string>
 
     <string name="brevent_optimize">Recursos otimizados</string>
     <string name="brevent_abnormal_back">Reconhecer Voltar anormal</string>
@@ -222,7 +221,6 @@
     <string name="unsupported_usb">Desde o Android 8, o servidor Brevent deixará de funcionar sempre que a \"Depuração USB\" for desligada.\n\nNão desligue a \"Depuração USB\", não altere as opções de USB.</string>
     <string name="unsupported_granted">O servidor Brevent não tem permissões suficientes, alguns recursos estão indisponíveis.</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
-    <string name="unsupported_checking">O diagnóstico do Brevent não é suportado. Certifique-se de que o Brevent pode executar em segundo plano e depois ligue novamente.</string>
     <string name="unsupported_location">Localização inválida para Brevent, reinstale.</string>
     <string name="unsupported_brevented">Você breveniu alguns apps importantes: %1$s.\n\nDesbreveni-los?</string>
     <string name="icon_required">Required by: %1$s.</string>
@@ -256,9 +254,6 @@
 
     <string name="brevent_status_starting">Iniciando servidor Brevent</string>
     <string name="brevent_status_not_started">Servidor Brevent não iniciado</string>
-    <string name="brevent_status_stopped">Servidor Brevent encerrado</string>
-    <string name="brevent_status_unknown">Servidor Brevent pode estar encerrado</string>
-    <string name="brevent_status_report">Toque aqui para enviar feedback, e dê uma descrição detalhada</string>
 
     <string name="make_brevent_better">Você tem brevenido %1$d app(s). Pague %2$s para tornar Brevent melhor.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
@@ -301,5 +296,17 @@
     <string name="version_pro_tip">Enjoy Android with Brevent</string>
     <string name="version_contributor">Contributor</string>
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
+
+    <string name="version_jike">Jike</string>
+    <string name="version_coolapk">Coolapk</string>
+    <string name="version_nankai">Nankai</string>
+    <string name="version_dongle">Dongle</string>
+
+    <string name="theme_pixel">Pixel</string>
+    <string name="theme_aosp">AOSP</string>
+    <string name="theme_play">Play</string>
+    <string name="theme_nankai">Nankai</string>
+    <string name="theme_jike">Jike</string>
+    <string name="theme_amoled">Amoled (Experimental)</string>
 
 </resources>

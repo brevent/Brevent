@@ -163,8 +163,7 @@
     <string name="show_framework_apps_label_fake">卧槽，所有应用都是框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开也没有更新的系统应用和框架应用\n\n请谨慎黑阈无法打开的系统应用和框架应用</string>
-    <string name="brevent_checking">自我诊断</string>
-    <string name="brevent_checking_label">每 15 分钟检查黑阈服务\n\n只有偶然不正常停止时，才需要开启</string>
+    <string name="brevent_theme">主题</string>
 
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
@@ -220,7 +219,6 @@
     <string name="unsupported_usb">Android 8 起，“USB 调试”停用后黑阈就失效。\n\n不要停用“USB 调试”，不要更改 USB 选项。</string>
     <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_granted_miui">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
-    <string name="unsupported_checking">暂不支持“自我诊断”。请确保黑阈可在后台运行，然后重新开启。</string>
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否需要不再黑阈？</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
@@ -252,9 +250,6 @@
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
-    <string name="brevent_status_stopped">黑阈服务已经停止</string>
-    <string name="brevent_status_unknown">黑阈服务可能已经停止</string>
-    <string name="brevent_status_report">请点按发送报告并描述问题</string>
 
     <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认支付。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
@@ -297,5 +292,17 @@
     <string name="version_pro_tip">使用黑阈，享受 Android</string>
     <string name="version_contributor">特别贡献版</string>
     <string name="version_contributor_tip">希望有一天不再需要黑阈</string>
+
+    <string name="version_jike">即刻赞助版</string>
+    <string name="version_coolapk">酷安粉丝版</string>
+    <string name="version_nankai">南开校友版</string>
+    <string name="version_dongle">飞智小游版</string>
+
+    <string name="theme_pixel">Pixel</string>
+    <string name="theme_aosp">原生</string>
+    <string name="theme_play">Play</string>
+    <string name="theme_nankai">南开</string>
+    <string name="theme_jike">即刻</string>
+    <string name="theme_amoled">省电（实验性）</string>
 
 </resources>

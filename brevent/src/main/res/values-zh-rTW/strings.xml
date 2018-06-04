@@ -163,8 +163,7 @@
     <string name="show_framework_apps_label_fake">哇靠，所有應用都是框架應用程式</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟也沒有更新的系統應用程式和框架應用程式\n\n請謹慎黑閾無法開啟的系統應用程式和框架應用程式</string>
-    <string name="brevent_checking">自我診斷</string>
-    <string name="brevent_checking_label">每 15 分鐘檢查黑閾服務\n\n只有偶然不正常停止時，才需要開啟</string>
+    <string name="brevent_theme">主题</string>
 
     <string name="brevent_optimize">優化功能</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
@@ -220,7 +219,6 @@
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
-    <string name="unsupported_checking">暫不支援「自我診斷」。請確保黑閾可在背景執行，然後重新開啟。</string>
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否需要不再黑閾？</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
@@ -253,9 +251,6 @@
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
-    <string name="brevent_status_stopped">黑閾服務已經停止</string>
-    <string name="brevent_status_unknown">黑閾服務可能已經停止</string>
-    <string name="brevent_status_report">請按此發送報告並描述問題</string>
 
     <string name="make_brevent_better">您已黑閾 %1$d 個應用程式，請考慮支付 %2$s以促進黑閾良性發展。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
@@ -298,5 +293,17 @@
     <string name="version_pro_tip">使用黑閾，享受 Android</string>
     <string name="version_contributor">特別貢獻版</string>
     <string name="version_contributor_tip">希望有一天不再需要黑閾</string>
+
+    <string name="version_jike">即刻贊助版</string>
+    <string name="version_coolapk">酷安粉絲版</string>
+    <string name="version_nankai">南開校友版</string>
+    <string name="version_dongle">飛智小遊版</string>
+
+    <string name="theme_pixel">Pixel</string>
+    <string name="theme_aosp">原生</string>
+    <string name="theme_play">Play</string>
+    <string name="theme_nankai">南開</string>
+    <string name="theme_jike">即刻</string>
+    <string name="theme_amoled">省電（實驗性）</string>
 
 </resources>
