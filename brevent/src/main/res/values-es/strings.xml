@@ -263,7 +263,7 @@
     <string name="make_brevent_better">Tiene Apps Brevented %1$d. Por favor page %2$s para que Brevent sea mejor.</string>
     <string name="pay_brevent_require">Necesario pagar %s</string>
     <string name="pay_brevent_confirm" />
-
+    <string name="pay_brevent_details">Detalles</string>
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Pincha para restaurar.</string>
     <string name="unbrevented_app">Restaurado \"%1$s\"</string>
