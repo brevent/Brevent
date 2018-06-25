@@ -22,7 +22,7 @@
     <string name="start_brevent">进入黑阈</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools.html 下载（长按进入复制模式）。</string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools 下载（长按进入复制模式）。</string>
     <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用“.\\adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n3.（macOS）打开“访达”，进入“应用程序”，进入“实用工具”，打开“终端”，把“adb”拖到“终端”里，请使用这个带全路径的“adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
 
     <string name="brevent_service_start">请启动黑阈服务（%s）</string>
@@ -156,14 +156,14 @@
     <string name="brevent_standby_timeout_label">应用不再活跃 %1$s 后强行停止</string>
 
     <string name="brevent_advanced">高级功能</string>
-    <string name="brevent_language">界面语言</string>
+    <string name="brevent_language">语言</string>
     <string name="brevent_language_auto">跟随系统</string>
+    <string name="brevent_theme">主题</string>
     <string name="show_framework_apps">显示框架应用</string>
     <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑阈框架应用</string>
     <string name="show_framework_apps_label_fake">卧槽，所有应用都是框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
     <string name="show_all_apps_label">包括无法打开也没有更新的系统应用和框架应用\n\n请谨慎黑阈无法打开的系统应用和框架应用</string>
-    <string name="brevent_theme">主题</string>
 
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_abnormal_back">识别非正常“返回”</string>
@@ -177,6 +177,7 @@
 
     <string name="show_donation">显示支付</string>
     <string name="show_donation_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
+    <string name="show_donation_summary_other">如果已经支付，请按流程确认</string>
     <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感谢您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感谢您为黑阈所作的特别贡献</string>
@@ -184,14 +185,12 @@
     <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
     <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
     <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑阈所作的特别贡献</string>
-    <string name="show_donation_xposed">（Xposed）</string>
-    <string name="show_donation_brefoil">\n\n1 二向箔现合人民币 6 元，曾合人民币 5 到 6.85 元不等</string>
     <string name="brevent_appops">应用操作</string>
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
     <string name="brevent_disable_label">停用以后，必须先启用才能继续使用</string>
     <string name="brevent_dynamic_gms">动态 GMS（实验性）</string>
-    <string name="brevent_dynamic_gms_label">黑阈 GMS 以后，动态停用和启用</string>
+    <string name="brevent_dynamic_gms_label">黑阈 GMS（Google Play 服务）以后，动态停用和启用</string>
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
@@ -206,7 +205,7 @@
 
     <string name="unsupported_owner">只有机主可以使用黑阈。</string>
     <string name="unsupported_clone">黑阈不支持“应用分身”。</string>
-    <string name="unsupported_signature">no zuo no die</string>
+    <string name="unsupported_modified">请不要使用任何方式修改黑阈。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑阈服务。\n\n前台应用：%1$s。</string>
     <string name="unsupported_no_event">没有事件日志，黑阈无法自动工作。\n\n请稍后重试，或者联系 ROM 提供商。</string>
@@ -241,19 +240,15 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑阈服务运行正常</string>
-    <string name="toast_alipay">感谢您通过支付宝累计支付 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感谢您本次通过支付宝支付 %1$s 二向箔</string>
-    <string name="toast_xposed">@string/show_donation_xposed</string>
-    <string name="toast_alipay_ok">如果已经支付，请点按“转账记录”自动识别</string>
-    <string name="toast_alipay_ko">无法自动确认，请不要支付</string>
     <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
+    <string name="toast_developer">请手动开启“开发者选项”</string>
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
 
-    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认支付。</string>
+    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
-    <string name="pay_brevent_confirm">无法确认</string>
+    <string name="pay_brevent_confirm">@string/menu_settings_confirm</string>
     <string name="pay_brevent_details">详情</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
@@ -279,11 +274,11 @@
     <string name="perm_disabled_description">使用黑阈服务启用或停用应用</string>
 
     <string-array name="brefoils">
-        <item>1 二向箔（现合人民币 6 元）</item>
-        <item>2 二向箔（现合人民币 12 元）</item>
-        <item>3 二向箔（现合人民币 18 元）</item>
-        <item>4 二向箔（现合人民币 24 元）</item>
-        <item>5 二向箔（现合人民币 30 元）</item>
+        <item>1 二向箔</item>
+        <item>2 二向箔</item>
+        <item>3 二向箔</item>
+        <item>4 二向箔</item>
+        <item>5 二向箔</item>
     </string-array>
 
     <string name="version_free">体验版</string>
@@ -294,15 +289,17 @@
     <string name="version_contributor_tip">希望有一天不再需要黑阈</string>
 
     <string name="version_jike">即刻赞助版</string>
-    <string name="version_coolapk">酷安粉丝版</string>
-    <string name="version_nankai">南开校友版</string>
-    <string name="version_dongle">飞智小游版</string>
+    <string name="version_feizhi">飞智小游版</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">原生</string>
     <string name="theme_play">Play</string>
     <string name="theme_nankai">南开</string>
     <string name="theme_jike">即刻</string>
-    <string name="theme_amoled">省电（实验性）</string>
+    <string name="theme_amoled">省电</string>
+
+    <string name="action_jike">下载即刻</string>
+
+    <string name="profile_format">%1$s（%2$s）</string>
 
 </resources>

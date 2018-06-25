@@ -22,7 +22,7 @@
     <string name="start_brevent">進入黑閾</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools.html 下載（長按進入複製模式）。</string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools 下載（長按進入複製模式）。</string>
     <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，輕觸滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
@@ -156,14 +156,14 @@
     <string name="brevent_standby_timeout_label">應用程式不再活躍 %1$s 後強制停止</string>
 
     <string name="brevent_advanced">進階功能</string>
-    <string name="brevent_language">界面語言</string>
+    <string name="brevent_language">語言</string>
     <string name="brevent_language_auto">與系統同步</string>
+    <string name="brevent_theme">主題</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式\n\n請謹慎黑閾框架應用程式</string>
     <string name="show_framework_apps_label_fake">哇靠，所有應用都是框架應用程式</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟也沒有更新的系統應用程式和框架應用程式\n\n請謹慎黑閾無法開啟的系統應用程式和框架應用程式</string>
-    <string name="brevent_theme">主题</string>
 
     <string name="brevent_optimize">優化功能</string>
     <string name="brevent_abnormal_back">識別非正常「返回」</string>
@@ -177,6 +177,7 @@
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />
+    <string name="show_donation_summary_other" />
     <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
     <string name="show_donation_contributor">感謝您為黑閾所作的特別貢獻</string>
@@ -184,14 +185,12 @@
     <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
     <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
     <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_donation_xposed">（Xposed）</string>
-    <string name="show_donation_brefoil" />
     <string name="brevent_appops">應用程式操作</string>
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
     <string name="brevent_dynamic_gms">動態 GMS（實驗性）</string>
-    <string name="brevent_dynamic_gms_label">黑閾 GMS 以後，動態停用和啟用</string>
+    <string name="brevent_dynamic_gms_label">黑閾 GMS（Google Play 服務）以後，動態停用和啟用</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
@@ -206,7 +205,7 @@
 
     <string name="unsupported_owner">只有擁有者可以使用黑閾。</string>
     <string name="unsupported_clone">黑閾不適用於 App clone。</string>
-    <string name="unsupported_signature">請勿破解黑閾。</string>
+    <string name="unsupported_modified">請不要使用任何方式修改黑閾。</string>
     <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
@@ -242,12 +241,8 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務執行正常</string>
-    <string name="toast_alipay">感謝您透過支付寶累計支付 %1$s 二向箔</string>
-    <string name="toast_alipay_single">感謝您本次透過支付寶支付 %1$s 二向箔</string>
-    <string name="toast_xposed">@string/show_donation_xposed</string>
-    <string name="toast_alipay_ok">如果已經支付，請點按「轉帳記錄」自動識別</string>
-    <string name="toast_alipay_ko">無法自動確認，請不要支付</string>
     <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
+    <string name="toast_developer">請手動開啟「開發人員選項」</string>
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
@@ -295,15 +290,17 @@
     <string name="version_contributor_tip">希望有一天不再需要黑閾</string>
 
     <string name="version_jike">即刻贊助版</string>
-    <string name="version_coolapk">酷安粉絲版</string>
-    <string name="version_nankai">南開校友版</string>
-    <string name="version_dongle">飛智小遊版</string>
+    <string name="version_feizhi">飛智小遊版</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">原生</string>
     <string name="theme_play">Play</string>
     <string name="theme_nankai">南開</string>
     <string name="theme_jike">即刻</string>
-    <string name="theme_amoled">省電（實驗性）</string>
+    <string name="theme_amoled">省電</string>
+
+    <string name="action_jike" />
+
+    <string name="profile_format">%1$s（%2$s）</string>
 
 </resources>

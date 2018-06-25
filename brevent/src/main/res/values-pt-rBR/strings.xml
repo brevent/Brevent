@@ -21,7 +21,7 @@
     <string name="fragment_guide_enjoy_message2">O método de brevenção padrão é \"Ocioso, em seguida forçar-parada\". Ocioso (desde o Android 6.0, não suportado em alguns dispositivos) apps não podem acessar a rede, nem executar tarefas e sincronização.\n\nBrevent não forçará parada de apps seguros no cache por padrão. Além disto, o servidor Brevent brevine apps centralmente e atrasa os processos por 3 a 60 segundos de acordo com o nível do evento.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) é uma ferramenta de linha de comando que deixa um PC se comunicar com um dispositivo Android. Ela é parte das ferramentas-de-plataforma, você pode baixá-la desde aqui: https://developer.android.com/studio/releases/platform-tools.html (toque-longo para selecionar e copiar).</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) é uma ferramenta de linha de comando que deixa um PC se comunicar com um dispositivo Android. Ela é parte das ferramentas-de-plataforma, você pode baixá-la desde aqui: https://developer.android.com/studio/releases/platform-tools (toque-longo para selecionar e copiar).</string>
     <string name="fragment_guide_adb_message2">1. Extraia as ferramentas-de-plataforma-mais-recentes-&lt;plataforma&gt;.zip\n\n2. Navegue até o diretório das ferramentas-de-plataforma\n\n3. (no Windows) Pressione a tecla Shift, em seguida clique-direito, escolha \"Abrir janela de comando aqui\", em seguida use \".\\adb\" para substituir o caçado \"adb\" (remova duplicação \"adb\" quando colar a linha de comando)\n\n3. (no macOS) Navegue até \"Localizador\", \"Aplicações\", \"Utilitários\", lance o \"Terminal\", arraste \"adb\" para dentro do \"Terminal\", em seguida use \"adb\" com o caminho completo para substituir o caçado \"adb\" (remova duplicação \"adb\" quando colar a linha de comando)\n\n4. Você precisa executar o ADB toda vez após você ligar seu dispositivo, evite reiniciar ou desligar seu dispositivo no máximo possível</string>
 
     <string name="start_brevent">Lançar Brevent</string>
@@ -160,12 +160,12 @@
     <string name="brevent_advanced">Recursos avançados</string>
     <string name="brevent_language">Idioma</string>
     <string name="brevent_language_auto">Automático</string>
+    <string name="brevent_theme">Theme</string>
     <string name="show_framework_apps">Mostrar apps de núcleo</string>
     <string name="show_framework_apps_label">Todos apps que tem a mesma assinatura com a estrutura\n\nSeja cuidadoso ao brevenir apps de núcleo</string>
     <string name="show_framework_apps_label_fake">WTF, all apps are framework apps</string>
     <string name="show_all_apps">Mostrar todos apps</string>
     <string name="show_all_apps_label">Incluindo apps de sistema e de núcleo que não podem ser lançados\n\nSeja cuidadoso ao brevenir apps de sistema e de núcleo que não podem ser lançados</string>
-    <string name="brevent_theme">Theme</string>
 
     <string name="brevent_optimize">Recursos otimizados</string>
     <string name="brevent_abnormal_back">Reconhecer Voltar anormal</string>
@@ -179,6 +179,7 @@
 
     <string name="show_donation">Mostrar pagamento</string>
     <string name="show_donation_summary_play" />
+    <string name="show_donation_summary_other" />
     <string name="show_donation_play">Obrigado por pagar %s Brefoil via Play Store</string>
     <string name="show_donation_rmb">Obrigado por pagar %s Brefoil</string>
     <string name="show_donation_contributor">Obrigado pela inestimável contribuição no Brevent</string>
@@ -186,14 +187,12 @@
     <string name="show_donation_play_and_contributor">Obrigado por pagar %s Brefoil via Play Store, e inestimável contribuição no Brevent</string>
     <string name="show_donation_rmb_and_contributor">Obrigado por pagar %s Brefoil, e inestimável contribuição no Brevent</string>
     <string name="show_donation_play_and_rmb_and_contributor">Obrigado por pagar %1$s Brefoil via Play Store, %2$s Brefoil via não Play Store, e inestimável contribuição no Brevent</string>
-    <string name="show_donation_xposed">(Xposed)</string>
-    <string name="show_donation_brefoil" />
     <string name="brevent_appops">App ops</string>
     <string name="brevent_appops_label">Be careful, may cause apps crash</string>
     <string name="brevent_disable">Disable Apps</string>
     <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
     <string name="brevent_dynamic_gms">Dynamic GMS (Experimental)</string>
-    <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS dynamically</string>
+    <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS (Google Play services) dynamically</string>
 
     <string name="brevent_about">Sobre</string>
     <string name="brevent_about_system">Status do sistema</string>
@@ -208,7 +207,7 @@
 
     <string name="unsupported_owner">Brevent está apenas disponível para Proprietário.</string>
     <string name="unsupported_clone">Brevent está indisponível no Clone de app.</string>
-    <string name="unsupported_signature">Brevent está crackeado.</string>
+    <string name="unsupported_modified">Don\'t modify Brevent in any way.</string>
     <string name="unsupported_path">(Erro: não foi possível criar brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
     <string name="unsupported_no_event">Nenhum evento de registro, o servidor Brevent não pode funcionar automaticamente.\n\nTente mais tarde, em seguida contate o provedor da Rom.</string>
@@ -243,14 +242,8 @@
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>
-    <!-- don't translate start, only for china -->
-    <string name="toast_alipay">Thanks for paying total %1$s Brefoil via Alipay</string>
-    <string name="toast_alipay_single">Thanks for paying %1$s Brefoil via Alipay</string>
-    <string name="toast_xposed">@string/show_donation_xposed</string>
-    <string name="toast_alipay_ok">Tap \"Records\" to confirm payment if you have paid</string>
-    <string name="toast_alipay_ko">Can\'t confirm payment, please don\'t pay</string>
     <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
-    <!-- don't translate end, only for china -->
+    <string name="toast_developer">Please turn on \"Developer options\"</string>
 
     <string name="brevent_status_starting">Iniciando servidor Brevent</string>
     <string name="brevent_status_not_started">Servidor Brevent não iniciado</string>
@@ -298,15 +291,17 @@
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
 
     <string name="version_jike">Jike</string>
-    <string name="version_coolapk">Coolapk</string>
     <string name="version_nankai">Nankai</string>
-    <string name="version_dongle">Dongle</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">AOSP</string>
     <string name="theme_play">Play</string>
     <string name="theme_nankai">Nankai</string>
     <string name="theme_jike">Jike</string>
-    <string name="theme_amoled">Amoled (Experimental)</string>
+    <string name="theme_amoled">Amoled</string>
+
+    <string name="action_jike" />
+
+    <string name="profile_format">%1$s(%2$s)</string>
 
 </resources>
