@@ -166,8 +166,8 @@
     <string name="show_all_apps_label">包括无法打开也没有更新的系统应用和框架应用\n\n请谨慎黑阈无法打开的系统应用和框架应用</string>
 
     <string name="brevent_optimize">优化功能</string>
-    <string name="brevent_abnormal_back">识别非正常“返回”</string>
-    <string name="brevent_abnormal_back_label">应用使用非“主页”（如“返回”）方式回到桌面时，立即黑阈</string>
+    <string name="brevent_optimize_wechat">优化微信</string>
+    <string name="brevent_optimize_wechat_label">加入电池优化白名单，不时启动以便接收消息</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放且有通知时不黑阈，暂停且有通知时不强行停止\n\n部分 ROM 无法生效。可能导致三星设备重启</string>
     <string name="brevent_auto_aggressive">自动激进</string>
@@ -230,10 +230,11 @@
     <string name="icon_vpn">黑阈不会强行停止已连接的 VPN 应用。</string>
     <string name="icon_audio">黑阈不会强行停止正在播放的应用。</string>
     <string name="icon_audio_paused">黑阈不会强行停止暂停播放且有通知的应用。</string>
-    <string name="icon_favorite">您的 ROM 认为这个应用比较重要。</string>
+    <string name="icon_battery">应用处于电池优化白名单，不会被待机。</string>
     <string name="icon_safe">安全的应用，您不必当它们在运行。如果应用一直是这个状态，您也就不再需要黑阈。</string>
     <string name="icon_standby">应用已待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止。</string>
     <string name="icon_foreground_service">应用有前台服务，不会被黑阈。</string>
+    <string name="icon_priority">“允许同步”应用在后台运行，不会被黑阈。</string>
     <string name="icon_active">应用达到“后台应用超时”后被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止。</string>
     <string name="icon_running">如果主动打开过，应用将很快被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止；如果没有主动打开过，应用将很快被强行停止。</string>
     <string name="icon_brevent">应用在黑阈清单。黑阈不会处理不在黑阈清单的应用。</string>
@@ -281,10 +282,12 @@
         <item>5 二向箔</item>
     </string-array>
 
-    <string name="version_free">体验版</string>
-    <string name="version_free_tip">@string/donation</string>
+    <string name="version_free">免费版</string>
+    <string name="version_free_tip">使用黑阈，体验 Android</string>
+    <string name="version_unlimited">无限版</string>
+    <string name="version_unlimited_tip">使用黑阈，享受 Android</string>
     <string name="version_pro">专业版</string>
-    <string name="version_pro_tip">使用黑阈，享受 Android</string>
+    <string name="version_pro_tip">使用黑阈，探索 Android</string>
     <string name="version_contributor">特别贡献版</string>
     <string name="version_contributor_tip">希望有一天不再需要黑阈</string>
 
@@ -297,9 +300,5 @@
     <string name="theme_nankai">南开</string>
     <string name="theme_jike">即刻</string>
     <string name="theme_amoled">省电</string>
-
-    <string name="action_jike">下载即刻</string>
-
-    <string name="profile_format">%1$s（%2$s）</string>
 
 </resources>

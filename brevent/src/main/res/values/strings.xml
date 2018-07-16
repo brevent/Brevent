@@ -168,8 +168,8 @@
     <string name="show_all_apps_label">Including system and core apps which cannot be launched nor upgraded\n\nBe careful when breventing system and core apps which cannot be launched</string>
 
     <string name="brevent_optimize">Optimized features</string>
-    <string name="brevent_abnormal_back">Recognize abnormal Back</string>
-    <string name="brevent_abnormal_back_label">Brevent immediately when apps return to home via non Home(such as Back)</string>
+    <string name="brevent_optimize_wechat">Optimize Wechat</string>
+    <string name="brevent_optimize_wechat_label">Add to Battery Optimization whitelist, make it receive message as far as possible</string>
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification\n\nNot works on some ROMs. May cause some samsung devices reboot</string>
     <string name="brevent_auto_aggressive">Auto aggressive</string>
@@ -232,10 +232,11 @@
     <string name="icon_vpn">Brevent won\'t force-stop connected VPN apps.</string>
     <string name="icon_audio">Brevent won\'t force-stop playing apps.</string>
     <string name="icon_audio_paused">Brevent won\'t force-stop paused apps with notifications.</string>
-    <string name="icon_favorite">Apps are regarded as important by your ROM.</string>
+    <string name="icon_battery">Apps are in Battery Optimization whitelist, won\'t be standby.</string>
     <string name="icon_safe">Safe apps. You shouldn\'t regard them as running.</string>
     <string name="icon_standby">Apps are on standby, would be force-stopped when reach \"inactive timeout\" or swiped away from recents screen.</string>
     <string name="icon_foreground_service">Apps are running with foreground service, won\'t be brevented.</string>
+    <string name="icon_priority">\"Allow sync\" apps are running in background, won\'t be brevented.</string>
     <string name="icon_active">Apps would be standby when reach \"background apps timeout\", be force-stopped when reach \"inactive timeout\" or swiped away from recents screen.</string>
     <string name="icon_running">If apps are launched, would be standby in short time, be force-stopped when reach \"inactive timeout\" or swiped away from recents screen. Otherwise, would be force-stopped in short time.</string>
     <string name="icon_brevent">Apps are in brevent list.</string>
@@ -283,8 +284,10 @@
         <item>5 Brefoil</item>
     </string-array>
 
-    <string name="version_free">Free trial</string>
+    <string name="version_free">Free</string>
     <string name="version_free_tip">@string/donation</string>
+    <string name="version_unlimited">Unlimited</string>
+    <string name="version_unlimited_tip">@string/donation</string>
     <string name="version_pro">Professional</string>
     <string name="version_pro_tip">Enjoy Android with Brevent</string>
     <string name="version_contributor">Contributor</string>
@@ -299,9 +302,5 @@
     <string name="theme_nankai">Nankai</string>
     <string name="theme_jike">Jike</string>
     <string name="theme_amoled">Amoled</string>
-
-    <string name="action_jike" />
-
-    <string name="profile_format">%1$s(%2$s)</string>
 
 </resources>
