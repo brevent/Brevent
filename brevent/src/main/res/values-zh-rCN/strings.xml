@@ -167,7 +167,7 @@
 
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_optimize_wechat">优化微信</string>
-    <string name="brevent_optimize_wechat_label">加入电池优化白名单，不时启动以便接收消息</string>
+    <string name="brevent_optimize_wechat_label">加入电池优化白名单，让其尽可能接收消息</string>
     <string name="brevent_optimize_audio">优化音乐类应用</string>
     <string name="brevent_optimize_audio_label">播放且有通知时不黑阈，暂停且有通知时不强行停止\n\n部分 ROM 无法生效。可能导致三星设备重启</string>
     <string name="brevent_auto_aggressive">自动激进</string>
