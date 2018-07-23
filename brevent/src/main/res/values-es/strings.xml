@@ -157,15 +157,15 @@
     <string name="brevent_standby_timeout">Inactive timeout</string>
     <string name="brevent_standby_timeout_label">Force-stop when apps have been inactive for %1$s</string>
 
-    <string name="brevent_advanced">Características avanzadas:</string>
-    <string name="brevent_language">Lenguaje</string>
-    <string name="brevent_language_auto">Automático</string>
+    <string name="brevent_advanced">Advanced features</string>
+    <string name="brevent_language">Language</string>
+    <string name="brevent_language_auto">Auto</string>
     <string name="brevent_theme">Theme</string>
-    <string name="show_framework_apps">Mostrar aplicaciones Framework</string>
-    <string name="show_framework_apps_label">Todas las aplicaciones tienen la misma firma con framework.\n\nTen cuidado al hacer Brevent con las aplicaciones de framework.</string>
+    <string name="show_framework_apps">Show core apps</string>
+    <string name="show_framework_apps_label">All apps have the same signature with framework</string>
     <string name="show_framework_apps_label_fake">WTF, all apps are framework apps</string>
-    <string name="show_all_apps">Mostrar todas las aplicaciones</string>
-    <string name="show_all_apps_label">Incluyendo aplicaciones de sistema y framework que no pueden abrirse.\n\nTenga cuidado al hacer Brevent sobre aplicaciones de sistema y framework que no pueden ser abiertas.</string>
+    <string name="show_all_apps">Show all apps</string>
+    <string name="show_all_apps_label">Including system and core apps which cannot be launched nor upgraded</string>
 
     <string name="brevent_optimize">Optimized Features</string>
     <string name="brevent_optimize_wechat">Optimize Wechat</string>
@@ -222,6 +222,7 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_location">Invalid location for Brevent, please reinstall.</string>
     <string name="unsupported_brevented">You have brevented some important apps: %1$s.\n\nDo you wan to unbrevent them?</string>
+    <string name="unsupported_brevented2">You have brevented apps cannot be launched: %1$s.\n\nDo you want to unbrevent them?</string>
     <string name="icon_required">Required by: %1$s.</string>
     <string name="icon_fcm">Apps are allowed to receive messages via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
     <string name="icon_sync">Apps are allowed to receive messages via sync or broadcast.</string>
@@ -251,8 +252,6 @@
 
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
-    <string name="pay_brevent_confirm" />
-    <string name="pay_brevent_details">Details</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="unbrevent_app">Tap to restore.</string>
@@ -270,6 +269,7 @@
     <string name="cmd_menu_stop">Stop</string>
     <string name="cmd_menu_batterystats">Dump battery data</string>
     <string name="cmd_menu_portal" />
+    <string name="cmd_menu_restart">Restart Brevent server</string>
     <string name="cmd_too_large">%1$s\n# Error: output too large</string>
     <string name="cmd_warning">Exec command only supports simple shell script, use it at your risk.</string>
 

@@ -160,10 +160,10 @@
     <string name="brevent_language_auto">跟随系统</string>
     <string name="brevent_theme">主题</string>
     <string name="show_framework_apps">显示框架应用</string>
-    <string name="show_framework_apps_label">所有与系统框架签名相同的应用\n\n请谨慎黑阈框架应用</string>
+    <string name="show_framework_apps_label">所有与系统框架签名相同的应用</string>
     <string name="show_framework_apps_label_fake">卧槽，所有应用都是框架应用</string>
     <string name="show_all_apps">显示所有应用</string>
-    <string name="show_all_apps_label">包括无法打开也没有更新的系统应用和框架应用\n\n请谨慎黑阈无法打开的系统应用和框架应用</string>
+    <string name="show_all_apps_label">包括无法打开也没有更新的系统应用和框架应用</string>
 
     <string name="brevent_optimize">优化功能</string>
     <string name="brevent_optimize_wechat">优化微信</string>
@@ -219,7 +219,8 @@
     <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
     <string name="unsupported_granted_miui">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
-    <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否需要不再黑阈？</string>
+    <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否不再黑阈？</string>
+    <string name="unsupported_brevented2">您已黑阈无法打开的应用：%1$s。\n\n是否不再黑阈？</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允许应用通过同步或广播接收消息。</string>
@@ -247,10 +248,8 @@
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
 
-    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。\n\n如果已经支付，请按流程确认。</string>
+    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
-    <string name="pay_brevent_confirm">@string/menu_settings_confirm</string>
-    <string name="pay_brevent_details">详情</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="unbrevent_app">点按即可不再黑阈。</string>
@@ -268,6 +267,7 @@
     <string name="cmd_menu_stop">停止</string>
     <string name="cmd_menu_batterystats">获取电量数据</string>
     <string name="cmd_menu_portal">更新网络检查</string>
+    <string name="cmd_menu_restart">重启黑阈服务</string>
     <string name="cmd_too_large">%1$s\n# 输出过多，仅展示部分内容</string>
     <string name="cmd_warning">执行指令可能会对应用甚至设备造成不良影响。如有疑问，请立即停止。</string>
 
