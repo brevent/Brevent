@@ -220,7 +220,7 @@
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否不再黑閾？</string>
-    <string name="unsupported_brevented2">您已黑阈無法開啟的應用程式：%1$s。\n\n是否不再黑阈？</string>
+    <string name="unsupported_brevented2">您已黑閾無法開啟的應用程式：%1$s。\n\n是否不再黑閾？</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
