@@ -251,6 +251,7 @@
     <string name="brevent_status_not_started">Servidor Brevent no se ha iniciado.</string>
 
     <string name="make_brevent_better">You have brevented %1$d apps. Please pay %2$s to make Brevent better.</string>
+    <string name="make_brevent_safer">Be careful to brevent system apps, or pay %1$s to dismiss safe warning.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>

@@ -249,6 +249,7 @@
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
 
     <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s 以促进黑阈良性发展。</string>
+    <string name="make_brevent_safer">请谨慎黑阈系统应用，或支付 %1$s 关闭安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
