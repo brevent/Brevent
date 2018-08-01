@@ -250,11 +250,11 @@
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
     <string name="brevent_status_not_started_root">支付 %1$s以開機完成後開啟黑閾服務</string>
 
-    <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請考慮支付 %2$s以促進黑閾良性發展。</string>
+    <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請支付 %2$s以促進黑閾良性發展。</string>
     <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或支付 %1$s關閉安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">現在支付</string>
-    <string name="pay_lucky">試試運氣</string>
+    <string name="pay_lucky">試試手氣</string>
 
     <string name="brevented_app">已黑閾「%1$s」</string>
     <string name="brevented_app_pay">支付以黑閾更多應用程式。</string>

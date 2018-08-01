@@ -253,7 +253,7 @@
     <string name="make_brevent_safer">请谨慎黑阈系统应用，或支付 %1$s关闭安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">现在支付</string>
-    <string name="pay_lucky">试试运气</string>
+    <string name="pay_lucky">试试手气</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="brevented_app_pay">支付以黑阈更多应用。</string>
