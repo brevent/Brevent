@@ -249,14 +249,17 @@
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
     <string name="brevent_status_not_started_root">支付 %1$s以开机完成后启动黑阈服务</string>
 
-    <string name="make_brevent_better">您已黑阈 %1$d 个应用，请考虑支付 %2$s以促进黑阈良性发展。</string>
+    <string name="make_brevent_better">您的黑阈清单已超过绝大部分用户，请支付 %1$s以促进黑阈良性发展。</string>
     <string name="make_brevent_safer">请谨慎黑阈系统应用，或支付 %1$s关闭安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
+    <string name="pay_now">现在支付</string>
+    <string name="pay_lucky">试试运气</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
-    <string name="unbrevent_app">点按即可不再黑阈。</string>
-    <string name="unbrevented_app">不再黑阈“%1$s”</string>
-    <string name="unbrevented_app_fail">不再黑阈“%1$s”失败，烦请进入黑阈处理</string>
+    <string name="brevented_app_pay">支付以黑阈更多应用。</string>
+    <string name="unbrevent_app">点按即可取消黑阈。</string>
+    <string name="unbrevented_app">取消黑阈“%1$s”</string>
+    <string name="unbrevented_app_fail">取消黑阈“%1$s”失败，烦请进入黑阈处理</string>
     <string name="aggressive_app">已将“%1$s”设置激进</string>
     <string name="normal_app">点按即可取消激进。</string>
     <string name="normaled_app">取消激进“%1$s”</string>

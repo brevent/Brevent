@@ -251,18 +251,21 @@
     <string name="brevent_status_not_started">Servidor Brevent não iniciado</string>
     <string name="brevent_status_not_started_root">Pay %1$s to start Brevent server on boot completed</string>
 
-    <string name="make_brevent_better">Você tem brevenido %1$d app(s). Pague %2$s para tornar Brevent melhor.</string>
+    <string name="make_brevent_better">Your Brevent list is larger than most users. Please pay %1$s to make Brevent better.</string>
     <string name="make_brevent_safer">Be careful to brevent system apps, or pay %1$s to dismiss safe warning.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
+    <string name="pay_now">Pay now</string>
+    <string name="pay_lucky">Lucky</string>
 
     <string name="brevented_app">Brevenido \"%1$s\"</string>
-    <string name="unbrevent_app">Toque para restaurar.</string>
-    <string name="unbrevented_app">Restaurado \"%1$s\"</string>
-    <string name="unbrevented_app_fail">Não foi possível restaurar \"%1$s\", lance Brevent</string>
+    <string name="brevented_app_pay">Pay to brevent more apps.</string>
+    <string name="unbrevent_app">Tap to unbrevent.</string>
+    <string name="unbrevented_app">Unbrevented \"%1$s\"</string>
+    <string name="unbrevented_app_fail">Fail to unbrevent \"%1$s\", please launch Brevent</string>
     <string name="aggressive_app">Set \"%1$s\" as aggressive</string>
     <string name="normal_app">Tap to unset.</string>
     <string name="normaled_app">Unset \"%1$s\"</string>
-    <string name="normaled_app_fail">Can\'t unset \"%1$s\", please launch Brevent</string>
+    <string name="normaled_app_fail">Fail to unset \"%1$s\", please launch Brevent</string>
 
     <string name="notification_brevent_server">Servidor Brevent</string>
     <string name="notification_auto_brevent">Autobrevenção</string>
