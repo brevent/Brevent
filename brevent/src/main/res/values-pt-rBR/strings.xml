@@ -266,9 +266,12 @@
     <string name="normal_app">Tap to unset.</string>
     <string name="normaled_app">Unset \"%1$s\"</string>
     <string name="normaled_app_fail">Fail to unset \"%1$s\", please launch Brevent</string>
+    <string name="recommend_unbrevent_app">Recommend to unbrevent \"%1$s\"</string>
+    <string name="recommend_unbrevent_app_detail">Brevented %1$d times in %2$s, tap to unbrevent.</string>
 
     <string name="notification_brevent_server">Servidor Brevent</string>
     <string name="notification_auto_brevent">Autobrevenção</string>
+    <string name="notification_auto_unbrevent">Auto unbrevent</string>
 
     <string name="cmd_menu_reset">Redefinir</string>
     <string name="cmd_menu_stop">Encerrar</string>
