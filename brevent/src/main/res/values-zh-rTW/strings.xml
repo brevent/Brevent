@@ -267,6 +267,10 @@
     <string name="normaled_app_fail">取消激進「%1$s」失敗，煩請進入黑閾處理</string>
     <string name="recommend_unbrevent_app">建議取消黑閾「%1$s」</string>
     <string name="recommend_unbrevent_app_detail">在 %2$s 內黑閾 %1$d 次，輕觸取消黑閾。</string>
+    <string name="disabled_app">已停用「%1$s」</string>
+    <string name="disabled_app_detail">在 %2$s 內黑閾 %1$d 次，輕觸啟用。</string>
+    <string name="enabled_app">啟用「%1$s」</string>
+    <string name="enabled_app_fail">啟用「%1$s」失敗，煩請進入黑閾處理</string>
 
     <string name="notification_brevent_server">黑閾服務</string>
     <string name="notification_auto_brevent">自動黑閾</string>

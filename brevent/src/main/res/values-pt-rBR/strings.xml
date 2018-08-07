@@ -268,6 +268,10 @@
     <string name="normaled_app_fail">Fail to unset \"%1$s\", please launch Brevent</string>
     <string name="recommend_unbrevent_app">Recommend to unbrevent \"%1$s\"</string>
     <string name="recommend_unbrevent_app_detail">Brevented %1$d times in %2$s, tap to unbrevent.</string>
+    <string name="disabled_app">Disabled \"%1$s\"</string>
+    <string name="disabled_app_detail">Brevented %1$d times in %2$s, tap to enable.</string>
+    <string name="enabled_app">Enabled \"%1$s\"</string>
+    <string name="enabled_app_fail">Fail to enable \"%1$s\", please launch Brevent</string>
 
     <string name="notification_brevent_server">Servidor Brevent</string>
     <string name="notification_auto_brevent">Autobrevenção</string>
