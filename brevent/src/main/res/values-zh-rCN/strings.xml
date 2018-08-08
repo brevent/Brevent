@@ -266,10 +266,10 @@
     <string name="normaled_app_fail">取消激进“%1$s”失败，烦请进入黑阈处理</string>
     <string name="recommend_unbrevent_app">建议取消黑阈“%1$s”</string>
     <string name="recommend_unbrevent_app_detail">在 %2$s 内黑阈 %1$d 次，点按取消黑阈。</string>
+    <string name="recommend_disable_app">建议停用“%1$s”</string>
+    <string name="recommend_disable_app_detail">在 %2$s 内黑阈 %1$d 次，点按停用。</string>
     <string name="disabled_app">已停用“%1$s”</string>
-    <string name="disabled_app_detail">在 %2$s 内黑阈 %1$d 次，点按启用。</string>
-    <string name="enabled_app">已启用“%1$s”</string>
-    <string name="enabled_app_fail">启用“%1$s”失败，烦请进入黑阈处理</string>
+    <string name="disabled_app_fail">停用“%1$s”失败，烦请进入黑阈处理</string>
 
     <string name="notification_brevent_server">黑阈服务</string>
     <string name="notification_auto_brevent">自动黑阈</string>
