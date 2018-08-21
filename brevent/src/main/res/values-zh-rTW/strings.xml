@@ -239,7 +239,7 @@
     <string name="icon_active">應用程式達到「背景應用程式逾時」後待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
     <string name="icon_running">如果主動打開過，應用程式將很快被待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
-
+    <string name="icon_widget">應用程式已添加小工具。</string>
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務執行正常</string>

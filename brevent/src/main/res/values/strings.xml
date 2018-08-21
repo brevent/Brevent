@@ -241,6 +241,7 @@
     <string name="icon_active">Apps would be standby when reach \"background apps timeout\", be force-stopped when reach \"inactive timeout\" or swiped away from recents screen.</string>
     <string name="icon_running">If apps are launched, would be standby in short time, be force-stopped when reach \"inactive timeout\" or swiped away from recents screen. Otherwise, would be force-stopped in short time.</string>
     <string name="icon_brevent">Apps are in brevent list.</string>
+    <string name="icon_widget">Apps are added as widget.</string>
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>

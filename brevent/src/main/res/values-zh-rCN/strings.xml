@@ -239,6 +239,7 @@
     <string name="icon_active">应用达到“后台应用超时”后被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止。</string>
     <string name="icon_running">如果主动打开过，应用将很快被待机，达到“不再活跃超时”或从概览屏幕划掉后被强行停止；如果没有主动打开过，应用将很快被强行停止。</string>
     <string name="icon_brevent">应用在黑阈清单。黑阈不会处理不在黑阈清单的应用。</string>
+    <string name="icon_widget">应用已添加微件。</string>
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑阈服务运行正常</string>
