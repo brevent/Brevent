@@ -135,8 +135,8 @@
     <string name="feedback_logs">Logi</string>
 
     <string name="brevent_list">Lista Brevent</string>
-    <string name="brevent_auto">Automatycznie breventuj</string>
-    <string name="brevent_auto_label">Aktualizuj listę Brevent, gdy aplikacje są instalowane lub odinstalowywane (niewspierane na niektórych ROM-ach)</string>
+    <string name="brevent_enable">Enable Brevent</string>
+    <string name="brevent_enable_label">Brevent only apply to apps in Brevent list</string>
     <string name="brevent_method">Metoda breventowania</string>
     <string name="brevent_method_standby_forcestop">Tryb czuwania, a następnie wymuszone zatrzymanie</string>
     <string name="brevent_method_standby_only">Tylko tryb czuwania, bez wymuszonego zatrzymania</string>
@@ -196,11 +196,12 @@
 
     <string name="brevent_about">O Brevent</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto Brevent: %5$s\nDisable Apps: %4$s\nApp ops: %3$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto Brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Opcje programistyczne</string>
     <string name="brevent_about_developer_adb">\"Debugowanie USB\" jest włączone</string>
+    <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Tłumaczenie</string>
     <string name="brevent_about_translator">bla_ke</string>
     <string name="brevent_about_licenses">Licencje</string>
@@ -258,6 +259,7 @@
     <string name="pay_now">Pay now</string>
     <string name="pay_lucky">Lucky</string>
 
+    <string name="brevent_auto">Auto Brevent</string>
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
     <string name="unbrevent_app">Tap to unbrevent.</string>
