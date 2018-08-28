@@ -133,8 +133,8 @@
     <string name="feedback_logs">日誌</string>
 
     <string name="brevent_list">黑閾清單</string>
-    <string name="brevent_auto">自動更新</string>
-    <string name="brevent_auto_label">應用程式安裝或移除之後，更新黑閾清單（部分 ROM 不支援）</string>
+    <string name="brevent_enable">啟用黑閾</string>
+    <string name="brevent_enable_label">黑閾僅處理黑閾清單內應用程式</string>
     <string name="brevent_method">黑閾方法</string>
     <string name="brevent_method_standby_forcestop">待命，然後強制停止</string>
     <string name="brevent_method_standby_only">只待命，不強制停止</string>
@@ -195,11 +195,12 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
-    <string name="brevent_about_system_summary">待命：%1$s\n停止狀態：%2$s\n自動黑閾：%5$s\n停用應用程式：%4$s\n應用程式操作：%3$s</string>
+    <string name="brevent_about_system_summary">待命：%1$s\n停止狀態：%2$s\n自動更新：%3$s\n自動黑閾：%4$s\n應用程式操作：%5$s\n停用應用程式：%6$s</string>
     <string name="brevent_about_system_supported">支援</string>
     <string name="brevent_about_system_unsupported">不支援</string>
     <string name="brevent_about_developer">開發人員選項</string>
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
+    <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">翻譯</string>
     <string name="brevent_about_translator">孟武．尼德霍格．龍\npan93412</string>
     <string name="brevent_about_licenses">軟體授權</string>
@@ -257,6 +258,7 @@
     <string name="pay_now">現在支付</string>
     <string name="pay_lucky">試試手氣</string>
 
+    <string name="brevent_auto">自動更新</string>
     <string name="brevented_app">已黑閾「%1$s」</string>
     <string name="brevented_app_pay">支付以黑閾更多應用程式。</string>
     <string name="unbrevent_app">輕觸即可取消黑閾。</string>

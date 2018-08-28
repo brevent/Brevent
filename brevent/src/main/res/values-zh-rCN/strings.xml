@@ -133,8 +133,8 @@
     <string name="feedback_logs">日志</string>
 
     <string name="brevent_list">黑阈清单</string>
-    <string name="brevent_auto">自动更新</string>
-    <string name="brevent_auto_label">应用安装或卸载之后，更新黑阈清单（部分 ROM 不支持）</string>
+    <string name="brevent_enable">启用黑阈</string>
+    <string name="brevent_enable_label">黑阈仅处理黑阈清单内应用</string>
     <string name="brevent_method">黑阈方法</string>
     <string name="brevent_method_standby_forcestop">待机，然后强行停止</string>
     <string name="brevent_method_standby_only">只待机，不强行停止</string>
@@ -194,11 +194,12 @@
 
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
-    <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n自动黑阈：%5$s\n停用应用：%4$s\n应用操作：%3$s\n\n支持状态由设备决定，与支付无关</string>
+    <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n自动更新：%3$s\n自动黑阈：%4$s\n应用操作：%5$s\n停用应用：%6$s\n\n支持状态由设备决定，与支付无关</string>
     <string name="brevent_about_system_supported">支持</string>
     <string name="brevent_about_system_unsupported">不支持</string>
     <string name="brevent_about_developer">开发者选项</string>
     <string name="brevent_about_developer_adb">已启用“USB 调试”</string>
+    <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">翻译</string>
     <string name="brevent_about_translator">南宫雪珊</string>
     <string name="brevent_about_licenses">软件许可</string>
@@ -256,6 +257,7 @@
     <string name="pay_now">现在支付</string>
     <string name="pay_lucky">试试手气</string>
 
+    <string name="brevent_auto">自动更新</string>
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="brevented_app_pay">支付以黑阈更多应用。</string>
     <string name="unbrevent_app">点按即可取消黑阈。</string>

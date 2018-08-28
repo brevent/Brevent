@@ -135,8 +135,8 @@
     <string name="feedback_logs">Logs</string>
 
     <string name="brevent_list">Brevent list</string>
-    <string name="brevent_auto">Auto brevent</string>
-    <string name="brevent_auto_label">Update Brevent list when apps are installed or uninstalled (not supported on some ROMs)</string>
+    <string name="brevent_enable">Enable Brevent</string>
+    <string name="brevent_enable_label">Brevent only apply to apps in Brevent list</string>
     <string name="brevent_method">Brevent method</string>
     <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
     <string name="brevent_method_standby_only">Only standby, no force-stop</string>
@@ -196,11 +196,12 @@
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto Brevent: %5$s\nDisable Apps: %4$s\nApp ops: %3$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto Brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Developer options</string>
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
+    <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Translator</string>
     <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank</string>
     <string name="brevent_about_licenses">Licenses</string>
@@ -258,6 +259,7 @@
     <string name="pay_now">Pay now</string>
     <string name="pay_lucky">Lucky</string>
 
+    <string name="brevent_auto">Auto Brevent</string>
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
     <string name="unbrevent_app">Tap to unbrevent.</string>

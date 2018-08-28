@@ -135,8 +135,8 @@
     <string name="feedback_logs">Registros</string>
 
     <string name="brevent_list">Lista de brevenção</string>
-    <string name="brevent_auto">Autobrevenção</string>
-    <string name="brevent_auto_label">Atualizar lista de brevenção quando apps são instalados ou desinstalados (não suportado em algumas ROMs)</string>
+    <string name="brevent_enable">Enable Brevent</string>
+    <string name="brevent_enable_label">Brevent only apply to apps in Brevent list</string>
     <string name="brevent_method">Método de brevenção</string>
     <string name="brevent_method_standby_forcestop">Ocioso, em seguida forçar-parada</string>
     <string name="brevent_method_standby_only">Apenas Ocioso, sem forçar-parada</string>
@@ -196,11 +196,12 @@
 
     <string name="brevent_about">Sobre</string>
     <string name="brevent_about_system">Status do sistema</string>
-    <string name="brevent_about_system_summary">Ocioso: %1$s\nEstado encerrado: %2$s\nAutobrevenção: %5$s\nDesativar Apps: %4$s\nOpções do app: %3$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto Brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
     <string name="brevent_about_system_supported">suportado</string>
     <string name="brevent_about_system_unsupported">não suportado</string>
     <string name="brevent_about_developer">Opções do desenvolvedor</string>
     <string name="brevent_about_developer_adb">\"Depuração USB\" está ligada</string>
+    <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Tradutor</string>
     <string name="brevent_about_translator">Feliph</string>
     <string name="brevent_about_licenses">Licenças</string>
@@ -258,6 +259,7 @@
     <string name="pay_now">Pay now</string>
     <string name="pay_lucky">Lucky</string>
 
+    <string name="brevent_auto">Auto Brevent</string>
     <string name="brevented_app">Brevenido \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
     <string name="unbrevent_app">Tap to unbrevent.</string>
