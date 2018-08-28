@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_about_developer_adb">不要停用「USB 偵錯」，不要更改 USB 選項</string>
+    <string name="brevent_about_developer_adb">不要停用「USB 偵錯」功能，也不要變更 USB 選項</string>
 
 </resources>
