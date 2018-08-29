@@ -16,9 +16,9 @@
     <string name="fragment_guide_security_message">Brevent não necessita de root ou modificar arquivos do sistema, nenhum resíduo é deixado após a desinstalação.</string>
     <string name="fragment_guide_security_message2">Brevent usa muitas das APIs ocultas do Android. Algumas ROMs de terceiros podem modificar estas APIs, logo poderá haver alguns problemas quanto ao uso.\n\nNÃO use Brevent em dispositivos de trabalho, NEM BREVINA apps de trabalho, apps frequentemente usados, apps importantes.</string>
 
-    <string name="fragment_guide_enjoy">Desfrute</string>
-    <string name="fragment_guide_enjoy_message">Desfrute do Brevent, e se você encontrar quaisquer problemas, sinta-se livre para enviar feedback com registros.</string>
-    <string name="fragment_guide_enjoy_message2">O método de brevenção padrão é \"Ocioso, em seguida forçar-parada\". Ocioso (desde o Android 6.0, não suportado em alguns dispositivos) apps não podem acessar a rede, nem executar tarefas e sincronização.\n\nBrevent não forçará parada de apps seguros no cache por padrão. Além disto, o servidor Brevent brevine apps centralmente e atrasa os processos por 3 a 60 segundos de acordo com o nível do evento.</string>
+    <string name="fragment_guide_enjoy">Enjoy</string>
+    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to send feedback with logs.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) é uma ferramenta de linha de comando que deixa um PC se comunicar com um dispositivo Android. Ela é parte das ferramentas-de-plataforma, você pode baixá-la desde aqui: https://developer.android.com/studio/releases/platform-tools (toque-longo para selecionar e copiar).</string>
@@ -58,7 +58,7 @@
     <string name="process_stats">(último: %1$s, total: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d principal</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d serviço</string>
-    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d no cache (seguro)</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d no cache</string>
     <string name="process_all_total">%d</string>
     <string name="process_service" tools:ignore="PluralsCandidate">%d serviço</string>
     <string name="process_total">total %d</string>

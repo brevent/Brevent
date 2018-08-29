@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to send feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe cached apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools (long-press to select and copy).</string>
@@ -58,7 +58,7 @@
     <string name="process_stats">(last: %1$s, total: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
-    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached (safe)</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
     <string name="process_all_total">%d</string>
     <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_total">total %d</string>
