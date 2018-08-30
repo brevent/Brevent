@@ -5,20 +5,20 @@
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">Android 系統離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。</string>
-    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開界面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待命；有通知或在背景執行時，不會被強制停止。</string>
+    <string name="fragment_guide_welcome_message">Android 系統要離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。 \n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開介面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待命；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑閾需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑閾服務，讓黑閾間接的具備管理其它應用程式的權限。</string>
-    <string name="fragment_guide_permission_message2">「USB 偵錯」模式權限很高，Android 8 以下裝置重啟就失效；在 Android 8 及以上則更嚴格，關閉「USB 偵錯」或更改 USB 選項就失效。</string>
+    <string name="fragment_guide_permission_message2">「USB 偵錯」模式權限很高，Android 8 以下裝置重啟即失效；在 Android 8 及以上則更嚴格，關閉「USB 偵錯」或變更 USB 選項就失效。</string>
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑閾不需要 root 或修改系統檔案，解除安裝後沒有殘留。</string>
-    <string name="fragment_guide_security_message2">黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑閾，也不要黑閾工作應用程式、常用應用程式和重要應用程式。</string>
+    <string name="fragment_guide_security_message2">黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑閾，也不要黑閾生產應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
-    <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌發送回饋。</string>
-    <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能聯網、執行任務（Job）與同步。\n\n黑閾不強制停止安全應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
+    <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌傳送回報。</string>
+    <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能連網、執行任務（Job）與同步。\n\n黑閾不強制停止安全應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
     <string name="start_brevent">進入黑閾</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -27,7 +27,7 @@
 
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
-    <string name="brevent_service_guide">1. 打開「開發人員選項」，啟用「USB偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
@@ -41,15 +41,15 @@
     <string name="fragment_apps_framework">框架</string>
     <string name="fragment_apps_os">作業系統</string>
 
-    <string name="process_retrieving">正在取得應用程式的狀態，請稍候. . .</string>
-    <string name="process_retrieving_apps">正在取得應用程式資訊，請稍候. . .</string>
-    <string name="process_retrieving_logs">正在取得日誌，請稍候. . .</string>
-    <string name="process_starting">正在開啟黑閾服務，請稍候. . .</string>
-    <string name="process_checking">正在檢查黑閾服務，請稍候. . .</string>
+    <string name="process_retrieving">正在取得應用程式的狀態，請稍候…</string>
+    <string name="process_retrieving_apps">正在取得應用程式資訊，請稍候…</string>
+    <string name="process_retrieving_logs">正在取得日誌，請稍候…</string>
+    <string name="process_starting">正在開啟黑閾服務，請稍候…</string>
+    <string name="process_checking">正在檢查黑閾服務，請稍候…</string>
 
     <string name="process_status_running">正在執行</string>
     <string name="process_status_standby">已經待命</string>
-    <string name="process_status_ignored">無需處理</string>
+    <string name="process_status_ignored">不需處理</string>
     <string name="process_status_disabled">已經停用</string>
     <string name="process_status_stopped">沒有執行</string>
     <string name="process_not_running">（沒有執行）</string>
@@ -75,18 +75,18 @@
     <string name="action_message_undone">已還原</string>
 
     <string name="context_menu_target">API %1$d（%2$s）</string>
-    <string name="context_menu_package_name">複製安裝包（Package）名稱</string>
+    <string name="context_menu_package_name">複製軟體包（Package）名稱</string>
     <string name="context_menu_app_info">應用程式資訊</string>
     <string name="context_menu_open">開啟</string>
     <string name="context_menu_brevent_server_info">黑閾服務資訊</string>
     <string name="context_menu_set_priority">允許同步</string>
-    <string name="context_menu_set_aggressive">設為激進</string>
-    <string name="context_menu_off_aggressive">不要自動激進</string>
+    <string name="context_menu_set_aggressive">設為激進模式</string>
+    <string name="context_menu_off_aggressive">不要自動進入激進模式</string>
     <string name="context_menu_unset">取消額外設定</string>
-    <string name="context_menu_message_copied">安裝包（Package）名稱已複製: %s</string>
+    <string name="context_menu_message_copied">軟體包（Package）名稱已複製: %s</string>
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">啟用</string>
-    <string name="context_menu_enable_open">臨時啟用</string>
+    <string name="context_menu_enable_open">暫時啟用</string>
 
     <string name="important_input">%s（輸入法）</string>
     <string name="important_alarm">%s（鬧鐘應用程式）</string>
@@ -120,16 +120,16 @@
     <string name="menu_sort_by_update_time">更新時間</string>
     <string name="menu_sort_by_last_time">上次使用時間</string>
     <string name="menu_sort_by_usage_time">使用時長</string>
-    <string name="menu_feedback">回饋</string>
+    <string name="menu_feedback">回報</string>
     <string name="menu_settings">設定</string>
     <string name="menu_guide">導覽</string>
     <string name="menu_template">範本</string>
     <string name="menu_command">執行指令</string>
 
-    <string name="feedback_message">歡迎傳送回饋。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
-    <string name="feedback_message_email">\n\n如果您的回饋包含私人資料，請傳送郵件。</string>
+    <string name="feedback_message">歡迎傳送回報。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
+    <string name="feedback_message_email">\n\n如果您的回報包含私人資料，請傳送電子信件。</string>
     <string name="feedback_github">GitHub</string>
-    <string name="feedback_email">郵件</string>
+    <string name="feedback_email">電子信件</string>
     <string name="feedback_logs">日誌</string>
 
     <string name="brevent_list">黑閾清單</string>
@@ -139,9 +139,9 @@
     <string name="brevent_method_standby_forcestop">待命，然後強制停止</string>
     <string name="brevent_method_standby_only">只待命，不強制停止</string>
     <string name="brevent_method_forcestop_only">只強制停止，不待命</string>
-    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開界面的應用程式，一律強制停止</string>
-    <string name="brevent_method_forcestop_only_label">不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開界面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_forcestop_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後先待命；不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開介面的應用程式，一律強制停止</string>
+    <string name="brevent_method_standby_only_label">退出應用程式（如輕觸「返回」按鈕），或者背景應用程式逾時後待命\n\n針對被執行但有打開介面的應用程式，一律強制停止</string>
+    <string name="brevent_method_forcestop_only_label">不再活躍逾時，或者從總覽畫面拉掉後強制停止\n\n針對被執行但沒有打開介面的應用程式，一律強制停止</string>
     <string name="brevent_timeout">背景應用程式逾時</string>
     <string name="brevent_timeout_label">離開背景應用程式 %1$s 後\n\n背景應用程式是指您還未結束的應用程式，主介面動態顯示離開時間</string>
     <string name="brevent_timeout_1min">1 分鐘</string>
@@ -161,7 +161,7 @@
     <string name="brevent_theme">主題</string>
     <string name="show_framework_apps">顯示框架應用程式</string>
     <string name="show_framework_apps_label">所有與系統框架簽名相同的應用程式</string>
-    <string name="show_framework_apps_label_fake">哇靠，所有應用都是框架應用程式</string>
+    <string name="show_framework_apps_label_fake">哇靠！所有應用都是框架應用程式</string>
     <string name="show_all_apps">顯示所有應用程式</string>
     <string name="show_all_apps_label">包括無法開啟也沒有更新的系統應用程式和框架應用程式</string>
 
@@ -170,10 +170,10 @@
     <string name="brevent_optimize_wechat_label">加入電池效能最佳化白名單，讓其盡可能接收消息</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
     <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強制停止\n\n部分 ROM 無法生效。可能導致三星設備重啟</string>
-    <string name="brevent_auto_aggressive">自動激進</string>
-    <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被執行且有通知，將被設為激進</string>
-    <string name="show_os_apps">顯示作業系統應用程式</string>
-    <string name="show_os_apps_label">作業系統應用程式無法黑閾</string>
+    <string name="brevent_auto_aggressive">自動進入激進模式</string>
+    <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被執行且有通知，將被設為激進模式</string>
+    <string name="show_os_apps">顯示系統應用程式</string>
+    <string name="show_os_apps_label">系統應用程式無法黑閾</string>
 
     <string name="show_donation">顯示支付</string>
     <string name="show_donation_summary_play" />
@@ -201,13 +201,13 @@
     <string name="brevent_about_developer_adb">已啟用「USB 偵錯」</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">翻譯</string>
-    <string name="brevent_about_translator">孟武．尼德霍格．龍\n維</string>
+    <string name="brevent_about_translator">孟武．尼德霍格．龍\n維\npan93412</string>
     <string name="brevent_about_licenses">軟體授權</string>
 
     <string name="unsupported_owner">只有擁有者可以使用黑閾。</string>
     <string name="unsupported_clone">黑閾不適用於 App clone。</string>
     <string name="unsupported_modified">請不要使用任何方式修改黑閾。</string>
-    <string name="unsupported_path">（錯誤：無法生成指令文件）</string>
+    <string name="unsupported_path">（錯誤：無法生成指令稿）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
     <string name="unsupported_no_event2">自 %1$s 起沒有事件日誌，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 ROM 提供商。</string>
@@ -216,7 +216,7 @@
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑閾服務。</string>
     <string name="unsupported_no_local_network">黑閾無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
-    <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾就失效。\n\n不要停用「USB 偵錯」，不要更改 USB 選項。</string>
+    <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾就失效。\n\n不要停用「USB 偵錯」，不要變更 USB 選項。</string>
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
@@ -226,9 +226,9 @@
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
     <string name="icon_aggressive">應用程式處於激進模式。正常情況下，黑閾清單應用程式可以執行幾秒鐘，然後黑閾決定是否強制停止；激進模式下，一旦被執行，黑閾會立即強制停止。</string>
-    <string name="icon_off_aggressive">應用程式不會被自動設置為激進模式。</string>
+    <string name="icon_off_aggressive">應用程式不會被自動設定為激進模式。</string>
     <string name="icon_disabled">應用程式已被停用。使用之前，請先啟用。</string>
-    <string name="icon_disabling">應用程式臨時啟用，稍候將會停用。</string>
+    <string name="icon_disabling">應用程式暫時啟用，稍候將會停用。</string>
     <string name="icon_vpn">黑閾不會強制停止已連線的 VPN 應用程式。</string>
     <string name="icon_audio">黑閾不會強制停止正在播放的應用程式。</string>
     <string name="icon_audio_paused">黑閾不會強制停止暫停播放且有通知的應用程式。</string>
@@ -240,7 +240,7 @@
     <string name="icon_active">應用程式達到「背景應用程式逾時」後待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
     <string name="icon_running">如果主動打開過，應用程式將很快被待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
-    <string name="icon_widget">應用程式已添加小工具。</string>
+    <string name="icon_widget">應用程式已增加小工具。</string>
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務執行正常</string>
@@ -249,10 +249,10 @@
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
-    <string name="brevent_status_not_started_root">支付 %1$s以開機完成後開啟黑閾服務</string>
+    <string name="brevent_status_not_started_root">支付 %1$s 以自動於開機完成後開啟黑閾服務</string>
 
-    <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請支付 %1$s以促進黑閾良性發展。</string>
-    <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或支付 %1$s關閉安全提示。</string>
+    <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請支付 %1$s 以促進黑閾良性發展。</string>
+    <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或支付 %1$s 關閉安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">現在支付</string>
     <string name="pay_lucky">試試手氣</string>
@@ -263,8 +263,8 @@
     <string name="unbrevent_app">輕觸即可取消黑閾。</string>
     <string name="unbrevented_app">取消黑閾「%1$s」</string>
     <string name="unbrevented_app_fail">取消黑閾「%1$s」失敗，煩請進入黑閾處理</string>
-    <string name="aggressive_app">已將「%1$s」設為激進</string>
-    <string name="normal_app">輕觸即可取消激進。</string>
+    <string name="aggressive_app">已將「%1$s」設為激進模式</string>
+    <string name="normal_app">輕觸即可取消激進模式。</string>
     <string name="normaled_app">取消激進「%1$s」</string>
     <string name="normaled_app_fail">取消激進「%1$s」失敗，煩請進入黑閾處理</string>
     <string name="recommend_unbrevent_app">建議取消黑閾「%1$s」</string>
@@ -280,8 +280,8 @@
 
     <string name="cmd_menu_reset">重設</string>
     <string name="cmd_menu_stop">停止</string>
-    <string name="cmd_menu_batterystats">取得電量數據</string>
-    <string name="cmd_menu_portal">更新網路檢測</string>
+    <string name="cmd_menu_batterystats">取得電量用量資料</string>
+    <string name="cmd_menu_portal">更新網路偵測</string>
     <string name="cmd_menu_restart">重啟黑閾服務</string>
     <string name="cmd_too_large">%1$s\n# 輸出過多，僅展示部分內容</string>
     <string name="cmd_warning">執行指令可能會對應用程式甚至裝置造成不良影響。如有疑問，請立即終止。</string>
