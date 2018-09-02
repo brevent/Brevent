@@ -222,6 +222,7 @@
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否不再黑阈？</string>
     <string name="unsupported_brevented2">您已黑阈无法打开的应用：%1$s。\n\n是否不再黑阈？</string>
+    <string name="unsupported_unauthorized">您正在使用未经授权的方式（如飞智小游）激活黑阈。\n\n请支付 3 二向箔。</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允许应用通过同步或广播接收消息。</string>
@@ -252,7 +253,7 @@
     <string name="brevent_status_not_started_root">支付 %1$s以开机完成后启动黑阈服务</string>
 
     <string name="make_brevent_better">您的黑阈清单已超过绝大部分用户，请支付 %1$s以促进黑阈良性发展。</string>
-    <string name="make_brevent_safer">请谨慎黑阈系统应用，或支付 %1$s关闭安全提示。</string>
+    <string name="make_brevent_safer">请谨慎黑阈系统应用，或者支付 %1$s关闭安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">现在支付</string>
     <string name="pay_lucky">试试手气</string>

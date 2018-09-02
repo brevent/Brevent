@@ -224,6 +224,7 @@
     <string name="unsupported_location">Localização inválida para Brevent, reinstale.</string>
     <string name="unsupported_brevented">Você breveniu alguns apps importantes: %1$s.\n\nDesbreveni-los?</string>
     <string name="unsupported_brevented2">You have brevented apps cannot be launched: %1$s.\n\nDo you want to unbrevent them?</string>
+    <string name="unsupported_unauthorized">You seems to activate Brevent Server in unauthorized way.\n\nPlease pay 3 Brefoil.</string>
     <string name="icon_required">Required by: %1$s.</string>
     <string name="icon_fcm">Apps are allowed to receive messages via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
     <string name="icon_sync">Apps are allowed to receive messages via sync or broadcast.</string>

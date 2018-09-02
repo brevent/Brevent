@@ -222,6 +222,7 @@
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否不再黑閾？</string>
     <string name="unsupported_brevented2">您已黑閾無法開啟的應用程式：%1$s。\n\n是否不再黑閾？</string>
+    <string name="unsupported_unauthorized">您正在使用未經授權的方式激活黑閾。\n\n請支付 3 二向箔。</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
@@ -252,7 +253,7 @@
     <string name="brevent_status_not_started_root">支付 %1$s 以自動於開機完成後開啟黑閾服務</string>
 
     <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請支付 %1$s 以促進黑閾良性發展。</string>
-    <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或支付 %1$s 關閉安全提示。</string>
+    <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或者支付 %1$s 關閉安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">現在支付</string>
     <string name="pay_lucky">試試手氣</string>
