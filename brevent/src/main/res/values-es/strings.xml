@@ -194,6 +194,18 @@
     <string name="brevent_dynamic_gms">Dynamic GMS (Experimental)</string>
     <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS (Google Play services) dynamically</string>
 
+    <string name="brevent_ocd">OCD options</string>
+    <string name="brevent_auto_update">Auto update</string>
+    <string name="brevent_auto_update_label">Update Brevent list when apps are installed or uninstalled</string>
+    <string name="brevent_forcestop_check">Recommend to unbrevent</string>
+    <string name="brevent_forcestop_check_system">System apps</string>
+    <string name="brevent_forcestop_check_all">All apps</string>
+    <string name="brevent_forcestop_check_none">None</string>
+    <string name="brevent_keep_widgets">Keep widgets</string>
+    <string name="brevent_keep_widgets_label">Don\'t force-stop widgets to make them work</string>
+    <string name="brevent_keep_safe">Keep safe</string>
+    <string name="brevent_keep_safe_label">Don\'t force-stop safe processes</string>
+
     <string name="brevent_about">Acerca de:</string>
     <string name="brevent_about_system">System status</string>
     <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto Brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>

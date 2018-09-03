@@ -192,6 +192,18 @@
     <string name="brevent_dynamic_gms">动态 GMS（实验性）</string>
     <string name="brevent_dynamic_gms_label">黑阈 GMS（Google Play 服务）以后，动态停用和启用</string>
 
+    <string name="brevent_ocd">强迫症选项</string>
+    <string name="brevent_auto_update">自动更新</string>
+    <string name="brevent_auto_update_label">应用安装或卸载之后，更新黑阈清单</string>
+    <string name="brevent_forcestop_check">建议取消黑阈</string>
+    <string name="brevent_forcestop_check_system">系统应用</string>
+    <string name="brevent_forcestop_check_all">所有应用</string>
+    <string name="brevent_forcestop_check_none">关闭</string>
+    <string name="brevent_keep_widgets">优化微件</string>
+    <string name="brevent_keep_widgets_label">避免强行停止微件，从而保证微件可用</string>
+    <string name="brevent_keep_safe">无需处理</string>
+    <string name="brevent_keep_safe_label">避免强行停止安全进程</string>
+
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
     <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n自动更新：%3$s\n自动黑阈：%4$s\n应用操作：%5$s\n停用应用：%6$s\n\n支持状态由设备决定，与支付无关</string>
