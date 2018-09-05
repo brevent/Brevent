@@ -192,17 +192,17 @@
     <string name="brevent_dynamic_gms">動態 GMS（實驗性）</string>
     <string name="brevent_dynamic_gms_label">黑閾 GMS（Google Play 服務）以後，動態停用和啟用</string>
 
-    <string name="brevent_ocd">OCD options</string>
-    <string name="brevent_auto_update">Auto update</string>
-    <string name="brevent_auto_update_label">Update Brevent list when apps are installed or uninstalled</string>
-    <string name="brevent_forcestop_check">Recommend to unbrevent</string>
-    <string name="brevent_forcestop_check_system">System apps</string>
-    <string name="brevent_forcestop_check_all">All apps</string>
-    <string name="brevent_forcestop_check_none">None</string>
-    <string name="brevent_keep_widgets">Keep widgets</string>
-    <string name="brevent_keep_widgets_label">Don\'t force-stop widgets to make them work</string>
-    <string name="brevent_keep_safe">Keep safe</string>
-    <string name="brevent_keep_safe_label">Don\'t force-stop safe processes</string>
+    <string name="brevent_ocd">強迫症選項</string>
+    <string name="brevent_auto_update">自動更新</string>
+    <string name="brevent_auto_update_label">程式安裝或解除安裝之後，更新黑閾清單</string>
+    <string name="brevent_forcestop_check">建議取消黑閾</string>
+    <string name="brevent_forcestop_check_system">系統程式</string>
+    <string name="brevent_forcestop_check_all">所有程式</string>
+    <string name="brevent_forcestop_check_none">關閉</string>
+    <string name="brevent_keep_widgets">優化小工具</string>
+    <string name="brevent_keep_widgets_label">避免強制停止小工具，從而保證小工具可用</string>
+    <string name="brevent_keep_safe">無需處理</string>
+    <string name="brevent_keep_safe_label">避免強制停止安全程序</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
