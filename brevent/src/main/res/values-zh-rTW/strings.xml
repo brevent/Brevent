@@ -202,7 +202,7 @@
     <string name="brevent_keep_widgets">優化小工具</string>
     <string name="brevent_keep_widgets_label">避免強制停止小工具，從而保證小工具可用</string>
     <string name="brevent_keep_safe">無需處理</string>
-    <string name="brevent_keep_safe_label">避免强制停止安全程序</string>
+    <string name="brevent_keep_safe_label">避免強制停止安全程序</string>
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
