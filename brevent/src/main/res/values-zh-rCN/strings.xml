@@ -329,4 +329,7 @@
     <string name="theme_jike">即刻</string>
     <string name="theme_amoled">省电</string>
 
+    <string name="shortcut_gms">创建 GMS 应用</string>
+    <string name="shortcut_instant">创建临时应用</string>
+
 </resources>

@@ -331,4 +331,7 @@
     <string name="theme_jike">Jike</string>
     <string name="theme_amoled">Amoled</string>
 
+    <string name="shortcut_gms">Create GMS app</string>
+    <string name="shortcut_instant">Create Instant app</string>
+
 </resources>
