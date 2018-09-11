@@ -66,11 +66,11 @@
     </plurals>
 
     <string name="action_brevent">加入黑阈</string>
-    <string name="action_restore">不再黑阈</string>
+    <string name="action_unbrevent">不再黑阈</string>
     <string name="action_select_important">重要</string>
     <string name="action_select_inverse">反选</string>
     <string name="action_brevent_results">成功黑阈 %d 个应用</string>
-    <string name="action_restore_results">不再黑阈 %d 个应用</string>
+    <string name="action_unbrevent_results">不再黑阈 %d 个应用</string>
     <string name="action_message_undo">撤消</string>
     <string name="action_message_undone">已撤消</string>
 
@@ -234,7 +234,7 @@
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否不再黑阈？</string>
     <string name="unsupported_brevented2">您已黑阈无法打开的应用：%1$s。\n\n是否不再黑阈？</string>
-    <string name="unsupported_unauthorized">您正在使用未经授权的方式（如飞智小游）激活黑阈。\n\n请支付 3 二向箔。</string>
+    <string name="unsupported_unauthorized">您正在使用未经授权的方式激活黑阈。</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允许应用通过同步或广播接收消息。</string>
@@ -262,7 +262,6 @@
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
-    <string name="brevent_status_not_started_root">支付 %1$s以开机完成后启动黑阈服务</string>
 
     <string name="make_brevent_better">您的黑阈清单已超过绝大部分用户，请支付 %1$s以促进黑阈良性发展。</string>
     <string name="make_brevent_safer">请谨慎黑阈系统应用，或者支付 %1$s关闭安全提示。</string>
@@ -273,7 +272,6 @@
     <string name="brevent_auto">自动更新</string>
     <string name="brevented_app">已黑阈“%1$s”</string>
     <string name="brevented_app_pay">支付以黑阈更多应用。</string>
-    <string name="unbrevent_app">点按即可取消黑阈。</string>
     <string name="unbrevented_app">取消黑阈“%1$s”</string>
     <string name="unbrevented_app_fail">取消黑阈“%1$s”失败，烦请进入黑阈处理</string>
     <string name="aggressive_app">已将“%1$s”设置激进</string>
@@ -331,5 +329,10 @@
 
     <string name="shortcut_gms">添加 GMS 应用</string>
     <string name="shortcut_instant">添加临时应用</string>
+
+    <string name="warning_play_3">@string/warning_wechat_3</string>
+    <string name="warning_play_5">@string/warning_wechat_5</string>
+    <string name="pay_more">继续支付</string>
+    <string name="pay_cancel">不再支付</string>
 
 </resources>

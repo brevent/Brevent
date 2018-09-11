@@ -68,11 +68,11 @@
     </plurals>
 
     <string name="action_brevent">Brevent</string>
-    <string name="action_restore">Restore</string>
+    <string name="action_unbrevent">Unbrevent</string>
     <string name="action_select_important">Important</string>
     <string name="action_select_inverse">Inverse</string>
     <string name="action_brevent_results" tools:ignore="PluralsCandidate">Brevented %d apps</string>
-    <string name="action_restore_results" tools:ignore="PluralsCandidate">Restored %d apps</string>
+    <string name="action_unbrevent_results" tools:ignore="PluralsCandidate">Unbrevented %d apps</string>
     <string name="action_message_undo">Undo</string>
     <string name="action_message_undone">Undone</string>
 
@@ -236,7 +236,7 @@
     <string name="unsupported_location">Invalid location for Brevent; please reinstall.</string>
     <string name="unsupported_brevented">You have brevented important apps: %1$s.\n\nDo you want to unbrevent them?</string>
     <string name="unsupported_brevented2">You have brevented apps cannot be launched: %1$s.\n\nDo you want to unbrevent them?</string>
-    <string name="unsupported_unauthorized">You seems to activate Brevent Server in unauthorized way.\n\nPlease pay 3 Brefoil.</string>
+    <string name="unsupported_unauthorized">You seems to activate Brevent Server in unauthorized way.</string>
     <string name="icon_required">Required by: %1$s.</string>
     <string name="icon_fcm">Apps are allowed to receive messages via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
     <string name="icon_sync">Apps are allowed to receive messages via sync or broadcast.</string>
@@ -264,7 +264,6 @@
 
     <string name="brevent_status_starting">Starting Brevent server</string>
     <string name="brevent_status_not_started">Brevent server is not started</string>
-    <string name="brevent_status_not_started_root">Pay %1$s to start Brevent server on boot completed</string>
 
     <string name="make_brevent_better">Your Brevent list is larger than most users. Please pay %1$s to make Brevent better.</string>
     <string name="make_brevent_safer">Be careful to brevent system apps, or pay %1$s to dismiss safe warning.</string>
@@ -275,7 +274,6 @@
     <string name="brevent_auto">Auto Brevent</string>
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
-    <string name="unbrevent_app">Tap to unbrevent.</string>
     <string name="unbrevented_app">Unbrevented \"%1$s\"</string>
     <string name="unbrevented_app_fail">Fail to unbrevent \"%1$s\", please launch Brevent</string>
     <string name="aggressive_app">Set \"%1$s\" as aggressive</string>
@@ -333,5 +331,10 @@
 
     <string name="shortcut_gms">Add GMS app</string>
     <string name="shortcut_instant">Add Instant app</string>
+
+    <string name="warning_play_3">You have paid %d Brefoil. Pay more to turn on experimental features.</string>
+    <string name="warning_play_5">You have paid %d Brefoil. It\'s unnecessary to pay more.</string>
+    <string name="pay_more">Pay more</string>
+    <string name="pay_cancel">Cancel</string>
 
 </resources>
