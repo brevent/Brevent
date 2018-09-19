@@ -247,11 +247,11 @@
     <string name="icon_audio_paused">黑閾不會強制停止暫停播放且有通知的應用程式。</string>
     <string name="icon_battery">應用程式處於電池效能最佳化白名單，不會被待命。</string>
     <string name="icon_safe">安全應用程式。如果應用程式一直都是這個狀態，您也就不再需要黑閾。</string>
-    <string name="icon_standby">應用程式已待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_standby">應用程式已待命，達到「不再活躍逾時」或從總覽畫面拉掉後強制停止。</string>
     <string name="icon_foreground_service">應用程式有前景服務，不會被黑閾。</string>
     <string name="icon_priority">「允許同步」應用程式在背景執行，不會被黑閾。</string>
-    <string name="icon_active">應用程式達到「背景應用程式逾時」後待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止。</string>
-    <string name="icon_running">如果主動打開過，應用程式將很快被待命，達到「不再活躍超時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
+    <string name="icon_active">應用程式達到「背景應用程式逾時」後待命，達到「不再活躍逾時」或從總覽畫面拉掉後強制停止。</string>
+    <string name="icon_running">如果主動打開過，應用程式將很快被待命，達到「不再活躍逾時」或從總覽畫面拉掉後強制停止；如果沒有主動打開過，應用程式將很快被強制停止。</string>
     <string name="icon_brevent">應用程式在黑閾清單。黑閾不會處理不在黑閾清單的應用程式。</string>
     <string name="icon_widget">應用程式已增加小工具。</string>
     <string name="apps_join">、</string>
@@ -324,8 +324,8 @@
     <string name="theme_jike">即刻</string>
     <string name="theme_amoled">省電</string>
 
-    <string name="shortcut_gms">添加 GMS 程式</string>
-    <string name="shortcut_instant">添加暫時程式</string>
+    <string name="shortcut_gms">新增 GMS 程式</string>
+    <string name="shortcut_instant">新增暫時程式</string>
 
     <string name="warning_play_3">您已支付 %d 二向箔，繼續支付可以開啟實驗性功能。\n\n實驗性功能穩定之後，取消實驗性標識；如果一直無法穩定，將會直接取消。</string>
     <string name="warning_play_5">您已支付 %d 二向箔，可能開啟所有功能，不必繼續支付。</string>
