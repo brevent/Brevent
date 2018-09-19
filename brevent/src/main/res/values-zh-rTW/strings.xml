@@ -269,7 +269,6 @@
     <string name="pay_now">現在支付</string>
     <string name="pay_lucky">試試手氣</string>
 
-    <string name="brevent_auto">自動更新</string>
     <string name="brevented_app">已黑閾「%1$s」</string>
     <string name="brevented_app_pay">支付以黑閾更多應用程式。</string>
     <string name="unbrevented_app_fail">取消黑閾「%1$s」失敗，煩請進入黑閾處理</string>
@@ -285,7 +284,6 @@
     <string name="disabled_app_fail">停用「%1$s」失敗，煩請進入黑閾處理</string>
 
     <string name="notification_brevent_server">黑閾服務</string>
-    <string name="notification_auto_brevent">自動黑閾</string>
     <string name="notification_auto_unbrevent">取消黑閾</string>
 
     <string name="cmd_menu_reset">重設</string>

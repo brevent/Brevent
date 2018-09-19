@@ -208,7 +208,7 @@
 
     <string name="brevent_about">Acerca de:</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto Brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
     <string name="brevent_about_developer">Opciones de desarrollador</string>
@@ -271,7 +271,6 @@
     <string name="pay_now">Pay now</string>
     <string name="pay_lucky">Lucky</string>
 
-    <string name="brevent_auto">Auto Brevent</string>
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
     <string name="unbrevented_app">Unbrevented \"%1$s\"</string>
@@ -288,7 +287,6 @@
     <string name="disabled_app_fail">Fail to disable \"%1$s\", please launch Brevent</string>
 
     <string name="notification_brevent_server">Brevent server</string>
-    <string name="notification_auto_brevent">Auto brevent</string>
     <string name="notification_auto_unbrevent">Auto unbrevent</string>
 
     <string name="cmd_menu_reset">Reset</string>
