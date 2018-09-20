@@ -332,4 +332,7 @@
     <string name="pay_more">繼續支付</string>
     <string name="pay_cancel">不再支付</string>
 
+    <string name="toast_error_network_play">無法緩存 Play 支付數據，請檢查網路</string>
+    <string name="toast_error_server_play">無法緩存 Play 支付數據，請稍候再試</string>
+
 </resources>
