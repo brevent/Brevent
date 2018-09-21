@@ -339,5 +339,6 @@
 
     <string name="toast_error_network_play">Cannot cache play payment, please check network</string>
     <string name="toast_error_server_play">Cannot cache play payment, please try later</string>
+    <bool name="support_wechat">false</bool>
 
 </resources>

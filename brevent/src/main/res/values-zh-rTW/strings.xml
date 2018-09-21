@@ -334,5 +334,6 @@
 
     <string name="toast_error_network_play">無法緩存 Play 支付數據，請檢查網路</string>
     <string name="toast_error_server_play">無法緩存 Play 支付數據，請稍候再試</string>
+    <bool name="support_wechat">false</bool>
 
 </resources>
