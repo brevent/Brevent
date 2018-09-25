@@ -177,16 +177,16 @@
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Android OS apps cannot be brevented</string>
 
-    <string name="show_donation">Show payment</string>
-    <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_other" />
-    <string name="show_donation_play">Thanks for paying %s Brefoil via Play Store</string>
-    <string name="show_donation_rmb">Thanks for paying %s Brefoil</string>
-    <string name="show_donation_contributor">Thanks for priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_rmb">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store</string>
-    <string name="show_donation_play_and_contributor">Thanks for paying %s Brefoil via Play Store, and priceless contribution on Brevent</string>
-    <string name="show_donation_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
-    <string name="show_donation_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
+    <string name="show_payment">Show payment</string>
+    <string name="show_payment_summary_play" />
+    <string name="show_payment_summary_other" />
+    <string name="show_payment_play">Thanks for paying %s Brefoil via Play Store</string>
+    <string name="show_payment_rmb">Thanks for paying %s Brefoil</string>
+    <string name="show_payment_contributor">Thanks for priceless contribution on Brevent</string>
+    <string name="show_payment_play_and_rmb">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store</string>
+    <string name="show_payment_play_and_contributor">Thanks for paying %s Brefoil via Play Store, and priceless contribution on Brevent</string>
+    <string name="show_payment_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
+    <string name="show_payment_play_and_rmb_and_contributor">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store, and priceless contribution on Brevent</string>
     <string name="brevent_appops">App ops</string>
     <string name="brevent_appops_label">Be careful, may cause apps crash</string>
     <string name="brevent_disable">Disable apps</string>
@@ -259,7 +259,7 @@
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>
-    <string name="toast_donate">Thanks for paying %1$s Brefoil</string>
+    <string name="toast_payment">Thanks for paying %1$s Brefoil</string>
     <string name="toast_developer">Please turn on \"Developer options\"</string>
 
     <string name="brevent_status_starting">Starting Brevent server</string>
@@ -311,9 +311,9 @@
     </string-array>
 
     <string name="version_free">Free</string>
-    <string name="version_free_tip">@string/donation</string>
+    <string name="version_free_tip">@string/payment</string>
     <string name="version_unlimited">Unlimited</string>
-    <string name="version_unlimited_tip">@string/donation</string>
+    <string name="version_unlimited_tip">@string/payment</string>
     <string name="version_pro">Professional</string>
     <string name="version_pro_tip">Enjoy Android with Brevent</string>
     <string name="version_contributor">Contributor</string>

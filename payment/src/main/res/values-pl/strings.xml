@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="payment">Nie wahaj się zapłacić za pełną wersję, jeżeli lubisz Brevent</string>
+    <string name="payment_unsupported">Payment is unavailable</string>
+    <string name="payment_play_unavailable">Wbudowane fakturowanie Play nie jest dostępne</string>
+    <string name="payment_play_checking">Sprawdzanie wbudowanego fakturowania Play…</string>
+
+</resources>

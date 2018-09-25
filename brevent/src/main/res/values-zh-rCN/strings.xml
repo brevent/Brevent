@@ -175,16 +175,16 @@
     <string name="show_os_apps">显示操作系统应用</string>
     <string name="show_os_apps_label">操作系统应用无法黑阈</string>
 
-    <string name="show_donation">显示支付</string>
-    <string name="show_donation_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
-    <string name="show_donation_summary_other">如果已经支付，请按流程确认</string>
-    <string name="show_donation_play">感谢您通过 Play 商店支付 %s 二向箔</string>
-    <string name="show_donation_rmb">感谢您支付 %s 二向箔</string>
-    <string name="show_donation_contributor">感谢您为黑阈所作的特别贡献</string>
-    <string name="show_donation_play_and_rmb">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
-    <string name="show_donation_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
-    <string name="show_donation_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
-    <string name="show_donation_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑阈所作的特别贡献</string>
+    <string name="show_payment">显示支付</string>
+    <string name="show_payment_summary_play">根据 Play 政策，Play 版必须使用 Play 支付</string>
+    <string name="show_payment_summary_other">如果已经支付，请按流程确认</string>
+    <string name="show_payment_play">感谢您通过 Play 商店支付 %s 二向箔</string>
+    <string name="show_payment_rmb">感谢您支付 %s 二向箔</string>
+    <string name="show_payment_contributor">感谢您为黑阈所作的特别贡献</string>
+    <string name="show_payment_play_and_rmb">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
+    <string name="show_payment_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
+    <string name="show_payment_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
+    <string name="show_payment_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑阈所作的特别贡献</string>
     <string name="brevent_appops">应用操作</string>
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
@@ -257,7 +257,7 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑阈服务运行正常</string>
-    <string name="toast_donate">感谢您支付 %1$s 二向箔</string>
+    <string name="toast_payment">感谢您支付 %1$s 二向箔</string>
     <string name="toast_developer">请手动开启“开发者选项”</string>
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>

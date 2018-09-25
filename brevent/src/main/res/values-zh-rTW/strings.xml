@@ -175,16 +175,16 @@
     <string name="show_os_apps">顯示系統應用程式</string>
     <string name="show_os_apps_label">系統應用程式無法黑閾</string>
 
-    <string name="show_donation">顯示支付</string>
-    <string name="show_donation_summary_play" />
-    <string name="show_donation_summary_other" />
-    <string name="show_donation_play">感謝您透過 Play 商店支付 %s 二向箔</string>
-    <string name="show_donation_rmb">感謝您支付 %s 二向箔</string>
-    <string name="show_donation_contributor">感謝您為黑閾所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
-    <string name="show_donation_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_donation_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_donation_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_payment">顯示支付</string>
+    <string name="show_payment_summary_play" />
+    <string name="show_payment_summary_other" />
+    <string name="show_payment_play">感謝您透過 Play 商店支付 %s 二向箔</string>
+    <string name="show_payment_rmb">感謝您支付 %s 二向箔</string>
+    <string name="show_payment_contributor">感謝您為黑閾所作的特別貢獻</string>
+    <string name="show_payment_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
+    <string name="show_payment_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_payment_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_payment_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
     <string name="brevent_appops">應用程式操作</string>
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
@@ -257,7 +257,7 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務執行正常</string>
-    <string name="toast_donate">感謝您支付 %1$s 二向箔</string>
+    <string name="toast_payment">感謝您支付 %1$s 二向箔</string>
     <string name="toast_developer">請手動開啟「開發人員選項」</string>
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
