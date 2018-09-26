@@ -314,14 +314,12 @@
     <string name="version_contributor">特別貢獻版</string>
     <string name="version_contributor_tip">希望有一天不再需要黑閾</string>
 
-    <string name="version_jike">即刻贊助版</string>
     <string name="version_feizhi">飛智小遊版</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">原生</string>
     <string name="theme_play">Play</string>
     <string name="theme_nankai">南開</string>
-    <string name="theme_jike">即刻</string>
     <string name="theme_amoled">省電</string>
 
     <string name="shortcut_gms">新增 GMS 程式</string>

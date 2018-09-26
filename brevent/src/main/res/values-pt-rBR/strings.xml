@@ -317,14 +317,12 @@
     <string name="version_contributor">Contributor</string>
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
 
-    <string name="version_jike">Jike</string>
     <string name="version_nankai">Nankai</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">AOSP</string>
     <string name="theme_play">Play</string>
     <string name="theme_nankai">Nankai</string>
-    <string name="theme_jike">Jike</string>
     <string name="theme_amoled">Amoled</string>
 
     <string name="shortcut_gms">Add GMS app</string>
