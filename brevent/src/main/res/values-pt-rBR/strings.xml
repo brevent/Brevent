@@ -101,7 +101,7 @@
     <string name="important_webview">%s (WebView)</string>
     <string name="important_accessibility">%s (Acessibilidade)</string>
     <string name="important_device_admin">%s (Administrador do dispositivo)</string>
-    <string name="important_gcm">%s (FCM)</string>
+    <string name="important_fcm">%s (FCM)</string>
     <string name="important_battery">%s (sem Ocioso)</string>
     <string name="important_trust_agent">%s (Agente de confiança)</string>
     <string name="important_gms">%s (GMS)</string>
@@ -316,8 +316,6 @@
     <string name="version_pro_tip">Enjoy Android with Brevent</string>
     <string name="version_contributor">Contributor</string>
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
-
-    <string name="version_nankai">Nankai</string>
 
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">AOSP</string>

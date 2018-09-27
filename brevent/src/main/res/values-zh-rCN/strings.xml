@@ -99,7 +99,7 @@
     <string name="important_webview">%s（Webview 实现）</string>
     <string name="important_accessibility">%s（无障碍应用）</string>
     <string name="important_device_admin">%s（设备管理器）</string>
-    <string name="important_gcm">%s（FCM）</string>
+    <string name="important_fcm">%s（FCM）</string>
     <string name="important_battery">%s（无法待机）</string>
     <string name="important_trust_agent">%s（可信代理）</string>
     <string name="important_gms">%s（GMS）</string>

@@ -101,7 +101,7 @@
     <string name="important_webview">%s (WebView)</string>
     <string name="important_accessibility">%s (Accessibility)</string>
     <string name="important_device_admin">%s (Device admin)</string>
-    <string name="important_gcm">%s (FCM)</string>
+    <string name="important_fcm">%s (FCM)</string>
     <string name="important_battery">%s (no Standby)</string>
     <string name="important_trust_agent">%s (Trust agent)</string>
     <string name="important_gms">%s (GMS)</string>

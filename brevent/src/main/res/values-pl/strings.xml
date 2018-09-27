@@ -101,7 +101,7 @@
     <string name="important_webview">%s (WebView)</string>
     <string name="important_accessibility">%s (Ustawienia dostępu)</string>
     <string name="important_device_admin">%s (Administrator urządzenia)</string>
-    <string name="important_gcm">%s (FCM)</string>
+    <string name="important_fcm">%s (FCM)</string>
     <string name="important_battery">%s (Bez trybu czuwania)</string>
     <string name="important_trust_agent">%s (Agent zaufania)</string>
     <string name="important_gms">%s (GMS)</string>
