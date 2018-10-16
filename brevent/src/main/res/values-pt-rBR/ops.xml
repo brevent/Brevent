@@ -7,8 +7,9 @@
     <string name="ops_mode_ignore">Ignorar</string>
     <string name="ops_mode_deny">Negar</string>
     <string name="ops_mode_default">Padrão</string>
+    <string name="ops_mode_foreground">Foreground</string>
     <string name="ops_mode_ask">Perguntar</string>
-    <string name="ops_mode_unknown">Desconhecido</string>
+    <string name="ops_mode_unknown">Desconhecido (%d)</string>
     <string name="ops_mode_permission">Permission</string>
     <string name="ops_mode_permission_granted">Granted</string>
     <string name="ops_mode_permission_denied">Refused</string>

@@ -7,8 +7,9 @@
     <string name="ops_mode_ignore">忽略</string>
     <string name="ops_mode_deny">拒絕</string>
     <string name="ops_mode_default">預設</string>
+    <string name="ops_mode_foreground">前景允許</string>
     <string name="ops_mode_ask">詢問</string>
-    <string name="ops_mode_unknown">未知</string>
+    <string name="ops_mode_unknown">未知（%d）</string>
     <string name="ops_mode_permission">預設權限</string>
     <string name="ops_mode_permission_granted">已授權</string>
     <string name="ops_mode_permission_denied">無授權</string>
