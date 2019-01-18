@@ -36,7 +36,8 @@
     <string name="brevent_service_adb_running">（已启用）</string>
     <string name="brevent_service_usb_connected">（已连接）</string>
     <string name="brevent_service_hard">没有电脑</string>
-    <string name="brevent_service_success">黑阈服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑阈它们</string>
+    <string name="brevent_service_success">黑阈服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑阈它们。</string>
+    <string name="brevent_service_mock">黑阈服务并未启动，当前处于只读模式。</string>
 
     <string name="fragment_apps_user">用户应用</string>
     <string name="fragment_apps_system">系统应用</string>
@@ -209,6 +210,7 @@
     <string name="brevent_about">关于</string>
     <string name="brevent_about_system">系统状态</string>
     <string name="brevent_about_system_summary">待机：%1$s\n停止状态：%2$s\n自动更新：%3$s\n自动黑阈：%4$s\n应用操作：%5$s\n停用应用：%6$s\n\n支持状态由设备决定，与支付无关</string>
+    <string name="brevent_about_system_summary_mock">待机：%1$s\n（只读模式）</string>
     <string name="brevent_about_system_supported">支持</string>
     <string name="brevent_about_system_unsupported">不支持</string>
     <string name="brevent_about_developer">开发者选项</string>

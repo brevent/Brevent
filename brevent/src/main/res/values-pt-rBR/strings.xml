@@ -37,7 +37,8 @@
     <string name="brevent_service_adb_running">(Ativado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
     <string name="brevent_service_hard" />
-    <string name="brevent_service_success">Servidor Brevent iniciado com sucesso. Toque nos ícones dos apps para escolhê-los e em seguida breveni-los</string>
+    <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose, then brevent them.</string>
+    <string name="brevent_service_mock">Brevent server is not started. Brevent is in read-only mode.</string>
 
     <string name="fragment_apps_user">Apps de Usuário</string>
     <string name="fragment_apps_system">Apps de Sistema</string>
@@ -211,6 +212,7 @@
     <string name="brevent_about">Sobre</string>
     <string name="brevent_about_system">Status do sistema</string>
     <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
+    <string name="brevent_about_system_summary_mock">Standby: %1$s\n(Read-only mode)</string>
     <string name="brevent_about_system_supported">suportado</string>
     <string name="brevent_about_system_unsupported">não suportado</string>
     <string name="brevent_about_developer">Opções do desenvolvedor</string>
