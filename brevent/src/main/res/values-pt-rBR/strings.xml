@@ -321,6 +321,8 @@
     <string name="version_contributor">Contributor</string>
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
 
+    <string name="version_feizhi">Feizhi</string>
+
     <string name="theme_pixel">Pixel</string>
     <string name="theme_aosp">AOSP</string>
     <string name="theme_play">Play</string>
