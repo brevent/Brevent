@@ -38,7 +38,8 @@
     <string name="brevent_service_usb_connected">(Podłączono USB)</string>
     <string name="brevent_service_hard" />
     <string name="brevent_service_success">Brevent server started successfully. Please tap app icons to choose, then brevent them.</string>
-    <string name="brevent_service_mock">Brevent server is not started. Brevent is in read-only mode.</string>
+    <string name="brevent_service_mocked">Brevent server is not started. Brevent is in read-only mode.</string>
+    <string name="brevent_service_mock">Read-only mode</string>
 
     <string name="fragment_apps_user">Aplikacje Użytkownika</string>
     <string name="fragment_apps_system">Aplikacje Systemowe</string>

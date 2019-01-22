@@ -37,7 +37,8 @@
     <string name="brevent_service_usb_connected">（已连接）</string>
     <string name="brevent_service_hard">没有电脑</string>
     <string name="brevent_service_success">黑阈服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑阈它们。</string>
-    <string name="brevent_service_mock">黑阈服务并未启动，当前处于只读模式。</string>
+    <string name="brevent_service_mocked">黑阈服务并未启动，当前处于只读模式。</string>
+    <string name="brevent_service_mock">只读模式</string>
 
     <string name="fragment_apps_user">用户应用</string>
     <string name="fragment_apps_system">系统应用</string>
