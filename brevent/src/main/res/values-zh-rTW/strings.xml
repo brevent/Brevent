@@ -29,7 +29,8 @@
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_guide_root">您的設備看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限技術支持。</string>
-    <string name="brevent_service_guide_root_14">您的設備看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限技術支持。\n\n如果您沒有見到 Root 按鈕，請按 14 次 Back，然後支付 3 二向箔。</string>
+    <string name="brevent_service_guide_root_14">您的設備看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限技術支持。\n\n如果您沒有見到 Root 按鈕，卸載重裝，然後支付 3 二向箔。</string>
+    <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，但 Root 功能耗费大量时间精力，因为需要付费。</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
@@ -61,9 +62,11 @@
     <string name="process_stats">（至 %1$s 共 %2$s）</string>
     <string name="process_all_top">%d 個前景</string>
     <string name="process_all_service">%d 個服務</string>
+    <string name="process_all_service_cached">%d 個快取服務</string>
     <string name="process_all_cached">%d 個快取</string>
     <string name="process_all_total">%d 個</string>
     <string name="process_service">%d 個服務</string>
+    <string name="process_service_cached">%d 個快取服務</string>
     <string name="process_total">共 %d 個</string>
     <plurals name="process_process">
         <item quantity="other">程序</item>
@@ -272,7 +275,6 @@
     <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或者支付 %1$s 關閉安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">現在支付</string>
-    <string name="pay_lucky">試試手氣</string>
 
     <string name="brevented_app">已黑閾「%1$s」</string>
     <string name="brevented_app_pay">支付以黑閾更多應用程式。</string>

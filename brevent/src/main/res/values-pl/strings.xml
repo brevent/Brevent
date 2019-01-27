@@ -29,8 +29,9 @@
     <string name="brevent_service_start">Proszę uruchomić serwer Brevent (%s)</string>
     <string name="brevent_service_no_response">Serwer Brevent nie odpowiada (%s)</string>
     <string name="brevent_service_guide">1. Włącz \"Opcje programistyczne\" oraz aktywuj funkcję \"Debugowanie USB\" %1$s\n\n2. Podłącz swój telefon do komputera za pomocą kabla USB %2$s\n\n3. Wykonaj w wierszu poleceń komendę \"adb devices\" i upewnij się, że Twój komputer rozpoznaje urządzenie (Przeczytaj: \"Poradnik - ADB\")\n\n4. Wykonaj w wierszu poleceń \"%3$s\"</string>
-    <string name="brevent_service_guide_root">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and no support without detail logs.</string>
-    <string name="brevent_service_guide_root_14">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and no support without detail logs.\n\nIf you don\'t see \"Root\", tap \"Back\" 14 times, then pay 3 Brefoil.</string>
+    <string name="brevent_service_guide_root">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.</string>
+    <string name="brevent_service_guide_root_14">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.\n\nIf you don\'t see \"Root\", uninstall and install again, then pay 3 Brefoil.</string>
+    <string name="brevent_service_payment_root">Root is unnecessary for Brevent, and requires payment.</string>
     <string name="brevent_service_open_development">Opcje programistyczne</string>
     <string name="brevent_service_copy_path">Kopiuj polecenie</string>
     <string name="brevent_service_command_copied">Polecenie zostało skopiowane: %s</string>
@@ -62,9 +63,11 @@
     <string name="process_stats">(ostatnio: %1$s, ogółem: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d główny(ch)</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d usług(i)</string>
+    <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
     <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
     <string name="process_all_total">%d</string>
     <string name="process_service" tools:ignore="PluralsCandidate">%d usługa</string>
+    <string name="process_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
     <string name="process_total">ogółem %d</string>
     <plurals name="process_process">
         <item quantity="one">&#160;procesu</item>
@@ -274,7 +277,6 @@
     <string name="make_brevent_safer">Be careful to brevent system apps, or pay %1$s to dismiss safe warning.</string>
     <string name="pay_brevent_require">Require to pay %s</string>
     <string name="pay_now">Pay now</string>
-    <string name="pay_lucky">Lucky</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
     <string name="brevented_app_pay">Pay to brevent more apps.</string>
