@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="donation">如已支付，请先确认</string>
-    <string name="donation_unsupported">暂不支持支付</string>
-    <string name="donation_play_unavailable">无法使用 Play 应用内结算</string>
-    <string name="donation_play_checking">正在检查 Play 应用内结算…</string>
-
-</resources>

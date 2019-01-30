@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="donation">Sinta-se livre para pagar se você gostar</string>
-    <string name="donation_unsupported">Pagamento está indisponível</string>
-    <string name="donation_play_unavailable">Pagamento Play no App está indisponível</string>
-    <string name="donation_play_checking">Verificando Pagamento Play no App…</string>
-
-</resources>
