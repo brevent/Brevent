@@ -342,4 +342,9 @@
     <string name="toast_error_server_play">無法緩存 Play 支付數據，請稍候再試</string>
     <bool name="support_wechat">false</bool>
 
+    <string name="new_version_available">發現新版本「%s」。</string>
+    <string name="latest_version">您已安裝最新版本。</string>
+    <string name="beta_version">您正在使用測試版本。</string>
+    <string name="update_version">更新</string>
+
 </resources>

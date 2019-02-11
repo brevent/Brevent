@@ -346,4 +346,9 @@
     <string name="toast_error_server_play">Cannot cache play payment, please try later</string>
     <bool name="support_wechat">false</bool>
 
+    <string name="new_version_available">There is a updated version \"%s\".</string>
+    <string name="latest_version">You have installed the latest version.</string>
+    <string name="beta_version">You have installed a beta version.</string>
+    <string name="update_version">Update</string>
+
 </resources>
