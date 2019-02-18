@@ -52,6 +52,8 @@
     <string name="process_starting">正在開啟黑閾服務，請稍候…</string>
     <string name="process_checking">正在檢查黑閾服務，請稍候…</string>
 
+    <string name="process_status_persistent">永久程式</string>
+    <string name="process_status_foreground">前景使用</string>
     <string name="process_status_running">正在執行</string>
     <string name="process_status_standby">已經待命</string>
     <string name="process_status_ignored">不需處理</string>
@@ -132,6 +134,7 @@
     <string name="menu_template">範本</string>
     <string name="menu_guide">導覽</string>
     <string name="menu_command">執行指令</string>
+    <string name="menu_brevent">啟動黑閾</string>
 
     <string name="feedback_message">歡迎傳送回報。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以檢視其他朋友已經建立的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回報包含私人資料，請傳送電子信件。</string>

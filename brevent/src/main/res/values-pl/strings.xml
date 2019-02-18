@@ -53,6 +53,8 @@
     <string name="process_starting">Uruchamianie serwera Brevent, proszę czekać. . .</string>
     <string name="process_checking">Sprawdzanie serwera Brevent, proszę czekać. . .</string>
 
+    <string name="process_status_persistent">Persistent</string>
+    <string name="process_status_foreground">Foreground</string>
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
     <string name="process_status_ignored">Ignored</string>
@@ -134,6 +136,7 @@
     <string name="menu_template">Template</string>
     <string name="menu_guide">Poradnik</string>
     <string name="menu_command">Exec command</string>
+    <string name="menu_brevent">Start Brevent</string>
 
     <string name="feedback_message">Nie bój się przekazać nam opinii o programie.\n\nJeżeli masz konto na GitHub, utwórz błąd (issue); korzystając z tego serwisu masz możliwość przeglądania innych zgłoszonych błędów.%s</string>
     <string name="feedback_message_email">\n\nAby nawiązać ze mną kontakt, napisz na mój adres e-mail.</string>

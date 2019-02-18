@@ -52,6 +52,8 @@
     <string name="process_starting">正在启动黑阈服务，请稍候……</string>
     <string name="process_checking">正在检查黑阈服务，请稍候……</string>
 
+    <string name="process_status_persistent">永久应用</string>
+    <string name="process_status_foreground">前台使用</string>
     <string name="process_status_running">正在运行</string>
     <string name="process_status_standby">已经待机</string>
     <string name="process_status_ignored">无需处理</string>
@@ -132,6 +134,7 @@
     <string name="menu_template">模板</string>
     <string name="menu_guide">向导</string>
     <string name="menu_command">执行指令</string>
+    <string name="menu_brevent">启动黑阈</string>
 
     <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
     <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>

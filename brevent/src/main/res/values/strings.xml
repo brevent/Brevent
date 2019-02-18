@@ -53,6 +53,8 @@
     <string name="process_starting">Starting Brevent server, just a moment. . .</string>
     <string name="process_checking">Checking Brevent server, just a moment. . .</string>
 
+    <string name="process_status_persistent">Persistent</string>
+    <string name="process_status_foreground">Foreground</string>
     <string name="process_status_running">Running</string>
     <string name="process_status_standby">Standby</string>
     <string name="process_status_ignored">Ignored</string>
@@ -134,6 +136,7 @@
     <string name="menu_template">Template</string>
     <string name="menu_guide">Guide</string>
     <string name="menu_command">Exec command</string>
+    <string name="menu_brevent">Start Brevent</string>
 
     <string name="feedback_message">Feel free to send feedback.\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
     <string name="feedback_message_email">\n\nFor private messages, email me.</string>
