@@ -30,6 +30,7 @@
     <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
     <string name="brevent_service_guide_root">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。</string>
     <string name="brevent_service_guide_root_14">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。\n\n如果您没有见到 Root 按钮，卸载重装，然后支付 3 二向箔。</string>
+    <string name="brevent_service_guide_adb">网络调试已开启，请点按 ADB 启动黑阈服务。\n\n网络调试有风险，不要随意授权。</string>
     <string name="brevent_service_payment_root">黑阈不需要也不提倡 Root，并且需要支付。</string>
     <string name="brevent_service_open_development">开发者选项</string>
     <string name="brevent_service_copy_path">复制指令</string>
@@ -270,6 +271,7 @@
     <string name="toast_working">黑阈服务运行正常</string>
     <string name="toast_payment">感谢您支付 %1$s 二向箔</string>
     <string name="toast_developer">请手动开启“开发者选项”</string>
+    <string name="toast_event_error">黑阈服务无法读取事件日志</string>
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
