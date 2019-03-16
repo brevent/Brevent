@@ -35,6 +35,7 @@
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 將裝置連結到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確定可以找到手機（請參閱「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_guide_root">您的裝置看起來已經 Root 過。您可自行開啟「網路 ADB 偵錯」，或者直接按一下 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限的技術支援。</string>
     <string name="brevent_service_guide_root_14">您的裝置看起來已 Root。您可自行開啟「網路 ADB 偵錯」，或者直接按一下 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限的技術支援。\n\n若您未看到 Root 按鈕，請解除安裝後重新安裝，並支付 3 二向箔。</string>
+    <string name="brevent_service_guide_adb">已開啟網路偵錯功能，請點觸 ADB 啟動黑閾服務。</string>
     <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，且又因為 Root 功能耗費作者大量時間與精力，所以需要付費。</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
@@ -286,6 +287,7 @@
     <string name="toast_working">黑閾服務執行正常</string>
     <string name="toast_payment">感謝您支付 %1$s 二向箔</string>
     <string name="toast_developer">請手動開啟「開發人員選項」</string>
+    <string name="toast_event_error">黑閾服務無法讀取事件日誌</string>
 
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
