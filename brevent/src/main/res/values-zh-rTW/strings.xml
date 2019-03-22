@@ -120,6 +120,7 @@
     <string name="important_os_bluetooth">藍牙</string>
     <string name="important_os_nfc">NFC</string>
     <string name="important_os_se">安全元素</string>
+    <string name="important_os_network_stack">網路堆疊</string>
     <string name="important_os_shell">Shell</string>
     <string name="important_os_other">UID %1$d</string>
 

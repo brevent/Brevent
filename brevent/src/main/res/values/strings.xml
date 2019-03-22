@@ -122,6 +122,7 @@
     <string name="important_os_bluetooth">Bluetooth</string>
     <string name="important_os_nfc">NFC</string>
     <string name="important_os_se">Secure Element</string>
+    <string name="important_os_network_stack">Network Stack</string>
     <string name="important_os_shell">Shell</string>
     <string name="important_os_other">UID %1$d</string>
 
