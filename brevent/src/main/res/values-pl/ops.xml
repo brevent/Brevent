@@ -20,6 +20,7 @@
 
     <string name="ops_time_allow">Pozwolono %s</string>
     <string name="ops_time_reject">Odrzucono %s</string>
+    <string name="ops_time">N/A</string>
 
     <string name="ops_menu_allow">@string/ops_mode_allow</string>
     <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
