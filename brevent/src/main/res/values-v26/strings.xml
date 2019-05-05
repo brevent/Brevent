@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_about_developer_adb">Don\'t turn off \"USB debugging\", don\'t change USB options</string>
+    <string name="brevent_about_developer_adb">नहीं बन्द करे \"USB डिबगिंग\", USB विकल्प में बदलाव नहीं करे</string>
 
 </resources>
