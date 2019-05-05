@@ -6,18 +6,18 @@
 
     <string name="fragment_guide_welcome">स्वागत है</string>
     <string name="fragment_guide_welcome_message">आप ऐप को कैसे बन्द करतें हैं?\nबैक बटन को दबाना मतलब बन्द करना.\nहोम बटन को दबाना मतलब बाद मे इस्तेमाल करना.\n\nBrevent तरह एप कि स्थिति को समझता है, Brevent सूची मे एप को लम्बा चलने से रोकता है.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are ran without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
+    <string name="fragment_guide_welcome_message2">जब आप बैक बटन को ऐप्प बन्द करने के लिये दबाते है, ऐप्प चलना बन्द हो जायेगा; होम बटन दबायें, ताकी ऐप्प को पीछे चला सके, ऐप्प चलता रहेगा; रीसेंट स्क्रीन से ऐप्प को हटाने से, ऐप्प चलना बन्द हो जायेगा. जब भी ऐप्प बिना किसी काम का चलेगा तो, Brevent उसको बन्द कर देगा.\n\nBrevent कि सूची का ऐप्प सेट कर सक्ते है \"सिंक की अनुमति दें\" nortification पने के लिये. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
 
     <string name="fragment_guide_permission">आज्ञा</string>
-    <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
-    <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
+    <string name="fragment_guide_permission_message">आपको क्या करना है? \nसिर्फ PC से ADB द्वारा कमाण्ड को चलाये.</string>
+    <string name="fragment_guide_permission_message2">Brevent काम नही करेगा अगर एंड्रॉइड फिर से चालू होता है तो. एंड्रॉइड 8 से, Brevent काम नही करेगा अगर आप बन्द करते है \"USB डिबगिंग\" या USB विकल्प मे बदलाव करने से.</string>
 
     <string name="fragment_guide_security">सुरक्षा</string>
-    <string name="fragment_guide_security_message">Brevent does not need root access nor the ability to modify system files, there is no residue after uninstallation.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, or important apps.</string>
+    <string name="fragment_guide_security_message">Brevent को root कि जरुरत नही है और ना ही सिस्टम को बदलने कि, इसको हटाने के बाद कूछ नहीं बचता है.</string>
+    <string name="fragment_guide_security_message2">Brevent एंड्रॉइड कि छिपी हुई APIs को इस्तेमाल करता हैं. कुछ third-party ROMs इस APIs को बादल सकते हैं, तो यहां कुछ बात हो सक्ता है.\n\nBrevent को काम वाला डिवाइस मे इस्तेमाल ना करें, नही काम का ऐप्प को Brevent करें, बार-बार इस्तेमाल होने वाला ऐप्प, या जरुरी ऐप्प को भी brevent नही करें.</string>
 
-    <string name="fragment_guide_enjoy">Enjoy</string>
-    <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to send feedback with logs.</string>
+    <string name="fragment_guide_enjoy">मजे करें</string>
+    <string name="fragment_guide_enjoy_message">Brevent को इस्तेमाल करें, और अगर आपको कोई दिकत होती है तो, कृपया लॉग के साथ प्रतिक्रिया दें.</string>
     <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
@@ -48,22 +48,22 @@
     <string name="fragment_apps_framework">कोर ऐप्स</string>
     <string name="fragment_apps_os">OS ऐप्स</string>
 
-    <string name="process_retrieving">Retrieving process status, just a moment. . .</string>
-    <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
-    <string name="process_retrieving_logs">Retrieving logs, just a moment. . .</string>
-    <string name="process_starting">Starting Brevent server, just a moment. . .</string>
-    <string name="process_checking">Checking Brevent server, just a moment. . .</string>
+    <string name="process_retrieving">प्रक्रिया की स्थिति को पुनः प्राप्तकर रहा है, बस एक पल. . .</string>
+    <string name="process_retrieving_apps">ऐप्स की स्थिति को पुनः प्राप्त कररहा है, बस एक पल. . .</string>
+    <string name="process_retrieving_logs">लोग्स प्राप्त कर रहा है,बस ऐक पल. . .</string>
+    <string name="process_starting">Brevent सर्वर सुरु कर रहा है, बस ऐक पल. . .</string>
+    <string name="process_checking">Brevent सर्वर की जाँच कर रहा है, बस ऐक पल. . .</string>
 
-    <string name="process_status_persistent">Persistent</string>
-    <string name="process_status_foreground">Foreground</string>
-    <string name="process_status_running">Running</string>
-    <string name="process_status_standby">Standby</string>
-    <string name="process_status_ignored">Ignored</string>
-    <string name="process_status_disabled">Disabled</string>
-    <string name="process_status_stopped">Stopped</string>
-    <string name="process_status_uninstalled">Uninstalled</string>
-    <string name="process_not_running">(not running)</string>
-    <string name="process_no_stats">(never launched)</string>
+    <string name="process_status_persistent">लगातर</string>
+    <string name="process_status_foreground">चलटा हुआ</string>
+    <string name="process_status_running">चल रहा है</string>
+    <string name="process_status_standby">रोका जने वाला</string>
+    <string name="process_status_ignored">अवहेलना करना</string>
+    <string name="process_status_disabled">अस्थायी रूप से रोक दिया गया</string>
+    <string name="process_status_stopped">रोका हुआ</string>
+    <string name="process_status_uninstalled">हटा दिया गया</string>
+    <string name="process_not_running">(नहीं चल रहा है)</string>
+    <string name="process_no_stats">(कभी नहीं चलाया गया)</string>
     <string name="process_stats">(last: %1$s, total: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
@@ -80,23 +80,23 @@
 
     <string name="action_brevent">Brevent</string>
     <string name="action_unbrevent">Unbrevent</string>
-    <string name="action_select_important">Important</string>
-    <string name="action_select_inverse">Inverse</string>
+    <string name="action_select_important">महत्वपूर्ण</string>
+    <string name="action_select_inverse">ऊलटा करो</string>
     <string name="action_brevent_results" tools:ignore="PluralsCandidate">Brevented %d apps</string>
     <string name="action_unbrevent_results" tools:ignore="PluralsCandidate">Unbrevented %d apps</string>
-    <string name="action_message_undo">Undo</string>
-    <string name="action_message_undone">Undone</string>
+    <string name="action_message_undo">पूर्ववत</string>
+    <string name="action_message_undone">नष्ट कर दिया</string>
 
     <string name="context_menu_target">API %1$d (%2$s)</string>
-    <string name="context_menu_package_name">Copy package name</string>
-    <string name="context_menu_app_info">Application Info</string>
-    <string name="context_menu_open">Launch</string>
-    <string name="context_menu_brevent_server_info">Brevent server Info</string>
-    <string name="context_menu_set_priority">Allow sync</string>
-    <string name="context_menu_set_aggressive">Set aggressive</string>
-    <string name="context_menu_off_aggressive">No aggressive</string>
-    <string name="context_menu_unset">Unset</string>
-    <string name="context_menu_message_copied">Copied package name: %s</string>
+    <string name="context_menu_package_name">पैकेज का नाम कॉपी करें</string>
+    <string name="context_menu_app_info">ऐप की जानकारी</string>
+    <string name="context_menu_open">सुरु करें</string>
+    <string name="context_menu_brevent_server_info">Brevent सर्वर कि जानकारी</string>
+    <string name="context_menu_set_priority">सिंक करें</string>
+    <string name="context_menu_set_aggressive">पुर्ण रुप से सेट करें</string>
+    <string name="context_menu_off_aggressive">पुर्ण रुप को हटाए</string>
+    <string name="context_menu_unset">हटाए</string>
+    <string name="context_menu_message_copied">पैकेज का नाम कॉपी करें: %s</string>
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
     <string name="context_menu_enable_open">Instant enable</string>
