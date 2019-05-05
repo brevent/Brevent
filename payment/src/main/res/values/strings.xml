@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="payment">Feel free to pay if you like</string>
-    <string name="payment_unsupported">Payment is unavailable</string>
-    <string name="payment_play_unavailable">Play In-app Billing is unavailable</string>
-    <string name="payment_play_checking">Checking Play In-app Billing…</string>
+    <string name="payment">स्वतंत्रता से यहां भुगतान कारें</string>
+    <string name="payment_unsupported">अभी भुगतान उपलब्ध नहीं है</string>
+    <string name="payment_play_unavailable">गूगल प्ले से भुगतान उपलब्ध नहीं है</string>
+    <string name="payment_play_checking">गूगल प्ले से भुगतान कि जाँच हो रही है...</string>
 
 </resources>
