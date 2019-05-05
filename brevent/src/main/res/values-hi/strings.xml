@@ -43,10 +43,10 @@
     <string name="brevent_service_mocked">Brevent server is not started. Brevent is in read-only mode.</string>
     <string name="brevent_service_mock">Read-only mode</string>
 
-    <string name="fragment_apps_user">User Apps</string>
-    <string name="fragment_apps_system">System Apps</string>
-    <string name="fragment_apps_framework">Core Apps</string>
-    <string name="fragment_apps_os">OS Apps</string>
+    <string name="fragment_apps_user">उपयोगकर्ता ऐप्स</string>
+    <string name="fragment_apps_system">सिस्टम ऐप्स</string>
+    <string name="fragment_apps_framework">कोर ऐप्स</string>
+    <string name="fragment_apps_os">OS ऐप्स</string>
 
     <string name="process_retrieving">Retrieving process status, just a moment. . .</string>
     <string name="process_retrieving_apps">Retrieving apps, just a moment. . .</string>
