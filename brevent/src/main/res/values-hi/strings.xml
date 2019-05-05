@@ -4,15 +4,15 @@
     <string name="app_name">Brevent</string>
     <string name="app_name_debug">Nrevent</string>
 
-    <string name="fragment_guide_welcome">Welcome</string>
-    <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into background.\n\nBrevent recognizes states of apps in this way, preventing apps in Brevent list from running in long time.</string>
+    <string name="fragment_guide_welcome">स्वागत है</string>
+    <string name="fragment_guide_welcome_message">आप ऐप को कैसे बन्द करतें हैं?\nबैक बटन को दबाना मतलब बन्द करना.\nहोम बटन को दबाना मतलब बाद मे इस्तेमाल करना.\n\nBrevent तरह एप कि स्थिति को समझता है, Brevent सूची मे एप को लम्बा चलने से रोकता है.</string>
     <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and bound services won\'t run anymore; tap Home or Overview, or just put apps into background, apps and bound services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are ran without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
 
-    <string name="fragment_guide_permission">Permissions</string>
+    <string name="fragment_guide_permission">आज्ञा</string>
     <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
-    <string name="fragment_guide_security">Security</string>
+    <string name="fragment_guide_security">सुरक्षा</string>
     <string name="fragment_guide_security_message">Brevent does not need root access nor the ability to modify system files, there is no residue after uninstallation.</string>
     <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues when using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, or important apps.</string>
 
@@ -24,9 +24,9 @@
     <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools (long-press to select and copy).</string>
     <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
 
-    <string name="start_brevent">Launch Brevent</string>
+    <string name="start_brevent">Brevent सुरु करें</string>
 
-    <string name="brevent_service_start">Please start Brevent server (%s)</string>
+    <string name="brevent_service_start">कृप्या Brevent सर्वर सुरु करें (%s)</string>
     <string name="brevent_service_no_response">Brevent server don\'t response (%s)</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure PC can recognize device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_guide_root">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.</string>
@@ -329,13 +329,13 @@
         <item>5 Brefoil</item>
     </string-array>
 
-    <string name="version_free">Free</string>
+    <string name="version_free">मुक्त</string>
     <string name="version_free_tip">@string/payment</string>
-    <string name="version_unlimited">Unlimited</string>
+    <string name="version_unlimited">असीमित</string>
     <string name="version_unlimited_tip">@string/payment</string>
     <string name="version_pro">Professional</string>
     <string name="version_pro_tip">Enjoy Android with Brevent</string>
-    <string name="version_contributor">Contributor</string>
+    <string name="version_contributor">योगदान देने वाला</string>
     <string name="version_contributor_tip">Enjoy Brevent in Android</string>
 
     <string name="version_feizhi">Feizhi</string>
@@ -346,21 +346,21 @@
     <string name="theme_nankai">Nankai</string>
     <string name="theme_amoled">Amoled</string>
 
-    <string name="shortcut_gms">Add GMS app</string>
-    <string name="shortcut_instant">Add Instant app</string>
+    <string name="shortcut_gms">जोड़ GMS ऐप</string>
+    <string name="shortcut_instant">तुरंत ऐप्प को जोड़</string>
 
     <string name="warning_play_3">You have paid %d Brefoil. Pay more to turn on experimental features.</string>
     <string name="warning_play_5">You have paid %d Brefoil. It\'s unnecessary to pay more.</string>
     <string name="pay_more">Pay more</string>
     <string name="pay_cancel">Cancel</string>
 
-    <string name="toast_error_network_play">Cannot cache play payment, please check network</string>
-    <string name="toast_error_server_play">Cannot cache play payment, please try later</string>
-    <bool name="support_wechat">false</bool>
+    <string name="toast_error_network_play">गूगल प्ले का भुगतान लोड नहीं हो रहा है, कृप्या अपना नेटवर्क कि जाँच करें</string>
+    <string name="toast_error_server_play">गूगल प्ले का भुगतान लोड नहीं हो रहा है, कृप्या थोड़ी देर बाद कोसिस करें</string>
+    <bool name="support_wechat">झुठ</bool>
 
-    <string name="new_version_available">There is a updated version \"%s\".</string>
-    <string name="latest_version">You have installed the latest version.</string>
-    <string name="beta_version">You have installed a beta version.</string>
-    <string name="update_version">Update</string>
+    <string name="new_version_available">नवीनतम संस्करण उप्लब्ध है \"%s\".</string>
+    <string name="latest_version">आपने नवीनतम संस्करण को इंस्टाल किया है.</string>
+    <string name="beta_version">आपने बेटा संस्करण को इंस्टालकिया है.</string>
+    <string name="update_version">अपडेट करें</string>
 
 </resources>
