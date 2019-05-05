@@ -3,35 +3,35 @@
 
     <string name="group_permission">(%1$s) %2$s</string>
 
-    <string name="ops_mode_allow">Allow</string>
-    <string name="ops_mode_ignore">Ignore</string>
-    <string name="ops_mode_deny">Deny</string>
-    <string name="ops_mode_default">Default</string>
-    <string name="ops_mode_foreground">Foreground</string>
-    <string name="ops_mode_ask">Ask</string>
-    <string name="ops_mode_unknown">Unknown (%d)</string>
-    <string name="ops_mode_permission">Permission</string>
-    <string name="ops_mode_permission_granted">Granted</string>
-    <string name="ops_mode_permission_denied">Refused</string>
+    <string name="ops_mode_allow">अनुमति प्रदान करें</string>
+    <string name="ops_mode_ignore">नज़रअंदाज करें</string>
+    <string name="ops_mode_deny">मना करें</string>
+    <string name="ops_mode_default">डिफाउल्ट</string>
+    <string name="ops_mode_foreground">चलता हुआ</string>
+    <string name="ops_mode_ask">पूछें</string>
+    <string name="ops_mode_unknown">अनजान (%d)</string>
+    <string name="ops_mode_permission">अनुमति</string>
+    <string name="ops_mode_permission_granted">दी गयी</string>
+    <string name="ops_mode_permission_denied">मना किया गया</string>
 
-    <string name="context_menu_appops">App ops</string>
-    <string name="context_menu_ops">Copy code</string>
-    <string name="context_menu_ops_copied">Code copied: %s</string>
+    <string name="context_menu_appops">एप्लिकेशन ओप</string>
+    <string name="context_menu_ops">कॉपी कोड</string>
+    <string name="context_menu_ops_copied">कोड कॉपी हुआ: %s</string>
 
-    <string name="ops_time_allow">Allowed %s</string>
-    <string name="ops_time_reject">Rejected %s</string>
+    <string name="ops_time_allow">अनुमती दिया %s</string>
+    <string name="ops_time_reject">मना हुआ %s</string>
     <string name="ops_time">N/A</string>
 
     <string name="ops_menu_allow">@string/ops_mode_allow</string>
     <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
-    <string name="ops_menu_reset">Reset</string>
-    <string name="ops_menu_sort_by_time">Time</string>
-    <string name="ops_menu_sort_by_name">Name</string>
-    <string name="ops_menu_sort_by_group">Group</string>
-    <string name="ops_menu_sort_by_code">Code</string>
-    <string name="ops_menu_sort_by_mode">Mode</string>
+    <string name="ops_menu_reset">रीसेट</string>
+    <string name="ops_menu_sort_by_time">समय</string>
+    <string name="ops_menu_sort_by_name">नाम</string>
+    <string name="ops_menu_sort_by_group">समूह</string>
+    <string name="ops_menu_sort_by_code">कोड</string>
+    <string name="ops_menu_sort_by_mode">मोड</string>
 
-    <string name="action_select_all">All</string>
-    <string name="action_apply_template">Apply template</string>
+    <string name="action_select_all">सभी</string>
+    <string name="action_apply_template">टेम्पलेट लागू करें</string>
 
 </resources>
