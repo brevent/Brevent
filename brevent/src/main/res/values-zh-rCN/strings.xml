@@ -60,6 +60,7 @@
     <string name="process_status_ignored">无需处理</string>
     <string name="process_status_disabled">已经停用</string>
     <string name="process_status_stopped">没有运行</string>
+    <string name="process_status_uninstalled">已经卸载</string>
     <string name="process_not_running">（没有运行）</string>
     <string name="process_no_stats">（从未打开）</string>
     <string name="process_stats">（至 %1$s 共 %2$s）</string>
@@ -97,6 +98,11 @@
     <string name="context_menu_disable">停用</string>
     <string name="context_menu_enable">启用</string>
     <string name="context_menu_enable_open">临时启用</string>
+    <string name="context_menu_market">商店详情</string>
+    <string name="context_menu_uninstall_keep_data">卸载（保留数据）</string>
+    <string name="context_menu_uninstall">卸载</string>
+    <string name="uninstall_keep_data_confirm">卸载（保留数据）以后，再次安装可以直接使用当前数据。\n\n此操作无法撤回，真的要继续么？</string>
+    <string name="uninstall_confirm">卸载以后，将清除所有数据。\n\n此操作无法撤回，真的要继续么？</string>
 
     <string name="important_input">%s（输入法）</string>
     <string name="important_alarm">%s（闹钟应用）</string>

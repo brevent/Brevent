@@ -61,6 +61,7 @@
     <string name="process_status_ignored">Ignored</string>
     <string name="process_status_disabled">Disabled</string>
     <string name="process_status_stopped">Stopped</string>
+    <string name="process_status_uninstalled">Uninstalled</string>
     <string name="process_not_running">(nie działa w tle)</string>
     <string name="process_no_stats">(nigdy nie uruchamiana)</string>
     <string name="process_stats">(ostatnio: %1$s, ogółem: %2$s)</string>
@@ -99,6 +100,11 @@
     <string name="context_menu_disable">Disable</string>
     <string name="context_menu_enable">Enable</string>
     <string name="context_menu_enable_open">Instant enable</string>
+    <string name="context_menu_market">Market</string>
+    <string name="context_menu_uninstall_keep_data">Uninstall (keep data)</string>
+    <string name="context_menu_uninstall">Uninstall</string>
+    <string name="uninstall_keep_data_confirm">Uninsatall (keep data) will remove package, but keep the data and cache directories around.\n\nAre you confirm?</string>
+    <string name="uninstall_confirm">Uninstall would remove the data and cache directories.\n\nAre you confirm?</string>
 
     <string name="important_input">%s (Metoda wejścia)</string>
     <string name="important_alarm">%s (Aplikacja alarmu)</string>
