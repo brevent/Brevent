@@ -234,7 +234,7 @@
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">अनुवादक</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Gautam Kumar</string>
+    <string name="brevent_about_translator">Gautam Kumar(gautamajay52)</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent सिर्फ मलिक को उप्लब्ध है.</string>
