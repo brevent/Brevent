@@ -233,8 +233,8 @@
     <string name="brevent_about_developer">Developer options</string>
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_developer_adb_v26" />
-    <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank</string>
+    <string name="brevent_about_translation">अनुवादक</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Gautam Kumar</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent सिर्फ मलिक को उप्लब्ध है.</string>
@@ -330,9 +330,9 @@
     </string-array>
 
     <string name="version_free">मुक्त</string>
-    <string name="version_free_tip">@string/भुगतान</string>
+    <string name="version_free_tip">@string/payment</string>
     <string name="version_unlimited">असीमित</string>
-    <string name="version_unlimited_tip">@string/भुगतान</string>
+    <string name="version_unlimited_tip">@string/payment</string>
     <string name="version_pro">पेशेवर</string>
     <string name="version_pro_tip">Brevent को अपने अन्द्रौईद मे इस्तेमाल करें</string>
     <string name="version_contributor">योगदान देने वाला</string>
