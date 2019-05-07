@@ -18,11 +18,11 @@
 
     <string name="fragment_guide_enjoy">मजे करें</string>
     <string name="fragment_guide_enjoy_message">Brevent को इस्तेमाल करें, और अगर आपको कोई दिकत होती है तो, कृपया लॉग के साथ प्रतिक्रिया दें.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">डिफ़ॉल्ट Brevent तरीका \"स्टैंडबाय, फिर बल-स्टॉप\" है। स्टैंडबाय (एंड्रॉइड 6.0 के बाद से, कुछ उपकरणों पर असमर्थित) एप्लिकेशन नेटवर्क का उपयोग नहीं कर सकते हैं, न ही सिंक को निष्पादित कर सकते हैं.\n\nBrevent  सुरक्षित ऐप्स को बंद नहीं करेगा। इसके अलावा, Brevent सर्वर ईवेंट स्तर के अनुसार केंद्रीय रूप से 3 से 60 सेकंड तक प्रक्रियाओं को केंद्र में रखता है और देरी करता है.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools (long-press to select and copy).</string>
-    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n3. (for macOS) Navigate \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" when paste the command line)\n\n4. You need to ADB every time after you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
+    <string name="fragment_guide_adb_message">एडीबी (एंड्रॉइड डिबग ब्रिज) एक कमांड-लाइन टूल है जो पीसी को एंड्रॉइड डिवाइस के साथ संवाद करने देता है। यह प्लेटफ़ॉर्म-टूल्स का हिस्सा है, आप इसे यहाँ से डाउनलोड कर सकते हैं: https://developer.android.com/studio/releases/platform-tools (चयन करने और कॉपी करने के लिए लंबे समय से दबाएं)।</string>
+    <string name="fragment_guide_adb_message2">1. Uncompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. प्लेटफॉर्म-टूल्स डायरेक्टरी में ले जाए\n\n3. (विंडोज के लिए) शिफ्ट कुंजी दबाए रखें, फिर राइट-क्लिक करें, \"ओपन कमांड विंडो यहां\" चुनें, फिर संकेतित \"ADB\" को बदलने के लिए \"। \"adb\" का उपयोग करें (कमांड लाइन पेस्ट करते समय डुप्लिकेट \"एडीबी\" हटाएं)\n\n3. (macOS के लिए) \"फाइंडर\", \"एप्लिकेशन\", \"यूटिलिटीज\" को नेविगेट करें, \"टर्मिनल\" लॉन्च करें, \"टर्मिनल\" को \"टर्मिनल\" में खींचें, फिर संकेतित \"adb\" को बदलने के लिए पूरे रास्ते के साथ \"adb\" का उपयोग करें। कृपया डुप्लिकेट निकालें \"एडीबी\" जब कमांड लाइन पेस्ट करें)\n\n4. अपने डिवाइस को चालू करने के बाद आपको हर बार ADB की आवश्यकता है, कृपया अपने डिवाइस को जितना संभव हो उतना पुनरारंभ या बंद करने से बचें.</string>
 
     <string name="start_brevent">Brevent सुरु करें</string>
 
@@ -33,11 +33,11 @@
     <string name="brevent_service_guide_root_14">लगता है आपका एंड्रॉइड rooted है. आप खुद से Network ADB चालू कर सकते है, या दबाए \"Root\" बटन Brevent मे.\n\nBreventके लिये root कि कोई जरुरत नही है, और इसे इस्तेमाल करने के लिये भुगतान चाहिये.\n\nअगर आप नही देख्ते है \"Root\", uninstall किजीये फिर install किजीये, फिर भुगतान करे 3 Brefoil.</string>
     <string name="brevent_service_guide_adb">Network ADB चालू है, कृपया दबाए \"ADB\" Brevent Server को सुरु करने के लिये.</string>
     <string name="brevent_service_payment_root">Root कि कोई जरुरत Brevent को नही है, और इसे इस्तेमाल करने के लिये भुगतान कि जरुरत है.</string>
-    <string name="brevent_service_open_development">Developer</string>
-    <string name="brevent_service_copy_path">कॉपी command</string>
-    <string name="brevent_service_command_copied">Command कॉपी किया गया: %s</string>
+    <string name="brevent_service_open_development">डेवलपर</string>
+    <string name="brevent_service_copy_path">कॉपी कमाण्ड</string>
+    <string name="brevent_service_command_copied">कमाण्ड कॉपी किया गया: %s</string>
     <string name="brevent_service_adb_running">(Enabled)</string>
-    <string name="brevent_service_usb_connected">(USB जोरा गया)</string>
+    <string name="brevent_service_usb_connected">(USB जोड़ा गया)</string>
     <string name="brevent_service_hard" />
     <string name="brevent_service_success">Brevent server पुर्ण रुप से सुरु किया जा चुका है. कृपया ऐप्प कि icon पर दबा कर select करे, और फिर उसे brevent करे.</string>
     <string name="brevent_service_mocked">Brevent server सुरु नही हुआ है. Brevent अभी read-only मोड मे है.</string>
@@ -55,16 +55,16 @@
     <string name="process_checking">Brevent सर्वर की जाँच कर रहा है, बस ऐक पल. . .</string>
 
     <string name="process_status_persistent">लगातर</string>
-    <string name="process_status_foreground">चलटा हुआ</string>
+    <string name="process_status_foreground">चलता हुआ</string>
     <string name="process_status_running">चल रहा है</string>
     <string name="process_status_standby">रोका जने वाला</string>
-    <string name="process_status_ignored">अवहेलना करना</string>
+    <string name="process_status_ignored">छोड़ा गया</string>
     <string name="process_status_disabled">अस्थायी रूप से रोक दिया गया</string>
     <string name="process_status_stopped">रोका हुआ</string>
     <string name="process_status_uninstalled">हटा दिया गया</string>
     <string name="process_not_running">(नहीं चल रहा है)</string>
     <string name="process_no_stats">(कभी नहीं चलाया गया)</string>
-    <string name="process_stats">(last: %1$s, total: %2$s)</string>
+    <string name="process_stats">(अन्तिम: %1$s, कुल: %2$s)</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
@@ -125,7 +125,7 @@
     <string name="important_notification_listener">%s (Notification listener)</string>
     <string name="important_os_system">System</string>
     <string name="important_os_telephony">Telephony</string>
-    <string name="important_os_bluetooth">Bluetooth</string>
+    <string name="important_os_bluetooth">ब्लूटूथ</string>
     <string name="important_os_nfc">NFC</string>
     <string name="important_os_se">Secure Element</string>
     <string name="important_os_network_stack">Network Stack</string>
@@ -139,14 +139,14 @@
     <string name="menu_sort_by_update_time">Update समय</string>
     <string name="menu_sort_by_last_time">आखरी बर का इस्तेमाल</string>
     <string name="menu_sort_by_usage_time">इस्तेमाल किया हुआ समय</string>
-    <string name="menu_feedback">फीद्बव्क</string>
+    <string name="menu_feedback">फ़ीडबैक</string>
     <string name="menu_settings">सेटिंग्स</string>
-    <string name="menu_template">टेम्पलेते</string>
+    <string name="menu_template">टेम्पलेट</string>
     <string name="menu_guide">सहयता</string>
-    <string name="menu_command">Exec command</string>
+    <string name="menu_command">एक्स कमाण्ड</string>
     <string name="menu_brevent">Brevent सुरु करें</string>
 
-    <string name="feedback_message">फीद्बच्क दें.\n\nअगर आपके पास GitHub account है तो, कृपया इश्यू को बताये; आप भी उसे देख सकते हैं.%s</string>
+    <string name="feedback_message">फ़ीडबैक दें.\n\nअगर आपके पास GitHub account है तो, कृपया इश्यू को बताये; आप भी उसे देख सकते हैं.%s</string>
     <string name="feedback_message_email">\n\n निजी संदेश के लिये, मुझे email करें.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
@@ -156,14 +156,14 @@
     <string name="brevent_enable">Brevent सुरु करें</string>
     <string name="brevent_enable_label">Brevent केवल Brevent सूची वला ऐप्प पर लगता है</string>
     <string name="brevent_method">Brevent के तरीके</string>
-    <string name="brevent_method_standby_forcestop">Standby, then force-stop</string>
-    <string name="brevent_method_standby_only">Only standby, no force-stop</string>
-    <string name="brevent_method_forcestop_only">Only force-stop, no standby</string>
-    <string name="brevent_method_standby_forcestop_label">Standby when you exit apps (tap \"Back\"), or background apps timed out; force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
-    <string name="brevent_method_standby_only_label">Standby when you exit apps (tap \"Back\"), or background apps timed out\n\nAlways force-stop ran apps without activity</string>
-    <string name="brevent_method_forcestop_only_label">Force-stop when reach inactive timeout, or swipe apps away from recents screen\n\nAlways force-stop ran apps without activity</string>
-    <string name="brevent_timeout">Background apps timeout</string>
-    <string name="brevent_timeout_label">Background apps will be brevented after %s\n\nBrevent shows inactive time for background apps dynamically</string>
+    <string name="brevent_method_standby_forcestop">स्टैंडबाय, फिर जबरदस्ती बंद करो</string>
+    <string name="brevent_method_standby_only">स्टैंडबाय, नो फोर्स-स्टॉप</string>
+    <string name="brevent_method_forcestop_only">केवल बल-रोक, कोई स्टैंडबाय नहीं</string>
+    <string name="brevent_method_standby_forcestop_label">जब आप एप्स से बाहर निकलते हैं, तो स्टैंडबाय (टैप \"बैक\"), या बैकग्राउंड ऐप्स टाइम आउट हो जाते हैं; निष्क्रिय समयबाह्य तक पहुँचने पर बल रोकें, या ऐप्स को स्क्रीन से दूर स्वाइप करें\n\nAlways बल-बंद गतिविधि के बिना ऐप्स चलाएं</string>
+    <string name="brevent_method_standby_only_label">जब आप एप्स से बाहर निकलते हैं तो स्टैंडबाय (\"बैक\" पर टैप करें), या बैकग्राउंड एप्स बिना किसी गतिविधि के रन किए गए एप्स को\n\n छोड़ देते हैं।</string>
+    <string name="brevent_method_forcestop_only_label">निष्क्रिय समयबाह्य तक पहुँचने पर फोर्स-स्टॉप, या पुनरावृत्ति स्क्रीन से दूर ऐप्स स्वाइप करें\n\nहमेसा बल-स्टॉप बिना गतिविधि के ऐप्स चलाएं!</string>
+    <string name="brevent_timeout">बैकग्राउंड एप्स टाइमआउट</string>
+    <string name="brevent_timeout_label">बैकग्राउंड ऐप्स को बाद में बदला जाएगा %s\n\nBrevent गतिशील रूप से बैकग्राउंड ऐप्स के लिए निष्क्रिय समय दिखाता है</string>
     <string name="brevent_timeout_1min">1 मिनट</string>
     <string name="brevent_timeout_5min">5 मिनट</string>
     <string name="brevent_timeout_15min">15 मिनट</string>
@@ -171,36 +171,36 @@
     <string name="brevent_timeout_1hour">1 घंटा</string>
     <string name="brevent_timeout_3hour">3 घंटा</string>
     <string name="brevent_timeout_6hour">6 घंटा</string>
-    <string name="brevent_timeout_long">भुत जाय्दा</string>
+    <string name="brevent_timeout_long">बहुत ज्यादा</string>
     <string name="brevent_standby_timeout">निष्क्रिय समय समाप्त</string>
     <string name="brevent_standby_timeout_label">जब कोई ऐप्प निस्क्रिय हो तो उसको बन्द करें %1$s</string>
 
-    <string name="brevent_advanced">उन्नत सुविधाओं</string>
+    <string name="brevent_advanced">उन्नत सुविधाऐं</string>
     <string name="brevent_language">भाषा</string>
     <string name="brevent_language_auto">ऑटो</string>
-    <string name="brevent_theme">Theme</string>
-    <string name="show_framework_apps">Show core ऐप्प</string>
-    <string name="show_framework_apps_label">सभी ऐप्प का ऐक ही signature है framework के साथ</string>
-    <string name="show_framework_apps_label_fake">WTF, सभी ऐप्प framework है</string>
+    <string name="brevent_theme">थीम</string>
+    <string name="show_framework_apps">core ऐप्प दिखाएँ</string>
+    <string name="show_framework_apps_label">सभी ऐप्प का ऐक ही signature के साथ</string>
+    <string name="show_framework_apps_label_fake">WTF, सभी ऐप्प का एक हीं framework है</string>
     <string name="show_all_apps">सभी ऐप्प दिखाये</string>
     <string name="show_all_apps_label">साथ ही साथ system और core ऐप्प जो सुरु नही किये जा सकते</string>
 
     <string name="brevent_optimize">अनुकूलित सुविधाओं</string>
     <string name="brevent_optimize_wechat">Optimize Wechat</string>
     <string name="brevent_optimize_wechat_label">Add to Battery Optimization whitelist, make it receive message as far as possible</string>
-    <string name="brevent_optimize_audio">Optimize music player</string>
-    <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped while pausing with notification\n\nNot works on some ROMs. May cause some samsung devices reboot</string>
-    <string name="brevent_auto_aggressive">Auto aggressive</string>
-    <string name="brevent_auto_aggressive_label">If app is ran with notifications as service, set it to aggressive.</string>
-    <string name="show_os_apps">Show OS apps</string>
+    <string name="brevent_optimize_audio">संगीत प्लेयर को अनुकूलन करें</string>
+    <string name="brevent_optimize_audio_label">नोटिफिकेशन के साथ चलते हुए को रोका नहीं जा सकता, सूचना के साथ रुकने के दौरान बलपूर्वक रोका नहीं गया\n\nकुछ रोम पर काम नहीं करता है. कुछ सैमसंग डिवाइस रिबूट का कारण बन सकते हैं</string>
+    <string name="brevent_auto_aggressive">ऑटो आक्रामक</string>
+    <string name="brevent_auto_aggressive_label">यदि ऐप को सेवा के रूप में सूचनाओं के साथ चलाया जाता है, तो इसे आक्रामक पर सेट करें.</string>
+    <string name="show_os_apps">OS ऐप्प दिखाए</string>
     <string name="show_os_apps_label">अन्द्रौईद OS ऐप्प को brevent नही किये जा सकता</string>
 
     <string name="show_payment">भुगतान दिखाय</string>
     <string name="show_payment_summary_play" />
     <string name="show_payment_summary_other" />
     <string name="show_payment_play">गूगल प्ले द्वारा %s Brefoil कि भुगतान के लिये धन्यवाद</string>
-    <string name="show_payment_rmb">%s Brefoil कि भुगतान के लिये धन्यबाद</string>
-    <string name="show_payment_contributor">Thanks for priceless contribution on Brevent</string>
+    <string name="show_payment_rmb">%s Brefoil कि भुगतान के लिये धन्यवाद</string>
+    <string name="show_payment_contributor">Brevent पर अमूल्य योगदान के लिए धन्यवाद</string>
     <string name="show_payment_play_and_rmb">Thanks for paying %1$s Brefoil via Play Store, %2$s Brefoil via non Play Store</string>
     <string name="show_payment_play_and_contributor">गूगल प्ले स्टोर द्वारा %s Brefoil कि भुगतन के लिये धन्यवाद, and priceless contribution on Brevent</string>
     <string name="show_payment_rmb_and_contributor">Thanks for paying %s Brefoil, and priceless contribution on Brevent</string>
@@ -209,8 +209,8 @@
     <string name="brevent_appops_label">सावधान, यह आपके ऐप्प को बन्द कर सक्ता है</string>
     <string name="brevent_disable">Disable ऐप्प</string>
     <string name="brevent_disable_label">Disabled ऐप्प को brevent करने के लिये enabled जरुर करे</string>
-    <string name="brevent_dynamic_gms">Dynamic GMS (Experimental)</string>
-    <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS (Google Play services) dynamically</string>
+    <string name="brevent_dynamic_gms">गतिशील GMS (प्रयोगात्मक)</string>
+    <string name="brevent_dynamic_gms_label">सक्षम GMS (Google Play सेवाएं) को गतिशील रूप से अक्षम करें</string>
 
     <string name="brevent_ocd">OCD विकल्प</string>
     <string name="brevent_auto_update">Auto update</string>
@@ -218,24 +218,24 @@
     <string name="brevent_forcestop_check">Recommend to unbrevent</string>
     <string name="brevent_forcestop_check_system">System ऐप्प</string>
     <string name="brevent_forcestop_check_all">सभी ऐप्प</string>
-    <string name="brevent_forcestop_check_none">None</string>
-    <string name="brevent_keep_widgets">Keep widgets</string>
-    <string name="brevent_keep_widgets_label">Don\'t force-stop widgets to make them work</string>
+    <string name="brevent_forcestop_check_none">कोई नहीं</string>
+    <string name="brevent_keep_widgets">Widgets रखना</string>
+    <string name="brevent_keep_widgets_label">उन्हें काम करने के लिए widgets को बल-स्टॉप नहीं करें</string>
     <string name="brevent_keep_safe">सुरक्षित रखें</string>
-    <string name="brevent_keep_safe_label">Don\'t force-stop safe processes</string>
+    <string name="brevent_keep_safe_label">सुरक्षित प्रक्रियाओं को नहीं रोकें</string>
 
-    <string name="brevent_about">About</string>
+    <string name="brevent_about">बारे में</string>
     <string name="brevent_about_system">System status</string>
     <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
     <string name="brevent_about_system_summary_mock">Standby: %1$s\n(Read-only mode)</string>
     <string name="brevent_about_system_supported">समर्थित</string>
     <string name="brevent_about_system_unsupported">असमर्थित</string>
-    <string name="brevent_about_developer">Developer options</string>
+    <string name="brevent_about_developer">डेवलपर विकल्प</string>
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">अनुवादक</string>
     <string name="brevent_about_translator">Gautam Kumar(gautamajay52)</string>
-    <string name="brevent_about_licenses">Licenses</string>
+    <string name="brevent_about_licenses">लाइसेंस</string>
 
     <string name="unsupported_owner">Brevent सिर्फ मलिक को उप्लब्ध है.</string>
     <string name="unsupported_clone">Brevent ऐप्प clone मे अनुपलब्ध है.</string>
@@ -329,7 +329,7 @@
         <item>5 Brefoil</item>
     </string-array>
 
-    <string name="version_free">मुक्त</string>
+    <string name="version_free">मुफ़्त</string>
     <string name="version_free_tip">@string/payment</string>
     <string name="version_unlimited">असीमित</string>
     <string name="version_unlimited_tip">@string/payment</string>
