@@ -237,7 +237,7 @@
 
     <string name="unsupported_owner">只有擁有者可以使用黑閾。</string>
     <string name="unsupported_clone">黑閾不適用於 App clone。</string>
-    <string name="unsupported_modified">請不要使用任何方式修改黑閾。</string>
+    <string name="unsupported_modified">環境異常，黑閾可能無法正常工作。\n\n如果是官方原版系統，請黑閾內「回報」 - 「日誌」報告問題。\n\n如果系統已經修改但黑閾看起來正常，您可繼續支付至 5 二向箔關閉部分安全提示。</string>
     <string name="unsupported_path">（錯誤：無法生成指令稿）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
@@ -358,5 +358,9 @@
     <string name="latest_version">您已安裝最新版本。</string>
     <string name="beta_version">您正在使用測試版本。</string>
     <string name="update_version">更新</string>
+
+    <string name="legal_drawer">條款與隱私政策</string>
+    <string name="legal_short">使用黑閾前請確認《條款與隱私政策》。簡單來說，黑閾會通過 Google Analytics for Firebase 收集匿名使用日誌。</string>
+    <string name="legal_accept">接受</string>
 
 </resources>

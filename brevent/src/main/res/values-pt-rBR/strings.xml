@@ -239,7 +239,7 @@
 
     <string name="unsupported_owner">Brevent está apenas disponível para Proprietário.</string>
     <string name="unsupported_clone">Brevent está indisponível no Clone de app.</string>
-    <string name="unsupported_modified">Don\'t modify Brevent in any way.</string>
+    <string name="unsupported_modified">Brevent cannot work well on modified devices.\n\nFor stock ROM, please \"Feedback\" - \"Logs\".</string>
     <string name="unsupported_path">(Erro: não foi possível criar brevent.sh)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
     <string name="unsupported_no_event">Nenhum evento de registro, o servidor Brevent não pode funcionar automaticamente.\n\nTente mais tarde, em seguida contate o provedor da Rom.</string>
@@ -360,5 +360,9 @@
     <string name="latest_version">You have installed the latest version.</string>
     <string name="beta_version">You have installed a beta version.</string>
     <string name="update_version">Update</string>
+
+    <string name="legal_drawer">Terms &amp; Privacy</string>
+    <string name="legal_short">You must accept Terms &amp; Privacy to use Brevent. In short, Brevent will collect Anonymous Log Data via Google Analytics for Firebase.</string>
+    <string name="legal_accept">Accept</string>
 
 </resources>

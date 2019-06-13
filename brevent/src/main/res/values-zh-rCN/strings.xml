@@ -237,7 +237,7 @@
 
     <string name="unsupported_owner">只有机主可以使用黑阈。</string>
     <string name="unsupported_clone">黑阈不支持“应用分身”。</string>
-    <string name="unsupported_modified">请不要使用任何方式修改黑阈。</string>
+    <string name="unsupported_modified">环境异常，黑阈可能无法正常工作。\n\n如果是官方原版系统，请黑阈内“反馈” - “日志”报告问题。\n\n如果系统已经修改但黑阈看起来正常，您可继续支付至 5 二向箔关闭部分安全提示。</string>
     <string name="unsupported_path">（错误：无法生成指令文件）</string>
     <string name="unsupported_permission">没有权限访问黑阈服务。\n\n前台应用：%1$s。</string>
     <string name="unsupported_no_event">没有事件日志，黑阈无法自动工作。\n\n请稍后重试，或者联系 ROM 提供商。</string>
@@ -358,5 +358,9 @@
     <string name="latest_version">您已安装最新版本。</string>
     <string name="beta_version">您正在使用测试版本。</string>
     <string name="update_version">更新</string>
+
+    <string name="legal_drawer">条款与隐私政策</string>
+    <string name="legal_short">使用黑阈前请确认《条款与隐私政策》。简单来说，黑阈会通过 Google Analytics for Firebase 收集匿名使用日志。</string>
+    <string name="legal_accept">接受</string>
 
 </resources>
