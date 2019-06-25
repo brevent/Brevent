@@ -180,7 +180,7 @@
     <string name="brevent_language_auto">Auto</string>
     <string name="brevent_theme">Theme</string>
     <string name="show_framework_apps">Show core apps</string>
-    <string name="show_framework_apps_label">All framework apps have the same signature</string>
+    <string name="show_framework_apps_label">All apps that have the same signature as Android Framework</string>
     <string name="show_framework_apps_label_fake">WTF, all apps are framework apps</string>
     <string name="show_all_apps">Show all apps</string>
     <string name="show_all_apps_label">Including system and core apps which cannot be launched or upgraded</string>
