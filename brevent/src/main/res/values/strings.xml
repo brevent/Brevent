@@ -234,7 +234,7 @@
     <string name="brevent_about_developer_adb">\"USB debugging\" is on</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Translator</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Késmárky Tímea</string>
     <string name="brevent_about_licenses">Licenses</string>
 
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
