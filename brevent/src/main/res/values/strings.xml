@@ -6,22 +6,22 @@
 
     <string name="fragment_guide_welcome">Welcome</string>
     <string name="fragment_guide_welcome_message">How do you quit apps?\nTapping Back always means that you want to quit.\nTapping Home or Overview will put apps into the background.\n\nBrevent recognizes the states of apps in this way, preventing apps in Brevent list from running for a long time.</string>
-    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and depending services won\'t run anymore; tap Home or Overview, or just put apps into the background, apps and depending services will keep running; swipe apps away from recents screen, apps will be force-stopped. Whenever apps are being run without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set \"allow sync\" to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in background.</string>
+    <string name="fragment_guide_welcome_message2">When you tap Back to quit apps, apps and depending services won\'t run anymore; tap Home or Overview, or just put apps into the background, apps and depending services will keep running; swipe off apps from the Recents screen, apps will be force-stopped. Whenever apps are being run without activity, Brevent will force-stop them.\n\nApps in Brevent list can be set with \"allow sync\" option to receive notifications or execute jobs and syncs. Brevent won\'t standby \"allow sync\" apps, and Brevent won\'t force-stop \"allow sync\" apps with notifications or running in the background.</string>
 
     <string name="fragment_guide_permission">Permissions</string>
-    <string name="fragment_guide_permission_message">What do you need to do? \nJust a simple command via ADB with your PC.</string>
+    <string name="fragment_guide_permission_message">What do you need to do? \nJust enter a simple command via ADB on your PC.</string>
     <string name="fragment_guide_permission_message2">Brevent won\'t work if Android-powered device reboots. Since Android 8, Brevent won\'t work if you turn off \"USB Debugging\" or change USB options.</string>
 
     <string name="fragment_guide_security">Security</string>
     <string name="fragment_guide_security_message">Brevent does not need root access or the ability to modify system files, there is no residue after uninstallation.</string>
-    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues while using.\n\nDO NOT use Brevent on work devices, NOR BREVENT work apps, frequently used apps, or important apps.</string>
+    <string name="fragment_guide_security_message2">Brevent uses plenty of Android\'s hidden APIs. Some third-party ROMs may modify these APIs, so there would be some issues while using Brevent with these ROMs.\n\nDO NOT use Brevent on work devices OR BREVENT work apps, frequently used apps or important apps.</string>
 
     <string name="fragment_guide_enjoy">Enjoy</string>
     <string name="fragment_guide_enjoy_message">Enjoy Brevent, and if you find any issues, please feel free to send feedback with logs.</string>
-    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network, nor execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
+    <string name="fragment_guide_enjoy_message2">The default Brevent method is \"Standby, then force-stop\". Standby (since Android 6.0, unsupported on some devices) apps can\'t access network or execute jobs or syncs.\n\nBrevent won\'t force-stop safe apps. In addition, Brevent server brevents apps centrally and delays the processes by 3 to 60 seconds, according to the event level.</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it from here: https://developer.android.com/studio/releases/platform-tools (long-press to select and copy).</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) is a command-line tool that lets a PC communicate with an Android device. It\'s part of platform-tools, you can download it here: https://developer.android.com/studio/releases/platform-tools (long-press to select and copy).</string>
     <string name="fragment_guide_adb_message2">1. Decompress platform-tools-latest-&lt;platform&gt;.zip\n\n2. Navigate to platform-tools directory\n\n3. (for Windows) Hold Shift key, then right-click, choose \"Open command window here\", then use \".\\adb\" to replace the hinted \"adb\" (please remove duplicate \"adb\" before pasting into the command line)\n\n3. (for macOS) Navigate to \"Finder\", \"Applications\", \"Utilities\", launch \"Terminal\", drag \"adb\" into the \"Terminal\", then use \"adb\" with full path to replace the hinted \"adb\" (please remove duplicate \"adb\" before pasting into the command line)\n\n4. You need to use ADB every time you turn on your device, please avoid restarting or shutting down your device as much as possible</string>
 
     <string name="start_brevent">Launch Brevent</string>
@@ -191,7 +191,7 @@
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped if paused with notification\n\nDoes not work on some ROMs. May cause some samsung devices to reboot</string>
     <string name="brevent_auto_aggressive">Auto aggressive</string>
-    <string name="brevent_auto_aggressive_label">If app runs as a service with notifications, set it to aggressive.</string>
+    <string name="brevent_auto_aggressive_label">If app with notifications runs as a service, set it to aggressive.</string>
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Android OS apps cannot be brevented</string>
 
@@ -364,7 +364,7 @@
     <string name="update_version">Update</string>
 
     <string name="legal_drawer">Terms &amp; Privacy</string>
-    <string name="legal_short">You must accept Terms &amp; Privacy to use Brevent. In short, Brevent will collect anonymous log data via Google Analytics for Firebase.</string>
+    <string name="legal_short">You must accept Terms &amp; Conditions and Privacy Policy to use Brevent. In short, Brevent will collect anonymous log data via Google Analytics for Firebase.</string>
     <string name="legal_accept">Accept</string>
 
 </resources>
