@@ -191,7 +191,7 @@
     <string name="brevent_optimize_audio">Optimize music player</string>
     <string name="brevent_optimize_audio_label">Won\'t be brevented while playing with notification, won\'t be force-stopped if paused with notification\n\nDoes not work on some ROMs. May cause some samsung devices to reboot</string>
     <string name="brevent_auto_aggressive">Auto aggressive</string>
-    <string name="brevent_auto_aggressive_label">If app with notifications runs as a service, set it to aggressive.</string>
+    <string name="brevent_auto_aggressive_label">If an app with notifications runs as a service, set it to aggressive.</string>
     <string name="show_os_apps">Show OS apps</string>
     <string name="show_os_apps_label">Android OS apps cannot be brevented</string>
 
