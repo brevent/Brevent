@@ -7,6 +7,7 @@
 - `DKOUT`: Limber Law
 - `Aviraxp`: Wang Han
 - `liyufan`: Li Yufan
+- `timeakesmarky`: Késmárky Tímea
 
 ## Spanish (es)
 - `Samuel` (via email)
