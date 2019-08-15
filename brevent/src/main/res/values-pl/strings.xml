@@ -365,4 +365,6 @@
     <string name="legal_short">You must accept Terms &amp; Privacy to use Brevent. In short, Brevent will collect Anonymous Log Data via Google Analytics for Firebase.</string>
     <string name="legal_accept">Accept</string>
 
+    <string name="theme_fallback">%1$s (Fallback to \"Pixel\" in Dark theme)</string>
+
 </resources>

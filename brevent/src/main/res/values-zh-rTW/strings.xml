@@ -363,4 +363,6 @@
     <string name="legal_short">使用黑閾前請確認《條款與隱私政策》。簡單來說，黑閾會通過 Google Analytics for Firebase 收集匿名使用日誌。</string>
     <string name="legal_accept">接受</string>
 
+    <string name="theme_fallback">%1$s（系統為深色主題，實際使用 Pixel）</string>
+
 </resources>
