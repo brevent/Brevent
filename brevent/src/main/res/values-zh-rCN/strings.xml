@@ -29,7 +29,6 @@
     <string name="brevent_service_no_response">黑阈服务没有响应（%s）</string>
     <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
     <string name="brevent_service_guide_root">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。</string>
-    <string name="brevent_service_guide_root_14">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。\n\n如果您没有见到 Root 按钮，卸载重装，然后支付 3 二向箔。</string>
     <string name="brevent_service_guide_adb">网络调试已开启，请点按 ADB 启动黑阈服务。\n\n网络调试有风险，不要随意授权。</string>
     <string name="brevent_service_payment_root">黑阈不需要也不提倡 Root，并且需要支付。</string>
     <string name="brevent_service_open_development">开发者选项</string>
@@ -137,6 +136,9 @@
     <string name="menu_sort_by_update_time">更新时间</string>
     <string name="menu_sort_by_last_time">上次使用时间</string>
     <string name="menu_sort_by_usage_time">使用时长</string>
+    <string name="menu_sort_by_apk_size">APK 大小（专业版）</string>
+    <string name="menu_sort_by_avg_mem">平均内存使用量 (专业版)</string>
+    <string name="menu_sort_by_max_mem">最高内存使用量 (专业版)</string>
     <string name="menu_feedback">反馈</string>
     <string name="menu_settings">设置</string>
     <string name="menu_template">模板</string>
@@ -283,13 +285,12 @@
     <string name="brevent_status_starting">正在启动黑阈服务</string>
     <string name="brevent_status_not_started">黑阈服务没有启动</string>
 
-    <string name="make_brevent_better">您的黑阈清单已超过绝大部分用户，请支付 %1$s以促进黑阈良性发展。</string>
-    <string name="make_brevent_safer">请谨慎黑阈系统应用，或者支付 %1$s关闭安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">现在支付</string>
+    <string name="pay_not_now_later">暂不支付（%1$d）</string>
+    <string name="pay_not_now">暂不支付</string>
 
     <string name="brevented_app">已黑阈“%1$s”</string>
-    <string name="brevented_app_pay">支付以黑阈更多应用。</string>
     <string name="unbrevented_app">取消黑阈“%1$s”</string>
     <string name="unbrevented_app_fail">取消黑阈“%1$s”失败，烦请进入黑阈处理</string>
     <string name="aggressive_app">已将“%1$s”设置激进</string>
@@ -326,7 +327,7 @@
     </string-array>
 
     <string name="version_free">免费版</string>
-    <string name="version_free_tip">使用黑阈，体验 Android</string>
+    <string name="version_free_tip">使用黑阈，享受 Android</string>
     <string name="version_unlimited">无限版</string>
     <string name="version_unlimited_tip">使用黑阈，享受 Android</string>
     <string name="version_pro">专业版</string>
@@ -352,7 +353,6 @@
 
     <string name="toast_error_network_play">无法缓存 Play 支付数据，请检查网络</string>
     <string name="toast_error_server_play">无法缓存 Play 支付数据，请稍候重试</string>
-    <bool name="support_wechat">true</bool>
 
     <string name="new_version_available">发现新版本“%s”。</string>
     <string name="latest_version">您已安装最新版本。</string>
@@ -364,5 +364,7 @@
     <string name="legal_accept">接受</string>
 
     <string name="theme_fallback">%1$s（系统为深色主题，实际使用 Pixel）</string>
+
+    <string name="payment_sort">排序方式“%1$s”需要支付。是否现在支付？</string>
 
 </resources>

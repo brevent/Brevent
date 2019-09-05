@@ -28,10 +28,9 @@
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
-    <string name="brevent_service_guide_root">您的設備看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限技術支持。</string>
-    <string name="brevent_service_guide_root_14">您的設備看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，僅對 Root 提供有限技術支持。\n\n如果您沒有見到 Root 按鈕，卸載重裝，然後支付 3 二向箔。</string>
+    <string name="brevent_service_guide_root">您的裝置看起來已 Root。您可自行開啟網絡調試，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，並且 Root 啟動需要支付。\n\n如果無法開機自啟，請自查任何系統限制。</string>
     <string name="brevent_service_guide_adb">網絡調試已開啓，請點按 ADB 啟動黑閾服務。</string>
-    <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，但 Root 功能耗费大量时间精力，因为需要付费。</string>
+    <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，並且 Root 啟動需要支付。</string>
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
@@ -137,6 +136,9 @@
     <string name="menu_sort_by_update_time">更新時間</string>
     <string name="menu_sort_by_last_time">上次使用時間</string>
     <string name="menu_sort_by_usage_time">使用時長</string>
+    <string name="menu_sort_by_apk_size">APK 大小（專業版）</string>
+    <string name="menu_sort_by_avg_mem">平均記憶體用量（專業版）</string>
+    <string name="menu_sort_by_max_mem">最高記憶體用量（專業版）</string>
     <string name="menu_feedback">回報</string>
     <string name="menu_settings">設定</string>
     <string name="menu_template">範本</string>
@@ -187,7 +189,7 @@
     <string name="brevent_optimize_wechat">優化微信</string>
     <string name="brevent_optimize_wechat_label">加入電池效能最佳化白名單，讓其盡可能接收消息</string>
     <string name="brevent_optimize_audio">優化音樂應用程式</string>
-    <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強制停止\n\n部分 ROM 無法生效。可能導致三星設備重啟</string>
+    <string name="brevent_optimize_audio_label">播放且有通知時不黑閾，暫停且有通知時不強制停止\n\n部分 ROM 無法生效。可能導致三星裝置重啟</string>
     <string name="brevent_auto_aggressive">自動進入激進模式</string>
     <string name="brevent_auto_aggressive_label">如果應用程式以服務方式被執行且有通知，將被設為激進模式</string>
     <string name="show_os_apps">顯示系統應用程式</string>
@@ -283,13 +285,12 @@
     <string name="brevent_status_starting">正在開啟黑閾服務</string>
     <string name="brevent_status_not_started">黑閾服務沒有開啟</string>
 
-    <string name="make_brevent_better">您的黑閾清單已超過絕大部分用戶，請支付 %1$s 以促進黑閾良性發展。</string>
-    <string name="make_brevent_safer">請謹慎黑閾系統應用程式，或者支付 %1$s 關閉安全提示。</string>
     <string name="pay_brevent_require">需要支付 %s</string>
     <string name="pay_now">現在支付</string>
+    <string name="pay_not_now_later">暫不支付（%1$d）</string>
+    <string name="pay_not_now">暫不支付</string>
 
     <string name="brevented_app">已黑閾「%1$s」</string>
-    <string name="brevented_app_pay">支付以黑閾更多應用程式。</string>
     <string name="unbrevented_app">取消黑閾「%1$s」</string>
     <string name="unbrevented_app_fail">取消黑閾「%1$s」失敗，煩請進入黑閾處理</string>
     <string name="aggressive_app">已將「%1$s」設為激進模式</string>
@@ -326,7 +327,7 @@
     </string-array>
 
     <string name="version_free">免費版</string>
-    <string name="version_free_tip">使用黑閾，體驗 Android</string>
+    <string name="version_free_tip">使用黑閾，享受 Android</string>
     <string name="version_unlimited">無限版</string>
     <string name="version_unlimited_tip">使用黑閾，享受 Android</string>
     <string name="version_pro">專業版</string>
@@ -352,7 +353,6 @@
 
     <string name="toast_error_network_play">無法緩存 Play 支付數據，請檢查網路</string>
     <string name="toast_error_server_play">無法緩存 Play 支付數據，請稍候再試</string>
-    <bool name="support_wechat">false</bool>
 
     <string name="new_version_available">發現新版本「%s」。</string>
     <string name="latest_version">您已安裝最新版本。</string>
@@ -364,5 +364,7 @@
     <string name="legal_accept">接受</string>
 
     <string name="theme_fallback">%1$s（系統為深色主題，實際使用 Pixel）</string>
+
+    <string name="payment_sort">排序依據「%1$s」需要支付。是否現在支付？</string>
 
 </resources>

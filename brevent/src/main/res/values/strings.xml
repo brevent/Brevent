@@ -30,7 +30,6 @@
     <string name="brevent_service_no_response">Brevent server is not responding (%s)</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Execute in PC\'s command line \"adb devices\", make sure your PC can recognize your device (Reader \"Guide - ADB\")\n\n4. Execute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_guide_root">It seems that your device is rooted. You can turn on network ADB manually, or try tapping the \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.</string>
-    <string name="brevent_service_guide_root_14">It seems that your device is rooted. You can turn on network ADB manually, or try tapping the \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.\n\nIf you don\'t see \"Root\", uninstall and install again, then pay 3 Brefoil.</string>
     <string name="brevent_service_guide_adb">Network ADB is turned on, please tap \"ADB\" to start Brevent Server.</string>
     <string name="brevent_service_payment_root">Root is unnecessary for Brevent, and requires payment.</string>
     <string name="brevent_service_open_development">Developer</string>
@@ -139,6 +138,9 @@
     <string name="menu_sort_by_update_time">Update time</string>
     <string name="menu_sort_by_last_time">Last used</string>
     <string name="menu_sort_by_usage_time">Usage time</string>
+    <string name="menu_sort_by_apk_size">APK Size (Pro)</string>
+    <string name="menu_sort_by_avg_mem">Average memory use (Pro)</string>
+    <string name="menu_sort_by_max_mem">Maximum memory use (Pro)</string>
     <string name="menu_feedback">Feedback</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_template">Template</string>
@@ -285,13 +287,12 @@
     <string name="brevent_status_starting">Starting Brevent server</string>
     <string name="brevent_status_not_started">Brevent server is not started</string>
 
-    <string name="make_brevent_better">Your Brevent list is larger than most users. Please pay %1$s to make Brevent better.</string>
-    <string name="make_brevent_safer">Be careful before breventing system apps, or pay %1$s to dismiss this safe warning.</string>
     <string name="pay_brevent_require">Requires to pay %s</string>
     <string name="pay_now">Pay now</string>
+    <string name="pay_not_now_later">Not now (%1$d)</string>
+    <string name="pay_not_now">Not now</string>
 
     <string name="brevented_app">Brevented \"%1$s\"</string>
-    <string name="brevented_app_pay">Pay to brevent more apps.</string>
     <string name="unbrevented_app">Unbrevented \"%1$s\"</string>
     <string name="unbrevented_app_fail">Failed to unbrevent \"%1$s\", please launch Brevent</string>
     <string name="aggressive_app">Set \"%1$s\" as aggressive</string>
@@ -356,7 +357,6 @@
 
     <string name="toast_error_network_play">Cannot cache play payment, please check network</string>
     <string name="toast_error_server_play">Cannot cache play payment, please try later</string>
-    <bool name="support_wechat">false</bool>
 
     <string name="new_version_available">There is an updated version \"%s\".</string>
     <string name="latest_version">You have installed the latest version.</string>
@@ -368,5 +368,7 @@
     <string name="legal_accept">Accept</string>
 
     <string name="theme_fallback">%1$s (Fallback to \"Pixel\" in Dark theme)</string>
+
+    <string name="payment_sort">Sort by \"%1$s" requires payment. Would you like to pay now?</string>
 
 </resources>
