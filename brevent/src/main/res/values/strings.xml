@@ -371,4 +371,6 @@
 
     <string name="payment_sort">Sort by \"%1$s" requires payment. Would you like to pay now?</string>
 
+    <string name="device_default">Device default</string>
+
 </resources>

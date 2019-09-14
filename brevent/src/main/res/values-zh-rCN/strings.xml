@@ -367,4 +367,6 @@
 
     <string name="payment_sort">排序方式“%1$s”需要支付。是否现在支付？</string>
 
+    <string name="device_default">设备默认</string>
+
 </resources>

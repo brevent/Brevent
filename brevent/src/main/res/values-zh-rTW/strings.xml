@@ -367,4 +367,6 @@
 
     <string name="payment_sort">排序依據「%1$s」需要支付。是否現在支付？</string>
 
+    <string name="device_default">裝置預設</string>
+
 </resources>
