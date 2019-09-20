@@ -5,16 +5,8 @@
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">歡迎</string>
-    <string name="fragment_guide_welcome_message">
-        Android 系統要離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。
-        \n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。
-    </string>
-    <string name="fragment_guide_welcome_message2">
-        當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，
-        背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，
-        只要沒有打開介面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。
-        「允許同步」應用程式不會被待命；有通知或在背景執行時，不會被強制停止。
-    </string>
+    <string name="fragment_guide_welcome_message">Android 系統要離開應用程式可以透過幾種方式，「返回」按鈕退出應用程式回到上層，「首頁」或「總覽」（Overview）按鈕把應用程式移到背景。\n\n黑閾透過這種方式識別應用程式狀態，防止「黑閾清單」內應用程式長期執行。</string>
+    <string name="fragment_guide_welcome_message2">當您按「返回」按鈕退出應用程式時，應用程式及所包含的服務不再執行；當您按「首頁」或「總覽」按鈕，或者其它方式把應用程式移到背景，背景應用程式及所包含的服務可以繼續執行；當您從總覽畫面（recents screen）拉掉應用程式時，黑閾將強制停止它。無論何時應用被執行，只要沒有打開介面，黑閾都將強制停止它。\n\n「黑閾清單」內應用程式也可以接收通知或執行同步，只要設定為「允許同步」就好。「允許同步」應用程式不會被待命；有通知或在背景執行時，不會被強制停止。</string>
 
     <string name="fragment_guide_permission">權限</string>
     <string name="fragment_guide_permission_message">黑閾需要在您每次開機以後，以「USB 偵錯」模式執行一個指令開啟黑閾服務，讓黑閾間接的具備管理其它應用程式的權限。</string>
@@ -22,44 +14,21 @@
 
     <string name="fragment_guide_security">安全</string>
     <string name="fragment_guide_security_message">黑閾不需要 root 或修改系統檔案，解除安裝後沒有殘留。</string>
-    <string name="fragment_guide_security_message2">
-        黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n
-        不要在工作裝置上使用黑閾，也不要黑閾生產用應用程式、常用應用程式和重要應用程式。
-    </string>
+    <string name="fragment_guide_security_message2">黑閾使用大量 Android 隱藏 API，部分廠商可能改變這些 API 行為，使用黑閾可能會對應用程式甚至裝置造成不良影響。\n\n不要在工作裝置上使用黑閾，也不要黑閾生產用應用程式、常用應用程式和重要應用程式。</string>
 
     <string name="fragment_guide_enjoy">使用</string>
     <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌傳送報告。</string>
-    <string name="fragment_guide_enjoy_message2">
-        預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能連網、
-        執行工作（Job）與同步。\n\n黑閾不強制停止安全應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。
-    </string>
+    <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能連網、執行工作（Job）與同步。\n\n黑閾不強制停止安全應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
 
     <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">
-        ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，
-        您可從 https://developer.android.com/studio/releases/platform-tools 下載（長按進入複製模式）。
-    </string>
-    <string name="fragment_guide_adb_message2">
-        1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n
-        3.（Windows）按住 Shift 鍵，輕觸滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n
-        3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」
-        （使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機
-    </string>
+    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools 下載（長按進入複製模式）。</string>
+    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，輕觸滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
 
     <string name="start_brevent">進入黑閾</string>
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
-    <string name="brevent_service_guide">
-        1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n
-        2. 使用 USB 連線到電腦%2$s\n\n
-        3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n
-        4. 在命令提示字元中執行「%3$s」
-    </string>
-    <string name="brevent_service_guide_root">
-        您的裝置看起來已 Root。您可自行開啟網路偵錯，或者直接點按 Root。\n\n
-        黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。\n\n如果無法開機自動啟用，
-        請檢查是否有任何系統限制。
-    </string>
+    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 在電腦的命令提示字元中執行「adb devices」，確認可以找到手機（請參考「指引 - ADB」）\n\n4. 在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide_root">您的裝置看起來已 Root。您可自行開啟網路偵錯，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。\n\n如果無法開機自動啟用，請檢查是否有任何系統限制。</string>
     <string name="brevent_service_guide_adb">已開啟網路偵錯，請點觸 ADB 啟動黑閾服務。</string>
     <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。</string>
     <string name="brevent_service_open_development">開發人員選項</string>
