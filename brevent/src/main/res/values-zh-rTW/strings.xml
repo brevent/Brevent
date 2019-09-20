@@ -34,8 +34,8 @@
     <string name="brevent_service_open_development">開發人員選項</string>
     <string name="brevent_service_copy_path">複製指令</string>
     <string name="brevent_service_command_copied">指令已複製: %s</string>
-    <string name="brevent_service_adb_running"> (已啟用)</string>
-    <string name="brevent_service_usb_connected"> (已連線)</string>
+    <string name="brevent_service_adb_running">（已啟用）</string>
+    <string name="brevent_service_usb_connected">（已連線）</string>
     <string name="brevent_service_hard">沒有電腦</string>
     <string name="brevent_service_success">黑閾服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑閾它們。</string>
     <string name="brevent_service_mocked">黑閾服務並未開啟，當前處於唯讀模式。</string>
