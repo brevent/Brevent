@@ -63,6 +63,7 @@
     <string name="process_not_running">（沒有執行）</string>
     <string name="process_no_stats">（從未開啟）</string>
     <string name="process_stats">（至 %1$s 共 %2$s）</string>
+    <string name="process_stats_running">執行 %s</string>
     <string name="process_all_top">%d 個前景</string>
     <string name="process_all_service">%d 個服務</string>
     <string name="process_all_service_cached">%d 個快取服務</string>
@@ -209,16 +210,18 @@
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
     <string name="brevent_disable_label">停用以後，必須先啟用才能繼續使用</string>
+
+    <string name="experimental">實驗性</string>
     <string name="brevent_dynamic_gms">動態 GMS（實驗性）</string>
     <string name="brevent_dynamic_gms_label">黑閾 GMS（Google Play 服務）以後，動態停用和啟用</string>
+    <string name="brevent_suspend">暫停（實驗性）</string>
+    <string name="brevent_suspend_label">使用 暫停 代替 停用</string>
 
     <string name="brevent_ocd">強迫症選項</string>
     <string name="brevent_auto_update">自動更新</string>
     <string name="brevent_auto_update_label">應用程式安裝或移除之後，更新黑閾清單</string>
-    <string name="brevent_forcestop_check">建議取消黑閾</string>
-    <string name="brevent_forcestop_check_system">系統程式</string>
-    <string name="brevent_forcestop_check_all">所有程式</string>
-    <string name="brevent_forcestop_check_none">關閉</string>
+    <string name="brevent_forcestop_check">強制停止檢查</string>
+    <string name="brevent_forcestop_check_label">當強制停止過於頻繁時，發出通知</string>
     <string name="brevent_keep_widgets">最佳化小工具</string>
     <string name="brevent_keep_widgets_label">避免強制停止小工具，從而保證小工具可用</string>
     <string name="brevent_keep_safe">不需處理</string>
@@ -226,7 +229,7 @@
 
     <string name="brevent_about">關於</string>
     <string name="brevent_about_system">系統狀態</string>
-    <string name="brevent_about_system_summary">待命：%1$s\n停止狀態：%2$s\n自動更新：%3$s\n自動黑閾：%4$s\n應用程式操作：%5$s\n停用應用程式：%6$s</string>
+    <string name="brevent_about_system_summary">待命：%1$s\n停止狀態：%2$s\n自動更新：%3$s\n自動黑閾：%4$s\n應用程式操作：%5$s\n停用應用程式：%6$s\n暫停應用程式：%7$s</string>
     <string name="brevent_about_system_summary_mock">待命：%1$s\n（唯讀模式）</string>
     <string name="brevent_about_system_supported">支援</string>
     <string name="brevent_about_system_unsupported">不支援</string>
@@ -240,7 +243,7 @@
     <string name="unsupported_owner">只有擁有者可以使用黑閾。</string>
     <string name="unsupported_clone">黑閾不適用於 App clone。</string>
     <string name="unsupported_modified">環境異常，黑閾可能無法正常工作。\n\n如果是官方原版系統，請在黑閾內「回報」 - 「日誌」報告問題。\n\n如果系統已經修改但黑閾看起來正常，您可繼續支付至 5 二向箔關閉部分安全提示。</string>
-    <string name="unsupported_path">（錯誤：無法產生指令稿）</string>
+    <string name="unsupported_path">（無法產生指令稿：%s）</string>
     <string name="unsupported_permission">沒有權限存取黑閾服務。\n\n前景應用程式：%1$s。</string>
     <string name="unsupported_no_event">沒有事件日誌，黑閾無法自動工作。\n\n請稍後重試，或者聯絡 ROM 提供商。</string>
     <string name="unsupported_no_event2">自 %1$s 起沒有事件日誌，黑閾不再自動工作。\n\n請重啟黑閾服務，或者聯絡 ROM 提供商。</string>
@@ -248,7 +251,6 @@
     <string name="unsupported_version_mismatched">黑閾服務正在升級，請稍候重試。</string>
     <string name="unsupported_logs">無法取得日誌，請稍候重試。</string>
     <string name="unsupported_shell">無法開啟黑閾服務。</string>
-    <string name="unsupported_no_local_network">黑閾無法存取本機網路，請調整防火牆、網路設定、省電模式（doze）等。</string>
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾就失效。\n\n不要停用「USB 偵錯」，不要變更 USB 選項。</string>
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
@@ -257,6 +259,7 @@
     <string name="unsupported_brevented2">您已黑閾無法開啟的應用程式：%1$s。\n\n是否不再黑閾？</string>
     <string name="unsupported_unauthorized">您正在使用未經授權的方式激活黑閾。</string>
     <string name="icon_required">被以下應用程式依賴：%1$s。</string>
+    <string name="icon_gapp">應用程式屬於 GMS 程式。</string>AppsItemAdapter.java
     <string name="icon_fcm">允許應用程式透過同步、廣播及 FCM（Firebase Cloud Messaging）接收消息。</string>
     <string name="icon_sync">允許應用程式透過同步或廣播接收消息。</string>
     <string name="icon_aggressive">應用程式處於激進模式。正常情況下，黑閾清單應用程式可以執行幾秒鐘，然後黑閾決定是否強制停止；激進模式下，一旦被執行，黑閾會立即強制停止。</string>
@@ -278,7 +281,6 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑閾服務執行正常</string>
-    <string name="toast_payment">感謝您支付 %1$s 二向箔</string>
     <string name="toast_developer">請手動開啟「開發人員選項」</string>
     <string name="toast_event_error">黑閾服務無法讀取事件日誌</string>
 
@@ -343,7 +345,8 @@
     <string name="theme_nankai">南開</string>
     <string name="theme_amoled">省電</string>
 
-    <string name="shortcut_gms">新增 GMS 程式</string>
+    <string name="unmark_gapp">標識 GMS 程式</string>
+    <string name="mark_gapp">取消 GMS 程式</string>
     <string name="shortcut_instant">新增暫時程式</string>
 
     <string name="warning_play_3">您已支付 %d 二向箔，繼續支付可以開啟實驗性功能。\n\n實驗性功能穩定之後，取消實驗性標識；如果一直無法穩定，將會直接取消。</string>

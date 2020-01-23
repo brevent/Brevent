@@ -64,6 +64,7 @@
     <string name="process_not_running">(not running)</string>
     <string name="process_no_stats">(never launched)</string>
     <string name="process_stats">(last: %1$s, total: %2$s)</string>
+    <string name="process_stats_running">running %s</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
     <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
@@ -211,16 +212,18 @@
     <string name="brevent_appops_label">Be careful, may cause apps to crash</string>
     <string name="brevent_disable">Disable apps</string>
     <string name="brevent_disable_label">Disabled apps must be enabled to use</string>
+
+    <string name="experimental">Experimental</string>
     <string name="brevent_dynamic_gms">Dynamic GMS (Experimental)</string>
     <string name="brevent_dynamic_gms_label">Enable and disable brevented GMS (Google Play services) dynamically</string>
+    <string name="brevent_suspend">Suspend (Experimental)</string>
+    <string name="brevent_suspend_label">Using suspend instead of Disable</string>
 
     <string name="brevent_ocd">OCD options</string>
     <string name="brevent_auto_update">Auto update</string>
     <string name="brevent_auto_update_label">Update Brevent list when apps are installed or uninstalled</string>
-    <string name="brevent_forcestop_check">Recommended to unbrevent</string>
-    <string name="brevent_forcestop_check_system">System apps</string>
-    <string name="brevent_forcestop_check_all">All apps</string>
-    <string name="brevent_forcestop_check_none">None</string>
+    <string name="brevent_forcestop_check">Force stop check</string>
+    <string name="brevent_forcestop_check_label">Notify if force-stop is too frequent</string>
     <string name="brevent_keep_widgets">Keep widgets</string>
     <string name="brevent_keep_widgets_label">Don\'t force-stop widgets if you want them to work</string>
     <string name="brevent_keep_safe">Keep safe</string>
@@ -228,7 +231,7 @@
 
     <string name="brevent_about">About</string>
     <string name="brevent_about_system">System status</string>
-    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s</string>
+    <string name="brevent_about_system_summary">Standby: %1$s\nStopped state: %2$s\nAuto update: %3$s\nAuto brevent: %4$s\nApp ops: %5$s\nDisable Apps: %6$s\nSuspend Apps: %7$s</string>
     <string name="brevent_about_system_summary_mock">Standby: %1$s\n(Read-only mode)</string>
     <string name="brevent_about_system_supported">supported</string>
     <string name="brevent_about_system_unsupported">unsupported</string>
@@ -242,7 +245,7 @@
     <string name="unsupported_owner">Brevent is only available for Owner.</string>
     <string name="unsupported_clone">Brevent is unavailable in App clone.</string>
     <string name="unsupported_modified">Brevent cannot work well on modified devices.\n\nFor stock ROM, please \"Feedback\" - \"Logs\".</string>
-    <string name="unsupported_path">(Error: cannot create brevent.sh)</string>
+    <string name="unsupported_path">(Cannot create brevent.sh: %s)</string>
     <string name="unsupported_permission">No permission to access Brevent server.\n\nTop apps: %1$s.</string>
     <string name="unsupported_no_event">No event log, Brevent server cannot work automatically.\n\nPlease try later, or contact ROM provider.</string>
     <string name="unsupported_no_event2">No event log since %1$s, Brevent server cannot work automatically.\n\nPlease restart Brevent server or contact ROM provider.</string>
@@ -250,7 +253,6 @@
     <string name="unsupported_version_mismatched">Brevent server is upgrading. Please try again later.</string>
     <string name="unsupported_logs">Cannot get logs. Please try again later.</string>
     <string name="unsupported_shell">Failed to start Brevent server.</string>
-    <string name="unsupported_no_local_network">Brevent can\'t access local network; please modify your network settings, battery saver, or force doze. Send feedback with logs when necessary, or uninstall directly.</string>
     <string name="unsupported_usb">Since Android 8, Brevent server will stop working whenever \"USB Debugging\" turns off.\n\nDon\'t turn off \"USB debugging\", don\'t change USB options.</string>
     <string name="unsupported_granted">Brevent server has no sufficient permissions; some features are unavailable.</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
@@ -259,6 +261,7 @@
     <string name="unsupported_brevented2">You have brevented apps which cannot be launched: %1$s.\n\nDo you want to unbrevent them?</string>
     <string name="unsupported_unauthorized">You seem to have activated Brevent Server in an unauthorized way.</string>
     <string name="icon_required">Required by: %1$s.</string>
+    <string name="icon_gapp">Apps are marked as GMS App.</string>
     <string name="icon_fcm">Apps are allowed to receive messages via sync, broadcast, and FCM (Firebase Cloud Messaging).</string>
     <string name="icon_sync">Apps are allowed to receive messages via sync or broadcast.</string>
     <string name="icon_aggressive">Apps are in aggressive mode. Normally, brevented apps can run for several seconds for dependency check; in aggressive mode, background apps would be force-stopped directly.</string>
@@ -280,7 +283,6 @@
     <string name="apps_join">, </string>
 
     <string name="toast_working">Brevent server is working</string>
-    <string name="toast_payment">Thanks for paying %1$s Brefoil</string>
     <string name="toast_developer">Please turn on \"Developer options\"</string>
     <string name="toast_event_error">Brevent server cannot read events</string>
 
@@ -347,7 +349,8 @@
     <string name="theme_nankai">Nankai</string>
     <string name="theme_amoled">Amoled</string>
 
-    <string name="shortcut_gms">Add GMS app</string>
+    <string name="unmark_gapp">Mark GMS app</string>
+    <string name="mark_gapp">Unmark GMS app</string>
     <string name="shortcut_instant">Add Instant app</string>
 
     <string name="warning_play_3">You have paid %d Brefoil. Pay more to turn on experimental features.</string>
