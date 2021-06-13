@@ -28,7 +28,7 @@
 
     <string name="brevent_service_start">Inicie o servidor Brevent (%s)</string>
     <string name="brevent_service_no_response">O servidor Brevent não responde (%s)</string>
-    <string name="brevent_service_guide">1. Ligue as \"Opções do desenvolvedor\", ative a \"Depuração USB\" %1$s\n\n2. Conecte-se ao PC via USB %2$s\n\n3. Execute na linha de comando do PC \"adb devices\", certifique-se de que o PC pode reconhecer o dispositivo (Consultar \"Guia - ADB\")\n\n4. Execute na linha de comando do PC \"%3$s\"</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit https://brevent.sh using Chrome on your PC\n\nOr\n\nExecute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_guide_root">Parece que seus dispositivos tem Super úsuario (Root). Você pode ativar o ADB da rede manualmente ou tentar tocar em \"Root\" botão no Brevent.\n\nRoot é desnecessário para a Brevent e requer pagamento.</string>
     <string name="brevent_service_guide_adb">O ADB de rede está ativado, toque em \"ADB\" iniciar o servidor Brevent.</string>
     <string name="brevent_service_payment_root">Root é desnecessário para o Brevent e requer pagamento.</string>
@@ -146,6 +146,7 @@
     <string name="menu_settings">Definições</string>
     <string name="menu_template">Modelo</string>
     <string name="menu_guide">Guia</string>
+    <string name="menu_battery">Battery</string>
     <string name="menu_command">Executar comando</string>
     <string name="menu_brevent">Iniciar Brevent</string>
 
@@ -259,7 +260,6 @@
     <string name="unsupported_location">Localização inválida para Brevent, reinstale.</string>
     <string name="unsupported_brevented">Você breveniu alguns apps importantes: %1$s.\n\nDesbreveni-los?</string>
     <string name="unsupported_brevented2">Você Breveniu apps que não pode ser iniciado: %1$s.\n\nDeseja desbrevenir eles?</string>
-    <string name="unsupported_unauthorized">Você parece que ativou o Servidor Brevent de maneira não autorizada.</string>
     <string name="icon_required">Solicitado por: %1$s.</string>
     <string name="icon_gapp">Os apps estão marcados como GMS App.</string>
     <string name="icon_fcm">Os apps têm permissão para receber mensagens por sincronização, transmissão e FCM (Firebase Cloud Messaging).</string>
@@ -283,7 +283,7 @@
     <string name="apps_join">, </string>
 
     <string name="toast_working">Servidor Brevent está funcionando</string>
-    <string name="toast_developer">Por favor ligue \"Opções de desenvolvedor\"</string>
+    <string name="toast_developer">Please turn on \"Developer options\", via tap \"Build Number\" 7 times</string>
     <string name="toast_event_error">O servidor Brevent não pode ler o eventos</string>
 
     <string name="brevent_status_starting">Iniciando servidor Brevent</string>
@@ -313,9 +313,9 @@
 
     <string name="cmd_menu_reset">Redefinir</string>
     <string name="cmd_menu_stop">Encerrar</string>
-    <string name="cmd_menu_batterystats">Limpar dados da bateria</string>
     <string name="cmd_menu_portal" />
     <string name="cmd_menu_restart">Reiniciar servidor Brevent</string>
+    <string name="cmd_menu_uninstall_static_libraries">Uninstall static libraries</string>
     <string name="cmd_too_large">%1$s\n# Erro: saída muito grande</string>
     <string name="cmd_warning">Executar comando apenas suporta script de shell simples, use-o por sua conta e risco.</string>
 
@@ -365,13 +365,39 @@
     <string name="update_version">Atualizar</string>
 
     <string name="legal_drawer">Termos &amp; Privacidade</string>
-    <string name="legal_short">Você deve aceitar os Termos &amp; Privacidade para usar o Brevent.  Em resumo, a Brevent coletará dados de log anônimos por meio do Google Analytics para Firebase.</string>
+    <string name="legal_short">You must accept Terms &amp; Conditions and Privacy Policy to use Brevent. In short, Brevent will collect anonymous log data via Visual Studio App Center.</string>
     <string name="legal_accept">Aceite</string>
+    <string name="legal_reject">Reject</string>
 
     <string name="theme_fallback">%1$s (Retroceder para \"Pixel\" no Tema escuro)</string>
 
     <string name="payment_sort">Ordenar por \"%1$s" requer pagamento. Deseja pagar agora?</string>
 
     <string name="device_default">Padrão do dispositivo</string>
+    <string name="package_installer">Install APKs</string>
+    <string name="install_package">Installing %1$s…</string>
+    <string name="install_noapk">No APK in %1$s.</string>
+    <string name="install_success">Installed %1$s.</string>
+    <string name="install_failure">Fail to install %1$s: %2$s.</string>
+
+    <string name="adb_wifi_port">Wireless debugging Port</string>
+    <string name="adb_wifi_port_tip">Please turn off / on Wireless debugging to auto discovery port.</string>
+    <string name="adb_wifi_error_connect">Cannot connect, please check port.</string>
+    <string name="adb_wifi_certificate_unknown">Please pair via https://brevent.sh.</string>
+    <string name="adb_wifi_unsupported">Wireless debugging is unsupported.</string>
+    <string name="adb_wifi_pair">Wireless pair</string>
+    <string name="adb_wifi_pair_port">Wireless pairing Port</string>
+    <string name="adb_wifi_pair_code">Wireless pairing Code</string>
+    <string name="adb_wifi_pair_tip">Please use split screen mode to avoid failure of pairing.</string>
+    <string name="charging">Charging</string>
+    <string name="charging_slowly">Charging slowly</string>
+    <string name="charging_fast">Charging fast</string>
+    <string name="charging_wattage">, %s W</string>
+    <string name="charging_time">, %s until full</string>
+    <string name="charging_end">.</string>
+    <string name="battery_time_unknown">Battery remain time unknown.</string>
+    <string name="battery_time">Battery remain time: %s.</string>
+    <string name="battery_time_short">Battery remain time less than 1 minute.</string>
+    <string name="battery_system">Battery Settings</string>
 
 </resources>

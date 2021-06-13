@@ -27,7 +27,7 @@
     <string name="start_brevent">进入黑阈</string>
     <string name="brevent_service_start">请启动黑阈服务（%s）</string>
     <string name="brevent_service_no_response">黑阈服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 在电脑命令行中执行“adb devices”，确认可以找到手机（“adb”可能需要调整，请参考“向导 - ADB”或中文图文 PDF 版文档）\n\n4. 在命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 https://brevent.sh\n\n或者\n\n在命令行中执行“%3$s”</string>
     <string name="brevent_service_guide_root">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。</string>
     <string name="brevent_service_guide_adb">网络调试已开启，请点按 ADB 启动黑阈服务。\n\n网络调试有风险，不要随意授权。</string>
     <string name="brevent_service_payment_root">黑阈不需要也不提倡 Root，并且需要支付。</string>
@@ -144,6 +144,7 @@
     <string name="menu_settings">设置</string>
     <string name="menu_template">模板</string>
     <string name="menu_guide">向导</string>
+    <string name="menu_battery">电池信息</string>
     <string name="menu_command">执行指令</string>
     <string name="menu_brevent">启动黑阈</string>
 
@@ -257,7 +258,6 @@
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否不再黑阈？</string>
     <string name="unsupported_brevented2">您已黑阈无法打开的应用：%1$s。\n\n是否不再黑阈？</string>
-    <string name="unsupported_unauthorized">您正在使用未经授权的方式激活黑阈。</string>
     <string name="icon_required">被以下应用依赖：%1$s。</string>
     <string name="icon_gapp">应用属于 GMS 应用。主动打开该应用会动态开启与停用 GMS。</string>
     <string name="icon_fcm">允许应用通过同步、广播及 FCM（Firebase Cloud Messaging）接收消息。</string>
@@ -281,7 +281,7 @@
     <string name="apps_join">、</string>
 
     <string name="toast_working">黑阈服务运行正常</string>
-    <string name="toast_developer">请手动开启“开发者选项”</string>
+    <string name="toast_developer">请手动开启“开发者选项”，一般是点按 7 次“版本号”</string>
     <string name="toast_event_error">黑阈服务无法读取事件日志</string>
 
     <string name="brevent_status_starting">正在启动黑阈服务</string>
@@ -311,9 +311,9 @@
 
     <string name="cmd_menu_reset">重置</string>
     <string name="cmd_menu_stop">停止</string>
-    <string name="cmd_menu_batterystats">获取电量数据</string>
     <string name="cmd_menu_portal">更新网络检查</string>
     <string name="cmd_menu_restart">重启黑阈服务</string>
+    <string name="cmd_menu_uninstall_static_libraries">卸载静态库</string>
     <string name="cmd_too_large">%1$s\n# 输出过多，仅展示部分内容</string>
     <string name="cmd_warning">执行指令可能会对应用甚至设备造成不良影响。如有疑问，请立即停止。</string>
 
@@ -363,13 +363,41 @@
     <string name="update_version">更新</string>
 
     <string name="legal_drawer">条款与隐私政策</string>
-    <string name="legal_short">使用黑阈前请确认《条款与隐私政策》。简单来说，黑阈会通过 Google Analytics for Firebase 收集匿名使用日志。</string>
-    <string name="legal_accept">接受</string>
+    <string name="legal_short">使用黑阈前请确认《条款与隐私政策》。简单来说，黑阈会通过 Visual Studio App Center 收集匿名使用日志。</string>
+    <string name="legal_accept">同意</string>
+    <string name="legal_reject">暂不使用</string>
 
     <string name="theme_fallback">%1$s（系统为深色主题，实际使用 Pixel）</string>
 
     <string name="payment_sort">排序方式“%1$s”需要支付。是否现在支付？</string>
 
     <string name="device_default">设备默认</string>
+    <string name="package_installer">安装所有 APK</string>
+    <string name="install_package">正在安装 %1$s…</string>
+    <string name="install_noapk">%1$s 中没有 APK。</string>
+    <string name="install_success">成功安装 %1$s。</string>
+    <string name="install_failure">无法安装 %1$s：%2$s。</string>
+
+    <string name="adb_wifi_port">无线调试端口</string>
+    <string name="adb_wifi_port_tip">请切换无线调试以自动发现端口。</string>
+    <string name="adb_wifi_error_connect">无法连接，请确认网络及调试端口。</string>
+    <string name="adb_wifi_certificate_unknown">请电脑访问 https://brevent.sh 确认密钥。</string>
+    <string name="adb_wifi_unsupported">暂不支持无线调试。</string>
+    <string name="adb_wifi_pair">无线配对</string>
+    <string name="adb_wifi_pair_port">无线配对端口</string>
+    <string name="adb_wifi_pair_code">无线配对六位验证码</string>
+    <string name="adb_wifi_pair_tip">请使用分屏模式避免无线配对失效。</string>
+
+    <string name="about_detail">@string/about_detail_zh</string>
+    <string name="charging">正在充电</string>
+    <string name="charging_slowly">正在慢速充电</string>
+    <string name="charging_fast">正在快速充电</string>
+    <string name="charging_wattage">，%s W</string>
+    <string name="charging_time">，%s 可充满</string>
+    <string name="charging_end">。</string>
+    <string name="battery_time_unknown">电池可用时间未知。</string>
+    <string name="battery_time">电池可用时间：%s。</string>
+    <string name="battery_time_short">电池可用时间不足 1 分钟。</string>
+    <string name="battery_system">电池设置</string>
 
 </resources>
