@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="payment">Не стесняйтесь платить, если хотите</string>
+    <string name="payment_unsupported">Оплата недоступна</string>
+    <string name="payment_play_unavailable">Платежи через Google Play недоступны</string>
+    <string name="payment_play_checking">Проверка In-app Billing…</string>
+
+</resources>
