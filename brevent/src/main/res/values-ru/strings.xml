@@ -32,7 +32,7 @@
     <string name="brevent_service_guide_root">Кажется, что ваше устройство рутировано. Вы можете включить сеть ADB вручную или попробовать нажать кнопку \"Root\" в Brevent.\n\nRoot не требуется для Brevent и требует оплаты.</string>
     <string name="brevent_service_guide_adb">Сеть ADB включена, нажмите \"ADB\", чтобы запустить Brevent сервер.</string>
     <string name="brevent_service_payment_root">Для Brevent root не нужен и требует оплаты.</string>
-    <string name="brevent_service_open_development">Разработка</string>
+    <string name="brevent_service_open_development">Для разработчиков</string>
     <string name="brevent_service_copy_path">Скопировать команду</string>
     <string name="brevent_service_command_copied">Команда скопирована: %s</string>
     <string name="brevent_service_adb_running">(Включено)</string>
@@ -47,7 +47,7 @@
     <string name="fragment_apps_framework">Core Apps</string>
     <string name="fragment_apps_os">Приложения ОС</string>
 
-    <string name="process_retrieving">Получение состояния процессов...</string>
+    <string name="process_retrieving">Получение состояния процесса...</string>
     <string name="process_retrieving_apps">Получение списка приложений...</string>
     <string name="process_retrieving_logs">Получение логов...</string>
     <string name="process_starting">Запуск сервера Brevent...</string>
@@ -66,16 +66,16 @@
     <string name="process_stats">(последний: %1$s, всего: %2$s)</string>
     <string name="process_stats_running">работает %s</string>
     <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
-    <string name="process_all_service" tools:ignore="PluralsCandidate">%d служба</string>
-    <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d кэшированых служб</string>
-    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d кэш</string>
+    <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
     <string name="process_all_total">%d</string>
-    <string name="process_service" tools:ignore="PluralsCandidate">%d служб</string>
-    <string name="process_service_cached" tools:ignore="PluralsCandidate">%d кэшированых служб</string>
+    <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
     <string name="process_total">всего %d</string>
     <plurals name="process_process">
-        <item quantity="one">&#160;процесс</item>
-        <item quantity="other">&#160;процессов</item>
+        <item quantity="one">&#160;process</item>
+        <item quantity="other">&#160;processes</item>
     </plurals>
 
     <string name="action_brevent">Заблокировать</string>
@@ -134,7 +134,7 @@
 
     <string name="menu_search">Поиск</string>
     <string name="menu_sort">Сортировка по</string>
-    <string name="menu_sort_by_name">Приложение</string>
+    <string name="menu_sort_by_name">Имя приложения</string>
     <string name="menu_sort_by_install_time">Время установки</string>
     <string name="menu_sort_by_update_time">Время обновления</string>
     <string name="menu_sort_by_last_time">Последнее использование</string>
@@ -150,7 +150,7 @@
     <string name="menu_command">Выполнение команд</string>
     <string name="menu_brevent">Запуск Brevent</string>
 
-    <string name="feedback_message">Не стесняйтесь присылать отзывы.\n\n Если у вас есть аккаунт GitHub, создайте issue; вы также можете просматривать открытые issue.%s</string>
+    <string name="feedback_message">Не стесняйтесь присылать отзывы.\n\nЕсли у вас есть аккаунт GitHub, создайте вопрос по проблеме; вы также можете просматривать уже открытые вопросы по проблеме.%s</string>
     <string name="feedback_message_email">\n\nДля личных сообщений напишите мне на электронную почту.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
@@ -191,7 +191,7 @@
 
     <string name="brevent_optimize">Функции оптимизации</string>
     <string name="brevent_optimize_wechat">Оптимизировать Wechat</string>
-    <string name="brevent_optimize_wechat_label">Добавить в белый список экономии заряда батареи,  для беспрепятственного получения сообщений</string>
+    <string name="brevent_optimize_wechat_label">Добавить в белый список экономии заряда батареи, для безпрепятственного получения сообщений</string>
     <string name="brevent_optimize_audio">Оптимизировать музыкальный плеер</string>
     <string name="brevent_optimize_audio_label">Не будет блокироваться при воспроизведении с уведомлением, не будет принудительно остановлен, если стоит на паузе с уведомлением.\n\nНе работает на некоторых прошивках. Может вызвать перезагрузку некоторых устройств Samsung</string>
     <string name="brevent_auto_aggressive">Авто агрессивный</string>
@@ -274,8 +274,8 @@
     <string name="icon_battery">Приложения находящиеся в белом списке оптимизации батареи, не будут переводиться в режим ожидания.</string>
     <string name="icon_safe">Безопасные приложения. Не считайте их работающими.</string>
     <string name="icon_standby">Приложения находящиеся в режиме ожидания, будут принудительно остановлены, когда они достигнут \"тайм-аута неактивности\", или будут удалены из \"Недавних\".</string>
-    <string name="icon_foreground_service">Приложения работают с сервисом переднего плана, не будут блокироваться.</string>
-    <string name="icon_priority">Работающие в фоновом режиме приложения  из списка \"Разрешить синхронизацию\"  не будут блокироваться.</string>
+    <string name="icon_foreground_service">Приложения работающие с сервисом переднего плана, не будут блокироваться.</string>
+    <string name="icon_priority">Работающие в фоновом режиме приложения из списка \"Разрешить синхронизацию\" не будут блокироваться.</string>
     <string name="icon_active">Приложения будут переведены в режим ожидания, когда они достигнут \"тайм-аута фоновых приложений\", будут принудительно остановлены, когда они достигнут \"тайм-аута неактивности\, или будут удалены из экрана \"Недавних\".</string>
     <string name="icon_running">Если приложения запущены, они будут переведены в режим ожидания через короткое время и будут принудительно остановлены, когда достигнут \"тайм-аута неактивности\", или будут удалены с экрана недавних. В противном случае они будут принудительно остановлены в ближайшее время.</string>
     <string name="icon_brevent">Приложения находятся в списке блокировки.</string>
@@ -332,11 +332,11 @@
         <item>5 Brefoil</item>
     </string-array>
 
-    <string name="version_free">Бесплатная</string>
+    <string name="version_free">Бесплатная версия</string>
     <string name="version_free_tip">@string/payment</string>
     <string name="version_unlimited">Без ограничений</string>
     <string name="version_unlimited_tip">@string/payment</string>
-    <string name="version_pro">Pro</string>
+    <string name="version_pro">Pro версия</string>
     <string name="version_pro_tip">Наслаждайтесь Android с Brevent</string>
     <string name="version_contributor">Участник</string>
     <string name="version_contributor_tip">Наслаждайтесь Brevent с Android</string>
@@ -361,7 +361,7 @@
     <string name="toast_error_network_play">Не удается кэшировать платеж для воспроизведения, проверьте сеть</string>
     <string name="toast_error_server_play">Не удается кэшировать платеж для воспроизведения, попробуйте позже</string>
 
-    <string name="new_version_available">Есть обновленная версия "%s".</string>
+    <string name="new_version_available">Доступна новая версия "%s".</string>
     <string name="latest_version">У вас установлена последняя версия.</string>
     <string name="beta_version">У вас установлена бета-версия.</string>
     <string name="update_version">Обновление</string>
