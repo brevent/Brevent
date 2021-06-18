@@ -36,7 +36,6 @@
     <string name="brevent_service_command_copied">指令已复制：%s</string>
     <string name="brevent_service_adb_running">（已启用）</string>
     <string name="brevent_service_usb_connected">（已连接）</string>
-    <string name="brevent_service_hard">没有电脑</string>
     <string name="brevent_service_success">黑阈服务已启动。请点按图标选择一些应用，然后使用右上角的按钮黑阈它们。</string>
     <string name="brevent_service_mocked">黑阈服务并未启动，当前处于只读模式。</string>
     <string name="brevent_service_mock">只读模式</string>
@@ -140,7 +139,7 @@
     <string name="menu_sort_by_apk_size">APK 大小（专业版）</string>
     <string name="menu_sort_by_avg_mem">平均内存使用量 (专业版)</string>
     <string name="menu_sort_by_max_mem">最高内存使用量 (专业版)</string>
-    <string name="menu_feedback">反馈</string>
+    <string name="menu_feedback">联系</string>
     <string name="menu_settings">设置</string>
     <string name="menu_template">模板</string>
     <string name="menu_guide">向导</string>
@@ -148,8 +147,8 @@
     <string name="menu_command">执行指令</string>
     <string name="menu_brevent">启动黑阈</string>
 
-    <string name="feedback_message">欢迎提交反馈。\n\n如果您有 GitHub 帐号，请直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
-    <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件。</string>
+    <string name="feedback_message">有任何问题，请随时与我们联系。\n\n邮箱：brevent@jianyu.io\n电话：TEL-JIANYUIO\n\n如果您有 GitHub 帐号，可以直接创建一个问题；您也可以查看其他朋友已经创建的问题。%s</string>
+    <string name="feedback_message_email">\n\n如果您的反馈包含私人信息，请发送邮件或拨打电话。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">邮件</string>
     <string name="feedback_logs">日志</string>

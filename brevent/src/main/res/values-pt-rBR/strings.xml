@@ -37,7 +37,6 @@
     <string name="brevent_service_command_copied">Comando copiado: %s</string>
     <string name="brevent_service_adb_running">(Ativado)</string>
     <string name="brevent_service_usb_connected">(USB conectado)</string>
-    <string name="brevent_service_hard" />
     <string name="brevent_service_success">servidor Brevent iniciado com sucesso. Toque nos ícones do aplicativo para escolher e depois faça um brevinamento neles.</string>
     <string name="brevent_service_mocked">O servidor Brevent não foi iniciado.  Brevent está no modo somente leitura.</string>
     <string name="brevent_service_mock">Modo somente leitura</string>
@@ -142,7 +141,7 @@
     <string name="menu_sort_by_apk_size">Tamanho do APK (Pro)</string>
     <string name="menu_sort_by_avg_mem">Uso médio de memória (Pro)</string>
     <string name="menu_sort_by_max_mem">Uso máximo de memória (Pro)</string>
-    <string name="menu_feedback">Feedback</string>
+    <string name="menu_feedback">Contact</string>
     <string name="menu_settings">Definições</string>
     <string name="menu_template">Modelo</string>
     <string name="menu_guide">Guia</string>
@@ -150,8 +149,8 @@
     <string name="menu_command">Executar comando</string>
     <string name="menu_brevent">Iniciar Brevent</string>
 
-    <string name="feedback_message">Sinta-se livre para enviar feedback.\n\nSe você tem uma conta GitHub, crie um problema; você pode ver problemas abertos também.%s</string>
-    <string name="feedback_message_email">\n\nPara mensagens privadas, envie um e-mail para mim.</string>
+    <string name="feedback_message">Feel free to contact us.\n\nEmail: brevent@jianyu.io\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
+    <string name="feedback_message_email">\n\nFor private messages, email us.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">E-mail</string>
     <string name="feedback_logs">Registros</string>

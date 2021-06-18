@@ -36,7 +36,6 @@
     <string name="brevent_service_command_copied">指令已複製: %s</string>
     <string name="brevent_service_adb_running">（已啟用）</string>
     <string name="brevent_service_usb_connected">（已連線）</string>
-    <string name="brevent_service_hard">沒有電腦</string>
     <string name="brevent_service_success">黑閾服務已開啟。請輕觸圖示選擇一些應用程式，然後使用右上角的按鈕黑閾它們。</string>
     <string name="brevent_service_mocked">黑閾服務並未開啟，當前處於唯讀模式。</string>
     <string name="brevent_service_mock">唯讀模式</string>
@@ -140,7 +139,7 @@
     <string name="menu_sort_by_apk_size">APK 大小（專業版）</string>
     <string name="menu_sort_by_avg_mem">平均記憶體用量（專業版）</string>
     <string name="menu_sort_by_max_mem">最高記憶體用量（專業版）</string>
-    <string name="menu_feedback">回報</string>
+    <string name="menu_feedback">聯繫</string>
     <string name="menu_settings">設定</string>
     <string name="menu_template">範本</string>
     <string name="menu_guide">導覽</string>
@@ -148,7 +147,7 @@
     <string name="menu_command">執行指令</string>
     <string name="menu_brevent">啟動黑閾</string>
 
-    <string name="feedback_message">歡迎傳送回報。\n\n如果您有 GitHub 帳號，請直接建立一個問題；您也可以看看其他朋友已經建立的問題。%s</string>
+    <string name="feedback_message">有任何問題，請隨時與我們聯繫。\n\n電子郵件：brevent@jianyu.io\n\n如果您有 GitHub 帳號，可以直接建立一個問題；您也可以看看其他朋友已經建立的問題。%s</string>
     <string name="feedback_message_email">\n\n如果您的回報包含私人資料，請傳送電子郵件。</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">電子信件</string>

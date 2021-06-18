@@ -37,7 +37,6 @@
     <string name="brevent_service_command_copied">Команда скопирована: %s</string>
     <string name="brevent_service_adb_running">(Включено)</string>
     <string name="brevent_service_usb_connected">(USB подключен)</string>
-    <string name="brevent_service_hard" />
     <string name="brevent_service_success">Сервер Brevent успешно запущен. Пожалуйста, нажимайте на иконки приложений для их блокировки.</string>
     <string name="brevent_service_mocked">Сервер Brevent не запущен. Brevent находится в режиме только чтение.</string>
     <string name="brevent_service_mock">Режим только чтение</string>
@@ -142,7 +141,7 @@
     <string name="menu_sort_by_apk_size">Размер АРК (Pro)</string>
     <string name="menu_sort_by_avg_mem">Среднее использование памяти (Pro)</string>
     <string name="menu_sort_by_max_mem">Максимальное использование памяти (Pro)</string>
-    <string name="menu_feedback">Обратная связь</string>
+    <string name="menu_feedback">Contact</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_template">Шаблон</string>
     <string name="menu_guide">Справка</string>
@@ -150,8 +149,8 @@
     <string name="menu_command">Выполнение команд</string>
     <string name="menu_brevent">Запуск Brevent</string>
 
-    <string name="feedback_message">Не стесняйтесь присылать отзывы.\n\nЕсли у вас есть аккаунт GitHub, создайте вопрос по проблеме; вы также можете просматривать уже открытые вопросы по проблеме.%s</string>
-    <string name="feedback_message_email">\n\nДля личных сообщений напишите мне на электронную почту.</string>
+    <string name="feedback_message">Feel free to contact us.\n\nEmail: brevent@jianyu.io\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
+    <string name="feedback_message_email">\n\nFor private messages, email us.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
     <string name="feedback_logs">Логи</string>
