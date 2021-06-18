@@ -27,6 +27,9 @@
 - `david082321`:  david082321
 - `pan93412` : pan93412
 
+## Russian (ru)
+- `tommynok`: tommynok
+
 # Code
 - sffxzzp
 - vvb2060
