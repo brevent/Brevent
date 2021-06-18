@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Brevent</string>
+    <string name="app_name_debug">Nrevent</string>
+
+    <string name="fragment_guide_welcome">Добро пожаловать</string>
+    <string name="fragment_guide_welcome_message">Как вы выходите из приложений?\nНажатие \"Назад\" всегда означает, что вы хотите выйти.\nНажатие \"Домой\" или \"Обзор\" переведет приложения в фоновый режим.\n\nBrevent распознает состояние приложений таким образом, предотвращая запуск приложений в списке блокировки в течение долгого времени.</string>
+    <string name="fragment_guide_welcome_message2">Когда вы нажмете \"Назад\" для выхода из приложений, приложения и зависимые службы больше не запустятся; нажатие \"Домой\" или \"Обзор\" или просто перевод приложений в фоновый режим, при этом приложения и зависимые службы продолжат работать; смахните приложения с экрана \"Недавние\", Brevent принудительно остановит эти приложения. Каждый раз, когда приложения работают без активности, Brevent будет их останавливать принудительно.\n\nПриложения в списке блокировки могут быть установлены с опцией \"разрешить синхронизацию\" для получения уведомлений или выполнения заданий и синхронизации. Brevent не будет переводить в режим ожидания приложения с опцией \"разрешить синхронизацию\", и не будет принудительно останавливать приложения с опцией \"разрешить синхронизацию\" с уведомлениями или работающих в фоновом режиме.</string>
+
+    <string name="fragment_guide_permission">Разрешения</string>
+    <string name="fragment_guide_permission_message">Что нужно сделать? \nВведите простую команду через ADB на вашем ПК.</string>
+    <string name="fragment_guide_permission_message2">Brevent не будет работать после перезагрузки вашего Android устройства. Начиная с Android 8, Brevent не будет работать, если вы отключите \"Отладку по USB\" или измените параметры USB.</string>
+
+    <string name="fragment_guide_security">Безопасность</string>
+    <string name="fragment_guide_security_message">Brevent не требуется root доступ или возможность изменять системные файлы, после удаления не остается никаких остатков.</string>
+    <string name="fragment_guide_security_message2">Brevent использует множество скрытых API Android. Некоторые прошивки могут изменять эти API-интерфейсы, поэтому при использовании Brevent с такими прошивками могут возникнуть некоторые проблемы. \n\nНЕ ИСПОЛЬЗУЙТЕ Brevent на рабочих устройствах и НЕ БЛОКИРУЙТЕ рабочие, часто используемые или важные приложения.</string>
+
+    <string name="fragment_guide_enjoy">Наслаждайтесь</string>
+    <string name="fragment_guide_enjoy_message">Наслаждайтесь Brevent. В случае обнаружения каких-либо проблем, пожалуйста, отправьте отзыв с логами.</string>
+    <string name="fragment_guide_enjoy_message2">По умолчанию для блокировки Brevent использует метод \"Режим ожидания, затем принудительная остановка\". В режиме ожидания ( не поддерживается на некоторых устройствах, начиная с Android 6.0) приложения не могут получить доступ к сети, выполнять задания или синхронизацию.\n\nBrevent не будет принудительно останавливать безопасные приложения. Кроме того, сервер Brevent централизованно блокирует приложения и задерживает процессы на 3–60 секунд в зависимости от уровня события.</string>
+
+    <string name="fragment_guide_adb">ADB</string>
+    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) - это инструмент командной строки, который позволяет компьютеру обмениваться данными с устройством Android. Это часть platform-tools, вы можете скачать ее здесь: https://developer.android.com/studio/releases/platform-tools (нажмите и удерживайте, чтобы выбрать и скопировать).</string>
+    <string name="fragment_guide_adb_message2">1. Распакуйте platform-tools-latest-&lt;platform&gt;.zip\n\n2. Перейдите в каталог platform-tools\n\n3. (для Windows) Удерживая клавишу Shift, сделайте клик правой кнопкой мыши, выберите \"Открыть окно команд\", затем используйте .\adb для замены \"adb\" (удалите повторяющеся adb перед вставкой в командную строку)\n\n3. (для macOS) Перейдите к \"Finder\"-\"Applications\"-\"Utilities\", запустите \"Terminal\", перетащите \"adb\" в \"Terminal\", затем используйте \"adb\" с полным путём для замены adb (удалите повторяющийся adb перед вставкой в командную строку)\n\n4. Вам нужно будет использовать ADB каждый раз, когда вы включаете устройство, поэтому избегайте частого перезапуска или выключения устройства.</string>
+
+    <string name="start_brevent">Запустить Brevent</string>
+
+    <string name="brevent_service_start">Пожалуйста, запустите сервер Brevent (%s)</string>
+    <string name="brevent_service_no_response">Сервер Brevent не  отвечает (%s)</string>
+    <string name="brevent_service_guide">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите https://brevent.sh с помощью Chrome на вашем ПК\n\nИли\n\nВыполните в командной строке ПК "%3$s"</string>
+    <string name="brevent_service_guide_root">Кажется, что ваше устройство рутировано. Вы можете включить сеть ADB вручную или попробовать нажать кнопку \"Root\" в Brevent.\n\nRoot не требуется для Brevent и требует оплаты.</string>
+    <string name="brevent_service_guide_adb">Сеть ADB включена, нажмите \"ADB\", чтобы запустить Brevent сервер.</string>
+    <string name="brevent_service_payment_root">Для Brevent root не нужен и требует оплаты.</string>
+    <string name="brevent_service_open_development">Для разработчиков</string>
+    <string name="brevent_service_copy_path">Скопировать команду</string>
+    <string name="brevent_service_command_copied">Команда скопирована: %s</string>
+    <string name="brevent_service_adb_running">(Включено)</string>
+    <string name="brevent_service_usb_connected">(USB подключен)</string>
+    <string name="brevent_service_hard" />
+    <string name="brevent_service_success">Сервер Brevent успешно запущен. Пожалуйста, нажимайте на иконки приложений для их блокировки.</string>
+    <string name="brevent_service_mocked">Сервер Brevent не запущен. Brevent находится в режиме только чтение.</string>
+    <string name="brevent_service_mock">Режим только чтение</string>
+
+    <string name="fragment_apps_user">Приложения пользователя</string>
+    <string name="fragment_apps_system">Системные приложения</string>
+    <string name="fragment_apps_framework">Core Apps</string>
+    <string name="fragment_apps_os">Приложения ОС</string>
+
+    <string name="process_retrieving">Получение состояния процесса...</string>
+    <string name="process_retrieving_apps">Получение списка приложений...</string>
+    <string name="process_retrieving_logs">Получение логов...</string>
+    <string name="process_starting">Запуск сервера Brevent...</string>
+    <string name="process_checking">Проверка сервера Brevent...</string>
+
+    <string name="process_status_persistent">Постоянные</string>
+    <string name="process_status_foreground">Службы переднего плана</string>
+    <string name="process_status_running">Работающие</string>
+    <string name="process_status_standby">В режиме ожидания</string>
+    <string name="process_status_ignored">Игнорируемые</string>
+    <string name="process_status_disabled">Отключены</string>
+    <string name="process_status_stopped">Остановлены</string>
+    <string name="process_status_uninstalled">Удаленные</string>
+    <string name="process_not_running">(не работающие)</string>
+    <string name="process_no_stats">(никогда не запускалось)</string>
+    <string name="process_stats">(последний: %1$s, всего: %2$s)</string>
+    <string name="process_stats_running">работает %s</string>
+    <string name="process_all_top" tools:ignore="PluralsCandidate">%d top</string>
+    <string name="process_all_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_all_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
+    <string name="process_all_cached" tools:ignore="PluralsCandidate">%d cached</string>
+    <string name="process_all_total">%d</string>
+    <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
+    <string name="process_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
+    <string name="process_total">всего %d</string>
+    <plurals name="process_process">
+        <item quantity="one">&#160;process</item>
+        <item quantity="other">&#160;processes</item>
+    </plurals>
+
+    <string name="action_brevent">Заблокировать</string>
+    <string name="action_unbrevent">Разблокировать</string>
+    <string name="action_select_important">Важные</string>
+    <string name="action_select_inverse">Обратный порядок</string>
+    <string name="action_brevent_results" tools:ignore="PluralsCandidate">Заблокировано %d приложений</string>
+    <string name="action_unbrevent_results" tools:ignore="PluralsCandidate">Разблокировано %d приложений</string>
+    <string name="action_message_undo">Отмена</string>
+    <string name="action_message_undone">Отменено</string>
+
+    <string name="context_menu_target">API %1$d (%2$s)</string>
+    <string name="context_menu_package_name">Скопировать имя пакета</string>
+    <string name="context_menu_app_info">О приложении</string>
+    <string name="context_menu_open">Запустить</string>
+    <string name="context_menu_brevent_server_info">Информация о сервере Brevent</string>
+    <string name="context_menu_set_priority">Разрешить синхронизацию</string>
+    <string name="context_menu_set_aggressive">Установить агрессивный</string>
+    <string name="context_menu_off_aggressive">Не агрессивный</string>
+    <string name="context_menu_unset">Не установлен</string>
+    <string name="context_menu_message_copied">Скопировано имя пакета: %s</string>
+    <string name="context_menu_disable">Отключить</string>
+    <string name="context_menu_enable">Включить</string>
+    <string name="context_menu_enable_open">Мгновенное включение</string>
+    <string name="context_menu_market">Маркет</string>
+    <string name="context_menu_uninstall_keep_data">Удаление (сохранить данные)</string>
+    <string name="context_menu_uninstall">Удаление</string>
+    <string name="uninstall_keep_data_confirm">Удаление (сохранить данные) приведет к удалению пакета, но сохранит каталоги данных и кэша.\n\nВы подтверждаете?</string>
+    <string name="uninstall_confirm">При удалении будут удалены каталоги данных и кэша.\n\nВы подтверждаете?</string>
+
+    <string name="important_input">%s (Метод ввода)</string>
+    <string name="important_alarm">%s (Будильник)</string>
+    <string name="important_sms">%s (Приложение SMS )</string>
+    <string name="important_home">%s (Лончер)</string>
+    <string name="important_persistent">%s (Постоянное)</string>
+    <string name="important_android">%s (Android процесс)</string>
+    <string name="important_dialer">%s (Приложение для звонков)</string>
+    <string name="important_assistant">%s (Вспомогательное приложение)</string>
+    <string name="important_webview">%s (WebView)</string>
+    <string name="important_accessibility">%s (Специальные возможности)</string>
+    <string name="important_device_admin">%s (Администраторы устройства)</string>
+    <string name="important_fcm">%s (FCM)</string>
+    <string name="important_battery">%s (Без режима ожидания)</string>
+    <string name="important_trust_agent">%s (Trust agent)</string>
+    <string name="important_gms">%s (GMS)</string>
+    <string name="important_wallpaper">%s (Обои)</string>
+    <string name="important_notification_listener">%s (Слушатель уведомлений)</string>
+    <string name="important_os_system">Система</string>
+    <string name="important_os_telephony">Телефония</string>
+    <string name="important_os_bluetooth">Bluetooth</string>
+    <string name="important_os_nfc">NFC</string>
+    <string name="important_os_se">Secure Element</string>
+    <string name="important_os_network_stack">Сетевой стек</string>
+    <string name="important_os_shell">Оболочка</string>
+    <string name="important_os_other">UID %1$d</string>
+
+    <string name="menu_search">Поиск</string>
+    <string name="menu_sort">Сортировка по</string>
+    <string name="menu_sort_by_name">Имя приложения</string>
+    <string name="menu_sort_by_install_time">Время установки</string>
+    <string name="menu_sort_by_update_time">Время обновления</string>
+    <string name="menu_sort_by_last_time">Последнее использование</string>
+    <string name="menu_sort_by_usage_time">Время использования</string>
+    <string name="menu_sort_by_apk_size">Размер АРК (Pro)</string>
+    <string name="menu_sort_by_avg_mem">Среднее использование памяти (Pro)</string>
+    <string name="menu_sort_by_max_mem">Максимальное использование памяти (Pro)</string>
+    <string name="menu_feedback">Обратная связь</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_template">Шаблон</string>
+    <string name="menu_guide">Справка</string>
+    <string name="menu_battery">Батарея</string>
+    <string name="menu_command">Выполнение команд</string>
+    <string name="menu_brevent">Запуск Brevent</string>
+
+    <string name="feedback_message">Не стесняйтесь присылать отзывы.\n\nЕсли у вас есть аккаунт GitHub, создайте вопрос по проблеме; вы также можете просматривать уже открытые вопросы по проблеме.%s</string>
+    <string name="feedback_message_email">\n\nДля личных сообщений напишите мне на электронную почту.</string>
+    <string name="feedback_github">GitHub</string>
+    <string name="feedback_email">Email</string>
+    <string name="feedback_logs">Логи</string>
+
+    <string name="brevent_list">Список блокировки</string>
+    <string name="brevent_enable">Включить Brevent</string>
+    <string name="brevent_enable_label">Brevent применяется только к приложениям из списка блокировки.</string>
+    <string name="brevent_method">Метод блокировки</string>
+    <string name="brevent_method_standby_forcestop">Режим ожидания, затем принудительная остановка</string>
+    <string name="brevent_method_standby_only">Только режим ожидания, без принудительной остановки</string>
+    <string name="brevent_method_forcestop_only">Только принудительная остановка, без режима ожидания</string>
+    <string name="brevent_method_standby_forcestop_label">Переход в режим ожидания при выходе из приложений (нажатие \"Назад\") или истечении тайм-аута фоновых приложений; принудительная остановка, когда приложения достигают тайм-аута неактивности, или при смахивани приложения с экрана недавних\n\nВсегда принудительно останавливать работающие приложения без активности</string>
+    <string name="brevent_method_standby_only_label">Переход в ждущий режим при выходе из приложений (нажатие \"Назад\") или истечении тайм-аута фоновых приложений\n\nВсегда принудительно останавливать работающие приложения без активности</string>
+    <string name="brevent_method_forcestop_only_label">Принудительно останавливать, когда приложения достигают тайм-аута неактивности, или после смахивание приложения с экрана недавних\n\nВсегда принудительно останавливать работающие приложения без активности</string>
+    <string name="brevent_timeout">Тайм-аут фоновых приложений</string>
+    <string name="brevent_timeout_label">Фоновые приложения будут блокированы через %s\n\nBrevent динамически покажет время неактивности для фоновых приложений</string>
+    <string name="brevent_timeout_1min">1 минута</string>
+    <string name="brevent_timeout_5min"> 5 минут</string>
+    <string name="brevent_timeout_15min">15 минут</string>
+    <string name="brevent_timeout_30min">30 минут</string>
+    <string name="brevent_timeout_1hour">1 час</string>
+    <string name="brevent_timeout_3hour">3 часа</string>
+    <string name="brevent_timeout_6hour">6 часов</string>
+    <string name="brevent_timeout_long">очень долго</string>
+    <string name="brevent_standby_timeout">Тайм-аут неактивности</string>
+    <string name="brevent_standby_timeout_label">Принудительно останавливать приложения, которые были неактивны в течение %1$s</string>
+
+    <string name="brevent_advanced">Расширенные возможности</string>
+    <string name="brevent_language">Язык</string>
+    <string name="brevent_language_auto">Авто</string>
+    <string name="brevent_theme">Тема</string>
+    <string name="show_framework_apps">Показывать core apps</string>
+    <string name="show_framework_apps_label">Все приложения с той же подписью, что и Android Framework.</string>
+    <string name="show_framework_apps_label_fake">WTF, все приложения - это фреймворк приложения</string>
+    <string name="show_all_apps">Показывать все приложения</string>
+    <string name="show_all_apps_label">Включая системные и core apps, которые нельзя запустить или обновить</string>
+
+    <string name="brevent_optimize">Функции оптимизации</string>
+    <string name="brevent_optimize_wechat">Оптимизировать Wechat</string>
+    <string name="brevent_optimize_wechat_label">Добавить в белый список экономии заряда батареи, для безпрепятственного получения сообщений</string>
+    <string name="brevent_optimize_audio">Оптимизировать музыкальный плеер</string>
+    <string name="brevent_optimize_audio_label">Не будет блокироваться при воспроизведении с уведомлением, не будет принудительно остановлен, если стоит на паузе с уведомлением.\n\nНе работает на некоторых прошивках. Может вызвать перезагрузку некоторых устройств Samsung</string>
+    <string name="brevent_auto_aggressive">Авто агрессивный</string>
+    <string name="brevent_auto_aggressive_label">Если приложение с уведомлениями работает как служба, установите для него агрессивный режим.</string>
+    <string name="show_os_apps">Показывать приложения ОС</string>
+    <string name="show_os_apps_label">Приложения ОС Android нельзя блокировать</string>
+
+    <string name="show_payment">Показывать оплату</string>
+    <string name="show_payment_summary_play" />
+    <string name="show_payment_summary_other" />
+    <string name="show_payment_play">Спасибо за покупку %s Brefoil через Play Store</string>
+    <string name="show_payment_rmb">Спасибо за покупку %1s Brefoil</string>
+    <string name="show_payment_contributor">Спасибо за бесценный вклад в Brevent</string>
+    <string name="show_payment_play_and_rmb">Спасибо за покупку %s Brefoil через Play Store, %2$s Brefoil не через Play Store</string>
+    <string name="show_payment_play_and_contributor">Спасибо за покупку %s Brefoil через Play Store и за бесценный вклад в Brevent</string>
+    <string name="show_payment_rmb_and_contributor">Спасибо за покупку %s Brefoil и за бесценный вклад в Brevent</string>
+    <string name="show_payment_play_and_rmb_and_contributor">Спасибо за покупку %s Brefoil через Play Store, %2$s Brefoil не через Play Store и за бесценный вклад в Brevent</string>
+    <string name="brevent_appops">App ops</string>
+    <string name="brevent_appops_label">Будьте осторожны, это может привести к сбою приложений</string>
+    <string name="brevent_disable">Отключить приложения</string>
+    <string name="brevent_disable_label">Отключенные приложения должны быть включены для использования</string>
+
+    <string name="experimental">Экспериментальные</string>
+    <string name="brevent_dynamic_gms">Динамический GMS (экспериментально)</string>
+    <string name="brevent_dynamic_gms_label">Динамическое включение и отключение встроенных GMS (сервисов Google Play)</string>
+    <string name="brevent_suspend">Приостановка (экспериментально)</string>
+    <string name="brevent_suspend_label">Использование приостановки вместо отключения</string>
+
+    <string name="brevent_ocd">Варианты OCD</string>
+    <string name="brevent_auto_update">Автообновление</string>
+    <string name="brevent_auto_update_label">Обновлять список Brevent при установке или удалении приложений</string>
+    <string name="brevent_forcestop_check">Проверка принудительной остановки</string>
+    <string name="brevent_forcestop_check_label">Уведомлять, если принудительная остановка выполняется слишком часто</string>
+    <string name="brevent_keep_widgets">Сохранять виджеты</string>
+    <string name="brevent_keep_widgets_label">Не останавливайте виджеты принудительно, если хотите, чтобы они работали</string>
+    <string name="brevent_keep_safe">Сохранять безопасные</string>
+    <string name="brevent_keep_safe_label">Не останавливать принудительно безопасные процессы </string>
+
+    <string name="brevent_about">О приложении</string>
+    <string name="brevent_about_system">Состояние системы</string>
+    <string name="brevent_about_system_summary">Ожидание: %1$s\nОстановленное состояние: %2$s\nАвтобновлениe: %3$s\nАвтоблокировка: %4$s\nApp ops: %5$s\nОтключение приложений: %6$s\nПриостановка: %7$s</string>
+    <string name="brevent_about_system_summary_mock">Ожидание: %1$s\n(режим только для чтения)</string>
+    <string name="brevent_about_system_supported">поддерживается</string>
+    <string name="brevent_about_system_unsupported">не поддерживается</string>
+    <string name="brevent_about_developer">Для разработчиков</string>
+    <string name="brevent_about_developer_adb">\"Отладка по USB\" включена</string>
+    <string name="brevent_about_developer_adb_v26" />
+    <string name="brevent_about_translation">Переводы</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Késmárky Tímea</string>
+    <string name="brevent_about_licenses">Лицензии</string>
+
+    <string name="unsupported_owner">Brevent доступен только для владельца.</string>
+    <string name="unsupported_clone">Brevent недоступен в клоне приложения.</string>
+    <string name="unsupported_modified">Brevent не может хорошо работать на модифицированных устройствах.\n\nДля стоковой прошивки, пожалуйста, \"Обратная связь\" - \"Логи\".</string>
+    <string name="unsupported_path">(Невозможно создать brevent.sh: %s)</string>
+    <string name="unsupported_permission">Нет разрешения на доступ к серверу Brevent.\n\nTop apps: %1$s.</string>
+    <string name="unsupported_no_event">Нет лога событий, сервер Brevent не может работать автоматически.\n\nПопробуйте позже или обратитесь к поставщику прошивки.</string>
+    <string name="unsupported_no_event2">Нет лога событий с %1$s, сервер Brevent не может работать автоматически.\n\nПопробуйте позже или обратитесь к поставщику прошивки.</string>
+    <string name="unsupported_restart">Перезапуск Brevent</string>
+    <string name="unsupported_version_mismatched">Сервер Brevent обновляется. Пожалуйста, повторите попытку позже.</string>
+    <string name="unsupported_logs">Не удается получить логи. Пожалуйста, повторите попытку позже.</string>
+    <string name="unsupported_shell">Не удалось запустить сервер Brevent.</string>
+    <string name="unsupported_usb">Начиная с Android 8, сервер Brevent перестанет работать всякий раз, когда будет отключена \"Отладка по USB\".\n\nНе выключайте \"Отладку по USB\", не меняйте параметры USB.</string>
+    <string name="unsupported_granted">Сервер Brevent не имеет достаточных разрешений; некоторые функции недоступны.</string>
+    <string name="unsupported_granted_miui">@string/unsupported_granted</string>
+    <string name="unsupported_location">Неверное расположение для Brevent; пожалуйста, переустановите.</string>
+    <string name="unsupported_brevented">Вы заблокировали важные приложения: %1$s.\n\nВы хотите их разблокировать?</string>
+    <string name="unsupported_brevented2">Вы заблокировали приложения, которые невозможно запустить: %1$s.\n\nВы хотите их разблокировать?</string>
+    <string name="icon_required">Требуется для: %1$s.</string>
+    <string name="icon_gapp">Приложения отмечены как GMS приложения.</string>
+    <string name="icon_fcm">Приложениям разрешено получать сообщения через синхронизацию, широковещательную рассылку и FCM (Firebase Cloud Messaging).</string>
+    <string name="icon_sync">Приложениям разрешено получать сообщения через синхронизацию или широковещательную рассылку.</string>
+    <string name="icon_aggressive">Приложения находятся в агрессивном режиме. Обычно заблокированые приложения могут работать в течение нескольких секунд для проверки зависимости; в агрессивном режиме фоновые приложения будут напрямую принудительно остановлены.</string>
+    <string name="icon_off_aggressive">Приложения не будут автоматически настроены как агрессивные.</string>
+    <string name="icon_disabled">Приложения отключены, для использования их необходимо включить.</string>
+    <string name="icon_disabling">Приложения работают временно, будут отключены позже.</string>
+    <string name="icon_vpn">Brevent не будет принудительно останавливать подключенные VPN приложения.</string>
+    <string name="icon_audio">Brevent не будет принудительно останавливать играющие приложения.</string>
+    <string name="icon_audio_paused">Brevent не будет принудительно останавливать приложения с уведомлениями, которые поставлены на паузу.</string>
+    <string name="icon_battery">Приложения находящиеся в белом списке оптимизации батареи, не будут переводиться в режим ожидания.</string>
+    <string name="icon_safe">Безопасные приложения. Не считайте их работающими.</string>
+    <string name="icon_standby">Приложения находящиеся в режиме ожидания, будут принудительно остановлены, когда они достигнут \"тайм-аута неактивности\", или будут удалены из \"Недавних\".</string>
+    <string name="icon_foreground_service">Приложения работающие с сервисом переднего плана, не будут блокироваться.</string>
+    <string name="icon_priority">Работающие в фоновом режиме приложения из списка \"Разрешить синхронизацию\" не будут блокироваться.</string>
+    <string name="icon_active">Приложения будут переведены в режим ожидания, когда они достигнут \"тайм-аута фоновых приложений\", будут принудительно остановлены, когда они достигнут \"тайм-аута неактивности\, или будут удалены из экрана \"Недавних\".</string>
+    <string name="icon_running">Если приложения запущены, они будут переведены в режим ожидания через короткое время и будут принудительно остановлены, когда достигнут \"тайм-аута неактивности\", или будут удалены с экрана недавних. В противном случае они будут принудительно остановлены в ближайшее время.</string>
+    <string name="icon_brevent">Приложения находятся в списке блокировки.</string>
+    <string name="icon_widget">Приложения добавлены как виджет.</string>
+    <string name="apps_join">, </string>
+
+    <string name="toast_working">Сервер Brevent работает</string>
+    <string name="toast_developer">Включите \"Параметры разработчика\", 7 раз нажав \"Номер сборки\" в настройках устройства.</string>
+    <string name="toast_event_error">Сервер Brevent не может читать события</string>
+
+    <string name="brevent_status_starting">Запуск сервера Brevent</string>
+    <string name="brevent_status_not_started">Сервер Brevent не запущен</string>
+
+    <string name="pay_brevent_require">Требуется оплата %s</string>
+    <string name="pay_now">Заплатить сейчас</string>
+    <string name="pay_not_now_later">Не сейчас (%1$d)</string>
+    <string name="pay_not_now">Не сейчас</string>
+
+    <string name="brevented_app">Заблокировано "%1$s"</string>
+    <string name="unbrevented_app">Разблокировано "%1$s"</string>
+    <string name="unbrevented_app_fail">Не удалось разблокировать "%1$s", запустите Brevent.</string>
+    <string name="aggressive_app">Установить "%1$s" как агрессивный</string>
+    <string name="normal_app">Нажмите для отмены.</string>
+    <string name="normaled_app">Отмена "%1$s"</string>
+    <string name="normaled_app_fail">Сбой отмены "%1$s", запустите Brevent</string>
+    <string name="recommend_unbrevent_app">Рекомендуется разблокировка \"%1$s\"</string>
+    <string name="recommend_unbrevent_app_detail">Рекомендуется разблокировать "%1$s"</string>
+    <string name="recommend_disable_app">Рекомендуется отключить "%1$s"</string>
+    <string name="recommend_disable_app_detail">Заблокировано %1$d раз в %2$s, нажмите, чтоб отключить.</string>
+    <string name="disabled_app">Отключено "%1$s"</string>
+    <string name="disabled_app_fail">Сбой отключения "%1$s", запустите Brevent</string>
+
+    <string name="notification_brevent_server">Сервер Brevent</string>
+    <string name="notification_auto_brevent" translatable="false">@string/brevent_auto_update</string>
+    <string name="notification_auto_aggressive" translatable="false">@string/brevent_auto_aggressive</string>
+    <string name="notification_auto_unbrevent">Автоматическая разблокировка</string>
+
+    <string name="cmd_menu_reset">Сброс</string>
+    <string name="cmd_menu_stop">Стоп</string>
+    <string name="cmd_menu_portal">Обновить адаптивный портал</string>
+    <string name="cmd_menu_restart">Перезагрузка сервера Brevent</string>
+    <string name="cmd_menu_uninstall_static_libraries">Удалить статические библиотеки</string>
+    <string name="cmd_too_large">%1$s\n# Вывод слишком большой</string>
+    <string name="cmd_warning">Функция \"Выполнение команд\" поддерживает только простые shell скрипты, используйте на свой страх и риск.</string>
+
+    <string name="perm_disabled_label">Brevent Disabled API</string>
+    <string name="perm_disabled_description">Включение и отключение приложений через сервер Brevent</string>
+
+    <string-array name="brefoils">
+        <item>1 Brefoil</item>
+        <item>2 Brefoil</item>
+        <item>3 Brefoil</item>
+        <item>4 Brefoil</item>
+        <item>5 Brefoil</item>
+    </string-array>
+
+    <string name="version_free">Бесплатная версия</string>
+    <string name="version_free_tip">@string/payment</string>
+    <string name="version_unlimited">Без ограничений</string>
+    <string name="version_unlimited_tip">@string/payment</string>
+    <string name="version_pro">Pro версия</string>
+    <string name="version_pro_tip">Наслаждайтесь Android с Brevent</string>
+    <string name="version_contributor">Участник</string>
+    <string name="version_contributor_tip">Наслаждайтесь Brevent с Android</string>
+
+    <string name="version_feizhi">Feizhi</string>
+
+    <string name="theme_pixel">Pixel</string>
+    <string name="theme_aosp">AOSP</string>
+    <string name="theme_play">Play</string>
+    <string name="theme_nankai">Nankai</string>
+    <string name="theme_amoled">Amoled</string>
+
+    <string name="unmark_gapp">Отметить GMS приложение</string>
+    <string name="mark_gapp">Снять отметку с приложения GMS</string>
+    <string name="shortcut_instant">Добавить приложение с мгновенным запуском</string>
+
+    <string name="warning_play_3">Вы оплатили %d Brefoil. Оплатите больше, чтобы включить экспериментальные функции.</string>
+    <string name="warning_play_5">Вы оплатили %d Brefoil. Больше оплата не требуется.</string>
+    <string name="pay_more">Заплатить больше</string>
+    <string name="pay_cancel">Отмена</string>
+
+    <string name="toast_error_network_play">Не удается кэшировать платеж для воспроизведения, проверьте сеть</string>
+    <string name="toast_error_server_play">Не удается кэшировать платеж для воспроизведения, попробуйте позже</string>
+
+    <string name="new_version_available">Доступна новая версия "%s".</string>
+    <string name="latest_version">У вас установлена последняя версия.</string>
+    <string name="beta_version">У вас установлена бета-версия.</string>
+    <string name="update_version">Обновление</string>
+
+    <string name="legal_drawer">Условия и конфиденциальность</string>
+    <string name="legal_short">Вы должны принять \"Условия и положения\" и \"Политику конфиденциальности\", чтобы использовать Brevent. Коротко - Brevent будет собирать анонимные данные  через Visual Studio App Center.</string>
+    <string name="legal_accept">Принять</string>
+    <string name="legal_reject">Отклонить</string>
+
+    <string name="theme_fallback">%1$s (Возврат к "Pixel" в темной теме)</string>
+
+    <string name="payment_sort">Сортировка по "%1$s" требует оплаты. Вы хотите заплатить сейчас?</string>
+
+    <string name="device_default">Устройство по умолчанию</string>
+    <string name="package_installer">Установка APK</string>
+    <string name="install_package">Установка  %1$s...</string>
+    <string name="install_noapk">Нет APK в %1$s.</string>
+    <string name="install_success">Установлено %1$s.</string>
+    <string name="install_failure">Сбой установки %1$s: %2$s.</string>
+
+    <string name="adb_wifi_port">Порт беспроводной отладки</string>
+    <string name="adb_wifi_port_tip">Пожалуйста, выключите/включите беспроводную отладку до автоматического обнаружения порта.</string>
+    <string name="adb_wifi_error_connect">Не удается подключиться, проверьте порт.</string>
+    <string name="adb_wifi_certificate_unknown">Выполните сопряжение через https://brevent.sh.</string>
+    <string name="adb_wifi_unsupported">Беспроводная отладка не поддерживается.</string>
+    <string name="adb_wifi_pair">Беспроводное сопряжение</string>
+    <string name="adb_wifi_pair_port">Порт беспроводного сопряжения</string>
+    <string name="adb_wifi_pair_code">Код беспроводного сопряжения</string>
+    <string name="adb_wifi_pair_tip">Пожалуйста, используйте режим разделенного экрана, чтобы избежать сбоя сопряжения.</string>
+
+    <string name="about_detail">@string/about_detail_en</string>
+    <string name="charging">Зарядка</string>
+    <string name="charging_slowly">Медленная зарядка</string>
+    <string name="charging_fast">Быстрая зарядка</string>
+    <string name="charging_wattage">, %s W</string>
+    <string name="charging_time">, %s до полной</string>
+    <string name="charging_end">.</string>
+    <string name="battery_time_unknown">Время работы от батареи</string>
+    <string name="battery_time">Время работы от батареи: %s.</string>
+    <string name="battery_time_short">Время работы от батареи менее 1 минуты.</string>
+    <string name="battery_system">Настройки батареи</string>
+
+</resources>
