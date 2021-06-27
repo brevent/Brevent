@@ -27,7 +27,8 @@
     <string name="start_brevent">進入黑閾</string>
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
-    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 電腦上使用 Chrome 訪問 https://brevent.sh\n\n或者\n\n在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 電腦上使用 Chrome 訪問 brevent.sh\n\n或者\n\n在命令提示字元中執行「%3$s」</string>
+    <string name="brevent_service_guide_webadb">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 電腦上使用 Chrome 訪問 brevent.sh</string>
     <string name="brevent_service_guide_root">您的裝置看起來已 Root。您可自行開啟網路偵錯，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。\n\n如果無法開機自動啟用，請檢查是否有任何系統限制。</string>
     <string name="brevent_service_guide_adb">已開啟網路偵錯，請點觸 ADB 啟動黑閾服務。</string>
     <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。</string>
@@ -380,12 +381,14 @@
     <string name="adb_wifi_port">無線偵錯通訊埠</string>
     <string name="adb_wifi_port_tip">請切換無線偵錯以自動發現通訊埠。</string>
     <string name="adb_wifi_error_connect">無法連線，請檢查偵錯通訊埠。</string>
-    <string name="adb_wifi_certificate_unknown">首次請使用電腦訪問 https://brevent.sh 完成配對。</string>
     <string name="adb_wifi_unsupported">暫不支援無線偵錯。</string>
     <string name="adb_wifi_pair">無線配對</string>
-    <string name="adb_wifi_pair_port">無線配對通訊埠</string>
     <string name="adb_wifi_pair_code">無線配對六位配對碼</string>
-    <string name="adb_wifi_pair_tip">請使用分屏模式避免無線配對失效。</string>
+    <string name="adb_wifi_pairing">正在無線配對</string>
+    <string name="adb_wifi_pair_success">無線配對成功</string>
+    <string name="adb_wifi_pair_fail">無線配對失敗</string>
+
+    <string name="about_detail">@string/about_detail_zh</string>
     <string name="charging">充電中</string>
     <string name="charging_slowly">慢速充電中</string>
     <string name="charging_fast">快速充電中</string>

@@ -28,7 +28,8 @@
 
     <string name="brevent_service_start">Пожалуйста, запустите сервер Brevent (%s)</string>
     <string name="brevent_service_no_response">Сервер Brevent не  отвечает (%s)</string>
-    <string name="brevent_service_guide">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите https://brevent.sh с помощью Chrome на вашем ПК\n\nИли\n\nВыполните в командной строке ПК "%3$s"</string>
+    <string name="brevent_service_guide">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите brevent.sh с помощью Chrome на вашем ПК\n\nИли\n\nВыполните в командной строке ПК \"%3$s\"</string>
+    <string name="brevent_service_guide_webadb">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите brevent.sh с помощью Chrome на вашем ПК</string>
     <string name="brevent_service_guide_root">Кажется, что ваше устройство рутировано. Вы можете включить сеть ADB вручную или попробовать нажать кнопку \"Root\" в Brevent.\n\nRoot не требуется для Brevent и требует оплаты.</string>
     <string name="brevent_service_guide_adb">Сеть ADB включена, нажмите \"ADB\", чтобы запустить Brevent сервер.</string>
     <string name="brevent_service_payment_root">Для Brevent root не нужен и требует оплаты.</string>
@@ -73,8 +74,9 @@
     <string name="process_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
     <string name="process_total">всего %d</string>
     <plurals name="process_process">
-        <item quantity="one">&#160;process</item>
-        <item quantity="other">&#160;processes</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">&#160;process</item>
+        <item quantity="few">&#160;processes</item>
+        <item quantity="many">&#160;processes</item>
     </plurals>
 
     <string name="action_brevent">Заблокировать</string>
@@ -301,15 +303,13 @@
     <string name="normaled_app">Отмена "%1$s"</string>
     <string name="normaled_app_fail">Сбой отмены "%1$s", запустите Brevent</string>
     <string name="recommend_unbrevent_app">Рекомендуется разблокировка \"%1$s\"</string>
-    <string name="recommend_unbrevent_app_detail">Рекомендуется разблокировать "%1$s"</string>
+    <string name="recommend_unbrevent_app_detail">Brevented %1$d times in %2$s, tap to unbrevent.</string>
     <string name="recommend_disable_app">Рекомендуется отключить "%1$s"</string>
     <string name="recommend_disable_app_detail">Заблокировано %1$d раз в %2$s, нажмите, чтоб отключить.</string>
     <string name="disabled_app">Отключено "%1$s"</string>
     <string name="disabled_app_fail">Сбой отключения "%1$s", запустите Brevent</string>
 
     <string name="notification_brevent_server">Сервер Brevent</string>
-    <string name="notification_auto_brevent" translatable="false">@string/brevent_auto_update</string>
-    <string name="notification_auto_aggressive" translatable="false">@string/brevent_auto_aggressive</string>
     <string name="notification_auto_unbrevent">Автоматическая разблокировка</string>
 
     <string name="cmd_menu_reset">Сброс</string>
@@ -384,12 +384,12 @@
     <string name="adb_wifi_port">Порт беспроводной отладки</string>
     <string name="adb_wifi_port_tip">Пожалуйста, выключите/включите беспроводную отладку до автоматического обнаружения порта.</string>
     <string name="adb_wifi_error_connect">Не удается подключиться, проверьте порт.</string>
-    <string name="adb_wifi_certificate_unknown">Выполните сопряжение через https://brevent.sh.</string>
     <string name="adb_wifi_unsupported">Беспроводная отладка не поддерживается.</string>
     <string name="adb_wifi_pair">Беспроводное сопряжение</string>
-    <string name="adb_wifi_pair_port">Порт беспроводного сопряжения</string>
     <string name="adb_wifi_pair_code">Код беспроводного сопряжения</string>
-    <string name="adb_wifi_pair_tip">Пожалуйста, используйте режим разделенного экрана, чтобы избежать сбоя сопряжения.</string>
+    <string name="adb_wifi_pairing">Wireless pairing</string>
+    <string name="adb_wifi_pair_success">Wireless paired</string>
+    <string name="adb_wifi_pair_fail">Fail to wireless pair</string>
 
     <string name="about_detail">@string/about_detail_en</string>
     <string name="charging">Зарядка</string>

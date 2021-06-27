@@ -27,7 +27,8 @@
     <string name="start_brevent">进入黑阈</string>
     <string name="brevent_service_start">请启动黑阈服务（%s）</string>
     <string name="brevent_service_no_response">黑阈服务没有响应（%s）</string>
-    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 https://brevent.sh\n\n或者\n\n在命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 brevent.sh\n\n或者\n\n在命令行中执行“%3$s”</string>
+    <string name="brevent_service_guide_webadb">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 brevent.sh</string>
     <string name="brevent_service_guide_root">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。</string>
     <string name="brevent_service_guide_adb">网络调试已开启，请点按 ADB 启动黑阈服务。\n\n网络调试有风险，不要随意授权。</string>
     <string name="brevent_service_payment_root">黑阈不需要也不提倡 Root，并且需要支付。</string>
@@ -380,12 +381,12 @@
     <string name="adb_wifi_port">无线调试端口</string>
     <string name="adb_wifi_port_tip">请切换无线调试以自动发现端口。</string>
     <string name="adb_wifi_error_connect">无法连接，请确认网络及调试端口。</string>
-    <string name="adb_wifi_certificate_unknown">请电脑访问 https://brevent.sh 确认密钥。</string>
     <string name="adb_wifi_unsupported">暂不支持无线调试。</string>
     <string name="adb_wifi_pair">无线配对</string>
-    <string name="adb_wifi_pair_port">无线配对端口</string>
     <string name="adb_wifi_pair_code">无线配对六位验证码</string>
-    <string name="adb_wifi_pair_tip">请使用分屏模式避免无线配对失效。</string>
+    <string name="adb_wifi_pairing">正在无线配对</string>
+    <string name="adb_wifi_pair_success">无线配对成功</string>
+    <string name="adb_wifi_pair_fail">无线配对失败</string>
 
     <string name="about_detail">@string/about_detail_zh</string>
     <string name="charging">正在充电</string>

@@ -28,7 +28,8 @@
 
     <string name="brevent_service_start">Proszę uruchomić serwer Brevent (%s)</string>
     <string name="brevent_service_no_response">Serwer Brevent nie odpowiada (%s)</string>
-    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit https://brevent.sh using Chrome on your PC\n\nOr\n\nExecute in PC\'s command line \"%3$s\"</string>
+    <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit brevent.sh using Chrome on your PC\n\nOr\n\nExecute in PC\'s command line \"%3$s\"</string>
+    <string name="brevent_service_guide_webadb">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit brevent.sh using Chrome on your PC</string>
     <string name="brevent_service_guide_root">It seems your devices is rooted. You can turn on network ADB manually, or try tap \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.</string>
     <string name="brevent_service_guide_adb">Network ADB is turned on, please tap \"ADB\" to start Brevent Server.</string>
     <string name="brevent_service_payment_root">Root is unnecessary for Brevent, and requires payment.</string>
@@ -74,7 +75,8 @@
     <string name="process_total">ogółem %d</string>
     <plurals name="process_process">
         <item quantity="one">&#160;procesu</item>
-        <item quantity="other">&#160;procesów</item>
+        <item quantity="few">&#160;procesów</item>
+        <item quantity="many">&#160;procesów</item>
     </plurals>
 
     <string name="action_brevent">Brevent</string>
@@ -382,12 +384,14 @@
     <string name="adb_wifi_port">Wireless debugging Port</string>
     <string name="adb_wifi_port_tip">Please turn off / on Wireless debugging to auto discovery port.</string>
     <string name="adb_wifi_error_connect">Cannot connect, please check port.</string>
-    <string name="adb_wifi_certificate_unknown">Please pair via https://brevent.sh.</string>
     <string name="adb_wifi_unsupported">Wireless debugging is unsupported.</string>
     <string name="adb_wifi_pair">Wireless pair</string>
-    <string name="adb_wifi_pair_port">Wireless pairing Port</string>
     <string name="adb_wifi_pair_code">Wireless pairing Code</string>
-    <string name="adb_wifi_pair_tip">Please use split screen mode to avoid failure of pairing.</string>
+    <string name="adb_wifi_pairing">Wireless pairing</string>
+    <string name="adb_wifi_pair_success">Wireless paired</string>
+    <string name="adb_wifi_pair_fail">Fail to wireless pair</string>
+
+    <string name="about_detail">@string/about_detail_en</string>
     <string name="charging">Charging</string>
     <string name="charging_slowly">Charging slowly</string>
     <string name="charging_fast">Charging fast</string>
