@@ -141,7 +141,7 @@
     <string name="menu_sort_by_apk_size">Размер АРК (Pro)</string>
     <string name="menu_sort_by_avg_mem">Среднее использование памяти (Pro)</string>
     <string name="menu_sort_by_max_mem">Максимальное использование памяти (Pro)</string>
-    <string name="menu_feedback">Contact</string>
+    <string name="menu_feedback">Контакты</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_template">Шаблон</string>
     <string name="menu_guide">Справка</string>
@@ -149,8 +149,8 @@
     <string name="menu_command">Выполнение команд</string>
     <string name="menu_brevent">Запуск Brevent</string>
 
-    <string name="feedback_message">Feel free to contact us.\n\nEmail: brevent@jianyu.io\n\nIf you have a GitHub account, please create an issue; you can view opened issues too.%s</string>
-    <string name="feedback_message_email">\n\nFor private messages, email us.</string>
+    <string name="feedback_message">Не стесняйтесь обращаться к нам.\n\nEmail: brevent@jianyu.io\n\nЕсли у вас есть аккаунт GitHub, создайте вопрос по проблеме; вы также можете просматривать уже открытые вопросы по проблеме.%s</string>
+    <string name="feedback_message_email">\n\nДля личных сообщений напишите нам на email.</string>
     <string name="feedback_github">GitHub</string>
     <string name="feedback_email">Email</string>
     <string name="feedback_logs">Логи</string>
@@ -239,7 +239,7 @@
     <string name="brevent_about_developer_adb">\"Отладка по USB\" включена</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Переводы</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Késmárky Tímea</string>
+    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Késmárky Tímea, tommynok</string>
     <string name="brevent_about_licenses">Лицензии</string>
 
     <string name="unsupported_owner">Brevent доступен только для владельца.</string>
