@@ -204,10 +204,10 @@
     <string name="show_payment_play">Спасибо за покупку %s Brefoil через Play Store</string>
     <string name="show_payment_rmb">Спасибо за покупку %1s Brefoil</string>
     <string name="show_payment_contributor">Спасибо за бесценный вклад в Brevent</string>
-    <string name="show_payment_play_and_rmb">Спасибо за покупку %s Brefoil через Play Store, %2$s Brefoil не через Play Store</string>
+    <string name="show_payment_play_and_rmb">Спасибо за покупку %1$s Brefoil через Play Store, %2$s Brefoil не через Play Store</string>
     <string name="show_payment_play_and_contributor">Спасибо за покупку %s Brefoil через Play Store и за бесценный вклад в Brevent</string>
     <string name="show_payment_rmb_and_contributor">Спасибо за покупку %s Brefoil и за бесценный вклад в Brevent</string>
-    <string name="show_payment_play_and_rmb_and_contributor">Спасибо за покупку %s Brefoil через Play Store, %2$s Brefoil не через Play Store и за бесценный вклад в Brevent</string>
+    <string name="show_payment_play_and_rmb_and_contributor">Спасибо за покупку %1$s Brefoil через Play Store, %2$s Brefoil не через Play Store и за бесценный вклад в Brevent</string>
     <string name="brevent_appops">App ops</string>
     <string name="brevent_appops_label">Будьте осторожны, это может привести к сбою приложений</string>
     <string name="brevent_disable">Отключить приложения</string>
@@ -239,7 +239,7 @@
     <string name="brevent_about_developer_adb">\"Отладка по USB\" включена</string>
     <string name="brevent_about_developer_adb_v26" />
     <string name="brevent_about_translation">Переводы</string>
-    <string name="brevent_about_translator">DKOUT, Aviraxp, Li Yufan, TacoTheDank, Késmárky Tímea, tommynok</string>
+    <string name="brevent_about_translator">tommynok</string>
     <string name="brevent_about_licenses">Лицензии</string>
 
     <string name="unsupported_owner">Brevent доступен только для владельца.</string>
