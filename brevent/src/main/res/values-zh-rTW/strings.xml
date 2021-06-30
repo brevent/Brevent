@@ -29,6 +29,7 @@
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
     <string name="brevent_service_guide">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 電腦上使用 Chrome 訪問 brevent.sh\n\n或者\n\n在命令提示字元中執行「%3$s」</string>
     <string name="brevent_service_guide_webadb">1. 開啟「開發人員選項」，啟用「USB 偵錯」%1$s\n\n2. 使用 USB 連線到電腦%2$s\n\n3. 電腦上使用 Chrome 訪問 brevent.sh</string>
+    <string name="brevent_service_guide_adb_wifi">您的裝置支援無線偵錯。\n\n1. 開啟「開發人員選項」，啟用「無線偵錯」%1$s\n\n2. 點按「無線偵錯通訊埠」</string>
     <string name="brevent_service_guide_root">您的裝置看起來已 Root。您可自行開啟網路偵錯，或者直接點按 Root。\n\n黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。\n\n如果無法開機自動啟用，請檢查是否有任何系統限制。</string>
     <string name="brevent_service_guide_adb">已開啟網路偵錯，請點觸 ADB 啟動黑閾服務。</string>
     <string name="brevent_service_payment_root">黑閾不需要也不提倡 Root，並且需要先支付才能使用 Root 啟動。</string>
@@ -383,10 +384,13 @@
     <string name="adb_wifi_error_connect">無法連線，請檢查偵錯通訊埠。</string>
     <string name="adb_wifi_unsupported">暫不支援無線偵錯。</string>
     <string name="adb_wifi_pair">無線配對</string>
-    <string name="adb_wifi_pair_code">無線配對六位配對碼</string>
+    <string name="adb_wifi_pair_code">六位配對碼</string>
+    <string name="adb_wifi_pair_code_reply">請回复六位配對碼。</string>
     <string name="adb_wifi_pairing">正在無線配對</string>
     <string name="adb_wifi_pair_success">無線配對成功</string>
     <string name="adb_wifi_pair_fail">無線配對失敗</string>
+    <string name="adb_wifi_pair_https">請在電腦上使用 Chrome 訪問 brevent.sh 完成配對。</string>
+    <string name="adb_wifi_pair_guide">請點按「無線配對」，進入「無線偵錯」，然後點按「使用配對碼配對裝置」，在彈出的黑閾通知中回复六位配對碼。</string>
 
     <string name="about_detail">@string/about_detail_zh</string>
     <string name="charging">充電中</string>

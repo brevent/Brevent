@@ -30,6 +30,7 @@
     <string name="brevent_service_no_response">Brevent server is not responding (%s)</string>
     <string name="brevent_service_guide">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit brevent.sh using Chrome on your PC\n\nOr\n\nExecute in PC\'s command line \"%3$s\"</string>
     <string name="brevent_service_guide_webadb">1. Turn on \"Developer options\", enable \"USB debugging\" %1$s\n\n2. Connect to PC via USB %2$s\n\n3. Visit brevent.sh using Chrome on your PC</string>
+    <string name="brevent_service_guide_adb_wifi">Your device support \"Wireless debugging\".\n\n1. Turn on \"Developer options\", enable \"Wireless debugging\" %1$s\n\n2. tap \"Wireless debugging Port\"</string>
     <string name="brevent_service_guide_root">It seems that your device is rooted. You can turn on network ADB manually, or try tapping the \"Root\" button in Brevent.\n\nRoot is unnecessary for Brevent, and requires payment.</string>
     <string name="brevent_service_guide_adb">Network ADB is turned on, please tap \"ADB\" to start Brevent Server.</string>
     <string name="brevent_service_payment_root">Root is unnecessary for Brevent, and requires payment.</string>
@@ -387,10 +388,13 @@
     <string name="adb_wifi_error_connect">Cannot connect, please check port.</string>
     <string name="adb_wifi_unsupported">Wireless debugging is unsupported.</string>
     <string name="adb_wifi_pair">Wireless pair</string>
-    <string name="adb_wifi_pair_code">Wireless pairing Code</string>
+    <string name="adb_wifi_pair_code">Six digit code</string>
+    <string name="adb_wifi_pair_code_reply">Please reply the six digit code.</string>
     <string name="adb_wifi_pairing">Wireless pairing</string>
     <string name="adb_wifi_pair_success">Wireless paired</string>
     <string name="adb_wifi_pair_fail">Fail to wireless pair</string>
+    <string name="adb_wifi_pair_https">Please visit brevent.sh using Chrome on your PC to pair.</string>
+    <string name="adb_wifi_pair_guide">Please tap \"Wireless pair\", navigate to \"Wireless debugging\", then tap \"Pair device with pairing code\", reply Brevent\'s notification with the six digit code.</string>
 
     <string name="about_detail">@string/about_detail_en</string>
     <string name="charging">Charging</string>
