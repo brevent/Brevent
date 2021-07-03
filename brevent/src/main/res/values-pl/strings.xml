@@ -76,8 +76,7 @@
     <string name="process_total">ogółem %d</string>
     <plurals name="process_process">
         <item quantity="one">&#160;procesu</item>
-        <item quantity="few">&#160;procesów</item>
-        <item quantity="many">&#160;procesów</item>
+        <item quantity="other">&#160;procesów</item>
     </plurals>
 
     <string name="action_brevent">Brevent</string>

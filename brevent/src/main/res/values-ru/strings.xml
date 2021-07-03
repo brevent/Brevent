@@ -76,8 +76,7 @@
     <string name="process_total">всего %d</string>
     <plurals name="process_process">
         <item quantity="one" tools:ignore="ImpliedQuantity">&#160;process</item>
-        <item quantity="few">&#160;processes</item>
-        <item quantity="many">&#160;processes</item>
+        <item quantity="other">&#160;processes</item>
     </plurals>
 
     <string name="action_brevent">Заблокировать</string>
