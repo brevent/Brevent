@@ -20,17 +20,13 @@
     <string name="fragment_guide_enjoy_message">Наслаждайтесь Brevent. В случае обнаружения каких-либо проблем, пожалуйста, отправьте отзыв с логами.</string>
     <string name="fragment_guide_enjoy_message2">По умолчанию для блокировки Brevent использует метод \"Режим ожидания, затем принудительная остановка\". В режиме ожидания ( не поддерживается на некоторых устройствах, начиная с Android 6.0) приложения не могут получить доступ к сети, выполнять задания или синхронизацию.\n\nBrevent не будет принудительно останавливать безопасные приложения. Кроме того, сервер Brevent централизованно блокирует приложения и задерживает процессы на 3–60 секунд в зависимости от уровня события.</string>
 
-    <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB (Android Debug Bridge) - это инструмент командной строки, который позволяет компьютеру обмениваться данными с устройством Android. Это часть platform-tools, вы можете скачать ее здесь: https://developer.android.com/studio/releases/platform-tools (нажмите и удерживайте, чтобы выбрать и скопировать).</string>
-    <string name="fragment_guide_adb_message2">1. Распакуйте platform-tools-latest-&lt;platform&gt;.zip\n\n2. Перейдите в каталог platform-tools\n\n3. (для Windows) Удерживая клавишу Shift, сделайте клик правой кнопкой мыши, выберите \"Открыть окно команд\", затем используйте .\adb для замены \"adb\" (удалите повторяющеся adb перед вставкой в командную строку)\n\n3. (для macOS) Перейдите к \"Finder\"-\"Applications\"-\"Utilities\", запустите \"Terminal\", перетащите \"adb\" в \"Terminal\", затем используйте \"adb\" с полным путём для замены adb (удалите повторяющийся adb перед вставкой в командную строку)\n\n4. Вам нужно будет использовать ADB каждый раз, когда вы включаете устройство, поэтому избегайте частого перезапуска или выключения устройства.</string>
-
     <string name="start_brevent">Запустить Brevent</string>
 
     <string name="brevent_service_start">Пожалуйста, запустите сервер Brevent (%s)</string>
     <string name="brevent_service_no_response">Сервер Brevent не  отвечает (%s)</string>
     <string name="brevent_service_guide">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите brevent.sh с помощью Chrome на вашем ПК\n\nИли\n\nВыполните в командной строке ПК \"%3$s\"</string>
     <string name="brevent_service_guide_webadb">1. Включите \"Для разработчиков\", включите \"Отладку по USB\" %1$s\n\n2. Подключитесь к ПК через USB %2$s\n\n3. Посетите brevent.sh с помощью Chrome на вашем ПК</string>
-    <string name="brevent_service_guide_adb_wifi">Your device support \"Wireless debugging\".\n\n1. Turn on \"Developer options\", enable \"Wireless debugging\" %1$s\n\n2. tap \"Wireless debugging Port\"</string>
+    <string name="brevent_service_guide_adb_wifi">Ваше устройство поддерживает \"Беспроводную отладку\".\n\n1. Включите \"Для разработчиков\", включите \"Беспроводную отладку\" %1$s\n\n2. нажмите \"Порт беспроводной отладки\"</string>
     <string name="brevent_service_guide_root">Кажется, что ваше устройство рутировано. Вы можете включить сеть ADB вручную или попробовать нажать кнопку \"Root\" в Brevent.\n\nRoot не требуется для Brevent и требует оплаты.</string>
     <string name="brevent_service_guide_adb">Сеть ADB включена, нажмите \"ADB\", чтобы запустить Brevent сервер.</string>
     <string name="brevent_service_payment_root">Для Brevent root не нужен и требует оплаты.</string>
@@ -74,7 +70,7 @@
     <string name="process_service" tools:ignore="PluralsCandidate">%d service</string>
     <string name="process_service_cached" tools:ignore="PluralsCandidate">%d cached service</string>
     <string name="process_total">всего %d</string>
-    <plurals name="process_process">
+    <plurals name="process_process" tools:ignore="MissingQuantity">
         <item quantity="one" tools:ignore="ImpliedQuantity">&#160;process</item>
         <item quantity="other">&#160;processes</item>
     </plurals>
@@ -173,9 +169,9 @@
     <string name="brevent_timeout_5min"> 5 минут</string>
     <string name="brevent_timeout_15min">15 минут</string>
     <string name="brevent_timeout_30min">30 минут</string>
-    <string name="brevent_timeout_1hour">1 час</string>
-    <string name="brevent_timeout_3hour">3 часа</string>
-    <string name="brevent_timeout_6hour">6 часов</string>
+    <string name="brevent_timeout_1hour">1 ч.</string>
+    <string name="brevent_timeout_3hour">3 ч.</string>
+    <string name="brevent_timeout_6hour">6 ч.</string>
     <string name="brevent_timeout_long">очень долго</string>
     <string name="brevent_standby_timeout">Тайм-аут неактивности</string>
     <string name="brevent_standby_timeout_label">Принудительно останавливать приложения, которые были неактивны в течение %1$s</string>
@@ -240,7 +236,7 @@
     <string name="brevent_about_developer">Для разработчиков</string>
     <string name="brevent_about_developer_adb">\"Отладка по USB\" включена</string>
     <string name="brevent_about_developer_adb_v26" />
-    <string name="brevent_about_translation">Переводы</string>
+    <string name="brevent_about_translation">Перевод</string>
     <string name="brevent_about_translator">tommynok</string>
     <string name="brevent_about_licenses">Лицензии</string>
 
@@ -258,6 +254,7 @@
     <string name="unsupported_usb">Начиная с Android 8, сервер Brevent перестанет работать всякий раз, когда будет отключена \"Отладка по USB\".\n\nНе выключайте \"Отладку по USB\", не меняйте параметры USB.</string>
     <string name="unsupported_granted">Сервер Brevent не имеет достаточных разрешений; некоторые функции недоступны.</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
+    <string name="unsupported_granted_oppo">@string/unsupported_granted</string>
     <string name="unsupported_location">Неверное расположение для Brevent; пожалуйста, переустановите.</string>
     <string name="unsupported_brevented">Вы заблокировали важные приложения: %1$s.\n\nВы хотите их разблокировать?</string>
     <string name="unsupported_brevented2">Вы заблокировали приложения, которые невозможно запустить: %1$s.\n\nВы хотите их разблокировать?</string>
@@ -303,7 +300,7 @@
     <string name="normaled_app">Отмена "%1$s"</string>
     <string name="normaled_app_fail">Сбой отмены "%1$s", запустите Brevent</string>
     <string name="recommend_unbrevent_app">Рекомендуется разблокировка \"%1$s\"</string>
-    <string name="recommend_unbrevent_app_detail">Brevented %1$d times in %2$s, tap to unbrevent.</string>
+    <string name="recommend_unbrevent_app_detail">Заблокировано %1$d раз за %2$s, нажмите чтоб разблокировать.</string>
     <string name="recommend_disable_app">Рекомендуется отключить "%1$s"</string>
     <string name="recommend_disable_app_detail">Заблокировано %1$d раз в %2$s, нажмите, чтоб отключить.</string>
     <string name="disabled_app">Отключено "%1$s"</string>
@@ -337,7 +334,7 @@
     <string name="version_unlimited_tip">@string/payment</string>
     <string name="version_pro">Pro версия</string>
     <string name="version_pro_tip">Наслаждайтесь Android с Brevent</string>
-    <string name="version_contributor">Участник</string>
+    <string name="version_contributor">Участник проекта</string>
     <string name="version_contributor_tip">Наслаждайтесь Brevent с Android</string>
 
     <string name="version_feizhi">Feizhi</string>
@@ -386,13 +383,14 @@
     <string name="adb_wifi_error_connect">Не удается подключиться, проверьте порт.</string>
     <string name="adb_wifi_unsupported">Беспроводная отладка не поддерживается.</string>
     <string name="adb_wifi_pair">Беспроводное сопряжение</string>
-    <string name="adb_wifi_pair_code">Six digit code</string>
-    <string name="adb_wifi_pair_code_reply">Please reply the six digit code.</string>
-    <string name="adb_wifi_pairing">Wireless pairing</string>
-    <string name="adb_wifi_pair_success">Wireless paired</string>
-    <string name="adb_wifi_pair_fail">Fail to wireless pair</string>
-    <string name="adb_wifi_pair_https">Please visit brevent.sh using Chrome on your PC to pair.</string>
-    <string name="adb_wifi_pair_guide">Please tap \"Wireless pair\", navigate to \"Wireless debugging\", then tap \"Pair device with pairing code\", reply Brevent\'s notification with the six digit code.</string>
+    <string name="adb_wifi_pair_code">Шестизначный код</string>
+    <string name="adb_wifi_pair_code_reply">Пожалуйста, ответьте шестизначным кодом.</string>
+    <string name="adb_wifi_pairing">Беспроводное сопряжение</string>
+    <string name="adb_wifi_pair_success">Сопряжено</string>
+    <string name="adb_wifi_pair_fail">Сбой беспроводного сопряжения</string>
+    <string name="adb_wifi_pair_https">Посетите brevent.sh с помощью Chrome на вашем ПК для сопряжения.</string>
+    <string name="adb_wifi_pair_guide">Нажмите \"Беспроводное сопряжение\", перейдите к \"Беспроводная отладка\", затем нажмите \"Сопряжение устройства с кодом сопряжения\", ответьте на уведомление Brevent шестизначным кодом.</string>
+    <string name="adb_wifi_pair_notification">Enable Notification</string>
 
     <string name="about_detail">@string/about_detail_en</string>
     <string name="charging">Зарядка</string>

@@ -20,10 +20,6 @@
     <string name="fragment_guide_enjoy_message">请尽情享受黑阈，发现任何问题，欢迎带上日志提交反馈。</string>
     <string name="fragment_guide_enjoy_message2">默认黑阈方法为“待机，然后强行停止”。应用待机（App Standby，Android 6.0 引入，部分设备不支持）后不能联网、执行任务（Job）与同步。\n\n黑阈不强行停止安全应用。此外，黑阈集中处理，根据事件级别延后 3 到 60 秒不等。</string>
 
-    <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一个电脑与 Android 设备进行通信的命令行工具。它是 platform-tools 的一部分，您可从 https://developer.android.google.cn/studio/releases/platform-tools 下载（长按进入复制模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解压 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 进入 platform-tools 目录\n\n3.（Windows）按住 Shift 键，点击鼠标右键，选择“在此处打开命令窗口”，请使用“.\\adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n3.（macOS）打开“访达”，进入“应用程序”，进入“实用工具”，打开“终端”，把“adb”拖到“终端”里，请使用这个带全路径的“adb”代替提示的“adb”（使用“复制指令”时，请删除重复的“adb”）\n\n4. 每次开机都需要重新 ADB，请谨慎重启及避免关机</string>
-
     <string name="start_brevent">进入黑阈</string>
     <string name="brevent_service_start">请启动黑阈服务（%s）</string>
     <string name="brevent_service_no_response">黑阈服务没有响应（%s）</string>
@@ -254,8 +250,9 @@
     <string name="unsupported_logs">无法获取日志，请稍候重试。</string>
     <string name="unsupported_shell">无法启动黑阈服务。</string>
     <string name="unsupported_usb">Android 8 起，“USB 调试”停用后黑阈就失效。\n\n不要停用“USB 调试”，不要更改 USB 选项。</string>
-    <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“USB 调试”相关的设置。</string>
+    <string name="unsupported_granted">黑阈服务权限不足，部分功能暂不可用。请检查“开发者选项”中与“安全”或“权限”相关的设置。\n\n小米请在“开发者选项”中开启“USB 调试（安全设置）”，OPPO 请在“开发者选项”中开启“禁止权限监控”。</string>
     <string name="unsupported_granted_miui">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“USB 调试（安全设置）”。</string>
+    <string name="unsupported_granted_oppo">黑阈服务权限不足，部分功能暂不可用。请在“开发者选项”中开启“禁止权限监控”。</string>
     <string name="unsupported_location">请不要把黑阈安装在系统目录或外置存储。</string>
     <string name="unsupported_brevented">您已黑阈重要应用：%1$s。\n\n是否不再黑阈？</string>
     <string name="unsupported_brevented2">您已黑阈无法打开的应用：%1$s。\n\n是否不再黑阈？</string>
@@ -391,6 +388,7 @@
     <string name="adb_wifi_pair_fail">无线配对失败</string>
     <string name="adb_wifi_pair_https">请在电脑上使用 Chrome 访问 brevent.sh 完成配对。</string>
     <string name="adb_wifi_pair_guide">请点按“无线配对”，进入“无线调试”，然后点按“使用配对码配对设备”，在弹出的黑阈通知中回复六位配对码。</string>
+    <string name="adb_wifi_pair_notification">允许通知</string>
 
     <string name="about_detail">@string/about_detail_zh</string>
     <string name="charging">正在充电</string>

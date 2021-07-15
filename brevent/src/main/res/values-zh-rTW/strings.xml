@@ -20,10 +20,6 @@
     <string name="fragment_guide_enjoy_message">請盡情享受黑閾，發現任何問題，歡迎附上日誌傳送報告。</string>
     <string name="fragment_guide_enjoy_message2">預設黑閾方法為「待命，然後強制停止」。應用程式待命（App Standby，Android 6.0 引入，部分裝置不支援）後不能連網、執行工作（Job）與同步。\n\n黑閾不強制停止安全應用程式。此外，黑閾集中處理，根據事件級別延後 3 到 60 秒不等。</string>
 
-    <string name="fragment_guide_adb">ADB</string>
-    <string name="fragment_guide_adb_message">ADB（Android Debug Bridge）是一個電腦與 Android 裝置進行通訊的命令提示工具。它是 platform-tools 的一部分，您可從 https://developer.android.com/studio/releases/platform-tools 下載（長按進入複製模式）。</string>
-    <string name="fragment_guide_adb_message2">1. 解壓縮 platform-tools-latest-&lt;平台&gt;.zip\n\n2. 進入 platform-tools 資料夾\n\n3.（Windows）按住 Shift 鍵，輕觸滑鼠右鍵，選擇「在此處開啟命令提示字元」，請使用「.\\adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n3.（macOS）開啟「Finder」，進入「應用程式」，進入「實用工具」，開啟「終端」，然後把「adb」拖曳到「終端」裡，請使用這個含有全路徑的「adb」代替提示的「adb」（使用「複製指令」時，請刪除重複的「adb」）\n\n4. 每次開機都需要重新輸入上述 ADB 的指令，請謹慎重新開機及避免關機</string>
-
     <string name="start_brevent">進入黑閾</string>
     <string name="brevent_service_start">請開啟黑閾服務（%s）</string>
     <string name="brevent_service_no_response">黑閾服務沒有回應（%s）</string>
@@ -256,6 +252,7 @@
     <string name="unsupported_usb">Android 8 起，「USB 偵錯」停用後黑閾就失效。\n\n不要停用「USB 偵錯」，不要變更 USB 選項。</string>
     <string name="unsupported_granted">黑閾服務權限不足，部分功能暫不可用。</string>
     <string name="unsupported_granted_miui">@string/unsupported_granted</string>
+    <string name="unsupported_granted_oppo">@string/unsupported_granted</string>
     <string name="unsupported_location">請不要把黑閾安裝在系統目錄或外部儲存空間。</string>
     <string name="unsupported_brevented">您已黑閾重要應用程式：%1$s。\n\n是否不再黑閾？</string>
     <string name="unsupported_brevented2">您已黑閾無法開啟的應用程式：%1$s。\n\n是否不再黑閾？</string>
@@ -391,6 +388,7 @@
     <string name="adb_wifi_pair_fail">無線配對失敗</string>
     <string name="adb_wifi_pair_https">請在電腦上使用 Chrome 訪問 brevent.sh 完成配對。</string>
     <string name="adb_wifi_pair_guide">請點按「無線配對」，進入「無線偵錯」，然後點按「使用配對碼配對裝置」，在彈出的黑閾通知中回复六位配對碼。</string>
+    <string name="adb_wifi_pair_notification">允許通知</string>
 
     <string name="about_detail">@string/about_detail_zh</string>
     <string name="charging">充電中</string>
