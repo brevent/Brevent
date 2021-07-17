@@ -5,8 +5,8 @@
     <string name="app_name_debug">白域</string>
 
     <string name="fragment_guide_welcome">欢迎</string>
-    <string name="fragment_guide_welcome_message">Android 系统离开应用可以通过好几种方式，“返回”按钮退出应用回到上层，“主页”或“概览”（Overview）按钮把应用放到后台。\n\n黑阈通过这种方式识别应用状态，防止“黑阈清单”内应用长期运行。</string>
-    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，应用及其所包含的服务不再运行；当您点按“主页”或“概览”按钮，或者通过其它方式把应用放到后台时，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen）划掉应用时，黑阈将强行停止它。无论何时应用被运行，只要没有打开界面，黑阈都将强行停止它。\n\n“黑阈清单”内应用也可以接收通知或执行同步，只要设置为“允许同步”就好。“允许同步”应用不会被待机；有通知或在后台运行时，不会被强行停止。</string>
+    <string name="fragment_guide_welcome_message">Android 系统离开应用后界面（Activity）有两种状态，停止或者销毁。\n\n黑阈通过这种方式识别应用状态，防止“黑阈清单”内应用长期运行。</string>
+    <string name="fragment_guide_welcome_message2">当您点按“返回”按钮退出应用时，如果界面已销毁，应用及其所包含的服务不再运行；当您点按“主页”或“概览”按钮，或者通过其它方式把应用放到后台时，界面只是停止，后台应用及其所包含的服务可以继续运行；当您从概览屏幕（recents screen）划掉应用时，黑阈将强行停止它。无论何时应用被运行，只要没有打开界面，黑阈都将强行停止它。\n\n“黑阈清单”内应用也可以接收通知或执行同步，只要设置为“允许同步”就好。“允许同步”应用不会被待机；有通知或在后台运行时，不会被强行停止。</string>
 
     <string name="fragment_guide_permission">权限</string>
     <string name="fragment_guide_permission_message">黑阈需要您每次开机以后，以“USB 调试”模式执行一个指令启动黑阈服务，让黑阈间接持有管理其它应用的权限。</string>
