@@ -375,24 +375,20 @@
     <string name="payment_sort">Sort by \"%1$s" requires payment. Would you like to pay now?</string>
 
     <string name="device_default">Device default</string>
-    <string name="package_installer">Install APKs</string>
-    <string name="install_package">Installing %1$s…</string>
-    <string name="install_noapk">No APK in %1$s.</string>
-    <string name="install_success">Installed %1$s.</string>
-    <string name="install_failure">Fail to install %1$s: %2$s.</string>
 
     <string name="adb_wifi_port">Wireless debugging Port</string>
     <string name="adb_wifi_port_tip">Please turn off / on Wireless debugging to auto discovery port.</string>
     <string name="adb_wifi_error_connect">Cannot connect, please check port.</string>
     <string name="adb_wifi_unsupported">Wireless debugging is unsupported.</string>
     <string name="adb_wifi_pair">Wireless pair</string>
+    <string name="adb_wifi_pair_port">Wireless pairing Port</string>
     <string name="adb_wifi_pair_code">Six digit code</string>
     <string name="adb_wifi_pair_code_reply">Please reply the six digit code.</string>
     <string name="adb_wifi_pairing">Wireless pairing</string>
     <string name="adb_wifi_pair_success">Wireless paired</string>
     <string name="adb_wifi_pair_fail">Fail to wireless pair</string>
     <string name="adb_wifi_pair_https">Please visit brevent.sh using Chrome on your PC to pair.</string>
-    <string name="adb_wifi_pair_guide">Please tap \"Wireless pair\", navigate to \"Wireless debugging\", then tap \"Pair device with pairing code\", reply Brevent\'s notification with the six digit code.</string>
+    <string name="adb_wifi_pair_guide">Please tap \"Developer Options\", navigate to \"Wireless debugging\", then tap \"Pair device with pairing code\", reply Brevent\'s notification with the six digit code.</string>
     <string name="adb_wifi_pair_notification">Enable Notification</string>
 
     <string name="about_detail">@string/about_detail_en</string>

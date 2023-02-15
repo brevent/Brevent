@@ -372,24 +372,20 @@
     <string name="payment_sort">Сортировка по "%1$s" требует оплаты. Вы хотите заплатить сейчас?</string>
 
     <string name="device_default">Устройство по умолчанию</string>
-    <string name="package_installer">Установка APK</string>
-    <string name="install_package">Установка  %1$s...</string>
-    <string name="install_noapk">Нет APK в %1$s.</string>
-    <string name="install_success">Установлено %1$s.</string>
-    <string name="install_failure">Сбой установки %1$s: %2$s.</string>
 
     <string name="adb_wifi_port">Порт беспроводной отладки</string>
     <string name="adb_wifi_port_tip">Пожалуйста, выключите/включите беспроводную отладку до автоматического обнаружения порта.</string>
     <string name="adb_wifi_error_connect">Не удается подключиться, проверьте порт.</string>
     <string name="adb_wifi_unsupported">Беспроводная отладка не поддерживается.</string>
     <string name="adb_wifi_pair">Беспроводное сопряжение</string>
+    <string name="adb_wifi_pair_port">Порт беспроводного сопряжения</string>
     <string name="adb_wifi_pair_code">Шестизначный код</string>
     <string name="adb_wifi_pair_code_reply">Пожалуйста, ответьте шестизначным кодом.</string>
     <string name="adb_wifi_pairing">Беспроводное сопряжение</string>
     <string name="adb_wifi_pair_success">Сопряжено</string>
     <string name="adb_wifi_pair_fail">Сбой беспроводного сопряжения</string>
     <string name="adb_wifi_pair_https">Посетите brevent.sh с помощью Chrome на вашем ПК для сопряжения.</string>
-    <string name="adb_wifi_pair_guide">Нажмите \"Беспроводное сопряжение\", перейдите к \"Беспроводная отладка\", затем нажмите \"Сопряжение устройства с кодом сопряжения\", ответьте на уведомление Brevent шестизначным кодом.</string>
+    <string name="adb_wifi_pair_guide">Нажмите \"Для разработчиков\", перейдите к \"Беспроводная отладка\", затем нажмите \"Сопряжение устройства с кодом сопряжения\", ответьте на уведомление Brevent шестизначным кодом.</string>
     <string name="adb_wifi_pair_notification">Enable Notification</string>
 
     <string name="about_detail">@string/about_detail_en</string>

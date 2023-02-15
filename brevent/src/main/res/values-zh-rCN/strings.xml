@@ -25,7 +25,7 @@
     <string name="brevent_service_no_response">黑阈服务没有响应（%s）</string>
     <string name="brevent_service_guide">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 brevent.sh\n\n或者\n\n在命令行中执行“%3$s”</string>
     <string name="brevent_service_guide_webadb">1. 打开“开发者选项”，启用“USB调试”%1$s\n\n2. 使用 USB 连接到电脑%2$s\n\n3. 电脑使用 Chrome 访问 brevent.sh</string>
-    <string name="brevent_service_guide_adb_wifi">您的设备支持无线调试。\n\n1. 打开“开发者选项”，启用“无线调试”%1$s\n\n2. 点按“无线调试端口”</string>
+    <string name="brevent_service_guide_adb_wifi">您的设备支持无线调试。\n\n1. 打开“开发者选项”，启用“无线调试”%1$s\n\n2. 点按“无线调试端口”\n\n或者在“开发者选项”中启用“USB调试”，使用 USB 连接到电脑，然后电脑使用 Chrome 访问 brevent.sh</string>
     <string name="brevent_service_guide_root">您的设备看起来已 Root。您可自行开启网络调试，或者直接点按 Root。\n\n黑阈不需要也不提倡 Root，并且需要支付。\n\n如果无法开机自启，请自查任何系统限制。</string>
     <string name="brevent_service_guide_adb">网络调试已开启，请点按 ADB 启动黑阈服务。\n\n网络调试有风险，不要随意授权。</string>
     <string name="brevent_service_payment_root">黑阈不需要也不提倡 Root，并且需要支付。</string>
@@ -199,11 +199,11 @@
     <string name="show_payment_summary_other">如果已经支付，请按流程确认</string>
     <string name="show_payment_play">感谢您通过 Play 商店支付 %s 二向箔</string>
     <string name="show_payment_rmb">感谢您支付 %s 二向箔</string>
-    <string name="show_payment_contributor">感谢您为黑阈所作的特别贡献</string>
+    <string name="show_payment_contributor">感谢您为黑阈所做的特别贡献</string>
     <string name="show_payment_play_and_rmb">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
-    <string name="show_payment_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
-    <string name="show_payment_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑阈所作的特别贡献</string>
-    <string name="show_payment_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑阈所作的特别贡献</string>
+    <string name="show_payment_play_and_contributor">感谢您通过 Play 商店支付 %s 二向箔，以及为黑阈所做的特别贡献</string>
+    <string name="show_payment_rmb_and_contributor">感谢您支付 %s 二向箔，以及为黑阈所做的特别贡献</string>
+    <string name="show_payment_play_and_rmb_and_contributor">感谢您通过 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及为黑阈所做的特别贡献</string>
     <string name="brevent_appops">应用操作</string>
     <string name="brevent_appops_label">可能导致应用无法正常使用</string>
     <string name="brevent_disable">停用应用</string>
@@ -363,31 +363,27 @@
     <string name="legal_drawer">条款与隐私政策</string>
     <string name="legal_short">使用黑阈前请确认《条款与隐私政策》。简单来说，黑阈会通过 Visual Studio App Center 收集匿名使用日志。</string>
     <string name="legal_accept">同意</string>
-    <string name="legal_reject">暂不使用</string>
+    <string name="legal_reject">拒绝</string>
 
     <string name="theme_fallback">%1$s（系统为深色主题，实际使用 Pixel）</string>
 
     <string name="payment_sort">排序方式“%1$s”需要支付。是否现在支付？</string>
 
     <string name="device_default">设备默认</string>
-    <string name="package_installer">安装所有 APK</string>
-    <string name="install_package">正在安装 %1$s…</string>
-    <string name="install_noapk">%1$s 中没有 APK。</string>
-    <string name="install_success">成功安装 %1$s。</string>
-    <string name="install_failure">无法安装 %1$s：%2$s。</string>
 
     <string name="adb_wifi_port">无线调试端口</string>
     <string name="adb_wifi_port_tip">请切换无线调试以自动发现端口。</string>
     <string name="adb_wifi_error_connect">无法连接，请确认网络及调试端口。</string>
     <string name="adb_wifi_unsupported">暂不支持无线调试。</string>
     <string name="adb_wifi_pair">无线配对</string>
+    <string name="adb_wifi_pair_port">无线配对端口</string>
     <string name="adb_wifi_pair_code">六位配对码</string>
     <string name="adb_wifi_pair_code_reply">请回复六位配对码。</string>
     <string name="adb_wifi_pairing">正在无线配对</string>
     <string name="adb_wifi_pair_success">无线配对成功</string>
     <string name="adb_wifi_pair_fail">无线配对失败</string>
     <string name="adb_wifi_pair_https">请在电脑上使用 Chrome 访问 brevent.sh 完成配对。</string>
-    <string name="adb_wifi_pair_guide">请点按“无线配对”，进入“无线调试”，然后点按“使用配对码配对设备”，在弹出的黑阈通知中回复六位配对码。</string>
+    <string name="adb_wifi_pair_guide">请点按“开发者选项”，进入“无线调试”，然后点按“使用配对码配对设备”，在弹出的黑阈通知中回复六位配对码。\n\n点按“开发者选项”以后，如果没有出现通知或者通知无法回复，请使用分屏模式。</string>
     <string name="adb_wifi_pair_notification">允许通知</string>
 
     <string name="about_detail">@string/about_detail_zh</string>

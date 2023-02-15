@@ -199,11 +199,11 @@
     <string name="show_payment_summary_other" />
     <string name="show_payment_play">感謝您透過 Play 商店支付 %s 二向箔</string>
     <string name="show_payment_rmb">感謝您支付 %s 二向箔</string>
-    <string name="show_payment_contributor">感謝您為黑閾所作的特別貢獻</string>
+    <string name="show_payment_contributor">感謝您為黑閾所做的特別貢獻</string>
     <string name="show_payment_play_and_rmb">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔</string>
-    <string name="show_payment_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_payment_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所作的特別貢獻</string>
-    <string name="show_payment_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所作的特別貢獻</string>
+    <string name="show_payment_play_and_contributor">感謝您透過 Play 商店支付 %s 二向箔，以及為黑閾所做的特別貢獻</string>
+    <string name="show_payment_rmb_and_contributor">感謝您支付 %s 二向箔，以及為黑閾所做的特別貢獻</string>
+    <string name="show_payment_play_and_rmb_and_contributor">感謝您透過 Play 商店支付 %1$s 二向箔，非 Play 支付 %2$s 二向箔，以及為黑閾所做的特別貢獻</string>
     <string name="brevent_appops">應用程式操作</string>
     <string name="brevent_appops_label">可能導致應用程式無法正常使用</string>
     <string name="brevent_disable">停用應用程式</string>
@@ -363,31 +363,27 @@
     <string name="legal_drawer">條款與隱私政策</string>
     <string name="legal_short">使用黑閾前請確認《條款與隱私政策》。簡單來說，黑閾會通過 Visual Studio App Center 收集匿名使用日誌。</string>
     <string name="legal_accept">同意</string>
-    <string name="legal_reject">暫不使用</string>
+    <string name="legal_reject">拒絕</string>
 
     <string name="theme_fallback">%1$s（系統為深色主題，實際使用 Pixel）</string>
 
     <string name="payment_sort">排序依據「%1$s」需要支付。是否現在支付？</string>
 
     <string name="device_default">裝置預設</string>
-    <string name="package_installer">安裝所有 APK</string>
-    <string name="install_package">正在安裝 %1$s…</string>
-    <string name="install_noapk">%1$s 中沒有 APK。</string>
-    <string name="install_success">成功安裝 %1$s。</string>
-    <string name="install_failure">無法安裝 %1$s：%2$s。</string>
 
     <string name="adb_wifi_port">無線偵錯通訊埠</string>
     <string name="adb_wifi_port_tip">請切換無線偵錯以自動發現通訊埠。</string>
     <string name="adb_wifi_error_connect">無法連線，請檢查偵錯通訊埠。</string>
     <string name="adb_wifi_unsupported">暫不支援無線偵錯。</string>
     <string name="adb_wifi_pair">無線配對</string>
+    <string name="adb_wifi_pair_port">無線配對通訊埠</string>
     <string name="adb_wifi_pair_code">六位配對碼</string>
     <string name="adb_wifi_pair_code_reply">請回复六位配對碼。</string>
     <string name="adb_wifi_pairing">正在無線配對</string>
     <string name="adb_wifi_pair_success">無線配對成功</string>
     <string name="adb_wifi_pair_fail">無線配對失敗</string>
     <string name="adb_wifi_pair_https">請在電腦上使用 Chrome 訪問 brevent.sh 完成配對。</string>
-    <string name="adb_wifi_pair_guide">請點按「無線配對」，進入「無線偵錯」，然後點按「使用配對碼配對裝置」，在彈出的黑閾通知中回复六位配對碼。</string>
+    <string name="adb_wifi_pair_guide">請點按「開發人員選項」，進入「無線偵錯」，然後點按「使用配對碼配對裝置」，在彈出的黑閾通知中回复六位配對碼。</string>
     <string name="adb_wifi_pair_notification">允許通知</string>
 
     <string name="about_detail">@string/about_detail_zh</string>
