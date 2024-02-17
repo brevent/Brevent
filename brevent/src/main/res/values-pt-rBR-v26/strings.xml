@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="brevent_about_developer_adb_v26">Não desligue a \"Depuração USB\", não altere as opções de USB</string>
+    <string name="brevent_about_developer_adb_v26">Não desligue a \"Depuração USB\" e não altere as opções de USB</string>
 
 </resources>
