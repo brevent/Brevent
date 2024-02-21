@@ -6,11 +6,11 @@
 
     <string name="fragment_guide_welcome">Bem-vindo</string>
     <string name="fragment_guide_welcome_message">Quando você sai de apps do Android, a atividade tem dois estados: interrompida ou destruída.\n\nO Brevent reconhece os estados dos apps dessa forma, evitando que os apps na Lista do Brevent sejam executados por um longo período.</string>
-    <string name="fragment_guide_welcome_message2">Quando você toca em Voltar para sair dos apps, se a atividade for destruída, os apps e serviços dependentes não serão mais executados. Toque em Início ou Visão geral, ou apenas coloque os apps em segundo plano, a atividade será interrompida, os apps e serviços dependentes continuarão em execução. Deslize os apps na tela Recentes, os apps serão interrompidos à força. Sempre que os apps estiverem sendo executados sem atividade, o Brevent irá forçá-los a interrompê-los.\n\nOs apps na Lista do Brevent podem ser configurados com a opção \"Permitir sincronização\" para receber notificações ou executar trabalhos e sincronizações. O Brevent não colocará apps de "Permissão de sincronização" no modo de espera e o Brevent não forçará a parada de apps de "Permitir sincronização" com notificações ou em execução em segundo plano.</string>
+    <string name="fragment_guide_welcome_message2">Quando você toca em voltar para sair dos apps, se a atividade for destruída, os apps e serviços dependentes não serão mais executados. Toque em início ou visão geral, ou apenas coloque os apps em segundo plano, a atividade será interrompida, os apps e serviços dependentes continuarão em execução. Deslize os apps na tela de recentes, os apps serão interrompidos à força. Sempre que os apps estiverem sendo executados sem atividade, o Brevent irá forçá-los a interrompê-los.\n\nOs apps na Lista do Brevent podem ser configurados com a opção \"Permitir sincronização\" para receber notificações ou executar trabalhos e sincronizações. O Brevent não colocará apps de "Permissão de sincronização" no modo de espera e o Brevent não forçará a parada dos apps de "Permitir sincronização" com notificações ou em execução em segundo plano.</string>
 
     <string name="fragment_guide_permission">Permissões</string>
     <string name="fragment_guide_permission_message">O que você precisa fazer? \nBasta digitar um comando simples via ADB no seu PC.</string>
-    <string name="fragment_guide_permission_message2">O Brevent não funcionará se o dispositivo com Android for reinicializado. Desde o Android 8, o Brevent não funcionará se você desativar a \"Depuração USB\" ou alterar as opções de USB.</string>
+    <string name="fragment_guide_permission_message2">O Brevent não funcionará se o dispositivo Android for reiniciado. Desde o Android 8, o Brevent não funcionará se você desativar a \"Depuração USB\" ou alterar as opções de USB.</string>
 
     <string name="fragment_guide_security">Segurança</string>
     <string name="fragment_guide_security_message">O Brevent não precisa de acesso root ou capacidade de modificar arquivos do sistema, não há resíduo após a desinstalação.</string>
@@ -18,7 +18,7 @@
 
     <string name="fragment_guide_enjoy">Aproveite</string>
     <string name="fragment_guide_enjoy_message">Aproveite o Brevent e, se encontrar algum problema, sinta-se à vontade para enviar feedback com os logs.</string>
-    <string name="fragment_guide_enjoy_message2">O método Brevent padrão é \"Em espera e depois forçar parada\". Os apps em espera (desde o Android 6.0, sem suporte em alguns dispositivos) não conseguem acessar a rede e nem executar trabalhos ou sincronizações.\n\nO Brevent não força a parada de apps seguros. Além disso, o servidor Brevent abre apps centralmente e atrasa os processos de 3 a 60 segundos, de acordo com o nível do evento.</string>
+    <string name="fragment_guide_enjoy_message2">O método Brevent padrão é \"Em espera e depois forçar parada\". Os apps em espera (desde o Android 6.0, sem suporte em alguns dispositivos) não conseguem acessar a rede e nem executar trabalhos ou sincronizações.\n\nO Brevent não força a parada de apps seguros. Além disso, o servidor Brevent abre apps centralmente e atrasa os processos entre 3 a 60 segundos, de acordo com o nível do evento.</string>
 
     <string name="start_brevent">Iniciar Brevent</string>
 
@@ -26,7 +26,7 @@
     <string name="brevent_service_no_response">O servidor Brevent não está respondendo (%s)</string>
     <string name="brevent_service_guide">1. Ative as \"Opções do desenvolvedor\", e ative a \"Depuração USB\" %1$s\n\n2. Conecte ao PC via USB %2$s\n\n3. Visite brevent.sh usando o Chrome no seu PC\n\nOu\n\nExecute na linha de comando do PC \"%3$s\"</string>
     <string name="brevent_service_guide_webadb">1. Ative as \"Opções do desenvolvedor\", e ative a \"Depuração USB\" %1$s\n\n2. Conecte ao PC via USB %2$s\n\n3. Visite brevent.sh usando o Chrome em seu PC</string>
-    <string name="brevent_service_guide_adb_wifi">Seu dispositivo suporta a \"Depuração por Wi-Fi\".\n\n1. Ative as \"Opções do desenvolvedor\", e ative a \"Depuração por Wi-Fi\" %1$s\n\n2. toque em "Porta de depuração por Wi-Fi\"</string>
+    <string name="brevent_service_guide_adb_wifi">Seu dispositivo suporta a \"Depuração por Wi-Fi\".\n\n1. Ative as \"Opções do desenvolvedor\", e ative a \"Depuração por Wi-Fi\" %1$s\n\n2. Toque em "Porta de depuração por Wi-Fi\"</string>
     <string name="brevent_service_guide_root">Parece que seu dispositivo está rooteado. Você pode ativar a rede ADB manualmente ou tentar tocar no botão \"Root\" no Brevent.\n\nO root é desnecessário para o Brevent e requer pagamento.</string>
     <string name="brevent_service_guide_adb">A rede ADB está ativada. Por favor, toque em "ADB" para iniciar o servidor Brevent.</string>
     <string name="brevent_service_payment_root">Root é desnecessário para o Brevent e requer pagamento.</string>
@@ -39,7 +39,7 @@
     <string name="brevent_service_mocked">O servidor Brevent não foi iniciado. Brevent está no modo somente leitura.</string>
     <string name="brevent_service_mock">Modo somente leitura</string>
 
-    <string name="fragment_apps_user">Apps de usuário</string>
+    <string name="fragment_apps_user">Apps do usuário</string>
     <string name="fragment_apps_system">Apps do sistema</string>
     <string name="fragment_apps_framework">Apps principais</string>
     <string name="fragment_apps_os">Apps do sistema operacional</string>
@@ -58,7 +58,7 @@
     <string name="process_status_disabled">Desativado</string>
     <string name="process_status_stopped">Encerrado</string>
     <string name="process_status_uninstalled">Desinstalado</string>
-    <string name="process_not_running">(não está executando)</string>
+    <string name="process_not_running">(não está em execução)</string>
     <string name="process_no_stats">(nunca lançado)</string>
     <string name="process_stats">(último: %1$s, total: %2$s)</string>
     <string name="process_stats_running">executando %s</string>
@@ -93,7 +93,7 @@
     <string name="context_menu_set_aggressive">Definir agressivo</string>
     <string name="context_menu_off_aggressive">Não agressivo</string>
     <string name="context_menu_unset">Desativar</string>
-    <string name="context_menu_message_copied">Copiado nome do pacote: %s</string>
+    <string name="context_menu_message_copied">Nome do pacote copiado: %s</string>
     <string name="context_menu_disable">Desativar</string>
     <string name="context_menu_enable">Ativar</string>
     <string name="context_menu_enable_open">Ativação instantânea</string>
@@ -101,7 +101,7 @@
     <string name="context_menu_uninstall_keep_data">Desinstalar (manter os dados)</string>
     <string name="context_menu_uninstall">Desinstalar</string>
     <string name="uninstall_keep_data_confirm">A desinstalação (manter os dados) removerá o pacote, mas manterá os dados e os diretórios de cache.\n\nDeseja continuar?</string>
-    <string name="uninstall_confirm">A desinstalação removerá os diretórios de dados e cache.\n\nDeseja continuar?</string>
+    <string name="uninstall_confirm">A desinstalação removerá os diretórios dos dados e cache.\n\nDeseja continuar?</string>
 
     <string name="important_input">%s (Método de entrada)</string>
     <string name="important_alarm">%s (App de alarme)</string>
@@ -110,7 +110,7 @@
     <string name="important_persistent">%s (Persistente)</string>
     <string name="important_android">%s (Processo do Android)</string>
     <string name="important_dialer">%s (App de telefone)</string>
-    <string name="important_assistant">%s (App de assistência)</string>
+    <string name="important_assistant">%s (App de assistente)</string>
     <string name="important_webview">%s (WebView)</string>
     <string name="important_accessibility">%s (Acessibilidade)</string>
     <string name="important_device_admin">%s (Administrador do dispositivo)</string>
@@ -159,7 +159,7 @@
     <string name="brevent_method">Método do Brevent</string>
     <string name="brevent_method_standby_forcestop">Em espera e depois forçar parada</string>
     <string name="brevent_method_standby_only">Apenas em espera, sem forçar parada</string>
-    <string name="brevent_method_forcestop_only">Apenas forçar-parada, sem em espera</string>
+    <string name="brevent_method_forcestop_only">Apenas forçar parada, sem em espera</string>
     <string name="brevent_method_standby_forcestop_label">Em espera quando você sai dos apps (toque em \"Voltar\") ou quando os apps em segundo plano expiram. Force a parada quando os apps atingirem o tempo limite de inatividade ou deslize os apps para fora da tela de recentes\n\nSempre force a parada em execução de apps sem atividades</string>
     <string name="brevent_method_standby_only_label">Em espera quando você sai dos apps (toque em \"Voltar\") ou quando os apps em segundo plano expiram\n\nSempre force a parada da execução de apps sem atividades</string>
     <string name="brevent_method_forcestop_only_label">Force a parada quando os apps atingirem o tempo limite de inatividade ou deslize os apps na tela de recentes\n\nSempre force a parada da execução de apps sem atividades</string>
@@ -173,7 +173,7 @@
     <string name="brevent_timeout_3hour">3 horas</string>
     <string name="brevent_timeout_6hour">6 horas</string>
     <string name="brevent_timeout_long">muito longo</string>
-    <string name="brevent_standby_timeout">Tempo limite inativo</string>
+    <string name="brevent_standby_timeout">Tempo limite de inatividade</string>
     <string name="brevent_standby_timeout_label">Force a parada quando os apps estiverem inativos por %1$s</string>
 
     <string name="brevent_advanced">Recursos avançados</string>
@@ -190,7 +190,7 @@
     <string name="brevent_optimize_wechat">Otimizar WeChat</string>
     <string name="brevent_optimize_wechat_label">Adicione à lista de permissões de otimização de bateria, faça com que receba mensagens na medida do possível.</string>
     <string name="brevent_optimize_audio">Otimizar player de música</string>
-    <string name="brevent_optimize_audio_label">Não será brevenido durante o toque com notificação, não será interrompido à força se pausado com notificação.\n\nNão funciona em algumas ROMs. Pode fazer com que alguns dispositivos Samsung sejam reinicializados.</string>
+    <string name="brevent_optimize_audio_label">Não será brevenido durante o toque com notificação, não será interrompido à força se pausado com notificação.\n\nNão funciona em algumas ROMs. Pode fazer com que alguns dispositivos Samsung sejam reiniciados.</string>
     <string name="brevent_auto_aggressive">Auto agressivo</string>
     <string name="brevent_auto_aggressive_label">Se um app com notificações for executado como um serviço, defina-o como agressivo.</string>
     <string name="show_os_apps">Mostrar apps do sistema operacional</string>
@@ -271,11 +271,11 @@
     <string name="icon_audio_paused">Brevent não forçará a parada de apps pausados ​​com notificações.</string>
     <string name="icon_battery">Os apps estão na lista de permissões de otimização de bateria e não ficam em modo de espera.</string>
     <string name="icon_safe">Apps seguros. Você não deveria considerá-los como correndo.</string>
-    <string name="icon_standby">Os apps estão em espera e serão interrompidos à força quando atingirem o "tempo limite de inatividade" ou forem removidos da tela de recentes.</string>
+    <string name="icon_standby">Os apps estão em espera e serão interrompidos à força quando atingirem o "Tempo limite de inatividade" ou forem removidos da tela de recentes.</string>
     <string name="icon_foreground_service">Os apps estão sendo executados com serviço em primeiro plano e não serão brevenidos.</string>
     <string name="icon_priority">Os apps \"Permitir sincronização\" estão sendo executados em segundo plano e não serão brevenidos.</string>
-    <string name="icon_active">Os apps serão colocados em espera quando atingirem o "tempo limite de apps em segundo plano", serão interrompidos à força quando atingirem o "tempo limite de inatividade" ou serão removidos da tela de recentes.</string>
-    <string name="icon_running">Se os apps forem iniciados, eles serão colocados em espera em pouco tempo, serão interrompidos à força quando atingirem o "tempo limite de inatividade" ou serão removidos da tela de recentes. Caso contrário, será parado à força em pouco tempo.</string>
+    <string name="icon_active">Os apps serão colocados em espera quando atingirem o "tempo limite de apps em segundo plano", serão interrompidos à força quando atingirem o "Tempo limite de inatividade" ou serão removidos da tela de recentes.</string>
+    <string name="icon_running">Se os apps forem iniciados, eles serão colocados em espera em pouco tempo, serão interrompidos à força quando atingirem o "Tempo limite de inatividade" ou serão removidos da tela de recentes. Caso contrário, será forçado a parada em pouco tempo.</string>
     <string name="icon_brevent">Os apps estão na Lista do Brevent.</string>
     <string name="icon_widget">Os apps são adicionados como widget.</string>
     <string name="apps_join">, </string>
@@ -294,17 +294,17 @@
 
     <string name="brevented_app">Brevenido \"%1$s\"</string>
     <string name="unbrevented_app">Desbrevenido \"%1$s\"</string>
-    <string name="unbrevented_app_fail">Falha ao desbrevenir \"%1$s\". Por favor inicie o Brevent.</string>
+    <string name="unbrevented_app_fail">Falha ao desbrevenir \"%1$s\". Por favor, inicie o Brevent.</string>
     <string name="aggressive_app">Definir \"%1$s\" como agressivo</string>
-    <string name="normal_app">Toque para desativar.</string>
+    <string name="normal_app">Toque para desativar</string>
     <string name="normaled_app">Desativar \"%1$s\"</string>
-    <string name="normaled_app_fail">Falha ao desativar \"%1$s\". Por favor inicie o Brevent.</string>
+    <string name="normaled_app_fail">Falha ao desativar \"%1$s\". Por favor, inicie o Brevent.</string>
     <string name="recommend_unbrevent_app">Recomendado para desbrevenir \"%1$s\"</string>
     <string name="recommend_unbrevent_app_detail">Brevenido %1$d vezes em %2$s, toque para desbrevenir.</string>
     <string name="recommend_disable_app">Recomendado para desativar \"%1$s\"</string>
     <string name="recommend_disable_app_detail">Brevenido %1$d vezes em %2$s, toque para desativar.</string>
     <string name="disabled_app">Desativado \"%1$s\"</string>
-    <string name="disabled_app_fail">Falha ao desativar \"%1$s\". Por favor inicie o Brevent.</string>
+    <string name="disabled_app_fail">Falha ao desativar \"%1$s\". Por favor, inicie o Brevent.</string>
 
     <string name="notification_brevent_server">Servidor Brevent</string>
     <string name="notification_auto_unbrevent">Auto desbrevenir</string>
