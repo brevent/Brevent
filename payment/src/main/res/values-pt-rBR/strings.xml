@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="payment">Sinta-se livre para pagar se você gostar</string>
-    <string name="payment_unsupported">Pagamento está indisponível</string>
-    <string name="payment_play_unavailable">Pagamento Play no App está indisponível</string>
-    <string name="payment_play_checking">Verificando Pagamento Play no App…</string>
+    <string name="payment">Sinta-se à vontade para pagar se quiser</string>
+    <string name="payment_unsupported">O pagamento não está disponível</string>
+    <string name="payment_play_unavailable">O faturamento no app do Google Play não está disponível</string>
+    <string name="payment_play_checking">Verificando o faturamento no app do Google Play…</string>
 
 </resources>
