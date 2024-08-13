@@ -17,6 +17,7 @@
 
 ## Brazilian Portuguese (pt-rBR)
 - `Feliph` (via email)
+- `Igor` : igormiguell
 
 ## Simplified Chinese (zh-rCN)
 - WanderMax (only punctuation)
@@ -24,7 +25,7 @@
 
 ## Traditional Chinese (zh-rTW)
 - `孟武．尼德霍格．龍` (via email)
-- `david082321`:  david082321
+- `david082321`: david082321
 - `pan93412` : pan93412
 
 ## Russian (ru)

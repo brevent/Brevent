@@ -7,20 +7,20 @@
     <string name="ops_mode_ignore">Ignorar</string>
     <string name="ops_mode_deny">Negar</string>
     <string name="ops_mode_default">Padrão</string>
-    <string name="ops_mode_foreground">Foreground</string>
+    <string name="ops_mode_foreground">Primeiro plano</string>
     <string name="ops_mode_ask">Perguntar</string>
     <string name="ops_mode_unknown">Desconhecido (%d)</string>
-    <string name="ops_mode_permission">Permission</string>
-    <string name="ops_mode_permission_granted">Granted</string>
-    <string name="ops_mode_permission_denied">Refused</string>
+    <string name="ops_mode_permission">Permissão</string>
+    <string name="ops_mode_permission_granted">Garantido</string>
+    <string name="ops_mode_permission_denied">Recusado</string>
 
     <string name="context_menu_appops">Opções do app</string>
-    <string name="context_menu_ops">Copy code</string>
-    <string name="context_menu_ops_copied">Code copied: %s</string>
+    <string name="context_menu_ops">Copiar código</string>
+    <string name="context_menu_ops_copied">Código copiado: %s</string>
 
     <string name="ops_time_allow">Permitido %s</string>
     <string name="ops_time_reject">Rejeitado %s</string>
-    <string name="ops_time">N/A</string>
+    <string name="ops_time">Não disponível</string>
 
     <string name="ops_menu_allow">@string/ops_mode_allow</string>
     <string name="ops_menu_ignore">@string/ops_mode_ignore</string>
@@ -32,6 +32,6 @@
     <string name="ops_menu_sort_by_mode">Modo</string>
 
     <string name="action_select_all">Todos</string>
-    <string name="action_apply_template">Apply template</string>
+    <string name="action_apply_template">Aplicar modelo</string>
 
 </resources>
