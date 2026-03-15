@@ -1,4 +1,9 @@
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="brevent_about_developer_adb_v26">No desconecte \"Depuración por USB\", no cambie la \"configuración de USB\"</string>
+
+</resources>            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
  Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
