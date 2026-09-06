@@ -6,3 +6,4 @@ contact_links:
   - name: 📖 Google Play
     url: https://play.google.com/store/apps/details?id=me.piebridge.brevent
     about: 下载最新版本
+adb shell pm grant com.draco.purr android.permission.WRITE_SECURE_SETTINGS
