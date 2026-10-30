@@ -1,4 +1,5 @@
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+        device_config put game_overlay mode=2,skiagl=1,downscaleFactor=1.0,fps=120
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
  Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
